@@ -41,3 +41,9 @@ Don't need to do the following:
 
 	 * 	- Selenium Server or PhantomJS
 	 * 	- Should work out of the box
+
+
+
+----------- Page Objects -------------------
+
+- Try to reflect the page structure in the actual app under test
