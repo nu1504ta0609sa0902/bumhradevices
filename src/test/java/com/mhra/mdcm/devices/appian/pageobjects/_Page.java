@@ -32,4 +32,8 @@ public class _Page {
     public WebDriver getDriver() {
         return driver;
     }
+
+    public String getTitle(){
+        return driver.getTitle();
+    }
 }

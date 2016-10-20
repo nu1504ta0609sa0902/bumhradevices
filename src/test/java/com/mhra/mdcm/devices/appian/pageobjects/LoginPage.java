@@ -1,6 +1,8 @@
 package com.mhra.mdcm.devices.appian.pageobjects;
 
+import com.mhra.mdcm.devices.appian.pageobjects.business.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.FileUtils;
+import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -17,16 +19,29 @@ import java.util.Properties;
 @Component
 public class LoginPage extends _Page {
 
-    @FindBy(id="un")
+    @FindBy(id = "un")
     WebElement username;
-    @FindBy(id="pw")
+    @FindBy(id = "pw")
     WebElement password;
-    @FindBy(css="input#remember")
+    @FindBy(css = "input#remember")
     WebElement remember;
-    @FindBy(css=".gwt-Anchor.pull-down-toggle")
+    @FindBy(css = ".gwt-Anchor.pull-down-toggle")
     WebElement settings;
-    @FindBy(css=".settings-pull-down .gwt-Anchor.pull-down-toggle")
+    @FindBy(css = ".settings-pull-down .gwt-Anchor.pull-down-toggle")
     WebElement loggedInUsername;
+
+    @FindBy(xpath = ".//label[@for='remember']//following::input[1]")
+    WebElement loginBtn;
+
+    @FindBy(xpath = ".//span[contains(@style, 'personalization')]")
+    WebElement photoIcon;
+    @FindBy(xpath = "//*[contains(text(),'Sign Out')]")
+    WebElement signOutLink;
+
+
+    //Error message
+    @FindBy(xpath = ".//img[@id='logo']//following::div[@class='message']")
+    WebElement errorMsg;
 
     @Autowired
     public LoginPage(WebDriver driver) {
@@ -56,48 +71,100 @@ public class LoginPage extends _Page {
         return new MainNavigationBar(driver);
     }
 
-    public MainNavigationBar reloginUsing(String uname){
+    public MainNavigationBar login(String usernameTxt, String passwordTxt) {
+        dontRemember();
+
+        //login
+        username.sendKeys(usernameTxt);
+        password.sendKeys(passwordTxt);
+        username.submit();
+
+        return new MainNavigationBar(driver);
+    }
+
+    public MainNavigationBar reloginUsing(String uname) {
         logoutIfLoggedIn();
         MainNavigationBar login = login(uname);
         return login;
     }
 
-    private void dontRemember(){
-        WaitUtils.waitForElementToBeClickable(driver,remember, TIMEOUT_DEFAULT, false);
-        if(remember.getAttribute("checked")!=null){
+    public void dontRemember() {
+        WaitUtils.waitForElementToBeClickable(driver, remember, TIMEOUT_DEFAULT, false);
+        if (remember.getAttribute("checked") != null) {
             remember.click();
         }
     }
 
-    private LoginPage logoutIfLoggedIn() {
+    /**
+     * Business site
+     *
+     * @return
+     */
+    public LoginPage logoutIfLoggedIn() {
         try {
-            WaitUtils.waitForElementToBeClickable(driver,settings, 10, false);
+            WaitUtils.waitForElementToBeClickable(driver, settings, 10, false);
             if (settings.isDisplayed()) {
-                settings.click();
+                //settings.click();
+                PageUtils.doubleClick(driver, settings);
                 driver.findElement(By.linkText("Sign Out")).click();
-                WaitUtils.waitForElementToBeClickable(driver,remember, 10);
+                WaitUtils.waitForElementToBeClickable(driver, remember, 10, false);
                 WaitUtils.nativeWait(2);
             }
-        }catch(Exception e){
-            //WaitUtils.waitForElementToBeClickable(driver,username, 20, false);
+        } catch (Exception e) {
+            //Probably not logged in
+        }
+        return new LoginPage(driver);
+    }
+
+
+    /**
+     * logout from Manufacturer and AuthorisedRep site
+     *
+     * @return
+     */
+    public LoginPage logoutIfLoggedInOthers() {
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, photoIcon, 10, false);
+            if (photoIcon.isDisplayed()) {
+                //settings.click();
+                PageUtils.doubleClick(driver, photoIcon);
+                signOutLink.click();
+                WaitUtils.waitForElementToBeClickable(driver, remember, 10, false);
+
+                //If logout and login is too fast, appian system shows 404 in some instance of automation
+                WaitUtils.nativeWait(2);
+            }
+        } catch (Exception e) {
+            //Probably not logged in
         }
         return new LoginPage(driver);
     }
 
     public String getLoggedInUserName() {
-        WaitUtils.waitForElementToBeClickable(driver,loggedInUsername, 10);
+        WaitUtils.waitForElementToBeClickable(driver, loggedInUsername, 10, false);
         return loggedInUsername.getText();
     }
 
-//    public boolean isAlreadyLoggedInAsUser(String username) {
-//        try {
-//            WaitUtils.waitForElementToBeClickable(driver,loggedInUsername, 10, false);
-//            String userNameDisplayed = loggedInUsername.getText().toLowerCase();
-//            String expectedName = AssertUtils.getExpectedName(username).toLowerCase();
-//            return userNameDisplayed.equals(expectedName);
-//        }catch (Exception e){
-//            //Not logged in
-//            return false;
-//        }
-//    }
+    public boolean isErrorMessageCorrect(String expectedErrorMsg) {
+        WaitUtils.waitForElementToBeVisible(driver, errorMsg, 10, false);
+        boolean contains = errorMsg.getText().contains(expectedErrorMsg);
+        return contains;
+    }
+
+    public boolean isAlreadyLoggedInAsUser(String username) {
+        try {
+            //Login button should not be visible if logged in
+            WaitUtils.waitForElementToBeClickable(driver, loginBtn, 10, false);
+            return loginBtn.isDisplayed() && loginBtn.isEnabled();
+        } catch (Exception e) {
+            //Not logged in
+            return false;
+        }
+    }
+
+    public boolean isInLoginPage() {
+        //WaitUtils.waitForElementToBeClickable(driver, loginBtn, 10, false);
+        boolean isLoginPage = loginBtn.isDisplayed() && loginBtn.isEnabled();
+        return isLoginPage;
+    }
 }

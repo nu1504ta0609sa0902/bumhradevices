@@ -1,7 +1,7 @@
 package com.mhra.mdcm.devices.appian.steps.common;
 
 import com.mhra.mdcm.devices.appian.pageobjects.LoginPage;
-import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
+import com.mhra.mdcm.devices.appian.pageobjects.business.*;
 import com.mhra.mdcm.devices.appian.session.ScenarioSession;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import org.openqa.selenium.WebDriver;
@@ -41,6 +41,16 @@ public class CommonSteps {
     public MainNavigationBar mainNavigationBar;
     @Autowired
     public LoginPage loginPage;
+    @Autowired
+    public NewsPage newsPage;
+    @Autowired
+    public RecordsPage recordsPage;
+    @Autowired
+    public ActionsPage actionsPage;
+    @Autowired
+    public TasksPage tasksPage;
+    @Autowired
+    public ReportsPage reportsPage;
 
     //SECTIONS
     //@Autowired

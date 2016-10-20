@@ -6,6 +6,6 @@ Feature: Write PC for devices
     Then I should see name of logged in user as "<user>"
     Examples:
       | user           |
-      | business1      |
-      | manufacturer1  |
-      | authorisedrep1 |
+      | businessAuto      |
+#      | manufacturer1  |
+#      | authorisedrep1 |

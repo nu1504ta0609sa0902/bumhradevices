@@ -138,6 +138,13 @@ public class WaitUtils {
     }
 
 
+    /**
+     * PREVENT StaleElementReference issue
+     * @param driver
+     * @param by
+     * @param maxTimeToWait
+     * @param overrideTimeSpecified
+     */
     public static void isElementPartOfDomAdvanced2(WebDriver driver, final By by, int maxTimeToWait, boolean overrideTimeSpecified) {
         if(overrideTimeSpecified)
             maxTimeToWait = resetMaxTime(maxTimeToWait);
