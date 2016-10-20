@@ -1,6 +1,5 @@
 package com.mhra.mdcm.devices.appian.pageobjects;
 
-import com.mhra.mdcm.devices.appian.pageobjects.business.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.FileUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;

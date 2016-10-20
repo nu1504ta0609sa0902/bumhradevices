@@ -1,6 +1,7 @@
 package com.mhra.mdcm.devices.appian.steps.common;
 
 import com.mhra.mdcm.devices.appian.pageobjects.LoginPage;
+import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.pageobjects.business.*;
 import com.mhra.mdcm.devices.appian.session.ScenarioSession;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;

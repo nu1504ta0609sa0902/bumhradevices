@@ -1,7 +1,9 @@
-package com.mhra.mdcm.devices.appian.pageobjects.business;
+package com.mhra.mdcm.devices.appian.pageobjects;
 
 
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
+import com.mhra.mdcm.devices.appian.pageobjects.business.*;
+import com.mhra.mdcm.devices.appian.pageobjects.external.PortalPage;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import cucumber.api.java.en.Then;
@@ -30,6 +32,12 @@ public class MainNavigationBar extends _Page {
     @FindBy(partialLinkText = "Actions")
     WebElement actions;
 
+
+    @FindBy(xpath = ".//a//following::div[.='Portal']")
+    WebElement linkPortal;
+    @FindBy(xpath = ".//a//following::div[.='My Account']")
+    WebElement linkMyAccount;
+
     @FindBy(css = ".appian-menu-item.appian-menu-item-selected")
     WebElement currentSelection;
 
@@ -38,6 +46,13 @@ public class MainNavigationBar extends _Page {
     public MainNavigationBar(WebDriver driver) {
         super(driver);
     }
+
+    //==========================================================
+    //
+    // BUSINESS NAVIGATION BAR
+    //
+    //==========================================================
+
 
     public NewsPage clickNews() {
         WaitUtils.waitForElementToBeClickable(driver, news, 30, false);
@@ -73,7 +88,7 @@ public class MainNavigationBar extends _Page {
     }
 
     public ActionsPage clickActions() {
-        WaitUtils.waitForElementToBeClickable(driver, actions, 30);
+        WaitUtils.waitForElementToBeClickable(driver, actions, 30, false);
         actions.click();
         PageUtils.doubleClick(driver, actions);
         return new ActionsPage(driver);
@@ -83,5 +98,22 @@ public class MainNavigationBar extends _Page {
         String title = getTitle();
         boolean isCorrectPage = title.contains(expectedHeading);
         return isCorrectPage;
+    }
+
+
+
+
+    //==========================================================
+    //
+    // MUNUFACTURER AND AUTHORISEDREP NAVIGATION BAR
+    //
+    //==========================================================
+
+
+    public PortalPage clickPortals() {
+        WaitUtils.waitForElementToBeClickable(driver, linkPortal, 30, false);
+        //linkPortal.click();
+        PageUtils.doubleClick(driver, linkPortal);
+        return new PortalPage(driver);
     }
 }

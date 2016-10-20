@@ -1,4 +1,4 @@
-package com.mhra.mdcm.devices.appian.steps.d1.business;
+package com.mhra.mdcm.devices.appian.steps.d1;
 
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import cucumber.api.java.en.Then;

@@ -1,4 +1,4 @@
-package com.mhra.mdcm.devices.appian.steps.d1;
+package com.mhra.mdcm.devices.appian.steps.d1.business;
 
 import com.mhra.mdcm.devices.appian.pageobjects.LoginPage;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
