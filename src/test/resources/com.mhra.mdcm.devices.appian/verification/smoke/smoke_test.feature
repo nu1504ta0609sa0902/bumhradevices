@@ -54,6 +54,6 @@ Feature: As a tester I would like to perform smoke test on the system
     And All the "<expectedLinks>" are clickable
     Examples:
       | user              | expectedLinks             |
-      | manufacturerAuto  | Manufacturer Registration, WTF|
+      | manufacturerAuto  | Manufacturer Registration |
       | authorisedrepAuto | Manufacturer Registration |
 
