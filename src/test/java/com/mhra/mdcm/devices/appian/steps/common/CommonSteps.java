@@ -5,6 +5,7 @@ import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.pageobjects.business.*;
 import com.mhra.mdcm.devices.appian.session.ScenarioSession;
 import com.mhra.mdcm.devices.appian.utils.others.NetworkUtils;
+
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 
@@ -112,7 +113,12 @@ public class CommonSteps {
                 try {
                     if (driver != null) {
                         log.info("If -Dgenerate.report=true than it generate the pretty report");
-                        sleep(15000);
+
+                        //This looks slightly better than other cucumber report, less intrusive and better memory managements
+//                        CreatePrettyReportManual cpr = new CreatePrettyReportManual();
+//                        cpr.createReport("PrettyReport2", false);
+
+                        sleep(20000);
                         driver.quit();
                         log.info("All browsers closed after tests");
                     }

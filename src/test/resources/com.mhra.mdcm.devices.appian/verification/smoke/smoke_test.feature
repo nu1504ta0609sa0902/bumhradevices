@@ -45,7 +45,7 @@ Feature: As a tester I would like to perform smoke test on the system
       | user         | pageHeading | link     |
       | businessAuto | Accounts    | Accounts |
       | businessAuto | Devices     | Devices  |
-      | businessAuto | Products    | Products |
+      | businessAuto | Products    | Productss |
 
   @smoke_test
   Scenario Outline: Check correct links are displayed and clickable for Manufacturer and AuthorisedRep
@@ -54,6 +54,6 @@ Feature: As a tester I would like to perform smoke test on the system
     And All the links "<expectedLinks>" are clickable
     Examples:
       | user              | expectedLinks             |
-      | manufacturerAuto  | Manufacturer Registration |
+      | manufacturerAuto  | Manufacturer Registration, WTF |
       | authorisedrepAuto | Manufacturer Registration |
 

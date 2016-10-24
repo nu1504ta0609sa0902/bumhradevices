@@ -181,11 +181,23 @@
             <version>0.0.23</version>
         </dependency>
 
+        <!-- Pretty reports : cucumber-reporting -->
         <dependency>
             <groupId>net.masterthought</groupId>
             <artifactId>cucumber-sandwich</artifactId>
             <version>0.0.3</version>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>net.masterthought</groupId>-->
+            <!--<artifactId>cucumber-reporting</artifactId>-->
+            <!--<version>3.0.0</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.logging.log4j</groupId>-->
+            <!--<artifactId>log4j-core</artifactId>-->
+            <!--<version>2.5</version>-->
+        <!--</dependency>-->
+
 
         <!-- Loggin -->
         <dependency>
@@ -198,6 +210,7 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.5.6</version>
         </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/javax.mail/mail -->
         <dependency>
