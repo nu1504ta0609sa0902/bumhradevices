@@ -37,7 +37,7 @@ Feature: As a tester I would like to perform smoke test on the system
       | businessAuto | Actions | Actions     |
 
   @smoke_test
-  Scenario Outline: As a business user I should be able to view accounts devices and products page
+  Scenario Outline: As a business user I should be able to view accounts, devices and products page
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
     Then I should see "<pageHeading>" items
@@ -48,10 +48,10 @@ Feature: As a tester I would like to perform smoke test on the system
       | businessAuto | Products    | Products |
 
   @smoke_test
-  Scenario Outline: Check correct links are displayed for Manufacturer and AuthorisedRep
+  Scenario Outline: Check correct links are displayed and clickable for Manufacturer and AuthorisedRep
     Given I am logged into appian as "<user>" user
     Then I should see the following portal "<expectedLinks>" links
-    And All the "<expectedLinks>" are clickable
+    And All the links "<expectedLinks>" are clickable
     Examples:
       | user              | expectedLinks             |
       | manufacturerAuto  | Manufacturer Registration |

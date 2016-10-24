@@ -24,7 +24,7 @@ public class PortalPageSteps extends CommonSteps {
         Assert.assertThat("Expected to see the following links : " + delimitedLinks, areLinksVisible, Matchers.is(true));
     }
 
-    @And("^All the \"([^\"]*)\" are clickable$")
+    @And("^All the links \"([^\"]*)\" are clickable$")
     public void allTheAreClickable(String delimitedLinks) throws Throwable {
         PortalPage portalPage = mainNavigationBar.clickPortals();
         boolean areLinksClickable = portalPage.areLinksClickable(delimitedLinks);
