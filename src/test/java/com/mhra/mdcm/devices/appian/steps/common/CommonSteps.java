@@ -3,6 +3,7 @@ package com.mhra.mdcm.devices.appian.steps.common;
 import com.mhra.mdcm.devices.appian.pageobjects.LoginPage;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.pageobjects.business.*;
+import com.mhra.mdcm.devices.appian.pageobjects.business.sections.*;
 import com.mhra.mdcm.devices.appian.session.ScenarioSession;
 import com.mhra.mdcm.devices.appian.utils.others.NetworkUtils;
 
@@ -60,6 +61,16 @@ public class CommonSteps {
     public ReportsPage reportsPage;
 
     //SECTIONS
+    @Autowired
+    public Accounts accounts;
+    @Autowired
+    public Devices devices;
+    @Autowired
+    public Products products;
+    @Autowired
+    public AllOrganisations allOrganisations;
+    @Autowired
+    public CreateTestsData createTestsData;
 
     public static boolean oneDriverOnly = true;
     public CommonSteps() {

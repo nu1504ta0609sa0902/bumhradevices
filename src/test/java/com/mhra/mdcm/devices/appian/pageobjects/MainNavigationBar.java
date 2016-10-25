@@ -69,7 +69,7 @@ public class MainNavigationBar extends _Page {
 
     public RecordsPage clickRecords() {
         WaitUtils.waitForElementToBeClickable(driver, records, 30, false);
-        records.click();
+        //records.click();
         PageUtils.doubleClick(driver, records);
         return new RecordsPage(driver);
     }
