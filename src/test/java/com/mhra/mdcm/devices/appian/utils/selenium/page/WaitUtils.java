@@ -21,7 +21,7 @@ public class WaitUtils {
         new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.elementToBeClickable(element));
     }
 
-    public static void waitForElementToBeClickable(WebDriver driver, By by,  int maxTimeToWait) {
+    public static void waitForElementToBeClickable(WebDriver driver, By by, int maxTimeToWait) {
         maxTimeToWait = resetMaxTime(maxTimeToWait);
         new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.elementToBeClickable(by));
     }
@@ -31,14 +31,14 @@ public class WaitUtils {
         new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.visibilityOf(element));
     }
 
-    public static void waitForElementToBeVisible(WebDriver driver, By by,  int maxTimeToWait) {
+    public static void waitForElementToBeVisible(WebDriver driver, By by, int maxTimeToWait) {
         maxTimeToWait = resetMaxTime(maxTimeToWait);
         WebElement element = driver.findElement(by);
         new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.visibilityOf(element));
     }
 
     private static int resetMaxTime(int maxTimeToWait) {
-        if(timeForTesting > 0){
+        if (timeForTesting > 0) {
             maxTimeToWait = timeForTesting;
         }
         return maxTimeToWait;
@@ -46,56 +46,63 @@ public class WaitUtils {
 
     /**
      * DON'T USE FOR WAITING FOR PAGES, UNLESS ITS TO DO WITH SOME NATIVE COMPONENTS WHICH SELENIUM CAN'T HANDLE
-     *
+     * <p>
      * Should be used for non selenium related tasks
-     *
+     * <p>
      * Example when we upload a document
+     *
      * @param tis
      */
     public static void nativeWait(int tis) {
         try {
-            Thread.sleep(1000*tis);
+            Thread.sleep(1000 * tis);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     *
      * @param driver
      * @param by
      * @param maxTimeToWait
      * @param overrideTimeSpecified
      */
     public static void waitForElementToBeClickable(WebDriver driver, By by, int maxTimeToWait, boolean overrideTimeSpecified) {
-        if(overrideTimeSpecified)
-        maxTimeToWait = resetMaxTime(maxTimeToWait);
+        if (overrideTimeSpecified)
+            maxTimeToWait = resetMaxTime(maxTimeToWait);
         new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.elementToBeClickable(by));
     }
 
 
     /**
-     *
      * @param driver
      * @param element
      * @param maxTimeToWait
      * @param overrideTimeSpecified
      */
     public static void waitForElementToBeClickable(WebDriver driver, WebElement element, int maxTimeToWait, boolean overrideTimeSpecified) {
-        if(overrideTimeSpecified)
+        if (overrideTimeSpecified)
             maxTimeToWait = resetMaxTime(maxTimeToWait);
         new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.elementToBeClickable(element));
     }
 
 
     public static void waitForElementToBeVisible(WebDriver driver, WebElement element, int maxTimeToWait, boolean overrideTimeSpecified) {
-        if(overrideTimeSpecified)
+        if (overrideTimeSpecified)
             maxTimeToWait = resetMaxTime(maxTimeToWait);
         new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.visibilityOf(element));
     }
 
+
+    public static void waitForElementToBeVisible(WebDriver driver, By by, int maxTimeToWait, boolean overrideTimeSpecified) {
+        if (overrideTimeSpecified)
+            maxTimeToWait = resetMaxTime(maxTimeToWait);
+        WebElement element = driver.findElement(by);
+        new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.visibilityOf(element));
+    }
+
     public static void waitForAlert(WebDriver driver, int maxTimeToWait, boolean overrideTimeSpecified) {
-        if(overrideTimeSpecified)
+        if (overrideTimeSpecified)
             maxTimeToWait = resetMaxTime(maxTimeToWait);
         new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.alertIsPresent());
     }
@@ -114,16 +121,15 @@ public class WaitUtils {
     }
 
 
-
     public static void isElementPartOfDom(WebDriver driver, By by, int maxTimeToWait, boolean overrideTimeSpecified) {
-        if(overrideTimeSpecified)
+        if (overrideTimeSpecified)
             maxTimeToWait = resetMaxTime(maxTimeToWait);
         new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
 
     public static void isElementPartOfDomAdvanced(WebDriver driver, final WebElement element, int maxTimeToWait, boolean overrideTimeSpecified) {
-        if(overrideTimeSpecified)
+        if (overrideTimeSpecified)
             maxTimeToWait = resetMaxTime(maxTimeToWait);
 
         new WebDriverWait(driver, maxTimeToWait)
@@ -140,13 +146,14 @@ public class WaitUtils {
 
     /**
      * PREVENT StaleElementReference issue
+     *
      * @param driver
      * @param by
      * @param maxTimeToWait
      * @param overrideTimeSpecified
      */
-    public static void isElementPartOfDomAdvanced2(WebDriver driver, final By by, int maxTimeToWait, boolean overrideTimeSpecified) {
-        if(overrideTimeSpecified)
+    public static void waitForElementToBePartOfDOM(WebDriver driver, final By by, int maxTimeToWait, boolean overrideTimeSpecified) {
+        if (overrideTimeSpecified)
             maxTimeToWait = resetMaxTime(maxTimeToWait);
 
         new WebDriverWait(driver, maxTimeToWait)
@@ -159,5 +166,13 @@ public class WaitUtils {
                         return clickAble;
                     }
                 });
+    }
+
+    public static void waitForPageToLoad(WebDriver driver, By by, int maxTimeToWait, boolean overrideTimeSpecified) {
+        try {
+            new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.presenceOfElementLocated(by));
+        }catch (Exception e){
+            //Aim is to pause the page for sometimes
+        }
     }
 }

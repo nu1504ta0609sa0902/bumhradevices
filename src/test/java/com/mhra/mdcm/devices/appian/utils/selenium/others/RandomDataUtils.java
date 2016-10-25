@@ -1,6 +1,8 @@
 package com.mhra.mdcm.devices.appian.utils.selenium.others;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -8,29 +10,10 @@ import java.util.Random;
  */
 public class RandomDataUtils {
 
-    /**
-     *
-     * @return
-     */
-    public static String getEUIdentifier(String euid) {
-        if(euid==null || euid.trim().equals("")){
-            return String.valueOf((int)getRandomDigits(5));
-        }else{
-            return euid;
-        }
-    }
-
     public static double getRandomDigits(int numberOfDigits){
         Random r = new Random( System.currentTimeMillis() );
         int thousands = (int) Math.pow(10,numberOfDigits-1);
         return thousands + r.nextInt(9 * thousands);
-    }
-
-    public static String getECID(String euIdentifier) {
-        int year = Calendar.getInstance().get(Calendar.YEAR);
-        year = year % 2000;
-        String productId = getSimpleRandomNumberBetween(10000, 99999);
-        return euIdentifier + "-" + year + "-" + productId;
     }
 
     public static String getDateInFutureMonths(int monthsInFuture) {
@@ -96,12 +79,29 @@ public class RandomDataUtils {
         return String.valueOf(val);
     }
 
-    public static String generateCASNumber() {
-        String a = getRandomNumberBetween(11, 1000000);
-        String b = getRandomNumberBetween(11, 99);
-        String c = getRandomNumberBetween(1, 9);
-        return a + "-" + b + "-" + c;
+    public static int getSimpleRandomNumberBetween(int min, int max, boolean even) {
+        boolean found = false;
+        int foundNumber = 0;
+        do{
+            String number = getSimpleRandomNumberBetween(min, max);
+            int xx = Integer.parseInt(number);
+            int m = xx % 2;
+            if(even){
+                if(m == 0){
+                    found = true;
+                    foundNumber = xx;
+                }
+            }else{
+                if(m == 1){
+                    found = true;
+                    foundNumber = xx;
+                }
+            }
+        }while (!found);
+
+        return foundNumber;
     }
+
 
     public static boolean getRandomBooleanValue() {
         String val = getRandomNumberBetween(1, 100);
@@ -116,12 +116,4 @@ public class RandomDataUtils {
         double td = ((int)(x * 100))/100.0;
         return String.valueOf(td);
     }
-
-//    public static void main(String[] args){
-//        for(int x = 0; x < 99; x++) {
-//            String v = getSimpleRandomNumberBetween(10000, 99999);
-//            System.out.println(v);
-//        }
-//    }
-
 }
