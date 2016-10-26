@@ -1,8 +1,10 @@
 package com.mhra.mdcm.devices.appian.pageobjects.business.sections;
 
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
+import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -22,6 +24,10 @@ public class Accounts extends _Page {
     List<WebElement> listOfAccounts;
     @FindBy(xpath = ".//table//th")
     List<WebElement> listOfTableColumns;
+
+    //Search box
+    @FindBy(xpath = ".//*[contains(@class, 'filter')]//following::input[1]")
+    WebElement searchBox;
 
     @Autowired
     public Accounts(WebDriver driver) {
@@ -68,5 +74,39 @@ public class Accounts extends _Page {
         }
 
         return columnsNotFound;
+    }
+
+    public Accounts searchForAccount(String orgName) {
+        WaitUtils.waitForElementToBeClickable(driver, searchBox, 10, false);
+        searchBox.clear();
+        searchBox.sendKeys(orgName);
+        searchBox.sendKeys(Keys.ENTER);
+        return new Accounts(driver);
+    }
+
+    public boolean numberOfMatchesShouldBe(int minCount) {
+        try{
+            WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_SMALL, false);
+            int actualCount = (listOfAccounts.size()-1)/2;
+            return actualCount >= minCount;
+        }catch (Exception e){
+            return minCount == 0;
+        }
+    }
+
+    public String getARandomAccount() {
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_SMALL, false);
+        int actualCount = (listOfAccounts.size()-1)/2;
+        int position = RandomDataUtils.getSimpleRandomNumberBetween(1, listOfAccounts.size() - 1, false);
+        WebElement accountLinks = listOfAccounts.get(position);
+        String accountName = accountLinks.getText();
+        return accountName;
+    }
+
+    public Accounts viewSpecifiedAccount(String randomAccountName) {
+        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(randomAccountName), TIMEOUT_SMALL, false);
+        WebElement accountLinks = driver.findElement(By.partialLinkText(randomAccountName));
+        accountLinks.click();
+        return new Accounts(driver);
     }
 }

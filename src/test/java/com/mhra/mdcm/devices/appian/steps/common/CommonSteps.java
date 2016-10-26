@@ -7,10 +7,6 @@ import com.mhra.mdcm.devices.appian.pageobjects.business.sections.*;
 import com.mhra.mdcm.devices.appian.session.ScenarioSession;
 import com.mhra.mdcm.devices.appian.utils.others.NetworkUtils;
 
-import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
-import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
-
-import net.masterthought.cucumber.ReportBuilder;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 
-import java.io.File;
 import java.util.*;
 
 
@@ -71,6 +66,8 @@ public class CommonSteps {
     public AllOrganisations allOrganisations;
     @Autowired
     public CreateTestsData createTestsData;
+    @Autowired
+    public TaskSection taskSection;
 
     public static boolean oneDriverOnly = true;
     public CommonSteps() {

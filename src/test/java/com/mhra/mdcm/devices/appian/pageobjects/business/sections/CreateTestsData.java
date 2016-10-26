@@ -164,12 +164,15 @@ public class CreateTestsData extends _Page {
             PageUtils.singleClick(driver, deviceReg);
         }
         if(ar.cfsCertificateOfFreeSale){
+            WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//span[.='Selected Services']//following::input[2]"), TIMEOUT_DEFAULT, false);
             PageUtils.singleClick(driver, cfsCertification);
         }
         if(ar.clinicalInvestigation){
+            WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//span[.='Selected Services']//following::input[3]"), TIMEOUT_DEFAULT, false);
             PageUtils.singleClick(driver, clinicalInvestigation);
         }
         if(ar.aitsAdverseIncidentTrackingSystem){
+            WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//span[.='Selected Services']//following::input[4]"), TIMEOUT_DEFAULT, false);
             PageUtils.singleClick(driver, aitsAdverseIncidient);
         }
 

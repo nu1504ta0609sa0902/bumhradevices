@@ -1,5 +1,7 @@
 package com.mhra.mdcm.devices.appian.utils.selenium.others;
 
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -45,6 +47,18 @@ public class RandomDataUtils {
     public static String getRandomTestName(String test) {
         Calendar cal = Calendar.getInstance();
         return test + "_" + cal.get(Calendar.DAY_OF_MONTH) + "_" + (cal.get(Calendar.MONTH)+1) + "_" + getRandomNumberBetween(100, 1000000);
+    }
+
+    public static String generateTestNameStartingWith(String test, int lengthOfString) {
+        String SALTCHARS = "abcdefghijklmnopqrstuvwxyz";
+        StringBuilder sb = new StringBuilder();
+        Random rnd = new Random();
+        while (sb.length() < lengthOfString) {
+            int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+            sb.append(SALTCHARS.charAt(index));
+        }
+        String x = sb.toString();
+        return test + x;
     }
 
     public static String getRandomTestNameAdvanced(String test) {

@@ -1,6 +1,7 @@
 package com.mhra.mdcm.devices.appian.steps.d1.business;
 
 import com.mhra.mdcm.devices.appian.pageobjects.LoginPage;
+import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.pageobjects.business.sections.Accounts;
 import com.mhra.mdcm.devices.appian.pageobjects.business.sections.AllOrganisations;
 import com.mhra.mdcm.devices.appian.pageobjects.business.sections.Devices;
@@ -130,4 +131,35 @@ public class RecordsPageSteps extends CommonSteps {
         }
     }
 
+
+    @When("^I search accounts for the stored organisation name$")
+    public void i_search_accounts_for_stored_organisation() throws Throwable {
+        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
+        //orgName = "OrganisationTest2610146859";   //Approved
+        //orgName = "OrganisationTest261074026";    //Rejected
+        //Go to records page
+        mainNavigationBar = new MainNavigationBar(driver);
+        recordsPage = mainNavigationBar.clickRecords();
+        accounts = recordsPage.clickOnAccounts();
+        accounts = accounts.searchForAccount(orgName);
+
+    }
+
+
+    @When("^I should see at least (\\d+) account matches$")
+    public void i_should_see_account_matches(int minCount) throws Throwable {
+        boolean countMatched = accounts.numberOfMatchesShouldBe(minCount);
+        if(minCount == 0){
+            Assert.assertThat("Expected to see no matches ",countMatched, Matchers.is(true));
+        }else{
+            Assert.assertThat("Expected to see atleast 1 matches" , countMatched, Matchers.is(true));
+        }
+    }
+
+
+    @When("^I view a randomly selected account$")
+    public void i_view_a_randomly_selected_account() throws Throwable {
+        String randomAccountName = accounts.getARandomAccount();
+        accounts = accounts.viewSpecifiedAccount(randomAccountName);
+    }
 }

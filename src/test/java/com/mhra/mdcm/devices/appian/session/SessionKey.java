@@ -14,4 +14,5 @@ public class SessionKey {
 
     public static String loggedInUser = "Current Logged In User";
     public static String organisationName = "Organisation Name";
+    public static String position = "Position Of Item";
 }

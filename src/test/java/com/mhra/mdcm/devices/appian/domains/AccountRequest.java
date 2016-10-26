@@ -2,6 +2,9 @@ package com.mhra.mdcm.devices.appian.domains;
 
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by TPD_Auto on 25/10/2016.
  *
@@ -53,17 +56,20 @@ public class AccountRequest {
 
     private void createDefaultRandom() {
 
-        organisationName = RandomDataUtils.getRandomTestName("OrganisationTest");
+        organisationName = RandomDataUtils.getRandomTestName("OrganisationTest").replace("_", "");
 
         //Organisation Details
-        address1 = RandomDataUtils.getRandomNumberBetween(1, 200) + " " + RandomDataUtils.getRandomTestName("Test").replace("_", "") + " GrowLand Avenue";
-        address2 = "";
+        address1 = RandomDataUtils.getRandomNumberBetween(1, 200) + " " + RandomDataUtils.generateTestNameStartingWith("Test", 20) + " GrowLand Avenue";
+        if(address1.equals("")){
+            address1 = "111 This is weired St";
+        }
+        address2 = "South West";
         townCity = "London";
         postCode = "UB" + RandomDataUtils.getRandomNumberBetween(1, 19) + " " + RandomDataUtils.getRandomNumberBetween(1, 10) + "UU";
         country = "United Kingdom";
         addressType = true;
         telephone = "07941" + (int) RandomDataUtils.getRandomDigits(7);
-        fax = "";
+        fax = "044941" + (int) RandomDataUtils.getRandomDigits(7);
         website = "www." + organisationName.toLowerCase() + ".com";
 
         //Organisation type
@@ -73,9 +79,9 @@ public class AccountRequest {
 
         //Contact Person Details
         title = "Prof.";
-        firstName = RandomDataUtils.getRandomTestName("TestFirstName");
-        lastName = RandomDataUtils.getRandomTestName("TestLastName");
-        jobTitle = "Tester";
+        firstName = RandomDataUtils.generateTestNameStartingWith("Noor", 5); //RandomDataUtils.getRandomTestName("Noor").replace("_", "");
+        lastName = RandomDataUtils.generateTestNameStartingWith("Uddin", 5); //RandomDataUtils.getRandomTestName("Uddin").replace("_", "");
+        jobTitle = getRandomJobTitle();
         phoneNumber = "01351" + (int) RandomDataUtils.getRandomDigits(7);;
         email = "mhra.uat@gmail.com";
 
@@ -86,9 +92,28 @@ public class AccountRequest {
 
         //Services of interest
         deviceRegistration = true;
-        cfsCertificateOfFreeSale = true;
-        clinicalInvestigation = true;
-        aitsAdverseIncidentTrackingSystem = true;
+        cfsCertificateOfFreeSale = false;
+        clinicalInvestigation = false;
+        aitsAdverseIncidentTrackingSystem = false;
     }
 
+    private String getRandomJobTitle() {
+        List<String> listOfTitles = new ArrayList<>();
+        listOfTitles.add("Tester");
+        listOfTitles.add("DeveloperInTest");
+        listOfTitles.add("Head of Manufacturing");
+        listOfTitles.add("The Boss");
+        listOfTitles.add("Head of Testing");
+        listOfTitles.add("Automated Tester");
+        listOfTitles.add("Chief");
+
+        String index = RandomDataUtils.getSimpleRandomNumberBetween(0, listOfTitles.size() - 1);
+        String title = listOfTitles.get(Integer.parseInt(index));
+
+        return title;
+    }
+
+    public static void main(String[] args){
+        AccountRequest ar = new AccountRequest();
+    }
 }

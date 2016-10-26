@@ -25,9 +25,18 @@ public class ActionsPage extends _Page {
         super(driver);
     }
 
+    public boolean isInActionsPage() {
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, linkCreateTestAccount, TIMEOUT_DEFAULT, false);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public CreateTestsData gotoTestsHarnessPage() {
         WaitUtils.waitForElementToBePartOfDOM(driver, By.partialLinkText("Create Test Account"), TIMEOUT_MEDIUM, false);
-        WaitUtils.waitForElementToBeClickable(driver, linkCreateTestAccount, TIMEOUT_MEDIUM, false);
+        //WaitUtils.waitForElementToBeClickable(driver, linkCreateTestAccount, TIMEOUT_MEDIUM, false);
         linkCreateTestAccount.click();
         return new CreateTestsData(driver);
     }

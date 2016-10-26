@@ -29,6 +29,12 @@ public class ActionsPageSteps extends CommonSteps {
         //Now create the test data using harness page
         AccountRequest ar = new AccountRequest();
         actionsPage = createTestsData.createTestOrganisation(ar);
+
+        boolean createdSuccessfully = actionsPage.isInActionsPage();
+        if(createdSuccessfully){
+            log.warn("Created a new account : " + ar.organisationName);
+            scenarioSession.putData(SessionKey.organisationName, ar.organisationName);
+        }
     }
 
 }
