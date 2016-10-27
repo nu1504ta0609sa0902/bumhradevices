@@ -5,6 +5,7 @@ import com.mhra.mdcm.devices.appian.pageobjects.business.sections.Accounts;
 import com.mhra.mdcm.devices.appian.pageobjects.business.sections.AllOrganisations;
 import com.mhra.mdcm.devices.appian.pageobjects.business.sections.Devices;
 import com.mhra.mdcm.devices.appian.pageobjects.business.sections.Products;
+import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -37,7 +38,8 @@ public class RecordsPage extends _Page {
     public Accounts clickOnAccounts() {
         WaitUtils.waitForElementToBePartOfDOM(driver, By.partialLinkText("Accounts"), 10, false);
         WaitUtils.waitForElementToBeClickable(driver, linkAccounts, 10, false);
-        linkAccounts.click();
+        //linkAccounts.click();
+        PageUtils.singleClick(driver, linkAccounts);
         return new Accounts(driver);
     }
 

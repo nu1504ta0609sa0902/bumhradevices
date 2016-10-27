@@ -94,7 +94,7 @@ public class MainNavigationBar extends _Page {
         return new ActionsPage(driver);
     }
 
-    public boolean isInCorrectPage(String expectedHeading) {
+    public boolean isCorrectPage(String expectedHeading) {
         String title = getTitle();
         boolean isCorrectPage = title.contains(expectedHeading);
         return isCorrectPage;

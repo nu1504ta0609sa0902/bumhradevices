@@ -15,7 +15,7 @@ public class NavigationBarSteps extends CommonSteps {
 
     @Then("^I should see correct page heading \"([^\"]*)\"$")
     public void i_should_see_correct_page_heading(String expectedHeading) throws Throwable {
-        boolean isCorrectPage = mainNavigationBar.isInCorrectPage(expectedHeading);
+        boolean isCorrectPage = mainNavigationBar.isCorrectPage(expectedHeading);
         Assert.assertThat("Expected page : " + expectedHeading, isCorrectPage, Matchers.is(true));
     }
 }

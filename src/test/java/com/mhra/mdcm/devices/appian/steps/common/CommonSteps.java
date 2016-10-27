@@ -125,8 +125,16 @@ public class CommonSteps {
                         //This looks slightly better than other cucumber report, less intrusive and better memory managements
 //                        CreatePrettyReportManual cpr = new CreatePrettyReportManual();
 //                        cpr.createReport("PrettyReport2", false);
+                        String generateReport = System.getProperty("generate.report");
+                        if(generateReport != null && ( generateReport.trim().equals("true") || generateReport.trim().equals("yes"))){
+                            log.info("Generating report may take upto 20 seconds");
+                            sleep(20000);
+                        }else {
+                            //No need to wait for report to be generated
+                            log.info("Report generation is disabled, to enable set -Dgenerate.report=true");
+                            sleep(2000);
+                        }
 
-                        sleep(20000);
                         driver.quit();
                         log.info("All browsers closed after tests");
                     }

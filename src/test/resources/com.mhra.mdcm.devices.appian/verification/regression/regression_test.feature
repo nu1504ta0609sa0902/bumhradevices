@@ -3,7 +3,7 @@ Feature: As a user I would like to have a regression test suite which I can run 
   So that I can make sure that no previously known issues are re-introduced
 
 
-  Scenario Outline: Approve and reject new account creation
+  Scenario Outline: Approve and reject tasks new account creation
     Given I am logged into appian as "<user>" user
     When I create a new account using test harness page
     Then I should see a new task for the new account
@@ -16,10 +16,33 @@ Feature: As a user I would like to have a regression test suite which I can run 
       | businessAuto | approve       | 1     |
       | businessAuto | reject        | 0     |
 
-  Scenario Outline: View and amend an account
+
+    # Assumes there is atleast an account
+  Scenario Outline: View and amend an existing account
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
-    And I view a randomly selected account
+    Then I should see the following columns for "<link>" page
+      | columns | <columns> |
+    When I search for account with following text "OrganisationTest Active"
+    And I select a random account and update the following data "<keyValuePairs>"
+    Then I should see the changes "<keyValuePairs>" in the account page
     Examples:
-      | user         | link     | count |
-      | businessAuto | Accounts | 1     |
+      | user         | link              | keyValuePairs        | columns                                                                                                             |
+      | businessAuto | Accounts          | job.title=The Editor | Organisation Name,Account Number,Organisation Role, Contact Name, Organisation Address,Organisation Country, Status |
+      | businessAuto | All Organisations | job.title=The Editor | Name,Account Number,Role,Contact Name,Address,Country,Status                                                        |
+
+
+  @wip
+  Scenario Outline: Approve New manufacturer registration including device declaration.
+    Given I am logged into appian as "<user>" user
+    Examples:
+      | user             |
+      | manufacturerAuto |
+
+
+  @wip
+  Scenario Outline: REJECT New manufacturer registration including device declaration.
+    Given I am logged into appian as "<user>" user
+    Examples:
+      | user             |
+      | manufacturerAuto |

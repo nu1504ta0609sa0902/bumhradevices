@@ -1,5 +1,7 @@
 package com.mhra.mdcm.devices.appian.utils.selenium.page;
 
+import org.openqa.selenium.WebElement;
+
 /**
  * Created by TPD_Auto
  */
@@ -18,5 +20,9 @@ public class AssertUtils {
         return val;
     }
 
+    public static boolean areChangesDisplayed(WebElement element, String value) {
+        boolean found = element.getText().contains(value);
+        return found;
+    }
 }
 

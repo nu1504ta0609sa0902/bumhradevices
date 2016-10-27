@@ -18,6 +18,11 @@ import static org.hamcrest.Matchers.is;
 @Scope("cucumber-glue")
 public class TasksPageSteps extends CommonSteps {
 
+    @When("^I go to tasks page$")
+    public void iGoToRecordsPage() throws Throwable {
+        mainNavigationBar = new MainNavigationBar(driver);
+        tasksPage = mainNavigationBar.clickTasks();
+    }
 
     @Then("^I should see a new task for the new account$")
     public void i_should_see_a_new_task_for_the_new_account() throws Throwable {

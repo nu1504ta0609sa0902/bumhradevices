@@ -14,7 +14,7 @@ import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.hamcrest.Matchers;
+import static org.hamcrest.Matchers.*;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.springframework.context.annotation.Scope;
@@ -43,6 +43,11 @@ public class RecordsPageSteps extends CommonSteps {
         }
     }
 
+    @When("^I go to records page$")
+    public void iGoToRecordsPage() throws Throwable {
+        recordsPage = mainNavigationBar.clickRecords();
+    }
+
     @Then("^I should see items and heading \"([^\"]*)\" for link \"([^\"]*)\"$")
     public void iShouldSeeItems(String expectedHeadings, String page) throws Throwable {
 
@@ -64,15 +69,15 @@ public class RecordsPageSteps extends CommonSteps {
         }
 
         //Verify results
-        Assert.assertThat("Heading should be : " + expectedHeadings, isHeadingVisibleAndCorrect, Matchers.is(true));
-        Assert.assertThat("Expected to see at least 1 item", isItemsDisplayedAndCorrect, Matchers.is(true));
+        Assert.assertThat("Heading should be : " + expectedHeadings, isHeadingVisibleAndCorrect, is(true));
+        Assert.assertThat("Expected to see at least 1 item", isItemsDisplayedAndCorrect, is(true));
     }
 
     @Then("^I should see the following columns for \"([^\"]*)\" page$")
     public void i_should_see_the_following_columns(String page, Map<String, String> dataValues) throws Throwable {
         String columnsDelimitedTxt = dataValues.get("columns");
         String[] columns = columnsDelimitedTxt.split(",");
-        log.info("Expected columns : " + columns);
+        log.info("Expected columns : " + columnsDelimitedTxt);
 
         List<String> tableColumnsNotFound = null;
 
@@ -84,7 +89,7 @@ public class RecordsPageSteps extends CommonSteps {
             tableColumnsNotFound = allOrganisations.isTableColumnCorrect(columns);
         }
 
-        Assert.assertThat("Following columns not found : " + tableColumnsNotFound, tableColumnsNotFound.size() == 0, Matchers.is(true));
+        Assert.assertThat("Following columns not found : " + tableColumnsNotFound, tableColumnsNotFound.size() == 0,  is(true));
     }
 
 //    @Then("^I should see the following columns for \"([^\"]*)\" page$")
@@ -124,10 +129,10 @@ public class RecordsPageSteps extends CommonSteps {
         String organisationName = (String) scenarioSession.getData(SessionKey.organisationName);
         int count = allOrganisations.getNumberOfMatches();
         if(contain.contains("not")){
-            Assert.assertThat("Searching for " + organisationName + " should return 0 matches, but it was : " + count, count == 0, Matchers.is(true));
+            Assert.assertThat("Searching for " + organisationName + " should return 0 matches, but it was : " + count, count == 0, is(true));
         }else{
             //Search was performed with an existing organisation
-            Assert.assertThat("Searching for " + organisationName + " should return at least 1 matches, but it was : " + count, count >= 1, Matchers.is(true));
+            Assert.assertThat("Searching for " + organisationName + " should return at least 1 matches, but it was : " + count, count >= 1, is(true));
         }
     }
 
@@ -144,15 +149,20 @@ public class RecordsPageSteps extends CommonSteps {
         accounts = accounts.searchForAccount(orgName);
 
     }
+    @When("^I search for account with following text \"([^\"]*)\"$")
+    public void i_search_for(String searchTerm) throws Throwable {
+        accounts = accounts.searchForAccount(searchTerm);
+        scenarioSession.putData(SessionKey.searchTerm, searchTerm);
+    }
 
 
     @When("^I should see at least (\\d+) account matches$")
     public void i_should_see_account_matches(int minCount) throws Throwable {
         boolean countMatched = accounts.numberOfMatchesShouldBe(minCount);
         if(minCount == 0){
-            Assert.assertThat("Expected to see no matches ",countMatched, Matchers.is(true));
+            Assert.assertThat("Expected to see no matches ",countMatched, is(true));
         }else{
-            Assert.assertThat("Expected to see atleast 1 matches" , countMatched, Matchers.is(true));
+            Assert.assertThat("Expected to see atleast 1 matches" , countMatched, is(true));
         }
     }
 
@@ -162,4 +172,30 @@ public class RecordsPageSteps extends CommonSteps {
         String randomAccountName = accounts.getARandomAccount();
         accounts = accounts.viewSpecifiedAccount(randomAccountName);
     }
+
+
+    @When("^I select a random account and update the following data \"([^\"]*)\"$")
+    public void i_update_the_following_data_pair_for_randomly_selected_account_data(String keyValuePairToUpdate) throws Throwable {
+        //Select a random account
+        WaitUtils.nativeWait(5);
+        String randomAccountName = accounts.getARandomAccount();
+        log.info("Edit the following account : " + randomAccountName);
+        accounts = accounts.viewSpecifiedAccount(randomAccountName);
+
+        //Edit the data now
+        accounts = accounts.gotoEditAccountInformation();
+        accounts = accounts.editAccountInformation(keyValuePairToUpdate);
+
+        scenarioSession.putData(SessionKey.organisationName, randomAccountName);
+    }
+
+
+    @Then("^I should see the changes \"([^\"]*)\" in the account page$")
+    public void i_should_see_the_changes_in_the_account_page(String keyValuePairToUpdate) throws Throwable {
+        //A refresh is required
+        driver.navigate().refresh();
+        boolean updatesFound = accounts.verifyUpdatesDisplayedOnPage(keyValuePairToUpdate);
+        Assert.assertThat("Expected to see following updates : " + keyValuePairToUpdate, updatesFound, is(true));
+    }
+
 }

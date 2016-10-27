@@ -1,6 +1,7 @@
 package com.mhra.mdcm.devices.appian.steps.d1.business;
 
 import com.mhra.mdcm.devices.appian.domains.AccountRequest;
+import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.pageobjects.business.ActionsPage;
 import com.mhra.mdcm.devices.appian.pageobjects.business.sections.CreateTestsData;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
@@ -19,6 +20,21 @@ import java.util.Map;
  */
 @Scope("cucumber-glue")
 public class ActionsPageSteps extends CommonSteps {
+
+    @When("^I go to actions page$")
+    public void i_go_to_actions_page() throws Throwable {
+        mainNavigationBar = new MainNavigationBar(driver);
+        actionsPage = mainNavigationBar.clickActions();
+    }
+
+
+    @When("^I go to test harness page$")
+    public void i_go_to_test_harness_page() throws Throwable {
+        mainNavigationBar = new MainNavigationBar(driver);
+        actionsPage = mainNavigationBar.clickActions();
+        createTestsData = actionsPage.gotoTestsHarnessPage();
+    }
+
 
     @When("^I create a new account using test harness page$")
     public void i_create_a_new_account_using_test_harness_page() throws Throwable {
