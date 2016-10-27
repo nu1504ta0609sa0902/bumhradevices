@@ -48,6 +48,15 @@ Feature: As a tester I would like to perform smoke test on the system
       | businessAuto | Products    | Products |
 
   @smoke_test
+  Scenario Outline: Create a new account request task
+    Given I am logged into appian as "<user>" user
+    When I create a new account using test harness page
+    Then I should see a new task for the new account
+    Examples:
+      | user         |
+      | businessAuto |
+
+  @smoke_test
   Scenario Outline: Check correct links are displayed and links clickable for Manufacturer and AuthorisedRep
     Given I am logged into appian as "<user>" user
     Then I should see the following portal "<expectedLinks>" links
