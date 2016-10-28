@@ -175,4 +175,22 @@ public class WaitUtils {
             //Aim is to pause the page for sometimes
         }
     }
+
+
+    public static boolean isPageLoaded(WebDriver driver, By by, int maxTimeToWait, int numberOfTimes) {
+        boolean loadingCompleted = false;
+        int attempt = 0;
+        do{
+            try {
+                new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.presenceOfElementLocated(by));
+                loadingCompleted = true;
+                break;
+            }catch (Exception e){
+                //
+            }
+            attempt++;
+        }while(!loadingCompleted && attempt < numberOfTimes);
+
+        return loadingCompleted;
+    }
 }
