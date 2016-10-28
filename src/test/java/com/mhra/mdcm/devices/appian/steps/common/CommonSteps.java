@@ -4,6 +4,7 @@ import com.mhra.mdcm.devices.appian.pageobjects.LoginPage;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.pageobjects.business.*;
 import com.mhra.mdcm.devices.appian.pageobjects.business.sections.*;
+import com.mhra.mdcm.devices.appian.pageobjects.external.PortalPage;
 import com.mhra.mdcm.devices.appian.session.ScenarioSession;
 import com.mhra.mdcm.devices.appian.utils.others.NetworkUtils;
 
@@ -68,6 +69,8 @@ public class CommonSteps {
     public CreateTestsData createTestsData;
     @Autowired
     public TaskSection taskSection;
+    @Autowired
+    public PortalPage portalPage;
 
     public static boolean oneDriverOnly = true;
     public CommonSteps() {
