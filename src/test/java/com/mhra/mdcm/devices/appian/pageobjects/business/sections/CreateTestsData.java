@@ -110,7 +110,8 @@ public class CreateTestsData extends _Page {
         orgName.sendKeys(ar.organisationName);
 
         //Organisation details
-        WaitUtils.waitForElementToBeClickable(driver, country, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, addressLine1, TIMEOUT_DEFAULT, false);
+        addressLine1.clear();
         addressLine1.sendKeys(ar.address1);
         addressLine2.sendKeys(ar.address2);
         townCity.sendKeys(ar.townCity);
