@@ -117,8 +117,7 @@ public class Accounts extends _Page {
      * @return
      */
     public String getARandomAccount() {
-        //WaitUtils.waitForElementToBePartOfDOM(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_SMALL, false);
-        //WaitUtils.waitForPageToLoad(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_SMALL, false);
+        WaitUtils.isPageLoaded(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_SMALL, 2);
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_SMALL, false);
 
         int position = RandomDataUtils.getSimpleRandomNumberBetween(1, listOfAccounts.size() - 1, false);
