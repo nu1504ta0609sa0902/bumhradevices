@@ -177,7 +177,6 @@ public class RecordsPageSteps extends CommonSteps {
     @When("^I select a random account and update the following data \"([^\"]*)\"$")
     public void i_update_the_following_data_pair_for_randomly_selected_account_data(String keyValuePairToUpdate) throws Throwable {
         //Select a random account
-        WaitUtils.nativeWait(5);
         String randomAccountName = accounts.getARandomAccount();
         log.info("Edit the following account : " + randomAccountName);
         accounts = accounts.viewSpecifiedAccount(randomAccountName);
