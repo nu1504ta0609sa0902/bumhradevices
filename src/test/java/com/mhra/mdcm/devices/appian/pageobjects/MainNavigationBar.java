@@ -9,6 +9,7 @@ import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import cucumber.api.java.en.Then;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -33,9 +34,9 @@ public class MainNavigationBar extends _Page {
     WebElement actions;
 
 
-    @FindBy(xpath = ".//a//following::div[.='Portal']")
+    @FindBy(xpath = ".//a//following::div[.='PORTAL']")
     WebElement linkPortal;
-    @FindBy(xpath = ".//a//following::div[.='My Account']")
+    @FindBy(xpath = ".//a//following::div[.='MY ACCOUNT']")
     WebElement linkMyAccount;
 
     @FindBy(css = ".appian-menu-item.appian-menu-item-selected")
@@ -55,40 +56,40 @@ public class MainNavigationBar extends _Page {
 
 
     public NewsPage clickNews() {
-        WaitUtils.waitForElementToBeClickable(driver, news, 30, false);
+        WaitUtils.waitForElementToBeClickable(driver, news, TIMEOUT_DEFAULT, false);
         PageUtils.doubleClick(driver, news);
         return new NewsPage(driver);
     }
 
     public TasksPage clickTasks() {
-        WaitUtils.waitForElementToBeClickable(driver, tasks, 30, false);
+        WaitUtils.waitForElementToBeClickable(driver, tasks, TIMEOUT_DEFAULT, false);
         tasks.click();
         PageUtils.doubleClick(driver, tasks);
         return new TasksPage(driver);
     }
 
     public RecordsPage clickRecords() {
-        WaitUtils.waitForElementToBeClickable(driver, records, 30, false);
+        WaitUtils.waitForElementToBeClickable(driver, records, TIMEOUT_DEFAULT, false);
         //records.click();
         PageUtils.doubleClick(driver, records);
         return new RecordsPage(driver);
     }
 
     public ReportsPage clickReports() {
-        WaitUtils.waitForElementToBeClickable(driver, reports, 30, false);
+        WaitUtils.waitForElementToBeClickable(driver, reports, TIMEOUT_DEFAULT, false);
         reports.click();
         PageUtils.doubleClick(driver, reports);
         return new ReportsPage(driver);
     }
 
     public String getCurrentSelectedMenu() {
-        WaitUtils.waitForElementToBeClickable(driver, currentSelection, 30, false);
+        WaitUtils.waitForElementToBeClickable(driver, currentSelection, TIMEOUT_DEFAULT, false);
         String selectedMenu = currentSelection.getText();
         return selectedMenu;
     }
 
     public ActionsPage clickActions() {
-        WaitUtils.waitForElementToBeClickable(driver, actions, 30, false);
+        WaitUtils.waitForElementToBeClickable(driver, actions, TIMEOUT_DEFAULT, false);
         actions.click();
         PageUtils.doubleClick(driver, actions);
         return new ActionsPage(driver);
@@ -111,9 +112,14 @@ public class MainNavigationBar extends _Page {
 
 
     public PortalPage clickPortals() {
-        WaitUtils.waitForElementToBeClickable(driver, linkPortal, 30, false);
-        //linkPortal.click();
-        PageUtils.doubleClick(driver, linkPortal);
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, linkPortal, TIMEOUT_DEFAULT, false);
+            PageUtils.doubleClick(driver, linkPortal);
+        }catch (Exception e){
+            By xp = By.xpath(".//a//following::div[.='Portal']");
+            WaitUtils.waitForElementToBeClickable(driver, xp, TIMEOUT_DEFAULT, false);
+            PageUtils.doubleClick(driver, driver.findElement(xp));
+        }
         return new PortalPage(driver);
     }
 }
