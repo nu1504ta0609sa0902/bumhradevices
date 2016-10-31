@@ -1,0 +1,25 @@
+Feature: As a business user
+  I want to access a list of organisations with an account
+  so that I can quickly confirm if they are known to the MHRA and retrieve key contact information
+
+  @mdcm-126
+  Scenario Outline: As a business user I should be able to view all accounts
+    Given I am logged into appian as "<user>" user
+    When I go to records page and click on "<link>"
+    Then I should see items and heading "<pageHeading>" for link "<link>"
+    And I should see the following columns for "<link>" page
+      | columns | <columns> |
+    Examples:
+      | user         | link     | pageHeading | columns                                                                                                          |
+      | businessAuto | Accounts | Accounts    | Organisation Name,Account Number,Organisation Role,Contact Name,Organisation Address,Organisation Country,Status |
+
+  @mdcm-126
+  Scenario Outline: By default list of accounts should be displayed in a to z order
+    Given I am logged into appian as "<user>" user
+    When I go to records page and click on "<link>"
+    Then I should see items and heading "<pageHeading>" for link "<link>"
+    And The items are displayed in alphabetical order
+    Examples:
+      | user         | link     | pageHeading |
+      | businessAuto | Accounts | Accounts    |
+

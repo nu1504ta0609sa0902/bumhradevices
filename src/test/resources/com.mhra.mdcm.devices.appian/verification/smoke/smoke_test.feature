@@ -30,9 +30,9 @@ Feature: As a tester I would like to perform smoke test on the system
     Then I should see correct page heading "<pageHeading>"
     Examples:
       | user         | page    | pageHeading |
+      | businessAuto | Records | Records     |
       | businessAuto | News    | News        |
       | businessAuto | Tasks   | Tasks       |
-      | businessAuto | Records | Records     |
       | businessAuto | Reports | Reports     |
       | businessAuto | Actions | Actions     |
 

@@ -17,7 +17,7 @@ Feature: As a user I would like to have a regression test suite which I can run 
       | businessAuto | reject        | 0     |
 
 
-    # Assumes there is atleast an account
+  # Assumes there is at least 1 account
   Scenario Outline: View and amend an existing account
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
@@ -29,7 +29,6 @@ Feature: As a user I would like to have a regression test suite which I can run 
     Examples:
       | user         | link              | keyValuePairs        | columns                                                                                                             |
       | businessAuto | Accounts          | job.title=The Editor | Organisation Name,Account Number,Organisation Role, Contact Name, Organisation Address,Organisation Country, Status |
-      | businessAuto | All Organisations | job.title=The Editor | Name,Account Number,Role,Contact Name,Address,Country,Status                                                        |
 
 
   @wip
@@ -46,3 +45,4 @@ Feature: As a user I would like to have a regression test suite which I can run 
     Examples:
       | user             |
       | manufacturerAuto |
+

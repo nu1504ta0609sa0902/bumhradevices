@@ -179,4 +179,31 @@ public class Accounts extends _Page {
 
         return allChangesDisplayed;
     }
+
+    public boolean isOrderedAtoZ() {
+        int getFirstX = 20;
+        List<String> listOfOrderedOrganisations = new ArrayList<>();
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_SMALL, false);
+
+        //Get list of organisation names
+        int position = 0;   //Only even ones are organisation name
+        int elementCount = 0;
+        for(WebElement el: listOfAccounts){
+
+            //At the moment only the even ones are organisation names
+            if(position % 2 == 0){
+                String orgName = el.getText();
+                listOfOrderedOrganisations.add(orgName);
+            }
+
+            if(elementCount == getFirstX){
+                break;
+            }
+
+            elementCount++;
+            position++;
+        }
+
+        return false;
+    }
 }

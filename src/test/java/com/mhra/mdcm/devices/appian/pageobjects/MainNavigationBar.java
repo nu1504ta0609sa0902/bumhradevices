@@ -69,6 +69,7 @@ public class MainNavigationBar extends _Page {
     }
 
     public RecordsPage clickRecords() {
+        WaitUtils.isPageLoaded(driver, By.partialLinkText("Records"), TIMEOUT_VERY_SMALL, 3);
         WaitUtils.waitForElementToBeClickable(driver, records, TIMEOUT_DEFAULT, false);
         //records.click();
         PageUtils.doubleClick(driver, records);
@@ -96,6 +97,7 @@ public class MainNavigationBar extends _Page {
     }
 
     public boolean isCorrectPage(String expectedHeading) {
+        WaitUtils.isPageLoaded(driver, By.partialLinkText(expectedHeading),TIMEOUT_VERY_HIGH, 2);
         String title = getTitle();
         boolean isCorrectPage = title.contains(expectedHeading);
         return isCorrectPage;

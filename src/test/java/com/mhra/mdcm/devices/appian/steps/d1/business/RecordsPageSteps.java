@@ -197,4 +197,10 @@ public class RecordsPageSteps extends CommonSteps {
         Assert.assertThat("Expected to see following updates : " + keyValuePairToUpdate, updatesFound, is(true));
     }
 
+    @Then("^The items are displayed in alphabetical order$")
+    public void the_items_are_displayed_in_alphabetical_order() throws Throwable {
+        boolean isOrderAtoZ = accounts.isOrderedAtoZ();
+        Assert.assertThat("Default ordering of organisation name should be A to Z"  , isOrderAtoZ, is(true));
+
+    }
 }
