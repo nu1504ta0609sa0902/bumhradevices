@@ -51,7 +51,7 @@ public class RecordsPage extends _Page {
     }
 
     public Products clickOnProducts() {
-        WaitUtils.waitForElementToBePartOfDOM(driver, By.partialLinkText("Products"), 10, false);
+        WaitUtils.waitForElementToBePartOfDOM(driver, By.partialLinkText("Products"), 20, false);
         WaitUtils.waitForElementToBeClickable(driver, linkProducts, 10, false);
         linkProducts.click();
         return new Products(driver);

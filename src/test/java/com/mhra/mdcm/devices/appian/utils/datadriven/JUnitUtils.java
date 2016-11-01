@@ -7,6 +7,8 @@ import java.util.List;
 
 /**
  * Created by TPD_Auto on 01/11/2016.
+ *
+ * Note: I was forced to write some data driven testing in this way
  */
 public class JUnitUtils {
 
