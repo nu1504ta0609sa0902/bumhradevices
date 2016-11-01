@@ -97,7 +97,7 @@ public class MainNavigationBar extends _Page {
     }
 
     public boolean isCorrectPage(String expectedHeading) {
-        WaitUtils.isPageLoaded(driver, By.partialLinkText(expectedHeading),TIMEOUT_VERY_HIGH, 2);
+        WaitUtils.isPageLoaded(driver, By.partialLinkText(expectedHeading),TIMEOUT_SMALL, 2);
         String title = getTitle();
         boolean isCorrectPage = title.contains(expectedHeading);
         return isCorrectPage;

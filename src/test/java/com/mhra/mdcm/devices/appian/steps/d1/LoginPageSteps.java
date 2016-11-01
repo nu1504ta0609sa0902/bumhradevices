@@ -35,7 +35,7 @@ public class LoginPageSteps extends CommonSteps {
     @When("^I try to login to appian as username \"([^\"]*)\" and password \"([^\"]*)\"$")
     public void i_am_logged_into_appian_as_user(String username, String password) throws Throwable {
         loginPage = loginPage.loadPage(baseUrl);
-        mainNavigationBar = loginPage.login(username, password);
+        mainNavigationBar = loginPage.loginWithSpecificUsernamePassword(username, password);
         log.info("Login as : " + username + "/" + password);
         scenarioSession.putData(SessionKey.loggedInUser, username);
     }

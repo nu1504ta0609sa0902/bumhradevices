@@ -68,8 +68,9 @@ public class BrowserConfig {
     		}
     	}
 		else{
-			return null;
-			//return new InternetExplorerDriver();
+			System.out.println("Using DEFAULT BROWSER IE, -Dcurrent.browser not set");
+			DesiredCapabilities ieCap = getIEDesiredCapabilities();
+			return new InternetExplorerDriver(ieCap);
     	}
     }
 

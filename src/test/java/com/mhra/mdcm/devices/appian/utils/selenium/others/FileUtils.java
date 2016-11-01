@@ -14,7 +14,7 @@ import java.util.Properties;
 public class FileUtils {
 
     private final static String resourceFolder = "src" + File.separator + "test" + File.separator + "resources" + File.separator;
-    private final static String userFileLocation = "configs" + File.separator + "users.properties";
+    private final static String userFileLocation = "configs" + File.separator ;
     private final static String driverFileLocation = "configs" + File.separator + "driver.properties";
     private final static Map<String, Properties> mapOfProperties = new HashMap<String, Properties>();
 
@@ -31,7 +31,7 @@ public class FileUtils {
         if (prop == null) {
             try {
                 String root = new File("").getAbsolutePath();
-                String location = root + File.separator + resourceFolder + userFileLocation;
+                String location = root + File.separator + resourceFolder + userFileLocation + fileName;
                 prop = new Properties();
                 InputStream in = new FileInputStream(new File(location));
                 prop.load(in);
@@ -138,5 +138,27 @@ public class FileUtils {
     public static void deleteFile(String zipFile) {
         File f = new File(zipFile);
         f.delete();
+    }
+
+    /**
+     * If we need to override the default user name for running the tests
+     *
+     * By default its the Automation usernames
+     * @param overrideUsername
+     * @param uname
+     * @return username key from the properties file
+     *  one of : business+uname, manufacturer+uname, authorisedrep+uname
+     */
+    public static String getOverriddenUsername(String overrideUsername, String uname) {
+        if(overrideUsername!=null && !overrideUsername.equals("")){
+            if(uname.contains("business")){
+                uname = "business" + overrideUsername;
+            }else if(uname.contains("manufacturer")){
+                uname = "manufacturer" + overrideUsername;
+            }else if(uname.contains("authorised")){
+                uname = "authorisedrep" + overrideUsername;
+            }
+        }
+        return uname;
     }
 }

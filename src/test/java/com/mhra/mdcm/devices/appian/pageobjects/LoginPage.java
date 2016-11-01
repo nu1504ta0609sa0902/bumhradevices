@@ -10,6 +10,7 @@ import org.openqa.selenium.support.FindBy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.util.Properties;
 
 /**
@@ -53,14 +54,31 @@ public class LoginPage extends _Page {
         return new LoginPage(driver);
     }
 
-    public MainNavigationBar login(String uname) {
+    public MainNavigationBar login(String unameKeyValue) {
         dontRemember();
 
         //get login details
         String selectedProfile = System.getProperty("spring.profiles.active");
-        Properties props = FileUtils.loadPropertiesFile("users.properties");
-        String un = props.getProperty(selectedProfile + ".username." + uname);
-        String pword = props.getProperty(selectedProfile + ".password." + uname);
+        String overrideWithUsername = System.getProperty("test.as.user");
+        Properties props = FileUtils.loadPropertiesFile("data" + File.separator + "users.properties");
+
+        //check if local properties supplies a
+        if(overrideWithUsername==null || overrideWithUsername.equals("")) {
+            overrideWithUsername = props.getProperty("mhratest.user.default.override.username");
+        }
+
+        //Override local uname with overriden values
+        unameKeyValue = FileUtils.getOverriddenUsername(overrideWithUsername, unameKeyValue);
+
+        //Now load the correct username password
+        String un = props.getProperty(selectedProfile + ".username." + unameKeyValue);
+        String pword = props.getProperty(selectedProfile + ".password." + unameKeyValue);
+
+        if(un == null || pword == null){
+            props = FileUtils.loadPropertiesFile("data" + File.separator + "other.configs.properties");
+            un = props.getProperty(selectedProfile + ".username." + unameKeyValue);
+            pword = props.getProperty(selectedProfile + ".password." + unameKeyValue);
+        }
 
         //login
         username.sendKeys(un);
@@ -70,7 +88,19 @@ public class LoginPage extends _Page {
         return new MainNavigationBar(driver);
     }
 
-    public MainNavigationBar login(String usernameTxt, String passwordTxt) {
+    public MainNavigationBar loginWithSpecificUsernamePassword(String usernameTxt, String passwordTxt) {
+        dontRemember();
+
+        //login
+        username.sendKeys(usernameTxt);
+        password.sendKeys(passwordTxt);
+        username.submit();
+
+        return new MainNavigationBar(driver);
+    }
+
+    public MainNavigationBar loginWithSpecificUsernamePasswordDataDriver(String usernameTxt, String passwordTxt) {
+        logoutIfLoggedIn();
         dontRemember();
 
         //login
