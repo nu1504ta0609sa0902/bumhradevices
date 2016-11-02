@@ -99,7 +99,7 @@ public class LoginPage extends _Page {
         return new MainNavigationBar(driver);
     }
 
-    public MainNavigationBar loginWithSpecificUsernamePasswordDataDriver(String usernameTxt, String passwordTxt) {
+    public MainNavigationBar loginDataDriver(String usernameTxt, String passwordTxt) {
         logoutIfLoggedIn();
         dontRemember();
 

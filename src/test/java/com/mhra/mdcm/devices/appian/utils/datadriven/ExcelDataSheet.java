@@ -88,7 +88,7 @@ public class ExcelDataSheet {
         String linesOfData = getDataFromFile(dataFile, sheet);
 
         //Create arraylist
-        List<User> listOfCountries = new ArrayList<User>();
+        List<User> listOfTestUsers = new ArrayList<User>();
         String[] linesOfCSVData = linesOfData.split("\n");
         int lineCount = 0;
         for(String line: linesOfCSVData){
@@ -98,18 +98,20 @@ public class ExcelDataSheet {
                     String[] excelData = line.split(",");
                     String userName = excelData[0];
                     String password = excelData[1];
-                    //String age = excelData[2];
-                    //String job = excelData[3];
-                    listOfCountries.add(new User(userName, password));
+                    boolean ignore = false;
+                    try {
+                        String ignoreValue = excelData[2];
+                        ignore = true;
+                    }catch (Exception e){}
+
+                    if(!ignore)
+                        listOfTestUsers.add(new User(userName, password));
                 }catch (Exception e){}
             }
             lineCount++;
         }
 
-        //Convert to 2D Array Object
-        //Object[][] o = convertListTo2DArray(listOfCountries);
-
-        return listOfCountries;
+        return listOfTestUsers;
     }
 
 
@@ -164,6 +166,18 @@ public class ExcelDataSheet {
         String rootFolder = file.getAbsolutePath();
         String data = (rootFolder + File.separator + resourceFolder + File.separator + fileName);
         return data;
+    }
+
+    public List<User> filterUsersBy(List<User> listOfUsers, String filterText) {
+        List<User> filteredUser = new ArrayList<>();
+        for(User u: listOfUsers){
+            String userName = u.getUserName();
+            if(userName.toLowerCase().contains(filterText)){
+                filteredUser.add(u);
+            }
+        }
+
+        return filteredUser;
     }
 
 //    private Collection loadFromSpreadsheet(final InputStream excelFile)

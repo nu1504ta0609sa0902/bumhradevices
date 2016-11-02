@@ -1,4 +1,4 @@
-package com.mhra.mdcm.devices.appian.junit;
+package com.mhra.mdcm.devices.appian.junit.smoke;
 
 import com.mhra.mdcm.devices.appian.domains.AccountRequest;
 import com.mhra.mdcm.devices.appian.domains.junit.User;
@@ -7,7 +7,6 @@ import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.pageobjects.business.*;
 import com.mhra.mdcm.devices.appian.pageobjects.business.sections.*;
 import com.mhra.mdcm.devices.appian.pageobjects.external.PortalPage;
-import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.utils.datadriven.ExcelDataSheet;
 import com.mhra.mdcm.devices.appian.utils.datadriven.JUnitUtils;
 import com.mhra.mdcm.devices.appian.utils.driver.BrowserConfig;
@@ -23,7 +22,6 @@ import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -35,7 +33,7 @@ import static org.hamcrest.Matchers.is;
  * Created by TPD_Auto on 01/11/2016.
  */
 @RunWith(Parameterized.class)
-public class SmokeTestsExcel {
+public class SmokeTestsBusiness {
 
     @Value("${base.url}")
     public static String baseUrl;
@@ -59,18 +57,16 @@ public class SmokeTestsExcel {
     private CreateTestsData createTestsData;
     private TaskSection taskSection;
 
-    @Parameterized.Parameters(name="{0}")
+    @Parameterized.Parameters(name = "{0}")
     public static Collection<User> spreadsheetData() throws IOException {
-        return new ExcelDataSheet().getListOfUsers("configs/data/excel/userlist.xls.xlsx", "Sheet1");
+        ExcelDataSheet excelUtils = new ExcelDataSheet();//
+        List<User> listOfUsers = excelUtils.getListOfUsers("configs/data/excel/users.xlsx", "Sheet1");
+        listOfUsers = excelUtils.filterUsersBy(listOfUsers, "business");
+        return listOfUsers;
     }
 
-//    @Parameterized.Parameters(name="{index} SmokeTestsExcel({0})")
-//    public static List<Object[]> spreadsheetData2D() throws IOException {
-//        Object[][] data = new ExcelDataSheet().getListOf2DObjects("configs/data/excel/userlist.xls.xlsx", "Sheet1");
-//        return Arrays.asList(data);
-//    }
 
-    public SmokeTestsExcel(User user) {
+    public SmokeTestsBusiness(User user) {
         //super();
         this.username = user.getUserName();
         this.password = user.getPassword();
@@ -99,7 +95,7 @@ public class SmokeTestsExcel {
         LoginPage loginPage = new LoginPage(driver);
         loginPage = loginPage.loadPage(baseUrl);
         password = "IsIncorrectPassword";
-        loginPage.loginWithSpecificUsernamePasswordDataDriver(username, password);
+        loginPage.loginDataDriver(username, password);
 
         String expectedErrorMsg = "The username/password entered is invalid";
         loginPage = new LoginPage(driver);
@@ -107,13 +103,14 @@ public class SmokeTestsExcel {
         Assert.assertThat("Error message should contain : " + expectedErrorMsg, isCorrect, Matchers.is(true));
     }
 
+
     @Test
     public void asAUserIShouldBeAbleToLoginAndLogout() {
         System.out.println(username + ", " + password);
 
         LoginPage loginPage = new LoginPage(driver);
         loginPage = loginPage.loadPage(baseUrl);
-        MainNavigationBar mainNavigationBar = loginPage.loginWithSpecificUsernamePasswordDataDriver(username, password);
+        MainNavigationBar mainNavigationBar = loginPage.loginDataDriver(username, password);
         String expectedHeading = JUnitUtils.getExpectedHeading(username);
 
         boolean isCorrectPage = mainNavigationBar.isCorrectPage(expectedHeading);
@@ -129,12 +126,12 @@ public class SmokeTestsExcel {
 
     @Test
     public void asABusinessUserIShouldBeAbleToNavigateToDifferentSections() {
-        if(username.toLowerCase().contains("business")) {
+        if (username.toLowerCase().contains("business")) {
             System.out.println(username + ", " + password);
 
             LoginPage loginPage = new LoginPage(driver);
             loginPage = loginPage.loadPage(baseUrl);
-            MainNavigationBar mainNavigationBar = loginPage.loginWithSpecificUsernamePasswordDataDriver(username, password);
+            MainNavigationBar mainNavigationBar = loginPage.loginDataDriver(username, password);
 
             List<String> listOfSections = JUnitUtils.getListOfTabSections();
             String expectedHeading = "News";
@@ -162,22 +159,22 @@ public class SmokeTestsExcel {
 
     @Test
     public void asABusinessUserIShouldBeAbleToViewAccountsDevicesAndOtherPages() {
-        if(username.toLowerCase().contains("business")){
+        if (username.toLowerCase().contains("business")) {
 
             System.out.println(username + ", " + password);
 
             LoginPage loginPage = new LoginPage(driver);
             loginPage = loginPage.loadPage(baseUrl);
-            MainNavigationBar mainNavigationBar = loginPage.loginWithSpecificUsernamePasswordDataDriver(username, password);
+            MainNavigationBar mainNavigationBar = loginPage.loginDataDriver(username, password);
 
-            //Go to records page and click
-            recordsPage = mainNavigationBar.clickRecords();
             List<String> listOfLinks = JUnitUtils.getListOfRecordsPageLinks();
 
             boolean isHeadingVisibleAndCorrect = false;
             boolean isItemsDisplayedAndCorrect = false;
             String expectedHeadings = "Accounts";
             for (String page : listOfLinks) {
+                //Go to records page and click
+                recordsPage = mainNavigationBar.clickRecords();
                 expectedHeadings = page;
                 if (page.equals("Accounts")) {
                     accounts = recordsPage.clickOnAccounts();
@@ -205,31 +202,31 @@ public class SmokeTestsExcel {
     }
 
 
-    @Test
-    public void checkCorrectLinksAreDisplayedForManufacturerAndAuthorisedRep() {
-        System.out.println(username + ", " + password);
-        if (username.toLowerCase().contains("manufacturer") || username.toLowerCase().contains("authorised")) {
-            System.out.println(username + ", " + password);
-            LoginPage loginPage = new LoginPage(driver);
-            loginPage = loginPage.loadPage(baseUrl);
-            MainNavigationBar mainNavigationBar = loginPage.loginWithSpecificUsernamePasswordDataDriver(username, password);
-
-            portalPage = mainNavigationBar.clickPortals();
-            String delimitedLinks = "Manufacturer Registration";
-            boolean areLinksVisible = portalPage.areLinksVisible(delimitedLinks);
-            Assert.assertThat("Expected to see the following links : " + delimitedLinks, areLinksVisible, Matchers.is(true));
-        }
-    }
+//    @Test
+//    public void checkCorrectLinksAreDisplayedForManufacturerAndAuthorisedRep() {
+//        System.out.println(username + ", " + password);
+//        if (username.toLowerCase().contains("manufacturer") || username.toLowerCase().contains("authorised")) {
+//            System.out.println(username + ", " + password);
+//            LoginPage loginPage = new LoginPage(driver);
+//            loginPage = loginPage.loadPage(baseUrl);
+//            MainNavigationBar mainNavigationBar = loginPage.loginDataDriver(username, password);
+//
+//            portalPage = mainNavigationBar.clickPortals();
+//            String delimitedLinks = "Manufacturer Registration";
+//            boolean areLinksVisible = portalPage.areLinksVisible(delimitedLinks);
+//            Assert.assertThat("Expected to see the following links : " + delimitedLinks, areLinksVisible, Matchers.is(true));
+//        }
+//    }
 
 
     @Test
     public void asABusinessUserIShouldBeAbleToCreateAccountRequest() {
 
-        if(username.toLowerCase().contains("business")){
+        if (username.toLowerCase().contains("business")) {
             System.out.println(username + ", " + password);
             LoginPage loginPage = new LoginPage(driver);
             loginPage = loginPage.loadPage(baseUrl);
-            MainNavigationBar mainNavigationBar = loginPage.loginWithSpecificUsernamePasswordDataDriver(username, password);
+            MainNavigationBar mainNavigationBar = loginPage.loginDataDriver(username, password);
 
             //go to accounts page > test harness page
             actionsPage = mainNavigationBar.clickActions();
@@ -240,7 +237,7 @@ public class SmokeTestsExcel {
             actionsPage = createTestsData.createTestOrganisation(ar);
 
             boolean createdSuccessfully = actionsPage.isInActionsPage();
-            if(createdSuccessfully){
+            if (createdSuccessfully) {
                 System.out.println("Created a new account : " + ar.organisationName);
             }
 
