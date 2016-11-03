@@ -8,6 +8,7 @@ import com.mhra.mdcm.devices.appian.pageobjects.external.PortalPage;
 import com.mhra.mdcm.devices.appian.session.ScenarioSession;
 import com.mhra.mdcm.devices.appian.utils.others.NetworkUtils;
 
+import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -109,7 +110,7 @@ public class CommonSteps {
             }
         }else{
             //WaitUtils.setImplicitWaits(driver);
-            //PageUtils.setBrowserZoom(driver, currentBrowser);
+            PageUtils.setBrowserZoom(driver, currentBrowser);
         }
     }
 
