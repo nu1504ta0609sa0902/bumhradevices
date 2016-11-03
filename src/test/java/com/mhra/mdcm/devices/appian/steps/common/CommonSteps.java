@@ -6,7 +6,7 @@ import com.mhra.mdcm.devices.appian.pageobjects.business.*;
 import com.mhra.mdcm.devices.appian.pageobjects.business.sections.*;
 import com.mhra.mdcm.devices.appian.pageobjects.external.PortalPage;
 import com.mhra.mdcm.devices.appian.session.ScenarioSession;
-import com.mhra.mdcm.devices.appian.utils.others.NetworkUtils;
+import com.mhra.mdcm.devices.appian.utils.network.NetworkUtils;
 
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import org.openqa.selenium.WebDriver;

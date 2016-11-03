@@ -1,4 +1,4 @@
-package com.mhra.mdcm.devices.appian.utils.others;
+package com.mhra.mdcm.devices.appian.utils.network;
 
 import org.slf4j.Logger;
 

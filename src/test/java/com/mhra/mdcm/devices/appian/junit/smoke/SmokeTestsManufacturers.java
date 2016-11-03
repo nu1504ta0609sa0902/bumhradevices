@@ -1,6 +1,5 @@
 package com.mhra.mdcm.devices.appian.junit.smoke;
 
-import com.mhra.mdcm.devices.appian.domains.AccountRequest;
 import com.mhra.mdcm.devices.appian.domains.junit.User;
 import com.mhra.mdcm.devices.appian.pageobjects.LoginPage;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
@@ -10,7 +9,7 @@ import com.mhra.mdcm.devices.appian.pageobjects.external.PortalPage;
 import com.mhra.mdcm.devices.appian.utils.datadriven.ExcelDataSheet;
 import com.mhra.mdcm.devices.appian.utils.datadriven.JUnitUtils;
 import com.mhra.mdcm.devices.appian.utils.driver.BrowserConfig;
-import com.mhra.mdcm.devices.appian.utils.others.NetworkUtils;
+import com.mhra.mdcm.devices.appian.utils.network.NetworkUtils;
 import org.hamcrest.Matchers;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -26,7 +25,6 @@ import java.util.Collection;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
 /**

@@ -10,7 +10,7 @@ import com.mhra.mdcm.devices.appian.pageobjects.external.PortalPage;
 import com.mhra.mdcm.devices.appian.utils.datadriven.ExcelDataSheet;
 import com.mhra.mdcm.devices.appian.utils.datadriven.JUnitUtils;
 import com.mhra.mdcm.devices.appian.utils.driver.BrowserConfig;
-import com.mhra.mdcm.devices.appian.utils.others.NetworkUtils;
+import com.mhra.mdcm.devices.appian.utils.network.NetworkUtils;
 import org.hamcrest.Matchers;
 import org.junit.AfterClass;
 import org.junit.Assert;
