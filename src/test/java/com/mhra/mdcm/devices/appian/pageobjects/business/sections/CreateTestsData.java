@@ -23,25 +23,27 @@ import java.util.List;
 public class CreateTestsData extends _Page {
 
     //Organisation details
-    @FindBy(xpath = ".//label[.='Organisation Name']//following::input[1]")
+    @FindBy(xpath = ".//label[.='Organisation name']//following::input[1]")
     WebElement orgName;
-    @FindBy(xpath = ".//label[.='Address line 1']//following::input[1]")
+    @FindBy(xpath = ".//label[contains(text(),'Address line 1')]//following::input[1]")
     WebElement addressLine1;
-    @FindBy(xpath = ".//label[.='Address line 2']//following::input[1]")
+    @FindBy(xpath = ".//label[contains(text(),'Address line 2')]//following::input[1]")
     WebElement addressLine2;
-    @FindBy(xpath = ".//label[.='Town/City']//following::input[1]")
+    @FindBy(xpath = ".//label[contains(text(),'City')]//following::input[1]")
     WebElement townCity;
-    @FindBy(xpath = ".//label[.='Postcode']//following::input[1]")
+    @FindBy(xpath = ".//label[contains(text(),'Postcode')]//following::input[1]")
     WebElement postCode;
-    @FindBy(xpath = ".//span[.='Country']//following::select[1]")
+    //@FindBy(xpath = ".//span[contains(text(),'Country')]//following::select[1]")
+    //WebElement country;
+    @FindBy(xpath = ".//span[contains(text(),'Country')]//following::input[1]")
     WebElement country;
-    @FindBy(xpath = ".//label[.='Telephone']//following::input[1]")
+    @FindBy(xpath = ".//label[contains(text(),'Telephone')]//following::input[1]")
     WebElement telephone;
-    @FindBy(xpath = ".//label[.='Fax']//following::input[1]")
+    @FindBy(xpath = ".//label[contains(text(),'Fax')]//following::input[1]")
     WebElement fax;
-    @FindBy(xpath = ".//label[.='Website']//following::input[1]")
+    @FindBy(xpath = ".//label[contains(text(),'Website')]//following::input[1]")
     WebElement website;
-    @FindBy(xpath = ".//span[.='Address type']//following::input[1]")
+    @FindBy(xpath = ".//span[contains(text(),'Address type')]//following::input[1]")
     WebElement addressType;
 
     //Organisation Type
@@ -116,8 +118,8 @@ public class CreateTestsData extends _Page {
         addressLine2.sendKeys(ar.address2);
         townCity.sendKeys(ar.townCity);
         postCode.sendKeys(ar.postCode);
-        //country.sendKeys(ar.country);
-        PageUtils.selectByText(country, ar.country);
+        country.sendKeys(ar.country);
+        //PageUtils.selectByText(country, ar.country);
         telephone.sendKeys(ar.telephone);
         fax.sendKeys(ar.fax);
         website.sendKeys(ar.website);
