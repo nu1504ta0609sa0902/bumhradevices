@@ -28,7 +28,7 @@ public class ActionsPage extends _Page {
 
     public boolean isInActionsPage() {
         try {
-            WaitUtils.waitForElementToBeClickable(driver, linkCreateTestAccount, TIMEOUT_SMALL, false);
+            WaitUtils.waitForElementToBeClickable(driver, linkCreateTestAccount, TIMEOUT_5_SECOND, false);
             return true;
         } catch (Exception e) {
             return false;
@@ -36,8 +36,8 @@ public class ActionsPage extends _Page {
     }
 
     public CreateTestsData gotoTestsHarnessPage() {
-        WaitUtils.waitForElementToBePartOfDOM(driver, By.partialLinkText("Create Test Account"), TIMEOUT_MEDIUM, false);
-        WaitUtils.waitForElementToBeClickable(driver, linkCreateTestAccount, TIMEOUT_MEDIUM, false);
+        WaitUtils.waitForElementToBePartOfDOM(driver, By.partialLinkText("Create Test Account"), TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, linkCreateTestAccount, TIMEOUT_10_SECOND, false);
         //linkCreateTestAccount.click();
         PageUtils.singleClick(driver, linkCreateTestAccount);
         return new CreateTestsData(driver);

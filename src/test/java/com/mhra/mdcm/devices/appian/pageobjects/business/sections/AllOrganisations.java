@@ -2,7 +2,6 @@ package com.mhra.mdcm.devices.appian.pageobjects.business.sections;
 
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
-import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -109,7 +108,7 @@ public class AllOrganisations extends _Page {
      * @return
      */
     public int getNumberOfMatches() {
-        WaitUtils.waitForPageToLoad(driver, By.xpath("WaitForPageToLoad") , TIMEOUT_SMALL, false);
+        WaitUtils.waitForPageToLoad(driver, By.xpath("WaitForPageToLoad") , TIMEOUT_5_SECOND, false);
         WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText("Manufacturer") , 10, false);
         int size = listOfAllOrganisations.size();
         size = (size-1) / 2;

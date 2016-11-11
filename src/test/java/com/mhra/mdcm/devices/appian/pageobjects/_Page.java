@@ -14,12 +14,13 @@ import org.springframework.test.context.ContextConfiguration;
 public class _Page {
 
     public static final boolean USE_DEBUG_TIME = true;
-    public static final int TIMEOUT_VERY_SMALL = 1;
-    public static final int TIMEOUT_SMALL = 5;
-    public static final int TIMEOUT_MEDIUM = 15;
-    public static final int TIMEOUT_HIGH = 30;
-    public static final int TIMEOUT_VERY_HIGH = 60;
-    public static final int TIMEOUT_DEFAULT = TIMEOUT_HIGH;
+    public static final int TIMEOUT_1_SECOND = 1;
+    public static final int TIMEOUT_5_SECOND = 5;
+    public static final int TIMEOUT_10_SECOND = 10;
+    public static final int TIMEOUT_15_SECOND = 15;
+    public static final int TIMEOUT_30_SECOND = 30;
+    public static final int TIMEOUT_60_SECOND = 60;
+    public static final int TIMEOUT_DEFAULT = TIMEOUT_15_SECOND;
 
     public WebDriver driver;
     public final Logger log = LoggerFactory.getLogger(_Page.class);

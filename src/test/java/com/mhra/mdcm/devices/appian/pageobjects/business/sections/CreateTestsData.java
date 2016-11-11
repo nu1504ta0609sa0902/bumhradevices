@@ -110,8 +110,8 @@ public class CreateTestsData extends _Page {
      * @return
      */
     public ActionsPage createTestOrganisation(AccountRequest ar) throws Exception {
-        WaitUtils.isPageLoaded(driver, By.xpath(".//label[.='Organisation name']//following::input[1]"), TIMEOUT_VERY_SMALL, 2) ;
-        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_SMALL, false);
+        WaitUtils.isPageLoaded(driver, By.xpath(".//label[.='Organisation name']//following::input[1]"), TIMEOUT_1_SECOND, 2) ;
+        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_5_SECOND, false);
         orgName.sendKeys(ar.organisationName);
 
         //Some weired bug where input boxes looses value on focus
@@ -144,13 +144,13 @@ public class CreateTestsData extends _Page {
         if(ar.organisationType.equals("Limited Company")){
             PageUtils.doubleClick(driver, limitedCompany);
             PageFactory.initElements(driver, this);
-            WaitUtils.waitForElementToBeClickable(driver, companyRegistrationNumber, TIMEOUT_SMALL, false);
+            WaitUtils.waitForElementToBeClickable(driver, companyRegistrationNumber, TIMEOUT_5_SECOND, false);
             vatRegistrationNumber.sendKeys(ar.vatRegistrationNumber);
             companyRegistrationNumber.sendKeys(ar.companyRegistrationNumber);
         }else if(ar.organisationType.equals("Business Partnership")){
             PageUtils.doubleClick(driver, businessPartnership);
             PageFactory.initElements(driver, this);
-            WaitUtils.waitForElementToBeClickable(driver, vatRegistrationNumber, TIMEOUT_SMALL, false);
+            WaitUtils.waitForElementToBeClickable(driver, vatRegistrationNumber, TIMEOUT_5_SECOND, false);
             vatRegistrationNumber.sendKeys(ar.vatRegistrationNumber);
         }else if(ar.organisationType.equals("Unincorporated Association")){
             PageUtils.doubleClick(driver, unincorporatedAssociation);

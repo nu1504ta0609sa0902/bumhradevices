@@ -104,8 +104,8 @@ public class Accounts extends _Page {
 
     public boolean numberOfMatchesShouldBe(int minCount) {
         try{
-            WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_SMALL, false);
-            WaitUtils.waitForElementToBeVisible(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_SMALL, false);
+            WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_5_SECOND, false);
+            WaitUtils.waitForElementToBeVisible(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_5_SECOND, false);
             int actualCount = (listOfAccounts.size()-1)/2;
             return actualCount >= minCount;
         }catch (Exception e){
@@ -118,8 +118,8 @@ public class Accounts extends _Page {
      * @return
      */
     public String getARandomAccount() {
-        WaitUtils.isPageLoaded(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_SMALL, 2);
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_SMALL, false);
+        WaitUtils.isPageLoaded(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_5_SECOND, 2);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_5_SECOND, false);
 
         int position = RandomDataUtils.getSimpleRandomNumberBetween(1, listOfAccounts.size() - 1, false);
         WebElement accountLinks = listOfAccounts.get(position);
@@ -163,7 +163,7 @@ public class Accounts extends _Page {
     }
 
     public boolean verifyUpdatesDisplayedOnPage(String keyValuePairToUpdate) {
-        WaitUtils.waitForElementToBeVisible(driver, jobTitleTxt, TIMEOUT_SMALL, false);
+        WaitUtils.waitForElementToBeVisible(driver, jobTitleTxt, TIMEOUT_5_SECOND, false);
         boolean allChangesDisplayed = true;
 
         //Check for the following
@@ -184,7 +184,7 @@ public class Accounts extends _Page {
     public boolean isOrderedAtoZ() {
         int getFirstX = 20;
         List<String> listOfOrderedOrganisations = new ArrayList<>();
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_SMALL, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_5_SECOND, false);
 
         //Get list of organisation names
         int position = 0;   //Only even ones are organisation name

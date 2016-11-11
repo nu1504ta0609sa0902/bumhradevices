@@ -1,14 +1,10 @@
 package com.mhra.mdcm.devices.appian.pageobjects;
 
 
-import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.business.*;
 import com.mhra.mdcm.devices.appian.pageobjects.external.PortalPage;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
-import cucumber.api.java.en.Then;
-import org.hamcrest.Matchers;
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -69,7 +65,7 @@ public class MainNavigationBar extends _Page {
     }
 
     public RecordsPage clickRecords() {
-        WaitUtils.isPageLoaded(driver, By.partialLinkText("Records"), TIMEOUT_VERY_SMALL, 3);
+        WaitUtils.isPageLoaded(driver, By.partialLinkText("Records"), TIMEOUT_1_SECOND, 3);
         WaitUtils.waitForElementToBeClickable(driver, records, TIMEOUT_DEFAULT, false);
         //records.click();
         PageUtils.doubleClick(driver, records);
@@ -97,7 +93,7 @@ public class MainNavigationBar extends _Page {
     }
 
     public boolean isCorrectPage(String expectedHeading) {
-        WaitUtils.isPageLoaded(driver, By.partialLinkText(expectedHeading),TIMEOUT_SMALL, 2);
+        WaitUtils.isPageLoaded(driver, By.partialLinkText(expectedHeading), TIMEOUT_5_SECOND, 2);
         String title = getTitle();
         boolean isCorrectPage = title.contains(expectedHeading);
         return isCorrectPage;
