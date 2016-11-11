@@ -19,7 +19,7 @@ import static org.hamcrest.Matchers.is;
 public class TasksPageSteps extends CommonSteps {
 
     @When("^I go to tasks page$")
-    public void iGoToRecordsPage() throws Throwable {
+    public void iGoToTasksPage() throws Throwable {
         mainNavigationBar = new MainNavigationBar(driver);
         tasksPage = mainNavigationBar.clickTasks();
     }
@@ -82,4 +82,53 @@ public class TasksPageSteps extends CommonSteps {
     }
 
 
+
+    @When("^I go to WIP tasks page$")
+    public void iGoToWIPTaksPage() throws Throwable {
+        mainNavigationBar = new MainNavigationBar(driver);
+        tasksPage = mainNavigationBar.clickTasks();
+        taskSection = tasksPage.gotoWIPTasksPage();
+    }
+
+
+    @Then("^I should see a new task for the new account in WIP page$")
+    public void i_should_see_a_new_task_for_the_new_account_in_WIP_page() throws Throwable {
+        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
+        orgName = "ManufacturerTest1111904764";
+        //Verify new taskSection generated and its the correct one
+        boolean contains = false;
+//        boolean isCorrectTask = false;
+//        int count = 0;
+//        do {
+//            mainNavigationBar = new MainNavigationBar(driver);
+//            tasksPage = mainNavigationBar.clickTasks();
+//            taskSection = tasksPage.gotoWIPTasksPage();
+//
+//            //Sort by submitted, at the moment sorting doesnt work as expected
+//            taskSection = taskSection.sortBy("Submitted", 2);
+//
+//            //Click on link number X
+//            taskSection = taskSection.clickOnTaskName(orgName);
+//            isCorrectTask = taskSection.isCorrectTask(orgName);
+//            if (isCorrectTask) {
+//                contains = true;
+//                scenarioSession.putData(SessionKey.position, count);
+//            } else {
+//                count++;
+//            }
+//        } while (!contains && count <= 5);
+        mainNavigationBar = new MainNavigationBar(driver);
+        tasksPage = mainNavigationBar.clickTasks();
+        taskSection = tasksPage.gotoWIPTasksPage();
+
+        //Sort by submitted, at the moment sorting doesnt work as expected
+        taskSection = taskSection.sortBy("Submitted", 2);
+
+        //Click on link number X
+        taskSection = taskSection.clickOnTaskName(orgName);
+        boolean isCorrectTask = taskSection.isCorrectTask(orgName);
+
+        assertThat("Task not found for organisation : " + orgName, isCorrectTask, is(equalTo(true)));
+
+    }
 }

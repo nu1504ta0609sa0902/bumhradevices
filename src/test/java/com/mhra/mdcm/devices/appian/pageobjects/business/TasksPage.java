@@ -22,6 +22,9 @@ public class TasksPage extends _Page {
     @FindBy(partialLinkText = "New Account Request")
     List<WebElement> listOfNewAccount;
 
+    @FindBy(partialLinkText = "Work In Progress")
+    WebElement workInProgress;
+
     @Autowired
     public TasksPage(WebDriver driver) {
         super(driver);
@@ -33,4 +36,11 @@ public class TasksPage extends _Page {
         taskLink.click();
         return new TaskSection(driver);
     }
+
+    public TaskSection gotoWIPTasksPage() {
+        WaitUtils.waitForElementToBeClickable(driver, workInProgress, TIMEOUT_DEFAULT, false);
+        workInProgress.click();
+        return new TaskSection(driver);
+    }
+
 }

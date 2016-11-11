@@ -39,8 +39,8 @@ public class AccountRequest {
     public String email;
 
     //Organisation Role
-    public String autorisedRep;
-    public String manufacturer;
+    //public String autorisedRep;
+    //public String manufacturer;
     public boolean isManufacturer;
 
     //Services of interest
@@ -59,7 +59,7 @@ public class AccountRequest {
         organisationName = RandomDataUtils.getRandomTestName("OrganisationTest").replace("_", "");
 
         //Organisation Details
-        address1 = RandomDataUtils.getRandomNumberBetween(1, 200) + " " + RandomDataUtils.generateTestNameStartingWith("Test", 20) + " GrowLand Avenue";
+        address1 = RandomDataUtils.getRandomNumberBetween(1, 200) + " " + RandomDataUtils.generateTestNameStartingWith("Test", 5) + " GrowLand Avenue";
         if(address1.equals("")){
             address1 = "111 This is weired St";
         }
@@ -79,15 +79,15 @@ public class AccountRequest {
 
         //Contact Person Details
         title = "Prof.";
-        firstName = RandomDataUtils.generateTestNameStartingWith("Noor", 5); //RandomDataUtils.getRandomTestName("Noor").replace("_", "");
-        lastName = RandomDataUtils.generateTestNameStartingWith("Uddin", 5); //RandomDataUtils.getRandomTestName("Uddin").replace("_", "");
+        firstName = RandomDataUtils.generateTestNameStartingWith("Noor", 2); //RandomDataUtils.getRandomTestName("Noor").replace("_", "");
+        lastName = RandomDataUtils.generateTestNameStartingWith("Uddin", 2); //RandomDataUtils.getRandomTestName("Uddin").replace("_", "");
         jobTitle = getRandomJobTitle();
         phoneNumber = "01351" + (int) RandomDataUtils.getRandomDigits(7);;
         email = "mhra.uat@gmail.com";
 
         //Organisation Role
-        autorisedRep = "false";
-        manufacturer = "true";
+        //autorisedRep = "false";
+        //manufacturer = "true";
         isManufacturer = true;
 
         //Services of interest
@@ -106,6 +106,16 @@ public class AccountRequest {
         listOfTitles.add("Head of Testing");
         listOfTitles.add("Automated Tester");
         listOfTitles.add("Chief");
+        listOfTitles.add("Superman");
+        listOfTitles.add("Batman");
+        listOfTitles.add("Bill Gates");
+        listOfTitles.add("Darth Vadar");
+        listOfTitles.add("Master Of Universe");
+        listOfTitles.add("Bill And Ted");
+        listOfTitles.add("SHIELD");
+        listOfTitles.add("Demolition Man");
+        listOfTitles.add("Ninja");
+        listOfTitles.add("Marines");
 
         String index = RandomDataUtils.getSimpleRandomNumberBetween(0, listOfTitles.size() - 1);
         String title = listOfTitles.get(Integer.parseInt(index));
@@ -115,5 +125,15 @@ public class AccountRequest {
 
     public static void main(String[] args){
         AccountRequest ar = new AccountRequest();
+    }
+
+    public void updateName() {
+        if(isManufacturer){
+            organisationName = organisationName.replace("OrganisationTest", "ManufacturerTest");
+            website = website.replace("organisationtest", "ManufacturerTest");
+        }else{
+            organisationName = organisationName.replace("OrganisationTest", "AuthorisedRepTest");
+            website = website.replace("organisationtest", "AuthorisedRepTest");
+        }
     }
 }

@@ -28,7 +28,7 @@ public class ActionsPage extends _Page {
 
     public boolean isInActionsPage() {
         try {
-            WaitUtils.waitForElementToBeClickable(driver, linkCreateTestAccount, TIMEOUT_DEFAULT, false);
+            WaitUtils.waitForElementToBeClickable(driver, linkCreateTestAccount, TIMEOUT_SMALL, false);
             return true;
         } catch (Exception e) {
             return false;

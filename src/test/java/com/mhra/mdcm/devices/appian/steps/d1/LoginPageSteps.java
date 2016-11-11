@@ -28,6 +28,7 @@ public class LoginPageSteps extends CommonSteps {
             PageUtils.acceptAlert(driver, "accept");
             try {
                 mainNavigationBar = loginPage.reloginUsing(username);
+                scenarioSession.putData(SessionKey.loggedInUser, username);
             }catch (Exception e2){}
         }
     }

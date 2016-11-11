@@ -2,11 +2,14 @@ package com.mhra.mdcm.devices.appian.utils.selenium.page;
 
 
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
@@ -87,10 +90,10 @@ public class PageUtils {
     }
 
     public static void uploadDocument(WebElement element, String fileName){
-        WaitUtils.nativeWait(2);
+        WaitUtils.nativeWaitInSeconds(2);
         element.sendKeys(fileName);
         //We will have to wait for uploading to finish
-        WaitUtils.nativeWait(6);
+        WaitUtils.nativeWaitInSeconds(6);
     }
 
     public static WebElement getRandomNotification(List<WebElement> listOfECIDLinks) {
@@ -150,5 +153,26 @@ public class PageUtils {
 
     public static boolean isCorrectPage(WebDriver driver, String ecid) {
         return driver.getTitle().contains(ecid);
+    }
+
+    public static void selectFromAutosuggests(WebDriver driver, WebElement element, String selectOption) {
+        //You will need to wait for auto suggested element to appear and than select accordingly
+        new Actions(driver).moveToElement(element).perform();
+        boolean completed = true;
+        int count = 0;
+        do {
+            try {
+                count++;
+                element.getText();
+                element.sendKeys(selectOption);
+                new WebDriverWait(driver, 2).until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".item")));
+                element.getText();
+                element.sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
+                completed = true;
+            }catch (Exception e){
+                completed = false;
+                WaitUtils.nativeWaitInSeconds(1);
+            }
+        }while (!completed && count <= 3);
     }
 }

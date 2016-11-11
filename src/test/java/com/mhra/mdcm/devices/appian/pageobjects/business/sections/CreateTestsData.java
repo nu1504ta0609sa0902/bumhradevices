@@ -3,21 +3,20 @@ package com.mhra.mdcm.devices.appian.pageobjects.business.sections;
 import com.mhra.mdcm.devices.appian.domains.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.business.ActionsPage;
+import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 /**
- * Created by TPD_Auto 
+ * Created by TPD_Auto
  */
 @Component
 public class CreateTestsData extends _Page {
@@ -35,7 +34,7 @@ public class CreateTestsData extends _Page {
     WebElement postCode;
     //@FindBy(xpath = ".//span[contains(text(),'Country')]//following::select[1]")
     //WebElement country;
-    @FindBy(xpath = ".//span[contains(text(),'Country')]//following::input[1]")
+    @FindBy(xpath = ".//label[contains(text(),'Country')]//following::input[1]")
     WebElement country;
     @FindBy(xpath = ".//label[contains(text(),'Telephone')]//following::input[1]")
     WebElement telephone;
@@ -47,47 +46,50 @@ public class CreateTestsData extends _Page {
     WebElement addressType;
 
     //Organisation Type
-    @FindBy(xpath = ".//span[.='Selected Type']//following::input[1]")
+    final String selectedType = "Selected type";
+    @FindBy(xpath = ".//span[.='" + selectedType + "']//following::input[1]")
     WebElement limitedCompany;
-    @FindBy(xpath = ".//span[.='Selected Type']//following::input[2]")
+    @FindBy(xpath = ".//span[.='" + selectedType + "']//following::input[2]")
     WebElement businessPartnership;
-    @FindBy(xpath = ".//span[.='Selected Type']//following::input[3]")
+    @FindBy(xpath = ".//span[.='" + selectedType + "']//following::input[3]")
     WebElement unincorporatedAssociation;
-    @FindBy(xpath = ".//span[.='Selected Type']//following::input[4]")
+    @FindBy(xpath = ".//span[.='" + selectedType + "']//following::input[4]")
     WebElement other;
-    @FindBy(xpath = ".//span[.='Selected Type']//following::input[5]")
+    @FindBy(xpath = ".//span[.='" + selectedType + "']//following::input[5]")
     WebElement vatRegistrationNumber;
-    @FindBy(xpath = ".//span[.='Selected Type']//following::input[6]")
+    @FindBy(xpath = ".//span[.='" + selectedType + "']//following::input[6]")
     WebElement companyRegistrationNumber;
 
     //Contact Person Details
-    @FindBy(xpath = ".//span[.='Title']//following::select[1]")
+    @FindBy(xpath = ".//span[contains(text(),'Title')]//following::select[1]")
     WebElement title;
-    @FindBy(xpath = ".//label[.='First Name']//following::input[1]")
+    @FindBy(xpath = ".//label[.='First name']//following::input[1]")
     WebElement firstName;
-    @FindBy(xpath = ".//label[.='Last Name']//following::input[1]")
+    @FindBy(xpath = ".//label[.='Last name']//following::input[1]")
     WebElement lastName;
-    @FindBy(xpath = ".//label[.='Job Title']//following::input[1]")
+    @FindBy(xpath = ".//label[contains(text(),'Job title')]//following::input[1]")
     WebElement jobTitle;
-    @FindBy(xpath = ".//label[.='Phone Number']//following::input[1]")
+    @FindBy(xpath = ".//h3[contains(text(),'Person Details')]//following::input[4]")
     WebElement phoneNumber;
-    @FindBy(xpath = ".//label[.='Email Address']//following::input[1]")
+    @FindBy(xpath = ".//label[.='Email']//following::input[1]")
     WebElement emailAddress;
 
     //Organisational Role
-    @FindBy(xpath = ".//span[.='Selected Roles']//following::input[1]")
+    final String selectedRoles = "Selected roles";
+    @FindBy(xpath = ".//span[.='" + selectedRoles + "']//following::input[1]")
     WebElement authorisedRep;
-    @FindBy(xpath = ".//span[.='Selected Roles']//following::input[2]")
+    @FindBy(xpath = ".//span[.='" + selectedRoles + "']//following::input[2]")
     WebElement manufacturer;
 
     //Services of Interests
-    @FindBy(xpath = ".//span[.='Selected Services']//following::input[1]")
+    final String selectedServices = "Selected services";
+    @FindBy(xpath = ".//span[.='" + selectedServices + "']//following::input[1]")
     WebElement deviceReg;
-    @FindBy(xpath = ".//span[.='Selected Services']//following::input[2]")
+    @FindBy(xpath = ".//span[.='" + selectedServices + "']//following::input[2]")
     WebElement cfsCertification;
-    @FindBy(xpath = ".//span[.='Selected Services']//following::input[3]")
+    @FindBy(xpath = ".//span[.='" + selectedServices + "']//following::input[3]")
     WebElement clinicalInvestigation;
-    @FindBy(xpath = ".//span[.='Selected Services']//following::input[4]")
+    @FindBy(xpath = ".//span[.='" + selectedServices + "']//following::input[4]")
     WebElement aitsAdverseIncidient;
 
     //Submit and cancel
@@ -107,9 +109,13 @@ public class CreateTestsData extends _Page {
      * @param ar
      * @return
      */
-    public ActionsPage createTestOrganisation(AccountRequest ar) {
-        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_DEFAULT, false);
+    public ActionsPage createTestOrganisation(AccountRequest ar) throws Exception {
+        WaitUtils.isPageLoaded(driver, By.xpath(".//label[.='Organisation name']//following::input[1]"), TIMEOUT_VERY_SMALL, 2) ;
+        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_SMALL, false);
         orgName.sendKeys(ar.organisationName);
+
+        //Some weired bug where input boxes looses value on focus
+
 
         //Organisation details
         WaitUtils.waitForElementToBeClickable(driver, addressLine1, TIMEOUT_DEFAULT, false);
@@ -118,8 +124,6 @@ public class CreateTestsData extends _Page {
         addressLine2.sendKeys(ar.address2);
         townCity.sendKeys(ar.townCity);
         postCode.sendKeys(ar.postCode);
-        country.sendKeys(ar.country);
-        //PageUtils.selectByText(country, ar.country);
         telephone.sendKeys(ar.telephone);
         fax.sendKeys(ar.fax);
         website.sendKeys(ar.website);
@@ -127,17 +131,26 @@ public class CreateTestsData extends _Page {
             PageUtils.doubleClick(driver, addressType);
         }
 
+        //Selecting country has changed to auto suggest
+        boolean exception = false;
+        try {
+            orgName.click();
+            selectCountryFromAutoSuggests(".gwt-SuggestBox", ar.country, true);
+        }catch (Exception e){
+            exception = true;
+        }
+
         //Organisation Type
         if(ar.organisationType.equals("Limited Company")){
             PageUtils.doubleClick(driver, limitedCompany);
             PageFactory.initElements(driver, this);
-            WaitUtils.waitForElementToBeClickable(driver, companyRegistrationNumber, TIMEOUT_DEFAULT, false);
+            WaitUtils.waitForElementToBeClickable(driver, companyRegistrationNumber, TIMEOUT_SMALL, false);
             vatRegistrationNumber.sendKeys(ar.vatRegistrationNumber);
             companyRegistrationNumber.sendKeys(ar.companyRegistrationNumber);
         }else if(ar.organisationType.equals("Business Partnership")){
             PageUtils.doubleClick(driver, businessPartnership);
             PageFactory.initElements(driver, this);
-            WaitUtils.waitForElementToBeClickable(driver, vatRegistrationNumber, TIMEOUT_DEFAULT, false);
+            WaitUtils.waitForElementToBeClickable(driver, vatRegistrationNumber, TIMEOUT_SMALL, false);
             vatRegistrationNumber.sendKeys(ar.vatRegistrationNumber);
         }else if(ar.organisationType.equals("Unincorporated Association")){
             PageUtils.doubleClick(driver, unincorporatedAssociation);
@@ -145,6 +158,12 @@ public class CreateTestsData extends _Page {
         }else if(ar.organisationType.equals("Other")){
             PageUtils.doubleClick(driver, other);
             PageFactory.initElements(driver, this);
+        }
+
+        //Try country again
+        if(exception) {
+            orgName.click();
+            selectCountryFromAutoSuggests(".gwt-SuggestBox", ar.country, false);
         }
 
         //Contact Person Details
@@ -182,6 +201,42 @@ public class CreateTestsData extends _Page {
         //Submit form : remember to verify
         submit.click();
 
+        return new ActionsPage(driver);
+    }
+
+    private void selectCountryFromAutoSuggests(String elementPath, String countryName, boolean throwException) throws Exception {
+        boolean completed = true;
+        int count = 0;
+        do {
+            try {
+                count++;    //It will go forever without this
+                WebElement country = driver.findElements(By.cssSelector(elementPath)).get(0);
+                new Actions(driver).moveToElement(country).perform();
+                country.clear();
+                country.sendKeys(RandomDataUtils.getRandomEUCountryName());
+                new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(By.cssSelector(".item")));
+                country.clear();
+
+                //Enter the country I am interested in
+                country.sendKeys(countryName, Keys.ENTER);
+                new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(By.cssSelector(".item")));
+                country.sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
+
+                completed = true;
+            } catch (Exception e) {
+                completed = false;
+                WaitUtils.nativeWaitInSeconds(1);
+                //PageFactory.initElements(driver, this);
+            }
+        } while (!completed && count < 1);
+
+        if(!completed && throwException){
+            throw new Exception("Country name not selected");
+        }
+    }
+
+    public ActionsPage clickCancel() {
+        PageUtils.doubleClick(driver, cancel);
         return new ActionsPage(driver);
     }
 }

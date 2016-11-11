@@ -13,6 +13,10 @@ import org.springframework.stereotype.Component;
 
 /**
  * Created by TPD_Auto
+ *
+ * TaskSection and WorkInProgress section
+ *
+ * WorkInProgress section will replace TaskSection
  */
 @Component
 public class TaskSection extends _Page {
@@ -29,7 +33,7 @@ public class TaskSection extends _Page {
     //Approve reject taskSection
     @FindBy(xpath = ".//button[.='Approve']")
     WebElement approve;
-    @FindBy(xpath = ".//button[.='Reject']")
+    @FindBy(xpath = ".//button[.='Approve']//following::button[1]") //Stupid to have 2 buttons called Reject on same page
     WebElement reject;
 
     //Rejection reason
@@ -40,6 +44,9 @@ public class TaskSection extends _Page {
     @FindBy(xpath = ".//button[.='Submit']")
     WebElement submitBtn;
 
+    @FindBy(partialLinkText = "Submitted")
+    WebElement submitted;
+
 
     @Autowired
     public TaskSection(WebDriver driver) {
@@ -47,7 +54,7 @@ public class TaskSection extends _Page {
     }
 
     public boolean isCorrectTask(String orgName) {
-        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText("Reassign Task"), TIMEOUT_MEDIUM, false);
+        WaitUtils.isPageLoaded(driver, By.partialLinkText("Reassign Task"), TIMEOUT_VERY_SMALL, 2);
         WaitUtils.waitForElementToBeVisible(driver, By.xpath(".//h4"), TIMEOUT_MEDIUM, false);
         boolean contains = taskHeading.getText().contains(orgName);
         return contains;
@@ -67,7 +74,7 @@ public class TaskSection extends _Page {
     }
 
     public TasksPage approveTask() {
-        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText("Reassign Task"), 5, false);
+        WaitUtils.isPageLoaded(driver, By.partialLinkText("Reassign Task"), TIMEOUT_VERY_SMALL, 2);
         WaitUtils.waitForElementToBeClickable(driver, approve, TIMEOUT_SMALL, false);
         //approve.click();
         PageUtils.doubleClick(driver, approve);
@@ -81,7 +88,7 @@ public class TaskSection extends _Page {
      * @return
      */
     public TaskSection rejectTask() {
-        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText("Reassign Task"), 5, false);
+        WaitUtils.isPageLoaded(driver, By.partialLinkText("Reassign Task"), TIMEOUT_VERY_SMALL, 2);
         WaitUtils.waitForElementToBeClickable(driver, reject, TIMEOUT_SMALL, false);
         //approve.click();
         PageUtils.doubleClick(driver, reject);
@@ -101,4 +108,23 @@ public class TaskSection extends _Page {
         return new TasksPage(driver);
     }
 
+
+    public TaskSection sortBy(String sortBy, int numberOfTimesToClick) {
+        WaitUtils.waitForElementToBeClickable(driver, submitted, TIMEOUT_DEFAULT, false);
+        if(sortBy.equals("Submitted")){
+            for(int c = 0; c < numberOfTimesToClick; c++) {
+                submitted.click();
+                WaitUtils.isPageLoaded(driver, By.partialLinkText("Doesnotexists"), TIMEOUT_VERY_SMALL, 3);
+            }
+        }
+
+        return new TaskSection(driver);
+    }
+
+    public TaskSection clickOnTaskName(String orgName) {
+        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(orgName), TIMEOUT_SMALL, false);
+        WebElement name = driver.findElement(By.partialLinkText(orgName));
+        PageUtils.doubleClick(driver, name);
+        return new TaskSection(driver);
+    }
 }

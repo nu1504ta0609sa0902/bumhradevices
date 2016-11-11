@@ -11,7 +11,20 @@ Feature: As a business user
       | columns | <columns> |
     Examples:
       | user         | link     | pageHeading | columns                                                                                                          |
-      | businessAuto | Accounts | Accounts    | Organisation Name,Account Number,Organisation Role,Contact Name,Organisation Address,Organisation Country,Status |
+      | businessAuto | Accounts | Accounts    | Organisation name,Account number,Organisation role,Contact name,Organisation address,Organisation country,Status |
+#      | businessAuto | Accounts | Accounts    | Organisation Name,Account Number,Organisation Role,Contact Name,Organisation Address,Organisation Country,Status |
+
+  @mdcm_126 @regression
+  Scenario Outline: As a business user I should be able to view all organisation page
+    Given I am logged into appian as "<user>" user
+    When I go to records page and click on "<link>"
+    Then I should see items and heading "<pageHeading>" for link "<link>"
+    And I should see the following columns for "<link>" page
+      | columns | <columns> |
+    Examples:
+      | user         | link              | pageHeading       | columns                                       |
+      | businessAuto | All Organisations | All Organisations | Name,Role,Contact name,Address,Country,Status |
+#      | businessAuto | All Organisations | All Organisations | Name,Account Number,Role,Contact Name,Address,Country,Status |
 
   @mdcm-126
   Scenario Outline: By default list of accounts should be displayed in a to z order
@@ -22,4 +35,5 @@ Feature: As a business user
     Examples:
       | user         | link     | pageHeading |
       | businessAuto | Accounts | Accounts    |
+
 

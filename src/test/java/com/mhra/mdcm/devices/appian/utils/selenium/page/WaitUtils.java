@@ -53,7 +53,7 @@ public class WaitUtils {
      *
      * @param tis
      */
-    public static void nativeWait(int tis) {
+    public static void nativeWaitInSeconds(int tis) {
         try {
             Thread.sleep(1000 * tis);
         } catch (InterruptedException e) {

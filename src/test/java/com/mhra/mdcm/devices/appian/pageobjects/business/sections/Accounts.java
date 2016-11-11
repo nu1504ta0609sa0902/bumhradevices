@@ -105,6 +105,7 @@ public class Accounts extends _Page {
     public boolean numberOfMatchesShouldBe(int minCount) {
         try{
             WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_SMALL, false);
+            WaitUtils.waitForElementToBeVisible(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_SMALL, false);
             int actualCount = (listOfAccounts.size()-1)/2;
             return actualCount >= minCount;
         }catch (Exception e){
@@ -191,12 +192,12 @@ public class Accounts extends _Page {
         for(WebElement el: listOfAccounts){
 
             //At the moment only the even ones are organisation names
-            if(position % 2 == 0){
+            if(position!=0 && position % 2 == 1){
                 String orgName = el.getText();
                 listOfOrderedOrganisations.add(orgName);
             }
 
-            if(elementCount == getFirstX){
+            if(elementCount == (getFirstX*2)){  //Every 2nd link is an organisation name
                 break;
             }
 
@@ -204,6 +205,14 @@ public class Accounts extends _Page {
             position++;
         }
 
-        return false;
+        //Check if a-Z
+        String previous = "";
+        for (final String current: listOfOrderedOrganisations) {
+            if (!current.equals("") && current.compareToIgnoreCase(previous) <= 0)
+                return false;
+            previous = current;
+        }
+
+        return true;
     }
 }
