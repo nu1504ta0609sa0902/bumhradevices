@@ -94,9 +94,9 @@ public class TasksPageSteps extends CommonSteps {
     @Then("^I should see a new task for the new account in WIP page$")
     public void i_should_see_a_new_task_for_the_new_account_in_WIP_page() throws Throwable {
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
-        orgName = "ManufacturerTest1111904764";
+        //orgName = "ManufacturerTest1111904764";
         //Verify new taskSection generated and its the correct one
-        boolean contains = false;
+//        boolean contains = false;
 //        boolean isCorrectTask = false;
 //        int count = 0;
 //        do {

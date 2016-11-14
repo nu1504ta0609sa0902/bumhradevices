@@ -16,10 +16,10 @@ Feature: As a business user
     Then I should see at least <count> account matches
     Examples:
       | user         | accountType   | approveReject | count | countryName |
-#      | businessAuto | manufacturer  | approve       | 1     | United Kingdom |
-#      | businessAuto | authorisedRep | approve       | 1     | Netherland     |
-      | businessAuto | manufacturer  | reject        | 1     | Turkey      |
-      | businessAuto | authorisedRep | reject        | 1     | Estonia     |
+      | businessAuto | manufacturer  | approve       | 1     | United Kingdom |
+      | businessAuto | authorisedRep | approve       | 1     | Netherland     |
+      | businessAuto | manufacturer  | reject        | 0     | Turkey      |
+      | businessAuto | authorisedRep | reject        | 0     | Estonia     |
 
 
   @regression @mdcm-10 @mdcm-41

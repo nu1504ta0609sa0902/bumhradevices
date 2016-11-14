@@ -1,0 +1,15 @@
+Automated Issues:
+    TAGS:
+    - @poc
+    - @regression @regressionAll
+    - @wip
+    - @smoke_test
+
+    EPICS:
+    - @mdcm-
+
+    STORIES:
+    - @mdcm-10
+    - @mdcm-126
+    - @mdcm-143 - not done yet
+    - @mdcm-41

@@ -212,12 +212,12 @@ public class CreateTestsData extends _Page {
                 count++;    //It will go forever without this
                 WebElement country = driver.findElements(By.cssSelector(elementPath)).get(0);
                 new Actions(driver).moveToElement(country).perform();
-                country.clear();
-                country.sendKeys(RandomDataUtils.getRandomEUCountryName());
-                new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(By.cssSelector(".item")));
-                country.clear();
+                //country.clear();
+                //country.sendKeys(RandomDataUtils.getRandomEUCountryName());
+                //new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(By.cssSelector(".item")));
 
                 //Enter the country I am interested in
+                country.clear();
                 country.sendKeys(countryName, Keys.ENTER);
                 new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(By.cssSelector(".item")));
                 country.sendKeys(Keys.ARROW_DOWN, Keys.ENTER);

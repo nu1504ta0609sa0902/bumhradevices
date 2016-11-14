@@ -158,11 +158,11 @@ public class RecordsPageSteps extends CommonSteps {
 
     @When("^I should see at least (\\d+) account matches$")
     public void i_should_see_account_matches(int minCount) throws Throwable {
-        boolean countMatched = accounts.numberOfMatchesShouldBe(minCount);
+        boolean atLeast1Match = accounts.numberOfMatchesShouldBe(minCount);
         if(minCount == 0){
-            Assert.assertThat("Expected to see no matches ",countMatched, is(true));
+            Assert.assertThat("Expected to see no matches ",atLeast1Match, is(false));
         }else{
-            Assert.assertThat("Expected to see atleast 1 matches" , countMatched, is(true));
+            Assert.assertThat("Expected to see atleast 1 matches" , atLeast1Match, is(true));
         }
     }
 

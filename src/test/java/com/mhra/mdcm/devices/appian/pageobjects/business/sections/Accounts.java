@@ -103,14 +103,17 @@ public class Accounts extends _Page {
     }
 
     public boolean numberOfMatchesShouldBe(int minCount) {
+        boolean atLeast1MatchFound = true;
         try{
             WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_5_SECOND, false);
             WaitUtils.waitForElementToBeVisible(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_5_SECOND, false);
             int actualCount = (listOfAccounts.size()-1)/2;
-            return actualCount >= minCount;
+            atLeast1MatchFound = actualCount >= 1;
         }catch (Exception e){
-            return minCount == 0;
+            atLeast1MatchFound = false;
         }
+
+        return atLeast1MatchFound;
     }
 
     /**
