@@ -22,7 +22,7 @@ Feature: As a business user, I want a task to be created each time a customer su
 
 
   @regression @mdcm-10 @mdcm-41
-  Scenario Outline: Verify WIP section shows newly created tasks
+  Scenario Outline: Verify WIP section shows newly created tasks and users can approve reject tasks
     Given I am logged into appian as "<user>" user
     When I create a new account using test harness page with following data
       | accountType | <accountType> |
