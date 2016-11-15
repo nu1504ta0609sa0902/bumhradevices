@@ -82,7 +82,7 @@ public class AccountRequest {
         firstName = RandomDataUtils.generateTestNameStartingWith("Noor", 2); //RandomDataUtils.getRandomTestName("Noor").replace("_", "");
         lastName = RandomDataUtils.generateTestNameStartingWith("Uddin", 2); //RandomDataUtils.getRandomTestName("Uddin").replace("_", "");
         jobTitle = getRandomJobTitle();
-        phoneNumber = "01351" + (int) RandomDataUtils.getRandomDigits(7);;
+        phoneNumber = "01351" + (int) RandomDataUtils.getRandomDigits(7);
         email = "mhra.uat@gmail.com";
 
         //Organisation Role
@@ -135,5 +135,36 @@ public class AccountRequest {
             organisationName = organisationName.replace("OrganisationTest", "AuthorisedRepTest");
             website = website.replace("organisationtest", "AuthorisedRepTest");
         }
+    }
+
+
+    @Override
+    public String toString() {
+        return "AccountRequest{" +
+                "organisationName='" + organisationName + '\'' +
+//                ", address1='" + address1 + '\'' +
+//                ", address2='" + address2 + '\'' +
+//                ", townCity='" + townCity + '\'' +
+//                ", postCode='" + postCode + '\'' +
+//                ", country='" + country + '\'' +
+//                ", telephone='" + telephone + '\'' +
+//                ", fax='" + fax + '\'' +
+                ", website='" + website + '\'' +
+                ", addressType=" + addressType +
+                ", organisationType='" + organisationType + '\'' +
+//                ", vatRegistrationNumber='" + vatRegistrationNumber + '\'' +
+//                ", companyRegistrationNumber='" + companyRegistrationNumber + '\'' +
+//                ", title='" + title + '\'' +
+//                ", firstName='" + firstName + '\'' +
+//                ", lastName='" + lastName + '\'' +
+//                ", jobTitle='" + jobTitle + '\'' +
+//                ", phoneNumber='" + phoneNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", isManufacturer=" + isManufacturer +
+//                ", deviceRegistration=" + deviceRegistration +
+//                ", cfsCertificateOfFreeSale=" + cfsCertificateOfFreeSale +
+//                ", clinicalInvestigation=" + clinicalInvestigation +
+//                ", aitsAdverseIncidentTrackingSystem=" + aitsAdverseIncidentTrackingSystem +
+                '}';
     }
 }

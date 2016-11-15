@@ -32,7 +32,7 @@ public class Accounts extends _Page {
     WebElement editAccountInfoLink;
     @FindBy(xpath = ".//span[.='Address type']//following::input[1]")
     WebElement addressType;
-    @FindBy(xpath = ".//label[.='Job Title']//following::input[1]")
+    @FindBy(xpath = ".//label[contains(text(),'Job title')]//following::input[1]")
     WebElement jobTitle;
     @FindBy(xpath = ".//button[.='Submit']")
     WebElement submitBtn;
@@ -102,11 +102,10 @@ public class Accounts extends _Page {
         return new Accounts(driver);
     }
 
-    public boolean numberOfMatchesShouldBe(int minCount) {
+    public boolean numberOfMatchesShouldBe(String searchText) {
         boolean atLeast1MatchFound = true;
         try{
-            WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_5_SECOND, false);
-            WaitUtils.waitForElementToBeVisible(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_5_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(searchText), TIMEOUT_5_SECOND, false);
             int actualCount = (listOfAccounts.size()-1)/2;
             atLeast1MatchFound = actualCount >= 1;
         }catch (Exception e){
@@ -121,12 +120,32 @@ public class Accounts extends _Page {
      * @return
      */
     public String getARandomAccount() {
-        WaitUtils.isPageLoaded(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_5_SECOND, 2);
+        WaitUtils.isPageLoaded(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_5_SECOND, 1);
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_5_SECOND, false);
 
         int position = RandomDataUtils.getSimpleRandomNumberBetween(1, listOfAccounts.size() - 1, false);
         WebElement accountLinks = listOfAccounts.get(position);
         String accountName = accountLinks.getText();
+        return accountName;
+    }
+
+    public String getARandomAccountWithText(String name) {
+        WaitUtils.isPageLoaded(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_3_SECOND, 1);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_5_SECOND, false);
+
+        boolean found = false;
+        int count = 0;
+        String accountName = "";
+        do {
+            count++;
+            int position = RandomDataUtils.getSimpleRandomNumberBetween(1, listOfAccounts.size() - 1, false);
+            WebElement accountLinks = listOfAccounts.get(position);
+            accountName = accountLinks.getText();
+            if(accountName.contains(name)){
+                found = true;
+            }
+        }while(!found && count <= 3);
+
         return accountName;
     }
 
@@ -138,31 +157,11 @@ public class Accounts extends _Page {
         return new Accounts(driver);
     }
 
-    public Accounts gotoEditAccountInformation() {
+    public EditAccounts gotoEditAccountInformation() {
         WaitUtils.waitForElementToBeClickable(driver, editAccountInfoLink, TIMEOUT_DEFAULT, false);
-        editAccountInfoLink.click();
-        return new Accounts(driver);
-    }
-
-    public Accounts editAccountInformation(String keyValuePairToUpdate) {
-        String[] dataPairs = keyValuePairToUpdate.split(",");
-
-        for(String pairs: dataPairs){
-            String[] split = pairs.split("=");
-            String key = split[0];
-            String value = split[1];
-            if(key.equals("job.title")){
-                WaitUtils.waitForElementToBeClickable(driver, jobTitle, TIMEOUT_DEFAULT, false);
-                jobTitle.clear();
-                jobTitle.sendKeys(RandomDataUtils.generateTestNameStartingWith(value, 5));
-            }
-        }
-
-        //Submit data, but you must select address types
-        addressType.click();
-        submitBtn.click();
-
-        return new Accounts(driver);
+        PageUtils.doubleClick(driver, editAccountInfoLink);
+        //editAccountInfoLink.click();
+        return new EditAccounts(driver);
     }
 
     public boolean verifyUpdatesDisplayedOnPage(String keyValuePairToUpdate) {
@@ -218,4 +217,5 @@ public class Accounts extends _Page {
 
         return true;
     }
+
 }

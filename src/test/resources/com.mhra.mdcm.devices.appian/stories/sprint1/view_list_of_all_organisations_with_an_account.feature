@@ -1,5 +1,4 @@
-Feature: As a business user
-  I want to access a list of organisations with an account
+Feature: As a business user, I want to access a list of organisations with an account
   so that I can quickly confirm if they are known to the MHRA and retrieve key contact information
 
   @mdcm-126

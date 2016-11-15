@@ -15,6 +15,7 @@ public class _Page {
 
     public static final boolean USE_DEBUG_TIME = true;
     public static final int TIMEOUT_1_SECOND = 1;
+    public static final int TIMEOUT_3_SECOND = 3;
     public static final int TIMEOUT_5_SECOND = 5;
     public static final int TIMEOUT_10_SECOND = 10;
     public static final int TIMEOUT_15_SECOND = 15;

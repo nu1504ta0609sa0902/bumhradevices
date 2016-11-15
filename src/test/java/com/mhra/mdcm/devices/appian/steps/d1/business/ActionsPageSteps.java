@@ -61,6 +61,7 @@ public class ActionsPageSteps extends CommonSteps {
 
         //Now create the test data using harness page
         AccountRequest newAccount = TestHarnessUtils.updateDefaultsWithData(dataSets);
+        log.info("New Account Requested With Following Data : \n" + newAccount);
 
         //go to accounts page > test harness page
         actionsPage = mainNavigationBar.clickActions();

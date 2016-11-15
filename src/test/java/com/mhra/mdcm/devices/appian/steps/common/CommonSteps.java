@@ -72,6 +72,8 @@ public class CommonSteps {
     public TaskSection taskSection;
     @Autowired
     public PortalPage portalPage;
+    @Autowired
+    public EditAccounts editAccounts;
 
     public static boolean oneDriverOnly = true;
     public CommonSteps() {

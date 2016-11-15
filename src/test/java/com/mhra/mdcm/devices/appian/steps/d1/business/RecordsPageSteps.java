@@ -149,17 +149,20 @@ public class RecordsPageSteps extends CommonSteps {
         accounts = accounts.searchForAccount(orgName);
 
     }
+
     @When("^I search for account with following text \"([^\"]*)\"$")
     public void i_search_for(String searchTerm) throws Throwable {
         accounts = accounts.searchForAccount(searchTerm);
         scenarioSession.putData(SessionKey.searchTerm, searchTerm);
+        scenarioSession.putData(SessionKey.organisationName, searchTerm);
     }
 
 
     @When("^I should see at least (\\d+) account matches$")
-    public void i_should_see_account_matches(int minCount) throws Throwable {
-        boolean atLeast1Match = accounts.numberOfMatchesShouldBe(minCount);
-        if(minCount == 0){
+    public void i_should_see_account_matches(int expectedMinCount) throws Throwable {
+        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
+        boolean atLeast1Match = accounts.numberOfMatchesShouldBe(orgName);
+        if(expectedMinCount == 0){
             Assert.assertThat("Expected to see no matches ",atLeast1Match, is(false));
         }else{
             Assert.assertThat("Expected to see atleast 1 matches" , atLeast1Match, is(true));
@@ -182,8 +185,8 @@ public class RecordsPageSteps extends CommonSteps {
         accounts = accounts.viewSpecifiedAccount(randomAccountName);
 
         //Edit the data now
-        accounts = accounts.gotoEditAccountInformation();
-        accounts = accounts.editAccountInformation(keyValuePairToUpdate);
+        editAccounts = accounts.gotoEditAccountInformation();
+        accounts = editAccounts.editAccountInformation(keyValuePairToUpdate);
 
         scenarioSession.putData(SessionKey.organisationName, randomAccountName);
     }

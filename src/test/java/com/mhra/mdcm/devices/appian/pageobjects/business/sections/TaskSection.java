@@ -98,6 +98,7 @@ public class TaskSection extends _Page {
 
     public TasksPage enterRejectionReason(String reason, String randomTestComment) {
         if(reason.contains("Other")){
+            WaitUtils.isPageLoaded(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
             WaitUtils.waitForElementToBeClickable(driver, other, TIMEOUT_10_SECOND, false);
             other.click();
             PageFactory.initElements(driver, this);
@@ -128,5 +129,15 @@ public class TaskSection extends _Page {
         WebElement name = driver.findElement(By.partialLinkText(orgName));
         PageUtils.doubleClick(driver, name);
         return new TaskSection(driver);
+    }
+
+    public boolean isTaskVisibleWithName(String orgName) {
+        boolean isVisible = true;
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(orgName), TIMEOUT_5_SECOND, false);
+        }catch (Exception e){
+            isVisible = false;
+        }
+        return isVisible;
     }
 }

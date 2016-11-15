@@ -15,6 +15,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Set;
+
 /**
  * Created by TPD_Auto
  */
@@ -135,7 +137,7 @@ public class CreateTestsData extends _Page {
         boolean exception = false;
         try {
             orgName.click();
-            selectCountryFromAutoSuggests(".gwt-SuggestBox", ar.country, true);
+            selectCountryFromAutoSuggests(driver, ".gwt-SuggestBox", ar.country, true);
         }catch (Exception e){
             exception = true;
         }
@@ -163,7 +165,7 @@ public class CreateTestsData extends _Page {
         //Try country again
         if(exception) {
             orgName.click();
-            selectCountryFromAutoSuggests(".gwt-SuggestBox", ar.country, false);
+            selectCountryFromAutoSuggests(driver, ".gwt-SuggestBox", ar.country, false);
         }
 
         //Contact Person Details
@@ -204,11 +206,28 @@ public class CreateTestsData extends _Page {
         return new ActionsPage(driver);
     }
 
-    private void selectCountryFromAutoSuggests(String elementPath, String countryName, boolean throwException) throws Exception {
+    private void selectCountryFromAutoSuggests(WebDriver driver, String elementPath, String countryName, boolean throwException) throws Exception {
         boolean completed = true;
         int count = 0;
         do {
             try {
+//                WaitUtils.nativeWaitInSeconds(1);
+//                String mainWindow = driver.getWindowHandle();
+//                driver.switchTo().activeElement().click();
+//                driver.switchTo().window("");
+//                WaitUtils.nativeWaitInSeconds(1);
+//                Set<String> handles = driver.getWindowHandles();
+//                for (String handler : handles) {
+//                    System.out.println(handler);
+//                    if (!handler.equals(mainWindow)) {
+//                        driver.switchTo().window(handler);
+//                        driver.findElement(By.cssSelector(elementPath)).click();
+//                        break;
+//                    }
+//                }
+//              ((JavascriptExecutor) driver).executeScript("window.focus();");
+//                driver.switchTo().defaultContent();
+
                 count++;    //It will go forever without this
                 WebElement country = driver.findElements(By.cssSelector(elementPath)).get(0);
                 new Actions(driver).moveToElement(country).perform();
@@ -217,6 +236,7 @@ public class CreateTestsData extends _Page {
                 //new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(By.cssSelector(".item")));
 
                 //Enter the country I am interested in
+                country.sendKeys("\n");
                 country.clear();
                 country.sendKeys(countryName, Keys.ENTER);
                 new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(By.cssSelector(".item")));

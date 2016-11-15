@@ -56,7 +56,7 @@ public class TasksPageSteps extends CommonSteps {
 
     }
 
-    @When("^I accept to update the task and \"([^\"]*)\" the generated task$")
+    @When("^I assign the task to me and \"([^\"]*)\" the generated task$")
     public void i_accept_the_task_and_the_generated_task(String approveOrReject) throws Throwable {
         //accept the taskSection and approve or reject it
         taskSection = taskSection.acceptTask();
@@ -65,7 +65,7 @@ public class TasksPageSteps extends CommonSteps {
         if (approveOrReject.equals("approve")) {
             tasksPage = taskSection.approveTask();
         } else {
-            //Rejection process is slightly different
+            //Rejection process is slightly different, you need to enter a rejection reason
             taskSection = taskSection.rejectTask();
             tasksPage = taskSection.enterRejectionReason("Other", RandomDataUtils.getRandomTestName("Comment Test"));
         }
@@ -81,8 +81,6 @@ public class TasksPageSteps extends CommonSteps {
         assertThat("Task should be removed for organisation : " + orgName, isHeadingMatched, is(equalTo(false)));
     }
 
-
-
     @When("^I go to WIP tasks page$")
     public void iGoToWIPTaksPage() throws Throwable {
         mainNavigationBar = new MainNavigationBar(driver);
@@ -94,29 +92,7 @@ public class TasksPageSteps extends CommonSteps {
     @Then("^I should see a new task for the new account in WIP page$")
     public void i_should_see_a_new_task_for_the_new_account_in_WIP_page() throws Throwable {
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
-        //orgName = "ManufacturerTest1111904764";
-        //Verify new taskSection generated and its the correct one
-//        boolean contains = false;
-//        boolean isCorrectTask = false;
-//        int count = 0;
-//        do {
-//            mainNavigationBar = new MainNavigationBar(driver);
-//            tasksPage = mainNavigationBar.clickTasks();
-//            taskSection = tasksPage.gotoWIPTasksPage();
-//
-//            //Sort by submitted, at the moment sorting doesnt work as expected
-//            taskSection = taskSection.sortBy("Submitted", 2);
-//
-//            //Click on link number X
-//            taskSection = taskSection.clickOnTaskName(orgName);
-//            isCorrectTask = taskSection.isCorrectTask(orgName);
-//            if (isCorrectTask) {
-//                contains = true;
-//                scenarioSession.putData(SessionKey.position, count);
-//            } else {
-//                count++;
-//            }
-//        } while (!contains && count <= 5);
+
         mainNavigationBar = new MainNavigationBar(driver);
         tasksPage = mainNavigationBar.clickTasks();
         taskSection = tasksPage.gotoWIPTasksPage();
@@ -130,5 +106,16 @@ public class TasksPageSteps extends CommonSteps {
 
         assertThat("Task not found for organisation : " + orgName, isCorrectTask, is(equalTo(true)));
 
+    }
+
+
+    @Then("^The task should be removed from WIP tasks list$")
+    public void theTaskShouldBeRemovedFromWIPTaskList() {
+        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
+
+        //Sort by submitted, at the moment sorting doesnt work as expected
+        taskSection = taskSection.sortBy("Submitted", 2);
+        boolean isTaskVisible = taskSection.isTaskVisibleWithName(orgName);
+        assertThat("Task not found for organisation : " + orgName, isTaskVisible, is(equalTo(false)));
     }
 }
