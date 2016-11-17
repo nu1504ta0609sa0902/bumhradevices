@@ -108,7 +108,7 @@ public class AccountRequest {
         listOfTitles.add("Chief");
         listOfTitles.add("Superman");
         listOfTitles.add("Batman");
-        listOfTitles.add("Bill Gates");
+        listOfTitles.add("CTO Microsoft");
         listOfTitles.add("Darth Vadar");
         listOfTitles.add("Master Of Universe");
         listOfTitles.add("Bill And Ted");
@@ -141,30 +141,30 @@ public class AccountRequest {
     @Override
     public String toString() {
         return "AccountRequest{" +
-                "organisationName='" + organisationName + '\'' +
-//                ", address1='" + address1 + '\'' +
-//                ", address2='" + address2 + '\'' +
-//                ", townCity='" + townCity + '\'' +
-//                ", postCode='" + postCode + '\'' +
-//                ", country='" + country + '\'' +
-//                ", telephone='" + telephone + '\'' +
-//                ", fax='" + fax + '\'' +
-                ", website='" + website + '\'' +
-                ", addressType=" + addressType +
-                ", organisationType='" + organisationType + '\'' +
-//                ", vatRegistrationNumber='" + vatRegistrationNumber + '\'' +
-//                ", companyRegistrationNumber='" + companyRegistrationNumber + '\'' +
-//                ", title='" + title + '\'' +
-//                ", firstName='" + firstName + '\'' +
-//                ", lastName='" + lastName + '\'' +
-//                ", jobTitle='" + jobTitle + '\'' +
-//                ", phoneNumber='" + phoneNumber + '\'' +
-                ", email='" + email + '\'' +
-                ", isManufacturer=" + isManufacturer +
-//                ", deviceRegistration=" + deviceRegistration +
-//                ", cfsCertificateOfFreeSale=" + cfsCertificateOfFreeSale +
-//                ", clinicalInvestigation=" + clinicalInvestigation +
-//                ", aitsAdverseIncidentTrackingSystem=" + aitsAdverseIncidentTrackingSystem +
+                "\norganisationName='" + organisationName + '\'' +
+//                "\naddress1='" + address1 + '\'' +
+//                "\naddress2='" + address2 + '\'' +
+//                "\ntownCity='" + townCity + '\'' +
+//                "\npostCode='" + postCode + '\'' +
+//                "\ncountry='" + country + '\'' +
+//                "\ntelephone='" + telephone + '\'' +
+//                "\nfax='" + fax + '\'' +
+                "\nwebsite='" + website + '\'' +
+                "\naddressType=" + addressType +
+                "\norganisationType='" + organisationType + '\'' +
+//                "\nvatRegistrationNumber='" + vatRegistrationNumber + '\'' +
+//                "\ncompanyRegistrationNumber='" + companyRegistrationNumber + '\'' +
+//                "\ntitle='" + title + '\'' +
+//                "\nfirstName='" + firstName + '\'' +
+//                "\nlastName='" + lastName + '\'' +
+//                "\njobTitle='" + jobTitle + '\'' +
+//                "\nphoneNumber='" + phoneNumber + '\'' +
+                "\nemail='" + email + '\'' +
+                "\nisManufacturer=" + isManufacturer +
+//                "\ndeviceRegistration=" + deviceRegistration +
+//                "\ncfsCertificateOfFreeSale=" + cfsCertificateOfFreeSale +
+//                "\nclinicalInvestigation=" + clinicalInvestigation +
+//                "\naitsAdverseIncidentTrackingSystem=" + aitsAdverseIncidentTrackingSystem +
                 '}';
     }
 }

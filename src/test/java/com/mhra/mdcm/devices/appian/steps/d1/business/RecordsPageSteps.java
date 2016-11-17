@@ -1,22 +1,14 @@
 package com.mhra.mdcm.devices.appian.steps.d1.business;
 
-import com.mhra.mdcm.devices.appian.pageobjects.LoginPage;
+import com.mhra.mdcm.devices.appian.domains.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
-import com.mhra.mdcm.devices.appian.pageobjects.business.sections.Accounts;
-import com.mhra.mdcm.devices.appian.pageobjects.business.sections.AllOrganisations;
-import com.mhra.mdcm.devices.appian.pageobjects.business.sections.Devices;
-import com.mhra.mdcm.devices.appian.pageobjects.business.sections.Products;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
-import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
-import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import static org.hamcrest.Matchers.*;
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.springframework.context.annotation.Scope;
 
 import java.util.List;
@@ -161,7 +153,7 @@ public class RecordsPageSteps extends CommonSteps {
     @When("^I should see at least (\\d+) account matches$")
     public void i_should_see_account_matches(int expectedMinCount) throws Throwable {
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
-        boolean atLeast1Match = accounts.numberOfMatchesShouldBe(orgName);
+        boolean atLeast1Match = accounts.atLeast1MatchFound(orgName);
         if(expectedMinCount == 0){
             Assert.assertThat("Expected to see no matches ",atLeast1Match, is(false));
         }else{
@@ -176,27 +168,56 @@ public class RecordsPageSteps extends CommonSteps {
         accounts = accounts.viewSpecifiedAccount(randomAccountName);
     }
 
+    @When("^I view a randomly searched account and update the following data \"([^\"]*)\"$")
+    public void i_view_a_randomly_selected_account(String keyValuePairToUpdate) throws Throwable {
+        String searchTerm = (String) scenarioSession.getData(SessionKey.searchTerm);
+        String randomAccountName = accounts.getARandomAccountWithText(searchTerm);
+        accounts = accounts.viewSpecifiedAccount(randomAccountName);
+        log.info("Account to update : " + randomAccountName);
+
+        //Edit the data now
+        AccountRequest updatedData = new AccountRequest();
+        editAccounts = accounts.gotoEditAccountInformation();
+        accounts = editAccounts.editAccountInformation(keyValuePairToUpdate, updatedData);
+
+        scenarioSession.putData(SessionKey.organisationName, randomAccountName);
+        scenarioSession.putData(SessionKey.updatedData, updatedData);
+    }
+
 
     @When("^I select a random account and update the following data \"([^\"]*)\"$")
     public void i_update_the_following_data_pair_for_randomly_selected_account_data(String keyValuePairToUpdate) throws Throwable {
         //Select a random account
         String randomAccountName = accounts.getARandomAccount();
-        log.info("Edit the following account : " + randomAccountName);
         accounts = accounts.viewSpecifiedAccount(randomAccountName);
+        log.info("Edit the following account : " + randomAccountName);
 
         //Edit the data now
+        AccountRequest updatedData = new AccountRequest();
         editAccounts = accounts.gotoEditAccountInformation();
-        accounts = editAccounts.editAccountInformation(keyValuePairToUpdate);
+        accounts = editAccounts.editAccountInformation(keyValuePairToUpdate, updatedData);
 
         scenarioSession.putData(SessionKey.organisationName, randomAccountName);
+        scenarioSession.putData(SessionKey.updatedData, updatedData);
     }
 
 
     @Then("^I should see the changes \"([^\"]*)\" in the account page$")
     public void i_should_see_the_changes_in_the_account_page(String keyValuePairToUpdate) throws Throwable {
-        //A refresh is required
-        driver.navigate().refresh();
-        boolean updatesFound = accounts.verifyUpdatesDisplayedOnPage(keyValuePairToUpdate);
+        boolean isCorrectPage = accounts.isCorrectPage();
+        AccountRequest updatedData = (AccountRequest) scenarioSession.getData(SessionKey.updatedData);
+        boolean updatesFound = false;
+        int numberOfRefresh = 0;
+        do {
+            numberOfRefresh++;
+            //A bug : refresh is required
+            driver.navigate().refresh();
+            updatesFound = accounts.verifyUpdatesDisplayedOnPage(keyValuePairToUpdate, updatedData);
+            if(!updatesFound){
+                WaitUtils.nativeWaitInSeconds(1);
+            }
+        }while (!updatesFound && numberOfRefresh < 3);
+
         Assert.assertThat("Expected to see following updates : " + keyValuePairToUpdate, updatesFound, is(true));
     }
 

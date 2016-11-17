@@ -72,6 +72,22 @@ public class TasksPageSteps extends CommonSteps {
     }
 
 
+    @When("^I assign the task to me and reject the task for following reason \"([^\"]*)\"$")
+    public void i_reject_the_task_for_following_reasons(String reason) throws Throwable {
+        //accept the taskSection and approve or reject it
+        taskSection = taskSection.acceptTask();
+
+        if(reason.equals("Other")) {
+            //Rejection process is slightly different, you need to enter a rejection reason
+            taskSection = taskSection.rejectTask();
+            tasksPage = taskSection.enterRejectionReason("Other", RandomDataUtils.getRandomTestName("Comment Test"));
+        }else {
+            taskSection = taskSection.rejectTask();
+            tasksPage = taskSection.enterRejectionReason(reason, RandomDataUtils.getRandomTestName("Reject task because : " + reason));
+        }
+    }
+
+
     @Then("^The task should be removed from tasks list$")
     public void theTaskShouldBeRemovedFromTaskList() {
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
@@ -92,6 +108,7 @@ public class TasksPageSteps extends CommonSteps {
     @Then("^I should see a new task for the new account in WIP page$")
     public void i_should_see_a_new_task_for_the_new_account_in_WIP_page() throws Throwable {
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
+        orgName = "AuthorisedRepTest1711346036";
 
         mainNavigationBar = new MainNavigationBar(driver);
         tasksPage = mainNavigationBar.clickTasks();

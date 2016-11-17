@@ -16,4 +16,5 @@ public class SessionKey {
     public static String organisationName = "Organisation Name";
     public static String position = "Position Of Item";
     public static String searchTerm = "Search Term";
+    public static String updatedData = "Account Data Object";
 }

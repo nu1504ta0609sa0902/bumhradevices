@@ -1,5 +1,6 @@
 package com.mhra.mdcm.devices.appian.pageobjects.business.sections;
 
+import com.mhra.mdcm.devices.appian.domains.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
@@ -30,21 +31,40 @@ public class Accounts extends _Page {
     //Edit information related to an account
     @FindBy(linkText = "Edit Account Information")
     WebElement editAccountInfoLink;
-    @FindBy(xpath = ".//span[.='Address type']//following::input[1]")
+    @FindBy(xpath = ".//h4")
+    WebElement orgName;
+
+    //ORGANISATION DETAILS
+    @FindBy(xpath = ".//span[.='Address line 1']//following::p[1]")
+    WebElement orgAddressLine1;
+    @FindBy(xpath = ".//span[.='Address line 2']//following::p[1]")
+    WebElement orgAddressLine2;
+    @FindBy(xpath = ".//span[contains(text(),'City')]//following::p[1]")
+    WebElement orgCityTown;
+    @FindBy(xpath = ".//span[.='Postcode']//following::p[1]")
+    WebElement orgPostCode;
+    @FindBy(xpath = ".//span[contains(text(),'Address type')]//following::input[1]")
     WebElement addressType;
-    @FindBy(xpath = ".//label[contains(text(),'Job title')]//following::input[1]")
+    @FindBy(xpath = ".//span[contains(text(),'Telephone')]//following::p[1]")
+    WebElement orgTelephone;
+    @FindBy(xpath = ".//span[contains(text(),'Fax')]//following::p[1]")
+    WebElement orgFax;
+    @FindBy(xpath = ".//span[contains(text(),'Website')]//following::p[1]")
+    WebElement webSite;
+
+    //CONTACT PERSON DETAILS
+    @FindBy(xpath = ".//span[contains(text(),'Job title')]//following::p[1]")
     WebElement jobTitle;
-    @FindBy(xpath = ".//button[.='Submit']")
-    WebElement submitBtn;
-
-    //Updated information related to an account
-    @FindBy(xpath = ".//span[.='Job title']//following::p[1]")
-    WebElement jobTitleTxt;
-
+    @FindBy(xpath = ".//span[contains(text(),'Email')]//following::p[1]")
+    WebElement emailAddress;
+    @FindBy(xpath = ".//span[contains(text(),'Telephone')]//following::p[1]")
+    WebElement phoneNumber;
 
     //Search box
     @FindBy(xpath = ".//*[contains(@class, 'filter')]//following::input[1]")
     WebElement searchBox;
+    @FindBy(linkText = "Follow")
+    WebElement followBtn;
 
     @Autowired
     public Accounts(WebDriver driver) {
@@ -95,17 +115,18 @@ public class Accounts extends _Page {
     }
 
     public Accounts searchForAccount(String orgName) {
-        WaitUtils.waitForElementToBeClickable(driver, searchBox, 10, false);
+        WaitUtils.waitForElementToBeClickable(driver, searchBox, TIMEOUT_DEFAULT, false);
         searchBox.clear();
         searchBox.sendKeys(orgName);
         searchBox.sendKeys(Keys.ENTER);
+        //WaitUtils.forceWaitForPageToLoad(driver, By.xpath("Wait For Certain Time"), TIMEOUT_10_SECOND, 1);
         return new Accounts(driver);
     }
 
-    public boolean numberOfMatchesShouldBe(String searchText) {
+    public boolean atLeast1MatchFound(String searchText) {
         boolean atLeast1MatchFound = true;
         try{
-            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(searchText), TIMEOUT_5_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(searchText), TIMEOUT_DEFAULT, false);
             int actualCount = (listOfAccounts.size()-1)/2;
             atLeast1MatchFound = actualCount >= 1;
         }catch (Exception e){
@@ -120,7 +141,7 @@ public class Accounts extends _Page {
      * @return
      */
     public String getARandomAccount() {
-        WaitUtils.isPageLoaded(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_5_SECOND, 1);
+        WaitUtils.forceWaitForPageToLoad(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_5_SECOND, 1);
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_5_SECOND, false);
 
         int position = RandomDataUtils.getSimpleRandomNumberBetween(1, listOfAccounts.size() - 1, false);
@@ -130,7 +151,7 @@ public class Accounts extends _Page {
     }
 
     public String getARandomAccountWithText(String name) {
-        WaitUtils.isPageLoaded(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_3_SECOND, 1);
+        WaitUtils.forceWaitForPageToLoad(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_3_SECOND, 1);
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_5_SECOND, false);
 
         boolean found = false;
@@ -158,14 +179,17 @@ public class Accounts extends _Page {
     }
 
     public EditAccounts gotoEditAccountInformation() {
+        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".gwt-Anchor.pull-down-toggle"), TIMEOUT_5_SECOND, false);
         WaitUtils.waitForElementToBeClickable(driver, editAccountInfoLink, TIMEOUT_DEFAULT, false);
         PageUtils.doubleClick(driver, editAccountInfoLink);
         //editAccountInfoLink.click();
         return new EditAccounts(driver);
     }
 
-    public boolean verifyUpdatesDisplayedOnPage(String keyValuePairToUpdate) {
-        WaitUtils.waitForElementToBeVisible(driver, jobTitleTxt, TIMEOUT_5_SECOND, false);
+    public boolean verifyUpdatesDisplayedOnPage(String keyValuePairToUpdate, AccountRequest updatedData) {
+        WaitUtils.waitForElementToBeVisible(driver, editAccountInfoLink, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, editAccountInfoLink, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".gwt-Anchor.pull-down-toggle"), TIMEOUT_5_SECOND, false);
         boolean allChangesDisplayed = true;
 
         //Check for the following
@@ -176,7 +200,23 @@ public class Accounts extends _Page {
             String key = split[0];
             String value = split[1];
             if(key.equals("job.title")){
-                allChangesDisplayed = AssertUtils.areChangesDisplayed(jobTitleTxt,  value);
+                allChangesDisplayed = AssertUtils.areChangesDisplayed(jobTitle,  value);
+            }else if(key.equals("org.name")){
+                allChangesDisplayed = AssertUtils.areChangesDisplayed(orgName,  value);
+            }else if(key.equals("address.line1")){
+                allChangesDisplayed = AssertUtils.areChangesDisplayed(orgAddressLine1,  value);
+            }else if(key.equals("address.line2")){
+                allChangesDisplayed = AssertUtils.areChangesDisplayed(orgAddressLine2,  value);
+            }else if(key.equals("city.town")){
+                allChangesDisplayed = AssertUtils.areChangesDisplayed(orgCityTown,  value);
+            }else if(key.equals("country")){
+
+            }else if(key.equals("postcode")){
+                allChangesDisplayed = AssertUtils.areChangesDisplayed(orgPostCode,  value);
+            }else if(key.equals("org.telephone")){
+                allChangesDisplayed = AssertUtils.areChangesDisplayed(orgTelephone,  value);
+            }else if(key.equals("org.fax")){
+                allChangesDisplayed = AssertUtils.areChangesDisplayed(orgFax,  value);
             }
         }
 
@@ -218,4 +258,12 @@ public class Accounts extends _Page {
         return true;
     }
 
+    public boolean isCorrectPage() {
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, followBtn, TIMEOUT_5_SECOND, false);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

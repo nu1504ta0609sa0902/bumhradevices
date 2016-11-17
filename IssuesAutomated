@@ -15,4 +15,6 @@ Automated Issues:
     - @mdcm-41
     - @mdcm-157 - no tests marked for regression
     - @mdcm-174 - no tests marked for regression
-    - @mdcm-175
+    - @mdcm-175 - blocked because email and phoneNumber gets deleted automatically
+                - Added code to manually enter email/phoneNumber
+    - @mdcm-178 -

@@ -3,7 +3,6 @@ package com.mhra.mdcm.devices.appian.pageobjects.business.sections;
 import com.mhra.mdcm.devices.appian.domains.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.business.ActionsPage;
-import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.*;
@@ -14,8 +13,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.Set;
 
 /**
  * Created by TPD_Auto
@@ -112,7 +109,7 @@ public class CreateTestsData extends _Page {
      * @return
      */
     public ActionsPage createTestOrganisation(AccountRequest ar) throws Exception {
-        WaitUtils.isPageLoaded(driver, By.xpath(".//label[.='Organisation name']//following::input[1]"), TIMEOUT_1_SECOND, 2) ;
+        WaitUtils.forceWaitForPageToLoad(driver, By.xpath(".//label[.='Organisation name']//following::input[1]"), TIMEOUT_1_SECOND, 2) ;
         WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_5_SECOND, false);
         orgName.sendKeys(ar.organisationName);
 

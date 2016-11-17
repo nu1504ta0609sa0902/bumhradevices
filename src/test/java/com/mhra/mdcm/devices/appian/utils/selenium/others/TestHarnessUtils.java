@@ -1,6 +1,9 @@
 package com.mhra.mdcm.devices.appian.utils.selenium.others;
 
 import com.mhra.mdcm.devices.appian.domains.AccountRequest;
+import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import java.util.Map;
 
@@ -9,6 +12,14 @@ import java.util.Map;
  */
 public class TestHarnessUtils {
 
+    /**
+     * Add specific data we want to AccountRequest object
+     *
+     * So that we can override default data
+     *
+     * @param dataSets
+     * @return
+     */
     public static AccountRequest updateDefaultsWithData(Map<String, String> dataSets) {
         AccountRequest defaultAccount = new AccountRequest();
 
@@ -40,5 +51,19 @@ public class TestHarnessUtils {
         }
 
         return isValid;
+    }
+
+    /**
+     *
+     * @param driver
+     * @param element
+     * @param value
+     * @param timeOut
+     */
+    public static void updateElementValue(WebDriver driver, WebElement element, String value, int timeOut) {
+        WaitUtils.waitForElementToBeClickable(driver, element, timeOut, false);
+        element.clear();
+        WaitUtils.waitForElementToBeClickable(driver, element, timeOut, false);
+        element.sendKeys(RandomDataUtils.generateTestNameStartingWith(value, 5));
     }
 }

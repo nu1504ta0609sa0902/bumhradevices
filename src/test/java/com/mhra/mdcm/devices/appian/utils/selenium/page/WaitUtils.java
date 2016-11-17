@@ -177,7 +177,16 @@ public class WaitUtils {
     }
 
 
-    public static boolean isPageLoaded(WebDriver driver, By by, int maxTimeToWait, int numberOfTimes) {
+    /**
+     * This is no different from a native wait call
+     *
+     * @param driver
+     * @param by
+     * @param maxTimeToWait
+     * @param numberOfTimes
+     * @return
+     */
+    public static boolean forceWaitForPageToLoad(WebDriver driver, By by, int maxTimeToWait, int numberOfTimes) {
         boolean loadingCompleted = false;
         int attempt = 0;
         do{

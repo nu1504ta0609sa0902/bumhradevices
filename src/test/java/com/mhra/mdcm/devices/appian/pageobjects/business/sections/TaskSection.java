@@ -38,9 +38,18 @@ public class TaskSection extends _Page {
     WebElement reject;
 
     //Rejection reason
-    @FindBy(xpath = ".//label[.='Other']")
+    @FindBy(css = ".gwt-RadioButton:nth-child(1)")
+    WebElement reasonAccountAlreadyExists;
+    @FindBy(xpath = ".gwt-RadioButton:nth-child(2)")
+    WebElement reasonNotRegisteredInUk;
+    @FindBy(xpath = ".gwt-RadioButton:nth-child(3)")
+    WebElement reasonNoAuthorisationEvidenceProvided;
+    @FindBy(xpath = ".gwt-RadioButton:nth-child(4)")
+    WebElement reasonNonQualifyingParty;
+    @FindBy(xpath = ".gwt-RadioButton:nth-child(5)")
     WebElement other;
-    @FindBy(xpath = ".//textarea[1]")
+
+    @FindBy(css = ".aui-TextAreaInput")
     WebElement commentArea;
     @FindBy(xpath = ".//button[.='Submit']")
     WebElement submitBtn;
@@ -55,7 +64,7 @@ public class TaskSection extends _Page {
     }
 
     public boolean isCorrectTask(String orgName) {
-        WaitUtils.isPageLoaded(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
+        WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
         WaitUtils.waitForElementToBeVisible(driver, By.xpath(".//h4"), TIMEOUT_10_SECOND, false);
         boolean contains = taskHeading.getText().contains(orgName);
         return contains;
@@ -75,7 +84,7 @@ public class TaskSection extends _Page {
     }
 
     public TasksPage approveTask() {
-        WaitUtils.isPageLoaded(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
+        WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
         WaitUtils.waitForElementToBeClickable(driver, approve, TIMEOUT_5_SECOND, false);
         //approve.click();
         PageUtils.doubleClick(driver, approve);
@@ -89,7 +98,7 @@ public class TaskSection extends _Page {
      * @return
      */
     public TaskSection rejectTask() {
-        WaitUtils.isPageLoaded(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
+        WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
         WaitUtils.waitForElementToBeClickable(driver, reject, TIMEOUT_5_SECOND, false);
         //approve.click();
         PageUtils.doubleClick(driver, reject);
@@ -97,13 +106,26 @@ public class TaskSection extends _Page {
     }
 
     public TasksPage enterRejectionReason(String reason, String randomTestComment) {
+        WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
         if(reason.contains("Other")){
-            WaitUtils.isPageLoaded(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
+            //Comment is mandatory
             WaitUtils.waitForElementToBeClickable(driver, other, TIMEOUT_10_SECOND, false);
             other.click();
             PageFactory.initElements(driver, this);
             WaitUtils.waitForElementToBeClickable(driver, commentArea, TIMEOUT_10_SECOND, false);
             commentArea.sendKeys(randomTestComment);
+        }else if(reason.contains("Account already exists")){
+            WaitUtils.waitForElementToBeClickable(driver, reasonAccountAlreadyExists, TIMEOUT_10_SECOND, false);
+            PageUtils.doubleClick(driver, reasonAccountAlreadyExists);
+        }else if(reason.contains("Not registered in the UK")){
+            WaitUtils.waitForElementToBeClickable(driver, reasonNotRegisteredInUk, TIMEOUT_10_SECOND, false);
+            PageUtils.doubleClick(driver, reasonNotRegisteredInUk);
+        }else if(reason.contains("No authorisation evidence provided")){
+            WaitUtils.waitForElementToBeClickable(driver, reasonNoAuthorisationEvidenceProvided, TIMEOUT_10_SECOND, false);
+            PageUtils.doubleClick(driver, reasonNoAuthorisationEvidenceProvided);
+        }else if(reason.contains("Non-qualifying party")){
+            WaitUtils.waitForElementToBeClickable(driver, reasonNonQualifyingParty, TIMEOUT_10_SECOND, false);
+            PageUtils.doubleClick(driver, reasonNonQualifyingParty);
         }
 
         //Submit rejection
@@ -117,7 +139,7 @@ public class TaskSection extends _Page {
         if(sortBy.equals("Submitted")){
             for(int c = 0; c < numberOfTimesToClick; c++) {
                 submitted.click();
-                WaitUtils.isPageLoaded(driver, By.partialLinkText("Doesnotexists"), TIMEOUT_1_SECOND, 3);
+                WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Doesnotexists"), TIMEOUT_1_SECOND, 3);
             }
         }
 
