@@ -4,6 +4,8 @@ import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
+import cucumber.api.PendingException;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.springframework.context.annotation.Scope;
@@ -67,7 +69,7 @@ public class TasksPageSteps extends CommonSteps {
         } else {
             //Rejection process is slightly different, you need to enter a rejection reason
             taskSection = taskSection.rejectTask();
-            tasksPage = taskSection.enterRejectionReason("Other", RandomDataUtils.getRandomTestName("Comment Test"));
+            tasksPage = taskSection.enterRejectionReason("Account already exists", RandomDataUtils.getRandomTestName("Account already exists "));
         }
     }
 
@@ -108,10 +110,13 @@ public class TasksPageSteps extends CommonSteps {
     @Then("^I should see a new task for the new account in WIP page$")
     public void i_should_see_a_new_task_for_the_new_account_in_WIP_page() throws Throwable {
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
-        orgName = "AuthorisedRepTest1711346036";
 
-        mainNavigationBar = new MainNavigationBar(driver);
-        tasksPage = mainNavigationBar.clickTasks();
+        boolean tasks = mainNavigationBar.isCorrectPage("Tasks");
+        if(!tasks) {
+            mainNavigationBar = new MainNavigationBar(driver);
+            tasksPage = mainNavigationBar.clickTasks();
+        }
+
         taskSection = tasksPage.gotoWIPTasksPage();
 
         //Sort by submitted, at the moment sorting doesnt work as expected
@@ -134,5 +139,23 @@ public class TasksPageSteps extends CommonSteps {
         taskSection = taskSection.sortBy("Submitted", 2);
         boolean isTaskVisible = taskSection.isTaskVisibleWithName(orgName);
         assertThat("Task not found for organisation : " + orgName, isTaskVisible, is(equalTo(false)));
+    }
+
+    @And("^The task status should update to \"([^\"]*)\"$")
+    public void theTaskStatusShouldUpdateTo(String expectedStatus) throws Throwable {
+
+        boolean tasks = mainNavigationBar.isCorrectPage("Tasks");
+        if(!tasks) {
+            mainNavigationBar = new MainNavigationBar(driver);
+            tasksPage = mainNavigationBar.clickTasks();
+        }
+
+        taskSection = tasksPage.gotoCompletedTasksPage();
+
+        taskSection = taskSection.sortBy("Submitted", 2);
+
+        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
+        boolean isCorrectTask = taskSection.isOrganisationDisplayedOnLink(orgName);
+        assertThat("Task not found in completed list : " + orgName, isCorrectTask, is(equalTo(true)));
     }
 }

@@ -1,8 +1,8 @@
 Feature: As a business user, I want to be able to update party details associated with an account
   so that customers unable to use the portal can still provide the latest information on the account, and I can correct minor errors made by the customer
 
-  @mdcm-175 @mdcm-178 @regression
-  Scenario Outline: Users should be able to update account details
+  @mdcm-175 @regression
+  Scenario Outline: Users should be able to edit and update account details
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
     When I search for account with following text "<searchTerm>"
