@@ -20,15 +20,21 @@ import org.springframework.stereotype.Component;
 @Component
 public class RecordsPage extends _Page {
 
-    @FindBy(partialLinkText = "Accounts")
+    @FindBy(linkText = "Accounts")
     WebElement linkAccounts;
-    @FindBy(partialLinkText = "Devices")
+    @FindBy(linkText = "Devices")
     WebElement linkDevices;
-    @FindBy(partialLinkText = "Products")
+    @FindBy(linkText = "Products")
     WebElement linkProducts;
-    @FindBy(partialLinkText = "All Organisations")
+    @FindBy(linkText = "All Organisations")
     WebElement linkAllOrganisations;
+    @FindBy(linkText = "All Devices")
+    WebElement linkAllDevices;
+    @FindBy(linkText = "All Products")
+    WebElement linkAllProducts;
 
+    @FindBy(partialLinkText = "All")
+    WebElement linkAll;
 
     @Autowired
     public RecordsPage(WebDriver driver) {
@@ -36,7 +42,7 @@ public class RecordsPage extends _Page {
     }
 
     public Accounts clickOnAccounts() {
-        WaitUtils.waitForElementToBePartOfDOM(driver, By.partialLinkText("Accounts"), 10, false);
+        WaitUtils.waitForElementToBePartOfDOM(driver, By.linkText("Accounts"), 10, false);
         WaitUtils.waitForElementToBeClickable(driver, linkAccounts, 10, false);
         //linkAccounts.click();
         PageUtils.singleClick(driver, linkAccounts);
@@ -44,14 +50,14 @@ public class RecordsPage extends _Page {
     }
 
     public Devices clickOnDevices() {
-        WaitUtils.waitForElementToBePartOfDOM(driver, By.partialLinkText("Devices"), 10, false);
+        WaitUtils.waitForElementToBePartOfDOM(driver, By.linkText("Devices"), 10, false);
         WaitUtils.waitForElementToBeClickable(driver, linkDevices, 10, false);
         linkDevices.click();
         return new Devices(driver);
     }
 
     public Products clickOnProducts() {
-        WaitUtils.waitForElementToBePartOfDOM(driver, By.partialLinkText("Products"), 20, false);
+        WaitUtils.waitForElementToBePartOfDOM(driver, By.linkText("Products"), 20, false);
         WaitUtils.waitForElementToBeClickable(driver, linkProducts, 10, false);
         linkProducts.click();
         return new Products(driver);
@@ -64,4 +70,25 @@ public class RecordsPage extends _Page {
         return new AllOrganisations(driver);
     }
 
+    public boolean isCorrectPage() {
+        try {
+            WaitUtils.waitForElementToBeVisible(driver, linkAll , TIMEOUT_5_SECOND, false);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    public Devices clickOnAllDevices() {
+        WaitUtils.waitForElementToBePartOfDOM(driver, By.linkText("All Devices"), 10, false);
+        WaitUtils.waitForElementToBeClickable(driver, linkAllDevices, 10, false);
+        linkAllDevices.click();
+        return new Devices(driver);
+    }
+
+    public Products clickOnAllProducts() {
+        WaitUtils.waitForElementToBePartOfDOM(driver, By.linkText("All Products"), 20, false);
+        WaitUtils.waitForElementToBeClickable(driver, linkAllProducts, 10, false);
+        linkAllProducts.click();
+        return new Products(driver);
+    }
 }

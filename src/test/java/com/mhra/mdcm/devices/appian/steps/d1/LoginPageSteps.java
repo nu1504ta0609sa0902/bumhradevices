@@ -5,6 +5,7 @@ import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
+import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -87,6 +88,7 @@ public class LoginPageSteps extends CommonSteps {
             tasksPage = mainNavigationBar.clickTasks();
         }else if(page.equals("Records")){
             recordsPage = mainNavigationBar.clickRecords();
+            recordsPage.isCorrectPage();
         }else if(page.equals("Reports")){
             reportsPage = mainNavigationBar.clickReports();
         }else if(page.equals("Actions")){

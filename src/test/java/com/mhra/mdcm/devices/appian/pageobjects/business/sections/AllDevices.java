@@ -15,13 +15,13 @@ import java.util.List;
  * Created by TPD_Auto 
  */
 @Component
-public class Devices extends _Page {
+public class AllDevices extends _Page {
 
-    @FindBy(xpath = ".//h2[.='Device Id']//following::a")
-    List<WebElement> listOfDevices;
+    @FindBy(xpath = ".//h2[.='GMDN definition']//following::a")
+    List<WebElement> listOfAllDevices;
 
     @Autowired
-    public Devices(WebDriver driver) {
+    public AllDevices(WebDriver driver) {
         super(driver);
     }
 
@@ -38,8 +38,8 @@ public class Devices extends _Page {
         boolean itemsDisplayed = false;
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='" + expectedHeadings + "']") , TIMEOUT_DEFAULT, false);
 
-        if(expectedHeadings.equals("Devices")){
-            itemsDisplayed = listOfDevices.size() > 0;
+        if(expectedHeadings.contains("All Devices")){
+            itemsDisplayed = listOfAllDevices.size() > 0;
         }
 
         return itemsDisplayed;

@@ -15,33 +15,32 @@ import java.util.List;
  * Created by TPD_Auto 
  */
 @Component
-public class Devices extends _Page {
+public class AllProducts extends _Page {
 
-    @FindBy(xpath = ".//h2[.='Device Id']//following::a")
-    List<WebElement> listOfDevices;
+    @FindBy(xpath = ".//h2[.='Country']//following::a")
+    List<WebElement> listOfAllProducts;
 
     @Autowired
-    public Devices(WebDriver driver) {
+    public AllProducts(WebDriver driver) {
         super(driver);
     }
 
-
     public boolean isHeadingCorrect(String expectedHeadings) {
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='" + expectedHeadings + "']") , TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='" + expectedHeadings + "']") , 10, false);
         WebElement heading = driver.findElement(By.xpath(".//h2[.='" + expectedHeadings + "']"));
         boolean contains = heading.getText().contains(expectedHeadings);
         return contains;
     }
 
-
     public boolean isItemsDisplayed(String expectedHeadings) {
         boolean itemsDisplayed = false;
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='" + expectedHeadings + "']") , TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='" + expectedHeadings + "']") , 10, false);
 
-        if(expectedHeadings.equals("Devices")){
-            itemsDisplayed = listOfDevices.size() > 0;
+        if(expectedHeadings.contains("All Products")){
+            itemsDisplayed = listOfAllProducts.size() > 0;
         }
 
         return itemsDisplayed;
     }
+
 }

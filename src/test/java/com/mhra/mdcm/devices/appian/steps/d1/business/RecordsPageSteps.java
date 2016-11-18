@@ -7,7 +7,9 @@ import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+
 import static org.hamcrest.Matchers.*;
+
 import org.junit.Assert;
 import org.springframework.context.annotation.Scope;
 
@@ -32,6 +34,10 @@ public class RecordsPageSteps extends CommonSteps {
             products = recordsPage.clickOnProducts();
         } else if (page.equals("All Organisations")) {
             allOrganisations = recordsPage.clickOnAllOrganisations();
+        } else if (page.equals("All Devices")) {
+            devices = recordsPage.clickOnAllDevices();
+        } else if (page.equals("All Products")) {
+            products = recordsPage.clickOnAllProducts();
         }
     }
 
@@ -47,7 +53,7 @@ public class RecordsPageSteps extends CommonSteps {
         boolean isItemsDisplayedAndCorrect = false;
 
         if (page.equals("Accounts")) {
-            isHeadingVisibleAndCorrect =  accounts.isHeadingCorrect(expectedHeadings);
+            isHeadingVisibleAndCorrect = accounts.isHeadingCorrect(expectedHeadings);
             isItemsDisplayedAndCorrect = accounts.isItemsDisplayed(expectedHeadings);
         } else if (page.equals("Devices")) {
             isHeadingVisibleAndCorrect = devices.isHeadingCorrect(expectedHeadings);
@@ -58,6 +64,12 @@ public class RecordsPageSteps extends CommonSteps {
         } else if (page.equals("All Organisations")) {
             isHeadingVisibleAndCorrect = allOrganisations.isHeadingCorrect(expectedHeadings);
             isItemsDisplayedAndCorrect = allOrganisations.isItemsDisplayed(expectedHeadings);
+        } else if (page.equals("All Devices")) {
+            isHeadingVisibleAndCorrect = allDevices.isHeadingCorrect(expectedHeadings);
+            isItemsDisplayedAndCorrect = allDevices.isItemsDisplayed(expectedHeadings);
+        } else if (page.equals("All Products")) {
+            isHeadingVisibleAndCorrect = allProducts.isHeadingCorrect(expectedHeadings);
+            isItemsDisplayedAndCorrect = allProducts.isItemsDisplayed(expectedHeadings);
         }
 
         //Verify results
@@ -81,7 +93,7 @@ public class RecordsPageSteps extends CommonSteps {
             tableColumnsNotFound = allOrganisations.isTableColumnCorrect(columns);
         }
 
-        Assert.assertThat("Following columns not found : " + tableColumnsNotFound, tableColumnsNotFound.size() == 0,  is(true));
+        Assert.assertThat("Following columns not found : " + tableColumnsNotFound, tableColumnsNotFound.size() == 0, is(true));
     }
 
 //    @Then("^I should see the following columns for \"([^\"]*)\" page$")
@@ -106,7 +118,7 @@ public class RecordsPageSteps extends CommonSteps {
     @When("^I search for a \"([^\"]*)\" organisation$")
     public void i_search_for_a_organisation(String existing) throws Throwable {
         boolean exists = true;
-        if(existing.contains("non") || existing.contains("not")){
+        if (existing.contains("non") || existing.contains("not")) {
             exists = false;
         }
 
@@ -120,9 +132,9 @@ public class RecordsPageSteps extends CommonSteps {
     public void the_search_result_should_contain_the_organisation(String contain) throws Throwable {
         String organisationName = (String) scenarioSession.getData(SessionKey.organisationName);
         int count = allOrganisations.getNumberOfMatches();
-        if(contain.contains("not")){
+        if (contain.contains("not")) {
             Assert.assertThat("Searching for " + organisationName + " should return 0 matches, but it was : " + count, count == 0, is(true));
-        }else{
+        } else {
             //Search was performed with an existing organisation
             Assert.assertThat("Searching for " + organisationName + " should return at least 1 matches, but it was : " + count, count >= 1, is(true));
         }
@@ -154,10 +166,10 @@ public class RecordsPageSteps extends CommonSteps {
     public void i_should_see_account_matches(int expectedMinCount) throws Throwable {
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
         boolean atLeast1Match = accounts.atLeast1MatchFound(orgName);
-        if(expectedMinCount == 0){
-            Assert.assertThat("Expected to see no matches ",atLeast1Match, is(false));
-        }else{
-            Assert.assertThat("Expected to see atleast 1 matches" , atLeast1Match, is(true));
+        if (expectedMinCount == 0) {
+            Assert.assertThat("Expected to see no matches ", atLeast1Match, is(false));
+        } else {
+            Assert.assertThat("Expected to see atleast 1 matches", atLeast1Match, is(true));
         }
     }
 
@@ -213,10 +225,10 @@ public class RecordsPageSteps extends CommonSteps {
             //A bug : refresh is required
             driver.navigate().refresh();
             updatesFound = accounts.verifyUpdatesDisplayedOnPage(keyValuePairToUpdate, updatedData);
-            if(!updatesFound){
+            if (!updatesFound) {
                 WaitUtils.nativeWaitInSeconds(1);
             }
-        }while (!updatesFound && numberOfRefresh < 3);
+        } while (!updatesFound && numberOfRefresh < 3);
 
         Assert.assertThat("Expected to see following updates : " + keyValuePairToUpdate, updatesFound, is(true));
     }
@@ -224,7 +236,7 @@ public class RecordsPageSteps extends CommonSteps {
     @Then("^The items are displayed in alphabetical order$")
     public void the_items_are_displayed_in_alphabetical_order() throws Throwable {
         boolean isOrderAtoZ = accounts.isOrderedAtoZ();
-        Assert.assertThat("Default ordering of organisation name should be A to Z"  , isOrderAtoZ, is(true));
+        Assert.assertThat("Default ordering of organisation name should be A to Z", isOrderAtoZ, is(true));
 
     }
 }

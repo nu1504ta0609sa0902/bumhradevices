@@ -30,8 +30,8 @@ public class MainNavigationBar extends _Page {
     WebElement actions;
 
 
-    @FindBy(xpath = ".//a//following::div[.='PORTAL']")
-    WebElement linkPortal;
+    @FindBy(partialLinkText = "HOME")
+    WebElement linkHOME;
     @FindBy(xpath = ".//a//following::div[.='MY ACCOUNT']")
     WebElement linkMyAccount;
 
@@ -109,12 +109,12 @@ public class MainNavigationBar extends _Page {
     //==========================================================
 
 
-    public PortalPage clickPortals() {
+    public PortalPage clickHOME() {
         try {
-            WaitUtils.waitForElementToBeClickable(driver, linkPortal, TIMEOUT_DEFAULT, false);
-            PageUtils.doubleClick(driver, linkPortal);
+            WaitUtils.waitForElementToBeClickable(driver, linkHOME, TIMEOUT_DEFAULT, false);
+            PageUtils.doubleClick(driver, linkHOME);
         }catch (Exception e){
-            By xp = By.xpath(".//a//following::div[.='Portal']");
+            By xp = By.partialLinkText("home");
             WaitUtils.waitForElementToBeClickable(driver, xp, TIMEOUT_DEFAULT, false);
             PageUtils.doubleClick(driver, driver.findElement(xp));
         }

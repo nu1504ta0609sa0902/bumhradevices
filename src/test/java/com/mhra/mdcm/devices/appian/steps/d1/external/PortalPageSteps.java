@@ -1,9 +1,7 @@
 package com.mhra.mdcm.devices.appian.steps.d1.external;
 
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
-import com.mhra.mdcm.devices.appian.pageobjects.external.PortalPage;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -21,19 +19,19 @@ public class PortalPageSteps extends CommonSteps {
     @When("^I go to portal page$")
     public void gotoPortalPage(){
         mainNavigationBar = new MainNavigationBar(driver);
-        portalPage = mainNavigationBar.clickPortals();
+        portalPage = mainNavigationBar.clickHOME();
     }
 
     @Then("^I should see the following portal \"([^\"]*)\" links$")
     public void i_should_see_the_following_links(String delimitedLinks) throws Throwable {
-        portalPage = mainNavigationBar.clickPortals();
+        portalPage = mainNavigationBar.clickHOME();
         boolean areLinksVisible = portalPage.areLinksVisible(delimitedLinks);
         Assert.assertThat("Expected to see the following links : " + delimitedLinks, areLinksVisible, Matchers.is(true));
     }
 
     @And("^All the links \"([^\"]*)\" are clickable$")
     public void allTheAreClickable(String delimitedLinks) throws Throwable {
-        portalPage = mainNavigationBar.clickPortals();
+        portalPage = mainNavigationBar.clickHOME();
         boolean areLinksClickable = portalPage.areLinksClickable(delimitedLinks);
         Assert.assertThat("Not all links are clickable : " + delimitedLinks, areLinksClickable, Matchers.is(true));
     }

@@ -67,6 +67,10 @@ public class CommonSteps {
     @Autowired
     public AllOrganisations allOrganisations;
     @Autowired
+    public AllDevices allDevices;
+    @Autowired
+    public AllProducts allProducts;
+    @Autowired
     public CreateTestsData createTestsData;
     @Autowired
     public TaskSection taskSection;
