@@ -37,7 +37,7 @@ public class ActionsPage extends _Page {
 
     public CreateTestsData gotoTestsHarnessPage() {
         WaitUtils.waitForElementToBePartOfDOM(driver, By.partialLinkText("Create Test Account"), TIMEOUT_10_SECOND, false);
-        WaitUtils.waitForElementToBeClickable(driver, linkCreateTestAccount, TIMEOUT_10_SECOND, false);
+        //WaitUtils.waitForElementToBeClickable(driver, linkCreateTestAccount, TIMEOUT_10_SECOND, false);
         //linkCreateTestAccount.click();
         PageUtils.singleClick(driver, linkCreateTestAccount);
         return new CreateTestsData(driver);

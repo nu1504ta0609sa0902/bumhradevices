@@ -113,8 +113,14 @@ public class CreateTestsData extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_5_SECOND, false);
         orgName.sendKeys(ar.organisationName);
 
-        //Some weired bug where input boxes looses value on focus
-
+        //Selecting country has changed to auto suggest
+        boolean exception = false;
+        try {
+            orgName.click();
+            selectCountryFromAutoSuggests(driver, ".gwt-SuggestBox", ar.country, true);
+        }catch (Exception e){
+            exception = true;
+        }
 
         //Organisation details
         WaitUtils.waitForElementToBeClickable(driver, addressLine1, TIMEOUT_DEFAULT, false);
@@ -130,39 +136,32 @@ public class CreateTestsData extends _Page {
             PageUtils.doubleClick(driver, addressType);
         }
 
-        //Selecting country has changed to auto suggest
-        boolean exception = false;
-        try {
-            orgName.click();
-            selectCountryFromAutoSuggests(driver, ".gwt-SuggestBox", ar.country, true);
-        }catch (Exception e){
-            exception = true;
-        }
-
         //Organisation Type
         if(ar.organisationType.equals("Limited Company")){
-            PageUtils.doubleClick(driver, limitedCompany);
+            PageUtils.clickIfVisible(driver, limitedCompany);
             PageFactory.initElements(driver, this);
+            WaitUtils.waitForElementToBeVisible(driver, companyRegistrationNumber, TIMEOUT_5_SECOND, false);
             WaitUtils.waitForElementToBeClickable(driver, companyRegistrationNumber, TIMEOUT_5_SECOND, false);
+            WaitUtils.nativeWaitInSeconds(1);
             vatRegistrationNumber.sendKeys(ar.vatRegistrationNumber);
             companyRegistrationNumber.sendKeys(ar.companyRegistrationNumber);
-        }else if(ar.organisationType.equals("Business Partnership")){
-            PageUtils.doubleClick(driver, businessPartnership);
-            PageFactory.initElements(driver, this);
-            WaitUtils.waitForElementToBeClickable(driver, vatRegistrationNumber, TIMEOUT_5_SECOND, false);
-            vatRegistrationNumber.sendKeys(ar.vatRegistrationNumber);
-        }else if(ar.organisationType.equals("Unincorporated Association")){
-            PageUtils.doubleClick(driver, unincorporatedAssociation);
-            PageFactory.initElements(driver, this);
-        }else if(ar.organisationType.equals("Other")){
-            PageUtils.doubleClick(driver, other);
-            PageFactory.initElements(driver, this);
-        }
 
-        //Try country again
-        if(exception) {
-            orgName.click();
-            selectCountryFromAutoSuggests(driver, ".gwt-SuggestBox", ar.country, false);
+        }else if(ar.organisationType.equals("Business Partnership")){
+            PageUtils.clickIfVisible(driver, businessPartnership);
+            PageFactory.initElements(driver, this);
+            WaitUtils.waitForElementToBeVisible(driver, vatRegistrationNumber, TIMEOUT_5_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, vatRegistrationNumber, TIMEOUT_5_SECOND, false);
+            WaitUtils.nativeWaitInSeconds(1);
+            vatRegistrationNumber.sendKeys(ar.vatRegistrationNumber);
+
+        }else if(ar.organisationType.equals("Unincorporated Association")){
+            PageUtils.clickIfVisible(driver, unincorporatedAssociation);
+            PageFactory.initElements(driver, this);
+
+        }else if(ar.organisationType.equals("Other")){
+            PageUtils.clickIfVisible(driver, other);
+            PageFactory.initElements(driver, this);
+
         }
 
         //Contact Person Details
@@ -195,6 +194,12 @@ public class CreateTestsData extends _Page {
         if(ar.aitsAdverseIncidentTrackingSystem){
             WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//span[.='Selected Services']//following::input[4]"), TIMEOUT_DEFAULT, false);
             PageUtils.singleClick(driver, aitsAdverseIncidient);
+        }
+
+        //Some weired bug where input boxes looses value on focus
+        if(exception) {
+            orgName.click();
+            selectCountryFromAutoSuggests(driver, ".gwt-SuggestBox", ar.country, false);
         }
 
         //Submit form : remember to verify

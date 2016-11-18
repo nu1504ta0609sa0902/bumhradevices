@@ -12,6 +12,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * Created by TPD_Auto
  *
@@ -38,15 +40,15 @@ public class TaskSection extends _Page {
     WebElement reject;
 
     //Rejection reason
-    @FindBy(css = ".gwt-RadioButton:nth-child(1)")
+    @FindBy(xpath = ".//*[.='Reasons']//following::input[1]")
     WebElement reasonAccountAlreadyExists;
-    @FindBy(xpath = ".gwt-RadioButton:nth-child(2)")
+    @FindBy(xpath = ".//*[.='Reasons']//following::input[2]")
     WebElement reasonNotRegisteredInUk;
-    @FindBy(xpath = ".gwt-RadioButton:nth-child(3)")
+    @FindBy(xpath = ".//*[.='Reasons']//following::input[3]")
     WebElement reasonNoAuthorisationEvidenceProvided;
-    @FindBy(xpath = ".gwt-RadioButton:nth-child(4)")
+    @FindBy(xpath = ".//*[.='Reasons']//following::input[4]")
     WebElement reasonNonQualifyingParty;
-    @FindBy(xpath = ".gwt-RadioButton:nth-child(5)")
+    @FindBy(xpath = ".//*[.='Reasons']//following::input[5]")
     WebElement other;
 
     @FindBy(css = ".aui-TextAreaInput")
@@ -64,10 +66,14 @@ public class TaskSection extends _Page {
     }
 
     public boolean isCorrectTask(String orgName) {
-        WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
-        WaitUtils.waitForElementToBeVisible(driver, By.xpath(".//h4"), TIMEOUT_10_SECOND, false);
-        boolean contains = taskHeading.getText().contains(orgName);
-        return contains;
+        try {
+            WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
+            WaitUtils.waitForElementToBeVisible(driver, By.xpath(".//h4"), TIMEOUT_10_SECOND, false);
+            boolean contains = taskHeading.getText().contains(orgName);
+            return contains;
+        }catch (Exception e){
+            return false;
+        }
     }
 
     public TaskSection acceptTask() {
@@ -112,24 +118,27 @@ public class TaskSection extends _Page {
             WaitUtils.waitForElementToBeClickable(driver, other, TIMEOUT_10_SECOND, false);
             other.click();
             PageFactory.initElements(driver, this);
+            WaitUtils.nativeWaitInSeconds(1);
             WaitUtils.waitForElementToBeClickable(driver, commentArea, TIMEOUT_10_SECOND, false);
-            commentArea.sendKeys(randomTestComment);
         }else if(reason.contains("Account already exists")){
             WaitUtils.waitForElementToBeClickable(driver, reasonAccountAlreadyExists, TIMEOUT_10_SECOND, false);
-            PageUtils.doubleClick(driver, reasonAccountAlreadyExists);
+            PageUtils.clickIfVisible(driver, reasonAccountAlreadyExists);
         }else if(reason.contains("Not registered in the UK")){
             WaitUtils.waitForElementToBeClickable(driver, reasonNotRegisteredInUk, TIMEOUT_10_SECOND, false);
-            PageUtils.doubleClick(driver, reasonNotRegisteredInUk);
+            PageUtils.clickIfVisible(driver, reasonNotRegisteredInUk);
         }else if(reason.contains("No authorisation evidence provided")){
             WaitUtils.waitForElementToBeClickable(driver, reasonNoAuthorisationEvidenceProvided, TIMEOUT_10_SECOND, false);
-            PageUtils.doubleClick(driver, reasonNoAuthorisationEvidenceProvided);
+            PageUtils.clickIfVisible(driver, reasonNoAuthorisationEvidenceProvided);
         }else if(reason.contains("Non-qualifying party")){
             WaitUtils.waitForElementToBeClickable(driver, reasonNonQualifyingParty, TIMEOUT_10_SECOND, false);
-            PageUtils.doubleClick(driver, reasonNonQualifyingParty);
+            PageUtils.clickIfVisible(driver, reasonNonQualifyingParty);
         }
 
+        //Enter comment
+        commentArea.sendKeys(randomTestComment);
+
         //Submit rejection
-        PageUtils.singleClick(driver, submitBtn);
+        PageUtils.doubleClick(driver, submitBtn);
         return new TasksPage(driver);
     }
 
@@ -161,5 +170,10 @@ public class TaskSection extends _Page {
             isVisible = false;
         }
         return isVisible;
+    }
+
+    public boolean isOrganisationDisplayedOnLink(String orgName) {
+        boolean contains = driver.getPageSource().contains(orgName);
+        return contains;
     }
 }

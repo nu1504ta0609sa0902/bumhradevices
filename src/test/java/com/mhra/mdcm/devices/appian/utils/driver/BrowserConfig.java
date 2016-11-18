@@ -83,8 +83,10 @@ public class BrowserConfig {
 
 	private DesiredCapabilities getFirefoxDesiredCapabilities(boolean isMarionette) {
 		DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-		if(isMarionette)
-		capabilities.setCapability("marionette", true);
+		if(isMarionette) {
+			//System.setProperty("webdriver.gecko.driver", "C:\\Selenium\\firefox\\geckodriver.exe");
+			capabilities.setCapability("marionette", true);
+		}
 		return capabilities;
 	}
 

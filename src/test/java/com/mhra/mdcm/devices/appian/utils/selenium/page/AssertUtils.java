@@ -21,7 +21,8 @@ public class AssertUtils {
     }
 
     public static boolean areChangesDisplayed(WebElement element, String value) {
-        boolean found = element.getText().contains(value);
+        String txt = element.getText();
+        boolean found = txt.contains(value);
         return found;
     }
 }

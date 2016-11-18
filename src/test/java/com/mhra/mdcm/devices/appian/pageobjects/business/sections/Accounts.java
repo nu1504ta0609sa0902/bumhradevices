@@ -43,6 +43,8 @@ public class Accounts extends _Page {
     WebElement orgCityTown;
     @FindBy(xpath = ".//span[.='Postcode']//following::p[1]")
     WebElement orgPostCode;
+    @FindBy(xpath = ".//span[.='Country']//following::p[1]")
+    WebElement orgCountry;
     @FindBy(xpath = ".//span[contains(text(),'Address type')]//following::input[1]")
     WebElement addressType;
     @FindBy(xpath = ".//span[contains(text(),'Telephone')]//following::p[1]")
@@ -200,23 +202,23 @@ public class Accounts extends _Page {
             String key = split[0];
             String value = split[1];
             if(key.equals("job.title")){
-                allChangesDisplayed = AssertUtils.areChangesDisplayed(jobTitle,  value);
+                allChangesDisplayed = AssertUtils.areChangesDisplayed(jobTitle,  updatedData.jobTitle);
             }else if(key.equals("org.name")){
-                allChangesDisplayed = AssertUtils.areChangesDisplayed(orgName,  value);
+                allChangesDisplayed = AssertUtils.areChangesDisplayed(orgName,  updatedData.organisationName);
             }else if(key.equals("address.line1")){
-                allChangesDisplayed = AssertUtils.areChangesDisplayed(orgAddressLine1,  value);
+                allChangesDisplayed = AssertUtils.areChangesDisplayed(orgAddressLine1,  updatedData.address1);
             }else if(key.equals("address.line2")){
-                allChangesDisplayed = AssertUtils.areChangesDisplayed(orgAddressLine2,  value);
+                allChangesDisplayed = AssertUtils.areChangesDisplayed(orgAddressLine2,  updatedData.address2);
             }else if(key.equals("city.town")){
-                allChangesDisplayed = AssertUtils.areChangesDisplayed(orgCityTown,  value);
+                allChangesDisplayed = AssertUtils.areChangesDisplayed(orgCityTown,  updatedData.townCity);
             }else if(key.equals("country")){
-
+                allChangesDisplayed = AssertUtils.areChangesDisplayed(orgCountry,  updatedData.country);
             }else if(key.equals("postcode")){
-                allChangesDisplayed = AssertUtils.areChangesDisplayed(orgPostCode,  value);
+                allChangesDisplayed = AssertUtils.areChangesDisplayed(orgPostCode,  updatedData.postCode);
             }else if(key.equals("org.telephone")){
-                allChangesDisplayed = AssertUtils.areChangesDisplayed(orgTelephone,  value);
+                allChangesDisplayed = AssertUtils.areChangesDisplayed(orgTelephone,  updatedData.telephone);
             }else if(key.equals("org.fax")){
-                allChangesDisplayed = AssertUtils.areChangesDisplayed(orgFax,  value);
+                allChangesDisplayed = AssertUtils.areChangesDisplayed(orgFax,  updatedData.fax);
             }
         }
 

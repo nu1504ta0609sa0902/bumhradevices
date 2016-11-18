@@ -106,7 +106,7 @@ public class EditAccounts extends _Page {
                 TestHarnessUtils.updateElementValue(driver, orgCityTown, updatedData.townCity, TIMEOUT_DEFAULT);
             }else if(key.equals("country")){
                 //THIS NEEDS TO SELECT FROM AUTO SUGGESTS NOW
-                TestHarnessUtils.updateElementValue(driver, orgCountry, updatedData.country, TIMEOUT_DEFAULT);
+                //TestHarnessUtils.updateElementValue(driver, orgCountry, updatedData.country, TIMEOUT_DEFAULT);
             }else if(key.equals("postcode")){
                 TestHarnessUtils.updateElementValue(driver, orgPostCode, updatedData.postCode, TIMEOUT_DEFAULT);
             }else if(key.equals("org.telephone")){

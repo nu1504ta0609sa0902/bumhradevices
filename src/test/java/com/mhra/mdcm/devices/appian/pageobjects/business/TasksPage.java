@@ -22,8 +22,11 @@ public class TasksPage extends _Page {
     @FindBy(partialLinkText = "New Account Request")
     List<WebElement> listOfNewAccount;
 
-    @FindBy(partialLinkText = "Work In Progress")
+    @FindBy(xpath = ".//span[contains(text(),'Work In Progress')]")
     WebElement workInProgress;
+
+    @FindBy(xpath = ".//span[contains(text(),'Completed Tasks')]")
+    WebElement completedTasks;
 
     @Autowired
     public TasksPage(WebDriver driver) {
@@ -38,9 +41,16 @@ public class TasksPage extends _Page {
     }
 
     public TaskSection gotoWIPTasksPage() {
+        WaitUtils.waitForElementToBeVisible(driver, workInProgress, TIMEOUT_DEFAULT, false);
         WaitUtils.waitForElementToBeClickable(driver, workInProgress, TIMEOUT_DEFAULT, false);
         workInProgress.click();
         return new TaskSection(driver);
     }
 
+    public TaskSection gotoCompletedTasksPage() {
+        WaitUtils.waitForElementToBeVisible(driver, completedTasks, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, completedTasks, TIMEOUT_DEFAULT, false);
+        completedTasks.click();
+        return new TaskSection(driver);
+    }
 }
