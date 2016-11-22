@@ -2,7 +2,8 @@ package com.mhra.mdcm.devices.appian.pageobjects;
 
 
 import com.mhra.mdcm.devices.appian.pageobjects.business.*;
-import com.mhra.mdcm.devices.appian.pageobjects.external.PortalPage;
+import com.mhra.mdcm.devices.appian.pageobjects.external.MyAccountPage;
+import com.mhra.mdcm.devices.appian.pageobjects.external.ExternalHomePage;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
@@ -32,7 +33,7 @@ public class MainNavigationBar extends _Page {
 
     @FindBy(partialLinkText = "HOME")
     WebElement linkHOME;
-    @FindBy(xpath = ".//a//following::div[.='MY ACCOUNT']")
+    @FindBy(partialLinkText = "MY ACCOUNT")
     WebElement linkMyAccount;
 
     @FindBy(css = ".appian-menu-item.appian-menu-item-selected")
@@ -109,7 +110,7 @@ public class MainNavigationBar extends _Page {
     //==========================================================
 
 
-    public PortalPage clickHOME() {
+    public ExternalHomePage clickHOME() {
         try {
             WaitUtils.waitForElementToBeClickable(driver, linkHOME, TIMEOUT_DEFAULT, false);
             PageUtils.doubleClick(driver, linkHOME);
@@ -118,6 +119,18 @@ public class MainNavigationBar extends _Page {
             WaitUtils.waitForElementToBeClickable(driver, xp, TIMEOUT_DEFAULT, false);
             PageUtils.doubleClick(driver, driver.findElement(xp));
         }
-        return new PortalPage(driver);
+        return new ExternalHomePage(driver);
+    }
+
+    public MyAccountPage clickMyAccount() {
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, linkMyAccount, TIMEOUT_DEFAULT, false);
+            PageUtils.doubleClick(driver, linkMyAccount);
+        }catch (Exception e){
+            By xp = By.partialLinkText("my account");
+            WaitUtils.waitForElementToBeClickable(driver, xp, TIMEOUT_DEFAULT, false);
+            PageUtils.doubleClick(driver, driver.findElement(xp));
+        }
+        return new MyAccountPage(driver);
     }
 }

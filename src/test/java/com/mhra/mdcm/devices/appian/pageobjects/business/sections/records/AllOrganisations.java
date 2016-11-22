@@ -1,4 +1,4 @@
-package com.mhra.mdcm.devices.appian.pageobjects.business.sections;
+package com.mhra.mdcm.devices.appian.pageobjects.business.sections.records;
 
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;

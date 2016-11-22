@@ -1,10 +1,10 @@
 package com.mhra.mdcm.devices.appian.pageobjects.business;
 
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
-import com.mhra.mdcm.devices.appian.pageobjects.business.sections.Accounts;
-import com.mhra.mdcm.devices.appian.pageobjects.business.sections.AllOrganisations;
-import com.mhra.mdcm.devices.appian.pageobjects.business.sections.Devices;
-import com.mhra.mdcm.devices.appian.pageobjects.business.sections.Products;
+import com.mhra.mdcm.devices.appian.pageobjects.business.sections.records.Accounts;
+import com.mhra.mdcm.devices.appian.pageobjects.business.sections.records.AllOrganisations;
+import com.mhra.mdcm.devices.appian.pageobjects.business.sections.records.Devices;
+import com.mhra.mdcm.devices.appian.pageobjects.business.sections.records.Products;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;

@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component;
  * Created by TPD_Auto
  */
 @Component
-public class PortalPage extends _Page {
+public class ExternalHomePage extends _Page {
 
     @Autowired
-    public PortalPage(WebDriver driver) {
+    public ExternalHomePage(WebDriver driver) {
         super(driver);
     }
 

@@ -13,26 +13,26 @@ import org.springframework.context.annotation.Scope;
  * Created by TPD_Auto
  */
 @Scope("cucumber-glue")
-public class PortalPageSteps extends CommonSteps {
+public class HomePageSteps extends CommonSteps {
 
 
     @When("^I go to portal page$")
     public void gotoPortalPage(){
         mainNavigationBar = new MainNavigationBar(driver);
-        portalPage = mainNavigationBar.clickHOME();
+        homePage = mainNavigationBar.clickHOME();
     }
 
     @Then("^I should see the following portal \"([^\"]*)\" links$")
     public void i_should_see_the_following_links(String delimitedLinks) throws Throwable {
-        portalPage = mainNavigationBar.clickHOME();
-        boolean areLinksVisible = portalPage.areLinksVisible(delimitedLinks);
+        homePage = mainNavigationBar.clickHOME();
+        boolean areLinksVisible = homePage.areLinksVisible(delimitedLinks);
         Assert.assertThat("Expected to see the following links : " + delimitedLinks, areLinksVisible, Matchers.is(true));
     }
 
     @And("^All the links \"([^\"]*)\" are clickable$")
     public void allTheAreClickable(String delimitedLinks) throws Throwable {
-        portalPage = mainNavigationBar.clickHOME();
-        boolean areLinksClickable = portalPage.areLinksClickable(delimitedLinks);
+        homePage = mainNavigationBar.clickHOME();
+        boolean areLinksClickable = homePage.areLinksClickable(delimitedLinks);
         Assert.assertThat("Not all links are clickable : " + delimitedLinks, areLinksClickable, Matchers.is(true));
     }
 }

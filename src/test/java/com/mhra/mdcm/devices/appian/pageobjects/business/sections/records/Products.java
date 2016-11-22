@@ -1,4 +1,4 @@
-package com.mhra.mdcm.devices.appian.pageobjects.business.sections;
+package com.mhra.mdcm.devices.appian.pageobjects.business.sections.records;
 
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
@@ -15,13 +15,13 @@ import java.util.List;
  * Created by TPD_Auto 
  */
 @Component
-public class AllProducts extends _Page {
+public class Products extends _Page {
 
-    @FindBy(xpath = ".//h2[.='Country']//following::a")
-    List<WebElement> listOfAllProducts;
+    @FindBy(xpath = ".//h2[.='model']//following::a")
+    List<WebElement> listOfProducts;
 
     @Autowired
-    public AllProducts(WebDriver driver) {
+    public Products(WebDriver driver) {
         super(driver);
     }
 
@@ -36,8 +36,8 @@ public class AllProducts extends _Page {
         boolean itemsDisplayed = false;
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='" + expectedHeadings + "']") , 10, false);
 
-        if(expectedHeadings.contains("All Products")){
-            itemsDisplayed = listOfAllProducts.size() > 0;
+        if(expectedHeadings.contains("Products")){
+            itemsDisplayed = listOfProducts.size() > 0;
         }
 
         return itemsDisplayed;

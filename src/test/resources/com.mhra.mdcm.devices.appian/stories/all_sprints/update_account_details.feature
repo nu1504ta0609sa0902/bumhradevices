@@ -15,3 +15,18 @@ Feature: As a business user, I want to be able to update party details associate
       | businessAuto | Accounts | ManufacturerTest | org.name=random                                                                          |
       | businessAuto | Accounts | ManufacturerTest | address.line1=random,address.line2=random,city.town=random,country=random,postcod=random |
       | businessAuto | Accounts | ManufacturerTest | org.telephone=random,org.fax=random                                                      |
+
+
+  @mdcm-149 @regression
+  Scenario Outline: User should be able to update contact details
+    Given I am logged into appian as "<user>" user
+    When I go to my accounts page
+    And I update the following data "<keyValuePairs>"
+    Examples:
+      | user              | keyValuePairs |
+      | manufacturerNoor  |               |
+      | authorisedrepNoor |               |
+#      | manufacturerAuto  |                   |
+#      | authorisedrepAuto |                  |
+
+
