@@ -7,6 +7,7 @@ import com.mhra.mdcm.devices.appian.pageobjects.business.sections.*;
 import com.mhra.mdcm.devices.appian.pageobjects.business.sections.records.*;
 import com.mhra.mdcm.devices.appian.pageobjects.external.MyAccountPage;
 import com.mhra.mdcm.devices.appian.pageobjects.external.ExternalHomePage;
+import com.mhra.mdcm.devices.appian.pageobjects.external.sections.PersonDetails;
 import com.mhra.mdcm.devices.appian.session.ScenarioSession;
 import com.mhra.mdcm.devices.appian.utils.network.NetworkUtils;
 
@@ -82,6 +83,8 @@ public class CommonSteps {
     public EditAccounts editAccounts;
     @Autowired
     public MyAccountPage myAccountPage;
+    @Autowired
+    public PersonDetails amendPersonDetails;
 
     public static boolean oneDriverOnly = true;
     public CommonSteps() {

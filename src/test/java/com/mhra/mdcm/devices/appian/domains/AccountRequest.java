@@ -1,7 +1,11 @@
 package com.mhra.mdcm.devices.appian.domains;
 
+import com.mhra.mdcm.devices.appian.session.ScenarioSession;
+import com.mhra.mdcm.devices.appian.session.SessionKey;
+import com.mhra.mdcm.devices.appian.utils.selenium.others.FileUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,8 +54,19 @@ public class AccountRequest {
     public boolean aitsAdverseIncidentTrackingSystem;
 
 
-    public AccountRequest() {
+    public AccountRequest(ScenarioSession scenarioSession) {
         createDefaultRandom();
+        //Update as required
+        if(scenarioSession!=null){
+            setUserDetails(getLoggedInUserName(scenarioSession));
+        }
+    }
+
+    private String getLoggedInUserName(ScenarioSession scenarioSession) {
+        String selectedProfile = System.getProperty("spring.profiles.active");
+        String unameKeyValue = (String) scenarioSession.getData(SessionKey.loggedInUser);
+        String userName = FileUtils.getSpecificPropertyFromFile("data" + File.separator + "users.properties", selectedProfile + ".username." + unameKeyValue);
+        return userName;
     }
 
     private void createDefaultRandom() {
@@ -73,14 +88,17 @@ public class AccountRequest {
         website = "www." + organisationName.toLowerCase() + ".com";
 
         //Organisation type
-        organisationType = "Limited Company";
+        organisationType = "Other";
         vatRegistrationNumber = "0161" + (int) RandomDataUtils.getRandomDigits(7);
         companyRegistrationNumber = "0895" + (int) RandomDataUtils.getRandomDigits(7);
 
         //Contact Person Details
-        title = "Prof.";
+        title = getRandomTitle();
         firstName = RandomDataUtils.generateTestNameStartingWith("Noor", 2); //RandomDataUtils.getRandomTestName("Noor").replace("_", "");
         lastName = RandomDataUtils.generateTestNameStartingWith("Uddin", 2); //RandomDataUtils.getRandomTestName("Uddin").replace("_", "");
+
+        //Get real first name and last name
+
         jobTitle = getRandomJobTitle();
         phoneNumber = "01351" + (int) RandomDataUtils.getRandomDigits(7);
         email = "mhra.uat@gmail.com";
@@ -95,6 +113,21 @@ public class AccountRequest {
         cfsCertificateOfFreeSale = false;
         clinicalInvestigation = false;
         aitsAdverseIncidentTrackingSystem = false;
+    }
+
+    private String getRandomTitle(){
+
+        List<String> listOfTitles = new ArrayList<>();
+        listOfTitles.add("Mr.");
+        listOfTitles.add("Mrs.");
+        listOfTitles.add("Miss");
+        listOfTitles.add("Dr.");
+        listOfTitles.add("Ms.");
+        listOfTitles.add("Prof.");
+        String index = RandomDataUtils.getSimpleRandomNumberBetween(0, listOfTitles.size() - 1);
+        String title = listOfTitles.get(Integer.parseInt(index));
+
+        return title;
     }
 
     private String getRandomJobTitle() {
@@ -124,17 +157,53 @@ public class AccountRequest {
     }
 
     public static void main(String[] args){
-        AccountRequest ar = new AccountRequest();
+        AccountRequest ar = new AccountRequest(null);
     }
 
-    public void updateName() {
+    public void updateName(ScenarioSession scenarioSession) {
         if(isManufacturer){
-            organisationName = organisationName.replace("OrganisationTest", "ManufacturerTest");
-            website = website.replace("organisationtest", "ManufacturerTest");
+            organisationName = organisationName.replace("OrganisationTest", "ManufacturerRT00Test");
+            website = website.replace("organisationtest", "ManufacturerRT00Test");
         }else{
-            organisationName = organisationName.replace("OrganisationTest", "AuthorisedRepTest");
-            website = website.replace("organisationtest", "AuthorisedRepTest");
+            organisationName = organisationName.replace("OrganisationTest", "AuthorisedRepRT00Test");
+            website = website.replace("organisationtest", "AuthorisedRepRT00Test");
         }
+
+        if(scenarioSession!=null){
+            setUserDetails(getLoggedInUserName(scenarioSession));
+        }
+    }
+
+    public void setUserDetails(String loggedInAs) {
+        String[] data = loggedInAs.split("\\.");
+        System.out.println(data);
+        firstName = data[0];
+
+        //Is manufacturer or authorisedrep
+        if(loggedInAs.toLowerCase().contains("manu")){
+            isManufacturer = true;
+        }else{
+            isManufacturer = false;
+        }
+
+        //Because we have Auto.Business and Noor.Uddin.Business
+        String name = generateLastName();
+        if(data.length == 2){
+            lastName = name;
+        }else {
+            String business = data[2];
+            lastName = data[1] + "." + name;
+        }
+    }
+
+    private String generateLastName() {
+        String business = "";
+        if(isManufacturer){
+            business = "Manufacturer";
+        }else{
+            business = "AuthorisedRep";
+        }
+        return business;
     }
 
 

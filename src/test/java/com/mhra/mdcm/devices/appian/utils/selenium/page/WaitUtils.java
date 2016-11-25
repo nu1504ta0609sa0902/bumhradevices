@@ -51,6 +51,8 @@ public class WaitUtils {
      * <p>
      * Example when we upload a document
      *
+     * THIS SHOULD BE LAST OPTION : IF WE CAN'T DO IT WITH EXPLICIT WAITS THAN USE IT
+     *
      * @param tis
      */
     public static void nativeWaitInSeconds(int tis) {

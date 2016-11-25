@@ -188,7 +188,7 @@ public class RecordsPageSteps extends CommonSteps {
         log.info("Account to update : " + randomAccountName);
 
         //Edit the data now
-        AccountRequest updatedData = new AccountRequest();
+        AccountRequest updatedData = new AccountRequest(scenarioSession);
         editAccounts = accounts.gotoEditAccountInformation();
         accounts = editAccounts.editAccountInformation(keyValuePairToUpdate, updatedData);
 
@@ -205,7 +205,7 @@ public class RecordsPageSteps extends CommonSteps {
         log.info("Edit the following account : " + randomAccountName);
 
         //Edit the data now
-        AccountRequest updatedData = new AccountRequest();
+        AccountRequest updatedData = new AccountRequest(scenarioSession);
         editAccounts = accounts.gotoEditAccountInformation();
         accounts = editAccounts.editAccountInformation(keyValuePairToUpdate, updatedData);
 

@@ -24,6 +24,7 @@ public class LoginPageSteps extends CommonSteps {
     public void i_am_logged_into_appian_as_user(String username) throws Throwable {
         loginPage = loginPage.loadPage(baseUrl);
         try {
+            PageUtils.acceptAlert(driver, "accept");
             mainNavigationBar = loginPage.login(username);
             scenarioSession.putData(SessionKey.loggedInUser, username);
         }catch(Exception e) {

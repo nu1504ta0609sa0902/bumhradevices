@@ -81,7 +81,13 @@ public class PageUtils {
                     ac.moveToElement(element).click(element).sendKeys(Keys.SPACE).build().perform();
                     //ac.moveToElement(element).sendKeys(Keys.SPACE).build().perform();
                 }
-            }catch(Exception e2){}
+            }catch(Exception e2){
+            }
+        }
+
+        if(!element.isSelected()){
+            WaitUtils.waitForElementToBeClickable(driver, element, 2, false);
+            doubleClick(driver, element);
         }
     }
 
@@ -125,7 +131,7 @@ public class PageUtils {
 
     public static void acceptAlert(WebDriver driver, String accept) {
         try {
-            WaitUtils.waitForAlert(driver, 5, false);
+            WaitUtils.waitForAlert(driver, 3, false);
             boolean present = WaitUtils.isAlertPresent(driver);
             if (present) {
                 if (accept.equals("accept")) {

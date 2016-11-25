@@ -198,9 +198,9 @@ public class Accounts extends _Page {
         String[] dataPairs = keyValuePairToUpdate.split(",");
 
         for(String pairs: dataPairs){
-            String[] split = pairs.split("=");
-            String key = split[0];
-            String value = split[1];
+            //String[] split = pairs.split("=");
+            String key = pairs;
+
             if(key.equals("job.title")){
                 allChangesDisplayed = AssertUtils.areChangesDisplayed(jobTitle,  updatedData.jobTitle);
             }else if(key.equals("org.name")){
@@ -219,6 +219,11 @@ public class Accounts extends _Page {
                 allChangesDisplayed = AssertUtils.areChangesDisplayed(orgTelephone,  updatedData.telephone);
             }else if(key.equals("org.fax")){
                 allChangesDisplayed = AssertUtils.areChangesDisplayed(orgFax,  updatedData.fax);
+            }
+
+            //Every single changes need to match
+            if(!allChangesDisplayed){
+                break;
             }
         }
 

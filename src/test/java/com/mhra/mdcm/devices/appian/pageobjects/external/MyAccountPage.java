@@ -1,10 +1,15 @@
 package com.mhra.mdcm.devices.appian.pageobjects.external;
 
+import com.mhra.mdcm.devices.appian.domains.AccountRequest;
 import com.mhra.mdcm.devices.appian.domains.MyAccount;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
+import com.mhra.mdcm.devices.appian.pageobjects.external.sections.OrganisationDetails;
+import com.mhra.mdcm.devices.appian.pageobjects.external.sections.PersonDetails;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
+import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -29,24 +34,15 @@ public class MyAccountPage extends _Page {
     @FindBy(xpath = ".//button[contains(text(),'Person')]")
     WebElement amendContactPersonDetails;
 
-    @FindBy(css = ".//span[contains(text(),'Title')]//following::select[1]")
-    WebElement title;
-    @FindBy(css = ".//span[contains(text(),'First')]//following::input[1]")
-    WebElement firstName;
-    @FindBy(css = ".//span[contains(text(),'Last')]//following::input[1]")
-    WebElement lastName;
-    @FindBy(css = ".//span[contains(text(),'Job')]//following::input[1]")
+    //Contact details
+    @FindBy(xpath = ".//span[contains(text(),'Full')]//following::p[1]")
+    WebElement fullName;
+    @FindBy(xpath = ".//span[contains(text(),'Job')]//following::p[1]")
     WebElement jobTitle;
-    @FindBy(css = ".//span[contains(text(),'Email')]//following::input[1]")
+    @FindBy(xpath = ".//span[contains(text(),'Email')]//following::p[1]")
     WebElement email;
-    @FindBy(css = ".//span[contains(text(),'Telephone')]//following::input[1]")
+    @FindBy(xpath = ".//h3[contains(text(),'Person Details')]//following::span[.='Telephone']/following::p[1]")
     WebElement telephone;
-
-    @FindBy(xpath = ".//button[contains(text(),'Submit')]")
-    WebElement submitBtn;
-    @FindBy(css = ".//button[contains(text(),'Cancel')]")
-    WebElement cancelBtn;
-
 
 
 
@@ -55,56 +51,60 @@ public class MyAccountPage extends _Page {
         super(driver);
     }
 
-    public MyAccountPage amendContactPersonDetails() {
+    public PersonDetails amendContactPersonDetails() {
+        WaitUtils.waitForElementToBeClickable(driver, amendContactPersonDetails, TIMEOUT_5_SECOND, false);
         amendContactPersonDetails.click();
-        return new MyAccountPage(driver);
+        return new PersonDetails(driver);
     }
 
-    public MyAccountPage updateFollowingFields(String keyValuePairToUpdate) {
-        WaitUtils.waitForElementToBeClickable(driver, submitBtn, TIMEOUT_DEFAULT, false);
+    public OrganisationDetails amendOrganisationDetails() {
+        WaitUtils.waitForElementToBeClickable(driver, amendOrganisationDetails, TIMEOUT_5_SECOND, false);
+        amendOrganisationDetails.click();
+        return new OrganisationDetails(driver);
+    }
 
+    public boolean isCorrectPage() {
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, amendContactPersonDetails, TIMEOUT_5_SECOND, false);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean verifyUpdatesDisplayedOnPage(String keyValuePairToUpdate, AccountRequest updatedData) {
+        WaitUtils.waitForElementToBeVisible(driver, email, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeVisible(driver, fullName, TIMEOUT_5_SECOND, false);
+
+        boolean allChangesDisplayed = true;
+
+        //Check for the following
         String[] dataPairs = keyValuePairToUpdate.split(",");
 
         for(String pairs: dataPairs){
-            String[] split = pairs.split("=");
-            String key = split[0];
-            String value = split[1];
-            if(key.equals("contact.title")){
-                PageUtils.selectByText(title, "Mr.");
-//            }else if(key.equals("contact.firstname")){
-//                TestHarnessUtils.updateElementValue(driver, firstName, updatedData.organisationName, TIMEOUT_DEFAULT);
-//            }else if(key.equals("contact.lastname")){
-//                TestHarnessUtils.updateElementValue(driver, lastName, updatedData.organisationName, TIMEOUT_DEFAULT);
-//            }else if(key.equals("contact.job.title")){
-//                TestHarnessUtils.updateElementValue(driver, jobTitle, updatedData.organisationName, TIMEOUT_DEFAULT);
-//            }else if(key.equals("contact.email")){
-//                TestHarnessUtils.updateElementValue(driver, email, updatedData.organisationName, TIMEOUT_DEFAULT);
-//            }else if(key.equals("contact.telephone")){
-//                TestHarnessUtils.updateElementValue(driver, telephone, updatedData.organisationName, TIMEOUT_DEFAULT);
+            //String[] split = pairs.split("=");
+            String key = pairs;
+
+            if (key.equals("contact.title")) {
+                allChangesDisplayed = AssertUtils.areChangesDisplayed(fullName,  updatedData.title);
+            } else if (key.equals("contact.firstname")) {
+                allChangesDisplayed = AssertUtils.areChangesDisplayed(fullName,  updatedData.firstName);
+            } else if (key.equals("contact.lastname")) {
+                allChangesDisplayed = AssertUtils.areChangesDisplayed(fullName,  updatedData.lastName);
+            } else if (key.equals("contact.job.title")) {
+                allChangesDisplayed = AssertUtils.areChangesDisplayed(jobTitle,  updatedData.jobTitle);
+            } else if (key.equals("contact.email")) {
+                allChangesDisplayed = AssertUtils.areChangesDisplayed(email,  updatedData.email);
+            } else if (key.equals("contact.telephone")) {
+                allChangesDisplayed = AssertUtils.areChangesDisplayed(telephone,  updatedData.telephone);
+            }
+
+            if(!allChangesDisplayed){
+                break;
             }
         }
 
-        PageUtils.doubleClick(driver, submitBtn);
-
-        return new MyAccountPage(driver);
+        return allChangesDisplayed;
     }
 
-    public MyAccount savePreviousDetails() {
-        String titleText = title.getText();
-        String firstNameText = firstName.getText();
-        String lastNameText = lastName.getText();
-        String jobTitleText = jobTitle.getText();
-        String emailText = email.getText();
-        String telephoneText = telephone.getText();
-
-        MyAccount saveAccountDetails = new MyAccount();
-        saveAccountDetails.setTitle(titleText);
-        saveAccountDetails.setFirstName(firstNameText);
-        saveAccountDetails.setLastName(lastNameText);
-        saveAccountDetails.setJobTitle(jobTitleText);
-        saveAccountDetails.setEmail(emailText);
-        saveAccountDetails.setTelephone(telephoneText);
-
-        return saveAccountDetails;
-    }
 }

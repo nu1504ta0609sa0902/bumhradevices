@@ -87,8 +87,8 @@ public class EditAccounts extends _Page {
         String[] dataPairs = keyValuePairToUpdate.split(",");
 
         for(String pairs: dataPairs){
-            String[] split = pairs.split("=");
-            String key = split[0];
+            //String[] split = pairs.split("=");
+            String key = pairs;
 
             if(key.equals("job.title")){
                 TestHarnessUtils.updateElementValue(driver, jobTitle, updatedData.jobTitle, TIMEOUT_DEFAULT);

@@ -10,11 +10,11 @@ Feature: As a business user, I want to be able to update party details associate
     When I view a randomly searched account and update the following data "<keyValuePairs>"
     Then I should see the changes "<keyValuePairs>" in the account page
     Examples:
-      | user         | link     | searchTerm       | keyValuePairs                                                                            |
-      | businessAuto | Accounts | ManufacturerTest | job.title=random                                                                         |
-      | businessAuto | Accounts | ManufacturerTest | org.name=random                                                                          |
-      | businessAuto | Accounts | ManufacturerTest | address.line1=random,address.line2=random,city.town=random,country=random,postcod=random |
-      | businessAuto | Accounts | ManufacturerTest | org.telephone=random,org.fax=random                                                      |
+      | user         | link     | searchTerm       | keyValuePairs                                         |
+      | businessAuto | Accounts | ManufacturerST | job.title                                             |
+      | businessAuto | Accounts | ManufacturerST | org.name                                              |
+      | businessAuto | Accounts | ManufacturerST | address.line1,address.line2,city.town,country,postcod |
+      | businessAuto | Accounts | ManufacturerST | org.telephone,org.fax                                 |
 
 
   @mdcm-149 @regression
@@ -22,11 +22,10 @@ Feature: As a business user, I want to be able to update party details associate
     Given I am logged into appian as "<user>" user
     When I go to my accounts page
     And I update the following data "<keyValuePairs>"
+    Then I should see the changes "<keyValuePairs>" in my accounts page
     Examples:
-      | user              | keyValuePairs |
-      | manufacturerNoor  |               |
-      | authorisedrepNoor |               |
-#      | manufacturerAuto  |                   |
-#      | authorisedrepAuto |                  |
+      | user              | keyValuePairs                                                                                      |
+      | authorisedrepNoor | contact.title,contact.firstname,contact.lastname,contact.job.title,contact.email,contact.telephone |
+      | manufacturerNoor  | contact.job.title,contact.email,contact.telephone,contact.firstname,contact.lastname               |
 
 
