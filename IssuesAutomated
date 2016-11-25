@@ -2,9 +2,10 @@ Automated Issues:
     TAGS:
     - @readonly - tests don't perform any updates to the system
     - @regression @regressionAll
-    - @wip
-    - @bug
-    - @smoke_test
+    - @wip      - Work in progress (Work started)
+    - @todo     - Part completed
+    - @bug      - Bug blocking the test
+
 
     EPICS:
     - @mdcm-
@@ -19,7 +20,7 @@ Automated Issues:
         - @mdcm-41  - DONE
         - @mdcm-175 - blocked because email and phoneNumber gets deleted automatically
                     - Added code to manually enter email/phoneNumber
-                    - Represented Party Test need to be completed
+                    - Represented Party Test need to be completed (AuthorisedRepTest)
                     - NOT COMPLETED yet
         - @mdcm-178 - DONE
         - @mdcm-186 - DONE

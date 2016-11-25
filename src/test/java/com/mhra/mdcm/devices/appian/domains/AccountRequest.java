@@ -16,6 +16,8 @@ import java.util.List;
  */
 public class AccountRequest {
 
+    public static final String MANUFACTURER_RT_TEST = "ManufacturerRT01Test";
+    public static final String AUTHORISED_REP_RT_TEST = "AuthorisedRepRT01Test";
     public String organisationName;
 
     //Organisation Details
@@ -162,11 +164,11 @@ public class AccountRequest {
 
     public void updateName(ScenarioSession scenarioSession) {
         if(isManufacturer){
-            organisationName = organisationName.replace("OrganisationTest", "ManufacturerRT00Test");
-            website = website.replace("organisationtest", "ManufacturerRT00Test");
+            organisationName = organisationName.replace("OrganisationTest", MANUFACTURER_RT_TEST);
+            website = website.replace("organisationtest", MANUFACTURER_RT_TEST);
         }else{
-            organisationName = organisationName.replace("OrganisationTest", "AuthorisedRepRT00Test");
-            website = website.replace("organisationtest", "AuthorisedRepRT00Test");
+            organisationName = organisationName.replace("OrganisationTest", AUTHORISED_REP_RT_TEST);
+            website = website.replace("organisationtest", AUTHORISED_REP_RT_TEST);
         }
 
         if(scenarioSession!=null){
@@ -180,11 +182,11 @@ public class AccountRequest {
         firstName = data[0];
 
         //Is manufacturer or authorisedrep
-        if(loggedInAs.toLowerCase().contains("manu")){
-            isManufacturer = true;
-        }else{
-            isManufacturer = false;
-        }
+//        if(loggedInAs.toLowerCase().contains("manu")){
+//            isManufacturer = true;
+//        }else{
+//            isManufacturer = false;
+//        }
 
         //Because we have Auto.Business and Noor.Uddin.Business
         String name = generateLastName();
@@ -224,8 +226,8 @@ public class AccountRequest {
 //                "\nvatRegistrationNumber='" + vatRegistrationNumber + '\'' +
 //                "\ncompanyRegistrationNumber='" + companyRegistrationNumber + '\'' +
 //                "\ntitle='" + title + '\'' +
-//                "\nfirstName='" + firstName + '\'' +
-//                "\nlastName='" + lastName + '\'' +
+                "\nfirstName='" + firstName + '\'' +
+                "\nlastName='" + lastName + '\'' +
 //                "\njobTitle='" + jobTitle + '\'' +
 //                "\nphoneNumber='" + phoneNumber + '\'' +
                 "\nemail='" + email + '\'' +

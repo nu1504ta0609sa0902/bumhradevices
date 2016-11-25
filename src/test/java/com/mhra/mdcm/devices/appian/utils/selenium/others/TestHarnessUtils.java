@@ -64,7 +64,7 @@ public class TestHarnessUtils {
     public static void updateElementValue(WebDriver driver, WebElement element, String value, int timeOut) {
         //WaitUtils.waitForElementToBeClickable(driver, element, timeOut, false);
         //WaitUtils.waitForElementToBeVisible(driver, element, timeOut, false);
-        element.click();
+        //element.click();
         element.clear();
         WaitUtils.nativeWaitInSeconds(1);
         element.sendKeys(RandomDataUtils.generateTestNameStartingWith(value, 0));

@@ -113,11 +113,9 @@ public class EditAccounts extends _Page {
         }
 
         //Bug: email and telephone is not maintained
-        enterMissingData();
+        //enterMissingData();
 
         //Submit data, but you must select address types
-        //addressType.click();
-        //submitBtn.click();
         PageUtils.doubleClick(driver, submitBtn);
 
         return new Accounts(driver);
@@ -125,9 +123,11 @@ public class EditAccounts extends _Page {
 
     public void enterMissingData() {
         WaitUtils.waitForElementToBeClickable(driver,phoneNumber,TIMEOUT_DEFAULT, false);
+        phoneNumber.clear();
         phoneNumber.sendKeys("01351" + (int) RandomDataUtils.getRandomDigits(7));
         PageUtils.singleClick(driver, addressType);
         WaitUtils.waitForElementToBeClickable(driver,emailAddress,TIMEOUT_DEFAULT, false);
+        emailAddress.clear();
         emailAddress.sendKeys("buggyRemovesEmail@test.com");
     }
 }
