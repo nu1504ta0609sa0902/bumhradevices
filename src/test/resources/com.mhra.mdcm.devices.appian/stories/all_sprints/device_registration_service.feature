@@ -12,3 +12,4 @@ Feature: As an account holder with access to the device registration service
       | manufacturerAuto     | Manufacturer Registration |
       | authorisedrepAuto    | Manufacturer Registration |
 
+
