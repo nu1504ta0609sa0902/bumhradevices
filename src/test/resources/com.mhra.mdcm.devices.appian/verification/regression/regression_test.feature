@@ -31,15 +31,12 @@ Feature: As a user I would like to have a regression test suite which I can run 
       | businessAuto | Accounts          | job.title=The Editor | Organisation Name,Account Number,Organisation Role, Contact Name, Organisation Address,Organisation Country, Status |
 
 
-  @wip
   Scenario Outline: Approve New manufacturer registration including device declaration.
     Given I am logged into appian as "<user>" user
     Examples:
       | user             |
       | manufacturerAuto |
 
-
-  @wip
   Scenario Outline: REJECT New manufacturer registration including device declaration.
     Given I am logged into appian as "<user>" user
     Examples:
