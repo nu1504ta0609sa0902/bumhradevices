@@ -56,7 +56,3 @@ Feature: As a business user, I want a task to be created each time a customer su
       | businessAuto | manufacturer  | reject        | 0     | Turkey      |
       | businessAuto | authorisedRep | reject        | 0     | Estonia     |
 
-
-  Scenario: Verify tasks associated with correct account
-    Given I am logged into appian as "businessAuto" user
-    When I go to tasks page
