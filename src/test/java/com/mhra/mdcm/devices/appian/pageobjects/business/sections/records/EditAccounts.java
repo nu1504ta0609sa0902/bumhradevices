@@ -113,7 +113,7 @@ public class EditAccounts extends _Page {
         }
 
         //Bug: email and telephone is not maintained
-        //enterMissingData();
+        enterMissingData();
 
         //Submit data, but you must select address types
         PageUtils.doubleClick(driver, submitBtn);
@@ -128,6 +128,6 @@ public class EditAccounts extends _Page {
         PageUtils.singleClick(driver, addressType);
         WaitUtils.waitForElementToBeClickable(driver,emailAddress,TIMEOUT_DEFAULT, false);
         emailAddress.clear();
-        emailAddress.sendKeys("buggyRemovesEmail@test.com");
+        emailAddress.sendKeys("mhra.uat@gmail.com");
     }
 }
