@@ -11,7 +11,6 @@ Feature: As a business user, I want to access a list of organisations with an ac
     Examples:
       | user         | link     | pageHeading | columns                                                                                                          |
       | businessAuto | Accounts | Accounts    | Organisation name,Account number,Organisation role,Contact name,Organisation address,Organisation country,Status |
-#      | businessAuto | Accounts | Accounts    | Organisation Name,Account Number,Organisation Role,Contact Name,Organisation Address,Organisation Country,Status |
 
   @mdcm_126 @regression @readonly
   Scenario Outline: As a business user I should be able to view all organisation page
@@ -23,7 +22,6 @@ Feature: As a business user, I want to access a list of organisations with an ac
     Examples:
       | user         | link              | pageHeading       | columns                                       |
       | businessAuto | All Organisations | All Organisations | Name,Role,Contact name,Address,Country,Status |
-#      | businessAuto | All Organisations | All Organisations | Name,Account Number,Role,Contact Name,Address,Country,Status |
 
   @mdcm-126 @readonly
   Scenario Outline: By default list of accounts should be displayed in a to z order
