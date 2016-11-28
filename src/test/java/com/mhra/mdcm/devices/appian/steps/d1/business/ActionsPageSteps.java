@@ -1,6 +1,6 @@
 package com.mhra.mdcm.devices.appian.steps.d1.business;
 
-import com.mhra.mdcm.devices.appian.domains.AccountRequest;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.pageobjects.business.ActionsPage;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
@@ -54,7 +54,7 @@ public class ActionsPageSteps extends CommonSteps {
     public void i_create_a_new_account_using_test_harness_page_with_following_data(Map<String, String> dataSets) throws Throwable {
 
         //Now create the test data using harness page
-        AccountRequest newAccount = TestHarnessUtils.updateDefaultsWithData(dataSets, scenarioSession);
+        AccountRequest newAccount = TestHarnessUtils.updateBusinessDefaultsWithData(dataSets, scenarioSession);
         log.info("New Account Requested With Following Data : \n" + newAccount);
 
         //go to accounts page > test harness page

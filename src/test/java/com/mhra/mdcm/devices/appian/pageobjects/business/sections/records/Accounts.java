@@ -1,6 +1,6 @@
 package com.mhra.mdcm.devices.appian.pageobjects.business.sections.records;
 
-import com.mhra.mdcm.devices.appian.domains.AccountRequest;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;

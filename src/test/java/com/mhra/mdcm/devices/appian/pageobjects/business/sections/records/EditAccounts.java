@@ -1,10 +1,9 @@
 package com.mhra.mdcm.devices.appian.pageobjects.business.sections.records;
 
-import com.mhra.mdcm.devices.appian.domains.AccountRequest;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
-import com.mhra.mdcm.devices.appian.pageobjects.business.sections.records.Accounts;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
-import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
+
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.WebDriver;
@@ -91,24 +90,24 @@ public class EditAccounts extends _Page {
             String key = pairs;
 
             if(key.equals("job.title")){
-                TestHarnessUtils.updateElementValue(driver, jobTitle, updatedData.jobTitle, TIMEOUT_DEFAULT);
+                PageUtils.updateElementValue(driver, jobTitle, updatedData.jobTitle, TIMEOUT_DEFAULT);
             }else if(key.equals("org.name")){
-                TestHarnessUtils.updateElementValue(driver, orgName, updatedData.organisationName, TIMEOUT_DEFAULT);
+                PageUtils.updateElementValue(driver, orgName, updatedData.organisationName, TIMEOUT_DEFAULT);
             }else if(key.equals("address.line1")){
-                TestHarnessUtils.updateElementValue(driver, orgAddressLine1, updatedData.address1, TIMEOUT_DEFAULT);
+                PageUtils.updateElementValue(driver, orgAddressLine1, updatedData.address1, TIMEOUT_DEFAULT);
             }else if(key.equals("address.line2")){
-                TestHarnessUtils.updateElementValue(driver, orgAddressLine2, updatedData.address2, TIMEOUT_DEFAULT);
+                PageUtils.updateElementValue(driver, orgAddressLine2, updatedData.address2, TIMEOUT_DEFAULT);
             }else if(key.equals("city.town")){
-                TestHarnessUtils.updateElementValue(driver, orgCityTown, updatedData.townCity, TIMEOUT_DEFAULT);
+                PageUtils.updateElementValue(driver, orgCityTown, updatedData.townCity, TIMEOUT_DEFAULT);
             }else if(key.equals("country")){
                 //THIS NEEDS TO SELECT FROM AUTO SUGGESTS NOW
-                //TestHarnessUtils.updateElementValue(driver, orgCountry, updatedData.country, TIMEOUT_DEFAULT);
+                //PageUtils.updateElementValue(driver, orgCountry, updatedData.country, TIMEOUT_DEFAULT);
             }else if(key.equals("postcode")){
-                TestHarnessUtils.updateElementValue(driver, orgPostCode, updatedData.postCode, TIMEOUT_DEFAULT);
+                PageUtils.updateElementValue(driver, orgPostCode, updatedData.postCode, TIMEOUT_DEFAULT);
             }else if(key.equals("org.telephone")){
-                TestHarnessUtils.updateElementValue(driver, orgTelephone, updatedData.telephone, TIMEOUT_DEFAULT);
+                PageUtils.updateElementValue(driver, orgTelephone, updatedData.telephone, TIMEOUT_DEFAULT);
             }else if(key.equals("org.fax")){
-                TestHarnessUtils.updateElementValue(driver, orgFax, updatedData.fax, TIMEOUT_DEFAULT);
+                PageUtils.updateElementValue(driver, orgFax, updatedData.fax, TIMEOUT_DEFAULT);
             }
         }
 

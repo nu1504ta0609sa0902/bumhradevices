@@ -1,6 +1,7 @@
 package com.mhra.mdcm.devices.appian.utils.selenium.page;
 
 
+import com.mhra.mdcm.devices.appian.utils.selenium.others.FileUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -11,6 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -22,6 +24,13 @@ public class PageUtils {
     public static void selectByText(WebElement selectElement, String visibleText) {
         Select select = new Select(selectElement);
         select.selectByVisibleText(visibleText);
+    }
+
+    public static String getCurrentSelectedOption(WebElement selectElement) {
+        Select select = new Select(selectElement);
+        WebElement selectedOption = select.getFirstSelectedOption();
+        String text = selectedOption.getText();
+        return text;
     }
 
     public static void selectByIndex(WebElement selectElement, String index) {
@@ -96,10 +105,11 @@ public class PageUtils {
     }
 
     public static void uploadDocument(WebElement element, String fileName){
+        String fullPath = FileUtils.getFileFullPath("tmp" + File.separator + "data" + File.separator + "reps", fileName);
         WaitUtils.nativeWaitInSeconds(2);
-        element.sendKeys(fileName);
+        element.sendKeys(fullPath);
         //We will have to wait for uploading to finish
-        WaitUtils.nativeWaitInSeconds(6);
+        WaitUtils.nativeWaitInSeconds(4);
     }
 
     public static WebElement getRandomNotification(List<WebElement> listOfECIDLinks) {
@@ -180,5 +190,12 @@ public class PageUtils {
                 WaitUtils.nativeWaitInSeconds(1);
             }
         }while (!completed && count <= 3);
+    }
+
+
+    public static void updateElementValue(WebDriver driver, WebElement element, String value, int timeOut) {
+        element.clear();
+        WaitUtils.nativeWaitInSeconds(1);
+        element.sendKeys(RandomDataUtils.generateTestNameStartingWith(value, 0));
     }
 }

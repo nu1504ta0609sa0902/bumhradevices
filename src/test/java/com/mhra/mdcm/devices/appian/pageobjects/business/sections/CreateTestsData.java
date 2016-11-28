@@ -1,6 +1,6 @@
 package com.mhra.mdcm.devices.appian.pageobjects.business.sections;
 
-import com.mhra.mdcm.devices.appian.domains.AccountRequest;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.business.ActionsPage;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;

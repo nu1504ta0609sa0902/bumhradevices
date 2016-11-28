@@ -166,4 +166,11 @@ public class FileUtils {
         String o = prop.getProperty(property);
         return o;
     }
+
+    public static String getFileFullPath(String tmpFolderName, String fileName) {
+        File file = new File("");
+        String rootFolder = file.getAbsolutePath();
+        String data = (rootFolder + File.separator + resourceFolder + tmpFolderName + File.separator + fileName);
+        return data;
+    }
 }

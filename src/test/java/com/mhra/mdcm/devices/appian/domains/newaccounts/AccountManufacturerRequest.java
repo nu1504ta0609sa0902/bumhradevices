@@ -1,4 +1,4 @@
-package com.mhra.mdcm.devices.appian.domains;
+package com.mhra.mdcm.devices.appian.domains.newaccounts;
 
 import com.mhra.mdcm.devices.appian.session.ScenarioSession;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
@@ -10,11 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by TPD_Auto on 25/10/2016.
+ * Created by TPD_Auto
  *
- * OVERRIDE THE DEFAULTS
+ * CREATES DEFAULT MANUFACTURER OR AUTHORISEDREP DATA
+ *
+ * OVERRIDE THE DEFAULTS USING CUCUMBER SCENARIOS TEST DATA
  */
-public class AccountRequest {
+public class AccountManufacturerRequest {
 
     public static final String MANUFACTURER_RT_TEST = "ManufacturerRT01Test";
     public static final String AUTHORISED_REP_RT_TEST = "AuthorisedRepRT01Test";
@@ -29,12 +31,6 @@ public class AccountRequest {
     public String telephone;
     public String fax;
     public String website;
-    public boolean addressType;
-
-    //Organisation type
-    public String organisationType;
-    public String vatRegistrationNumber;
-    public String companyRegistrationNumber;
 
     //Contact Person Details
     public String title;
@@ -44,19 +40,14 @@ public class AccountRequest {
     public String phoneNumber;
     public String email;
 
-    //Organisation Role
-    //public String autorisedRep;
-    //public String manufacturer;
+    //Upload letter of designation
+    public String letterOfDesignation;
+    public String description;
+
     public boolean isManufacturer;
 
-    //Services of interest
-    public boolean deviceRegistration;
-    public boolean cfsCertificateOfFreeSale;
-    public boolean clinicalInvestigation;
-    public boolean aitsAdverseIncidentTrackingSystem;
 
-
-    public AccountRequest(ScenarioSession scenarioSession) {
+    public AccountManufacturerRequest(ScenarioSession scenarioSession) {
         createDefaultRandom();
         //Update as required
         if(scenarioSession!=null){
@@ -84,20 +75,14 @@ public class AccountRequest {
         townCity = "London";
         postCode = "UB" + RandomDataUtils.getRandomNumberBetween(1, 19) + " " + RandomDataUtils.getRandomNumberBetween(1, 10) + "UU";
         country = "United Kingdom";
-        addressType = true;
         telephone = "07941" + (int) RandomDataUtils.getRandomDigits(7);
         fax = "044941" + (int) RandomDataUtils.getRandomDigits(7);
         website = "www." + organisationName.toLowerCase() + ".com";
 
-        //Organisation type
-        organisationType = "Other";
-        vatRegistrationNumber = "0161" + (int) RandomDataUtils.getRandomDigits(7);
-        companyRegistrationNumber = "0895" + (int) RandomDataUtils.getRandomDigits(7);
-
         //Contact Person Details
         title = getRandomTitle();
-        firstName = RandomDataUtils.generateTestNameStartingWith("Noor", 2); //RandomDataUtils.getRandomTestName("Noor").replace("_", "");
-        lastName = RandomDataUtils.generateTestNameStartingWith("Uddin", 2); //RandomDataUtils.getRandomTestName("Uddin").replace("_", "");
+        firstName = RandomDataUtils.generateTestNameStartingWith("Noor", 2);
+        lastName = RandomDataUtils.generateTestNameStartingWith("Uddin", 2);
 
         //Get real first name and last name
 
@@ -105,16 +90,8 @@ public class AccountRequest {
         phoneNumber = "01351" + (int) RandomDataUtils.getRandomDigits(7);
         email = "mhra.uat@gmail.com";
 
-        //Organisation Role
-        //autorisedRep = "false";
-        //manufacturer = "true";
         isManufacturer = true;
-
-        //Services of interest
-        deviceRegistration = true;
-        cfsCertificateOfFreeSale = false;
-        clinicalInvestigation = false;
-        aitsAdverseIncidentTrackingSystem = false;
+        description = RandomDataUtils.generateTestNameStartingWith("Test Description of Document", 0);
     }
 
     private String getRandomTitle(){
@@ -159,7 +136,7 @@ public class AccountRequest {
     }
 
     public static void main(String[] args){
-        AccountRequest ar = new AccountRequest(null);
+        AccountManufacturerRequest ar = new AccountManufacturerRequest(null);
     }
 
     public void updateName(ScenarioSession scenarioSession) {
@@ -180,13 +157,6 @@ public class AccountRequest {
         String[] data = loggedInAs.split("\\.");
         System.out.println(data);
         firstName = data[0];
-
-        //Is manufacturer or authorisedrep
-//        if(loggedInAs.toLowerCase().contains("manu")){
-//            isManufacturer = true;
-//        }else{
-//            isManufacturer = false;
-//        }
 
         //Because we have Auto.Business and Noor.Uddin.Business
         String name = generateLastName();
@@ -211,7 +181,7 @@ public class AccountRequest {
 
     @Override
     public String toString() {
-        return "AccountRequest{" +
+        return "AccountManufacturerRequest{" +
                 "\norganisationName='" + organisationName + '\'' +
 //                "\naddress1='" + address1 + '\'' +
 //                "\naddress2='" + address2 + '\'' +
@@ -221,8 +191,6 @@ public class AccountRequest {
 //                "\ntelephone='" + telephone + '\'' +
 //                "\nfax='" + fax + '\'' +
                 "\nwebsite='" + website + '\'' +
-                "\naddressType=" + addressType +
-                "\norganisationType='" + organisationType + '\'' +
 //                "\nvatRegistrationNumber='" + vatRegistrationNumber + '\'' +
 //                "\ncompanyRegistrationNumber='" + companyRegistrationNumber + '\'' +
 //                "\ntitle='" + title + '\'' +

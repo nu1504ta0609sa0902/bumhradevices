@@ -1,20 +1,13 @@
 package com.mhra.mdcm.devices.appian.steps.d1.external;
 
-import com.mhra.mdcm.devices.appian.domains.AccountRequest;
-import com.mhra.mdcm.devices.appian.domains.MyAccount;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
-import com.mhra.mdcm.devices.appian.utils.selenium.others.FileUtils;
-import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.springframework.context.annotation.Scope;
-
-import java.io.File;
-import java.util.Properties;
 
 import static org.hamcrest.Matchers.is;
 

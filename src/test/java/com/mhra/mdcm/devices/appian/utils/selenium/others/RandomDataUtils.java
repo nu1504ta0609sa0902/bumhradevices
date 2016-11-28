@@ -85,6 +85,18 @@ public class RandomDataUtils {
         return String.valueOf(val);
     }
 
+
+    public static int getNumberBetween(int min, int max) {
+        if(max >= 0) {
+            Random random = new Random(System.currentTimeMillis());
+            int val = random.nextInt(max - min + 1) + min;
+            //val = new Random().nextInt(max) + min;
+            return val;
+        }else{
+            return 0;
+        }
+    }
+
     public static String getSimpleRandomNumberBetween(int min, int max) {
         int val = ( int )( Math.random() * max );
         if(val < min){

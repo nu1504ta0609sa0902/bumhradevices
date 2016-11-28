@@ -119,6 +119,7 @@ public class MainNavigationBar extends _Page {
             WaitUtils.waitForElementToBeClickable(driver, xp, TIMEOUT_DEFAULT, false);
             PageUtils.doubleClick(driver, driver.findElement(xp));
         }
+        PageUtils.acceptAlert(driver, "accept");
         return new ExternalHomePage(driver);
     }
 

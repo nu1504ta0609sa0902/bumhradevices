@@ -1,17 +1,16 @@
 package com.mhra.mdcm.devices.appian.pageobjects.external.sections;
 
-import com.mhra.mdcm.devices.appian.domains.AccountRequest;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.domains.MyAccount;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.external.MyAccountPage;
-import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
+
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -73,25 +72,15 @@ public class PersonDetails extends _Page {
             if (key.equals("contact.title")) {
                 PageUtils.selectByText(title, updatedData.title);
             }else if (key.equals("contact.firstname")) {
-                //WaitUtils.waitForElementToBePartOfDOM(driver, By.xpath(".//label[contains(text(),'First')]//following::input[1]"), TIMEOUT_5_SECOND, false);
-                //WaitUtils.waitForElementToBeClickable(driver, firstName, TIMEOUT_5_SECOND, false);
-                TestHarnessUtils.updateElementValue(driver, firstName, updatedData.firstName, TIMEOUT_5_SECOND);
+                PageUtils.updateElementValue(driver, firstName, updatedData.firstName, TIMEOUT_5_SECOND);
             } else if (key.equals("contact.lastname")) {
-                //WaitUtils.waitForElementToBePartOfDOM(driver, By.xpath(".//label[contains(text(),'Last')]//following::input[1]"), TIMEOUT_5_SECOND, false);
-                //WaitUtils.waitForElementToBeClickable(driver, lastName, TIMEOUT_5_SECOND, false);
-                TestHarnessUtils.updateElementValue(driver, lastName, updatedData.lastName, TIMEOUT_5_SECOND);
+                PageUtils.updateElementValue(driver, lastName, updatedData.lastName, TIMEOUT_5_SECOND);
             } else if (key.equals("contact.job.title")) {
-                //WaitUtils.waitForElementToBePartOfDOM(driver, By.xpath(".//label[contains(text(),'Job')]//following::input[1]"), TIMEOUT_5_SECOND, false);
-                //WaitUtils.waitForElementToBeClickable(driver, jobTitle, TIMEOUT_5_SECOND, false);
-                TestHarnessUtils.updateElementValue(driver, jobTitle, updatedData.jobTitle, TIMEOUT_5_SECOND);
+                PageUtils.updateElementValue(driver, jobTitle, updatedData.jobTitle, TIMEOUT_5_SECOND);
             } else if (key.equals("contact.email")) {
-                //WaitUtils.waitForElementToBePartOfDOM(driver, By.xpath(".//label[contains(text(),'Email')]//following::input[1]"), TIMEOUT_5_SECOND, false);
-                //WaitUtils.waitForElementToBeClickable(driver, email, TIMEOUT_5_SECOND, false);
-                TestHarnessUtils.updateElementValue(driver, email, updatedData.email, TIMEOUT_5_SECOND);
+                PageUtils.updateElementValue(driver, email, updatedData.email, TIMEOUT_5_SECOND);
             } else if (key.equals("contact.telephone")) {
-                //WaitUtils.waitForElementToBePartOfDOM(driver, By.xpath(".//label[contains(text(),'Telephone')]//following::input[1]"), TIMEOUT_5_SECOND, false);
-                //WaitUtils.waitForElementToBeClickable(driver, telephone, TIMEOUT_5_SECOND, false);
-                TestHarnessUtils.updateElementValue(driver, telephone, updatedData.telephone, TIMEOUT_5_SECOND);
+                PageUtils.updateElementValue(driver, telephone, updatedData.telephone, TIMEOUT_5_SECOND);
             }
 
         }
