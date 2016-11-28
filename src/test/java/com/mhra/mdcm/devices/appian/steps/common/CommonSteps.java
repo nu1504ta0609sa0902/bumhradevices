@@ -78,7 +78,7 @@ public class CommonSteps {
     @Autowired
     public TaskSection taskSection;
     @Autowired
-    public ExternalHomePage homePage;
+    public ExternalHomePage externalHomePage;
     @Autowired
     public EditAccounts editAccounts;
     @Autowired

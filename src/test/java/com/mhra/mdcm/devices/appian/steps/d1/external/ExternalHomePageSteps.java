@@ -13,26 +13,31 @@ import org.springframework.context.annotation.Scope;
  * Created by TPD_Auto
  */
 @Scope("cucumber-glue")
-public class HomePageSteps extends CommonSteps {
+public class ExternalHomePageSteps extends CommonSteps {
 
 
     @When("^I go to portal page$")
     public void gotoPortalPage(){
         mainNavigationBar = new MainNavigationBar(driver);
-        homePage = mainNavigationBar.clickHOME();
+        externalHomePage = mainNavigationBar.clickExternalHOME();
     }
 
     @Then("^I should see the following portal \"([^\"]*)\" links$")
     public void i_should_see_the_following_links(String delimitedLinks) throws Throwable {
-        homePage = mainNavigationBar.clickHOME();
-        boolean areLinksVisible = homePage.areLinksVisible(delimitedLinks);
+        externalHomePage = mainNavigationBar.clickExternalHOME();
+        boolean areLinksVisible = externalHomePage.areLinksVisible(delimitedLinks);
         Assert.assertThat("Expected to see the following links : " + delimitedLinks, areLinksVisible, Matchers.is(true));
     }
 
     @And("^All the links \"([^\"]*)\" are clickable$")
     public void allTheAreClickable(String delimitedLinks) throws Throwable {
-        homePage = mainNavigationBar.clickHOME();
-        boolean areLinksClickable = homePage.areLinksClickable(delimitedLinks);
+        externalHomePage = mainNavigationBar.clickExternalHOME();
+        boolean areLinksClickable = externalHomePage.areLinksClickable(delimitedLinks);
         Assert.assertThat("Not all links are clickable : " + delimitedLinks, areLinksClickable, Matchers.is(true));
+    }
+
+    @And("^I go to manufacturer registration page$")
+    public void iGoToManufacturerRegistrationPage() throws Throwable {
+        //externalHomePage.gotoManufacturerRegistrationPage();
     }
 }

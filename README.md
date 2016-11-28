@@ -9,6 +9,11 @@
     - XPath : we are forced to use this because the ID are auto generated and they change, class names are
     numbers and not easy to understand.
 
+-- Steps and page object separated into 2 sections
+    - business : business site
+    |
+    - external : manufacturer and authorisedRep
+
 --Programme variables
 -Dtest.as.user=Yaaseen,Lambros,Andrew,Noor,Auto defaults to Auto
 -Dcurrent.browser=gc,ff,pjs

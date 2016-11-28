@@ -110,7 +110,7 @@ public class MainNavigationBar extends _Page {
     //==========================================================
 
 
-    public ExternalHomePage clickHOME() {
+    public ExternalHomePage clickExternalHOME() {
         try {
             WaitUtils.waitForElementToBeClickable(driver, linkHOME, TIMEOUT_DEFAULT, false);
             PageUtils.doubleClick(driver, linkHOME);
