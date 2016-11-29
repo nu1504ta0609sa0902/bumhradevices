@@ -1,14 +1,12 @@
 package com.mhra.mdcm.devices.appian.steps.d1.external;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountManufacturerRequest;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.pageobjects.external.ExternalHomePage;
-import com.mhra.mdcm.devices.appian.pageobjects.external.sections.AddDevices;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
-import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -115,7 +113,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         Assert.assertThat("Declare devices link not found for manufacturer : " + name, isNameDisplayed, Matchers.is(true));
     }
 
-    @When("^I go to add devices page")
+    @When("^I go to add devices page for the stored manufacturer")
     public void iGoToAddDevicesPage() throws Throwable {
         String name = (String) scenarioSession.getData(SessionKey.organisationName);
         //Go to add devices page
@@ -134,9 +132,27 @@ public class ExternalHomePageSteps extends CommonSteps {
         addDevices = addDevices.addDevice();
     }
 
+
+
+    @When("^I add a device to selected manufacturer with following data$")
+    public void i_add_a_device_to_selected_manufactuerer_of_type_with_following_data(Map<String, String> dataSets) throws Throwable {
+        String name = (String) scenarioSession.getData(SessionKey.organisationName);
+        DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
+        //Assumes we are in add device page
+        addDevices.addFollowingDevice(dd);
+    }
+
     @Then("^I should see correct device types$")
     public void iShouldSeeCorrectDeviceTypes() throws Throwable {
         boolean isCorrect = addDevices.isDeviceTypeCorrect();
         Assert.assertThat("Expected following device types : " , isCorrect, Matchers.is(true));
     }
+
+    @When("^I select a random manufacturer from list$")
+    public void iSelectARandomManufacturerFromList() throws Throwable {
+        String name = externalHomePage.getARandomManufacturerNameFromDropDown();
+        externalHomePage = externalHomePage.selectManufacturerFromList(name);
+        scenarioSession.putData(SessionKey.organisationName, name);
+    }
+
 }

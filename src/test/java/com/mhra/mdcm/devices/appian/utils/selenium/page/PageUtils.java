@@ -13,6 +13,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,6 +32,21 @@ public class PageUtils {
         WebElement selectedOption = select.getFirstSelectedOption();
         String text = selectedOption.getText();
         return text;
+    }
+
+
+    public static List<String> getListOfOptions(WebElement selectElement) {
+        Select select = new Select(selectElement);
+        List<WebElement> options = select.getOptions();
+        List<String> loo = new ArrayList<>();
+
+        for(WebElement o: options){
+            String text = o.getText();
+            if(!text.contains("Please Select")){
+                loo.add(text);
+            }
+        }
+        return loo;
     }
 
     public static void selectByIndex(WebElement selectElement, String index) {
@@ -190,6 +206,33 @@ public class PageUtils {
                 WaitUtils.nativeWaitInSeconds(1);
             }
         }while (!completed && count <= 3);
+    }
+
+
+    public static void selectFromAutoSuggests(WebDriver driver, By elementPath, String text )   {
+        boolean completed = true;
+        int count = 0;
+        do {
+            try {
+
+                count++;    //It will go forever without this
+                WebElement country = driver.findElements(elementPath).get(0);
+                new Actions(driver).moveToElement(country).perform();
+
+                //Enter the country I am interested in
+                country.sendKeys("\n");
+                country.clear();
+                country.sendKeys(text, Keys.ENTER);
+                new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(By.cssSelector(".item")));
+                country.sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
+
+                completed = true;
+            } catch (Exception e) {
+                completed = false;
+                WaitUtils.nativeWaitInSeconds(1);
+                //PageFactory.initElements(driver, this);
+            }
+        } while (!completed && count < 1);
     }
 
 

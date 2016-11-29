@@ -1,6 +1,9 @@
 package com.mhra.mdcm.devices.appian.pageobjects.external.sections;
 
+import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
+import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
+import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -18,13 +21,118 @@ import java.util.List;
 public class AddDevices extends _Page {
 
     @FindBy(css = ".component_error")
-    List <WebElement> errorMessages;
+    List<WebElement> errorMessages;
 
     @FindBy(xpath = ".//button[.='Add device']")
     WebElement btnAddDevice;
 
     @FindBy(css = ".GFWJSJ4DCW label")
     List<WebElement> listOfDeviceTypes;
+
+    //Device types
+    @FindBy(xpath = ".//*[contains(text(),'type of device')]//following::input[1]")
+    WebElement generalMedicalDevice;
+    @FindBy(xpath = ".//*[contains(text(),'type of device')]//following::input[2]")
+    WebElement inVitroDiagnosticDevice;
+    @FindBy(xpath = ".//*[contains(text(),'type of device')]//following::input[3]")
+    WebElement activeImplantableMedicalDevice;
+    @FindBy(xpath = ".//*[contains(text(),'type of device')]//following::input[4]")
+    WebElement systemOrProcedurePack;
+
+    //GMDN search by
+    @FindBy(xpath = ".//*[contains(text(),'Search GMDN')]//following::input[1]")
+    WebElement radioByGMDNCode;
+    @FindBy(xpath = ".//*[contains(text(),'Search GMDN')]//following::input[2]")
+    WebElement radioGMDNDefinitionOrTerm;
+    @FindBy(css = "input.gwt-SuggestBox")
+    WebElement tbxGMDNDefinitionOrTerm;
+    @FindBy(css = "input.aui-TextInput.GFWJSJ4DC0")
+    WebElement tbxGMDNCode;
+
+    //Custom made, sterile and measuring
+    @FindBy(xpath = ".//*[contains(text(),'custom made')]//following::input[1]")
+    WebElement radioCustomMadeYes;
+    @FindBy(xpath = ".//*[contains(text(),'custom made')]//following::input[2]")
+    WebElement radioCustomMadeNo;
+    @FindBy(xpath = ".//*[contains(text(),'device sterile')]//following::input[1]")
+    WebElement radioDeviceSterileYes;
+    @FindBy(xpath = ".//*[contains(text(),'device sterile')]//following::input[2]")
+    WebElement radioDeviceSterileNo;
+    @FindBy(xpath = ".//*[contains(text(),'device measuring')]//following::input[1]")
+    WebElement radioDeviceMeasuringYes;
+    @FindBy(xpath = ".//*[contains(text(),'device measuring')]//following::input[2]")
+    WebElement radioDeviceMeasuringNo;
+
+    //Custom Made = No, Then enter risk classification
+    @FindBy(xpath = ".//*[contains(text(),'risk class')]//following::input[1]")
+    WebElement radioRiskClass1;
+    @FindBy(xpath = ".//*[contains(text(),'risk class')]//following::input[2]")
+    WebElement radioRiskClass2a;
+    @FindBy(xpath = ".//*[contains(text(),'risk class')]//following::input[3]")
+    WebElement radioRiskClass2b;
+    @FindBy(xpath = ".//*[contains(text(),'risk class')]//following::input[4]")
+    WebElement radioRiskClass3;
+    @FindBy(xpath = ".//*[contains(text(),'Notified Body')]//following::input[1]")
+    WebElement nb0086BSI;
+
+    //IVD risk classification
+    @FindBy(xpath = ".//label[contains(text(),'List A')]")
+    WebElement ivdListA;
+    @FindBy(xpath = ".//label[contains(text(),'List B')]")
+    WebElement ivdListB;
+    @FindBy(xpath = ".//label[contains(text(),'Self-Test')]")
+    WebElement ivdSelfTest;
+    @FindBy(xpath = ".//label[contains(text(),'IVD General')]")
+    WebElement ivdIVDGeneral;
+
+    //Procedure pack
+    @FindBy(xpath = ".//*[contains(text(),'pack incorporate')]//following::input[1]")
+    WebElement ppPackIncorporatedYes;
+    @FindBy(xpath = ".//*[contains(text(),'pack incorporate')]//following::input[2]")
+    WebElement ppPackIncorporatedNo;
+    @FindBy(xpath = ".//*[contains(text(),'devices compatible')]//following::input[1]")
+    WebElement ppDevicesCompatibleYes;
+    @FindBy(xpath = ".//*[contains(text(),'devices compatible')]//following::input[2]")
+    WebElement ppDevicesCompatibleNo;
+
+    //Add product
+    @FindBy(xpath = ".//button[.='Add product']")
+    WebElement addProduct;
+    @FindBy(xpath = ".//*[contains(text(),'Product name')]//following::input[1]")
+    WebElement pdProductName;
+    @FindBy(xpath = ".//*[contains(text(),'Product make')]//following::input[1]")
+    WebElement pdProductMake;
+    @FindBy(xpath = ".//*[contains(text(),'Product model')]//following::input[1]")
+    WebElement pdProductModel;
+
+    @FindBy(xpath = ".//*[contains(text(),'performance eval')]//following::input[1]")
+    WebElement radioSubjectToPerformanceEvalYes;
+    @FindBy(xpath = ".//*[contains(text(),'performance eval')]//following::input[2]")
+    WebElement radioSubjectToPerformanceEvalNo;
+    @FindBy(xpath = ".//*[contains(text(),'product new')]//following::input[1]")
+    WebElement radioProductNewYes;
+    @FindBy(xpath = ".//*[contains(text(),'product new')]//following::input[2]")
+    WebElement radioProductNewNo;
+    @FindBy(xpath = ".//*[contains(text(),'product conform to')]//following::input[1]")
+    WebElement radioConformsToCTSYes;
+    @FindBy(xpath = ".//*[contains(text(),'product conform to')]//following::input[2]")
+    WebElement radioConformsToCTSNo;
+    @FindBy(xpath = ".//*[contains(text(),'provide the CTS')]//following::input[1]")
+    WebElement txtCTSReference;
+    @FindBy(xpath = ".//*[contains(text(),'demonstrated compliance')]//following::textarea[1]")
+    WebElement txtDemonstratedCompliance;
+    @FindBy(xpath = ".//*[contains(text(),'testing method')]//following::textarea[1]")
+    WebElement txtTestingMethod;
+    @FindBy(xpath = ".//*[contains(text(),'device label')]//following::input[1]")
+    WebElement txtProductNameLabel;
+
+
+    //Confirm
+    @FindBy(css = "button.GFWJSJ4DCF")
+    WebElement btnConfirm;
+    @FindBy(css = ".gwt-FileUpload")
+    WebElement fileUpload;
+
 
     @Autowired
     public AddDevices(WebDriver driver) {
@@ -41,17 +149,238 @@ public class AddDevices extends _Page {
         boolean allCorrect = false;
 
         WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".GFWJSJ4DCW label"), TIMEOUT_5_SECOND, false);
-        for(WebElement e: listOfDeviceTypes){
+        for (WebElement e : listOfDeviceTypes) {
             String text = e.getText();
-            if(text.toLowerCase().contains("general medical device") || text.toLowerCase().contains("in vitro diagnostic device") ||
-                    text.toLowerCase().contains("active implantable medical device") || text.toLowerCase().contains("system or procedure pack")){
+            if (text.toLowerCase().contains("general medical device") || text.toLowerCase().contains("in vitro diagnostic device") ||
+                    text.toLowerCase().contains("active implantable medical device") || text.toLowerCase().contains("system or procedure pack")) {
                 allCorrect = true;
-            }else{
+            } else {
                 allCorrect = false;
                 break;
             }
         }
 
         return allCorrect;
+    }
+
+
+    public boolean isErrorMessageDisplayed() {
+        try {
+            WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".component_error"), 3, false);
+            boolean isDisplayed = errorMessages.size() > 0;
+            return isDisplayed;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public void addFollowingDevice(DeviceData dd) {
+        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_5_SECOND, false);
+        //Select device type
+        selectDeviceType(dd);
+
+        if (dd.deviceType.toLowerCase().contains("general medical device")) {
+            searchByGMDN(dd);
+            customMade(dd);
+            deviceSterile(dd);
+            deviceMeasuring(dd);
+            if (!dd.isCustomMade) {
+                riskClassification(dd);
+                notifiedBody(dd);
+            }
+        } else if (dd.deviceType.toLowerCase().contains("vitro diagnostic")) {
+            searchByGMDN(dd);
+            riskClassificationIVD(dd);
+            addProduct(dd);
+            notifiedBody(dd);
+            subjectToPerformanceEval(dd);
+            productNewToMarket(dd);
+            conformToCTS(dd);
+        } else if (dd.deviceType.toLowerCase().contains("active implantable")) {
+            searchByGMDN(dd);
+            customMade(dd);
+            if (dd.isCustomMade) {
+                productLabelName(dd);
+            }
+        } else if (dd.deviceType.toLowerCase().contains("procedure pack")) {
+            searchByGMDN(dd);
+            customMade(dd);
+            deviceSterile(dd);
+            deviceMeasuring(dd);
+            notifiedBody(dd);
+            packIncorporated(dd);
+            devicesCompatible(dd);
+        } else {
+            //Verify all error messages if possible
+        }
+
+        //Business doing testing so don't do any write only tests
+        //PageUtils.doubleClick(driver, btnConfirm);
+
+    }
+
+    private void productLabelName(DeviceData dd) {
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//button[.='Add Product']"), TIMEOUT_5_SECOND, false);
+        driver.findElement(By.xpath(".//button[.='Add Product']")).click();
+        WaitUtils.waitForElementToBeClickable(driver, txtProductNameLabel, TIMEOUT_5_SECOND, false);
+        txtProductNameLabel.sendKeys(RandomDataUtils.getRandomTestName("Label"));
+
+        PageUtils.uploadDocument(fileUpload, "DeviceLabelDoc1.pdf");
+    }
+
+    private void conformToCTS(DeviceData dd) {
+        if (dd.isConformsToCTS) {
+            PageUtils.clickIfVisible(driver, radioConformsToCTSYes);
+            WaitUtils.waitForElementToBeClickable(driver, txtCTSReference, TIMEOUT_5_SECOND, false);
+            txtCTSReference.sendKeys("CTS039458430958");
+        } else {
+            PageUtils.clickIfVisible(driver, radioConformsToCTSNo);
+            WaitUtils.waitForElementToBeClickable(driver, txtDemonstratedCompliance, TIMEOUT_5_SECOND, false);
+            txtDemonstratedCompliance.sendKeys("Demonstrated Compliance");
+            txtTestingMethod.sendKeys("Manually Tested");
+        }
+    }
+
+    private void productNewToMarket(DeviceData dd) {
+        if (dd.isNewProduct) {
+            PageUtils.clickIfVisible(driver, radioProductNewYes);
+        } else {
+            PageUtils.clickIfVisible(driver, radioProductNewNo);
+        }
+    }
+
+    private void subjectToPerformanceEval(DeviceData dd) {
+        if (dd.isSubjectToPerfEval) {
+            PageUtils.clickIfVisible(driver, radioSubjectToPerformanceEvalYes);
+        } else {
+            PageUtils.clickIfVisible(driver, radioSubjectToPerformanceEvalNo);
+        }
+    }
+
+    private void addProduct(DeviceData dd) {
+        WaitUtils.waitForElementToBeClickable(driver, addProduct, TIMEOUT_5_SECOND, false);
+        addProduct.click();
+
+        //Wait for form to be visible
+        WaitUtils.waitForElementToBeClickable(driver, pdProductModel, TIMEOUT_5_SECOND, false);
+        if (dd.productName != null || !dd.productName.equals("")) {
+            pdProductName.sendKeys(dd.productName);
+        } else if (dd.productMake != null || !dd.productMake.equals("")) {
+            pdProductMake.sendKeys(dd.productMake);
+        }
+
+        pdProductModel.sendKeys(dd.productModel);
+    }
+
+    private void devicesCompatible(DeviceData dd) {
+        if (dd.isDeviceCompatible) {
+            PageUtils.clickIfVisible(driver, ppDevicesCompatibleYes);
+        } else {
+            PageUtils.clickIfVisible(driver, ppDevicesCompatibleNo);
+        }
+    }
+
+    private void packIncorporated(DeviceData dd) {
+        if (dd.isPackIncorporated) {
+            PageUtils.clickIfVisible(driver, ppPackIncorporatedYes);
+        } else {
+            PageUtils.clickIfVisible(driver, ppPackIncorporatedNo);
+        }
+    }
+
+    private void notifiedBody(DeviceData dd) {
+        WaitUtils.waitForElementToBeClickable(driver, nb0086BSI, TIMEOUT_5_SECOND, false);
+        //Select notified body
+        if (dd.notifiedBody.toLowerCase().contains("0086")) {
+            PageUtils.clickIfVisible(driver, nb0086BSI);
+        }
+    }
+
+    private void riskClassificationIVD(DeviceData dd) {
+        WaitUtils.waitForElementToBeClickable(driver, ivdIVDGeneral, TIMEOUT_5_SECOND, false);
+
+        String lcRiskClassification = dd.riskClassification.toLowerCase();
+
+        if (lcRiskClassification.contains("ivd general")) {
+            PageUtils.clickIfVisible(driver, ivdIVDGeneral);
+        } else if (lcRiskClassification.contains("list a")) {
+            PageUtils.clickIfVisible(driver, ivdListA);
+        } else if (lcRiskClassification.contains("list b")) {
+            PageUtils.clickIfVisible(driver, ivdListB);
+        } else if (lcRiskClassification.contains("self-test")) {
+            PageUtils.clickIfVisible(driver, ivdSelfTest);
+        }
+    }
+
+    private void selectDeviceType(DeviceData dd) {
+        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_5_SECOND, false);
+        String lcDeviceType = dd.deviceType.toLowerCase();
+        if (lcDeviceType.contains("general medical device")) {
+            PageUtils.clickIfVisible(driver, generalMedicalDevice);
+        } else if (lcDeviceType.contains("vitro diagnostic")) {
+            PageUtils.clickIfVisible(driver, inVitroDiagnosticDevice);
+        } else if (lcDeviceType.contains("active implantable")) {
+            PageUtils.clickIfVisible(driver, activeImplantableMedicalDevice);
+        } else if (lcDeviceType.contains("procedure pack")) {
+            PageUtils.clickIfVisible(driver, systemOrProcedurePack);
+        }
+    }
+
+    private void deviceMeasuring(DeviceData dd) {
+        WaitUtils.waitForElementToBeClickable(driver, radioDeviceMeasuringYes, TIMEOUT_5_SECOND, false);
+        if (dd.isDeviceMeasuring) {
+            PageUtils.clickIfVisible(driver, radioDeviceMeasuringYes);
+        } else {
+            PageUtils.clickIfVisible(driver, radioDeviceMeasuringNo);
+        }
+    }
+
+    private void deviceSterile(DeviceData dd) {
+        WaitUtils.waitForElementToBeClickable(driver, radioDeviceSterileYes, TIMEOUT_5_SECOND, false);
+        if (dd.isDeviceSterile) {
+            PageUtils.clickIfVisible(driver, radioDeviceSterileYes);
+        } else {
+            PageUtils.clickIfVisible(driver, radioDeviceSterileNo);
+        }
+    }
+
+    private void customMade(DeviceData dd) {
+        WaitUtils.waitForElementToBeClickable(driver, radioCustomMadeYes, TIMEOUT_5_SECOND, false);
+        if (dd.isCustomMade) {
+            PageUtils.clickIfVisible(driver, radioCustomMadeYes);
+        } else {
+            PageUtils.clickIfVisible(driver, radioCustomMadeNo);
+            //riskClassification(dd);
+        }
+    }
+
+    private void riskClassification(DeviceData dd) {
+        WaitUtils.waitForElementToBeClickable(driver, radioRiskClass1, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, nb0086BSI, TIMEOUT_5_SECOND, false);
+        String lcRiskClassiffication = dd.riskClassification.toLowerCase();
+        if (lcRiskClassiffication.contains("class1")) {
+            PageUtils.clickIfVisible(driver, radioRiskClass1);
+        } else if (lcRiskClassiffication.contains("class2a")) {
+            PageUtils.clickIfVisible(driver, radioRiskClass2a);
+        } else if (lcRiskClassiffication.contains("class2b")) {
+            PageUtils.clickIfVisible(driver, radioRiskClass2b);
+        } else if (lcRiskClassiffication.contains("class3")) {
+            PageUtils.clickIfVisible(driver, radioRiskClass3);
+        }
+    }
+
+    private void searchByGMDN(DeviceData dd) {
+        if (dd.gmdnTermOrDefinition != null) {
+            //Default is search by gmdn term or definition
+            WaitUtils.waitForElementToBeClickable(driver, radioGMDNDefinitionOrTerm, TIMEOUT_5_SECOND, false);
+            radioGMDNDefinitionOrTerm.click();
+            WaitUtils.waitForElementToBeClickable(driver, tbxGMDNDefinitionOrTerm, TIMEOUT_5_SECOND, false);
+            //tbxGMDNDefinitionOrTerm.sendKeys(dd.gmdnTermOrDefinition);
+            PageUtils.selectFromAutoSuggests(driver, By.cssSelector("input.gwt-SuggestBox"), dd.gmdnTermOrDefinition);
+        } else {
+            WaitUtils.waitForElementToBeClickable(driver, tbxGMDNCode, TIMEOUT_5_SECOND, false);
+            tbxGMDNCode.sendKeys(dd.gmdnCode);
+            PageUtils.selectFromAutoSuggests(driver, By.cssSelector("input.gwt-SuggestBox"), dd.gmdnTermOrDefinition);
+        }
     }
 }

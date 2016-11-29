@@ -1,6 +1,8 @@
 package com.mhra.mdcm.devices.appian.pageobjects.external.sections;
 
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
+import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -29,5 +31,16 @@ public class ManufacturerDetails extends _Page {
     public boolean isOrganisationNameCorrect(String name) {
         boolean contains = orgName.getText().contains(name);
         return contains;
+    }
+
+
+    public boolean isErrorMessageDisplayed() {
+        try {
+            WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".component_error"), 3, false);
+            boolean isDisplayed = errorMessages.size() > 0;
+            return isDisplayed;
+        }catch (Exception e){
+            return false;
+        }
     }
 }

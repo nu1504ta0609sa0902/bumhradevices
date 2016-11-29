@@ -121,4 +121,12 @@ public class ExternalHomePage extends _Page {
         driver.findElement(By.partialLinkText(name)).click();
         return new AddDevices(driver);
     }
+
+    public String getARandomManufacturerNameFromDropDown() {
+        WaitUtils.waitForElementToBeClickable(driver, manufacturerDropDown, TIMEOUT_5_SECOND, false);
+        List<String> listOfOptions = PageUtils.getListOfOptions(manufacturerDropDown);
+        String index = RandomDataUtils.getRandomNumberBetween(0, listOfOptions.size());
+        String name = listOfOptions.get(Integer.parseInt(index));
+        return name;
+    }
 }
