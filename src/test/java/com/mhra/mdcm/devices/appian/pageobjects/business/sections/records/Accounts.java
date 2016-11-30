@@ -244,7 +244,10 @@ public class Accounts extends _Page {
             //At the moment only the even ones are organisation names
             if(position!=0 && position % 2 == 1){
                 String orgName = el.getText();
-                listOfOrderedOrganisations.add(orgName);
+
+                //
+                if(!orgName.equals("Next") && !orgName.equals("Previous"))
+                    listOfOrderedOrganisations.add(orgName);
             }
 
             if(elementCount == (getFirstX*2)){  //Every 2nd link is an organisation name
@@ -258,7 +261,8 @@ public class Accounts extends _Page {
         //Check if a-Z
         String previous = "";
         for (final String current: listOfOrderedOrganisations) {
-            if (!current.equals("") && current.compareToIgnoreCase(previous) <= 0)
+            //Its <=0 organisation should be unique
+            if (!current.equals("") && !previous.equals("") && current.compareToIgnoreCase(previous) <= 0)
                 return false;
             previous = current;
         }
