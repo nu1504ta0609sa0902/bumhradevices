@@ -155,9 +155,9 @@ public class PageUtils {
         }
     }
 
-    public static void acceptAlert(WebDriver driver, String accept) {
+    public static void acceptAlert(WebDriver driver, String accept, int timeToWait) {
         try {
-            WaitUtils.waitForAlert(driver, 3, false);
+            WaitUtils.waitForAlert(driver, timeToWait, false);
             boolean present = WaitUtils.isAlertPresent(driver);
             if (present) {
                 if (accept.equals("accept")) {
@@ -169,9 +169,9 @@ public class PageUtils {
         }catch (Exception e){}
     }
 
-    public static void acceptAlert(WebDriver driver, boolean accept) {
+    public static void acceptAlert(WebDriver driver, boolean accept, int timeToWait) {
         try {
-            WaitUtils.waitForAlert(driver, 5, false);
+            WaitUtils.waitForAlert(driver, timeToWait, false);
             boolean present = WaitUtils.isAlertPresent(driver);
             if (present) {
                 if (accept) {

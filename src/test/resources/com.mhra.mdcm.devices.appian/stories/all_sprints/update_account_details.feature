@@ -39,6 +39,6 @@ Feature: As a business user, I want to be able to update party details associate
     Then I should see the changes "<keyValuePairs>" in my accounts page
     Examples:
       | user              | keyValuePairs                                                                                      |
-      | authorisedrepAuto | contact.title,contact.firstname,contact.lastname,contact.job.title,contact.email,contact.telephone |
+      | authorisedRepAuto | contact.title,contact.firstname,contact.lastname,contact.job.title,contact.email,contact.telephone |
       | manufacturerAuto  | contact.job.title,contact.email,contact.telephone,contact.firstname,contact.lastname               |
 

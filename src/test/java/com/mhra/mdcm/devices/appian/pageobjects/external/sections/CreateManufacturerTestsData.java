@@ -112,7 +112,7 @@ public class CreateManufacturerTestsData extends _Page {
         PageUtils.uploadDocument(fileUpload, fileName);
 
         //Submit form : remember to verify
-        submit.click();
+        //submit.click();
 
         return new ExternalHomePage(driver);
     }

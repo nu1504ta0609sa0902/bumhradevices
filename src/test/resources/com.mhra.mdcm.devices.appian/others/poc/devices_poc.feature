@@ -7,5 +7,3 @@ Feature: Write PC for devices
     Examples:
       | user           |
       | businessAuto      |
-#      | manufacturer1  |
-#      | authorisedrep1 |

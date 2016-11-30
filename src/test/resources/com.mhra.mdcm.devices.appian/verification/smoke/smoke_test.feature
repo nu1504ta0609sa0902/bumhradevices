@@ -10,7 +10,7 @@ Feature: As a tester I would like to perform smoke test on the system
       | user              | password | errorMsg                                 |
       | businessAuto      | testTest | The username/password entered is invalid |
       | manufacturerAuto  | testTest | The username/password entered is invalid |
-      | authorisedrepAuto | testTest | The username/password entered is invalid |
+      | authorisedRepAuto | testTest | The username/password entered is invalid |
 
 
   @smoke_test @readonly
@@ -23,7 +23,7 @@ Feature: As a tester I would like to perform smoke test on the system
       | user              | heading      |
       | businessAuto      | Tasks        |
       | manufacturerAuto  | MHRA Service |
-      | authorisedrepAuto | MHRA Service |
+      | authorisedRepAuto | MHRA Service |
 
 
   @smoke_test @readonly
@@ -61,10 +61,10 @@ Feature: As a tester I would like to perform smoke test on the system
     Examples:
       | user              | expectedLinks             |
       | manufacturerAuto  | Manufacturer Registration |
-      | authorisedrepAuto | Manufacturer Registration |
+      | authorisedRepAuto | Manufacturer Registration |
 
 
-  @smoke_test
+  @smoke_test @ignore
   Scenario Outline: Create a new account request task
     Given I am logged into appian as "<user>" user
     When I create a new account using test harness page

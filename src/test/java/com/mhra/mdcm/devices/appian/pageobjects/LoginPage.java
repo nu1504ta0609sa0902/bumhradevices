@@ -50,7 +50,9 @@ public class LoginPage extends _Page {
 
     public LoginPage loadPage(String url) {
         WaitUtils.nativeWaitInSeconds(2);
+        PageUtils.acceptAlert(driver, true, 1);
         driver.get(url);
+        PageUtils.acceptAlert(driver, "accept", 1);
         return new LoginPage(driver);
     }
 

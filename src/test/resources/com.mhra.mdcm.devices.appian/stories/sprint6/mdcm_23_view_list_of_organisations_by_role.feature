@@ -1,4 +1,4 @@
-@Records_All_Organisations
+@Records_All_Organisations @ignore
 Feature: As a business user I want to view a list of all Manufacturers and Authorized Representatives regardless of account association
   so that I can quickly retrieve information for them
 

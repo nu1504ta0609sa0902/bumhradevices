@@ -50,7 +50,7 @@ public class ActionsPageSteps extends CommonSteps {
     }
 
 
-    @When("^I create a new account using test harness page with following data$")
+    @When("^I create a new account using business test harness page with following data$")
     public void i_create_a_new_account_using_test_harness_page_with_following_data(Map<String, String> dataSets) throws Throwable {
 
         //Now create the test data using harness page

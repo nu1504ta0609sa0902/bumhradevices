@@ -155,7 +155,7 @@ public class FileUtils {
             }else if(uname.contains("manufacturer")){
                 uname = "manufacturer" + overrideUsername;
             }else if(uname.contains("authorised")){
-                uname = "authorisedrep" + overrideUsername;
+                uname = "authorisedRep" + overrideUsername;
             }
         }
         return uname;

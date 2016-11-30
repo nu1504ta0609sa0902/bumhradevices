@@ -32,11 +32,14 @@ Automated Issues:
     Sprint 3:
         - @mdcm-149 - Blocked unable to edit account, error message displayed
                     - Added tests, will confirm when done
-        - @mdcm-14  -
+        - @mdcm-14  - Added tests but not able to submit and verify
+                    - Blocked by business testing
         - @mdcm-237 - no tests for regression
         - @mdcm-238 - no tests for regression
-        - @mdcm-183 -
-        - @mdcm-15  -
+        - @mdcm-183 - Added tests but not able to submit and verify
+                    - Blocked by business testing
+        - @mdcm-15  - Added tests but not able to submit and verify
+                    - Blocked by business testing
         - @mdcm-292 -
 
     Spring 4:

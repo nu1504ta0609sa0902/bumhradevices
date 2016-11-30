@@ -5,7 +5,7 @@ Feature: As a business user, I want a task to be created each time a customer su
   @regression @mdcm-10 @mdcm-41 @mdcm-178
   Scenario Outline: Create new account and approve tasks
     Given I am logged into appian as "<user>" user
-    When I create a new account using test harness page with following data
+    When I create a new account using business test harness page with following data
       | accountType | <accountType> |
       | countryName | <countryName> |
     Then I should see a new task for the new account
@@ -23,7 +23,7 @@ Feature: As a business user, I want a task to be created each time a customer su
   @regression @mdcm-41 @mdcm-178
   Scenario Outline: Create new account and reject tasks
     Given I am logged into appian as "<user>" user
-    When I create a new account using test harness page with following data
+    When I create a new account using business test harness page with following data
       | accountType | <accountType> |
       | countryName | <countryName> |
     Then I should see a new task for the new account
@@ -41,7 +41,7 @@ Feature: As a business user, I want a task to be created each time a customer su
   @regression @mdcm-41
   Scenario Outline: Verify WIP section shows newly created tasks and users can approve reject tasks
     Given I am logged into appian as "<user>" user
-    When I create a new account using test harness page with following data
+    When I create a new account using business test harness page with following data
       | accountType | <accountType> |
       | countryName | <countryName> |
     Then I should see a new task for the new account in WIP page

@@ -75,7 +75,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         externalHomePage = externalHomePage.registerAnotherManufacturer();
     }
 
-    @When("^I create a new manufacturer using test harness page with following data$")
+    @When("^I create a new manufacturer using manufacturer test harness page with following data$")
     public void i_create_a_new_manufacturer_using_test_harness_page_with_following_data(Map<String, String> dataSets) throws Throwable {
 
         AccountManufacturerRequest newAccount = TestHarnessUtils.updateManufacturerDefaultsWithData(dataSets, scenarioSession);

@@ -10,6 +10,6 @@ Feature: As an account holder with access to the device registration service
     Examples:
       | user                 | expectedLinks             |
       | manufacturerAuto     | Manufacturer Registration |
-      | authorisedrepAuto    | Manufacturer Registration |
+      | authorisedRepAuto    | Manufacturer Registration |
 
 

@@ -11,6 +11,7 @@ Feature: As an account holder with access to the Device Registration Service
     Examples:
       | user             |
       | manufacturerAuto |
+      | authorisedRepAuto |
 
   @regression @mdcm-14 @wip
   Scenario Outline: Verify correct options are displayed on add devices page
@@ -41,12 +42,12 @@ Feature: As an account holder with access to the Device Registration Service
   Scenario Outline: Users should be able to register new manufacturers with devices
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
-    When I create a new manufacturer using test harness page with following data
+    When I create a new manufacturer using manufacturer test harness page with following data
       | accountType | <accountType> |
       | countryName | <countryName> |
     Then I should see stored manufacturer appear in the manufacturers list
     When I select the stored manufacturer
-    Then I should see the following link "Declare devices for"
+    #Then I should see the following link "Declare devices for"
     #When I go to add devices page for the stored manufacturer
     #Then I should see correct device types
     When I add a device to stored manufacturer with following data
@@ -56,8 +57,8 @@ Feature: As an account holder with access to the Device Registration Service
       | relatedDeviceSterile   | yes          |
       | relatedDeviceMeasuring | yes          |
     Examples:
-      | user             | accountType  | countryName | deviceType             |
-      | manufacturerAuto | manufacturer | Bangladesh  | General Medical Device |
+      | user             | accountType  | countryName | deviceType             |deviceType             |
+      | manufacturerAuto | manufacturer | Bangladesh  | General Medical Device |General Medical Device |
       #| manufacturerAuto | authorisedRep | Netherland     |
 
 
@@ -82,7 +83,7 @@ Feature: As an account holder with access to the Device Registration Service
   @regression @mdcm-292 @wip
   Scenario Outline: Verify new product id is generated for each product submitted by manufacturer
     Given I am logged into appian as "<user>" user
-    When I create a new manufacturer using test harness page with following data
+    When I create a new manufacturer using manufacturer test harness page with following data
       | accountType | <accountType> |
       | countryName | <countryName> |
     Then I should see a new task for the new account
@@ -93,7 +94,7 @@ Feature: As an account holder with access to the Device Registration Service
     Then I should see at least <count> account matches
     Examples:
       | user         | accountType   | approveReject | count | countryName    |
-      | businessAuto | manufacturer  | approve       | 1     | United Kingdom |
-      | businessAuto | authorisedRep | approve       | 1     | Netherland     |
+      | manufacturerAuto | manufacturer  | approve       | 1     | United Kingdom |
+      | authorisedRepAuto | authorisedRep | approve       | 1     | Netherland     |
 
 
