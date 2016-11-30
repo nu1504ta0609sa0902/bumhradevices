@@ -126,12 +126,17 @@ public class AddDevices extends _Page {
     @FindBy(xpath = ".//*[contains(text(),'device label')]//following::input[1]")
     WebElement txtProductNameLabel;
 
+    //Option to add other devices
+    @FindBy(xpath = ".//button[contains(text(),'Add another device')]")
+    WebElement btnAddAnotherDevice;
 
     //Confirm
     @FindBy(css = "button.GFWJSJ4DCF")
     WebElement btnConfirm;
     @FindBy(css = ".gwt-FileUpload")
     WebElement fileUpload;
+    @FindBy(css = ".gwt-FileUpload")
+    List<WebElement> listOfFileUploads;
 
 
     @Autowired
@@ -174,49 +179,76 @@ public class AddDevices extends _Page {
         }
     }
 
-    public void addFollowingDevice(DeviceData dd) {
+    public AddDevices addFollowingDevice(DeviceData dd) {
         WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_5_SECOND, false);
         //Select device type
         selectDeviceType(dd);
 
         if (dd.deviceType.toLowerCase().contains("general medical device")) {
-            searchByGMDN(dd);
-            customMade(dd);
-            deviceSterile(dd);
-            deviceMeasuring(dd);
-            if (!dd.isCustomMade) {
-                riskClassification(dd);
-                notifiedBody(dd);
-            }
+            addGeneralMedicalDevice(dd);
         } else if (dd.deviceType.toLowerCase().contains("vitro diagnostic")) {
-            searchByGMDN(dd);
-            riskClassificationIVD(dd);
-            addProduct(dd);
-            notifiedBody(dd);
-            subjectToPerformanceEval(dd);
-            productNewToMarket(dd);
-            conformToCTS(dd);
+            addVitroDiagnosticDevice(dd);
         } else if (dd.deviceType.toLowerCase().contains("active implantable")) {
-            searchByGMDN(dd);
-            customMade(dd);
-            if (dd.isCustomMade) {
-                productLabelName(dd);
-            }
+            addActiveImplantableDevice(dd);
         } else if (dd.deviceType.toLowerCase().contains("procedure pack")) {
-            searchByGMDN(dd);
-            customMade(dd);
-            deviceSterile(dd);
-            deviceMeasuring(dd);
-            notifiedBody(dd);
-            packIncorporated(dd);
-            devicesCompatible(dd);
+            addProcedurePackDevice(dd);
         } else {
             //Verify all error messages if possible
         }
 
         //Business doing testing so don't do any write only tests
-        //PageUtils.doubleClick(driver, btnConfirm);
+        PageUtils.doubleClick(driver, btnConfirm);
 
+        return new AddDevices(driver);
+    }
+
+    private void addActiveImplantableDevice(DeviceData dd) {
+        searchByGMDN(dd);
+        customMade(dd);
+        int numberOfDevices = dd.listOfProductName.size();
+        if(numberOfDevices == 0) {
+            //List of device to add
+            if (dd.isCustomMade) {
+                productLabelName(dd);
+            }
+        }else{
+            for(String x: dd.listOfProductName){
+                productLabelName(x);
+            }
+        }
+    }
+
+    private void addProcedurePackDevice(DeviceData dd) {
+        searchByGMDN(dd);
+        customMade(dd);
+        deviceSterile(dd);
+        deviceMeasuring(dd);
+        notifiedBody(dd);
+        packIncorporated(dd);
+        devicesCompatible(dd);
+    }
+
+    private void addVitroDiagnosticDevice(DeviceData dd) {
+        searchByGMDN(dd);
+        riskClassificationIVD(dd);
+        if(dd.productName!=null && !dd.productName.equals("")) {
+            addProduct(dd);
+            notifiedBody(dd);
+            subjectToPerformanceEval(dd);
+            productNewToMarket(dd);
+            conformToCTS(dd);
+        }
+    }
+
+    private void addGeneralMedicalDevice(DeviceData dd) {
+        searchByGMDN(dd);
+        customMade(dd);
+        deviceSterile(dd);
+        deviceMeasuring(dd);
+        if (!dd.isCustomMade) {
+            riskClassification(dd);
+            notifiedBody(dd);
+        }
     }
 
     private void productLabelName(DeviceData dd) {
@@ -226,6 +258,21 @@ public class AddDevices extends _Page {
         txtProductNameLabel.sendKeys(RandomDataUtils.getRandomTestName("Label"));
 
         PageUtils.uploadDocument(fileUpload, "DeviceLabelDoc1.pdf");
+    }
+
+
+    private void productLabelName(String labelName) {
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//button[.='Add Product']"), TIMEOUT_5_SECOND, false);
+        driver.findElement(By.xpath(".//button[.='Add Product']")).click();
+        WaitUtils.waitForElementToBeClickable(driver, txtProductNameLabel, TIMEOUT_5_SECOND, false);
+        txtProductNameLabel.sendKeys(labelName);
+
+        PageUtils.uploadDocument(fileUpload, "DeviceLabelDoc2.pdf");
+        PageUtils.uploadDocument(listOfFileUploads.get(1), "DeviceInstructionForUse1.pdf");
+
+        //Save product label details
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//button[.='Save Product']"), TIMEOUT_5_SECOND, false);
+        driver.findElement(By.xpath(".//button[.='Save Product']")).click();
     }
 
     private void conformToCTS(DeviceData dd) {
@@ -382,5 +429,11 @@ public class AddDevices extends _Page {
             tbxGMDNCode.sendKeys(dd.gmdnCode);
             PageUtils.selectFromAutoSuggests(driver, By.cssSelector("input.gwt-SuggestBox"), dd.gmdnTermOrDefinition);
         }
+    }
+
+    public boolean isOptionToAddAnotherDeviceVisible() {
+        WaitUtils.waitForElementToBeClickable(driver, btnAddAnotherDevice, TIMEOUT_10_SECOND, false);
+        boolean isVisible = btnAddAnotherDevice.isDisplayed() && btnAddAnotherDevice.isEnabled();
+        return isVisible;
     }
 }

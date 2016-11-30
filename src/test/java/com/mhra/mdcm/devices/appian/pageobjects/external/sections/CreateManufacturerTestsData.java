@@ -105,14 +105,14 @@ public class CreateManufacturerTestsData extends _Page {
         emailAddress.sendKeys(ar.email);
 
         //Upload letter of designation
-        String fileName = "Manufacturer1.pdf";
+        String fileName = "DesignationLetter1.pdf";
         if(!ar.isManufacturer){
-            fileName = "AuthorisedRep1.pdf";
+            fileName = "DesignationLetter2.pdf";
         }
         PageUtils.uploadDocument(fileUpload, fileName);
 
         //Submit form : remember to verify
-        //submit.click();
+        submit.click();
 
         return new ExternalHomePage(driver);
     }

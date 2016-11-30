@@ -175,18 +175,21 @@
             <version>20140107</version>
         </dependency>
 
-        <!-- Cucumber reports -->
-        <dependency>
-            <groupId>net.masterthought</groupId>
-            <artifactId>cucumber-reporting</artifactId>
-            <version>0.0.23</version>
-        </dependency>
-
         <!-- Pretty reports : cucumber-reporting -->
         <dependency>
             <groupId>net.masterthought</groupId>
             <artifactId>cucumber-sandwich</artifactId>
             <version>0.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>net.masterthought</groupId>
+            <artifactId>cucumber-reporting</artifactId>
+            <version>0.0.23</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.mkolisnyk</groupId>
+            <artifactId>cucumber-reports</artifactId>
+            <version>1.0.7</version>
         </dependency>
         <!--<dependency>-->
         <!--<groupId>net.masterthought</groupId>-->

@@ -74,6 +74,7 @@ public class ExternalHomePage extends _Page {
     }
 
     public String getARandomManufacturerName() {
+        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".left>div>a"), TIMEOUT_5_SECOND, false);
         WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".left>div>a"), TIMEOUT_5_SECOND, false);
         int index = RandomDataUtils.getNumberBetween(0, listOfManufacturerNames.size() - 1);
         WebElement link = listOfManufacturerNames.get(index);
@@ -89,13 +90,13 @@ public class ExternalHomePage extends _Page {
 
     public CreateManufacturerTestsData registerNewManufacturer() {
         WaitUtils.waitForElementToBeClickable(driver, linkRegisterNewManufacturer, TIMEOUT_DEFAULT, false);
-        WaitUtils.waitForElementToBeClickable(driver, manufacturerDropDown, TIMEOUT_5_SECOND, false);
+        //WaitUtils.waitForElementToBeClickable(driver, manufacturerDropDown, TIMEOUT_5_SECOND, false);
         linkRegisterNewManufacturer.click();
         return new CreateManufacturerTestsData(driver);
     }
 
     public boolean isNewManufacturerInTheList(String name) {
-        WaitUtils.waitForElementToBeClickable(driver, manufacturerDropDown, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, manufacturerDropDown, TIMEOUT_10_SECOND, false);
         String selectedOption = manufacturerDropDown.getText(); //PageUtils.getCurrentSelectedOption(manufacturerDropDown);
         boolean found = selectedOption.contains(name);
         return found;

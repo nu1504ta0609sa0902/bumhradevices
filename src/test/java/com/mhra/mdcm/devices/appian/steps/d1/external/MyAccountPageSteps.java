@@ -2,6 +2,7 @@ package com.mhra.mdcm.devices.appian.steps.d1.external;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
+import com.mhra.mdcm.devices.appian.pageobjects.external.sections.OrganisationDetails;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import cucumber.api.java.en.Then;
@@ -24,12 +25,13 @@ public class MyAccountPageSteps extends CommonSteps {
     }
 
 
-    @When("^I update the following data \"([^\"]*)\"$")
+    @When("^I update the contact person details with following data \"([^\"]*)\"$")
     public void i_update_the_following_data(String keyValuePair) throws Throwable {
         amendPersonDetails = myAccountPage.amendContactPersonDetails();
 
         //Update details, firstName and lastName
         AccountRequest updatedData = new AccountRequest(scenarioSession);
+        updatedData.updateName(scenarioSession);
 
         boolean errorMsgDisplayed = false;
         int count = 0;
@@ -50,16 +52,31 @@ public class MyAccountPageSteps extends CommonSteps {
     public void iShouldSeeTheChangesInMyAccountsPage(String keyValuePairToUpdate) throws Throwable {
         boolean isCorrectPage = myAccountPage.isCorrectPage();
         AccountRequest updatedData = (AccountRequest) scenarioSession.getData(SessionKey.updatedData);
-        boolean updatesFound = false;
-//        int numberOfRefresh = 0;
-//        do {
-//            numberOfRefresh++;
-//            updatesFound = myAccountPage.verifyUpdatesDisplayedOnPage(keyValuePairToUpdate, updatedData);
-//            if (!updatesFound) {
-//                WaitUtils.nativeWaitInSeconds(1);
-//            }
-//        } while (!updatesFound && numberOfRefresh < 3);
-        updatesFound = myAccountPage.verifyUpdatesDisplayedOnPage(keyValuePairToUpdate, updatedData);
+        boolean updatesFound = myAccountPage.verifyUpdatesDisplayedOnPage(keyValuePairToUpdate, updatedData);
         Assert.assertThat("Expected to see following updates : " + keyValuePairToUpdate, updatesFound, is(true));
+    }
+
+
+    @When("^I update the organisation details with following data \"([^\"]*)\"$")
+    public void i_update_the_organisation_details_with_following_data(String keyValuePair) throws Throwable {
+        amendOrganisationDetails = myAccountPage.amendOrganisationDetails();
+
+        //Update details, firstName and lastName
+        AccountRequest updatedData = new AccountRequest(scenarioSession);
+        updatedData.updateName(scenarioSession);
+
+        boolean errorMsgDisplayed = false;
+        int count = 0;
+        do {
+            count++;
+            amendOrganisationDetails = amendOrganisationDetails.updateFollowingFields(keyValuePair, updatedData);
+            errorMsgDisplayed = amendOrganisationDetails.isErrorMessageDisplayed();
+        }while (errorMsgDisplayed && count < 2);
+
+        //confirm and save
+        amendOrganisationDetails = amendOrganisationDetails.confirmChanges(true);
+        myAccountPage = amendOrganisationDetails.saveChanges(true);
+
+        scenarioSession.putData(SessionKey.updatedData, updatedData);
     }
 }

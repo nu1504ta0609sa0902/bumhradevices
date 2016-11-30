@@ -16,7 +16,7 @@ Feature: As a business user, I want to be able to update party details associate
       | businessAuto | Accounts | ManufacturerRT00 | org.name                                               |
 
 
-  @mdcm-175 @regression @wip @todo
+  @mdcm-175 @regression
   Scenario Outline: Business users should be able to edit and update authorisedRep account details
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
@@ -35,10 +35,24 @@ Feature: As a business user, I want to be able to update party details associate
   Scenario Outline: Manufacturer and authorisedRep user should be able to update account contact details
     Given I am logged into appian as "<user>" user
     When I go to my accounts page
-    And I update the following data "<keyValuePairs>"
+    And I update the contact person details with following data "<keyValuePairs>"
     Then I should see the changes "<keyValuePairs>" in my accounts page
     Examples:
       | user              | keyValuePairs                                                                                      |
       | authorisedRepAuto | contact.title,contact.firstname,contact.lastname,contact.job.title,contact.email,contact.telephone |
       | manufacturerAuto  | contact.job.title,contact.email,contact.telephone,contact.firstname,contact.lastname               |
+
+
+  @mdcm-13 @regression @wip
+  Scenario Outline: Manufacturer and authorisedRep user should be able to update organisation details
+    Given I am logged into appian as "<user>" user
+    When I go to my accounts page
+    And I update the organisation details with following data "<keyValuePairs>"
+    Then I should see the changes "<keyValuePairs>" in my accounts page
+    Examples:
+      | user              | keyValuePairs                                                                      |
+      | authorisedRepAuto | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website          |
+      | manufacturerAuto  | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website          |
+      | authorisedRepNoor | org.name,org.address1,org.address2,org.city,org.postcode,org.telephone,org.website |
+      | manufacturerNoor  | org.name,org.address1,org.address2,org.city,org.postcode,org.telephone,org.website |
 

@@ -1,7 +1,7 @@
 package com.mhra.mdcm.devices.appian.pageobjects.external.sections;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
-import com.mhra.mdcm.devices.appian.domains.MyAccount;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.others.MyAccount;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.external.MyAccountPage;
 
@@ -90,25 +90,6 @@ public class PersonDetails extends _Page {
         return new PersonDetails(driver);
     }
 
-    public MyAccount savePreviousDetails() {
-        WaitUtils.waitForElementToBeClickable(driver, title, TIMEOUT_DEFAULT, false);
-        String titleText = new Select(title).getFirstSelectedOption().getText();
-        String firstNameText = firstName.getText();
-        String lastNameText = lastName.getText();
-        String jobTitleText = jobTitle.getText();
-        String emailText = email.getText();
-        String telephoneText = telephone.getText();
-
-        MyAccount saveAccountDetails = new MyAccount();
-        saveAccountDetails.setTitle(titleText);
-        saveAccountDetails.setFirstName(firstNameText);
-        saveAccountDetails.setLastName(lastNameText);
-        saveAccountDetails.setJobTitle(jobTitleText);
-        saveAccountDetails.setEmail(emailText);
-        saveAccountDetails.setTelephone(telephoneText);
-
-        return saveAccountDetails;
-    }
 
     public PersonDetails confirmChanges(boolean confirm) {
         WaitUtils.waitForElementToBeClickable(driver, confirmYes, TIMEOUT_DEFAULT, false);

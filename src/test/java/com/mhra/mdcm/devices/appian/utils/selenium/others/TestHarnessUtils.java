@@ -100,6 +100,8 @@ public class TestHarnessUtils {
             String newProduct = dataSets.get("newProduct");
             String conformsToCTS = dataSets.get("conformsToCTS");
 
+            String listOfProductNames = dataSets.get("listOfProductNames");
+
             if(isNotEmptyOrNull(deviceType)){
                 dd.deviceType = deviceType;
             }
@@ -152,6 +154,16 @@ public class TestHarnessUtils {
                 dd.isConformsToCTS = Boolean.parseBoolean(conformsToCTS);
             }
 
+            if(isNotEmptyOrNull(listOfProductNames)){
+                if(listOfProductNames.contains(",")){
+                    String[] data = listOfProductNames.split(",");
+                    for(String d: data){
+                        dd.listOfProductName.add(d);
+                    }
+                }else{
+                    dd.listOfProductName.add(listOfProductNames);
+                }
+            }
         }
         return dd;
     }

@@ -1,9 +1,9 @@
 Automated Issues:
     TAGS:
     - @readonly - tests don't perform any updates to the system
+                - so we can run it even if business is working on it
     - @regression @regressionAll
     - @wip      - Work in progress (Work started)
-    - @todo     - Part completed
     - @bug      - Bug blocking the test
 
 
@@ -18,10 +18,7 @@ Automated Issues:
 
     Sprint 2:
         - @mdcm-41  - DONE
-        - @mdcm-175 - blocked because email and phoneNumber gets deleted automatically
-                    - Added code to manually enter email/phoneNumber
-                    - Represented Party Test need to be completed (AuthorisedRepTest)
-                    - NOT COMPLETED yet
+        - @mdcm-175 - DONE
         - @mdcm-178 - DONE
         - @mdcm-186 - DONE
         - @mdcm-187 - no tests for regression
@@ -30,17 +27,102 @@ Automated Issues:
         - @mdcm-182 - no tests for regression
 
     Sprint 3:
-        - @mdcm-149 - Blocked unable to edit account, error message displayed
-                    - Added tests, will confirm when done
-        - @mdcm-14  - Added tests but not able to submit and verify
-                    - Blocked by business testing
-        - @mdcm-237 - no tests for regression
-        - @mdcm-238 - no tests for regression
+        - @mdcm-149 - DONE
+        - @mdcm-14  - DONE
         - @mdcm-183 - Added tests but not able to submit and verify
                     - Blocked by business testing
         - @mdcm-15  - Added tests but not able to submit and verify
                     - Blocked by business testing
-        - @mdcm-292 -
+        - @mdcm-292 - Added tests but not able to submit and verify
+                    - Blocked by business testing
+        - @mdcm-237 - no tests for regression
+        - @mdcm-238 - no tests for regression
 
     Spring 4:
+        - @mdcm-13  - Amend organisation details
+                    - Added tests but not able to submit and verify
+                    - Blocked by business testing
+        - @mdcm-240 - Added tests but not able to submit and verify
+                    - Blocked by business testing
+        - @mdcm-161 - Added tests but not able to submit and verify
+                    - Blocked by business testing
+        - @mdcm-232 - Added tests but not able to submit and verify
+                    - Blocked by business testing
+        - @mdcm-261 - TODO NOT STARTED
+        - @mdcm-353 - no tests for regression
+        - @mdcm-358 - no tests for regression
+        - @mdcm-362 - no tests for regression
+
+
+    Spring 5:
+        - @mdcm-39  -
+        - @mdcm-489 -
+        - @mdcm-277 -
+        - @mdcm-171 -
+        - @mdcm-162 -
+        - @mdcm-260 -
+        - @mdcm-21  -
+        - @mdcm-496 -
+        - @mdcm-485 -
+        - @mdcm-465 -
+        - @mdcm-374 -
+        - @mdcm-467 -
+        - @mdcm-298 - no tests for regression
+        - @mdcm-377 - no tests for regression
+        - @mdcm-359 - no tests for regression
+
+
+    Spring 6:
+        - @mdcm-23  -
+        - @mdcm-125 -
+        - @mdcm-134 -
+        - @mdcm-164 -
+        - @mdcm-263 -
+        - @mdcm-268 - no tests for regression
+        - @mdcm-636 -
+
+    Spring 7:
+        - @mdcm-2797- no tests for regression
+        - @mdcm-148 - no tests for regression
+        - @mdcm-275 - no tests for regression
+        - @mdcm-345 - no tests for regression
+        - @mdcm-3365- no tests for regression
+        - @mdcm-3360- no tests for regression
+        - @mdcm-2910- no tests for regression
+        - @mdcm-2339- no tests for regression
+        - @mdcm-490 - no tests for regression
+        - @mdcm-2399- no tests for regression
+        - @mdcm-626 - no tests for regression
+
+    Spring 8:
+        - @mdcm-1924- no tests for regression
+        - @mdcm-2049- no tests for regression
+        - @mdcm-2185- no tests for regression
+        - @mdcm-3271- no tests for regression
+        - @mdcm-3158- no tests for regression
+        - @mdcm-1836- no tests for regression
+        - @mdcm-2097- no tests for regression
+        - @mdcm-3104- no tests for regression
+
+
+    Spring MIXED:
+        - @mdcm-159 - no tests for regression
+        - @mdcm-2151- no tests for regression
+        - @mdcm-22  - no tests for regression
+        - @mdcm-3358- no tests for regression
+        - @mdcm-3268- no tests for regression
+        - @mdcm-2184- no tests for regression
+        - @mdcm-2036- no tests for regression
+        - @mdcm-282 - no tests for regression
+        - @mdcm-259 - no tests for regression
+        - @mdcm-2577- no tests for regression
+        - @mdcm-
+        - @mdcm-
+        - @mdcm-
+        - @mdcm-
+        - @mdcm-
+        - @mdcm-
+        - @mdcm-
+        - @mdcm-
+        - @mdcm-
         - @mdcm-

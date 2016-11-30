@@ -7,6 +7,7 @@ import com.mhra.mdcm.devices.appian.pageobjects.external.ExternalHomePage;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -130,6 +131,10 @@ public class ExternalHomePageSteps extends CommonSteps {
         externalHomePage = new ExternalHomePage(driver);
         addDevices = externalHomePage.gotoAddDevicesPageForManufacturer(name);
         addDevices = addDevices.addDevice();
+
+        //Assumes we are in add device page
+        DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
+        addDevices = addDevices.addFollowingDevice(dd);
     }
 
 
@@ -137,9 +142,18 @@ public class ExternalHomePageSteps extends CommonSteps {
     @When("^I add a device to selected manufacturer with following data$")
     public void i_add_a_device_to_selected_manufactuerer_of_type_with_following_data(Map<String, String> dataSets) throws Throwable {
         String name = (String) scenarioSession.getData(SessionKey.organisationName);
+
+        //Assumes we are in add device page
+        DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
+        addDevices = addDevices.addFollowingDevice(dd);
+    }
+
+    @When("^I add multiple devices to selected manufacturer with following data$")
+    public void i_add_multiple_devices_to_selected_manufactuerer_of_type_with_following_data(Map<String, String> dataSets) throws Throwable {
+        String name = (String) scenarioSession.getData(SessionKey.organisationName);
         DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
         //Assumes we are in add device page
-        addDevices.addFollowingDevice(dd);
+        addDevices = addDevices.addFollowingDevice(dd);
     }
 
     @Then("^I should see correct device types$")
@@ -155,4 +169,9 @@ public class ExternalHomePageSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.organisationName, name);
     }
 
+    @Then("^I should see option to add another device$")
+    public void iShouldSeeOptionToAddAnotherDevice() throws Throwable {
+        boolean isVisible = addDevices.isOptionToAddAnotherDeviceVisible();
+        Assert.assertThat("Expected to see option to : Add another device" , isVisible, Matchers.is(true));
+    }
 }

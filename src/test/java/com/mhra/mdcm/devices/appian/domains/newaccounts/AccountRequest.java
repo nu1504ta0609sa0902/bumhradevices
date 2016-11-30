@@ -60,6 +60,10 @@ public class AccountRequest {
         createDefaultRandom();
         //Update as required
         if(scenarioSession!=null){
+            String loggedInUser = (String) scenarioSession.getData(SessionKey.loggedInUser);
+            if(loggedInUser.contains("authorisedRep")){
+                isManufacturer = false;
+            }
             setUserDetails(getLoggedInUserName(scenarioSession));
         }
     }
@@ -180,13 +184,6 @@ public class AccountRequest {
         String[] data = loggedInAs.split("\\.");
         System.out.println(data);
         firstName = data[0];
-
-        //Is manufacturer or authorisedrep
-//        if(loggedInAs.toLowerCase().contains("manu")){
-//            isManufacturer = true;
-//        }else{
-//            isManufacturer = false;
-//        }
 
         //Because we have Auto.Business and Noor.Uddin.Business
         String name = generateLastName();

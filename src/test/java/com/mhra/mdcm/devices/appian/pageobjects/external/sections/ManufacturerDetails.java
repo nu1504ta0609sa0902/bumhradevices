@@ -29,6 +29,7 @@ public class ManufacturerDetails extends _Page {
     }
 
     public boolean isOrganisationNameCorrect(String name) {
+        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_DEFAULT, false);
         boolean contains = orgName.getText().contains(name);
         return contains;
     }

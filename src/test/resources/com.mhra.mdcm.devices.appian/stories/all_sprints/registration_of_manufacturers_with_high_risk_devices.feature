@@ -18,6 +18,7 @@ Feature: As an account holder with access to the Device Registration Service I w
       | subjectToPerfEval  | <subjectToPerfEval>  |
       | newProduct         | <newProduct>         |
       | conformsToCTS      | <conformsToCTS>      |
+    Then I should see option to add another device
     Examples:
       | user             | deviceType                 | gmdnDefinition | riskClassification | productName | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
       | manufacturerAuto | In Vitro Diagnostic Device | Glucose        | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
@@ -36,7 +37,26 @@ Feature: As an account holder with access to the Device Registration Service I w
       | gmdnDefinition | <gmdnDefinition> |
       | customMade     | <customMade>     |
       | productName    | <productName>    |
+    Then I should see option to add another device
     Examples:
       | user             | deviceType                         | gmdnDefinition | customMade | productName |
       | manufacturerAuto | Active Implantable Medical Devices | Adhesive       | true       | ford focus  |
       | manufacturerAuto | Active Implantable Medical Devices | Adhesive       | false      | ford focus  |
+
+
+  @regression @mdcm-240 @wip
+  Scenario Outline: Register multiple active implantable medical devices
+    Given I am logged into appian as "<user>" user
+    And I go to register another manufacturer page
+    When I select a random manufacturer from list
+    When I go to add devices page for the stored manufacturer
+    When I add multiple devices to selected manufacturer with following data
+      | deviceType         | <deviceType>         |
+      | gmdnDefinition     | <gmdnDefinition>     |
+      | customMade         | <customMade>         |
+      | listOfProductNames | <listOfProductNames> |
+    Then I should see option to add another device
+    Examples:
+      | user             | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
+      | manufacturerAuto | Active Implantable Medical Devices | Adhesive       | true       | ford,hyundai       |
+      | manufacturerAuto | Active Implantable Medical Devices | Adhesive       | true       | vauxhall,honda     |

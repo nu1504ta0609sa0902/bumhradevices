@@ -38,6 +38,7 @@ public class DeviceData {
     public String notifiedBody;
 
     //IVD risk classification
+    public List<String> listOfProductName = new ArrayList<>();
     public String productName;
     public String productMake;
     public String productModel;
