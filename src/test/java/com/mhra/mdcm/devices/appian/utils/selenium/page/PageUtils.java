@@ -125,7 +125,7 @@ public class PageUtils {
         WaitUtils.nativeWaitInSeconds(2);
         element.sendKeys(fullPath);
         //We will have to wait for uploading to finish
-        WaitUtils.nativeWaitInSeconds(4);
+        WaitUtils.nativeWaitInSeconds(5);
     }
 
     public static WebElement getRandomNotification(List<WebElement> listOfECIDLinks) {
@@ -240,5 +240,15 @@ public class PageUtils {
         element.clear();
         WaitUtils.nativeWaitInSeconds(1);
         element.sendKeys(RandomDataUtils.generateTestNameStartingWith(value, 0));
+    }
+
+    public static boolean isDisplayed(WebDriver driver, WebElement manufacturerDropDown, int timeOut) {
+        boolean isDisplayed = true;
+        try{
+            WaitUtils.waitForElementToBeClickable(driver, manufacturerDropDown, timeOut, false);
+        }catch (Exception e){
+            isDisplayed = false;
+        }
+        return isDisplayed;
     }
 }

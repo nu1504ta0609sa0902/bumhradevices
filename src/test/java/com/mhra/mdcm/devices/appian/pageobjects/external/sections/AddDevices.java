@@ -9,6 +9,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Wait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -130,13 +132,17 @@ public class AddDevices extends _Page {
     @FindBy(xpath = ".//button[contains(text(),'Add another device')]")
     WebElement btnAddAnotherDevice;
 
-    //Confirm
+    //Confirm and submit
     @FindBy(css = "button.GFWJSJ4DCF")
     WebElement btnConfirm;
     @FindBy(css = ".gwt-FileUpload")
     WebElement fileUpload;
     @FindBy(css = ".gwt-FileUpload")
     List<WebElement> listOfFileUploads;
+    @FindBy(css = ".left .GFWJSJ4DCF")
+    WebElement submit;
+    @FindBy(css = ".left .GFWJSJ4DCF")
+    WebElement submitConfirm;
 
 
     @Autowired
@@ -145,7 +151,7 @@ public class AddDevices extends _Page {
     }
 
     public AddDevices addDevice() {
-        WaitUtils.waitForElementToBeClickable(driver, btnAddDevice, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, btnAddDevice, TIMEOUT_10_SECOND, false);
         btnAddDevice.click();
         return new AddDevices(driver);
     }
@@ -181,6 +187,7 @@ public class AddDevices extends _Page {
 
     public AddDevices addFollowingDevice(DeviceData dd) {
         WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, systemOrProcedurePack, TIMEOUT_3_SECOND, false);
         //Select device type
         selectDeviceType(dd);
 
@@ -197,6 +204,7 @@ public class AddDevices extends _Page {
         }
 
         //Business doing testing so don't do any write only tests
+        WaitUtils.waitForElementToBeClickable(driver, btnConfirm, TIMEOUT_5_SECOND, false);
         PageUtils.doubleClick(driver, btnConfirm);
 
         return new AddDevices(driver);
@@ -205,8 +213,11 @@ public class AddDevices extends _Page {
     private void addActiveImplantableDevice(DeviceData dd) {
         searchByGMDN(dd);
         customMade(dd);
-        int numberOfDevices = dd.listOfProductName.size();
-        if(numberOfDevices == 0) {
+        int numberOfProductName = dd.listOfProductName.size();
+        if(numberOfProductName <= 1) {
+            if(numberOfProductName==1){
+                dd.productName = dd.listOfProductName.get(0);
+            }
             //List of device to add
             if (dd.isCustomMade) {
                 productLabelName(dd);
@@ -216,6 +227,7 @@ public class AddDevices extends _Page {
                 productLabelName(x);
             }
         }
+        //saveProduct(dd);
     }
 
     private void addProcedurePackDevice(DeviceData dd) {
@@ -226,19 +238,44 @@ public class AddDevices extends _Page {
         notifiedBody(dd);
         packIncorporated(dd);
         devicesCompatible(dd);
+        saveProduct(dd);
     }
 
     private void addVitroDiagnosticDevice(DeviceData dd) {
         searchByGMDN(dd);
         riskClassificationIVD(dd);
-        if(dd.productName!=null && !dd.productName.equals("")) {
+
+        //If more than 1 product listed
+        int numberOfProductName = dd.listOfProductName.size();
+        if(numberOfProductName <= 1) {
+            if(numberOfProductName == 1){
+                dd.productName = dd.listOfProductName.get(0);
+            }
+            //List of device to add
             addProduct(dd);
             notifiedBody(dd);
             subjectToPerformanceEval(dd);
             productNewToMarket(dd);
+            if(dd.riskClassification.toLowerCase().contains("list a"))
             conformToCTS(dd);
+            saveProduct(dd);
+        }else{
+            for(String x: dd.listOfProductName){
+                dd.productName = x;
+                addProduct(dd);
+                notifiedBody(dd);
+                subjectToPerformanceEval(dd);
+                productNewToMarket(dd);
+                if(dd.riskClassification.toLowerCase().contains("list a"))
+                conformToCTS(dd);
+                saveProduct(dd);
+
+                //Remove this if we find a better solution
+                WaitUtils.nativeWaitInSeconds(1);
+            }
         }
     }
+
 
     private void addGeneralMedicalDevice(DeviceData dd) {
         searchByGMDN(dd);
@@ -249,6 +286,7 @@ public class AddDevices extends _Page {
             riskClassification(dd);
             notifiedBody(dd);
         }
+        //saveProduct(dd);
     }
 
     private void productLabelName(DeviceData dd) {
@@ -257,7 +295,13 @@ public class AddDevices extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, txtProductNameLabel, TIMEOUT_5_SECOND, false);
         txtProductNameLabel.sendKeys(RandomDataUtils.getRandomTestName("Label"));
 
-        PageUtils.uploadDocument(fileUpload, "DeviceLabelDoc1.pdf");
+        PageUtils.uploadDocument(fileUpload, "DeviceLabelDoc2.pdf");
+        PageUtils.uploadDocument(listOfFileUploads.get(1), "DeviceInstructionForUse1.pdf");
+
+        //Save product label details
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//button[.='Save Product']"), TIMEOUT_5_SECOND, false);
+        driver.findElement(By.xpath(".//button[.='Save Product']")).click();
+
     }
 
 
@@ -286,6 +330,11 @@ public class AddDevices extends _Page {
             txtDemonstratedCompliance.sendKeys("Demonstrated Compliance");
             txtTestingMethod.sendKeys("Manually Tested");
         }
+    }
+
+    private void saveProduct(DeviceData dd) {
+        WebElement saveProduct = driver.findElement(By.xpath(".//button[.='Save product']"));
+        saveProduct.click();
     }
 
     private void productNewToMarket(DeviceData dd) {
@@ -345,17 +394,26 @@ public class AddDevices extends _Page {
 
     private void riskClassificationIVD(DeviceData dd) {
         WaitUtils.waitForElementToBeClickable(driver, ivdIVDGeneral, TIMEOUT_5_SECOND, false);
+        WaitUtils.nativeWaitInSeconds(1);
 
         String lcRiskClassification = dd.riskClassification.toLowerCase();
 
         if (lcRiskClassification.contains("ivd general")) {
-            PageUtils.clickIfVisible(driver, ivdIVDGeneral);
+            //WaitUtils.waitForElementToBePartOfDOM(driver, By.xpath(".//label[contains(text(),'IVD General')]"), TIMEOUT_5_SECOND, false);
+            //PageUtils.clickIfVisible(driver, ivdIVDGeneral);
+            ivdIVDGeneral.click();
         } else if (lcRiskClassification.contains("list a")) {
-            PageUtils.clickIfVisible(driver, ivdListA);
+            //WaitUtils.waitForElementToBePartOfDOM(driver, By.xpath(".//label[contains(text(),'List A')]"), TIMEOUT_5_SECOND, false);
+            //PageUtils.clickIfVisible(driver, ivdListA);
+            ivdListA.click();
         } else if (lcRiskClassification.contains("list b")) {
-            PageUtils.clickIfVisible(driver, ivdListB);
+            //WaitUtils.waitForElementToBePartOfDOM(driver, By.xpath(".//label[contains(text(),'List B')]"), TIMEOUT_5_SECOND, false);
+            //PageUtils.clickIfVisible(driver, ivdListB);
+            ivdListB.click();
         } else if (lcRiskClassification.contains("self-test")) {
-            PageUtils.clickIfVisible(driver, ivdSelfTest);
+            //WaitUtils.waitForElementToBePartOfDOM(driver, By.xpath(".//label[contains(text(),'Self-Test')]"), TIMEOUT_5_SECOND, false);
+            //PageUtils.clickIfVisible(driver, ivdSelfTest);
+            ivdSelfTest.click();
         }
     }
 
@@ -435,5 +493,17 @@ public class AddDevices extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, btnAddAnotherDevice, TIMEOUT_10_SECOND, false);
         boolean isVisible = btnAddAnotherDevice.isDisplayed() && btnAddAnotherDevice.isEnabled();
         return isVisible;
+    }
+
+    public AddDevices submit() {
+        WaitUtils.waitForElementToBeClickable(driver, submit, TIMEOUT_5_SECOND, false);
+        submit.click();
+        return new AddDevices(driver);
+    }
+
+    public AddDevices submitConfirm() {
+        WaitUtils.waitForElementToBeClickable(driver, submitConfirm, TIMEOUT_5_SECOND, false);
+        submitConfirm.click();
+        return new AddDevices(driver);
     }
 }

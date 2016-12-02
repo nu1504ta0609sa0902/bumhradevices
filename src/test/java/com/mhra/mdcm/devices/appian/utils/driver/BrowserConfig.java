@@ -29,6 +29,7 @@ public class BrowserConfig {
 
 		if(browser == null){
 			browser = System.getProperty("current.browser");
+			browser = browser.toLowerCase();
 		}
 		
     	if(browser!=null){

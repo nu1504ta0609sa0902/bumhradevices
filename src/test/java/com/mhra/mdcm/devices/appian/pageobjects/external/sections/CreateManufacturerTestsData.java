@@ -80,8 +80,8 @@ public class CreateManufacturerTestsData extends _Page {
      * @return
      */
     public ExternalHomePage createTestOrganisation(AccountManufacturerRequest ar) throws Exception {
-        WaitUtils.forceWaitForPageToLoad(driver, By.xpath(".//label[.='Organisation name']//following::input[1]"), TIMEOUT_1_SECOND, 2) ;
-        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_5_SECOND, false);
+        //WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".gwt-SuggestBox"), TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_10_SECOND, false);
         orgName.sendKeys(ar.organisationName);
         selectCountryFromAutoSuggests(driver, ".gwt-SuggestBox", ar.country, true);
 

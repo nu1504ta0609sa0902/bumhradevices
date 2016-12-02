@@ -38,7 +38,7 @@ public class TasksPageSteps extends CommonSteps {
             tasksPage = mainNavigationBar.clickTasks();
 
             //Click on link number X
-            taskSection = tasksPage.clickOnTaskNumber(count);
+            taskSection = tasksPage.clickOnTaskNumber(count, "New Service Request");
             isCorrectTask = taskSection.isCorrectTask(orgName);
             if (isCorrectTask) {
                 contains = true;
@@ -50,7 +50,40 @@ public class TasksPageSteps extends CommonSteps {
 
         //If its still not found than try the first 1 again
         if (!contains) {
-            taskSection = tasksPage.clickOnTaskNumber(0);
+            taskSection = tasksPage.clickOnTaskNumber(0, "New Service Request");
+            isCorrectTask = taskSection.isCorrectTask(orgName);
+        }
+
+        assertThat("Task not found for organisation : " + orgName, contains, is(equalTo(true)));
+
+    }
+
+
+    @Then("^I should see a new task with link \"([^\"]*)\" for the new account$")
+    public void i_should_see_a_new_task_for_the_new_account(String link) throws Throwable {
+        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
+        //Verify new taskSection generated and its the correct one
+        boolean contains = false;
+        boolean isCorrectTask = false;
+        int count = 0;
+        do {
+            mainNavigationBar = new MainNavigationBar(driver);
+            tasksPage = mainNavigationBar.clickTasks();
+
+            //Click on link number X
+            taskSection = tasksPage.clickOnTaskNumber(count, link);
+            isCorrectTask = taskSection.isCorrectTask(orgName);
+            if (isCorrectTask) {
+                contains = true;
+                scenarioSession.putData(SessionKey.position, count);
+            } else {
+                count++;
+            }
+        } while (!contains && count <= 5);
+
+        //If its still not found than try the first 1 again
+        if (!contains) {
+            taskSection = tasksPage.clickOnTaskNumber(0, link);
             isCorrectTask = taskSection.isCorrectTask(orgName);
         }
 
@@ -94,7 +127,16 @@ public class TasksPageSteps extends CommonSteps {
     public void theTaskShouldBeRemovedFromTaskList() {
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
         int position = (int) scenarioSession.getData(SessionKey.position);
-        taskSection = tasksPage.clickOnTaskNumber(position);
+        taskSection = tasksPage.clickOnTaskNumber(position, "New Service Request");
+        boolean isHeadingMatched = taskSection.isCorrectTask(orgName);
+        assertThat("Task should be removed for organisation : " + orgName, isHeadingMatched, is(equalTo(false)));
+    }
+
+    @Then("^The task with link \"([^\"]*)\" should be removed from tasks list$")
+    public void theTaskWithLinkShouldBeRemovedFromTaskList(String link) {
+        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
+        int position = (int) scenarioSession.getData(SessionKey.position);
+        taskSection = tasksPage.clickOnTaskNumber(position, link);
         boolean isHeadingMatched = taskSection.isCorrectTask(orgName);
         assertThat("Task should be removed for organisation : " + orgName, isHeadingMatched, is(equalTo(false)));
     }
@@ -157,5 +199,12 @@ public class TasksPageSteps extends CommonSteps {
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
         boolean isCorrectTask = taskSection.isOrganisationDisplayedOnLink(orgName);
         assertThat("Task not found in completed list : " + orgName, isCorrectTask, is(equalTo(true)));
+    }
+
+
+    @When("^I download the letter of designation$")
+    public void i_download_the_letter_of_designation() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
     }
 }

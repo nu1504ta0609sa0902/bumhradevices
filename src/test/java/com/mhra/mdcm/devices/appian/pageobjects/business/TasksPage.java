@@ -19,6 +19,9 @@ import java.util.List;
 @Component
 public class TasksPage extends _Page {
 
+    @FindBy(partialLinkText = "New Manufacturer Registration Request")
+    List<WebElement> listOfNewManufacturerRequest;
+
     @FindBy(partialLinkText = "New Account Request")
     List<WebElement> listOfNewAccount;
 
@@ -33,10 +36,15 @@ public class TasksPage extends _Page {
         super(driver);
     }
 
-    public TaskSection clickOnTaskNumber(int count) {
-        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText("New Account Request"), TIMEOUT_DEFAULT, false);
-        WebElement taskLink = listOfNewAccount.get(count);
-        taskLink.click();
+    public TaskSection clickOnTaskNumber(int count, String link) {
+        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(link), TIMEOUT_DEFAULT, false);
+        if(link.contains("New Account")) {
+            WebElement taskLink = listOfNewAccount.get(count);
+            taskLink.click();
+        }else if(link.contains("New Manufacturer")){
+            WebElement taskLink = listOfNewManufacturerRequest.get(count);
+            taskLink.click();
+        }
         return new TaskSection(driver);
     }
 

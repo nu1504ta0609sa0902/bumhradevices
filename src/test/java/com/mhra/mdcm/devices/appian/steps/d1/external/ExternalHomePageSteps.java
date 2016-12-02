@@ -4,6 +4,7 @@ import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountManufacturerReque
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.pageobjects.external.ExternalHomePage;
+import com.mhra.mdcm.devices.appian.pageobjects.external.sections.AddDevices;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
@@ -66,7 +67,7 @@ public class ExternalHomePageSteps extends CommonSteps {
     @And("^I go to register a new manufacturer page$")
     public void iGoToRegisterANewManufacturerPage() throws Throwable {
         externalHomePage = externalHomePage.gotoManufacturerRegistrationPage();
-        externalHomePage = externalHomePage.registerAnotherManufacturer();
+        //externalHomePage = externalHomePage.registerAnotherManufacturer();
         createNewManufacturer = externalHomePage.registerNewManufacturer();
     }
 
@@ -91,7 +92,7 @@ public class ExternalHomePageSteps extends CommonSteps {
     public void iShouldSeeTheManufacturerAppearInTheManufacturersList() throws Throwable {
         externalHomePage = mainNavigationBar.clickExternalHOME();
         externalHomePage = externalHomePage.gotoManufacturerRegistrationPage();
-        externalHomePage = externalHomePage.registerAnotherManufacturer();
+        //externalHomePage = externalHomePage.registerAnotherManufacturer();
 
         String name = (String) scenarioSession.getData(SessionKey.organisationName);
         //externalHomePage = externalHomePage.selectManufacturerFromList(name);
@@ -123,8 +124,20 @@ public class ExternalHomePageSteps extends CommonSteps {
         addDevices = addDevices.addDevice();
     }
 
+    @When("^I add devices to newly created manufacturer with following data$")
+    public void iAddDevicesToNewlyCreatedManufacturerWithFollowingData(Map<String, String> dataSets) throws Throwable {
+        addDevices = new AddDevices(driver);
+        addDevices = addDevices.addDevice();
 
-    @When("^I add a device to stored manufacturer with following data$")
+        //Assumes we are in add device page
+        DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
+        addDevices = addDevices.addFollowingDevice(dd);
+        addDevices = addDevices.submit();
+        addDevices = addDevices.submitConfirm();
+    }
+
+
+    @When("^I add a device to STORED manufacturer with following data$")
     public void i_add_a_device_of_type_with_following_data(Map<String, String> dataSets) throws Throwable {
         String name = (String) scenarioSession.getData(SessionKey.organisationName);
         //Go to add devices page
@@ -139,20 +152,17 @@ public class ExternalHomePageSteps extends CommonSteps {
 
 
 
-    @When("^I add a device to selected manufacturer with following data$")
+    @When("^I add a device to SELECTED manufacturer with following data$")
     public void i_add_a_device_to_selected_manufactuerer_of_type_with_following_data(Map<String, String> dataSets) throws Throwable {
-        String name = (String) scenarioSession.getData(SessionKey.organisationName);
-
         //Assumes we are in add device page
         DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
         addDevices = addDevices.addFollowingDevice(dd);
     }
 
-    @When("^I add multiple devices to selected manufacturer with following data$")
+    @When("^I add multiple devices to SELECTED manufacturer with following data$")
     public void i_add_multiple_devices_to_selected_manufactuerer_of_type_with_following_data(Map<String, String> dataSets) throws Throwable {
-        String name = (String) scenarioSession.getData(SessionKey.organisationName);
-        DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
         //Assumes we are in add device page
+        DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
         addDevices = addDevices.addFollowingDevice(dd);
     }
 

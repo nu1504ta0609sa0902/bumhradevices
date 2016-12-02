@@ -29,10 +29,8 @@ Automated Issues:
     Sprint 3:
         - @mdcm-149 - DONE
         - @mdcm-14  - DONE
-        - @mdcm-183 - Added tests but not able to submit and verify
-                    - Blocked by business testing
-        - @mdcm-15  - Added tests but not able to submit and verify
-                    - Blocked by business testing
+        - @mdcm-183 - DONE
+        - @mdcm-15  - TODO NOT STARTED
         - @mdcm-292 - Added tests but not able to submit and verify
                     - Blocked by business testing
         - @mdcm-237 - no tests for regression

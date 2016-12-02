@@ -13,6 +13,7 @@ Feature: As an account holder with access to the Device Registration Service
       | manufacturerAuto  |
       | authorisedRepAuto |
 
+
   @regression @mdcm-14
   Scenario Outline: Verify correct options are displayed on add devices page
     Given I am logged into appian as "<user>" user
@@ -20,7 +21,7 @@ Feature: As an account holder with access to the Device Registration Service
     When I select a random manufacturer from list
     When I go to add devices page for the stored manufacturer
     Then I should see correct device types
-    When I add a device to selected manufacturer with following data
+    When I add a device to SELECTED manufacturer with following data
       | deviceType             | <deviceType>         |
       | gmdnDefinition         | <gmdnDefinition>     |
       | customMade             | <customMade>         |
@@ -49,7 +50,7 @@ Feature: As an account holder with access to the Device Registration Service
     Then I should see stored manufacturer appear in the manufacturers list
     When I select the stored manufacturer
     Then I should see the following link "Declare devices for"
-    When I add a device to stored manufacturer with following data
+    When I add a device to STORED manufacturer with following data
       | deviceType             | <deviceType> |
       | gmdnDefinition         | Adhesive     |
       | customMade             | true          |
@@ -69,7 +70,7 @@ Feature: As an account holder with access to the Device Registration Service
     When I select a random manufacturer from list
     When I go to add devices page for the stored manufacturer
     Then I should see correct device types
-    When I add a device to selected manufacturer with following data
+    When I add a device to SELECTED manufacturer with following data
       | deviceType             | <deviceType> |
       | gmdnDefinition         | Adhesive     |
       | customMade             | true          |

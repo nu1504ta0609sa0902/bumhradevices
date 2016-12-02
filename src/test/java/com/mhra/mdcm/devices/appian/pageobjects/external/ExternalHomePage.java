@@ -23,7 +23,7 @@ import java.util.List;
 @Component
 public class ExternalHomePage extends _Page {
 
-    @FindBy(linkText = "Manufacturer Registration")
+    @FindBy(css = ".SafeImage.GFWJSJ4DOFB")
     WebElement linkManufacturerRegistration;
     @FindBy(css = ".GFWJSJ4DCF")
     WebElement linkRegisterAnotherManufacturer;
@@ -90,8 +90,9 @@ public class ExternalHomePage extends _Page {
 
     public CreateManufacturerTestsData registerNewManufacturer() {
         WaitUtils.waitForElementToBeClickable(driver, linkRegisterNewManufacturer, TIMEOUT_DEFAULT, false);
-        //WaitUtils.waitForElementToBeClickable(driver, manufacturerDropDown, TIMEOUT_5_SECOND, false);
+        boolean isDisplayed = PageUtils.isDisplayed(driver, manufacturerDropDown, TIMEOUT_5_SECOND);
         linkRegisterNewManufacturer.click();
+        //PageUtils.doubleClick(driver, linkRegisterNewManufacturer);
         return new CreateManufacturerTestsData(driver);
     }
 
@@ -116,8 +117,11 @@ public class ExternalHomePage extends _Page {
     }
 
     public AddDevices gotoAddDevicesPageForManufacturer(String name) {
-        WaitUtils.waitForElementToBeClickable(driver, manufacturerDropDown, TIMEOUT_5_SECOND, false);
-        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(name), TIMEOUT_5_SECOND, false);
+        boolean isDisplayed = PageUtils.isDisplayed(driver, manufacturerDropDown, TIMEOUT_5_SECOND);
+        if(isDisplayed) {
+            //WaitUtils.waitForElementToBeClickable(driver, manufacturerDropDown, TIMEOUT_5_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(name), TIMEOUT_5_SECOND, false);
+        }
         //linkDeclareDevicesFor.click();
         driver.findElement(By.partialLinkText(name)).click();
         return new AddDevices(driver);
