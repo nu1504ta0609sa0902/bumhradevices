@@ -19,6 +19,9 @@ import java.util.List;
 @Component
 public class TasksPage extends _Page {
 
+    @FindBy(partialLinkText = "New Service Request")
+    List<WebElement> listOfNewServiceRequest;
+
     @FindBy(partialLinkText = "New Manufacturer Registration Request")
     List<WebElement> listOfNewManufacturerRequest;
 
@@ -43,6 +46,9 @@ public class TasksPage extends _Page {
             taskLink.click();
         }else if(link.contains("New Manufacturer")){
             WebElement taskLink = listOfNewManufacturerRequest.get(count);
+            taskLink.click();
+        }else if(link.contains("New Service Request")){
+            WebElement taskLink = listOfNewServiceRequest.get(count);
             taskLink.click();
         }
         return new TaskSection(driver);

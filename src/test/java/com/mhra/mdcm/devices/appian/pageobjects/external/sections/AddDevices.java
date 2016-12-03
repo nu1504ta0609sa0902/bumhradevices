@@ -32,13 +32,13 @@ public class AddDevices extends _Page {
     List<WebElement> listOfDeviceTypes;
 
     //Device types
-    @FindBy(xpath = ".//*[contains(text(),'type of device')]//following::input[1]")
+    @FindBy(xpath = ".//*[contains(text(),'ype of device')]//following::input[1]")
     WebElement generalMedicalDevice;
-    @FindBy(xpath = ".//*[contains(text(),'type of device')]//following::input[2]")
+    @FindBy(xpath = ".//*[contains(text(),'ype of device')]//following::input[2]")
     WebElement inVitroDiagnosticDevice;
-    @FindBy(xpath = ".//*[contains(text(),'type of device')]//following::input[3]")
+    @FindBy(xpath = ".//*[contains(text(),'ype of device')]//following::input[3]")
     WebElement activeImplantableMedicalDevice;
-    @FindBy(xpath = ".//*[contains(text(),'type of device')]//following::input[4]")
+    @FindBy(xpath = ".//*[contains(text(),'ype of device')]//following::input[4]")
     WebElement systemOrProcedurePack;
 
     //GMDN search by
@@ -135,6 +135,10 @@ public class AddDevices extends _Page {
     //Confirm and submit
     @FindBy(css = "button.GFWJSJ4DCF")
     WebElement btnConfirm;
+    @FindBy(css = "button.GFWJSJ4DAF.GFWJSJ4DCF")
+    WebElement btnReviewYourOrder;
+    @FindBy(xpath = ".//button[.='Proceed to payment']")
+    WebElement btnProceedToPayment;
     @FindBy(css = ".gwt-FileUpload")
     WebElement fileUpload;
     @FindBy(css = ".gwt-FileUpload")
@@ -496,12 +500,14 @@ public class AddDevices extends _Page {
     }
 
     public AddDevices submit() {
-        WaitUtils.waitForElementToBeClickable(driver, submit, TIMEOUT_5_SECOND, false);
-        submit.click();
+        WaitUtils.nativeWaitInSeconds(1);
+        WaitUtils.waitForElementToBeClickable(driver, btnProceedToPayment, TIMEOUT_5_SECOND, false);
+        btnProceedToPayment.click();
         return new AddDevices(driver);
     }
 
     public AddDevices submitConfirm() {
+        WaitUtils.nativeWaitInSeconds(1);
         WaitUtils.waitForElementToBeClickable(driver, submitConfirm, TIMEOUT_5_SECOND, false);
         submitConfirm.click();
         return new AddDevices(driver);

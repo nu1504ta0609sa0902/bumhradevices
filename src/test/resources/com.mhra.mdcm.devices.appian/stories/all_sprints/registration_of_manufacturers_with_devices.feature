@@ -5,7 +5,7 @@ Feature: As an account holder with access to the Device Registration Service
   @regression @mdcm-14
   Scenario Outline: Users should be able to view already registered manufacturers
     Given I am logged into appian as "<user>" user
-    And I go to manufacturer registration page
+    And I go to list of manufacturers page
     When I click on a registered manufacturer
     Then I should see the correct manufacturer details
     Examples:
@@ -17,9 +17,10 @@ Feature: As an account holder with access to the Device Registration Service
   @regression @mdcm-14
   Scenario Outline: Verify correct options are displayed on add devices page
     Given I am logged into appian as "<user>" user
-    And I go to register another manufacturer page
-    When I select a random manufacturer from list
-    When I go to add devices page for the stored manufacturer
+    And I go to list of manufacturers page
+    #When I select a random manufacturer from list
+    And I click on a registered manufacturer
+    #When I go to add devices page for the stored manufacturer
     Then I should see correct device types
     When I add a device to SELECTED manufacturer with following data
       | deviceType             | <deviceType>         |
@@ -47,16 +48,14 @@ Feature: As an account holder with access to the Device Registration Service
     When I create a new manufacturer using manufacturer test harness page with following data
       | accountType | <accountType> |
       | countryName | <countryName> |
-    Then I should see stored manufacturer appear in the manufacturers list
-    When I select the stored manufacturer
-    Then I should see the following link "Declare devices for"
-    When I add a device to STORED manufacturer with following data
+    And I add devices to newly created manufacturer with following data
       | deviceType             | <deviceType> |
       | gmdnDefinition         | Adhesive     |
       | customMade             | true          |
       | relatedDeviceSterile   | true          |
       | relatedDeviceMeasuring | true          |
-    Then I should see option to add another device
+    Then I should see stored manufacturer appear in the manufacturers list
+    #Then I should see option to add another device
     Examples:
       | user             | accountType  | countryName | deviceType             | deviceType             |
       | manufacturerAuto | manufacturer | Bangladesh  | General Medical Device | General Medical Device |
@@ -66,9 +65,10 @@ Feature: As an account holder with access to the Device Registration Service
   @regression @mdcm-14
   Scenario Outline: Users should be able to add devices to existing manufacturers
     Given I am logged into appian as "<user>" user
-    And I go to register another manufacturer page
-    When I select a random manufacturer from list
-    When I go to add devices page for the stored manufacturer
+    And I go to list of manufacturers page
+    #When I select a random manufacturer from list
+    And I click on a registered manufacturer
+    #When I go to add devices page for the stored manufacturer
     Then I should see correct device types
     When I add a device to SELECTED manufacturer with following data
       | deviceType             | <deviceType> |

@@ -28,6 +28,7 @@ Feature: As a customer I want to register manufacturers
   @regression @mdcm-292 @wip
   Scenario Outline: Verify new product id is generated for each product submitted by manufacturer
     Given I am logged into appian as "<user>" user
+    And I go to register a new manufacturer page
     When I create a new manufacturer using manufacturer test harness page with following data
       | accountType | <accountType> |
       | countryName | <countryName> |

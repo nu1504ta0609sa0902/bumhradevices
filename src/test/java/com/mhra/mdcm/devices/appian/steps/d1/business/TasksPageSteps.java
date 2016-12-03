@@ -38,7 +38,7 @@ public class TasksPageSteps extends CommonSteps {
             tasksPage = mainNavigationBar.clickTasks();
 
             //Click on link number X
-            taskSection = tasksPage.clickOnTaskNumber(count, "New Service Request");
+            taskSection = tasksPage.clickOnTaskNumber(count, "New Account Request");
             isCorrectTask = taskSection.isCorrectTask(orgName);
             if (isCorrectTask) {
                 contains = true;
@@ -50,7 +50,7 @@ public class TasksPageSteps extends CommonSteps {
 
         //If its still not found than try the first 1 again
         if (!contains) {
-            taskSection = tasksPage.clickOnTaskNumber(0, "New Service Request");
+            taskSection = tasksPage.clickOnTaskNumber(0, "New Account Request");
             isCorrectTask = taskSection.isCorrectTask(orgName);
         }
 
@@ -205,6 +205,6 @@ public class TasksPageSteps extends CommonSteps {
     @When("^I download the letter of designation$")
     public void i_download_the_letter_of_designation() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        //throw new PendingException();
     }
 }

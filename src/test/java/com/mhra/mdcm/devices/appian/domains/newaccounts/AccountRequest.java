@@ -77,7 +77,7 @@ public class AccountRequest {
 
     private void createDefaultRandom() {
 
-        organisationName = RandomDataUtils.getRandomTestName("OrganisationTest").replace("_", "");
+        organisationName = RandomDataUtils.getRandomTestName("OrganisationTest");//.replace("_", "");
 
         //Organisation Details
         address1 = RandomDataUtils.getRandomNumberBetween(1, 200) + " " + RandomDataUtils.generateTestNameStartingWith("Test", 5) + " GrowLand Avenue";

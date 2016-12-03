@@ -8,6 +8,7 @@ import com.mhra.mdcm.devices.appian.pageobjects.external.sections.AddDevices;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
+import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -45,16 +46,9 @@ public class ExternalHomePageSteps extends CommonSteps {
         Assert.assertThat("Not all links are clickable : " + delimitedLinks, areLinksClickable, Matchers.is(true));
     }
 
-    @And("^I go to manufacturer registration page$")
+    @And("^I go to list of manufacturers page$")
     public void iGoToManufacturerRegistrationPage() throws Throwable {
         externalHomePage = externalHomePage.gotoManufacturerRegistrationPage();
-    }
-
-    @When("^I click on a registered manufacturer$")
-    public void i_click_on_a_registered_manufacturer() throws Throwable {
-        String name = externalHomePage.getARandomManufacturerName();
-        manufacturerDetails = externalHomePage.viewAManufacturer(name);
-        scenarioSession.putData(SessionKey.organisationName, name);
     }
 
     @Then("^I should see the correct manufacturer details$")
@@ -69,6 +63,13 @@ public class ExternalHomePageSteps extends CommonSteps {
         externalHomePage = externalHomePage.gotoManufacturerRegistrationPage();
         //externalHomePage = externalHomePage.registerAnotherManufacturer();
         createNewManufacturer = externalHomePage.registerNewManufacturer();
+    }
+
+    @And("^I go to register a new authorisedRep page$")
+    public void iGoToRegisterANewAuthorisedRepPage() throws Throwable {
+        externalHomePage = externalHomePage.gotoManufacturerRegistrationPage();
+        //externalHomePage = externalHomePage.registerAnotherManufacturer();
+        //createNewManufacturer = externalHomePage.registerNewManufacturer();
     }
 
     @And("^I go to register another manufacturer page$")
@@ -95,10 +96,20 @@ public class ExternalHomePageSteps extends CommonSteps {
         //externalHomePage = externalHomePage.registerAnotherManufacturer();
 
         String name = (String) scenarioSession.getData(SessionKey.organisationName);
-        //externalHomePage = externalHomePage.selectManufacturerFromList(name);
-        boolean isFoundInManufacturerList = externalHomePage.isNewManufacturerInTheList(name);
+        int nop = externalHomePage.getNumberOfPages();
+        boolean isFoundInManufacturerList = false;
+        int count = 0;
+        do{
+            count++;
+            isFoundInManufacturerList = externalHomePage.isManufacturerDisplayedInList(name);
+            if(!isFoundInManufacturerList){
+                externalHomePage = externalHomePage.clickNext();
+            }
+        }while(!isFoundInManufacturerList && count < nop);
+        //boolean isFoundInManufacturerList = externalHomePage.isNewManufacturerInTheList(name);
         Assert.assertThat("Organisation Name Expected In Manufacturer List : " + name, isFoundInManufacturerList, Matchers.is(true));
     }
+
 
     @When("^I select the stored manufacturer$")
     public void iSelectTheStoredManufacturer() throws Throwable {
@@ -121,13 +132,13 @@ public class ExternalHomePageSteps extends CommonSteps {
         //Go to add devices page
         externalHomePage = new ExternalHomePage(driver);
         addDevices = externalHomePage.gotoAddDevicesPageForManufacturer(name);
-        addDevices = addDevices.addDevice();
+        //addDevices = addDevices.addDevice(); removed 02/12/2016
     }
 
     @When("^I add devices to newly created manufacturer with following data$")
     public void iAddDevicesToNewlyCreatedManufacturerWithFollowingData(Map<String, String> dataSets) throws Throwable {
         addDevices = new AddDevices(driver);
-        addDevices = addDevices.addDevice();
+        //addDevices = addDevices.addDevice(); this button removed in 02/12/2016
 
         //Assumes we are in add device page
         DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
@@ -143,7 +154,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         //Go to add devices page
         externalHomePage = new ExternalHomePage(driver);
         addDevices = externalHomePage.gotoAddDevicesPageForManufacturer(name);
-        addDevices = addDevices.addDevice();
+        //addDevices = addDevices.addDevice(); Removed on 02/12/2016
 
         //Assumes we are in add device page
         DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
@@ -179,9 +190,33 @@ public class ExternalHomePageSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.organisationName, name);
     }
 
+    @When("^I click on a registered manufacturer$")
+    public void i_click_on_a_registered_manufacturer() throws Throwable {
+        String name = externalHomePage.getARandomManufacturerName();
+        manufacturerDetails = externalHomePage.viewAManufacturer(name);
+        scenarioSession.putData(SessionKey.organisationName, name);
+    }
+
     @Then("^I should see option to add another device$")
     public void iShouldSeeOptionToAddAnotherDevice() throws Throwable {
         boolean isVisible = addDevices.isOptionToAddAnotherDeviceVisible();
         Assert.assertThat("Expected to see option to : Add another device" , isVisible, Matchers.is(true));
+    }
+
+    @And("^Provide indication of devices made$")
+    public void provideIndicationOfDevicesMade() throws Throwable {
+        WaitUtils.nativeWaitInSeconds(5);
+        for(int x = 0; x < 9; x++) {
+            externalHomePage = externalHomePage.provideIndicationOfDevicesMade(x);
+        }
+
+        //custom made
+        //externalHomePage.selectCustomMade(true);
+
+        //Submit devices made
+        externalHomePage = externalHomePage.submitIndicationOfDevicesMade(true);
+        externalHomePage = externalHomePage.submitIndicationOfDevicesMade(false);
+
+        System.out.println("DONE");
     }
 }

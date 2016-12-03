@@ -34,9 +34,9 @@ public class TaskSection extends _Page {
     WebElement goBack;
 
     //Approve reject taskSection
-    @FindBy(xpath = ".//button[.='Approve']")
+    @FindBy(xpath = ".//button[.='Accept Registration']")
     WebElement approve;
-    @FindBy(xpath = ".//button[.='Approve']//following::button[1]") //Stupid to have 2 buttons called Reject on same page
+    @FindBy(xpath = ".//button[.='Accept Registration']//following::button[1]") //Stupid to have 2 buttons called Reject on same page
     WebElement reject;
 
     //Rejection reason

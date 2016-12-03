@@ -35,8 +35,13 @@ public class ExternalHomePage extends _Page {
     @FindBy(css = "Declare devices for")
     WebElement linkDeclareDevicesFor;
 
-    @FindBy(css = ".left>div>a")
+    @FindBy(css = "td>div>a")
     List<WebElement> listOfManufacturerNames;
+
+    @FindBy(css = ".GFWJSJ4DFDC div")
+    WebElement itemCount;
+    @FindBy(css = ".gwt-Image[aria-label='Next page']")
+    WebElement nextPage;
 
     @Autowired
     public ExternalHomePage(WebDriver driver) {
@@ -133,5 +138,78 @@ public class ExternalHomePage extends _Page {
         String index = RandomDataUtils.getRandomNumberBetween(0, listOfOptions.size());
         String name = listOfOptions.get(Integer.parseInt(index));
         return name;
+    }
+
+    public boolean isManufacturerDisplayedInList(String manufacturerName){
+        WaitUtils.waitForElementToBeClickable(driver, nextPage, TIMEOUT_5_SECOND, false);
+        boolean found = false;
+        for(WebElement item: listOfManufacturerNames){
+            String name = item.getText();
+            if (name.contains(manufacturerName)) {
+                found = true;
+                break;
+            }
+        }
+        return found;
+    }
+
+    public int getNumberOfPages() {
+        WaitUtils.waitForElementToBeClickable(driver, itemCount, TIMEOUT_5_SECOND, false);
+        String text = itemCount.getText();
+        String total = text.substring(text.indexOf("of")+3);
+        String itemPerPage = text.substring(text.indexOf("-")+1, text.indexOf(" of ") );
+
+        int tt = Integer.parseInt(total.trim());
+        int noi = Integer.parseInt(itemPerPage.trim());
+
+        return tt/noi;
+    }
+
+    public ExternalHomePage clickNext(){
+        WaitUtils.waitForElementToBeClickable(driver, nextPage, TIMEOUT_5_SECOND, false);
+        nextPage.click();
+        return new ExternalHomePage(driver);
+    }
+
+    public ExternalHomePage provideIndicationOfDevicesMade() {
+        List<WebElement> elements = driver.findElements(By.cssSelector(".GFWJSJ4DPV.GFWJSJ4DCAD input"));
+        for(WebElement e: elements){
+            WaitUtils.waitForElementToBeClickable(driver, e, TIMEOUT_3_SECOND, false);
+            PageUtils.clickIfVisible(driver, e);
+        }
+
+        List<WebElement> elements2 = driver.findElements(By.cssSelector(".GFWJSJ4DPV.GFWJSJ4DCAD input"));
+        for(WebElement e: elements2){
+            WaitUtils.waitForElementToBeClickable(driver, e, TIMEOUT_3_SECOND, false);
+            PageUtils.clickIfVisible(driver, e);
+        }
+
+        return new ExternalHomePage(driver);
+    }
+
+
+    public ExternalHomePage provideIndicationOfDevicesMade(int index) {
+        WaitUtils.nativeWaitInSeconds(1);
+        List<WebElement> elements = driver.findElements(By.cssSelector(".GFWJSJ4DPV.GFWJSJ4DCAD input"));
+        WebElement e = elements.get(index);
+        WaitUtils.waitForElementToBeClickable(driver, e, TIMEOUT_10_SECOND, false);
+        PageUtils.clickIfVisible(driver, e);
+
+        return new ExternalHomePage(driver);
+    }
+
+    public ExternalHomePage submitIndicationOfDevicesMade(boolean clickNext) {
+        if(clickNext) {
+            driver.findElements(By.cssSelector(".gwt-RadioButton.GFWJSJ4DGAD.GFWJSJ4DCW>label")).get(0).click();
+            driver.findElement(By.xpath(".//button[.='Next']")).click();
+        }else{
+            driver.findElement(By.xpath(".//button[.='Submit']")).click();
+        }
+        return new ExternalHomePage(driver);
+    }
+
+    public void selectCustomMade(boolean isCustomMade) {
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//button[.='custom made']//following::input[1]"), TIMEOUT_3_SECOND, false);
+        driver.findElement(By.xpath(".//button[.='custom made']//following::input[1]")).click();
     }
 }
