@@ -72,11 +72,11 @@ public class ExternalHomePageSteps extends CommonSteps {
         //createNewManufacturer = externalHomePage.registerNewManufacturer();
     }
 
-    @And("^I go to register another manufacturer page$")
-    public void iGoToRegisterAnotherManufacturerPage() throws Throwable {
-        externalHomePage = externalHomePage.gotoManufacturerRegistrationPage();
-        externalHomePage = externalHomePage.registerAnotherManufacturer();
-    }
+//    @And("^I go to register another manufacturer page$")
+//    public void iGoToRegisterAnotherManufacturerPage() throws Throwable {
+//        externalHomePage = externalHomePage.gotoManufacturerRegistrationPage();
+//        externalHomePage = externalHomePage.registerAnotherManufacturer();
+//    }
 
     @When("^I create a new manufacturer using manufacturer test harness page with following data$")
     public void i_create_a_new_manufacturer_using_test_harness_page_with_following_data(Map<String, String> dataSets) throws Throwable {

@@ -64,7 +64,7 @@ public class CreateManufacturerTestsData extends _Page {
 
     //Submit and cancel
     @FindBy(xpath = ".//button[.='Declare devices']")
-    WebElement submit;
+    WebElement btnDeclareDevices;
     @FindBy(xpath = ".//button[.='Next']")
     WebElement next;
     @FindBy(xpath = ".//button[.='Cancel']")
@@ -114,10 +114,11 @@ public class CreateManufacturerTestsData extends _Page {
         PageUtils.uploadDocument(fileUpload, fileName);
 
         //Submit form : remember to verify
-        if(ar.isManufacturer)
-            submit.click();
-        else
+        try{
+            btnDeclareDevices.click();
+        }catch (Exception e){
             next.click();
+        }
 
         return new ExternalHomePage(driver);
     }

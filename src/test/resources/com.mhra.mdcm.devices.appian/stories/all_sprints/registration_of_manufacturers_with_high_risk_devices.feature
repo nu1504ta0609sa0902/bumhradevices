@@ -4,9 +4,10 @@ Feature: As an account holder with access to the Device Registration Service I w
   @regression @mdcm-183
   Scenario Outline: Register device with SINGLE product for IVD devices
     Given I am logged into appian as "<user>" user
-    And I go to register another manufacturer page
-    When I select a random manufacturer from list
-    When I go to add devices page for the stored manufacturer
+    And I go to list of manufacturers page
+    #When I select a random manufacturer from list
+    And I click on a registered manufacturer
+    #When I go to add devices page for the stored manufacturer
     When I add a device to SELECTED manufacturer with following data
       | deviceType         | <deviceType>         |
       | gmdnDefinition     | <gmdnDefinition>     |
@@ -30,9 +31,10 @@ Feature: As an account holder with access to the Device Registration Service I w
   @regression @mdcm-183
   Scenario Outline: Register device with SINGLE product for active implantable medical devices
     Given I am logged into appian as "<user>" user
-    And I go to register another manufacturer page
-    When I select a random manufacturer from list
-    When I go to add devices page for the stored manufacturer
+    And I go to list of manufacturers page
+    #When I select a random manufacturer from list
+    And I click on a registered manufacturer
+    #When I go to add devices page for the stored manufacturer
     When I add a device to SELECTED manufacturer with following data
       | deviceType     | <deviceType>     |
       | gmdnDefinition | <gmdnDefinition> |
@@ -48,9 +50,10 @@ Feature: As an account holder with access to the Device Registration Service I w
   @regression @mdcm-183
   Scenario Outline: Register device with MULTIPLE products for IVD devices
     Given I am logged into appian as "<user>" user
-    And I go to register another manufacturer page
-    When I select a random manufacturer from list
-    When I go to add devices page for the stored manufacturer
+    And I go to list of manufacturers page
+    #When I select a random manufacturer from list
+    And I click on a registered manufacturer
+    #When I go to add devices page for the stored manufacturer
     When I add a device to SELECTED manufacturer with following data
       | deviceType         | <deviceType>         |
       | gmdnDefinition     | <gmdnDefinition>     |
@@ -74,9 +77,10 @@ Feature: As an account holder with access to the Device Registration Service I w
   @regression @mdcm-183 @mdcm-240 @wip
   Scenario Outline: Register a device with MULTIPLE product for active implantable medical devices
     Given I am logged into appian as "<user>" user
-    And I go to register another manufacturer page
-    When I select a random manufacturer from list
-    When I go to add devices page for the stored manufacturer
+    And I go to list of manufacturers page
+    #When I select a random manufacturer from list
+    And I click on a registered manufacturer
+    #When I go to add devices page for the stored manufacturer
     When I add multiple devices to SELECTED manufacturer with following data
       | deviceType         | <deviceType>         |
       | gmdnDefinition     | <gmdnDefinition>     |

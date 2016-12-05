@@ -141,7 +141,7 @@ public class ExternalHomePage extends _Page {
     }
 
     public boolean isManufacturerDisplayedInList(String manufacturerName){
-        WaitUtils.waitForElementToBeClickable(driver, nextPage, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector("td>div>a"), TIMEOUT_5_SECOND, false);
         boolean found = false;
         for(WebElement item: listOfManufacturerNames){
             String name = item.getText();
@@ -154,15 +154,19 @@ public class ExternalHomePage extends _Page {
     }
 
     public int getNumberOfPages() {
-        WaitUtils.waitForElementToBeClickable(driver, itemCount, TIMEOUT_5_SECOND, false);
-        String text = itemCount.getText();
-        String total = text.substring(text.indexOf("of")+3);
-        String itemPerPage = text.substring(text.indexOf("-")+1, text.indexOf(" of ") );
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, itemCount, TIMEOUT_5_SECOND, false);
+            String text = itemCount.getText();
+            String total = text.substring(text.indexOf("of") + 3);
+            String itemPerPage = text.substring(text.indexOf("-") + 1, text.indexOf(" of "));
 
-        int tt = Integer.parseInt(total.trim());
-        int noi = Integer.parseInt(itemPerPage.trim());
+            int tt = Integer.parseInt(total.trim());
+            int noi = Integer.parseInt(itemPerPage.trim());
 
-        return tt/noi;
+            return tt / noi;
+        }catch (Exception e){
+            return 0;
+        }
     }
 
     public ExternalHomePage clickNext(){

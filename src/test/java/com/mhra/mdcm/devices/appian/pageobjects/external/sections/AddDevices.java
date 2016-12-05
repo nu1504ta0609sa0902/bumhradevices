@@ -132,7 +132,7 @@ public class AddDevices extends _Page {
     @FindBy(xpath = ".//button[contains(text(),'Add another device')]")
     WebElement btnAddAnotherDevice;
 
-    //Confirm and submit
+    //Confirm and btnDeclareDevices
     @FindBy(css = "button.GFWJSJ4DCF")
     WebElement btnConfirm;
     @FindBy(css = "button.GFWJSJ4DAF.GFWJSJ4DCF")
