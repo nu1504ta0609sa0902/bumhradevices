@@ -120,12 +120,12 @@ public class PageUtils {
         element.sendKeys(text);
     }
 
-    public static void uploadDocument(WebElement element, String fileName){
+    public static void uploadDocument(WebElement element, String fileName, int timeWaitForItToBeClickable, int timeWaitForDocumentUploadToFinish){
         String fullPath = FileUtils.getFileFullPath("tmp" + File.separator + "data" + File.separator + "reps", fileName);
-        WaitUtils.nativeWaitInSeconds(2);
+        WaitUtils.nativeWaitInSeconds(timeWaitForItToBeClickable);
         element.sendKeys(fullPath);
         //We will have to wait for uploading to finish
-        WaitUtils.nativeWaitInSeconds(5);
+        WaitUtils.nativeWaitInSeconds(timeWaitForDocumentUploadToFinish);
     }
 
     public static WebElement getRandomNotification(List<WebElement> listOfECIDLinks) {

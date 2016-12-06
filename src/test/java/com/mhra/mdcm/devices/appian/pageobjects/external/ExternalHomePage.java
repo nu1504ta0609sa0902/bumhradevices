@@ -42,6 +42,10 @@ public class ExternalHomePage extends _Page {
     WebElement itemCount;
     @FindBy(css = ".gwt-Image[aria-label='Next page']")
     WebElement nextPage;
+    @FindBy(css = ".gwt-Image[aria-label='Previous page']")
+    WebElement prevPage;
+    @FindBy(css = ".gwt-Image[aria-label='Last page']")
+    WebElement lastPage;
 
     @Autowired
     public ExternalHomePage(WebDriver driver) {
@@ -58,7 +62,7 @@ public class ExternalHomePage extends _Page {
         return clickable;
     }
 
-    public ExternalHomePage gotoManufacturerRegistrationPage() {
+    public ExternalHomePage gotoListOfManufacturerPage() {
         WaitUtils.waitForElementToBeClickable(driver, linkManufacturerRegistration, TIMEOUT_DEFAULT, false);
         linkManufacturerRegistration.click();
         return new ExternalHomePage(driver);
@@ -95,7 +99,7 @@ public class ExternalHomePage extends _Page {
 
     public CreateManufacturerTestsData registerNewManufacturer() {
         WaitUtils.waitForElementToBeClickable(driver, linkRegisterNewManufacturer, TIMEOUT_DEFAULT, false);
-        boolean isDisplayed = PageUtils.isDisplayed(driver, manufacturerDropDown, TIMEOUT_5_SECOND);
+        //boolean isDisplayed = PageUtils.isDisplayed(driver, manufacturerDropDown, TIMEOUT_5_SECOND);
         linkRegisterNewManufacturer.click();
         //PageUtils.doubleClick(driver, linkRegisterNewManufacturer);
         return new CreateManufacturerTestsData(driver);
@@ -141,6 +145,7 @@ public class ExternalHomePage extends _Page {
     }
 
     public boolean isManufacturerDisplayedInList(String manufacturerName){
+        WaitUtils.nativeWaitInSeconds(2);
         WaitUtils.waitForElementToBeClickable(driver, By.cssSelector("td>div>a"), TIMEOUT_5_SECOND, false);
         boolean found = false;
         for(WebElement item: listOfManufacturerNames){
@@ -163,7 +168,13 @@ public class ExternalHomePage extends _Page {
             int tt = Integer.parseInt(total.trim());
             int noi = Integer.parseInt(itemPerPage.trim());
 
-            return tt / noi;
+            int reminder = tt % noi;
+            int numberOfPage = (tt/noi) - 1;
+            if(reminder > 0){
+                numberOfPage++;
+            }
+
+            return numberOfPage;
         }catch (Exception e){
             return 0;
         }
@@ -172,6 +183,18 @@ public class ExternalHomePage extends _Page {
     public ExternalHomePage clickNext(){
         WaitUtils.waitForElementToBeClickable(driver, nextPage, TIMEOUT_5_SECOND, false);
         nextPage.click();
+        return new ExternalHomePage(driver);
+    }
+
+    public ExternalHomePage clickPrev(){
+        WaitUtils.waitForElementToBeClickable(driver, prevPage, TIMEOUT_5_SECOND, false);
+        prevPage.click();
+        return new ExternalHomePage(driver);
+    }
+
+    public ExternalHomePage clickLastPage(){
+        WaitUtils.waitForElementToBeClickable(driver, lastPage, TIMEOUT_5_SECOND, false);
+        lastPage.click();
         return new ExternalHomePage(driver);
     }
 

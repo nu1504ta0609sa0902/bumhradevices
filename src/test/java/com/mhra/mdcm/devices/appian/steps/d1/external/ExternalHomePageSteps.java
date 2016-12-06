@@ -9,7 +9,6 @@ import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -48,7 +47,7 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     @And("^I go to list of manufacturers page$")
     public void iGoToManufacturerRegistrationPage() throws Throwable {
-        externalHomePage = externalHomePage.gotoManufacturerRegistrationPage();
+        externalHomePage = externalHomePage.gotoListOfManufacturerPage();
     }
 
     @Then("^I should see the correct manufacturer details$")
@@ -60,23 +59,17 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     @And("^I go to register a new manufacturer page$")
     public void iGoToRegisterANewManufacturerPage() throws Throwable {
-        externalHomePage = externalHomePage.gotoManufacturerRegistrationPage();
-        //externalHomePage = externalHomePage.registerAnotherManufacturer();
+        externalHomePage = externalHomePage.gotoListOfManufacturerPage();
         createNewManufacturer = externalHomePage.registerNewManufacturer();
     }
 
     @And("^I go to register a new authorisedRep page$")
     public void iGoToRegisterANewAuthorisedRepPage() throws Throwable {
-        externalHomePage = externalHomePage.gotoManufacturerRegistrationPage();
+        externalHomePage = externalHomePage.gotoListOfManufacturerPage();
         //externalHomePage = externalHomePage.registerAnotherManufacturer();
         //createNewManufacturer = externalHomePage.registerNewManufacturer();
     }
 
-//    @And("^I go to register another manufacturer page$")
-//    public void iGoToRegisterAnotherManufacturerPage() throws Throwable {
-//        externalHomePage = externalHomePage.gotoManufacturerRegistrationPage();
-//        externalHomePage = externalHomePage.registerAnotherManufacturer();
-//    }
 
     @When("^I create a new manufacturer using manufacturer test harness page with following data$")
     public void i_create_a_new_manufacturer_using_test_harness_page_with_following_data(Map<String, String> dataSets) throws Throwable {
@@ -85,30 +78,59 @@ public class ExternalHomePageSteps extends CommonSteps {
         log.info("New Manufacturer Account Requested With Following Data : \n" + newAccount);
 
         //Create new manufacturer data
-        externalHomePage = createNewManufacturer.createTestOrganisation(newAccount);
+        addDevices = createNewManufacturer.createTestOrganisation(newAccount);
+        if(createNewManufacturer.isErrorMessageDisplayed()){
+            externalHomePage = mainNavigationBar.clickExternalHOME();
+            externalHomePage = externalHomePage.gotoListOfManufacturerPage();
+            createNewManufacturer = externalHomePage.registerNewManufacturer();
+            addDevices = createNewManufacturer.createTestOrganisation(newAccount);
+        }
         scenarioSession.putData(SessionKey.organisationName, newAccount.organisationName);
     }
 
     @Then("^I should see stored manufacturer appear in the manufacturers list$")
     public void iShouldSeeTheManufacturerAppearInTheManufacturersList() throws Throwable {
         externalHomePage = mainNavigationBar.clickExternalHOME();
-        externalHomePage = externalHomePage.gotoManufacturerRegistrationPage();
-        //externalHomePage = externalHomePage.registerAnotherManufacturer();
+        externalHomePage = externalHomePage.gotoListOfManufacturerPage();
 
         String name = (String) scenarioSession.getData(SessionKey.organisationName);
         int nop = externalHomePage.getNumberOfPages();
         boolean isFoundInManufacturerList = false;
         int count = 0;
+
         do{
             count++;
             isFoundInManufacturerList = externalHomePage.isManufacturerDisplayedInList(name);
             if(!isFoundInManufacturerList){
                 externalHomePage = externalHomePage.clickNext();
             }
-        }while(!isFoundInManufacturerList && count < nop);
-        //boolean isFoundInManufacturerList = externalHomePage.isNewManufacturerInTheList(name);
+        }while(!isFoundInManufacturerList && count <= nop);
+
         Assert.assertThat("Organisation Name Expected In Manufacturer List : " + name, isFoundInManufacturerList, Matchers.is(true));
     }
+
+
+//    @Then("^I should see stored manufacturer appear in the manufacturers list$")
+//    public void iShouldSeeTheManufacturerAppearInTheManufacturersList2() throws Throwable {
+//        externalHomePage = mainNavigationBar.clickExternalHOME();
+//        externalHomePage = externalHomePage.gotoListOfManufacturerPage();
+//        //externalHomePage = externalHomePage.registerAnotherManufacturer();
+//
+//        String name = (String) scenarioSession.getData(SessionKey.organisationName);
+//        int nop = externalHomePage.getNumberOfPages();
+//        boolean isFoundInManufacturerList = false;
+//        int count = 0;
+//        externalHomePage = externalHomePage.clickLastPage();
+//        do{
+//            count++;
+//            isFoundInManufacturerList = externalHomePage.isManufacturerDisplayedInList(name);
+//            if(!isFoundInManufacturerList){
+//                externalHomePage = externalHomePage.clickPrev();
+//            }
+//        }while(!isFoundInManufacturerList && count <= nop);
+//
+//        Assert.assertThat("Organisation Name Expected In Manufacturer List : " + name, isFoundInManufacturerList, Matchers.is(true));
+//    }
 
 
     @When("^I select the stored manufacturer$")
@@ -219,4 +241,6 @@ public class ExternalHomePageSteps extends CommonSteps {
 
         System.out.println("DONE");
     }
+
+
 }

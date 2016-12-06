@@ -9,8 +9,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.Wait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -299,8 +297,8 @@ public class AddDevices extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, txtProductNameLabel, TIMEOUT_5_SECOND, false);
         txtProductNameLabel.sendKeys(RandomDataUtils.getRandomTestName("Label"));
 
-        PageUtils.uploadDocument(fileUpload, "DeviceLabelDoc2.pdf");
-        PageUtils.uploadDocument(listOfFileUploads.get(1), "DeviceInstructionForUse1.pdf");
+        PageUtils.uploadDocument(fileUpload, "DeviceLabelDoc2.pdf", 1, 3);
+        PageUtils.uploadDocument(listOfFileUploads.get(1), "DeviceInstructionForUse1.pdf", 1, 3);
 
         //Save product label details
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//button[.='Save Product']"), TIMEOUT_5_SECOND, false);
@@ -315,8 +313,8 @@ public class AddDevices extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, txtProductNameLabel, TIMEOUT_5_SECOND, false);
         txtProductNameLabel.sendKeys(labelName);
 
-        PageUtils.uploadDocument(fileUpload, "DeviceLabelDoc2.pdf");
-        PageUtils.uploadDocument(listOfFileUploads.get(1), "DeviceInstructionForUse1.pdf");
+        PageUtils.uploadDocument(fileUpload, "DeviceLabelDoc2.pdf", 1, 3);
+        PageUtils.uploadDocument(listOfFileUploads.get(1), "DeviceInstructionForUse1.pdf", 1, 3);
 
         //Save product label details
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//button[.='Save Product']"), TIMEOUT_5_SECOND, false);

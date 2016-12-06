@@ -90,4 +90,5 @@ Feature: As an account holder with access to the Device Registration Service I w
     Examples:
       | user             | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
       | manufacturerAuto | Active Implantable Medical Devices | Adhesive       | true       | ford,hyundai       |
-      | manufacturerAuto | Active Implantable Medical Devices | Adhesive       | false       | vauxhall,honda     |
+      | manufacturerAuto | Active Implantable Medical Devices | Adhesive       | false      | vauxhall,honda     |
+

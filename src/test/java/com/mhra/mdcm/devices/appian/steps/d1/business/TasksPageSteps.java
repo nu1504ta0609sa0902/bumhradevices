@@ -207,4 +207,10 @@ public class TasksPageSteps extends CommonSteps {
         // Write code here that turns the phrase above into concrete actions
         //throw new PendingException();
     }
+
+    @And("^Check devices displayed and other details are correct$")
+    public void checkCorrectDevicesAreDisplayed() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        //throw new PendingException();
+    }
 }

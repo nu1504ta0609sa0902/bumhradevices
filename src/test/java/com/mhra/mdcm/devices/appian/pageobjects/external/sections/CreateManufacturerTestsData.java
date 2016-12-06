@@ -18,11 +18,16 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * Created by TPD_Auto
  */
 @Component
 public class CreateManufacturerTestsData extends _Page {
+
+    @FindBy(css = ".component_error")
+    List<WebElement> errorMessages;
 
     //Organisation details
     @FindBy(xpath = ".//label[.='Organisation name']//following::input[1]")
@@ -81,11 +86,11 @@ public class CreateManufacturerTestsData extends _Page {
      * @param ar
      * @return
      */
-    public ExternalHomePage createTestOrganisation(AccountManufacturerRequest ar) throws Exception {
+    public AddDevices createTestOrganisation(AccountManufacturerRequest ar) throws Exception {
         //WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".gwt-SuggestBox"), TIMEOUT_10_SECOND, false);
         WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_10_SECOND, false);
         orgName.sendKeys(ar.organisationName);
-        selectCountryFromAutoSuggests(driver, ".gwt-SuggestBox", ar.country, true);
+        selectCountryFromAutoSuggests(driver, ".gwt-SuggestBox", ar.country, false);
 
         //Organisation details
         WaitUtils.waitForElementToBeClickable(driver, addressLine1, TIMEOUT_DEFAULT, false);
@@ -111,7 +116,7 @@ public class CreateManufacturerTestsData extends _Page {
         if(!ar.isManufacturer){
             fileName = "DesignationLetter2.pdf";
         }
-        PageUtils.uploadDocument(fileUpload, fileName);
+        PageUtils.uploadDocument(fileUpload, fileName, 1, 3);
 
         //Submit form : remember to verify
         try{
@@ -120,7 +125,7 @@ public class CreateManufacturerTestsData extends _Page {
             next.click();
         }
 
-        return new ExternalHomePage(driver);
+        return new AddDevices(driver);
     }
 
     private void selectCountryFromAutoSuggests(WebDriver driver, String elementPath, String countryName, boolean throwException) throws Exception {
@@ -156,5 +161,15 @@ public class CreateManufacturerTestsData extends _Page {
     public ActionsPage clickCancel() {
         PageUtils.doubleClick(driver, cancel);
         return new ActionsPage(driver);
+    }
+
+    public boolean isErrorMessageDisplayed() {
+        try {
+            WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".component_error"), 3, false);
+            boolean isDisplayed = errorMessages.size() > 0;
+            return isDisplayed;
+        }catch (Exception e){
+            return false;
+        }
     }
 }
