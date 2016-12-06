@@ -10,14 +10,14 @@ Feature: As a business user, I want a task to be created each time a customer su
       | countryName | <countryName> |
     Then I should see a new task for the new account
     When I assign the task to me and "<approveReject>" the generated task
-    Then The task should be removed from tasks list
+    Then The task with link "<link>" should be removed from tasks list
     And The task status should update to "Completed"
     When I search accounts for the stored organisation name
     Then I should see at least <count> account matches
     Examples:
-      | user         | accountType   | approveReject | count | countryName    |
-      | businessAuto | manufacturer  | approve       | 1     | United Kingdom |
-      | businessAuto | authorisedRep | approve       | 1     | Netherland     |
+      | user         | accountType   | approveReject | count | countryName    | link                |
+      | businessNoor | manufacturer  | approve       | 1     | United Kingdom | New Account Request |
+      | businessNoor | authorisedRep | approve       | 1     | Netherland     | New Account Request |
 
 
   @regression @mdcm-41 @mdcm-178
@@ -28,14 +28,15 @@ Feature: As a business user, I want a task to be created each time a customer su
       | countryName | <countryName> |
     Then I should see a new task for the new account
     When I assign the task to me and reject the task for following reason "<reason>"
-    Then The task should be removed from tasks list
+#    Then The task should be removed from tasks list
+    Then The task with link "<link>" should be removed from tasks list
     And The task status should update to "Completed"
     When I search accounts for the stored organisation name
     Then I should see at least <count> account matches
     Examples:
-      | user         | accountType   | approveReject | count | countryName | reason                             |
-      | businessAuto | manufacturer  | reject        | 0     | Turkey      | Account already exists             |
-      | businessAuto | authorisedRep | reject        | 0     | Estonia     | No authorisation evidence provided |
+      | user         | accountType   | approveReject | count | countryName | reason                             | link                |
+      | businessNoor | manufacturer  | reject        | 0     | Turkey      | Account already exists             | New Account Request |
+      | businessNoor | authorisedRep | reject        | 0     | Estonia     | No authorisation evidence provided | New Account Request |
 
 
   @regression @mdcm-41
@@ -51,13 +52,13 @@ Feature: As a business user, I want a task to be created each time a customer su
     Then I should see at least <count> account matches
     Examples:
       | user         | accountType   | approveReject | count | countryName    |
-      | businessAuto | manufacturer  | approve       | 1     | United Kingdom |
-      | businessAuto | authorisedRep | approve       | 1     | Netherland     |
-      | businessAuto | manufacturer  | reject        | 0     | Turkey         |
-      | businessAuto | authorisedRep | reject        | 0     | Estonia        |
+      | businessNoor | manufacturer  | approve       | 1     | United Kingdom |
+      | businessNoor | authorisedRep | approve       | 1     | Netherland     |
+      | businessNoor | manufacturer  | reject        | 0     | Turkey         |
+      | businessNoor | authorisedRep | reject        | 0     | Estonia        |
 
   @regression @mdcm-15
-  Scenario Outline: Business users should be able to review and process manufacturer and device registration
+  Scenario Outline: Business users should be able to review and process manufacturer and device registration tasks
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
     When I create a new manufacturer using manufacturer test harness page with following data
@@ -75,15 +76,15 @@ Feature: As a business user, I want a task to be created each time a customer su
     When I download the letter of designation
     And Check devices displayed and other details are correct
     And I assign the task to me and "approve" the generated task
-    Then The task with link "New Manufacturer Registration Request" should be removed from tasks list
+#    Then The task with link "New Manufacturer Registration Request" should be removed from tasks list
+    And The task status should update to "Completed"
     Examples:
       | user             | logBackInAas | accountType  | countryName | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
       | manufacturerAuto | businessAuto | manufacturer | Bangladesh  | Active Implantable Medical Devices | Adhesive       | true       | setmeup            |
 
 
-
   @regression @mdcm-15
-  Scenario Outline: Business users to review and process manufacturer and device registration for IVD List A
+  Scenario Outline: Business users to review and process manufacturer and device registration task for IVD List A
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
     When I create a new manufacturer using manufacturer test harness page with following data
@@ -107,7 +108,8 @@ Feature: As a business user, I want a task to be created each time a customer su
     When I download the letter of designation
     And Check devices displayed and other details are correct
     And I assign the task to me and "approve" the generated task
-    Then The task with link "New Manufacturer Registration Request" should be removed from tasks list
+#    Then The task with link "New Manufacturer Registration Request" should be removed from tasks list
+    And The task status should update to "Completed"
     Examples:
       | user             | logBackInAas | accountType  | countryName | deviceType                 | gmdnDefinition | riskClassification | listOfProductNames | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
       | manufacturerAuto | businessAuto | manufacturer | Bangladesh  | In Vitro Diagnostic Device | Glucose        | list a             | ford,hyundai       | ford        | focus        | NB 0086 BSI  | true              | true       | true          |

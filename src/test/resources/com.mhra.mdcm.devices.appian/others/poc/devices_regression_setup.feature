@@ -13,6 +13,17 @@ Feature: Write PC for devices
       | user             | logBackInAas | accountType  | countryName | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
       | manufacturerAuto | businessAuto | manufacturer | Bangladesh  | Active Implantable Medical Devices | Adhesive       | true       | setmeup            |
 
+
+  @setup
+  Scenario Outline: AuthorisedRep update country to UK
+    Given I am logged into appian as "<user>" user
+    When I go to my accounts page
+    And I update the organisation details with following data "<keyValuePairs>"
+    Then I should see the changes "<keyValuePairs>" in my accounts page
+    Examples:
+      | user              | keyValuePairs   |
+      | authorisedRepAuto | org.country |
+
   @setup
   Scenario Outline: Provide Indication of Devices Made By AuthorisedRep
     Given I am logged into appian as "<user>" user
@@ -28,9 +39,8 @@ Feature: Write PC for devices
     And I assign the task to me and "approve" the generated task
     Then The task should be removed from tasks list
     Examples:
-      | user             | logBackInAas | accountType  | countryName | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
+      | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Adhesive       | true       | setmeup            |
-
 
 
   @setup
@@ -56,9 +66,8 @@ Feature: Write PC for devices
     When I search accounts for the stored organisation name
     Then I should see at least 0 account matches
     Examples:
-      | user             | logBackInAas | accountType  | countryName | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
-      | manufacturerAuto | businessAuto | manufacturer | United Kingdom  | Active Implantable Medical Devices | Adhesive       | true       | setmeup            |
-
+      | user             | logBackInAas | accountType  | countryName    | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
+      | manufacturerAuto | businessAuto | manufacturer | United Kingdom | Active Implantable Medical Devices | Adhesive       | true       | setmeup            |
 
 
   @setup
@@ -84,8 +93,8 @@ Feature: Write PC for devices
     When I search accounts for the stored organisation name
     Then I should see at least 0 account matches
     Examples:
-      | user             | logBackInAas | accountType  | countryName | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh   | Active Implantable Medical Devices | Adhesive       | true       | ford,hyundai       |
+      | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Adhesive       | true       | ford,hyundai       |
 
 
 #  @setup

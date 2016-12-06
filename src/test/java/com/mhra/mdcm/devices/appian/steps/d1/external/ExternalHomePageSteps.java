@@ -5,6 +5,7 @@ import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.pageobjects.external.ExternalHomePage;
 import com.mhra.mdcm.devices.appian.pageobjects.external.sections.AddDevices;
+import com.mhra.mdcm.devices.appian.pageobjects.external.sections.ManufacturerList;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
@@ -23,7 +24,6 @@ import java.util.Map;
  */
 @Scope("cucumber-glue")
 public class ExternalHomePageSteps extends CommonSteps {
-
 
     @When("^I go to portal page$")
     public void gotoPortalPage(){
@@ -47,7 +47,7 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     @And("^I go to list of manufacturers page$")
     public void iGoToManufacturerRegistrationPage() throws Throwable {
-        externalHomePage = externalHomePage.gotoListOfManufacturerPage();
+        manufacturerList = externalHomePage.gotoListOfManufacturerPage();
     }
 
     @Then("^I should see the correct manufacturer details$")
@@ -59,15 +59,13 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     @And("^I go to register a new manufacturer page$")
     public void iGoToRegisterANewManufacturerPage() throws Throwable {
-        externalHomePage = externalHomePage.gotoListOfManufacturerPage();
-        createNewManufacturer = externalHomePage.registerNewManufacturer();
+        manufacturerList = externalHomePage.gotoListOfManufacturerPage();
+        createNewManufacturer = manufacturerList.registerNewManufacturer();
     }
 
     @And("^I go to register a new authorisedRep page$")
     public void iGoToRegisterANewAuthorisedRepPage() throws Throwable {
-        externalHomePage = externalHomePage.gotoListOfManufacturerPage();
-        //externalHomePage = externalHomePage.registerAnotherManufacturer();
-        //createNewManufacturer = externalHomePage.registerNewManufacturer();
+        manufacturerList = externalHomePage.gotoListOfManufacturerPage();
     }
 
 
@@ -81,8 +79,8 @@ public class ExternalHomePageSteps extends CommonSteps {
         addDevices = createNewManufacturer.createTestOrganisation(newAccount);
         if(createNewManufacturer.isErrorMessageDisplayed()){
             externalHomePage = mainNavigationBar.clickExternalHOME();
-            externalHomePage = externalHomePage.gotoListOfManufacturerPage();
-            createNewManufacturer = externalHomePage.registerNewManufacturer();
+            manufacturerList = externalHomePage.gotoListOfManufacturerPage();
+            createNewManufacturer = manufacturerList.registerNewManufacturer();
             addDevices = createNewManufacturer.createTestOrganisation(newAccount);
         }
         scenarioSession.putData(SessionKey.organisationName, newAccount.organisationName);
@@ -91,18 +89,18 @@ public class ExternalHomePageSteps extends CommonSteps {
     @Then("^I should see stored manufacturer appear in the manufacturers list$")
     public void iShouldSeeTheManufacturerAppearInTheManufacturersList() throws Throwable {
         externalHomePage = mainNavigationBar.clickExternalHOME();
-        externalHomePage = externalHomePage.gotoListOfManufacturerPage();
+        manufacturerList = externalHomePage.gotoListOfManufacturerPage();
 
         String name = (String) scenarioSession.getData(SessionKey.organisationName);
-        int nop = externalHomePage.getNumberOfPages();
+        int nop = manufacturerList.getNumberOfPages();
         boolean isFoundInManufacturerList = false;
         int count = 0;
 
         do{
             count++;
-            isFoundInManufacturerList = externalHomePage.isManufacturerDisplayedInList(name);
+            isFoundInManufacturerList = manufacturerList.isManufacturerDisplayedInList(name);
             if(!isFoundInManufacturerList){
-                externalHomePage = externalHomePage.clickNext();
+                manufacturerList = manufacturerList.clickNext();
             }
         }while(!isFoundInManufacturerList && count <= nop);
 
@@ -133,29 +131,29 @@ public class ExternalHomePageSteps extends CommonSteps {
 //    }
 
 
-    @When("^I select the stored manufacturer$")
-    public void iSelectTheStoredManufacturer() throws Throwable {
-        String name = (String) scenarioSession.getData(SessionKey.organisationName);
-        externalHomePage = externalHomePage.selectManufacturerFromList(name);
-    }
+//    @When("^I select the stored manufacturer$")
+//    public void iSelectTheStoredManufacturer() throws Throwable {
+//        String name = (String) scenarioSession.getData(SessionKey.organisationName);
+//        externalHomePage = externalHomePage.selectManufacturerFromList(name);
+//    }
 
-    @And("^I should see the following link \"([^\"]*)\"$")
-    public void iShouldSeeTheFollowingLink(String partialLink) throws Throwable {
-        String name = (String) scenarioSession.getData(SessionKey.organisationName);
-        boolean isDisplayed = externalHomePage.isLinkDisplayed(partialLink);
-        boolean isNameDisplayed = externalHomePage.isLinkDisplayed(name);
-        Assert.assertThat("Declare devices link not found for manufacturer : " + name, isDisplayed, Matchers.is(true));
-        Assert.assertThat("Declare devices link not found for manufacturer : " + name, isNameDisplayed, Matchers.is(true));
-    }
+//    @And("^I should see the following link \"([^\"]*)\"$")
+//    public void iShouldSeeTheFollowingLink(String partialLink) throws Throwable {
+//        String name = (String) scenarioSession.getData(SessionKey.organisationName);
+//        boolean isDisplayed = externalHomePage.isLinkDisplayed(partialLink);
+//        boolean isNameDisplayed = externalHomePage.isLinkDisplayed(name);
+//        Assert.assertThat("Declare devices link not found for manufacturer : " + name, isDisplayed, Matchers.is(true));
+//        Assert.assertThat("Declare devices link not found for manufacturer : " + name, isNameDisplayed, Matchers.is(true));
+//    }
 
-    @When("^I go to add devices page for the stored manufacturer")
-    public void iGoToAddDevicesPage() throws Throwable {
-        String name = (String) scenarioSession.getData(SessionKey.organisationName);
-        //Go to add devices page
-        externalHomePage = new ExternalHomePage(driver);
-        addDevices = externalHomePage.gotoAddDevicesPageForManufacturer(name);
-        //addDevices = addDevices.addDevice(); removed 02/12/2016
-    }
+//    @When("^I go to add devices page for the stored manufacturer")
+//    public void iGoToAddDevicesPage() throws Throwable {
+//        String name = (String) scenarioSession.getData(SessionKey.organisationName);
+//        //Go to add devices page
+//        externalHomePage = new ExternalHomePage(driver);
+//        addDevices = externalHomePage.gotoAddDevicesPageForManufacturer(name);
+//        //addDevices = addDevices.addDevice(); removed 02/12/2016
+//    }
 
     @When("^I add devices to newly created manufacturer with following data$")
     public void iAddDevicesToNewlyCreatedManufacturerWithFollowingData(Map<String, String> dataSets) throws Throwable {
@@ -166,22 +164,22 @@ public class ExternalHomePageSteps extends CommonSteps {
         DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
         addDevices = addDevices.addFollowingDevice(dd);
         addDevices = addDevices.submit();
-        addDevices = addDevices.submitConfirm();
+        externalHomePage = addDevices.submitConfirm();
     }
 
 
-    @When("^I add a device to STORED manufacturer with following data$")
-    public void i_add_a_device_of_type_with_following_data(Map<String, String> dataSets) throws Throwable {
-        String name = (String) scenarioSession.getData(SessionKey.organisationName);
-        //Go to add devices page
-        externalHomePage = new ExternalHomePage(driver);
-        addDevices = externalHomePage.gotoAddDevicesPageForManufacturer(name);
-        //addDevices = addDevices.addDevice(); Removed on 02/12/2016
-
-        //Assumes we are in add device page
-        DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
-        addDevices = addDevices.addFollowingDevice(dd);
-    }
+//    @When("^I add a device to STORED manufacturer with following data$")
+//    public void i_add_a_device_of_type_with_following_data(Map<String, String> dataSets) throws Throwable {
+//        String name = (String) scenarioSession.getData(SessionKey.organisationName);
+//        //Go to add devices page
+//        externalHomePage = new ExternalHomePage(driver);
+//        addDevices = externalHomePage.gotoAddDevicesPageForManufacturer(name);
+//        //addDevices = addDevices.addDevice(); Removed on 02/12/2016
+//
+//        //Assumes we are in add device page
+//        DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
+//        addDevices = addDevices.addFollowingDevice(dd);
+//    }
 
 
 
@@ -205,17 +203,17 @@ public class ExternalHomePageSteps extends CommonSteps {
         Assert.assertThat("Expected following device types : " , isCorrect, Matchers.is(true));
     }
 
-    @When("^I select a random manufacturer from list$")
-    public void iSelectARandomManufacturerFromList() throws Throwable {
-        String name = externalHomePage.getARandomManufacturerNameFromDropDown();
-        externalHomePage = externalHomePage.selectManufacturerFromList(name);
-        scenarioSession.putData(SessionKey.organisationName, name);
-    }
+//    @When("^I select a random manufacturer from list$")
+//    public void iSelectARandomManufacturerFromList() throws Throwable {
+//        String name = externalHomePage.getARandomManufacturerNameFromDropDown();
+//        externalHomePage = externalHomePage.selectManufacturerFromList(name);
+//        scenarioSession.putData(SessionKey.organisationName, name);
+//    }
 
     @When("^I click on a registered manufacturer$")
     public void i_click_on_a_registered_manufacturer() throws Throwable {
-        String name = externalHomePage.getARandomManufacturerName();
-        manufacturerDetails = externalHomePage.viewAManufacturer(name);
+        String name = manufacturerList.getARandomManufacturerName();
+        manufacturerDetails = manufacturerList.viewAManufacturer(name);
         scenarioSession.putData(SessionKey.organisationName, name);
     }
 

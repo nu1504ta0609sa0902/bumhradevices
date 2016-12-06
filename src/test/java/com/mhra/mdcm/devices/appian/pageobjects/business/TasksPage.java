@@ -40,16 +40,22 @@ public class TasksPage extends _Page {
     }
 
     public TaskSection clickOnTaskNumber(int count, String link) {
-        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(link), TIMEOUT_DEFAULT, false);
-        if(link.contains("New Account")) {
-            WebElement taskLink = listOfNewAccount.get(count);
-            taskLink.click();
-        }else if(link.contains("New Manufacturer")){
-            WebElement taskLink = listOfNewManufacturerRequest.get(count);
-            taskLink.click();
-        }else if(link.contains("New Service Request")){
-            WebElement taskLink = listOfNewServiceRequest.get(count);
-            taskLink.click();
+        WaitUtils.nativeWaitInSeconds(1);
+        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText("Work In Progress"), TIMEOUT_5_SECOND, false);
+        //WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(link), TIMEOUT_5_SECOND, false);
+        try {
+            if (link.contains("New Account")) {
+                WebElement taskLink = listOfNewAccount.get(count);
+                taskLink.click();
+            } else if (link.contains("New Manufacturer")) {
+                WebElement taskLink = listOfNewManufacturerRequest.get(count);
+                taskLink.click();
+            } else if (link.contains("New Service Request")) {
+                WebElement taskLink = listOfNewServiceRequest.get(count);
+                taskLink.click();
+            }
+        }catch (Exception e){
+            //No items meaning there is no task with specified link
         }
         return new TaskSection(driver);
     }

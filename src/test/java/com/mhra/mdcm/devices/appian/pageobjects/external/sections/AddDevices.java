@@ -2,6 +2,7 @@ package com.mhra.mdcm.devices.appian.pageobjects.external.sections;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
+import com.mhra.mdcm.devices.appian.pageobjects.external.ExternalHomePage;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
@@ -504,10 +505,10 @@ public class AddDevices extends _Page {
         return new AddDevices(driver);
     }
 
-    public AddDevices submitConfirm() {
+    public ExternalHomePage submitConfirm() {
         WaitUtils.nativeWaitInSeconds(1);
         WaitUtils.waitForElementToBeClickable(driver, submitConfirm, TIMEOUT_5_SECOND, false);
         submitConfirm.click();
-        return new AddDevices(driver);
+        return new ExternalHomePage(driver);
     }
 }

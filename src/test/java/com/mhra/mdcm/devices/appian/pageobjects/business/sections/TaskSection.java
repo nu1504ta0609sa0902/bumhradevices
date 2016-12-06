@@ -35,9 +35,13 @@ public class TaskSection extends _Page {
 
     //Approve reject taskSection
     @FindBy(xpath = ".//button[.='Accept Registration']")
-    WebElement approve;
+    WebElement acceptRegistration;
     @FindBy(xpath = ".//button[.='Accept Registration']//following::button[1]") //Stupid to have 2 buttons called Reject on same page
-    WebElement reject;
+    WebElement rejectRegistration;
+    @FindBy(xpath = ".//button[.='Approve']")
+    WebElement approveTask;
+    @FindBy(xpath = ".//button[.='Approve']//following::button[1]")
+    WebElement rejectTask;
 
     //Rejection reason
     @FindBy(xpath = ".//*[.='Reasons']//following::input[1]")
@@ -91,9 +95,15 @@ public class TaskSection extends _Page {
 
     public TasksPage approveTask() {
         WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
-        WaitUtils.waitForElementToBeClickable(driver, approve, TIMEOUT_5_SECOND, false);
-        //approve.click();
-        PageUtils.doubleClick(driver, approve);
+        WaitUtils.waitForElementToBeClickable(driver, approveTask, TIMEOUT_5_SECOND, false);
+        PageUtils.doubleClick(driver, approveTask);
+        return new TasksPage(driver);
+    }
+
+    public TasksPage acceptRegistrationTask() {
+        WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
+        WaitUtils.waitForElementToBeClickable(driver, acceptRegistration, TIMEOUT_5_SECOND, false);
+        PageUtils.doubleClick(driver, acceptRegistration);
         return new TasksPage(driver);
     }
 
@@ -103,11 +113,19 @@ public class TaskSection extends _Page {
      * So work flow is different
      * @return
      */
+    public TaskSection rejectRegistrationTask() {
+        WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
+        WaitUtils.waitForElementToBeClickable(driver, rejectRegistration, TIMEOUT_5_SECOND, false);
+        //approve.click();
+        PageUtils.doubleClick(driver, rejectRegistration);
+        return new TaskSection(driver);
+    }
+
     public TaskSection rejectTask() {
         WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
-        WaitUtils.waitForElementToBeClickable(driver, reject, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, rejectTask, TIMEOUT_5_SECOND, false);
         //approve.click();
-        PageUtils.doubleClick(driver, reject);
+        PageUtils.doubleClick(driver, rejectTask);
         return new TaskSection(driver);
     }
 

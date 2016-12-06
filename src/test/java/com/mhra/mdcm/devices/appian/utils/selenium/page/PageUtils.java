@@ -237,8 +237,8 @@ public class PageUtils {
 
 
     public static void updateElementValue(WebDriver driver, WebElement element, String value, int timeOut) {
-        element.clear();
         WaitUtils.nativeWaitInSeconds(1);
+        element.clear();
         element.sendKeys(RandomDataUtils.generateTestNameStartingWith(value, 0));
     }
 

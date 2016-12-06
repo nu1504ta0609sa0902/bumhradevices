@@ -29,6 +29,7 @@ public class TasksPageSteps extends CommonSteps {
     @Then("^I should see a new task for the new account$")
     public void i_should_see_a_new_task_for_the_new_account() throws Throwable {
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
+        String taskType = "New Account Request";
         //Verify new taskSection generated and its the correct one
         boolean contains = false;
         boolean isCorrectTask = false;
@@ -38,7 +39,7 @@ public class TasksPageSteps extends CommonSteps {
             tasksPage = mainNavigationBar.clickTasks();
 
             //Click on link number X
-            taskSection = tasksPage.clickOnTaskNumber(count, "New Account Request");
+            taskSection = tasksPage.clickOnTaskNumber(count, taskType);
             isCorrectTask = taskSection.isCorrectTask(orgName);
             if (isCorrectTask) {
                 contains = true;
@@ -50,10 +51,10 @@ public class TasksPageSteps extends CommonSteps {
 
         //If its still not found than try the first 1 again
         if (!contains) {
-            taskSection = tasksPage.clickOnTaskNumber(0, "New Account Request");
+            taskSection = tasksPage.clickOnTaskNumber(0, taskType);
             isCorrectTask = taskSection.isCorrectTask(orgName);
         }
-
+        scenarioSession.putData(SessionKey.taskType, taskType);
         assertThat("Task not found for organisation : " + orgName, contains, is(equalTo(true)));
 
     }
@@ -98,7 +99,15 @@ public class TasksPageSteps extends CommonSteps {
 
         //Approve or reject
         if (approveOrReject.equals("approve")) {
-            tasksPage = taskSection.approveTask();
+            String taskType = (String) scenarioSession.getData(SessionKey.taskType);
+            if(taskType!=null && taskType.contains("New Account")) {
+                tasksPage = taskSection.approveTask();
+            }else if(taskType!=null && taskType.contains("New Manufacturer")){
+                tasksPage = taskSection.acceptRegistrationTask();
+            }else{
+                //Assume New Manufacturer
+                tasksPage = taskSection.acceptRegistrationTask();
+            }
         } else {
             //Rejection process is slightly different, you need to enter a rejection reason
             taskSection = taskSection.rejectTask();
@@ -112,12 +121,21 @@ public class TasksPageSteps extends CommonSteps {
         //accept the taskSection and approve or reject it
         taskSection = taskSection.acceptTask();
 
+        String taskType = (String) scenarioSession.getData(SessionKey.taskType);
+        if(taskType!=null && taskType.contains("New Account")) {
+            taskSection = taskSection.rejectTask();
+        }else if(taskType!=null && taskType.contains("New Manufacturer")){
+            taskSection = taskSection.rejectRegistrationTask();
+        }else{
+            //Assume New Manufacturer
+            taskSection = taskSection.rejectRegistrationTask();
+        }
+
+        //Enter a reason for rejection
         if(reason.equals("Other")) {
             //Rejection process is slightly different, you need to enter a rejection reason
-            taskSection = taskSection.rejectTask();
             tasksPage = taskSection.enterRejectionReason("Other", RandomDataUtils.getRandomTestName("Comment Test"));
         }else {
-            taskSection = taskSection.rejectTask();
             tasksPage = taskSection.enterRejectionReason(reason, RandomDataUtils.getRandomTestName("Reject task because : " + reason));
         }
     }

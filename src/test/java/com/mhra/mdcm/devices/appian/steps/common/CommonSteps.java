@@ -100,6 +100,8 @@ public class CommonSteps {
     public AddDevices addDevices;
     @Autowired
     public OrganisationDetails amendOrganisationDetails;
+    @Autowired
+    public ManufacturerList manufacturerList;
 
 
 

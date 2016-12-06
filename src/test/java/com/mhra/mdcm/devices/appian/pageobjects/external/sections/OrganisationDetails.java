@@ -31,7 +31,7 @@ public class OrganisationDetails extends _Page {
     WebElement orgCityTown;
     @FindBy(xpath = ".//label[.='Postcode']//following::input[1]")
     WebElement orgPostCode;
-    @FindBy(xpath = ".//label[.='Country']//following::input[1]")
+    @FindBy(css = ".GFWJSJ4DEY.GFWJSJ4DIY>div")
     WebElement orgCountry;
     @FindBy(xpath = ".//label[contains(text(),'Telephone')]//following::input[1]")
     WebElement orgTelephone;
@@ -81,7 +81,11 @@ public class OrganisationDetails extends _Page {
             }else if (key.equals("org.postcode")) {
                 PageUtils.updateElementValue(driver, orgPostCode, updatedData.postCode, TIMEOUT_5_SECOND);
             }else if (key.equals("org.country")) {
-                PageUtils.updateElementValue(driver, orgCountry, updatedData.country, TIMEOUT_5_SECOND);
+            //    PageUtils.updateElementValue(driver, orgCountry, updatedData.country, TIMEOUT_5_SECOND);
+            //}else if (key.equals("org.country")) {
+                driver.findElement(By.cssSelector(".GFWJSJ4DEY.GFWJSJ4DIY a:nth-child(2)")).click();
+                driver.findElement(By.cssSelector(".GFWJSJ4DEY.GFWJSJ4DMX>div input")).clear();
+                PageUtils.selectFromAutoSuggests(driver, By.xpath(".//label[.='Country']//following::input[1]"), updatedData.country);
             }else if (key.equals("org.telephone")) {
                 PageUtils.updateElementValue(driver, orgTelephone, updatedData.telephone, TIMEOUT_5_SECOND);
             }else if (key.equals("org.website")) {
