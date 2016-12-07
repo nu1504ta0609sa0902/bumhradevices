@@ -69,6 +69,7 @@ Feature: As a business user, I want a task to be created each time a customer su
       | gmdnDefinition     | <gmdnDefinition>     |
       | customMade         | <customMade>         |
       | listOfProductNames | <listOfProductNames> |
+    And Proceed to payment and confirm submit device details
     Then I should see stored manufacturer appear in the manufacturers list
     When I logout of the application
     And I am logged into appian as "<logBackInAas>" user
@@ -101,6 +102,7 @@ Feature: As a business user, I want a task to be created each time a customer su
       | newProduct         | <newProduct>         |
       | conformsToCTS      | <conformsToCTS>      |
       | listOfProductNames | <listOfProductNames> |
+    And Proceed to payment and confirm submit device details
     Then I should see stored manufacturer appear in the manufacturers list
     When I logout of the application
     And I am logged into appian as "<logBackInAas>" user

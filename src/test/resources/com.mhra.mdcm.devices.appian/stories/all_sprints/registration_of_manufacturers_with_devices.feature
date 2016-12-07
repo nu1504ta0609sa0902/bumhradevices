@@ -54,6 +54,7 @@ Feature: As an account holder with access to the Device Registration Service
       | customMade             | true          |
       | relatedDeviceSterile   | true          |
       | relatedDeviceMeasuring | true          |
+    And Proceed to payment and confirm submit device details
     Then I should see stored manufacturer appear in the manufacturers list
     #Then I should see option to add another device
     Examples:

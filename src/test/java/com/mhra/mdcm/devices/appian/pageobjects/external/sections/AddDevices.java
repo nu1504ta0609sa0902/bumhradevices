@@ -138,6 +138,8 @@ public class AddDevices extends _Page {
     WebElement btnReviewYourOrder;
     @FindBy(xpath = ".//button[.='Proceed to payment']")
     WebElement btnProceedToPayment;
+    @FindBy(xpath = ".//button[.='Finish']")
+    WebElement btnFinish;
     @FindBy(css = ".gwt-FileUpload")
     WebElement fileUpload;
     @FindBy(css = ".gwt-FileUpload")
@@ -189,7 +191,7 @@ public class AddDevices extends _Page {
     }
 
     public AddDevices addFollowingDevice(DeviceData dd) {
-        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_10_SECOND, false);
         WaitUtils.waitForElementToBeClickable(driver, systemOrProcedurePack, TIMEOUT_3_SECOND, false);
         //Select device type
         selectDeviceType(dd);
@@ -311,6 +313,7 @@ public class AddDevices extends _Page {
     private void productLabelName(String labelName) {
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//button[.='Add Product']"), TIMEOUT_5_SECOND, false);
         driver.findElement(By.xpath(".//button[.='Add Product']")).click();
+        WaitUtils.nativeWaitInSeconds(1);
         WaitUtils.waitForElementToBeClickable(driver, txtProductNameLabel, TIMEOUT_5_SECOND, false);
         txtProductNameLabel.sendKeys(labelName);
 
@@ -498,17 +501,23 @@ public class AddDevices extends _Page {
         return isVisible;
     }
 
-    public AddDevices submit() {
+    public AddDevices proceedToPayment() {
         WaitUtils.nativeWaitInSeconds(1);
         WaitUtils.waitForElementToBeClickable(driver, btnProceedToPayment, TIMEOUT_5_SECOND, false);
         btnProceedToPayment.click();
         return new AddDevices(driver);
     }
 
-    public ExternalHomePage submitConfirm() {
+    public AddDevices submitRegistration() {
         WaitUtils.nativeWaitInSeconds(1);
         WaitUtils.waitForElementToBeClickable(driver, submitConfirm, TIMEOUT_5_SECOND, false);
         submitConfirm.click();
+        return new AddDevices(driver);
+    }
+
+    public ExternalHomePage finish() {
+        WaitUtils.waitForElementToBeClickable(driver, btnFinish, TIMEOUT_5_SECOND, false);
+        btnFinish.click();
         return new ExternalHomePage(driver);
     }
 }

@@ -20,6 +20,11 @@ public class ManufacturerDetails extends _Page {
     @FindBy(css = ".component_error")
     List <WebElement> errorMessages;
 
+    @FindBy(css = "a.GFWJSJ4DGR[aria-label='Add a device']")
+    WebElement addADevice;
+    @FindBy(xpath = ".//a[contains(text(),'Amend Represented')]")
+    WebElement amendRepresentativeParty;
+
     @FindBy(css = "div>h4")
     WebElement orgName;
 
@@ -43,5 +48,12 @@ public class ManufacturerDetails extends _Page {
         }catch (Exception e){
             return false;
         }
+    }
+
+    public AddDevices clickAddDeviceBtn() {
+        WaitUtils.waitForElementToBeClickable(driver, addADevice, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, amendRepresentativeParty, TIMEOUT_5_SECOND, false);
+        addADevice.click();
+        return new AddDevices(driver);
     }
 }

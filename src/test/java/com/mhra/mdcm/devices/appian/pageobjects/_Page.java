@@ -19,6 +19,7 @@ public class _Page {
     public static final int TIMEOUT_5_SECOND = 5;
     public static final int TIMEOUT_10_SECOND = 10;
     public static final int TIMEOUT_15_SECOND = 15;
+    public static final int TIMEOUT_20_SECOND = 20;
     public static final int TIMEOUT_30_SECOND = 30;
     public static final int TIMEOUT_60_SECOND = 60;
     public static final int TIMEOUT_DEFAULT = TIMEOUT_15_SECOND;

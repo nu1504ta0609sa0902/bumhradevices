@@ -5,9 +5,7 @@ Feature: As an account holder with access to the Device Registration Service I w
   Scenario Outline: Register device with SINGLE product for IVD devices
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    #When I select a random manufacturer from list
     And I click on a registered manufacturer
-    #When I go to add devices page for the stored manufacturer
     When I add a device to SELECTED manufacturer with following data
       | deviceType         | <deviceType>         |
       | gmdnDefinition     | <gmdnDefinition>     |
@@ -32,9 +30,7 @@ Feature: As an account holder with access to the Device Registration Service I w
   Scenario Outline: Register device with SINGLE product for active implantable medical devices
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    #When I select a random manufacturer from list
     And I click on a registered manufacturer
-    #When I go to add devices page for the stored manufacturer
     When I add a device to SELECTED manufacturer with following data
       | deviceType     | <deviceType>     |
       | gmdnDefinition | <gmdnDefinition> |
@@ -51,9 +47,7 @@ Feature: As an account holder with access to the Device Registration Service I w
   Scenario Outline: Register device with MULTIPLE products for IVD devices
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    #When I select a random manufacturer from list
     And I click on a registered manufacturer
-    #When I go to add devices page for the stored manufacturer
     When I add a device to SELECTED manufacturer with following data
       | deviceType         | <deviceType>         |
       | gmdnDefinition     | <gmdnDefinition>     |
@@ -78,17 +72,20 @@ Feature: As an account holder with access to the Device Registration Service I w
   Scenario Outline: Register a device with MULTIPLE product for active implantable medical devices
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    #When I select a random manufacturer from list
     And I click on a registered manufacturer
-    #When I go to add devices page for the stored manufacturer
     When I add multiple devices to SELECTED manufacturer with following data
       | deviceType         | <deviceType>         |
       | gmdnDefinition     | <gmdnDefinition>     |
       | customMade         | <customMade>         |
       | listOfProductNames | <listOfProductNames> |
-    Then I should see option to add another device
+    And Proceed to payment and confirm submit device details
+    When I logout of the application
+    And I login to appian as "<logBackInAas>" user
+    Then I should see a new task with link "<link>" for the new account
+    And I assign the task to me and "approve" the generated task
+    Then The task with link "<link>" should be removed from tasks list
     Examples:
-      | user             | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
-      | manufacturerAuto | Active Implantable Medical Devices | Adhesive       | true       | ford,hyundai       |
-      | manufacturerAuto | Active Implantable Medical Devices | Adhesive       | false      | vauxhall,honda     |
+      | user             | logBackInAas | deviceType                         | gmdnDefinition | customMade | listOfProductNames | link |
+      | manufacturerAuto | businessAuto | Active Implantable Medical Devices | Adhesive       | true       | ford,hyundai       |Update Manufacturer Registration Request|
+      | manufacturerAuto | businessAuto | Active Implantable Medical Devices | Adhesive       | false      | vauxhall,honda     |Update Manufacturer Registration Request|
 

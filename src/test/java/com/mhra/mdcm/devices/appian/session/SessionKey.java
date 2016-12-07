@@ -18,4 +18,5 @@ public class SessionKey {
     public static String searchTerm = "Search Term";
     public static String updatedData = "Account Data Object";
     public static String taskType = "New Account Or Manufacturer";
+    public static String organisationRegistered = "Registered Or Not";
 }

@@ -2,7 +2,6 @@ package com.mhra.mdcm.devices.appian.steps.d1.external;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
-import com.mhra.mdcm.devices.appian.pageobjects.external.sections.OrganisationDetails;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import cucumber.api.java.en.Then;
@@ -42,7 +41,7 @@ public class MyAccountPageSteps extends CommonSteps {
         }while (errorMsgDisplayed && count < 2);
 
         //confirm and save
-        amendPersonDetails = amendPersonDetails.confirmChanges(true);
+        amendPersonDetails = amendPersonDetails.confirmChangesRelateToOrganisation(true);
         myAccountPage = amendPersonDetails.saveChanges(true);
 
         scenarioSession.putData(SessionKey.updatedData, updatedData);

@@ -3,9 +3,7 @@ package com.mhra.mdcm.devices.appian.steps.d1.external;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountManufacturerRequest;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
-import com.mhra.mdcm.devices.appian.pageobjects.external.ExternalHomePage;
 import com.mhra.mdcm.devices.appian.pageobjects.external.sections.AddDevices;
-import com.mhra.mdcm.devices.appian.pageobjects.external.sections.ManufacturerList;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
@@ -151,20 +149,26 @@ public class ExternalHomePageSteps extends CommonSteps {
 //        String name = (String) scenarioSession.getData(SessionKey.organisationName);
 //        //Go to add devices page
 //        externalHomePage = new ExternalHomePage(driver);
-//        addDevices = externalHomePage.gotoAddDevicesPageForManufacturer(name);
-//        //addDevices = addDevices.addDevice(); removed 02/12/2016
+//        clickAddDeviceBtn = externalHomePage.gotoAddDevicesPageForManufacturer(name);
+//        //clickAddDeviceBtn = clickAddDeviceBtn.addDevice(); removed 02/12/2016
 //    }
 
     @When("^I add devices to newly created manufacturer with following data$")
     public void iAddDevicesToNewlyCreatedManufacturerWithFollowingData(Map<String, String> dataSets) throws Throwable {
         addDevices = new AddDevices(driver);
-        //addDevices = addDevices.addDevice(); this button removed in 02/12/2016
+        //clickAddDeviceBtn = clickAddDeviceBtn.addDevice(); this button removed in 02/12/2016
 
         //Assumes we are in add device page
         DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
         addDevices = addDevices.addFollowingDevice(dd);
-        addDevices = addDevices.submit();
-        externalHomePage = addDevices.submitConfirm();
+    }
+
+
+    @And("^Proceed to payment and confirm submit device details$")
+    public void proceedToPaymentAndConfirmSubmitDeviceDetails() throws Throwable {
+        addDevices = addDevices.proceedToPayment();
+        addDevices = addDevices.submitRegistration();
+        externalHomePage = addDevices.finish();
     }
 
 
@@ -173,12 +177,12 @@ public class ExternalHomePageSteps extends CommonSteps {
 //        String name = (String) scenarioSession.getData(SessionKey.organisationName);
 //        //Go to add devices page
 //        externalHomePage = new ExternalHomePage(driver);
-//        addDevices = externalHomePage.gotoAddDevicesPageForManufacturer(name);
-//        //addDevices = addDevices.addDevice(); Removed on 02/12/2016
+//        clickAddDeviceBtn = externalHomePage.gotoAddDevicesPageForManufacturer(name);
+//        //clickAddDeviceBtn = clickAddDeviceBtn.addDevice(); Removed on 02/12/2016
 //
 //        //Assumes we are in add device page
 //        DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
-//        addDevices = addDevices.addFollowingDevice(dd);
+//        clickAddDeviceBtn = clickAddDeviceBtn.addFollowingDevice(dd);
 //    }
 
 
@@ -186,13 +190,19 @@ public class ExternalHomePageSteps extends CommonSteps {
     @When("^I add a device to SELECTED manufacturer with following data$")
     public void i_add_a_device_to_selected_manufactuerer_of_type_with_following_data(Map<String, String> dataSets) throws Throwable {
         //Assumes we are in add device page
+        addDevices = manufacturerDetails.clickAddDeviceBtn();
         DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
         addDevices = addDevices.addFollowingDevice(dd);
     }
 
     @When("^I add multiple devices to SELECTED manufacturer with following data$")
     public void i_add_multiple_devices_to_selected_manufactuerer_of_type_with_following_data(Map<String, String> dataSets) throws Throwable {
+        String registeredStatus = (String) scenarioSession.getData(SessionKey.organisationRegistered);
+
         //Assumes we are in add device page
+        if(registeredStatus!=null && registeredStatus.equals("REGISTERED"))
+            addDevices = manufacturerDetails.clickAddDeviceBtn();
+
         DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
         addDevices = addDevices.addFollowingDevice(dd);
     }
@@ -213,8 +223,10 @@ public class ExternalHomePageSteps extends CommonSteps {
     @When("^I click on a registered manufacturer$")
     public void i_click_on_a_registered_manufacturer() throws Throwable {
         String name = manufacturerList.getARandomManufacturerName();
+        String registered = manufacturerList.getRegistrationStatus(name);
         manufacturerDetails = manufacturerList.viewAManufacturer(name);
         scenarioSession.putData(SessionKey.organisationName, name);
+        scenarioSession.putData(SessionKey.organisationRegistered, registered);
     }
 
     @Then("^I should see option to add another device$")

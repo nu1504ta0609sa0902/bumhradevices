@@ -24,6 +24,9 @@ public class ManufacturerList extends _Page {
 
     @FindBy(css = "td>div>a")
     List<WebElement> listOfManufacturerNames;
+    @FindBy(xpath = ".//*[contains(text(), 'registration status')]//following::tr[@__gwt_subrow='0']")
+    List<WebElement> listOfTableRows;
+
 
     @FindBy(css = ".GFWJSJ4DFDC div")
     WebElement itemCount;
@@ -123,5 +126,16 @@ public class ManufacturerList extends _Page {
         }catch (Exception e){
             return 0;
         }
+    }
+
+    public String getRegistrationStatus(String name) {
+        String registered = "";
+        for(WebElement tr: listOfTableRows){
+            try {
+                WebElement link = tr.findElement(By.partialLinkText(name));
+                registered = tr.findElement(By.xpath("td[4]")).getText();
+            }catch (Exception ex){}
+        }
+        return registered;
     }
 }

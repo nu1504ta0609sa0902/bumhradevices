@@ -37,11 +37,8 @@ Automated Issues:
         - @mdcm-238 - no tests for regression
 
     Spring 4:
-        - @mdcm-13  - Amend organisation details
-                    - Added tests but not able to submit and verify
-                    - Blocked by business testing
-        - @mdcm-240 - Added tests but not able to submit and verify
-                    - Blocked by business testing
+        - @mdcm-13  - DONE
+        - @mdcm-240 - DONE
         - @mdcm-161 - Added tests but not able to submit and verify
                     - Blocked by business testing
         - @mdcm-232 - Added tests but not able to submit and verify

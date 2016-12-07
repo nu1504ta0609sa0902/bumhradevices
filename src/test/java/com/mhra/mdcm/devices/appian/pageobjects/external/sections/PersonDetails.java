@@ -91,7 +91,7 @@ public class PersonDetails extends _Page {
     }
 
 
-    public PersonDetails confirmChanges(boolean confirm) {
+    public PersonDetails confirmChangesRelateToOrganisation(boolean confirm) {
         WaitUtils.waitForElementToBeClickable(driver, confirmYes, TIMEOUT_DEFAULT, false);
         if(confirm){
             confirmYes.click();

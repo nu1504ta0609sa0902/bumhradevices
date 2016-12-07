@@ -34,6 +34,22 @@ public class LoginPageSteps extends CommonSteps {
         }
     }
 
+    @When("^I login to appian as \"([^\"]*)\" user$")
+    public void i_login_to_appian_as_user(String username) throws Throwable {
+        loginPage = loginPage.loadPage(baseUrl);
+        try {
+            PageUtils.acceptAlert(driver, "accept", 1);
+            mainNavigationBar = loginPage.login(username);
+            scenarioSession.putData(SessionKey.loggedInUser, username);
+        }catch(Exception e) {
+            PageUtils.acceptAlert(driver, "accept", 1);
+            try {
+                mainNavigationBar = loginPage.reloginUsing(username);
+                scenarioSession.putData(SessionKey.loggedInUser, username);
+            }catch (Exception e2){}
+        }
+    }
+
     @When("^I try to login to appian as username \"([^\"]*)\" and password \"([^\"]*)\"$")
     public void i_am_logged_into_appian_as_user(String username, String password) throws Throwable {
         loginPage = loginPage.loadPage(baseUrl);

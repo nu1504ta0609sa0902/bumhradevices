@@ -25,6 +25,9 @@ public class TasksPage extends _Page {
     @FindBy(partialLinkText = "New Manufacturer Registration Request")
     List<WebElement> listOfNewManufacturerRequest;
 
+    @FindBy(partialLinkText = "Update Manufacturer Registration Request")
+    List<WebElement> listOfUpdateManufacturerRegRequest;
+
     @FindBy(partialLinkText = "New Account Request")
     List<WebElement> listOfNewAccount;
 
@@ -52,6 +55,9 @@ public class TasksPage extends _Page {
                 taskLink.click();
             } else if (link.contains("New Service Request")) {
                 WebElement taskLink = listOfNewServiceRequest.get(count);
+                taskLink.click();
+            } else if (link.contains("Update Manufacturer Reg")) {
+                WebElement taskLink = listOfUpdateManufacturerRegRequest.get(count);
                 taskLink.click();
             }
         }catch (Exception e){

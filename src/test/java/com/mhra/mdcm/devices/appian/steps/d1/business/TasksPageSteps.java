@@ -104,6 +104,8 @@ public class TasksPageSteps extends CommonSteps {
                 tasksPage = taskSection.approveTask();
             }else if(taskType!=null && taskType.contains("New Manufacturer")){
                 tasksPage = taskSection.acceptRegistrationTask();
+            }else if(taskType!=null && taskType.contains("Update Manufacturer Registration Request")){
+                tasksPage = taskSection.approveTask();
             }else{
                 //Assume New Manufacturer
                 tasksPage = taskSection.acceptRegistrationTask();
