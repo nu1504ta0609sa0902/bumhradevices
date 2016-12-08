@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -54,6 +55,10 @@ public class TaskSection extends _Page {
     WebElement reasonNonQualifyingParty;
     @FindBy(xpath = ".//*[.='Reasons']//following::input[5]")
     WebElement other;
+
+    //Letter of designation
+    @FindBy(css = ".gwt-ListBox.GFWJSJ4DB0")
+    WebElement letterOfDesignationStatus;
 
     @FindBy(css = ".aui-TextAreaInput")
     WebElement commentArea;
@@ -193,5 +198,19 @@ public class TaskSection extends _Page {
     public boolean isOrganisationDisplayedOnLink(String orgName) {
         boolean contains = driver.getPageSource().contains(orgName);
         return contains;
+    }
+
+    public boolean isDesignationLetterStatusCorrect(String expectedStatus) {
+        WaitUtils.waitForElementToBeVisible(driver, letterOfDesignationStatus, TIMEOUT_5_SECOND, false);
+        Select sl = new Select(letterOfDesignationStatus);
+        String text = sl.getFirstSelectedOption().getText();
+
+        //Verify status is correct
+        boolean statusMatched = false;
+        if(text!=null && text.contains(expectedStatus)){
+            statusMatched = true;
+        }
+
+        return statusMatched;
     }
 }

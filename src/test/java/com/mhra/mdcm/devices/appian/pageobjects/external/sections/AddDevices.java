@@ -311,7 +311,7 @@ public class AddDevices extends _Page {
 
 
     private void productLabelName(String labelName) {
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//button[.='Add Product']"), TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//button[.='Add Product']"), TIMEOUT_10_SECOND, false);
         driver.findElement(By.xpath(".//button[.='Add Product']")).click();
         WaitUtils.nativeWaitInSeconds(1);
         WaitUtils.waitForElementToBeClickable(driver, txtProductNameLabel, TIMEOUT_5_SECOND, false);
@@ -503,7 +503,7 @@ public class AddDevices extends _Page {
 
     public AddDevices proceedToPayment() {
         WaitUtils.nativeWaitInSeconds(1);
-        WaitUtils.waitForElementToBeClickable(driver, btnProceedToPayment, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, btnProceedToPayment, TIMEOUT_10_SECOND, false);
         btnProceedToPayment.click();
         return new AddDevices(driver);
     }

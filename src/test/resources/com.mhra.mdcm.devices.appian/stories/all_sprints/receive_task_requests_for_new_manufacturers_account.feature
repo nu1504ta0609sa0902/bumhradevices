@@ -116,3 +116,26 @@ Feature: As a business user, I want a task to be created each time a customer su
       | user             | logBackInAas | accountType  | countryName | deviceType                 | gmdnDefinition | riskClassification | listOfProductNames | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
       | manufacturerAuto | businessAuto | manufacturer | Bangladesh  | In Vitro Diagnostic Device | Glucose        | list a             | ford,hyundai       | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 #      | manufacturerAuto | businessAuto | manufacturer | Bangladesh  | In Vitro Diagnostic Device | Glucose        | list a             | ford,honda         | ford        | focus        | NB 0086 BSI  | true              | true       | false         |
+
+
+
+  @regression @mdcm-161 @mdcm-232 @wip
+  Scenario Outline: Register manufacturer as authorisedRep and verify status is correct
+    Given I am logged into appian as "<user>" user
+    And I go to register a new manufacturer page
+    When I create a new manufacturer using manufacturer test harness page with following data
+      | accountType | <accountType> |
+      | countryName | <countryName> |
+    And I add devices to newly created manufacturer with following data
+      | deviceType         | <deviceType>         |
+      | gmdnDefinition     | <gmdnDefinition>     |
+      | customMade         | <customMade>         |
+      | listOfProductNames | <listOfProductNames> |
+    And Proceed to payment and confirm submit device details
+    When I logout of the application
+    And I login to appian as "<logBackInAas>" user
+    Then I should see a new task with link "<link>" for the new account
+    And The status of designation letter should be "Awaiting Review"
+    Examples:
+      | user             | logBackInAas | accountType  | countryName |deviceType                         | gmdnDefinition | customMade | listOfProductNames | link |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Adhesive       | true       | ford      |New Manufacturer Registration Request|

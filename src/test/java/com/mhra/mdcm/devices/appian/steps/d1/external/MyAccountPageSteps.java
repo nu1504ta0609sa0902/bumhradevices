@@ -4,6 +4,7 @@ import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
@@ -78,4 +79,13 @@ public class MyAccountPageSteps extends CommonSteps {
 
         scenarioSession.putData(SessionKey.updatedData, updatedData);
     }
+
+
+    @Then("^I should see the correct \"([^\"]*)\" roles$")
+    public void i_should_see_the_correct_roles(String expectedRoles) throws Throwable {
+        String loggedInUser = (String) scenarioSession.getData(SessionKey.loggedInUser);
+        boolean rolesFound = myAccountPage.isRolesCorrect(loggedInUser, expectedRoles);
+        Assert.assertThat("Expected to see following roles : " + expectedRoles, rolesFound, is(true));
+    }
+
 }

@@ -125,7 +125,7 @@ public class MainNavigationBar extends _Page {
 
     public MyAccountPage clickMyAccount() {
         try {
-            WaitUtils.waitForElementToBeClickable(driver, linkMyAccount, TIMEOUT_DEFAULT, false);
+            WaitUtils.waitForElementToBeClickable(driver, linkMyAccount, TIMEOUT_DEFAULT,  false);
             PageUtils.doubleClick(driver, linkMyAccount);
         }catch (Exception e){
             By xp = By.partialLinkText("my account");

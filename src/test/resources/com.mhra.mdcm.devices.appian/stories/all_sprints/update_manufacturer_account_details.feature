@@ -25,10 +25,10 @@ Feature: As a business user, I want to be able to update party details associate
     When I view a randomly searched account and update the following data "<keyValuePairs>"
     Then I should see the changes "<keyValuePairs>" in the account page
     Examples:
-      | user         | link     | searchTerm        | keyValuePairs                                          |
+      | user         | link     | searchTerm        | keyValuePairs                                  |
       | businessAuto | Accounts | AuthorisedRepRT01 | address.line1,address.line2,city.town,postcode |
-      | businessAuto | Accounts | AuthorisedRepRT01 | org.telephone,org.fax,job.title                        |
-      | businessAuto | Accounts | AuthorisedRepRT00 | org.name                                               |
+      | businessAuto | Accounts | AuthorisedRepRT01 | org.telephone,org.fax,job.title                |
+      | businessAuto | Accounts | AuthorisedRepRT00 | org.name                                       |
 
 
   @mdcm-149 @regression
@@ -56,3 +56,13 @@ Feature: As a business user, I want to be able to update party details associate
       | authorisedRepNoor | org.name,org.address1,org.address2,org.city,org.postcode,org.telephone,org.website |
       | manufacturerNoor  | org.name,org.address1,org.address2,org.city,org.postcode,org.telephone,org.website |
 
+
+  @mdcm-261 @regression
+  Scenario Outline: Verify correct roles are displayed for approved UK account holder
+    Given I am logged into appian as "<user>" user
+    When I go to my accounts page
+    Then I should see the correct "<expectedRoles>" roles
+    Examples:
+      | user              | expectedRoles                          |
+      | authorisedRepAuto | Authorised Representative              |
+      | manufacturerAuto  | Manufacturer,Authorised Representative |

@@ -88,4 +88,3 @@ Feature: As an account holder with access to the Device Registration Service I w
       | user             | logBackInAas | deviceType                         | gmdnDefinition | customMade | listOfProductNames | link |
       | manufacturerAuto | businessAuto | Active Implantable Medical Devices | Adhesive       | true       | ford,hyundai       |Update Manufacturer Registration Request|
       | manufacturerAuto | businessAuto | Active Implantable Medical Devices | Adhesive       | false      | vauxhall,honda     |Update Manufacturer Registration Request|
-

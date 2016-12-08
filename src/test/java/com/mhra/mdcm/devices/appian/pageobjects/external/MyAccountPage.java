@@ -40,6 +40,11 @@ public class MyAccountPage extends _Page {
     @FindBy(xpath = ".//h3[contains(text(),'Person Details')]//following::span[.='Telephone']/following::p[1]")
     WebElement telephone;
 
+    //Organisation details
+    @FindBy(xpath = ".//span[contains(text(),'Role')]//following::p[1]")
+    WebElement role;
+
+
 
 
     @Autowired
@@ -103,4 +108,20 @@ public class MyAccountPage extends _Page {
         return allChangesDisplayed;
     }
 
+    public boolean isRolesCorrect(String loggedInUser, String expectedRoles) {
+        WaitUtils.waitForElementToBeClickable(driver, role, TIMEOUT_5_SECOND, false);
+        String[] roles = expectedRoles.split(",");
+        String rolesDisplayed = role.getText();
+
+        boolean contains = true;
+        //Get list of roles
+        for(String role: roles){
+            if(!rolesDisplayed.contains(role)){
+                contains = false;
+                break;
+            }
+        }
+
+        return contains;
+    }
 }

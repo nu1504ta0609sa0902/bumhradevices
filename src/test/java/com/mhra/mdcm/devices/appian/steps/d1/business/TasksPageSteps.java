@@ -62,13 +62,23 @@ public class TasksPageSteps extends CommonSteps {
 
     @Then("^I should see a new task with link \"([^\"]*)\" for the new account$")
     public void i_should_see_a_new_task_for_the_new_account(String link) throws Throwable {
+        String registeredStatus = (String) scenarioSession.getData(SessionKey.organisationRegistered);
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
+
+        if(registeredStatus!=null && registeredStatus.equals("NOT REGISTERED")){
+            link = link.replace("Update","New");
+        }
+
+        //Go to tasks page
+        mainNavigationBar = new MainNavigationBar(driver);
+        tasksPage = mainNavigationBar.clickTasks();
+
         //Verify new taskSection generated and its the correct one
         boolean contains = false;
         boolean isCorrectTask = false;
         int count = 0;
         do {
-            mainNavigationBar = new MainNavigationBar(driver);
+            //Refresh each time, it may take a while for the new task to arrive
             tasksPage = mainNavigationBar.clickTasks();
 
             //Click on link number X
@@ -82,10 +92,16 @@ public class TasksPageSteps extends CommonSteps {
             }
         } while (!contains && count <= 5);
 
-        //If its still not found than try the first 1 again
+        //If its still not found than try the first 1 again, because it may have taken few seconds longer than usual
         if (!contains) {
+            //mainNavigationBar = new MainNavigationBar(driver);
+            tasksPage = mainNavigationBar.clickTasks();
             taskSection = tasksPage.clickOnTaskNumber(0, link);
             isCorrectTask = taskSection.isCorrectTask(orgName);
+            if (isCorrectTask) {
+                scenarioSession.putData(SessionKey.position, count);
+                contains = true;
+            }
         }
 
         assertThat("Task not found for organisation : " + orgName, contains, is(equalTo(true)));
@@ -154,7 +170,13 @@ public class TasksPageSteps extends CommonSteps {
 
     @Then("^The task with link \"([^\"]*)\" should be removed from tasks list$")
     public void theTaskWithLinkShouldBeRemovedFromTaskList(String link) {
+        String registeredStatus = (String) scenarioSession.getData(SessionKey.organisationRegistered);
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
+
+        if(registeredStatus!=null && registeredStatus.equals("NOT REGISTERED")){
+            link = link.replace("Update","New");
+        }
+
         int position = (int) scenarioSession.getData(SessionKey.position);
         taskSection = tasksPage.clickOnTaskNumber(position, link);
         boolean isHeadingMatched = taskSection.isCorrectTask(orgName);
@@ -232,5 +254,11 @@ public class TasksPageSteps extends CommonSteps {
     public void checkCorrectDevicesAreDisplayed() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         //throw new PendingException();
+    }
+
+    @And("^The status of designation letter should be \"([^\"]*)\"$")
+    public void theStatusShouldBe(String expectedStatus) throws Throwable {
+        boolean isStatusCorrect = taskSection.isDesignationLetterStatusCorrect(expectedStatus);
+        assertThat("Expected to see letter of designation status : " + expectedStatus, isStatusCorrect, is(equalTo(true)));
     }
 }

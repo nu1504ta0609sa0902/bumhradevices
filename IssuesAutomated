@@ -30,20 +30,18 @@ Automated Issues:
         - @mdcm-149 - DONE
         - @mdcm-14  - DONE
         - @mdcm-183 - DONE
-        - @mdcm-15  - TODO NOT STARTED
         - @mdcm-292 - Added tests but not able to submit and verify
                     - Blocked by business testing
+        - @mdcm-15  - TODO NOT STARTED
         - @mdcm-237 - no tests for regression
         - @mdcm-238 - no tests for regression
 
     Spring 4:
         - @mdcm-13  - DONE
         - @mdcm-240 - DONE
-        - @mdcm-161 - Added tests but not able to submit and verify
-                    - Blocked by business testing
-        - @mdcm-232 - Added tests but not able to submit and verify
-                    - Blocked by business testing
-        - @mdcm-261 - TODO NOT STARTED
+        - @mdcm-161 - DONE
+        - @mdcm-232 - DONE
+        - @mdcm-261 - DONE
         - @mdcm-353 - no tests for regression
         - @mdcm-358 - no tests for regression
         - @mdcm-362 - no tests for regression

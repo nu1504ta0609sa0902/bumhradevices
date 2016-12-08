@@ -158,7 +158,7 @@ public class TestHarnessUtils {
                 if(listOfProductNames.contains(",")){
                     String[] data = listOfProductNames.split(",");
                     for(String d: data){
-                        dd.listOfProductName.add(d);
+                        dd.listOfProductName.add(RandomDataUtils.getRandomTestName(d));
                     }
                 }else{
                     dd.listOfProductName.add(listOfProductNames);
