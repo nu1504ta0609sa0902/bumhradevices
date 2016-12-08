@@ -8,6 +8,7 @@ import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -161,6 +162,8 @@ public class ExternalHomePageSteps extends CommonSteps {
         //Assumes we are in add device page
         DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
         addDevices = addDevices.addFollowingDevice(dd);
+
+        scenarioSession.putData(SessionKey.deviceData, dd);
     }
 
 
@@ -183,34 +186,63 @@ public class ExternalHomePageSteps extends CommonSteps {
 //        //Assumes we are in add device page
 //        DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
 //        clickAddDeviceBtn = clickAddDeviceBtn.addFollowingDevice(dd);
+
+//    scenarioSession.putData(SessionKey.deviceData, dd);
 //    }
 
 
 
     @When("^I add a device to SELECTED manufacturer with following data$")
     public void i_add_a_device_to_selected_manufactuerer_of_type_with_following_data(Map<String, String> dataSets) throws Throwable {
+
+        //If registered we need to click on a button, else devices page is displayed
+        String registeredStatus = (String) scenarioSession.getData(SessionKey.organisationRegistered);
+        if(registeredStatus!=null && registeredStatus.equals("REGISTERED"))
+            addDevices = manufacturerDetails.clickAddDeviceBtn();
+
         //Assumes we are in add device page
-        addDevices = manufacturerDetails.clickAddDeviceBtn();
+        //addDevices = manufacturerDetails.clickAddDeviceBtn();
         DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
         addDevices = addDevices.addFollowingDevice(dd);
+
+        scenarioSession.putData(SessionKey.deviceData, dd);
     }
 
     @When("^I add multiple devices to SELECTED manufacturer with following data$")
     public void i_add_multiple_devices_to_selected_manufactuerer_of_type_with_following_data(Map<String, String> dataSets) throws Throwable {
-        String registeredStatus = (String) scenarioSession.getData(SessionKey.organisationRegistered);
-
         //If registered we need to click on a button, else devices page is displayed
+        String registeredStatus = (String) scenarioSession.getData(SessionKey.organisationRegistered);
         if(registeredStatus!=null && registeredStatus.equals("REGISTERED"))
             addDevices = manufacturerDetails.clickAddDeviceBtn();
 
         DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
         addDevices = addDevices.addFollowingDevice(dd);
+
+        scenarioSession.putData(SessionKey.deviceData, dd);
+    }
+
+    @When("^I add another device to SELECTED manufacturer with following data$")
+    public void i_add_another_device_to_selected_manufactuerer_of_type_with_following_data(Map<String, String> dataSets) throws Throwable {
+
+        //Go and add another device
+        addDevices = addDevices.addAnotherDevice();
+
+        //Assumes we are in add device page
+        DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
+        addDevices = addDevices.addFollowingDevice(dd);
+
+        scenarioSession.putData(SessionKey.deviceData, dd);
     }
 
     @Then("^I should see correct device types$")
     public void iShouldSeeCorrectDeviceTypes() throws Throwable {
+        //If registered we need to click on a button, else devices page is displayed
+        String registeredStatus = (String) scenarioSession.getData(SessionKey.organisationRegistered);
+        if(registeredStatus!=null && registeredStatus.equals("REGISTERED"))
+            addDevices = manufacturerDetails.clickAddDeviceBtn();
+
         boolean isCorrect = addDevices.isDeviceTypeCorrect();
-        Assert.assertThat("Expected following device types : " , isCorrect, Matchers.is(true));
+        Assert.assertThat("Expected 4 different device types " , isCorrect, Matchers.is(true));
     }
 
 //    @When("^I select a random manufacturer from list$")
@@ -223,17 +255,11 @@ public class ExternalHomePageSteps extends CommonSteps {
     @When("^I click on a registered manufacturer$")
     public void i_click_on_a_registered_manufacturer() throws Throwable {
         String name = manufacturerList.getARandomManufacturerName();
-        log.info("Manufacturer selected : " + name);
         String registered = manufacturerList.getRegistrationStatus(name);
+        log.info("Manufacturer selected : " + name + ", is " + registered);
         manufacturerDetails = manufacturerList.viewAManufacturer(name);
         scenarioSession.putData(SessionKey.organisationName, name);
         scenarioSession.putData(SessionKey.organisationRegistered, registered);
-    }
-
-    @Then("^I should see option to add another device$")
-    public void iShouldSeeOptionToAddAnotherDevice() throws Throwable {
-        boolean isVisible = addDevices.isOptionToAddAnotherDeviceVisible();
-        Assert.assertThat("Expected to see option to : Add another device" , isVisible, Matchers.is(true));
     }
 
     @And("^Provide indication of devices made$")
@@ -254,4 +280,16 @@ public class ExternalHomePageSteps extends CommonSteps {
     }
 
 
+    @Then("^I should see option to add another device$")
+    public void iShouldSeeOptionToAddAnotherDevice() throws Throwable {
+        boolean isVisible = addDevices.isOptionToAddAnotherDeviceVisible();
+        Assert.assertThat("Expected to see option to : Add another device" , isVisible, Matchers.is(true));
+    }
+
+    @And("^The gmdn code or term is correct$")
+    public void theGmdnCodeOrTermIsCorrect() throws Throwable {
+        DeviceData data = (DeviceData) scenarioSession.getData(SessionKey.deviceData);
+        boolean isGMDNCorrect = addDevices.isGMDNValueCorrect(data);
+        Assert.assertThat("Expected gmdn code : " + data.gmdnCode + ", OR gmdn term : " + data.gmdnTermOrDefinition , isGMDNCorrect, Matchers.is(true));
+    }
 }

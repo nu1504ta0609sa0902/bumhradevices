@@ -13,13 +13,23 @@ Feature: As an account holder with access to the Device Registration Service
       | manufacturerAuto  |
       | authorisedRepAuto |
 
+  @regression @mdcm-14
+  Scenario Outline: Verify correct device type options are displayed on add devices page
+    Given I am logged into appian as "<user>" user
+    And I go to list of manufacturers page
+    And I click on a registered manufacturer
+    Then I should see correct device types
+    Examples:
+      | user              |
+      | manufacturerAuto  |
+      | authorisedRepAuto |
+
 
   @regression @mdcm-14
   Scenario Outline: Verify correct options are displayed on add devices page
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
     And I click on a registered manufacturer
-    Then I should see correct device types
     When I add a device to SELECTED manufacturer with following data
       | deviceType             | <deviceType>         |
       | gmdnDefinition         | <gmdnDefinition>     |
@@ -39,41 +49,60 @@ Feature: As an account holder with access to the Device Registration Service
       | manufacturerAuto | System or Procedure Pack   | Air sampling   | true       | true          | true            |                    |              | true             | true              |
 
 
-  @regression @mdcm-14
-  Scenario Outline: Users should be able to register new manufacturers with devices
-    Given I am logged into appian as "<user>" user
-    And I go to register a new manufacturer page
-    When I create a new manufacturer using manufacturer test harness page with following data
-      | accountType | <accountType> |
-      | countryName | <countryName> |
-    And I add devices to newly created manufacturer with following data
-      | deviceType             | <deviceType> |
-      | gmdnDefinition         | Adhesive     |
-      | customMade             | true          |
-      | relatedDeviceSterile   | true          |
-      | relatedDeviceMeasuring | true          |
-    And Proceed to payment and confirm submit device details
-    Then I should see stored manufacturer appear in the manufacturers list
-    Examples:
-      | user             | accountType  | countryName | deviceType             | deviceType             |
-      | manufacturerAuto | manufacturer | Bangladesh  | General Medical Device | General Medical Device |
-      | authorisedRepAuto | authorisedRep | Bangladesh  | General Medical Device | General Medical Device |
-
-
-  @regression @mdcm-14
+  @regression @mdcm-14 @mdcm-489
   Scenario Outline: Users should be able to add devices to existing manufacturers
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
     And I click on a registered manufacturer
-    Then I should see correct device types
     When I add a device to SELECTED manufacturer with following data
       | deviceType             | <deviceType> |
       | gmdnDefinition         | Adhesive     |
-      | customMade             | true          |
-      | relatedDeviceSterile   | true          |
-      | relatedDeviceMeasuring | true          |
+      | customMade             | true         |
+      | relatedDeviceSterile   | true         |
+      | relatedDeviceMeasuring | true         |
     Then I should see option to add another device
+    And The gmdn code or term is correct
     Examples:
       | user             | deviceType             |
       | manufacturerAuto | General Medical Device |
 
+
+  @regression @mdcm-489
+  Scenario Outline: Users should be able to add devices using GMDN code to existing manufacturers
+    Given I am logged into appian as "<user>" user
+    And I go to list of manufacturers page
+    And I click on a registered manufacturer
+    When I add a device to SELECTED manufacturer with following data
+      | deviceType             | <deviceType> |
+      | gmdnCode               | 10003        |
+      | customMade             | true         |
+      | relatedDeviceSterile   | true         |
+      | relatedDeviceMeasuring | true         |
+    Then I should see option to add another device
+    And The gmdn code or term is correct
+    Examples:
+      | user             | deviceType             |
+      | manufacturerAuto | General Medical Device |
+
+
+  @regression @mdcm-489
+  Scenario Outline: Users should be able to add another devices using GMDN code to existing manufacturers
+    Given I am logged into appian as "<user>" user
+    And I go to list of manufacturers page
+    And I click on a registered manufacturer
+    When I add a device to SELECTED manufacturer with following data
+      | deviceType             | <deviceType> |
+      | gmdnDefinition         | Adhesive     |
+      | customMade             | true         |
+      | relatedDeviceSterile   | true         |
+      | relatedDeviceMeasuring | true         |
+    And I add another device to SELECTED manufacturer with following data
+      | deviceType             | <deviceType> |
+      | gmdnCode               | 10003        |
+      | customMade             | true         |
+      | relatedDeviceSterile   | true         |
+      | relatedDeviceMeasuring | true         |
+    And The gmdn code or term is correct
+    Examples:
+      | user             | deviceType             |
+      | manufacturerAuto | General Medical Device |

@@ -57,7 +57,7 @@ Feature: As a business user, I want a task to be created each time a customer su
       | businessNoor | manufacturer  | reject        | 0     | Turkey         |
       | businessNoor | authorisedRep | reject        | 0     | Estonia        |
 
-  @regression @mdcm-15
+  @regression @mdcm-15 @mdcm-39
   Scenario Outline: Business users should be able to review and process manufacturer and device registration tasks
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -82,9 +82,10 @@ Feature: As a business user, I want a task to be created each time a customer su
     Examples:
       | user             | logBackInAas | accountType  | countryName | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
       | manufacturerAuto | businessAuto | manufacturer | Bangladesh  | Active Implantable Medical Devices | Adhesive       | true       | setmeup            |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Adhesive       | false       | setmeup            |
 
 
-  @regression @mdcm-15
+  @regression @mdcm-15 @mdcm-39
   Scenario Outline: Business users to review and process manufacturer and device registration task for IVD List A
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -115,8 +116,7 @@ Feature: As a business user, I want a task to be created each time a customer su
     Examples:
       | user             | logBackInAas | accountType  | countryName | deviceType                 | gmdnDefinition | riskClassification | listOfProductNames | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
       | manufacturerAuto | businessAuto | manufacturer | Bangladesh  | In Vitro Diagnostic Device | Glucose        | list a             | ford,hyundai       | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
-#      | manufacturerAuto | businessAuto | manufacturer | Bangladesh  | In Vitro Diagnostic Device | Glucose        | list a             | ford,honda         | ford        | focus        | NB 0086 BSI  | true              | true       | false         |
-
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | In Vitro Diagnostic Device | Glucose        | list a             | ford,honda         | ford        | focus        | NB 0086 BSI  | true              | true       | false         |
 
 
   @regression @mdcm-161 @mdcm-232 @wip
@@ -139,3 +139,4 @@ Feature: As a business user, I want a task to be created each time a customer su
     Examples:
       | user             | logBackInAas | accountType  | countryName |deviceType                         | gmdnDefinition | customMade | listOfProductNames | link |
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Adhesive       | true       | ford      |New Manufacturer Registration Request|
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Adhesive       | false       | gaga      |New Manufacturer Registration Request|

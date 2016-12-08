@@ -48,7 +48,7 @@ Automated Issues:
 
 
     Spring 5:
-        - @mdcm-39  -
+        - @mdcm-39  - Device type "Others" no longer visible
         - @mdcm-489 -
         - @mdcm-277 -
         - @mdcm-171 -

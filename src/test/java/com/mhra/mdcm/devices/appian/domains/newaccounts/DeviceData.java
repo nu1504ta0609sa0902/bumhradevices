@@ -54,8 +54,8 @@ public class DeviceData {
 
         deviceType = "General Medical Device";
 
-        gmdnTermOrDefinition = "Adhesive";
-        gmdnCode = "10001";
+        //gmdnTermOrDefinition = "Adhesive";
+        //gmdnCode = "10001";
 
         isCustomMade = true;
         isDeviceSterile = true;

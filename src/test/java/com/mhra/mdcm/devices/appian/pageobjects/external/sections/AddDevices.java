@@ -47,6 +47,8 @@ public class AddDevices extends _Page {
     WebElement radioGMDNDefinitionOrTerm;
     @FindBy(css = "input.gwt-SuggestBox")
     WebElement tbxGMDNDefinitionOrTerm;
+    @FindBy(xpath = ".//label[.='GMDN term']")
+    WebElement lblGMDNDefinitionOrTerm;
     @FindBy(css = "input.aui-TextInput.GFWJSJ4DC0")
     WebElement tbxGMDNCode;
 
@@ -140,14 +142,20 @@ public class AddDevices extends _Page {
     WebElement btnProceedToPayment;
     @FindBy(xpath = ".//button[.='Finish']")
     WebElement btnFinish;
-    @FindBy(css = ".gwt-FileUpload")
-    WebElement fileUpload;
-    @FindBy(css = ".gwt-FileUpload")
-    List<WebElement> listOfFileUploads;
     @FindBy(css = ".left .GFWJSJ4DCF")
     WebElement submit;
     @FindBy(css = ".left .GFWJSJ4DCF")
     WebElement submitConfirm;
+
+    //File upload buttons
+    @FindBy(css = ".gwt-FileUpload")
+    WebElement fileUpload;
+    @FindBy(css = ".gwt-FileUpload")
+    List<WebElement> listOfFileUploads;
+
+    //Device Summary
+    @FindBy(xpath = ".//th[.='GMDN definition']//following::a")
+    List<WebElement> listOfGMDNLinksInSummary;
 
 
     @Autowired
@@ -489,9 +497,12 @@ public class AddDevices extends _Page {
             //tbxGMDNDefinitionOrTerm.sendKeys(dd.gmdnTermOrDefinition);
             PageUtils.selectFromAutoSuggests(driver, By.cssSelector("input.gwt-SuggestBox"), dd.gmdnTermOrDefinition);
         } else {
+            WaitUtils.waitForElementToBeClickable(driver, radioByGMDNCode, TIMEOUT_5_SECOND, false);
+            radioByGMDNCode.click();
             WaitUtils.waitForElementToBeClickable(driver, tbxGMDNCode, TIMEOUT_5_SECOND, false);
             tbxGMDNCode.sendKeys(dd.gmdnCode);
-            PageUtils.selectFromAutoSuggests(driver, By.cssSelector("input.gwt-SuggestBox"), dd.gmdnTermOrDefinition);
+            lblGMDNDefinitionOrTerm.click();
+            //PageUtils.selectFromAutoSuggests(driver, By.cssSelector("input.gwt-SuggestBox"), dd.gmdnTermOrDefinition);
         }
     }
 
@@ -519,5 +530,32 @@ public class AddDevices extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, btnFinish, TIMEOUT_5_SECOND, false);
         btnFinish.click();
         return new ExternalHomePage(driver);
+    }
+
+    public boolean isGMDNValueCorrect(DeviceData data) {
+        boolean isCorrect = false;
+        String valueToCheck = "";
+
+        if(data.gmdnTermOrDefinition!=null){
+            valueToCheck = data.gmdnTermOrDefinition;
+        }else{
+            valueToCheck = data.gmdnCode;
+        }
+
+        for(WebElement el: listOfGMDNLinksInSummary){
+            String text = el.getText();
+            if(text.contains(valueToCheck)){
+                isCorrect = true;
+                break;
+            }
+        }
+
+        return isCorrect;
+    }
+
+    public AddDevices addAnotherDevice() {
+        WaitUtils.waitForElementToBeClickable(driver, btnAddAnotherDevice, TIMEOUT_5_SECOND, false);
+        btnAddAnotherDevice.click();
+        return new AddDevices(driver);
     }
 }

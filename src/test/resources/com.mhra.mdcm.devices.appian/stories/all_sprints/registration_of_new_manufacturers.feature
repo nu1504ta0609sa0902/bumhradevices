@@ -1,4 +1,4 @@
-Feature: As a customer I want to register manufacturers
+Feature: As a customer I want to register new manufacturers
   and upload proof so that I am an authorised representative for an organisation when
   so that I am granted access to that and can then register overseas manufacturers on their behalf
 

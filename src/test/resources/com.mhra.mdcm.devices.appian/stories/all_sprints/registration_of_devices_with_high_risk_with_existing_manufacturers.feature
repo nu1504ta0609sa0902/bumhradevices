@@ -85,6 +85,7 @@ Feature: As an account holder with access to the Device Registration Service I w
     And I assign the task to me and "approve" the generated task
     Then The task with link "<link>" should be removed from tasks list
     Examples:
-      | user             | logBackInAas | deviceType                         | gmdnDefinition | customMade | listOfProductNames | link |
-      | manufacturerAuto | businessAuto | Active Implantable Medical Devices | Adhesive       | true       | ford,hyundai       |Update Manufacturer Registration Request|
-      | manufacturerAuto | businessAuto | Active Implantable Medical Devices | Adhesive       | false      | vauxhall,honda     |Update Manufacturer Registration Request|
+      | user             | logBackInAas | deviceType                         | gmdnDefinition | customMade | listOfProductNames | link                                     |
+      | manufacturerAuto | businessAuto | Active Implantable Medical Devices | Adhesive       | true       | ford,hyundai       | Update Manufacturer Registration Request |
+      | manufacturerAuto | businessAuto | Active Implantable Medical Devices | Adhesive       | false      | vauxhall,honda     | Update Manufacturer Registration Request |
+
