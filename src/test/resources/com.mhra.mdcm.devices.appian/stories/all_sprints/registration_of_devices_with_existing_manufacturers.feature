@@ -98,7 +98,7 @@ Feature: As an account holder with access to the Device Registration Service
       | relatedDeviceMeasuring | true         |
     And I add another device to SELECTED manufacturer with following data
       | deviceType             | <deviceType> |
-      | gmdnCode               | 10001        |
+      | gmdnCode               | 10003        |
       | customMade             | true         |
       | relatedDeviceSterile   | true         |
       | relatedDeviceMeasuring | true         |
