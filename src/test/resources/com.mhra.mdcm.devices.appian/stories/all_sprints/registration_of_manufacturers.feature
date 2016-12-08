@@ -20,9 +20,9 @@ Feature: As a customer I want to register manufacturers
     When I search accounts for the stored organisation name
     Then I should see at least 0 account matches
     Examples:
-      | user              | user2        | accountType  | countryName | deviceType             | deviceType             |
-      | manufacturerAuto  | businessAuto | manufacturer | Bangladesh  | General Medical Device | General Medical Device |
-      | authorisedRepAuto | businessAuto | manufacturer | Bangladesh  | General Medical Device | General Medical Device |
+      | user              | user2        | accountType  | countryName |
+      | manufacturerAuto  | businessAuto | manufacturer | Bangladesh  |
+      | authorisedRepAuto | businessAuto | manufacturer | Bangladesh  |
 
 
   @regression @mdcm-292 @wip
