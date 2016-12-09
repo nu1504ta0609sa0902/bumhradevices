@@ -4,6 +4,8 @@ import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.external.ExternalHomePage;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
+import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
+import com.mhra.mdcm.devices.appian.utils.selenium.page.CommonUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
@@ -142,6 +144,8 @@ public class AddDevices extends _Page {
     WebElement btnProceedToPayment;
     @FindBy(xpath = ".//button[.='Finish']")
     WebElement btnFinish;
+    @FindBy(xpath = ".//button[.='Remove']")
+    WebElement btnRemove;
     @FindBy(css = ".left .GFWJSJ4DCF")
     WebElement submit;
     @FindBy(css = ".left .GFWJSJ4DCF")
@@ -532,8 +536,9 @@ public class AddDevices extends _Page {
         return new ExternalHomePage(driver);
     }
 
-    public boolean isGMDNValueCorrect(DeviceData data) {
-        boolean isCorrect = false;
+    public boolean isGMDNValueDisplayed(DeviceData data) {
+        //WaitUtils.waitForElementToBeVisible(driver, By.xpath(".//th[.='GMDN definition']//following::a"), TIMEOUT_5_SECOND, false);
+        boolean isDisplayed = false;
         String valueToCheck = "";
 
         if(data.gmdnTermOrDefinition!=null){
@@ -541,6 +546,20 @@ public class AddDevices extends _Page {
         }else{
             valueToCheck = data.gmdnCode;
         }
+
+        for(WebElement el: listOfGMDNLinksInSummary){
+            String text = el.getText();
+            if(text.contains(valueToCheck)){
+                isDisplayed = true;
+                break;
+            }
+        }
+
+        return isDisplayed;
+    }
+
+    public boolean isGMDNValueDisplayed(String valueToCheck) {
+        boolean isCorrect = false;
 
         for(WebElement el: listOfGMDNLinksInSummary){
             String text = el.getText();
@@ -556,6 +575,21 @@ public class AddDevices extends _Page {
     public AddDevices addAnotherDevice() {
         WaitUtils.waitForElementToBeClickable(driver, btnAddAnotherDevice, TIMEOUT_5_SECOND, false);
         btnAddAnotherDevice.click();
+        return new AddDevices(driver);
+    }
+
+
+    public AddDevices viewDeviceWithGMDNValue(String gmdnCode) {
+        //boolean isNumeric = AssertUtils.isNumeric(gmdnCode);
+        WebElement el = CommonUtils.getElementWithLink(listOfGMDNLinksInSummary, gmdnCode);
+        WaitUtils.waitForElementToBeClickable(driver, el, TIMEOUT_5_SECOND, false);
+        el.click();
+        return new AddDevices(driver);
+    }
+
+    public AddDevices removeSelectedDevice() {
+        WaitUtils.waitForElementToBeClickable(driver, btnRemove, TIMEOUT_5_SECOND, false);
+        btnRemove.click();
         return new AddDevices(driver);
     }
 }

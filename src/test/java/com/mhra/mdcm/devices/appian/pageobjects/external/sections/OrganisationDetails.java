@@ -38,6 +38,9 @@ public class OrganisationDetails extends _Page {
     @FindBy(xpath = ".//label[contains(text(),'Website')]//following::input[1]")
     WebElement webSite;
 
+    @FindBy(xpath = ".//span[contains(text(),'Address type')]//following::p[1]")
+    WebElement addressType;
+
     @FindBy(css = ".component_error")
     List <WebElement> errorMessages;
 
@@ -127,5 +130,18 @@ public class OrganisationDetails extends _Page {
             saveNo.click();
         }
         return new MyAccountPage(driver);
+    }
+
+
+    public boolean isAddressTypeEditable() {
+        boolean isEditable = true;
+        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, addressType, TIMEOUT_5_SECOND, false);
+        try{
+            addressType.sendKeys("not editable");
+        }catch (Exception e){
+            isEditable = false;
+        }
+        return isEditable;
     }
 }

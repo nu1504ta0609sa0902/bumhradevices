@@ -86,23 +86,30 @@ Feature: As an account holder with access to the Device Registration Service
 
 
   @regression @mdcm-489
-  Scenario Outline: Users should be able to add another devices using GMDN code to existing manufacturers
+  Scenario Outline: Users should be able to add and remove devices using GMDN code to existing manufacturers
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
     And I click on a registered manufacturer
     When I add a device to SELECTED manufacturer with following data
-      | deviceType             | <deviceType> |
-      | gmdnDefinition         | Adhesive     |
-      | customMade             | true         |
-      | relatedDeviceSterile   | true         |
-      | relatedDeviceMeasuring | true         |
+      | deviceType             | <deviceType>       |
+      | gmdnDefinition         | <gmdnDefinitionD1> |
+      | gmdnCode               | <gmdnCodeD1>       |
+      | customMade             | true               |
+      | relatedDeviceSterile   | true               |
+      | relatedDeviceMeasuring | true               |
     And I add another device to SELECTED manufacturer with following data
-      | deviceType             | <deviceType> |
-      | gmdnCode               | 10003        |
-      | customMade             | true         |
-      | relatedDeviceSterile   | true         |
-      | relatedDeviceMeasuring | true         |
-    And The gmdn code or term is correct
+      | deviceType             | <deviceType>       |
+      | gmdnDefinition         | <gmdnDefinitionD2> |
+      | gmdnCode               | <gmdnCodeD2>       |
+      | customMade             | true               |
+      | relatedDeviceSterile   | true               |
+      | relatedDeviceMeasuring | true               |
+#    Then I should see option to add another device
+    And The gmdn code or term is "displayed" in summary section
+    When I remove the device with gmdn "<gmdnCodeD2>" code
+#    Then I should see option to add another device
+    Then The gmdn code or term is "removed" in summary section
     Examples:
-      | user             | deviceType             |
-      | manufacturerAuto | General Medical Device |
+      | user             | deviceType             | gmdnDefinitionD1 | gmdnCodeD1 | gmdnDefinitionD2 | gmdnCodeD2 |
+      | manufacturerAuto | General Medical Device | Adhesive         |            |                  | 10003      |
+      | manufacturerAuto | General Medical Device |                  | 10003      | Adhesive         |            |

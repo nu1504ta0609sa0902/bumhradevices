@@ -2,6 +2,9 @@ package com.mhra.mdcm.devices.appian.utils.selenium.page;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 /**
  * Created by TPD_Auto on 20/10/2016.
@@ -40,5 +43,17 @@ public class CommonUtils {
         }
 
         return allLinksClickable;
+    }
+
+    public static WebElement getElementWithLink(List<WebElement> listOfLinks, String linkText) {
+        WebElement found = null;
+        for(WebElement el: listOfLinks){
+            String text = el.getText();
+            if(text.contains(linkText)){
+                found = el;
+                break;
+            }
+        }
+        return found;
     }
 }

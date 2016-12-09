@@ -8,7 +8,6 @@ import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -262,6 +261,16 @@ public class ExternalHomePageSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.organisationRegistered, registered);
     }
 
+    @When("^I click on stored manufacturer$")
+    public void i_click_on_stored_manufacturer() throws Throwable {
+        String name = (String) scenarioSession.getData(SessionKey.organisationName);
+        String registered = manufacturerList.getRegistrationStatus(name);
+        log.info("Manufacturer selected : " + name + ", is " + registered);
+
+        manufacturerDetails = manufacturerList.viewAManufacturer(name);
+        scenarioSession.putData(SessionKey.organisationRegistered, registered);
+    }
+
     @And("^Provide indication of devices made$")
     public void provideIndicationOfDevicesMade() throws Throwable {
         WaitUtils.nativeWaitInSeconds(5);
@@ -286,10 +295,21 @@ public class ExternalHomePageSteps extends CommonSteps {
         Assert.assertThat("Expected to see option to : Add another device" , isVisible, Matchers.is(true));
     }
 
-    @And("^The gmdn code or term is correct$")
-    public void theGmdnCodeOrTermIsCorrect() throws Throwable {
+    @And("^The gmdn code or term is \"([^\"]*)\" in summary section$")
+    public void theGmdnCodeOrTermIsCorrect(String displayed) throws Throwable {
         DeviceData data = (DeviceData) scenarioSession.getData(SessionKey.deviceData);
-        boolean isGMDNCorrect = addDevices.isGMDNValueCorrect(data);
-        Assert.assertThat("Expected gmdn code : " + data.gmdnCode + ", OR gmdn term : " + data.gmdnTermOrDefinition , isGMDNCorrect, Matchers.is(true));
+        addDevices.isOptionToAddAnotherDeviceVisible();
+        boolean isGMDNCorrect = addDevices.isGMDNValueDisplayed(data);
+
+        if(displayed!=null && displayed.equals("displayed"))
+            Assert.assertThat("Expected gmdn code : " + data.gmdnCode + ", OR gmdn term : " + data.gmdnTermOrDefinition , isGMDNCorrect, Matchers.is(true));
+        else
+            Assert.assertThat("Expected not to see gmdn code : " + data.gmdnCode + ", OR gmdn term : " + data.gmdnTermOrDefinition , isGMDNCorrect, Matchers.is(false));
+    }
+
+    @When("^I remove the device with gmdn \"([^\"]*)\" code$")
+    public void iRemoveTheDeviceWithGmdnCode(String gmdnCode) throws Throwable {
+        addDevices = addDevices.viewDeviceWithGMDNValue(gmdnCode);
+        addDevices = addDevices.removeSelectedDevice();
     }
 }

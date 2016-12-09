@@ -5,6 +5,7 @@ import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import cucumber.api.PendingException;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
@@ -88,4 +89,16 @@ public class MyAccountPageSteps extends CommonSteps {
         Assert.assertThat("Expected to see following roles : " + expectedRoles, rolesFound, is(true));
     }
 
+    @And("^Address type is not editable$")
+    public void addressTypeIsNotEditable() throws Throwable {
+        boolean isEditable = amendOrganisationDetails.isAddressTypeEditable();
+        Assert.assertThat("Address type should not be editable" , isEditable, is(false));
+    }
+
+    @When("^I click on edit \"([^\"]*)\" details$")
+    public void iClickOnEditDetails(String editSection) throws Throwable {
+        if(editSection.contains("Organisation")){
+            amendOrganisationDetails = myAccountPage.amendOrganisationDetails();
+        }
+    }
 }

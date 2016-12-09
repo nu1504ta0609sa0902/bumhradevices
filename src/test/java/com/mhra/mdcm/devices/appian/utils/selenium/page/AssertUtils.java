@@ -25,5 +25,15 @@ public class AssertUtils {
         boolean found = txt.contains(value);
         return found;
     }
+
+    public static boolean isNumeric(String gmdnCode) {
+        boolean isNumeric = true;
+        try{
+            Integer.parseInt(gmdnCode);
+        }catch (Exception e){
+            isNumeric = false;
+        }
+        return isNumeric;
+    }
 }
 
