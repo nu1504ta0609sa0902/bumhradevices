@@ -75,7 +75,7 @@ Feature: As a business user, I want a task to be created each time a customer su
     And I am logged into appian as "<logBackInAas>" user
     Then I view new task with link "New Manufacturer Registration Request" for the new account
     When I download the letter of designation
-    And Check task contains correct devices  and other details
+    And Check task contains correct devices "<gmdnDefinition>" and other details
     And I assign the task to me and "approve" the generated task
 #    Then The task with link "New Manufacturer Registration Request" should be removed from tasks list
     And The task status should update to "Completed"
