@@ -20,4 +20,5 @@ public class SessionKey {
     public static String taskType = "New Account Or Manufacturer";
     public static String organisationRegistered = "Registered Or Not";
     public static String deviceData = "Device Data";
+    public static String manufacturerData = "Manufactuerer Or AuthorisedRep Data";
 }

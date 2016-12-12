@@ -20,10 +20,10 @@ Feature: As an account holder with access to the Device Registration Service I w
     Then I should see option to add another device
     Examples:
       | user             | deviceType                 | gmdnDefinition | riskClassification | productName | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
-      | manufacturerAuto | In Vitro Diagnostic Device | Glucose        | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
-      | manufacturerAuto | In Vitro Diagnostic Device | Glucose        | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | false         |
-      | manufacturerAuto | In Vitro Diagnostic Device | Glucose        | list b             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
-      | manufacturerAuto | In Vitro Diagnostic Device | Glucose        | self-test          | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      | manufacturerAuto | In Vitro Diagnostic Device | Laboratory        | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      | manufacturerAuto | In Vitro Diagnostic Device | Laboratory        | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | false         |
+      | manufacturerAuto | In Vitro Diagnostic Device | Laboratory        | list b             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      | manufacturerAuto | In Vitro Diagnostic Device | Laboratory        | self-test          | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
 
   @regression @mdcm-183
@@ -39,8 +39,8 @@ Feature: As an account holder with access to the Device Registration Service I w
     Then I should see option to add another device
     Examples:
       | user             | deviceType                         | gmdnDefinition | customMade | productName |
-      | manufacturerAuto | Active Implantable Medical Devices | Adhesive       | true       | ford focus  |
-      | manufacturerAuto | Active Implantable Medical Devices | Adhesive       | false      | ford focus  |
+      | manufacturerAuto | Active Implantable Medical Devices | Blood       | true       | ford focus  |
+      | manufacturerAuto | Active Implantable Medical Devices | Blood       | false      | ford focus  |
 
 
   @regression @mdcm-183
@@ -62,10 +62,10 @@ Feature: As an account holder with access to the Device Registration Service I w
     Then I should see option to add another device
     Examples:
       | user             | deviceType                 | gmdnDefinition | riskClassification | listOfProductNames | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
-      | manufacturerAuto | In Vitro Diagnostic Device | Glucose        | list a             | ford,hyundai       | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
-      | manufacturerAuto | In Vitro Diagnostic Device | Glucose        | list a             | ford,honda         | ford        | focus        | NB 0086 BSI  | true              | true       | false         |
-      | manufacturerAuto | In Vitro Diagnostic Device | Glucose        | list b             | honda,ferrari      | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
-      | manufacturerAuto | In Vitro Diagnostic Device | Glucose        | self-test          | ferrari,peugeot    | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      | manufacturerAuto | In Vitro Diagnostic Device | Laboratory        | list a             | ford,hyundai       | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      | manufacturerAuto | In Vitro Diagnostic Device | Laboratory        | list a             | ford,honda         | ford        | focus        | NB 0086 BSI  | true              | true       | false         |
+      | manufacturerAuto | In Vitro Diagnostic Device | Laboratory        | list b             | honda,ferrari      | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      | manufacturerAuto | In Vitro Diagnostic Device | Laboratory        | self-test          | ferrari,peugeot    | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
 
   @regression @mdcm-183 @mdcm-240 @wip
@@ -81,11 +81,11 @@ Feature: As an account holder with access to the Device Registration Service I w
     And Proceed to payment and confirm submit device details
     When I logout of the application
     And I login to appian as "<logBackInAas>" user
-    Then I should see a new task with link "<link>" for the new account
+    Then I view new task with link "<link>" for the new account
     And I assign the task to me and "approve" the generated task
     Then The task with link "<link>" should be removed from tasks list
     Examples:
       | user             | logBackInAas | deviceType                         | gmdnDefinition | customMade | listOfProductNames | link                                     |
-      | manufacturerAuto | businessAuto | Active Implantable Medical Devices | Adhesive       | true       | ford,hyundai       | Update Manufacturer Registration Request |
-      | manufacturerAuto | businessAuto | Active Implantable Medical Devices | Adhesive       | false      | vauxhall,honda     | Update Manufacturer Registration Request |
+      | manufacturerAuto | businessAuto | Active Implantable Medical Devices | Blood       | true       | ford,hyundai       | Update Manufacturer Registration Request |
+      | manufacturerAuto | businessAuto | Active Implantable Medical Devices | Blood       | false      | vauxhall,honda     | Update Manufacturer Registration Request |
 

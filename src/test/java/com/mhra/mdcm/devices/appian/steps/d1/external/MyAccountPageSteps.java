@@ -46,13 +46,13 @@ public class MyAccountPageSteps extends CommonSteps {
         amendPersonDetails = amendPersonDetails.confirmChangesRelateToOrganisation(true);
         myAccountPage = amendPersonDetails.saveChanges(true);
 
-        scenarioSession.putData(SessionKey.updatedData, updatedData);
+        scenarioSession.putData(SessionKey.manufacturerData, updatedData);
     }
 
     @Then("^I should see the changes \"([^\"]*)\" in my accounts page$")
     public void iShouldSeeTheChangesInMyAccountsPage(String keyValuePairToUpdate) throws Throwable {
         boolean isCorrectPage = myAccountPage.isCorrectPage();
-        AccountRequest updatedData = (AccountRequest) scenarioSession.getData(SessionKey.updatedData);
+        AccountRequest updatedData = (AccountRequest) scenarioSession.getData(SessionKey.manufacturerData);
         boolean updatesFound = myAccountPage.verifyUpdatesDisplayedOnPage(keyValuePairToUpdate, updatedData);
         Assert.assertThat("Expected to see following updates : " + keyValuePairToUpdate, updatesFound, is(true));
     }
@@ -78,7 +78,7 @@ public class MyAccountPageSteps extends CommonSteps {
         amendOrganisationDetails = amendOrganisationDetails.confirmChanges(true);
         myAccountPage = amendOrganisationDetails.saveChanges(true);
 
-        scenarioSession.putData(SessionKey.updatedData, updatedData);
+        scenarioSession.putData(SessionKey.manufacturerData, updatedData);
     }
 
 

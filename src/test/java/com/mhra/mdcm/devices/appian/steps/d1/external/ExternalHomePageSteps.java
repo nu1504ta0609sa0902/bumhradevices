@@ -8,6 +8,7 @@ import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -82,6 +83,7 @@ public class ExternalHomePageSteps extends CommonSteps {
             addDevices = createNewManufacturer.createTestOrganisation(newAccount);
         }
         scenarioSession.putData(SessionKey.organisationName, newAccount.organisationName);
+        scenarioSession.putData(SessionKey.manufacturerData, newAccount);
     }
 
     @Then("^I should see stored manufacturer appear in the manufacturers list$")
@@ -311,5 +313,14 @@ public class ExternalHomePageSteps extends CommonSteps {
     public void iRemoveTheDeviceWithGmdnCode(String gmdnCode) throws Throwable {
         addDevices = addDevices.viewDeviceWithGMDNValue(gmdnCode);
         addDevices = addDevices.removeSelectedDevice();
+    }
+
+    @Then("^Verify devices displayed and other details are correct$")
+    public void verifyDevicesDisplayedAndOtherDetailsAreCorrect() throws Throwable {
+        AccountManufacturerRequest manufacaturerData = (AccountManufacturerRequest) scenarioSession.getData(SessionKey.manufacturerData);
+        DeviceData deviceData = (DeviceData) scenarioSession.getData(SessionKey.deviceData);
+
+        //Verify manufacturer details showing correct data
+        boolean isAllDataCorrect = manufacturerDetails.isDisplayedDataCorrect(manufacaturerData, deviceData);
     }
 }

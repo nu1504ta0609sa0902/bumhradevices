@@ -12,7 +12,7 @@ Feature: As a customer I want to register new manufacturers with devices
       | countryName | <countryName> |
     And I add devices to newly created manufacturer with following data
       | deviceType             | <deviceType> |
-      | gmdnDefinition         | Adhesive     |
+      | gmdnDefinition         | Blood     |
       | customMade             | <customMade> |
       | relatedDeviceSterile   | true         |
       | relatedDeviceMeasuring | true         |

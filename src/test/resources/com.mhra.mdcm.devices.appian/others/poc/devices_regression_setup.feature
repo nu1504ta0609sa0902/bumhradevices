@@ -7,11 +7,11 @@ Feature: Write PC for devices
     And I go to list of manufacturers page
     And Provide indication of devices made
     And I am logged into appian as "<logBackInAas>" user
-    Then I should see a new task with link "New Service Request" for the new account
+    Then I view new task with link "New Service Request" for the new account
     When I assign the task to me and "approve" the generated task
     Examples:
       | user             | logBackInAas | accountType  | countryName | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
-      | manufacturerAuto | businessAuto | manufacturer | Bangladesh  | Active Implantable Medical Devices | Adhesive       | true       | setmeup            |
+      | manufacturerAuto | businessAuto | manufacturer | Bangladesh  | Active Implantable Medical Devices | Blood       | true       | setmeup            |
 
 
   @setup
@@ -34,13 +34,13 @@ Feature: Write PC for devices
     And Provide indication of devices made
     When I logout of the application
     And I am logged into appian as "<logBackInAas>" user
-    Then I should see a new task with link "New Service Request" for the new account
+    Then I view new task with link "New Service Request" for the new account
     When I download the letter of designation
     And I assign the task to me and "approve" the generated task
     Then The task should be removed from tasks list
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Adhesive       | true       | setmeup            |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Blood       | true       | setmeup            |
 
 
   @setup
@@ -59,7 +59,7 @@ Feature: Write PC for devices
     Then I should see stored manufacturer appear in the manufacturers list
     When I logout of the application
     And I am logged into appian as "<logBackInAas>" user
-    Then I should see a new task with link "New Manufacturer Registration Request" for the new account
+    Then I view new task with link "New Manufacturer Registration Request" for the new account
     When I download the letter of designation
     And I assign the task to me and "approve" the generated task
     Then The task should be removed from tasks list
@@ -68,7 +68,7 @@ Feature: Write PC for devices
     Then I should see at least 0 account matches
     Examples:
       | user             | logBackInAas | accountType  | countryName    | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
-      | manufacturerAuto | businessAuto | manufacturer | United Kingdom | Active Implantable Medical Devices | Adhesive       | true       | setmeup            |
+      | manufacturerAuto | businessAuto | manufacturer | United Kingdom | Active Implantable Medical Devices | Blood       | true       | setmeup            |
 
 
   @setup
@@ -87,7 +87,7 @@ Feature: Write PC for devices
     Then I should see stored manufacturer appear in the manufacturers list
     When I logout of the application
     And I am logged into appian as "<logBackInAas>" user
-    Then I should see a new task with link "New Manufacturer Registration Request" for the new account
+    Then I view new task with link "New Manufacturer Registration Request" for the new account
     When I download the letter of designation
     And I assign the task to me and "approve" the generated task
     Then The task should be removed from tasks list
@@ -96,7 +96,7 @@ Feature: Write PC for devices
     Then I should see at least 0 account matches
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Adhesive       | true       | ford,hyundai       |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Blood       | true       | ford,hyundai       |
 
 
 #  @setup

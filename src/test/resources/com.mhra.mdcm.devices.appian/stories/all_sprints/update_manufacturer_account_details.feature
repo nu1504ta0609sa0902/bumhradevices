@@ -70,7 +70,7 @@ Feature: As a business user, I want to be able to update party details associate
       | manufacturerAuto  | Manufacturer,Authorised Representative |
 
 
-  @regression @mdcm-162
+  @regression @mdcm-162 @wip
   Scenario Outline: Users should be able to register and edit organisations with devices
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -79,7 +79,7 @@ Feature: As a business user, I want to be able to update party details associate
       | countryName | <countryName> |
     And I add devices to newly created manufacturer with following data
       | deviceType             | <deviceType> |
-      | gmdnDefinition         | Adhesive     |
+      | gmdnDefinition         | Blood     |
       | customMade             | <customMade> |
       | relatedDeviceSterile   | true         |
       | relatedDeviceMeasuring | true         |

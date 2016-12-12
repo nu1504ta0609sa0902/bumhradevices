@@ -1,5 +1,7 @@
 package com.mhra.mdcm.devices.appian.pageobjects.external.sections;
 
+import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountManufacturerRequest;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
@@ -55,5 +57,17 @@ public class ManufacturerDetails extends _Page {
         //WaitUtils.waitForElementToBeClickable(driver, amendRepresentativeParty, TIMEOUT_5_SECOND, false);
         addADevice.click();
         return new AddDevices(driver);
+    }
+
+    /**
+     * Manufacturer details are correct and valid
+     * @param manufacaturerData
+     * @param deviceData
+     * @return
+     */
+    public boolean isDisplayedDataCorrect(AccountManufacturerRequest manufacaturerData, DeviceData deviceData) {
+        boolean allValid = true;
+
+        return allValid;
     }
 }

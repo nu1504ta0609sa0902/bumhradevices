@@ -54,7 +54,7 @@ public class DeviceData {
 
         deviceType = "General Medical Device";
 
-        //gmdnTermOrDefinition = "Adhesive";
+        //gmdnTermOrDefinition = "Blood";
         //gmdnCode = "10001";
 
         isCustomMade = true;

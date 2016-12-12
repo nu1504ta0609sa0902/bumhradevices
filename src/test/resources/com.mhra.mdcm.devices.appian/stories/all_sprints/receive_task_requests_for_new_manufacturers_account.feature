@@ -73,7 +73,7 @@ Feature: As a business user, I want a task to be created each time a customer su
     Then I should see stored manufacturer appear in the manufacturers list
     When I logout of the application
     And I am logged into appian as "<logBackInAas>" user
-    Then I should see a new task with link "New Manufacturer Registration Request" for the new account
+    Then I view new task with link "New Manufacturer Registration Request" for the new account
     When I download the letter of designation
     And Check task contains correct devices  and other details
     And I assign the task to me and "approve" the generated task
@@ -81,8 +81,8 @@ Feature: As a business user, I want a task to be created each time a customer su
     And The task status should update to "Completed"
     Examples:
       | user             | logBackInAas | accountType  | countryName | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
-      | manufacturerAuto | businessAuto | manufacturer | Bangladesh  | Active Implantable Medical Devices | Adhesive       | true       | setmeup            |
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Adhesive       | false       | setmeup            |
+      | manufacturerAuto | businessAuto | manufacturer | Bangladesh  | Active Implantable Medical Devices | Blood       | true       | setmeup            |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Blood       | false       | setmeup            |
 
 
   @regression @mdcm-15 @mdcm-39
@@ -107,16 +107,15 @@ Feature: As a business user, I want a task to be created each time a customer su
     Then I should see stored manufacturer appear in the manufacturers list
     When I logout of the application
     And I am logged into appian as "<logBackInAas>" user
-    Then I should see a new task with link "New Manufacturer Registration Request" for the new account
-    When I download the letter of designation
-    And Check task contains correct devices and other details
+    Then I view new task with link "New Manufacturer Registration Request" for the new account
+    #When I download the letter of designation
+    And Check task contains correct devices "<gmdnDefinition>" and other details
     And I assign the task to me and "approve" the generated task
-#    Then The task with link "New Manufacturer Registration Request" should be removed from tasks list
     And The task status should update to "Completed"
     Examples:
       | user             | logBackInAas | accountType  | countryName | deviceType                 | gmdnDefinition | riskClassification | listOfProductNames | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
-      | manufacturerAuto | businessAuto | manufacturer | Bangladesh  | In Vitro Diagnostic Device | Glucose        | list a             | ford,hyundai       | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | In Vitro Diagnostic Device | Glucose        | list a             | ford,honda         | ford        | focus        | NB 0086 BSI  | true              | true       | false         |
+      | manufacturerAuto | businessAuto | manufacturer | Bangladesh  | In Vitro Diagnostic Device | Laboratory        | list a             | ford,hyundai       | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | In Vitro Diagnostic Device | Laboratory        | list a             | ford,honda         | ford        | focus        | NB 0086 BSI  | true              | true       | false         |
 
 
   @regression @mdcm-161 @mdcm-232 @wip
@@ -134,9 +133,9 @@ Feature: As a business user, I want a task to be created each time a customer su
     And Proceed to payment and confirm submit device details
     When I logout of the application
     And I login to appian as "<logBackInAas>" user
-    Then I should see a new task with link "<link>" for the new account
+    Then I view new task with link "<link>" for the new account
     And The status of designation letter should be "Awaiting Review"
     Examples:
       | user             | logBackInAas | accountType  | countryName |deviceType                         | gmdnDefinition | customMade | listOfProductNames | link |
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Adhesive       | true       | ford      |New Manufacturer Registration Request|
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Adhesive       | false       | gaga      |New Manufacturer Registration Request|
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Blood       | true       | ford      |New Manufacturer Registration Request|
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Blood       | false       | gaga      |New Manufacturer Registration Request|

@@ -43,9 +43,9 @@ Feature: As an account holder with access to the Device Registration Service
     Then I should see option to add another device
     Examples:
       | user             | deviceType                 | gmdnDefinition | customMade | deviceSterile | deviceMeasuring | riskClassification | notifiedBody | packIncorporated | devicesCompatible |
-      | manufacturerAuto | General Medical Device     | Adhesive       | false      | true          | true            | class1             | NB 0086 BSI  |                  |                   |
-      | manufacturerAuto | General Medical Device     | Adhesive       | true       | true          | true            |                    |              |                  |                   |
-      | manufacturerAuto | In Vitro Diagnostic Device | Glucose        |            |               |                 | ivd general        |              |                  |                   |
+      | manufacturerAuto | General Medical Device     | Blood       | false      | true          | true            | class1             | NB 0086 BSI  |                  |                   |
+      | manufacturerAuto | General Medical Device     | Blood       | true       | true          | true            |                    |              |                  |                   |
+      | manufacturerAuto | In Vitro Diagnostic Device | Laboratory        |            |               |                 | ivd general        |              |                  |                   |
       | manufacturerAuto | System or Procedure Pack   | Air sampling   | true       | true          | true            |                    |              | true             | true              |
 
 
@@ -56,12 +56,12 @@ Feature: As an account holder with access to the Device Registration Service
     And I click on a registered manufacturer
     When I add a device to SELECTED manufacturer with following data
       | deviceType             | <deviceType> |
-      | gmdnDefinition         | Adhesive     |
+      | gmdnDefinition         | Blood     |
       | customMade             | true         |
       | relatedDeviceSterile   | true         |
       | relatedDeviceMeasuring | true         |
     Then I should see option to add another device
-    And The gmdn code or term is correct
+    And The gmdn code or term is "displayed" in summary section
     Examples:
       | user             | deviceType             |
       | manufacturerAuto | General Medical Device |
@@ -79,7 +79,7 @@ Feature: As an account holder with access to the Device Registration Service
       | relatedDeviceSterile   | true         |
       | relatedDeviceMeasuring | true         |
     Then I should see option to add another device
-    And The gmdn code or term is correct
+    And The gmdn code or term is "displayed" in summary section
     Examples:
       | user             | deviceType             |
       | manufacturerAuto | General Medical Device |
@@ -111,5 +111,5 @@ Feature: As an account holder with access to the Device Registration Service
     Then The gmdn code or term is "removed" in summary section
     Examples:
       | user             | deviceType             | gmdnDefinitionD1 | gmdnCodeD1 | gmdnDefinitionD2 | gmdnCodeD2 |
-      | manufacturerAuto | General Medical Device | Adhesive         |            |                  | 10003      |
-      | manufacturerAuto | General Medical Device |                  | 10003      | Adhesive         |            |
+      | manufacturerAuto | General Medical Device | Blood         |            |                  | 10003      |
+      | manufacturerAuto | General Medical Device |                  | 10003      | Blood         |            |

@@ -255,7 +255,7 @@ public class AddDevices extends _Page {
         notifiedBody(dd);
         packIncorporated(dd);
         devicesCompatible(dd);
-        saveProduct(dd);
+        //saveProduct(dd);
     }
 
     private void addVitroDiagnosticDevice(DeviceData dd) {
@@ -542,14 +542,14 @@ public class AddDevices extends _Page {
         String valueToCheck = "";
 
         if(data.gmdnTermOrDefinition!=null){
-            valueToCheck = data.gmdnTermOrDefinition;
+            valueToCheck = data.gmdnTermOrDefinition.toLowerCase();
         }else{
             valueToCheck = data.gmdnCode;
         }
 
         for(WebElement el: listOfGMDNLinksInSummary){
             String text = el.getText();
-            if(text.contains(valueToCheck)){
+            if(text.toLowerCase().contains(valueToCheck)){
                 isDisplayed = true;
                 break;
             }

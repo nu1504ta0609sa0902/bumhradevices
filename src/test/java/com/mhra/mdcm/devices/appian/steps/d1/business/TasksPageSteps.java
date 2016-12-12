@@ -60,8 +60,8 @@ public class TasksPageSteps extends CommonSteps {
     }
 
 
-    @Then("^I should see a new task with link \"([^\"]*)\" for the new account$")
-    public void i_should_see_a_new_task_for_the_new_account(String link) throws Throwable {
+    @Then("^I view new task with link \"([^\"]*)\" for the new account$")
+    public void i_view_new_task_for_the_new_account(String link) throws Throwable {
         String registeredStatus = (String) scenarioSession.getData(SessionKey.organisationRegistered);
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
 
@@ -88,6 +88,14 @@ public class TasksPageSteps extends CommonSteps {
                 contains = true;
                 scenarioSession.putData(SessionKey.position, count);
             } else {
+                //Try position 0 again
+                tasksPage = mainNavigationBar.clickTasks();
+                taskSection = tasksPage.clickOnTaskNumber(0, link);
+                isCorrectTask = taskSection.isCorrectTask(orgName);
+                if (isCorrectTask) {
+                    scenarioSession.putData(SessionKey.position, count);
+                    contains = true;
+                }
                 count++;
             }
         } while (!contains && count <= 5);
@@ -247,13 +255,13 @@ public class TasksPageSteps extends CommonSteps {
     @When("^I download the letter of designation$")
     public void i_download_the_letter_of_designation() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        //throw new PendingException();
+        throw new PendingException();
     }
 
-    @And("^Check task contains correct devices and other details$")
-    public void checkCorrectDevicesAreDisplayed() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        //throw new PendingException();
+    @And("^Check task contains correct devices \"([^\"]*)\" and other details$")
+    public void checkCorrectDevicesAreDisplayed(String deviceList) throws Throwable {
+        boolean isDevicesCorrect = taskSection.isDevicesDisplayedCorrect(deviceList);
+        assertThat("Expected to see following devices : " + deviceList, isDevicesCorrect, is(equalTo(true)));
     }
 
     @And("^The status of designation letter should be \"([^\"]*)\"$")

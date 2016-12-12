@@ -13,6 +13,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -64,6 +65,8 @@ public class TaskSection extends _Page {
     WebElement commentArea;
     @FindBy(xpath = ".//button[.='Submit']")
     WebElement submitBtn;
+    @FindBy(xpath = ".//a[.='Risk classification']//following::td[2]")
+    List<WebElement> listOfGMDNDefinitions;
 
     @FindBy(partialLinkText = "Submitted")
     WebElement submitted;
@@ -212,5 +215,35 @@ public class TaskSection extends _Page {
         }
 
         return statusMatched;
+    }
+
+    public boolean isDevicesDisplayedCorrect(String deviceList) {
+        String[] data = deviceList.split(",");
+
+        //Displayed list of gmdns
+        List<String> gmdns = new ArrayList<>();
+        for(WebElement el: listOfGMDNDefinitions){
+            gmdns.add(el.getText());
+        }
+
+        //Verify it matches with my expected data set
+        boolean allFound = true;
+        for(String d: data){
+            boolean foundOne = false;
+            for(String gmdn: gmdns){
+                if(gmdn.contains(d)){
+                    foundOne = true;
+                    break;
+                }
+            }
+
+            //All of them must exists, therefore foundOne should be true
+            if(!foundOne){
+                allFound = false;
+                break;
+            }
+        }
+
+        return allFound;
     }
 }
