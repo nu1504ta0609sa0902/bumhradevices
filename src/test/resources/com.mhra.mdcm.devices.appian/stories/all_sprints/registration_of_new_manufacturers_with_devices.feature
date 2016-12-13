@@ -10,7 +10,7 @@ Feature: As a customer I want to register new manufacturers with devices
     When I create a new manufacturer using manufacturer test harness page with following data
       | accountType | <accountType> |
       | countryName | <countryName> |
-    And I add devices to newly created manufacturer with following data
+    And I add devices to NEWLY created manufacturer with following data
       | deviceType             | <deviceType> |
       | gmdnDefinition         | Blood     |
       | customMade             | <customMade> |
