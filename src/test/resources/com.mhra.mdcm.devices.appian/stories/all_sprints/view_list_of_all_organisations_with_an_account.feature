@@ -12,7 +12,7 @@ Feature: As a business user, I want to access a list of organisations with an ac
       | user         | link     | pageHeading | columns                                                                                                          |
       | businessAuto | Accounts | Accounts    | Organisation name,Account number,Organisation role,Contact name,Organisation address,Organisation country,Status |
 
-  @mdcm_126 @regression @readonly
+  @regression @mdcm_126 @readonly
   Scenario Outline: As a business user I should be able to view all organisation page
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
