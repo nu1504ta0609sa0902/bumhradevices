@@ -1,11 +1,11 @@
 Feature: As an account holder with access to the Device Registration Service I want to register a manufacturer and declare higher risk devices and declare the specific products being manufactured
   so that they can place the device for sale on the EU market
 
-  @regression @mdcm-183
+  @regression @mdcm-183 @mdcm-21
   Scenario Outline: Register device with SINGLE product for IVD devices
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on a registered manufacturer
+    And I click on a random manufacturer
     When I add a device to SELECTED manufacturer with following data
       | deviceType         | <deviceType>         |
       | gmdnDefinition     | <gmdnDefinition>     |
@@ -30,7 +30,7 @@ Feature: As an account holder with access to the Device Registration Service I w
   Scenario Outline: Register device with SINGLE product for active implantable medical devices
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on a registered manufacturer
+    And I click on a random manufacturer
     When I add a device to SELECTED manufacturer with following data
       | deviceType     | <deviceType>     |
       | gmdnDefinition | <gmdnDefinition> |
@@ -47,7 +47,7 @@ Feature: As an account holder with access to the Device Registration Service I w
   Scenario Outline: Register device with MULTIPLE products for IVD devices
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on a registered manufacturer
+    And I click on a random manufacturer
     When I add a device to SELECTED manufacturer with following data
       | deviceType         | <deviceType>         |
       | gmdnDefinition     | <gmdnDefinition>     |
@@ -72,7 +72,7 @@ Feature: As an account holder with access to the Device Registration Service I w
   Scenario Outline: Register a device with MULTIPLE product for active implantable medical devices
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on a registered manufacturer
+    And I click on a random manufacturer
     When I add multiple devices to SELECTED manufacturer with following data
       | deviceType         | <deviceType>         |
       | gmdnDefinition     | <gmdnDefinition>     |
