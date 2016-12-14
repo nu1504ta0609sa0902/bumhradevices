@@ -2,7 +2,7 @@ Feature: As a business user, I want a task to be created each time a customer su
   So that I know an action to review the request is required by myself or another team member
 
 
-  @regression @mdcm-10 @mdcm-41 @mdcm-178
+  @regression @mdcm-10 @mdcm-41 @mdcm-178 @sprint1 @sprint2
   Scenario Outline: Create new account and approve tasks
     Given I am logged into appian as "<user>" user
     When I create a new account using business test harness page with following data
@@ -20,7 +20,7 @@ Feature: As a business user, I want a task to be created each time a customer su
       | businessNoor | authorisedRep | approve       | 1     | Netherland     | New Account Request |
 
 
-  @regression @mdcm-41 @mdcm-178
+  @regression @mdcm-41 @mdcm-178 @sprint2
   Scenario Outline: Create new account and reject tasks
     Given I am logged into appian as "<user>" user
     When I create a new account using business test harness page with following data
@@ -39,7 +39,7 @@ Feature: As a business user, I want a task to be created each time a customer su
       | businessNoor | authorisedRep | reject        | 0     | Estonia     | No authorisation evidence provided | New Account Request |
 
 
-  @regression @mdcm-41
+  @regression @mdcm-41 @sprint2
   Scenario Outline: Verify WIP section shows newly created tasks and users can approve reject tasks
     Given I am logged into appian as "<user>" user
     When I create a new account using business test harness page with following data
@@ -57,7 +57,7 @@ Feature: As a business user, I want a task to be created each time a customer su
       | businessNoor | manufacturer  | reject        | 0     | Turkey         |
       | businessNoor | authorisedRep | reject        | 0     | Estonia        |
 
-  @regression @mdcm-15 @mdcm-39
+  @regression @mdcm-15 @mdcm-39 @mdcm-186 @sprint2 @sprint3 @sprint5
   Scenario Outline: Business users should be able to review and process manufacturer and device registration tasks
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -85,7 +85,7 @@ Feature: As a business user, I want a task to be created each time a customer su
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Blood       | false       | setmeup            |
 
 
-  @regression @mdcm-15 @mdcm-39
+  @regression @mdcm-15 @mdcm-39 @mdcm-186 @sprint2 @sprint3 @sprint5
   Scenario Outline: Business users to review and process manufacturer and device registration task for IVD List A
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -118,7 +118,7 @@ Feature: As a business user, I want a task to be created each time a customer su
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | In Vitro Diagnostic Device | Laboratory        | list a             | ford,honda         | ford        | focus        | NB 0086 BSI  | true              | true       | false         |
 
 
-  @regression @mdcm-161 @mdcm-232 @wip
+  @regression @mdcm-161 @mdcm-232 @sprint4 @wip
   Scenario Outline: Register manufacturer as authorisedRep and verify status is correct
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page

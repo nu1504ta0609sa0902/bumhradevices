@@ -3,7 +3,7 @@ Feature: As a customer I want to register new manufacturers
   so that I am granted access to that and can then register overseas manufacturers on their behalf
 
 
-  @regression @mdcm-161 @mdcm-232 @mdcm-496 @wip
+  @regression @mdcm-161 @mdcm-232 @mdcm-496 @sprint4 @sprint5 @wip
   Scenario Outline: Users should be able to upload proof they are authorised reps
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -25,7 +25,7 @@ Feature: As a customer I want to register new manufacturers
       | authorisedRepAuto | businessAuto | manufacturer | Bangladesh  |
 
 
-  @regression @mdcm-292 @mdcm-496 @wip
+  @regression @mdcm-292 @mdcm-496 @sprint3 @sprint5 @wip
   Scenario Outline: Verify new product id is generated for each product submitted by manufacturer
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page

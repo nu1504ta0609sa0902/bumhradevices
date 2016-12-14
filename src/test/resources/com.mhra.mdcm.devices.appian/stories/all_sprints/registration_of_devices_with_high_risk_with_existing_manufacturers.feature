@@ -1,7 +1,7 @@
 Feature: As an account holder with access to the Device Registration Service I want to register a manufacturer and declare higher risk devices and declare the specific products being manufactured
   so that they can place the device for sale on the EU market
 
-  @regression @mdcm-183 @mdcm-21
+  @regression @mdcm-183 @mdcm-21 @sprint3 @sprint5
   Scenario Outline: Register device with SINGLE product for IVD devices
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -26,7 +26,7 @@ Feature: As an account holder with access to the Device Registration Service I w
       | manufacturerAuto | In Vitro Diagnostic Device | Laboratory        | self-test          | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
 
-  @regression @mdcm-183
+  @regression @mdcm-183 @sprint3
   Scenario Outline: Register device with SINGLE product for active implantable medical devices
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -43,7 +43,7 @@ Feature: As an account holder with access to the Device Registration Service I w
       | manufacturerAuto | Active Implantable Medical Devices | Blood       | false      | ford focus  |
 
 
-  @regression @mdcm-183
+  @regression @mdcm-183 @sprint3
   Scenario Outline: Register device with MULTIPLE products for IVD devices
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -68,7 +68,7 @@ Feature: As an account holder with access to the Device Registration Service I w
       | manufacturerAuto | In Vitro Diagnostic Device | Laboratory        | self-test          | ferrari,peugeot    | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
 
-  @regression @mdcm-183 @mdcm-240 @wip
+  @regression @mdcm-183 @mdcm-240 @sprint3 @sprint4 @wip
   Scenario Outline: Register a device with MULTIPLE product for active implantable medical devices
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
