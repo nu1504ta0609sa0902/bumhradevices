@@ -11,12 +11,12 @@ Automated Issues:
     - @mdcm-
 
     STORIES:
-    Sprint 1:
+    Sprint 1: @sprint1
         - @mdcm-10  - DONE
         - @mdcm-126 - DONE
         - @mdcm-143 - DONE
 
-    Sprint 2:
+    Sprint 2: @sprint2
         - @mdcm-41  - DONE
         - @mdcm-175 - DONE
         - @mdcm-178 - DONE
@@ -26,7 +26,7 @@ Automated Issues:
         - @mdcm-174 - no tests for regression
         - @mdcm-182 - no tests for regression
 
-    Sprint 3:
+    Sprint 3: @sprint3
         - @mdcm-149 - DONE
         - @mdcm-14  - DONE
         - @mdcm-183 - DONE
@@ -35,7 +35,7 @@ Automated Issues:
         - @mdcm-237 - no tests for regression
         - @mdcm-238 - no tests for regression
 
-    Spring 4:
+    Spring 4: @sprint4
         - @mdcm-13  - DONE
         - @mdcm-240 - DONE
         - @mdcm-161 - DONE
@@ -46,7 +46,7 @@ Automated Issues:
         - @mdcm-362 - no tests for regression
 
 
-    Spring 5:
+    Spring 5: @sprint5
         - @mdcm-39  - Device type "Others" no longer visible
         - @mdcm-489 - DONE ish
         - @mdcm-277 - DONE
@@ -68,7 +68,7 @@ Automated Issues:
         - @mdcm-359 - no tests for regression
 
 
-    Spring 6:
+    Spring 6: @sprint6
         - @mdcm-23  -
         - @mdcm-125 -
         - @mdcm-134 -
@@ -77,7 +77,7 @@ Automated Issues:
         - @mdcm-637 -
         - @mdcm-268 - no tests for regression
 
-    Spring 7:
+    Spring 7: @sprint7
         - @mdcm-2797- no tests for regression
         - @mdcm-148 - no tests for regression
         - @mdcm-275 - no tests for regression
@@ -90,7 +90,7 @@ Automated Issues:
         - @mdcm-2399- no tests for regression
         - @mdcm-626 - no tests for regression
 
-    Spring 8:
+    Spring 8: @sprint8
         - @mdcm-1924- no tests for regression
         - @mdcm-2049- no tests for regression
         - @mdcm-2185- no tests for regression
@@ -101,7 +101,7 @@ Automated Issues:
         - @mdcm-3104- no tests for regression
 
 
-    Spring MIXED:
+    Spring MIXED: @sprintMixed
         - @mdcm-159 - no tests for regression
         - @mdcm-2151- no tests for regression
         - @mdcm-22  - no tests for regression

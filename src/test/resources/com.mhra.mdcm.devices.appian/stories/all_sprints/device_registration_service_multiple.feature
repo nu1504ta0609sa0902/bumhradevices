@@ -20,7 +20,7 @@ Feature: As an account holder with access to the device registration service
       | productName    | lordhelpme                         |
     When I add another device to SELECTED manufacturer with following data
       | deviceType         | In Vitro Diagnostic Device |
-      | gmdnDefinition     | Laboratory freezer            |
+      | gmdnDefinition     | Laboratory freezer         |
       | riskClassification | list a                     |
       | notifiedBody       | NB 0086 BSI                |
       | productName        | premierLeague              |
@@ -32,6 +32,8 @@ Feature: As an account holder with access to the device registration service
     When I add another device to SELECTED manufacturer with following data
       | deviceType             | System or Procedure Pack   |
       | gmdnDefinition         | Environmental air sampling |
+      | riskClassification     | class1                     |
+      | notifiedBody           | NB 0086 BSI                |
       | customMade             | true                       |
       | relatedDeviceSterile   | true                       |
       | relatedDeviceMeasuring | true                       |
@@ -48,6 +50,6 @@ Feature: As an account holder with access to the device registration service
     #And I assign the task to me and "approve" the generated task
     #Then The task status should update to "Completed"
     Examples:
-      | user             | logBackInAas | devices |
-      | manufacturerAuto | businessAuto | Blood donor set,Laboratory freezer,Abdominal radial retractor,Environmental air sampling        |
+      | user             | logBackInAas | devices                                                                                  |
+      | manufacturerAuto | businessAuto | Blood donor set,Laboratory freezer,Abdominal radial retractor,Environmental air sampling |
 

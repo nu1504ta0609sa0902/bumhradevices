@@ -57,7 +57,7 @@ Feature: As a business and account holder, I want to be able to update party det
       | manufacturerNoor  | org.name,org.address1,org.address2,org.city,org.postcode,org.telephone,org.website |
 
 
-  @regression @mdcm-261 @mdcm-277 @sprint4 @sprint5
+  @regression @readonly @mdcm-261 @mdcm-277 @sprint4 @sprint5
   Scenario Outline: Verify correct roles are displayed for approved UK account holder
     Given I am logged into appian as "<user>" user
     When I go to my accounts page

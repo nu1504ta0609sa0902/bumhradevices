@@ -2,7 +2,7 @@ Feature: As an account holder with access to the Device Registration Service
   I want to register a manufacturer and declare devices being manufacturer
   so that they can place the device for sale on the EU market
 
-  @regression @mdcm-14 @mdcm-21 @sprint3 @sprint5
+  @regression @readonly @mdcm-14 @mdcm-21 @sprint3 @sprint5
   Scenario Outline: Users should be able to view already registered manufacturers
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -13,7 +13,7 @@ Feature: As an account holder with access to the Device Registration Service
       | manufacturerAuto  | REGISTERED |
       | authorisedRepAuto | REGISTERED |
 
-  @regression @mdcm-14 @mdcm-21 @sprint3 @sprint5
+  @regression @readonly @mdcm-14 @mdcm-21 @sprint3 @sprint5
   Scenario Outline: Verify correct device type options are displayed on add devices page
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page

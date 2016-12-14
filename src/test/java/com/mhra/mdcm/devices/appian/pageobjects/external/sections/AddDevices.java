@@ -408,7 +408,7 @@ public class AddDevices extends _Page {
     private void notifiedBody(DeviceData dd) {
         WaitUtils.waitForElementToBeClickable(driver, nb0086BSI, TIMEOUT_5_SECOND, false);
         //Select notified body
-        if (dd.notifiedBody.toLowerCase().contains("0086")) {
+        if (dd.notifiedBody!=null && dd.notifiedBody.toLowerCase().contains("0086")) {
             PageUtils.clickIfVisible(driver, nb0086BSI);
         }
     }

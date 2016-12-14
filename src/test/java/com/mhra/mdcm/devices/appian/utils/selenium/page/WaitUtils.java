@@ -1,7 +1,7 @@
 package com.mhra.mdcm.devices.appian.utils.selenium.page;
 
 import com.google.common.base.Predicate;
-import com.sun.istack.internal.Nullable;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -138,7 +138,7 @@ public class WaitUtils {
                 .ignoring(StaleElementReferenceException.class)
                 .until(new Predicate<WebDriver>() {
                     @Override
-                    public boolean apply(@Nullable WebDriver driver) {
+                    public boolean apply(WebDriver driver) {
                         boolean displayed = element.isDisplayed();
                         return displayed;
                     }
@@ -162,7 +162,7 @@ public class WaitUtils {
                 .ignoring(StaleElementReferenceException.class)
                 .until(new Predicate<WebDriver>() {
                     @Override
-                    public boolean apply(@Nullable WebDriver driver) {
+                    public boolean apply(WebDriver driver) {
                         WebElement element = driver.findElement(by);
                         boolean clickAble = element.isDisplayed() && element.isEnabled();
                         return clickAble;
