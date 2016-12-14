@@ -25,7 +25,7 @@ Feature: As an account holder with access to the Device Registration Service
       | authorisedRepAuto |
 
 
-  @regression @mdcm-14 @mdcm-485 @mdcm-21
+  @regression @mdcm-14 @mdcm-485 @mdcm-467 @mdcm-21
   Scenario Outline: Verify correct options are displayed on add devices page
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -46,7 +46,8 @@ Feature: As an account holder with access to the Device Registration Service
       | manufacturerAuto | General Medical Device     | Blood          | false      | true          | true            | class1             | NB 0086 BSI  |                  |                   |
       | manufacturerAuto | General Medical Device     | Blood          | true       | true          | true            |                    |              |                  |                   |
       | manufacturerAuto | In Vitro Diagnostic Device | Laboratory     |            |               |                 | ivd general        |              |                  |                   |
-      | manufacturerAuto | System or Procedure Pack   | Air sampling   | true       | true          | true            |                    |              | true             | true              |
+      | manufacturerAuto | System or Procedure Pack   | Air sampling   | false       | true          | true            |  class1                  | NB 0086 BSI  | true             | true              |
+      | manufacturerAuto | System or Procedure Pack   | Air sampling   | true       | true          | true            |                    | NB 0086 BSI  | true             | true              |
 
 
   @regression @mdcm-14 @mdcm-489
@@ -114,7 +115,7 @@ Feature: As an account holder with access to the Device Registration Service
       | manufacturerAuto | General Medical Device | Blood            |            |                  | 10003      |
       | manufacturerAuto | General Medical Device |                  | 10003      | Blood            |            |
 
-  @regression @mdcm-162 @mdcm-485 @wip
+  @regression @mdcm-162 @mdcm-485 @mdcm-374 @wip
   Scenario Outline: Users should be able to add devices to existing manufacturers and verify devices are added
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -141,6 +142,6 @@ Feature: As an account holder with access to the Device Registration Service
     Then Verify devices displayed and other details are correct
     And I should be able to view products related to stored devices
     Examples:
-      | user              | logBackInAas | deviceType             | customMade | status     | gmdn               | riskClassification | notifiedBody |
-      | manufacturerAuto  | businessAuto | General Medical Device | true       | REGISTERED | Blood donor set |              |   |
+      | user             | logBackInAas | deviceType             | customMade | status     | gmdn            | riskClassification | notifiedBody |
+      | manufacturerAuto | businessAuto | General Medical Device | true       | REGISTERED | Blood donor set |                    |              |
 #      | authorisedRepAuto | businessAuto | General Medical Device | false       | REGISTERED | Blood vessel sizer | class1             | NB 0086 BSI  |

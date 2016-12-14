@@ -49,6 +49,12 @@ public class ProductDetails extends _Page {
         String deviceType = deviceData.deviceType;
         if(deviceType.equals("General Medical Device")){
             allValid = isGeneralMedicalDeviceValid(deviceData);
+        }else if(deviceType.equals("In Vitro Diagnostic Device")){
+            //allValid = isGeneralMedicalDeviceValid(deviceData);
+        }else if(deviceType.equals("System or Procedure Pack")){
+            //allValid = isGeneralMedicalDeviceValid(deviceData);
+        }else if(deviceType.equals("Active Implantable Medical Devices")){
+            //allValid = isGeneralMedicalDeviceValid(deviceData);
         }
 
         return allValid;

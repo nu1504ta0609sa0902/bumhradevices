@@ -262,33 +262,36 @@ public class AddDevices extends _Page {
         searchByGMDN(dd);
         riskClassificationIVD(dd);
 
-        //If more than 1 product listed
-        int numberOfProductName = dd.listOfProductName.size();
-        if(numberOfProductName <= 1) {
-            if(numberOfProductName == 1){
-                dd.productName = dd.listOfProductName.get(0);
-            }
-            //List of device to add
-            addProduct(dd);
-            notifiedBody(dd);
-            subjectToPerformanceEval(dd);
-            productNewToMarket(dd);
-            if(dd.riskClassification.toLowerCase().contains("list a"))
-            conformToCTS(dd);
-            saveProduct(dd);
-        }else{
-            for(String x: dd.listOfProductName){
-                dd.productName = x;
+        //No product needs to be added when Risk Classification = IVD General
+        if(dd.riskClassification!=null && !dd.riskClassification.equals("ivd general")) {
+            //If more than 1 product listed
+            int numberOfProductName = dd.listOfProductName.size();
+            if (numberOfProductName <= 1) {
+                if (numberOfProductName == 1) {
+                    dd.productName = dd.listOfProductName.get(0);
+                }
+                //List of device to add
                 addProduct(dd);
                 notifiedBody(dd);
                 subjectToPerformanceEval(dd);
                 productNewToMarket(dd);
-                if(dd.riskClassification.toLowerCase().contains("list a"))
-                conformToCTS(dd);
+                if (dd.riskClassification.toLowerCase().contains("list a"))
+                    conformToCTS(dd);
                 saveProduct(dd);
+            } else {
+                for (String x : dd.listOfProductName) {
+                    dd.productName = x;
+                    addProduct(dd);
+                    notifiedBody(dd);
+                    subjectToPerformanceEval(dd);
+                    productNewToMarket(dd);
+                    if (dd.riskClassification.toLowerCase().contains("list a"))
+                        conformToCTS(dd);
+                    saveProduct(dd);
 
-                //Remove this if we find a better solution
-                WaitUtils.nativeWaitInSeconds(1);
+                    //Remove this if we find a better solution
+                    WaitUtils.nativeWaitInSeconds(1);
+                }
             }
         }
     }
@@ -481,14 +484,16 @@ public class AddDevices extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, radioRiskClass1, TIMEOUT_5_SECOND, false);
         WaitUtils.waitForElementToBeClickable(driver, nb0086BSI, TIMEOUT_5_SECOND, false);
         String lcRiskClassiffication = dd.riskClassification.toLowerCase();
-        if (lcRiskClassiffication.contains("class1")) {
-            PageUtils.clickIfVisible(driver, radioRiskClass1);
-        } else if (lcRiskClassiffication.contains("class2a")) {
-            PageUtils.clickIfVisible(driver, radioRiskClass2a);
-        } else if (lcRiskClassiffication.contains("class2b")) {
-            PageUtils.clickIfVisible(driver, radioRiskClass2b);
-        } else if (lcRiskClassiffication.contains("class3")) {
-            PageUtils.clickIfVisible(driver, radioRiskClass3);
+        if(lcRiskClassiffication!=null) {
+            if (lcRiskClassiffication.contains("class1")) {
+                PageUtils.clickIfVisible(driver, radioRiskClass1);
+            } else if (lcRiskClassiffication.contains("class2a")) {
+                PageUtils.clickIfVisible(driver, radioRiskClass2a);
+            } else if (lcRiskClassiffication.contains("class2b")) {
+                PageUtils.clickIfVisible(driver, radioRiskClass2b);
+            } else if (lcRiskClassiffication.contains("class3")) {
+                PageUtils.clickIfVisible(driver, radioRiskClass3);
+            }
         }
     }
 
