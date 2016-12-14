@@ -30,9 +30,8 @@ Automated Issues:
         - @mdcm-149 - DONE
         - @mdcm-14  - DONE
         - @mdcm-183 - DONE
-        - @mdcm-292 - Added tests but not able to submit and verify
-                    - Blocked by business testing
-        - @mdcm-15  - TODO NOT STARTED
+        - @mdcm-292 - DONE ish
+        - @mdcm-15  - DONE ish
         - @mdcm-237 - no tests for regression
         - @mdcm-238 - no tests for regression
 
@@ -52,12 +51,14 @@ Automated Issues:
         - @mdcm-489 - DONE ish
         - @mdcm-277 - DONE
         - @mdcm-171 - DONE ish
-        - @mdcm-162 - Having issues selecting GMDN values
-        - @mdcm-260 -
-        - @mdcm-21  -
-        - @mdcm-496 -
-        - @mdcm-485 -
-        - @mdcm-465 -
+        - @mdcm-162 - NEED TO LOOK AT IT AGAIN
+        - @mdcm-260 - Related to @mdcm-39
+                    - NEED TO LOOK AT IT AGAIN
+        - @mdcm-21  - DONE ish
+                    - Didn't receive a task for the updates
+        - @mdcm-496 - DONE
+        - @mdcm-485 - DONE ish
+        - @mdcm-465 - Verify no EU countries are displayed to authorisedReps
         - @mdcm-374 -
         - @mdcm-467 -
         - @mdcm-298 - no tests for regression

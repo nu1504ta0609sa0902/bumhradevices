@@ -26,6 +26,8 @@ public class ManufacturerList extends _Page {
     List<WebElement> listOfManufacturerNames;
     @FindBy(xpath = ".//*[contains(text(), 'registration status')]//following::tr[@__gwt_subrow='0']")
     List<WebElement> listOfTableRows;
+    @FindBy(xpath = ".//*[contains(text(), 'registration status')]")
+    WebElement manufacturerRegistrationStatus;
 
 
     @FindBy(css = ".GFWJSJ4DFDC div")
@@ -137,5 +139,29 @@ public class ManufacturerList extends _Page {
             }catch (Exception ex){}
         }
         return registered;
+    }
+
+
+    public ManufacturerList sortBy(String sortBy, int numberOfTimesToClick) {
+        WaitUtils.waitForElementToBeClickable(driver, manufacturerRegistrationStatus, TIMEOUT_DEFAULT, false);
+        if(sortBy.equals("Registration Status")){
+            for(int c = 0; c < numberOfTimesToClick; c++) {
+                manufacturerRegistrationStatus.click();
+                WaitUtils.waitForElementToBeClickable(driver, manufacturerRegistrationStatus, TIMEOUT_DEFAULT, false);
+            }
+        }
+
+        return new ManufacturerList(driver);
+    }
+
+    public String getOrganisationCountry(String name) {
+        String country = "";
+        for(WebElement tr: listOfTableRows){
+            try {
+                WebElement link = tr.findElement(By.partialLinkText(name));
+                country = tr.findElement(By.xpath("td[3]")).getText();
+            }catch (Exception ex){}
+        }
+        return country;
     }
 }

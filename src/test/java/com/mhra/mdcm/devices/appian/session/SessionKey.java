@@ -21,4 +21,5 @@ public class SessionKey {
     public static String organisationRegistered = "Registered Or Not";
     public static String deviceData = "Device Data";
     public static String manufacturerData = "Manufactuerer Or AuthorisedRep Data";
+    public static String organisationCountry = "Organisation Country";
 }

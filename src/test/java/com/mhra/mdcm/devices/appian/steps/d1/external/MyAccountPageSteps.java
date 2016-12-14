@@ -4,7 +4,6 @@ import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -18,6 +17,7 @@ import static org.hamcrest.Matchers.is;
  */
 @Scope("cucumber-glue")
 public class MyAccountPageSteps extends CommonSteps {
+
 
     @When("^I go to my accounts page$")
     public void iGoToMyAccountsPage() throws Throwable {
@@ -79,6 +79,42 @@ public class MyAccountPageSteps extends CommonSteps {
         myAccountPage = amendOrganisationDetails.saveChanges(true);
 
         scenarioSession.putData(SessionKey.manufacturerData, updatedData);
+    }
+
+    @When("^I update the manufacturer details with following data \"([^\"]*)\"$")
+    public void i_update_the_manufacturer_details_with_following_data(String keyValuePair) throws Throwable {
+        String country = (String) scenarioSession.getData(SessionKey.organisationCountry);
+
+        if(country !=null && country.equals("United Kingdon")){
+            editManufacturer = manufacturerDetails.editAccountInformation();
+        }else {
+            editManufacturer = manufacturerDetails.amendRepresentedParty();
+        }
+
+        //Update details, firstName and lastName
+        AccountRequest updatedData = new AccountRequest(scenarioSession);
+        updatedData.updateName(scenarioSession);
+
+        boolean errorMsgDisplayed = false;
+        int count = 0;
+        do {
+            count++;
+            editManufacturer = editManufacturer.updateFollowingFields(keyValuePair, updatedData);
+            errorMsgDisplayed = editManufacturer.isErrorMessageDisplayed();
+        }while (errorMsgDisplayed && count < 2);
+
+        //confirm and save
+        manufacturerDetails = editManufacturer.confirmChanges(true);
+
+        scenarioSession.putData(SessionKey.manufacturerData, updatedData);
+    }
+
+    @Then("^I should see the changes \"([^\"]*)\" in my manufacturer details page$")
+    public void iShouldSeeTheChangesInManufacturerDetailsPage(String keyValuePairToUpdate) throws Throwable {
+        AccountRequest updatedData = (AccountRequest) scenarioSession.getData(SessionKey.manufacturerData);
+        boolean isCorrectPage = manufacturerDetails.isCorrectPage();
+        boolean updatesFound = manufacturerDetails.verifyManufacturerUpdatesDisplayedOnPage(keyValuePairToUpdate, updatedData);
+        Assert.assertThat("Expected to see following updates : " + keyValuePairToUpdate, updatesFound, is(true));
     }
 
 

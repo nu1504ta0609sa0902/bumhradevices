@@ -86,6 +86,7 @@ public class MyAccountPage extends _Page {
             //String[] split = pairs.split("=");
             String key = pairs;
 
+            //Contact details
             if (key.equals("contact.title")) {
                 allChangesDisplayed = AssertUtils.areChangesDisplayed(fullName,  updatedData.title);
             } else if (key.equals("contact.firstname")) {
@@ -99,6 +100,8 @@ public class MyAccountPage extends _Page {
             } else if (key.equals("contact.telephone")) {
                 allChangesDisplayed = AssertUtils.areChangesDisplayed(telephone,  updatedData.telephone);
             }
+
+            //Organisation details
 
             if(!allChangesDisplayed){
                 break;

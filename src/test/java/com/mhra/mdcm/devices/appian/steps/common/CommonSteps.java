@@ -102,6 +102,10 @@ public class CommonSteps {
     public OrganisationDetails amendOrganisationDetails;
     @Autowired
     public ManufacturerList manufacturerList;
+    @Autowired
+    public EditManufacturer editManufacturer;
+    @Autowired
+    public ProductDetails productDetail;
 
 
 

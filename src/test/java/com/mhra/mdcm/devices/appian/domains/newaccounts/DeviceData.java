@@ -52,7 +52,7 @@ public class DeviceData {
 
     private void createDefaultRandom() {
 
-        deviceType = "General Medical Device";
+        //deviceType = "General Medical Device";
 
         //gmdnTermOrDefinition = "Blood";
         //gmdnCode = "10001";
@@ -61,8 +61,8 @@ public class DeviceData {
         isDeviceSterile = true;
         isDeviceMeasuring = true;
 
-        riskClassification = "Class1";  //Class2a, Class2b, Class3
-        notifiedBody = "NB 0086 BSI";
+        //riskClassification = "Class1";  //Class2a, Class2b, Class3
+        //notifiedBody = "NB 0086 BSI";
 
         isDeviceCompatible = true;
         isPackIncorporated = true;

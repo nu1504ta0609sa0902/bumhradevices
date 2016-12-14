@@ -4,6 +4,7 @@ import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountManufacturerReque
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.pageobjects.external.sections.AddDevices;
+import com.mhra.mdcm.devices.appian.pageobjects.external.sections.ProductDetails;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
@@ -23,6 +24,7 @@ import java.util.Map;
  */
 @Scope("cucumber-glue")
 public class ExternalHomePageSteps extends CommonSteps {
+
 
     @When("^I go to portal page$")
     public void gotoPortalPage(){
@@ -155,10 +157,17 @@ public class ExternalHomePageSteps extends CommonSteps {
 //        //clickAddDeviceBtn = clickAddDeviceBtn.addDevice(); removed 02/12/2016
 //    }
 
-    @When("^I add devices to newly created manufacturer with following data$")
+    @When("^I add devices to NEWLY created manufacturer with following data$")
     public void iAddDevicesToNewlyCreatedManufacturerWithFollowingData(Map<String, String> dataSets) throws Throwable {
+        //If registered we need to click on a button, else devices page is displayed
+//        String registeredStatus = (String) scenarioSession.getData(SessionKey.organisationRegistered);
+//        if(registeredStatus!=null && registeredStatus.equals("REGISTERED"))
+//            addDevices = manufacturerDetails.clickAddDeviceBtn();
+//        else
+//            addDevices = new AddDevices(driver);
+
+        //Its not registered
         addDevices = new AddDevices(driver);
-        //clickAddDeviceBtn = clickAddDeviceBtn.addDevice(); this button removed in 02/12/2016
 
         //Assumes we are in add device page
         DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
@@ -253,8 +262,8 @@ public class ExternalHomePageSteps extends CommonSteps {
 //        scenarioSession.putData(SessionKey.organisationName, name);
 //    }
 
-    @When("^I click on a registered manufacturer$")
-    public void i_click_on_a_registered_manufacturer() throws Throwable {
+    @When("^I click on a random manufacturer$")
+    public void i_click_on_a_random_manufacturer() throws Throwable {
         String name = manufacturerList.getARandomManufacturerName();
         String registered = manufacturerList.getRegistrationStatus(name);
         log.info("Manufacturer selected : " + name + ", is " + registered);
@@ -270,6 +279,63 @@ public class ExternalHomePageSteps extends CommonSteps {
         log.info("Manufacturer selected : " + name + ", is " + registered);
 
         manufacturerDetails = manufacturerList.viewAManufacturer(name);
+        scenarioSession.putData(SessionKey.organisationName, name);
+        scenarioSession.putData(SessionKey.organisationRegistered, registered);
+    }
+
+
+
+    @Then("^I go to list of manufacturers page and click on stored manufacturer$")
+    public void i_go_to_list_of_manufacturer_and_click_on_stored_manufacturer() throws Throwable {
+        //externalHomePage = mainNavigationBar.clickExternalHOME();
+        manufacturerList = externalHomePage.gotoListOfManufacturerPage();
+
+        String name = (String) scenarioSession.getData(SessionKey.organisationName);
+        int nop = manufacturerList.getNumberOfPages();
+        boolean isFoundInManufacturerList = false;
+        int count = 0;
+
+        do{
+            count++;
+            isFoundInManufacturerList = manufacturerList.isManufacturerDisplayedInList(name);
+            if(!isFoundInManufacturerList){
+                manufacturerList = manufacturerList.clickNext();
+            }else{
+                manufacturerDetails = manufacturerList.viewAManufacturer(name);
+            }
+        }while(!isFoundInManufacturerList && count <= nop);
+
+        Assert.assertThat("Organisation Name Expected In Manufacturer List : " + name, isFoundInManufacturerList, Matchers.is(true));
+    }
+
+
+
+    @When("^I click on random manufacturer with status \"([^\"]*)\"$")
+    public void i_click_on_random_manufacturer(String status) throws Throwable {
+        //manufacturerList.sortBy("Registration Status", 2);
+
+        String name = manufacturerList.getARandomManufacturerName();
+        String registered = manufacturerList.getRegistrationStatus(name);
+        String country = manufacturerList.getOrganisationCountry(name);
+        int count = 0;
+        while(registered!=null && !registered.toLowerCase().equals(status.toLowerCase())){
+            count++;
+            if(count > 5){
+                break;
+            }
+
+            //Try again
+            name = manufacturerList.getARandomManufacturerName();
+            registered = manufacturerList.getRegistrationStatus(name);
+            country = manufacturerList.getOrganisationCountry(name);
+        }
+
+        Assert.assertThat("Status of organisation should be : " + status , status.equals(registered), Matchers.is(true));
+
+        log.info("Manufacturer selected : " + name + ", is " + registered);
+        manufacturerDetails = manufacturerList.viewAManufacturer(name);
+        scenarioSession.putData(SessionKey.organisationName, name);
+        scenarioSession.putData(SessionKey.organisationCountry, country);
         scenarioSession.putData(SessionKey.organisationRegistered, registered);
     }
 
@@ -322,5 +388,14 @@ public class ExternalHomePageSteps extends CommonSteps {
 
         //Verify manufacturer details showing correct data
         boolean isAllDataCorrect = manufacturerDetails.isDisplayedDataCorrect(manufacaturerData, deviceData);
+        Assert.assertThat("Expected to see device : " + deviceData.gmdnTermOrDefinition , isAllDataCorrect, Matchers.is(true));
+    }
+
+    @Then("^I should be able to view products related to stored devices$")
+    public void i_should_be_able_to_view_products_related_to_stored_devices() throws Throwable {
+        DeviceData deviceData = (DeviceData) scenarioSession.getData(SessionKey.deviceData);
+        productDetail = manufacturerDetails.viewProduct(deviceData);
+        boolean isDetailValid = productDetail.isProductOrDeviceDetailValid(deviceData);
+        Assert.assertThat("Expected to see device : \n" + deviceData , isDetailValid, Matchers.is(true));
     }
 }

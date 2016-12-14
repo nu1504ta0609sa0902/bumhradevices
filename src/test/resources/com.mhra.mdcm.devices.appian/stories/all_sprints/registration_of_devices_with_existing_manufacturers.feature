@@ -25,7 +25,7 @@ Feature: As an account holder with access to the Device Registration Service
       | authorisedRepAuto |
 
 
-  @regression @mdcm-14 @mdcm-21
+  @regression @mdcm-14 @mdcm-485 @mdcm-21
   Scenario Outline: Verify correct options are displayed on add devices page
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -113,3 +113,34 @@ Feature: As an account holder with access to the Device Registration Service
       | user             | deviceType             | gmdnDefinitionD1 | gmdnCodeD1 | gmdnDefinitionD2 | gmdnCodeD2 |
       | manufacturerAuto | General Medical Device | Blood            |            |                  | 10003      |
       | manufacturerAuto | General Medical Device |                  | 10003      | Blood            |            |
+
+  @regression @mdcm-162 @mdcm-485 @wip
+  Scenario Outline: Users should be able to add devices to existing manufacturers and verify devices are added
+    Given I am logged into appian as "<user>" user
+    And I go to list of manufacturers page
+    And I click on random manufacturer with status "<status>"
+    And I add a device to SELECTED manufacturer with following data
+      | deviceType             | <deviceType>         |
+      | gmdnDefinition         | <gmdn>               |
+      | riskClassification     | <riskClassification> |
+      | notifiedBody           | <notifiedBody>       |
+      | customMade             | <customMade>         |
+      | relatedDeviceSterile   | true                 |
+      | relatedDeviceMeasuring | true                 |
+    And Proceed to payment and confirm submit device details
+    Then I should see stored manufacturer appear in the manufacturers list
+    When I logout of the application
+    And I am logged into appian as "<logBackInAas>" user
+    And I view new task with link "Update Manufacturer Registration Request" for the new account
+    Then Check task contains correct devices "<gmdn>" and other details
+    And I assign the task to me and "approve" the generated task
+    When I logout of the application
+    And I am logged into appian as "<user>" user
+#    And I go to list of manufacturers page
+    When I go to list of manufacturers page and click on stored manufacturer
+    Then Verify devices displayed and other details are correct
+    And I should be able to view products related to stored devices
+    Examples:
+      | user              | logBackInAas | deviceType             | customMade | status     | gmdn               | riskClassification | notifiedBody |
+      | manufacturerAuto  | businessAuto | General Medical Device | true       | REGISTERED | Blood donor set |              |   |
+#      | authorisedRepAuto | businessAuto | General Medical Device | false       | REGISTERED | Blood vessel sizer | class1             | NB 0086 BSI  |
