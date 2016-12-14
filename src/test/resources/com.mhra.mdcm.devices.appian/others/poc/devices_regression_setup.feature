@@ -60,7 +60,7 @@ Feature: Write PC for devices
     When I logout of the application
     And I am logged into appian as "<logBackInAas>" user
     Then I view new task with link "New Manufacturer Registration Request" for the new account
-    When I download the letter of designation
+#    When I download the letter of designation
     And I assign the task to me and "approve" the generated task
     Then The task should be removed from tasks list
     #And The task status should update to "Completed"
@@ -88,7 +88,7 @@ Feature: Write PC for devices
     When I logout of the application
     And I am logged into appian as "<logBackInAas>" user
     Then I view new task with link "New Manufacturer Registration Request" for the new account
-    When I download the letter of designation
+#    When I download the letter of designation
     And I assign the task to me and "approve" the generated task
     Then The task should be removed from tasks list
     #And The task status should update to "Completed"

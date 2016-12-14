@@ -13,7 +13,7 @@ Feature: As a customer I want to register new manufacturers
     Then I should see stored manufacturer appear in the manufacturers list
     When I am logged into appian as "<user2>" user
     Then I should see a new task for the new account
-    When I download the letter of designation
+#    When I download the letter of designation
     And I assign the task to me and "approve" the generated task
     Then The task should be removed from tasks list
     And The task status should update to "Completed"
