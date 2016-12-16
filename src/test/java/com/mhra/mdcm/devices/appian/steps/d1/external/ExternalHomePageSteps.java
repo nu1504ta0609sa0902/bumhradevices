@@ -159,13 +159,6 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     @When("^I add devices to NEWLY created manufacturer with following data$")
     public void iAddDevicesToNewlyCreatedManufacturerWithFollowingData(Map<String, String> dataSets) throws Throwable {
-        //If registered we need to click on a button, else devices page is displayed
-//        String registeredStatus = (String) scenarioSession.getData(SessionKey.organisationRegistered);
-//        if(registeredStatus!=null && registeredStatus.equals("REGISTERED"))
-//            addDevices = manufacturerDetails.clickAddDeviceBtn();
-//        else
-//            addDevices = new AddDevices(driver);
-
         //Its not registered
         addDevices = new AddDevices(driver);
 

@@ -63,7 +63,7 @@ Feature: Write PC for devices
 #    When I download the letter of designation
     And I assign the task to me and "approve" the generated task
     Then The task should be removed from tasks list
-    #And The task status should update to "Completed"
+    #And The completed task status should update to "Completed"
     When I search accounts for the stored organisation name
     Then I should see at least 0 account matches
     Examples:
@@ -91,7 +91,7 @@ Feature: Write PC for devices
 #    When I download the letter of designation
     And I assign the task to me and "approve" the generated task
     Then The task should be removed from tasks list
-    #And The task status should update to "Completed"
+    #And The completed task status should update to "Completed"
     When I search accounts for the stored organisation name
     Then I should see at least 0 account matches
     Examples:

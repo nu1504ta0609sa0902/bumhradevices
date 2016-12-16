@@ -22,7 +22,7 @@ public class _Page {
     public static final int TIMEOUT_20_SECOND = 20;
     public static final int TIMEOUT_30_SECOND = 30;
     public static final int TIMEOUT_60_SECOND = 60;
-    public static final int TIMEOUT_DEFAULT = TIMEOUT_15_SECOND;
+    public static final int TIMEOUT_DEFAULT = TIMEOUT_20_SECOND;
 
     public WebDriver driver;
     public final Logger log = LoggerFactory.getLogger(_Page.class);

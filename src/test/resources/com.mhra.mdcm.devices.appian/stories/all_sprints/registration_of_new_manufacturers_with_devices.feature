@@ -11,17 +11,19 @@ Feature: As a customer I want to register new manufacturers with devices
       | accountType | <accountType> |
       | countryName | <countryName> |
     And I add devices to NEWLY created manufacturer with following data
-      | deviceType             | <deviceType> |
-      | gmdnDefinition         | Blood        |
-      | customMade             | <customMade> |
-      | relatedDeviceSterile   | true         |
-      | relatedDeviceMeasuring | true         |
+      | deviceType             | <deviceType>         |
+      | gmdnDefinition         | Blood                |
+      | riskClassification     | <riskClassification> |
+      | notifiedBody           | <notifiedBody>       |
+      | customMade             | <customMade>         |
+      | relatedDeviceSterile   | true                 |
+      | relatedDeviceMeasuring | true                 |
     And Proceed to payment and confirm submit device details
     Then I should see stored manufacturer appear in the manufacturers list
     Examples:
-      | user              | accountType   | countryName | deviceType             | deviceType             | customMade |
-      | manufacturerAuto  | manufacturer  | Bangladesh  | General Medical Device | General Medical Device | true       |
-      | authorisedRepAuto | authorisedRep | Bangladesh  | General Medical Device | General Medical Device | false      |
+      | user              | accountType   | countryName | deviceType             | deviceType             | customMade | riskClassification | notifiedBody |
+      | manufacturerAuto  | manufacturer  | Bangladesh  | General Medical Device | General Medical Device | true       |                    |              |
+      | authorisedRepAuto | authorisedRep | Bangladesh  | General Medical Device | General Medical Device | false      | class1             | NB 0086 BSI  |
 
 
   @regression @mdcm-162 @mdcm-485 @mdcm-374 @mdcm-186 @sprint2 @sprint5 @wip

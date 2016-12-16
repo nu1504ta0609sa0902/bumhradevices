@@ -52,7 +52,7 @@ public class ManufacturerList extends _Page {
             WebElement link = listOfManufacturerNames.get(index);
             link.click();
         }else{
-            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(manufacturerName), TIMEOUT_5_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(manufacturerName), TIMEOUT_10_SECOND, false);
             WebElement man = driver.findElement(By.partialLinkText(manufacturerName));
             man.click();
         }
@@ -60,8 +60,8 @@ public class ManufacturerList extends _Page {
     }
 
     public String getARandomManufacturerName() {
-        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".left>div>a"), TIMEOUT_5_SECOND, false);
-        WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".left>div>a"), TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".left>div>a"), TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".left>div>a"), TIMEOUT_10_SECOND, false);
         int index = RandomDataUtils.getNumberBetween(0, listOfManufacturerNames.size() - 1);
         WebElement link = listOfManufacturerNames.get(index);
         String name = link.getText();
@@ -70,7 +70,7 @@ public class ManufacturerList extends _Page {
 
     public boolean isManufacturerDisplayedInList(String manufacturerName){
         WaitUtils.nativeWaitInSeconds(2);
-        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector("td>div>a"), TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector("td>div>a"), TIMEOUT_10_SECOND, false);
         boolean found = false;
         for(WebElement item: listOfManufacturerNames){
             String name = item.getText();
@@ -109,8 +109,9 @@ public class ManufacturerList extends _Page {
     }
 
     public int getNumberOfPages() {
+        WaitUtils.waitForElementToBeVisible(driver, itemCount, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, itemCount, TIMEOUT_5_SECOND, false);
         try {
-            WaitUtils.waitForElementToBeClickable(driver, itemCount, TIMEOUT_5_SECOND, false);
             String text = itemCount.getText();
             String total = text.substring(text.indexOf("of") + 3);
             String itemPerPage = text.substring(text.indexOf("-") + 1, text.indexOf(" of "));

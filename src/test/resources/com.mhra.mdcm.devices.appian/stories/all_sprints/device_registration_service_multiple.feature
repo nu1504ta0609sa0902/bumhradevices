@@ -9,18 +9,18 @@ Feature: As an account holder with access to the device registration service
     And I click on a random manufacturer
     When I add a device to SELECTED manufacturer with following data
       | deviceType             | General Medical Device |
-      | gmdnDefinition         | Blood donor set        |
+      | gmdnDefinition         | Surgical Guillotine    |
       | customMade             | true                   |
       | relatedDeviceSterile   | true                   |
       | relatedDeviceMeasuring | true                   |
     When I add another device to SELECTED manufacturer with following data
       | deviceType     | Active Implantable Medical Devices |
-      | gmdnDefinition | Abdominal radial retractor         |
+      | gmdnDefinition | Housekeeping soap                  |
       | customMade     | true                               |
       | productName    | lordhelpme                         |
     When I add another device to SELECTED manufacturer with following data
       | deviceType         | In Vitro Diagnostic Device |
-      | gmdnDefinition     | Laboratory freezer         |
+      | gmdnDefinition     | Sodium kit                 |
       | riskClassification | list a                     |
       | notifiedBody       | NB 0086 BSI                |
       | productName        | premierLeague              |
@@ -31,7 +31,7 @@ Feature: As an account holder with access to the device registration service
       | conformsToCTS      | true                       |
     When I add another device to SELECTED manufacturer with following data
       | deviceType             | System or Procedure Pack   |
-      | gmdnDefinition         | Environmental air sampling |
+      | gmdnDefinition         | Acetabular Shell |
       | riskClassification     | class1                     |
       | notifiedBody           | NB 0086 BSI                |
       | customMade             | true                       |
@@ -48,7 +48,7 @@ Feature: As an account holder with access to the device registration service
     And I view new task with link "Update Manufacturer Registration Request" for the new account
     Then Check task contains correct devices "<devices>" and other details
     #And I assign the task to me and "approve" the generated task
-    #Then The task status should update to "Completed"
+    #Then The completed task status should update to "Completed"
     Examples:
       | user             | logBackInAas | devices                                                                                  |
       | manufacturerAuto | businessAuto | Blood donor set,Laboratory freezer,Abdominal radial retractor,Environmental air sampling |

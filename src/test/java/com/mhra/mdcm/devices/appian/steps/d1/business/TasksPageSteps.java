@@ -45,6 +45,8 @@ public class TasksPageSteps extends CommonSteps {
                 contains = true;
                 scenarioSession.putData(SessionKey.position, count);
             } else {
+                taskSection = tasksPage.clickOnTaskNumber(0, taskType);
+                isCorrectTask = taskSection.isCorrectTask(orgName);
                 count++;
             }
         } while (!contains && count <= 5);
@@ -233,8 +235,8 @@ public class TasksPageSteps extends CommonSteps {
         assertThat("Task not found for organisation : " + orgName, isTaskVisible, is(equalTo(false)));
     }
 
-    @And("^The task status should update to \"([^\"]*)\"$")
-    public void theTaskStatusShouldUpdateTo(String expectedStatus) throws Throwable {
+    @And("^The completed task status should update to \"([^\"]*)\"$")
+    public void theCompletedTaskStatusShouldUpdateTo(String expectedStatus) throws Throwable {
 
         boolean tasks = mainNavigationBar.isCorrectPage("Tasks");
         if(!tasks) {
@@ -247,8 +249,12 @@ public class TasksPageSteps extends CommonSteps {
         taskSection = taskSection.sortBy("Submitted", 2);
 
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
-        boolean isCorrectTask = taskSection.isOrganisationDisplayedOnLink(orgName);
-        assertThat("Task not found in completed list : " + orgName, isCorrectTask, is(equalTo(true)));
+
+        boolean isTaskStatusCorrect = taskSection.isCompletedTaskStatusCorrect(orgName, expectedStatus);
+        assertThat("Expected completed task status : " + expectedStatus, isTaskStatusCorrect, is(equalTo(true)));
+
+        //boolean isCorrectTask = taskSection.isOrganisationDisplayedOnLink(orgName);
+        //assertThat("Task not found in completed list : " + orgName, isCorrectTask, is(equalTo(true)));
     }
 
 

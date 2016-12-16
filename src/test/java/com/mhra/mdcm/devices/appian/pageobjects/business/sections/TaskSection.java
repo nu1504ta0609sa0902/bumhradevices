@@ -18,9 +18,9 @@ import java.util.List;
 
 /**
  * Created by TPD_Auto
- *
+ * <p>
  * TaskSection and WorkInProgress section
- *
+ * <p>
  * WorkInProgress section will replace TaskSection
  */
 @Component
@@ -39,7 +39,7 @@ public class TaskSection extends _Page {
     @FindBy(xpath = ".//button[.='Accept Registration']")
     WebElement acceptRegistration;
     @FindBy(xpath = ".//button[.='Accept Registration']//following::button[1]") //Stupid to have 2 buttons called Reject on same page
-    WebElement rejectRegistration;
+            WebElement rejectRegistration;
     @FindBy(xpath = ".//button[.='Approve']")
     WebElement approveTask;
     @FindBy(xpath = ".//button[.='Approve']//following::button[1]")
@@ -83,7 +83,7 @@ public class TaskSection extends _Page {
             WaitUtils.waitForElementToBeVisible(driver, By.xpath(".//h4"), TIMEOUT_10_SECOND, false);
             boolean contains = taskHeading.getText().contains(orgName);
             return contains;
-        }catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
@@ -117,8 +117,9 @@ public class TaskSection extends _Page {
 
     /**
      * Rejecting a taskSection requires user to verify a reason
-     *
+     * <p>
      * So work flow is different
+     *
      * @return
      */
     public TaskSection rejectRegistrationTask() {
@@ -139,23 +140,23 @@ public class TaskSection extends _Page {
 
     public TasksPage enterRejectionReason(String reason, String randomTestComment) {
         WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
-        if(reason.contains("Other")){
+        if (reason.contains("Other")) {
             //Comment is mandatory
             WaitUtils.waitForElementToBeClickable(driver, other, TIMEOUT_10_SECOND, false);
             other.click();
             PageFactory.initElements(driver, this);
             WaitUtils.nativeWaitInSeconds(1);
             WaitUtils.waitForElementToBeClickable(driver, commentArea, TIMEOUT_10_SECOND, false);
-        }else if(reason.contains("Account already exists")){
+        } else if (reason.contains("Account already exists")) {
             WaitUtils.waitForElementToBeClickable(driver, reasonAccountAlreadyExists, TIMEOUT_10_SECOND, false);
             PageUtils.clickIfVisible(driver, reasonAccountAlreadyExists);
-        }else if(reason.contains("Not registered in the UK")){
+        } else if (reason.contains("Not registered in the UK")) {
             WaitUtils.waitForElementToBeClickable(driver, reasonNotRegisteredInUk, TIMEOUT_10_SECOND, false);
             PageUtils.clickIfVisible(driver, reasonNotRegisteredInUk);
-        }else if(reason.contains("No authorisation evidence provided")){
+        } else if (reason.contains("No authorisation evidence provided")) {
             WaitUtils.waitForElementToBeClickable(driver, reasonNoAuthorisationEvidenceProvided, TIMEOUT_10_SECOND, false);
             PageUtils.clickIfVisible(driver, reasonNoAuthorisationEvidenceProvided);
-        }else if(reason.contains("Non-qualifying party")){
+        } else if (reason.contains("Non-qualifying party")) {
             WaitUtils.waitForElementToBeClickable(driver, reasonNonQualifyingParty, TIMEOUT_10_SECOND, false);
             PageUtils.clickIfVisible(driver, reasonNonQualifyingParty);
         }
@@ -171,8 +172,8 @@ public class TaskSection extends _Page {
 
     public TaskSection sortBy(String sortBy, int numberOfTimesToClick) {
         WaitUtils.waitForElementToBeClickable(driver, submitted, TIMEOUT_DEFAULT, false);
-        if(sortBy.equals("Submitted")){
-            for(int c = 0; c < numberOfTimesToClick; c++) {
+        if (sortBy.equals("Submitted")) {
+            for (int c = 0; c < numberOfTimesToClick; c++) {
                 submitted.click();
                 WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Doesnotexists"), TIMEOUT_1_SECOND, 3);
             }
@@ -182,7 +183,7 @@ public class TaskSection extends _Page {
     }
 
     public TaskSection clickOnTaskName(String orgName) {
-        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(orgName), TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(orgName), TIMEOUT_10_SECOND, false);
         WebElement name = driver.findElement(By.partialLinkText(orgName));
         PageUtils.doubleClick(driver, name);
         return new TaskSection(driver);
@@ -192,7 +193,7 @@ public class TaskSection extends _Page {
         boolean isVisible = true;
         try {
             WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(orgName), TIMEOUT_5_SECOND, false);
-        }catch (Exception e){
+        } catch (Exception e) {
             isVisible = false;
         }
         return isVisible;
@@ -210,7 +211,7 @@ public class TaskSection extends _Page {
 
         //Verify status is correct
         boolean statusMatched = false;
-        if(text!=null && text.contains(expectedStatus)){
+        if (text != null && text.contains(expectedStatus)) {
             statusMatched = true;
         }
 
@@ -222,28 +223,36 @@ public class TaskSection extends _Page {
 
         //Displayed list of gmdns
         List<String> gmdns = new ArrayList<>();
-        for(WebElement el: listOfGMDNDefinitions){
+        for (WebElement el : listOfGMDNDefinitions) {
             gmdns.add(el.getText());
         }
 
         //Verify it matches with my expected data set
         boolean allFound = true;
-        for(String d: data){
+        for (String d : data) {
             boolean foundOne = false;
-            for(String gmdn: gmdns){
-                if(gmdn.contains(d)){
+            for (String gmdn : gmdns) {
+                if (gmdn.contains(d)) {
                     foundOne = true;
                     break;
                 }
             }
 
             //All of them must exists, therefore foundOne should be true
-            if(!foundOne){
+            if (!foundOne) {
                 allFound = false;
                 break;
             }
         }
 
         return allFound;
+    }
+
+    public boolean isCompletedTaskStatusCorrect(String orgName, String expectedStatus) {
+        By by = By.xpath(".//td[.='" + orgName + "']//following::td[3]");
+        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_5_SECOND, false);
+        boolean contains = driver.findElement(by).getText().contains(expectedStatus);
+        return contains;
+
     }
 }

@@ -227,7 +227,7 @@ public class ManufacturerDetails extends _Page {
 
     public ProductDetails viewProduct(DeviceData deviceData) {
         if(deviceData.gmdnTermOrDefinition!=null) {
-            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(deviceData.gmdnTermOrDefinition), TIMEOUT_5_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(deviceData.gmdnTermOrDefinition), TIMEOUT_10_SECOND, false);
             driver.findElement(By.partialLinkText(deviceData.gmdnTermOrDefinition)).click();
         }
         return new ProductDetails(driver);

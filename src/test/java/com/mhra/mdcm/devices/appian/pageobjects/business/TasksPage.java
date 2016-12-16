@@ -44,7 +44,7 @@ public class TasksPage extends _Page {
 
     public TaskSection clickOnTaskNumber(int count, String link) {
         WaitUtils.nativeWaitInSeconds(1);
-        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText("Work In Progress"), TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText("Work In Progress"), TIMEOUT_DEFAULT, false);
         //WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(link), TIMEOUT_5_SECOND, false);
         try {
             if (link.contains("New Account")) {

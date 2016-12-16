@@ -176,7 +176,7 @@ public class AddDevices extends _Page {
     public boolean isDeviceTypeCorrect() {
         boolean allCorrect = false;
 
-        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".GFWJSJ4DCW label"), TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".GFWJSJ4DCW label"), TIMEOUT_10_SECOND, false);
         for (WebElement e : listOfDeviceTypes) {
             String text = e.getText();
             if (text.toLowerCase().contains("general medical device") || text.toLowerCase().contains("in vitro diagnostic device") ||
@@ -523,7 +523,7 @@ public class AddDevices extends _Page {
 
     public AddDevices proceedToPayment() {
         WaitUtils.nativeWaitInSeconds(1);
-        WaitUtils.waitForElementToBeClickable(driver, btnProceedToPayment, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, btnProceedToPayment, TIMEOUT_20_SECOND, false);
         btnProceedToPayment.click();
         return new AddDevices(driver);
     }
@@ -536,7 +536,7 @@ public class AddDevices extends _Page {
     }
 
     public ExternalHomePage finish() {
-        WaitUtils.waitForElementToBeClickable(driver, btnFinish, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, btnFinish, TIMEOUT_10_SECOND, false);
         btnFinish.click();
         return new ExternalHomePage(driver);
     }
