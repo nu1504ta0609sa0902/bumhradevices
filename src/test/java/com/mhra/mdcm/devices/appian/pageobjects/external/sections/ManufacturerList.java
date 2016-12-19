@@ -135,7 +135,7 @@ public class ManufacturerList extends _Page {
         String registered = "";
         for(WebElement tr: listOfTableRows){
             try {
-                //WebElement link = tr.findElement(By.partialLinkText(name.toLowerCase()));
+                WebElement link = tr.findElement(By.partialLinkText(name));
                 registered = tr.findElement(By.xpath("td[4]")).getText();
             }catch (Exception ex){}
         }
@@ -159,7 +159,7 @@ public class ManufacturerList extends _Page {
         String country = "";
         for(WebElement tr: listOfTableRows){
             try {
-                //WebElement link = tr.findElement(By.partialLinkText(name));
+                WebElement link = tr.findElement(By.partialLinkText(name));
                 country = tr.findElement(By.xpath("td[3]")).getText();
             }catch (Exception ex){}
         }
