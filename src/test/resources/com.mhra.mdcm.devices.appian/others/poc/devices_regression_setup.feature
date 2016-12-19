@@ -98,16 +98,20 @@ Feature: Write PC for devices
       | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Blood       | true       | ford,hyundai       |
 
+  @setup
+  Scenario Outline: Reset manufacturer and authorisedRep account
+    Given I am logged into appian as "<user>" user
+    When I create a new account using business test harness page with following data
+      | accountType | <accountType> |
+      | countryName | <countryName> |
+    Then I should see a new task for the new account
+    When I assign the task to me and "<approveReject>" the generated task
+    Then The task with link "<link>" should be removed from tasks list
+    And The completed task status should update to "Completed"
+    When I search accounts for the stored organisation name
+    Then I should see at least <count> account matches
+    Examples:
+      | user         | accountType   | approveReject | count | countryName    | link                |
+      | businessAuto | manufacturer  | approve       | 1     | United Kingdom | New Account Request |
+      | businessAuto | authorisedRep | approve       | 1     | Netherland     | New Account Request |
 
-#  @setup
-#  Scenario Outline: Business users should be able to review manufacturer registration 2
-#    Given I am logged into appian as "<user>" user
-#    And I go to register a new manufacturer page
-#    When I create a new manufacturer using manufacturer test harness page with following data
-#      | accountType | <accountType> |
-#      | countryName | <countryName> |
-#    Then I should see stored manufacturer appear in the manufacturers list
-#    Examples:
-#      | user             | user2        | accountType  | countryName | deviceType             | deviceType             |
-#      | manufacturerAuto | businessAuto | manufacturer | Bangladesh  | General Medical Device | General Medical Device |
-#      #| authorisedRepAuto | businessAuto | manufacturer | Bangladesh  | General Medical Device | General Medical Device |
