@@ -176,7 +176,7 @@ public class AddDevices extends _Page {
     public boolean isDeviceTypeCorrect() {
         boolean allCorrect = false;
 
-        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".GFWJSJ4DCW label"), TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_10_SECOND, false);
         for (WebElement e : listOfDeviceTypes) {
             String text = e.getText();
             if (text.toLowerCase().contains("general medical device") || text.toLowerCase().contains("in vitro diagnostic device") ||
@@ -542,7 +542,8 @@ public class AddDevices extends _Page {
     }
 
     public boolean isGMDNValueDisplayed(DeviceData data) {
-        //WaitUtils.waitForElementToBeVisible(driver, By.xpath(".//th[.='GMDN definition']//following::a"), TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, btnAddAnotherDevice, TIMEOUT_15_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, btnProceedToPayment, TIMEOUT_15_SECOND, false);
         boolean isDisplayed = false;
         String valueToCheck = "";
 

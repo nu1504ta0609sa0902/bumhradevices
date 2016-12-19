@@ -10,8 +10,8 @@ Feature: As an account holder with access to the Device Registration Service
     Then I should see the correct manufacturer details
     Examples:
       | user              | status     |
-      | manufacturerAuto  | REGISTERED |
-      | authorisedRepAuto | REGISTERED |
+      | manufacturerAuto  | Registered |
+      | authorisedRepAuto | Registered |
 
   @regression @readonly @mdcm-14 @mdcm-21 @sprint3 @sprint5
   Scenario Outline: Verify correct device type options are displayed on add devices page
@@ -46,7 +46,7 @@ Feature: As an account holder with access to the Device Registration Service
       | manufacturerAuto | General Medical Device     | Blood          | false      | true          | true            | class1             | NB 0086 BSI  |                  |                   |
       | manufacturerAuto | General Medical Device     | Blood          | true       | true          | true            |                    |              |                  |                   |
       | manufacturerAuto | In Vitro Diagnostic Device | Laboratory     |            |               |                 | ivd general        |              |                  |                   |
-      | manufacturerAuto | System or Procedure Pack   | Air sampling   | false       | true          | true            |  class1                  | NB 0086 BSI  | true             | true              |
+      | manufacturerAuto | System or Procedure Pack   | Air sampling   | false      | true          | true            | class1             | NB 0086 BSI  | true             | true              |
       | manufacturerAuto | System or Procedure Pack   | Air sampling   | true       | true          | true            |                    | NB 0086 BSI  | true             | true              |
 
 
@@ -107,13 +107,14 @@ Feature: As an account holder with access to the Device Registration Service
       | relatedDeviceMeasuring | true               |
 #    Then I should see option to add another device
     And The gmdn code or term is "displayed" in summary section
-    When I remove the device with gmdn "<gmdnCodeD2>" code
+#    When I remove the device with gmdn "<gmdnCodeD2>" code
+    When I remove the stored device with gmdn code or definition
 #    Then I should see option to add another device
     Then The gmdn code or term is "removed" in summary section
     Examples:
-      | user             | deviceType             | gmdnDefinitionD1 | gmdnCodeD1 | gmdnDefinitionD2 | gmdnCodeD2 |
-      | manufacturerAuto | General Medical Device | Blood            |            |                  | 10003      |
-      | manufacturerAuto | General Medical Device |                  | 10003      | Blood            |            |
+      | user             | deviceType             | gmdnDefinitionD1 | gmdnCodeD1 | gmdnDefinitionD2  | gmdnCodeD2 |
+      | manufacturerAuto | General Medical Device | Blood            |            |                   | 10003      |
+      | manufacturerAuto | General Medical Device |                  | 10003      | Housekeeping soap |            |
 
   @regression @mdcm-162 @mdcm-485 @mdcm-374 @sprint5 @wip
   Scenario Outline: Users should be able to add devices to existing manufacturers and verify devices are added
@@ -143,5 +144,5 @@ Feature: As an account holder with access to the Device Registration Service
     And I should be able to view products related to stored devices
     Examples:
       | user             | logBackInAas | deviceType             | customMade | status     | gmdn            | riskClassification | notifiedBody |
-      | manufacturerAuto | businessAuto | General Medical Device | true       | REGISTERED | Blood donor set |                    |              |
-#      | authorisedRepAuto | businessAuto | General Medical Device | false       | REGISTERED | Blood vessel sizer | class1             | NB 0086 BSI  |
+      | manufacturerAuto | businessAuto | General Medical Device | true       | Registered | Blood donor set |                    |              |
+      | authorisedRepAuto | businessAuto | General Medical Device | false       | Registered | Blood vessel sizer | class1             | NB 0086 BSI  |

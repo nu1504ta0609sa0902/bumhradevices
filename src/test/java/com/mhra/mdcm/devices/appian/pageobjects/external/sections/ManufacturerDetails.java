@@ -93,8 +93,8 @@ public class ManufacturerDetails extends _Page {
     }
 
     public AddDevices clickAddDeviceBtn() {
-        WaitUtils.waitForElementToBeClickable(driver, addADevice, TIMEOUT_10_SECOND, false);
-        //WaitUtils.waitForElementToBeClickable(driver, amendRepresentativeParty, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeVisible(driver, addADevice, TIMEOUT_15_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, addADevice, TIMEOUT_15_SECOND, false);
         addADevice.click();
         return new AddDevices(driver);
     }

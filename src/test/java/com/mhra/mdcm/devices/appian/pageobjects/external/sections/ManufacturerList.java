@@ -60,7 +60,7 @@ public class ManufacturerList extends _Page {
     }
 
     public String getARandomManufacturerName() {
-        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".left>div>a"), TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".left>div>a"), TIMEOUT_20_SECOND, false);
         WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".left>div>a"), TIMEOUT_10_SECOND, false);
         int index = RandomDataUtils.getNumberBetween(0, listOfManufacturerNames.size() - 1);
         WebElement link = listOfManufacturerNames.get(index);
@@ -109,7 +109,7 @@ public class ManufacturerList extends _Page {
     }
 
     public int getNumberOfPages() {
-        WaitUtils.waitForElementToBeVisible(driver, itemCount, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeVisible(driver, itemCount, TIMEOUT_15_SECOND, false);
         WaitUtils.waitForElementToBeClickable(driver, itemCount, TIMEOUT_5_SECOND, false);
         try {
             String text = itemCount.getText();
@@ -135,7 +135,7 @@ public class ManufacturerList extends _Page {
         String registered = "";
         for(WebElement tr: listOfTableRows){
             try {
-                WebElement link = tr.findElement(By.partialLinkText(name));
+                //WebElement link = tr.findElement(By.partialLinkText(name.toLowerCase()));
                 registered = tr.findElement(By.xpath("td[4]")).getText();
             }catch (Exception ex){}
         }
@@ -159,7 +159,7 @@ public class ManufacturerList extends _Page {
         String country = "";
         for(WebElement tr: listOfTableRows){
             try {
-                WebElement link = tr.findElement(By.partialLinkText(name));
+                //WebElement link = tr.findElement(By.partialLinkText(name));
                 country = tr.findElement(By.xpath("td[3]")).getText();
             }catch (Exception ex){}
         }

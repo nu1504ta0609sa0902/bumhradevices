@@ -69,6 +69,14 @@ public class DeviceData {
 
     }
 
+    public String getGMDN() {
+        String gmdn = gmdnCode;
+        if(gmdn == null || gmdn.equals("")){
+            gmdn = gmdnTermOrDefinition;
+        }
+        return gmdn;
+    }
+
     @Override
     public String toString() {
         return "DeviceData{" +
@@ -90,4 +98,5 @@ public class DeviceData {
                 ", isConformsToCTS=" + isConformsToCTS +
                 '}';
     }
+
 }
