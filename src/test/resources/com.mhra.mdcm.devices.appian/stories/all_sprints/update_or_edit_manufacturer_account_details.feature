@@ -79,9 +79,9 @@ Feature: As a business and account holder, I want to be able to update party det
     Then I should see the changes "<keyValuePairs>" in my manufacturer details page
     Examples:
       | user              | keyValuePairs                                                             | status     |
-      | manufacturerAuto  | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website          | REGISTERED |
-      | manufacturerAuto  | contact.title,contact.firstname,contact.lastname,contact.job.title,contact.email,contact.telephone | REGISTERED |
-#      | authorisedRepAuto | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website | REGISTERED |
-#      | authorisedRepAuto | contact.title,contact.firstname,contact.lastname,contact.job.title,contact.email,contact.telephone          | REGISTERED |
+      | manufacturerAuto  | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website          | Registered |
+      | manufacturerAuto  | contact.title,contact.firstname,contact.lastname,contact.job.title,contact.email,contact.telephone | Registered |
+#      | authorisedRepAuto | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website | Registered |
+#      | authorisedRepAuto | contact.title,contact.firstname,contact.lastname,contact.job.title,contact.email,contact.telephone          | Registered |
 
 
