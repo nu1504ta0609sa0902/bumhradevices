@@ -67,7 +67,7 @@ public class TasksPageSteps extends CommonSteps {
         String registeredStatus = (String) scenarioSession.getData(SessionKey.organisationRegistered);
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
 
-        if(registeredStatus!=null && registeredStatus.equals("NOT REGISTERED")){
+        if(registeredStatus!=null && registeredStatus.toLowerCase().equals("not registered")){
             link = link.replace("Update","New");
         }
 
@@ -183,7 +183,7 @@ public class TasksPageSteps extends CommonSteps {
         String registeredStatus = (String) scenarioSession.getData(SessionKey.organisationRegistered);
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
 
-        if(registeredStatus!=null && registeredStatus.equals("NOT REGISTERED")){
+        if(registeredStatus!=null && registeredStatus.toLowerCase().equals("not registered")){
             link = link.replace("Update","New");
         }
 

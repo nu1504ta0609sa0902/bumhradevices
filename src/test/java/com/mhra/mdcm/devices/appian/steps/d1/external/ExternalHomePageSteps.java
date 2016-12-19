@@ -200,7 +200,7 @@ public class ExternalHomePageSteps extends CommonSteps {
 
         //If registered we need to click on a button, else devices page is displayed
         String registeredStatus = (String) scenarioSession.getData(SessionKey.organisationRegistered);
-        if(registeredStatus!=null && registeredStatus.equals("REGISTERED"))
+        if(registeredStatus!=null && registeredStatus.toLowerCase().equals("registered"))
             addDevices = manufacturerDetails.clickAddDeviceBtn();
 
         //Assumes we are in add device page
@@ -215,7 +215,7 @@ public class ExternalHomePageSteps extends CommonSteps {
     public void i_add_multiple_devices_to_selected_manufactuerer_of_type_with_following_data(Map<String, String> dataSets) throws Throwable {
         //If registered we need to click on a button, else devices page is displayed
         String registeredStatus = (String) scenarioSession.getData(SessionKey.organisationRegistered);
-        if(registeredStatus!=null && registeredStatus.equals("REGISTERED"))
+        if(registeredStatus!=null && registeredStatus.toLowerCase().equals("registered"))
             addDevices = manufacturerDetails.clickAddDeviceBtn();
 
         DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
@@ -241,7 +241,7 @@ public class ExternalHomePageSteps extends CommonSteps {
     public void iShouldSeeCorrectDeviceTypes() throws Throwable {
         //If registered we need to click on a button, else devices page is displayed
         String registeredStatus = (String) scenarioSession.getData(SessionKey.organisationRegistered);
-        if(registeredStatus!=null && registeredStatus.equals("REGISTERED"))
+        if(registeredStatus!=null && registeredStatus.toLowerCase().equals("registered"))
             addDevices = manufacturerDetails.clickAddDeviceBtn();
 
         boolean isCorrect = addDevices.isDeviceTypeCorrect();

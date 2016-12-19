@@ -32,11 +32,11 @@ Feature: As a business user, I want a task to be created each time a customer su
     Then The task with link "<link>" should be removed from tasks list
     And The completed task status should update to "Completed"
     When I search accounts for the stored organisation name
-    Then I should see at least <count> account matches
+    Then I should see no account matches
     Examples:
-      | user         | accountType   | approveReject | count | countryName | reason                             | link                |
-      | businessNoor | manufacturer  | reject        | 0     | Turkey      | Account already exists             | New Account Request |
-      | businessNoor | authorisedRep | reject        | 0     | Estonia     | No authorisation evidence provided | New Account Request |
+      | user         | accountType   | count | countryName | reason                             | link                |
+      | businessNoor | manufacturer  | 0     | Turkey      | Account already exists             | New Account Request |
+      | businessNoor | authorisedRep | 0     | Estonia     | No authorisation evidence provided | New Account Request |
 
 
   @regression @mdcm-15 @mdcm-39 @mdcm-186 @sprint2 @sprint3 @sprint5 @bug

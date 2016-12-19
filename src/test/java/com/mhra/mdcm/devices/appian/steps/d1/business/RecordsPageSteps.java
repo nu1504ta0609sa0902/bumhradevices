@@ -173,6 +173,13 @@ public class RecordsPageSteps extends CommonSteps {
         }
     }
 
+    @When("^I should see no account matches$")
+    public void i_should_see_no_account_matches() throws Throwable {
+        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
+        boolean atLeast1Match = accounts.atLeast1MatchFound(orgName);
+        Assert.assertThat("Expected to see no matches ", atLeast1Match, is(false));
+    }
+
 
     @When("^I view a randomly selected account$")
     public void i_view_a_randomly_selected_account() throws Throwable {
