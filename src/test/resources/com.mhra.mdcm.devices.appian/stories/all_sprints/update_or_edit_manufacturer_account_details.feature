@@ -53,8 +53,8 @@ Feature: As a business and account holder, I want to be able to update party det
       | user              | keyValuePairs                                                                      |
       | authorisedRepAuto | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website          |
       | manufacturerAuto  | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website          |
-      | authorisedRepNoor | org.name,org.address1,org.address2,org.city,org.postcode,org.telephone,org.website |
-      | manufacturerNoor  | org.name,org.address1,org.address2,org.city,org.postcode,org.telephone,org.website |
+      | authorisedRepNoor | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website |
+      | manufacturerNoor  | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website |
 
 
   @regression @readonly @mdcm-261 @mdcm-277 @sprint4 @sprint5

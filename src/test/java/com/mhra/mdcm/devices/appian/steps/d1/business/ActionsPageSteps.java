@@ -50,6 +50,11 @@ public class ActionsPageSteps extends CommonSteps {
     }
 
 
+    /**
+     * DON'T USE THE AUTOMATION ACCOUNT WITH THIS, UNLESS YOU WANT ALL THE DATA TO BE CLEANED
+     * @param dataSets
+     * @throws Throwable
+     */
     @When("^I create a new account using business test harness page with following data$")
     public void i_create_a_new_account_using_test_harness_page_with_following_data(Map<String, String> dataSets) throws Throwable {
 

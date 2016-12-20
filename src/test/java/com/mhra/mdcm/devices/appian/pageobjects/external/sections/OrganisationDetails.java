@@ -67,14 +67,17 @@ public class OrganisationDetails extends _Page {
 
     public OrganisationDetails updateFollowingFields(String keyValuePairToUpdate, AccountRequest updatedData) {
 
+        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_5_SECOND, false);
         String[] dataPairs = keyValuePairToUpdate.split(",");
 
         for (String pairs : dataPairs) {
 
             String key = pairs;
+            boolean orgNameUpdated = false;
 
             if (key.equals("org.name")) {
                 PageUtils.updateElementValue(driver, orgName, updatedData.organisationName, TIMEOUT_5_SECOND);
+                orgNameUpdated = true;
             }else if (key.equals("org.address1")) {
                 PageUtils.updateElementValue(driver, orgAddressLine1, updatedData.address1, TIMEOUT_5_SECOND);
             }else if (key.equals("org.address2")) {
@@ -92,6 +95,7 @@ public class OrganisationDetails extends _Page {
             }else if (key.equals("org.telephone")) {
                 PageUtils.updateElementValue(driver, orgTelephone, updatedData.telephone, TIMEOUT_5_SECOND);
             }else if (key.equals("org.website")) {
+                if(orgNameUpdated)
                 PageUtils.updateElementValue(driver, webSite, updatedData.website, TIMEOUT_5_SECOND);
             }
         }

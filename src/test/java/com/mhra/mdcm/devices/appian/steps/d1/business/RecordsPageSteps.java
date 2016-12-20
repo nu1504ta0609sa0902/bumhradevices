@@ -4,6 +4,7 @@ import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
+import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -196,6 +197,7 @@ public class RecordsPageSteps extends CommonSteps {
 
         //Edit the data now
         AccountRequest updatedData = new AccountRequest(scenarioSession);
+        updatedData.updateName(searchTerm);
         editAccounts = accounts.gotoEditAccountInformation();
         accounts = editAccounts.editAccountInformation(keyValuePairToUpdate, updatedData);
 

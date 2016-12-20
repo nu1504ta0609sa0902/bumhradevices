@@ -29,7 +29,7 @@ Feature: As a customer I want to register new manufacturers
     When I search accounts for the stored organisation name
     Then I should see at least 0 account matches
     Examples:
-      | user              | logBackInAs        | accountType  | countryName |
+      | user              | logBackInAs  | accountType  | countryName |
       | manufacturerAuto  | businessAuto | manufacturer | Bangladesh  |
       | authorisedRepAuto | businessAuto | manufacturer | Bangladesh  |
 
@@ -59,6 +59,6 @@ Feature: As a customer I want to register new manufacturers
     When I search accounts for the stored organisation name
     Then I should see at least <count> account matches
     Examples:
-      | user              | logBackInAs        | accountType   | approveReject | count | countryName    |
-      | manufacturerAuto  | businessAuto | manufacturer  | approve       | 1     | United Kingdom |
-      | authorisedRepAuto | businessAuto | authorisedRep | approve       | 1     | Holland     |
+      | user              | logBackInAs  | accountType   | approveReject | count | countryName |
+      | manufacturerAuto  | businessAuto | manufacturer  | approve       | 1     | Nepal       |
+      | authorisedRepAuto | businessAuto | authorisedRep | approve       | 1     | Belarus     |

@@ -180,6 +180,16 @@ public class AccountRequest {
         }
     }
 
+    public void updateName(String searchTerm) {
+        if(searchTerm.contains("anufacturer")){
+            organisationName = organisationName.replace("OrganisationTest", searchTerm);
+            website = website.replace("organisationtest", searchTerm);
+        }else{
+            organisationName = organisationName.replace("OrganisationTest", searchTerm);
+            website = website.replace("organisationtest", searchTerm);
+        }
+    }
+
     public void setUserDetails(String loggedInAs) {
         String[] data = loggedInAs.split("\\.");
         System.out.println(data);
@@ -235,4 +245,5 @@ public class AccountRequest {
 //                "\naitsAdverseIncidentTrackingSystem=" + aitsAdverseIncidentTrackingSystem +
                 '}';
     }
+
 }

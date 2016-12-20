@@ -11,7 +11,7 @@ Feature: Write PC for devices
     When I assign the task to me and "approve" the generated task
     Examples:
       | user             | logBackInAas | accountType  | countryName | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
-      | manufacturerAuto | businessAuto | manufacturer | Bangladesh  | Active Implantable Medical Devices | Blood       | true       | setmeup            |
+      | manufacturerAuto | businessAuto | manufacturer | Bangladesh  | Active Implantable Medical Devices | Blood          | true       | setmeup            |
 
 
   @setup
@@ -21,8 +21,8 @@ Feature: Write PC for devices
     And I update the organisation details with following data "<keyValuePairs>"
     Then I should see the changes "<keyValuePairs>" in my accounts page
     Examples:
-      | user              | keyValuePairs   |
-      | authorisedRepAuto | org.country |
+      | user              | keyValuePairs |
+      | authorisedRepAuto | org.country   |
 
   @setup
   Scenario Outline: Provide Indication of Devices Made By AuthorisedRep
@@ -40,7 +40,7 @@ Feature: Write PC for devices
     Then The task should be removed from tasks list
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Blood       | true       | setmeup            |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Blood          | true       | setmeup            |
 
 
   @setup
@@ -68,7 +68,7 @@ Feature: Write PC for devices
     Then I should see at least 0 account matches
     Examples:
       | user             | logBackInAas | accountType  | countryName    | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
-      | manufacturerAuto | businessAuto | manufacturer | United Kingdom | Active Implantable Medical Devices | Blood       | true       | setmeup            |
+      | manufacturerAuto | businessAuto | manufacturer | United Kingdom | Active Implantable Medical Devices | Blood          | true       | setmeup            |
 
 
   @setup
@@ -96,14 +96,17 @@ Feature: Write PC for devices
     Then I should see at least 0 account matches
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Blood       | true       | ford,hyundai       |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Blood          | true       | ford,hyundai       |
 
+
+#  DON'T USE THE AUTOMATION ACCOUNT WITH THIS, UNLESS YOU WANT ALL THE DATA TO BE CLEANED
   @setup
   Scenario Outline: Reset manufacturer and authorisedRep account
     Given I am logged into appian as "<user>" user
     When I create a new account using business test harness page with following data
-      | accountType | <accountType> |
-      | countryName | <countryName> |
+      | accountType           | <accountType>           |
+      | accountNameBeginsWith | <accountNameBeginsWith> |
+      | countryName           | <countryName>           |
     Then I should see a new task for the new account
     When I assign the task to me and "<approveReject>" the generated task
     Then The task with link "<link>" should be removed from tasks list
@@ -111,7 +114,20 @@ Feature: Write PC for devices
     When I search accounts for the stored organisation name
     Then I should see at least <count> account matches
     Examples:
-      | user         | accountType   | approveReject | count | countryName    | link                |
-      | businessAuto | manufacturer  | approve       | 1     | United Kingdom | New Account Request |
-      | businessAuto | authorisedRep | approve       | 1     | Netherland     | New Account Request |
+      | user         | accountType   | approveReject | count | countryName    | link                | accountNameBeginsWith |
+      | businessNoor | manufacturer  | approve       | 1     | United Kingdom | New Account Request | ManufacturerRT00      |
+      | businessNoor | authorisedRep | approve       | 1     | Netherland     | New Account Request | AuthorisedRepRT00     |
 
+
+  @setup
+  Scenario Outline: Setup an account so we can modifiy the organisation name
+    Given I am logged into appian as "<user>" user
+    When I go to records page and click on "<link>"
+    When I search for account with following text "<searchTerm>"
+    Then I should see at least 1 account matches
+    When I view a randomly searched account and update the following data "<keyValuePairs>"
+    Then I should see the changes "<keyValuePairs>" in the account page
+    Examples:
+      | user         | link     | searchTerm       | keyValuePairs |
+      | businessAuto | Accounts | ManufacturerRT00  | org.name      |
+      | businessAuto | Accounts | AuthorisedRepRT00 | org.name      |

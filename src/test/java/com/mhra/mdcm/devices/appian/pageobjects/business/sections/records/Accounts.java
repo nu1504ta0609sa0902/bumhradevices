@@ -127,12 +127,13 @@ public class Accounts extends _Page {
 
     public boolean atLeast1MatchFound(String searchText) {
         boolean atLeast1MatchFound = true;
-        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".appian-informationPanel b"), TIMEOUT_30_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".appian-informationPanel b"), TIMEOUT_40_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(searchText), TIMEOUT_5_SECOND, false);
         try{
-            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(searchText), TIMEOUT_5_SECOND, false);
             int actualCount = (listOfAccounts.size()-1)/2;
             atLeast1MatchFound = actualCount >= 1;
         }catch (Exception e){
+            log.error("Timeout : Trying to search");
             atLeast1MatchFound = false;
         }
 

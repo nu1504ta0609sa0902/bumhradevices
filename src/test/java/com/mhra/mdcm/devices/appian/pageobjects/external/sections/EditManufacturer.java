@@ -12,6 +12,7 @@ import org.openqa.selenium.support.FindBy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.sql.Time;
 import java.util.List;
 
 /**
@@ -84,6 +85,7 @@ public class EditManufacturer extends _Page {
 
     public EditManufacturer updateFollowingFields(String keyValuePairToUpdate, AccountRequest updatedData) {
 
+        WaitUtils.waitForElementToBeClickable(driver, submitBtn, TIMEOUT_5_SECOND, false);
         String[] dataPairs = keyValuePairToUpdate.split(",");
 
         for (String pairs : dataPairs) {
