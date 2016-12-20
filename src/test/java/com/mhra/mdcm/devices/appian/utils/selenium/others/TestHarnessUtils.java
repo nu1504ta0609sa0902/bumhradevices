@@ -25,6 +25,7 @@ public class TestHarnessUtils {
 
         if(dataSets!=null){
             String accountType = dataSets.get("accountType");
+            String accountNameBeginsWith = dataSets.get("accountNameBeginsWith");
             String countryName = dataSets.get("countryName");
 
             if(isNotEmptyOrNull(accountType)){
@@ -37,6 +38,9 @@ public class TestHarnessUtils {
             }
             if(isNotEmptyOrNull(countryName)){
                 defaultAccount.country = countryName;
+            }
+            if(isNotEmptyOrNull(accountNameBeginsWith)){
+                defaultAccount.organisationName = RandomDataUtils.getRandomTestName(accountNameBeginsWith);
             }
         }
 
@@ -58,6 +62,7 @@ public class TestHarnessUtils {
 
         if(dataSets!=null){
             String accountType = dataSets.get("accountType");
+            String accountNameBeginsWith = dataSets.get("accountNameBeginsWith");
             String countryName = dataSets.get("countryName");
 
             if(isNotEmptyOrNull(accountType)){
@@ -70,6 +75,9 @@ public class TestHarnessUtils {
             }
             if(isNotEmptyOrNull(countryName)){
                 defaultAccount.country = countryName;
+            }
+            if(isNotEmptyOrNull(accountNameBeginsWith)){
+                defaultAccount.organisationName = RandomDataUtils.getRandomTestName(accountNameBeginsWith);
             }
         }
 
