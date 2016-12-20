@@ -38,7 +38,7 @@
                 <configuration>
                     <argLine>-Dcurrent.browser=gc -Dcucumber.options="--tags @sprint1"</argLine>
                     <includes>
-                        <include>**/*1Test.java</include>
+                        <include>**/*AllTest.java</include>
                         <include>src/test/resources/log4j.xml</include>
                     </includes>
                 </configuration>

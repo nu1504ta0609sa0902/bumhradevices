@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "classpath:com.mhra.mdcm.devices.appian/stories/all_sprints",
         glue = {"classpath:com.mhra.mdcm.devices.appian.steps","classpath:com.mhra.mdcm.devices.appian.steps.common"},
-        plugin = {"pretty", "html:target/cucumber-html-report", "json:target/all_tests.json", "rerun:target/failedScenarios.txt"}
+        plugin = {"pretty", "html:target/cucumber-html-report.html", "json:target/cucumber.json", "rerun:target/failedScenarios.txt"}
         , monochrome = true, tags = {"~@ignore"}
 )
 public class RunAllTest {
