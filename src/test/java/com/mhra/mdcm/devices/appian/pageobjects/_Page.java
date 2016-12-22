@@ -24,7 +24,7 @@ public class _Page {
     public static final int TIMEOUT_40_SECOND = 40;
     public static final int TIMEOUT_50_SECOND = 50;
     public static final int TIMEOUT_60_SECOND = 60;
-    public static final int TIMEOUT_DEFAULT = TIMEOUT_20_SECOND;
+    public static final int TIMEOUT_DEFAULT = TIMEOUT_30_SECOND;
 
     public WebDriver driver;
     public final Logger log = LoggerFactory.getLogger(_Page.class);

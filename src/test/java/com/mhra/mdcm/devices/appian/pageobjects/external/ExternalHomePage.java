@@ -34,6 +34,9 @@ public class ExternalHomePage extends _Page {
     @FindBy(css = "Declare devices for")
     WebElement linkDeclareDevicesFor;
 
+    @FindBy(xpath = ".//*[contains(text(),'ype of device')]//following::input[1]")
+    WebElement generalMedicalDevice;
+
 
     @Autowired
     public ExternalHomePage(WebDriver driver) {
@@ -121,11 +124,17 @@ public class ExternalHomePage extends _Page {
 
 
     public ExternalHomePage provideIndicationOfDevicesMade(int index) {
-        WaitUtils.nativeWaitInSeconds(1);
+        WaitUtils.waitForElementToBePartOfDOM(driver, By.xpath(".//*[contains(text(),'ype of device')]//following::input[1]"), TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeVisible(driver, generalMedicalDevice, TIMEOUT_10_SECOND, false);
+
+        //Find element
+        WaitUtils.waitForElementToBePartOfDOM(driver, By.cssSelector(".GFWJSJ4DPV.GFWJSJ4DCAD input"), TIMEOUT_10_SECOND, false);
         List<WebElement> elements = driver.findElements(By.cssSelector(".GFWJSJ4DPV.GFWJSJ4DCAD input"));
         WebElement e = elements.get(index);
         WaitUtils.waitForElementToBeClickable(driver, e, TIMEOUT_10_SECOND, false);
+
         PageUtils.clickIfVisible(driver, e);
+        WaitUtils.nativeWaitInSeconds(3);
 
         return new ExternalHomePage(driver);
     }
@@ -135,13 +144,21 @@ public class ExternalHomePage extends _Page {
             driver.findElements(By.cssSelector(".gwt-RadioButton.GFWJSJ4DGAD.GFWJSJ4DCW>label")).get(0).click();
             driver.findElement(By.xpath(".//button[.='Next']")).click();
         }else{
+            WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//button[.='Submit']"), TIMEOUT_10_SECOND, false);
             driver.findElement(By.xpath(".//button[.='Submit']")).click();
         }
         return new ExternalHomePage(driver);
     }
 
     public void selectCustomMade(boolean isCustomMade) {
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//button[.='custom made']//following::input[1]"), TIMEOUT_3_SECOND, false);
-        driver.findElement(By.xpath(".//button[.='custom made']//following::input[1]")).click();
+        By customMadeYes = By.xpath(".//*[contains(text(),'custom made')]//following::input[1]");
+        By customMadeNo = By.xpath(".//*[contains(text(),'custom made)]//following::input[2]");
+        if(isCustomMade) {
+            WaitUtils.waitForElementToBeClickable(driver,customMadeYes , TIMEOUT_10_SECOND, false);
+            driver.findElement(customMadeYes).click();
+        }else{
+            WaitUtils.waitForElementToBeClickable(driver, customMadeNo, TIMEOUT_10_SECOND, false);
+            driver.findElement(customMadeNo).click();
+        }
     }
 }

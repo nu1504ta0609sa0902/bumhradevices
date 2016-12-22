@@ -58,6 +58,12 @@ public class ExternalHomePageSteps extends CommonSteps {
         Assert.assertThat("Organisation Name Expected : " + name, isCorrectOrgLoaded, Matchers.is(true));
     }
 
+    @And("^I go to register my organisations page$")
+    public void iGoToRegisterMyOrganisationPage() throws Throwable {
+        manufacturerList = externalHomePage.gotoListOfManufacturerPage();
+        createNewManufacturer = manufacturerList.registerMyOrganisation();
+    }
+
     @And("^I go to register a new manufacturer page$")
     public void iGoToRegisterANewManufacturerPage() throws Throwable {
         manufacturerList = externalHomePage.gotoListOfManufacturerPage();
@@ -338,17 +344,19 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     @And("^Provide indication of devices made$")
     public void provideIndicationOfDevicesMade() throws Throwable {
-        WaitUtils.nativeWaitInSeconds(5);
+        WaitUtils.nativeWaitInSeconds(7);
         for(int x = 0; x < 9; x++) {
             externalHomePage = externalHomePage.provideIndicationOfDevicesMade(x);
         }
 
         //custom made
-        //externalHomePage.selectCustomMade(true);
+        externalHomePage.selectCustomMade(true);
 
         //Submit devices made
         externalHomePage = externalHomePage.submitIndicationOfDevicesMade(true);
         externalHomePage = externalHomePage.submitIndicationOfDevicesMade(false);
+
+        WaitUtils.nativeWaitInSeconds(5);
 
         System.out.println("DONE");
     }

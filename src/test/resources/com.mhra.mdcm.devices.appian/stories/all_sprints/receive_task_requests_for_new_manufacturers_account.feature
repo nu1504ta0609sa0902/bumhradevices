@@ -39,7 +39,7 @@ Feature: As a business user, I want a task to be created each time a customer su
       | businessNoor | authorisedRep | 0     | Estonia     | No authorisation evidence provided | New Account Request |
 
 
-  @regression @mdcm-15 @mdcm-39 @mdcm-186 @sprint2 @sprint3 @sprint5 @bug
+  @regression @mdcm-15 @mdcm-39 @mdcm-186 @sprint2 @sprint3 @sprint5 @bug @isReadyForRT
   Scenario Outline: Business users should be able to review and process manufacturer and device registration tasks
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page

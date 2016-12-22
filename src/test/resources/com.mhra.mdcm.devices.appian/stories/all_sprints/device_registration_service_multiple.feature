@@ -2,7 +2,7 @@ Feature: As an account holder with access to the device registration service
   I want to be able to enter more than one device at the point of registration
   So that I don't have to return to add further devices post-registration
 
-  @regression @mdcm-143 @sprint1
+  @regression @mdcm-143 @sprint1 @isReadyForRT
   Scenario Outline: Users should be able to add all 4 device type
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page

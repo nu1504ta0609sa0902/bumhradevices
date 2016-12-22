@@ -21,6 +21,8 @@ public class ManufacturerList extends _Page {
 
     @FindBy(css = "button.GFWJSJ4DCF")
     WebElement linkRegisterNewManufacturer;
+    @FindBy(xpath = ".//button[.='Register My Organisation']")
+    WebElement linkRegisterMyNewOrganisation;
 
     @FindBy(css = "td>div>a")
     List<WebElement> listOfManufacturerNames;
@@ -108,8 +110,14 @@ public class ManufacturerList extends _Page {
         return new CreateManufacturerTestsData(driver);
     }
 
+    public CreateManufacturerTestsData registerMyOrganisation() {
+        WaitUtils.waitForElementToBeClickable(driver, linkRegisterMyNewOrganisation, TIMEOUT_DEFAULT, false);
+        linkRegisterMyNewOrganisation.click();
+        return new CreateManufacturerTestsData(driver);
+    }
+
     public int getNumberOfPages() {
-        WaitUtils.waitForElementToBeVisible(driver, itemCount, TIMEOUT_15_SECOND, false);
+        WaitUtils.waitForElementToBeVisible(driver, itemCount, TIMEOUT_DEFAULT, false);
         WaitUtils.waitForElementToBeClickable(driver, itemCount, TIMEOUT_5_SECOND, false);
         try {
             String text = itemCount.getText();

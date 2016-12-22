@@ -78,6 +78,10 @@ public class TaskSection extends _Page {
     }
 
     public boolean isCorrectTask(String orgName) {
+        if(orgName==null){
+            return true;
+        }
+
         try {
             WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
             WaitUtils.waitForElementToBeVisible(driver, By.xpath(".//h4"), TIMEOUT_10_SECOND, false);

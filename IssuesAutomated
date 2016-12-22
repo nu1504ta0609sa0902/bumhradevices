@@ -5,7 +5,8 @@ Automated Issues:
     - @regression @regressionAll
     - @wip      - Work in progress (Work started)
     - @bug      - Bug blocking the test
-
+    - @isReadyForRT - Is system ready for regression testing
+                - If not then set it up @setup
 
     EPICS:
     - @mdcm-

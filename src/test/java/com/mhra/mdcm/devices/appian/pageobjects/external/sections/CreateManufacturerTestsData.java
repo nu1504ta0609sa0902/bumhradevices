@@ -88,7 +88,7 @@ public class CreateManufacturerTestsData extends _Page {
      */
     public AddDevices createTestOrganisation(AccountManufacturerRequest ar) throws Exception {
         //WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".gwt-SuggestBox"), TIMEOUT_10_SECOND, false);
-        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_DEFAULT, false);
         orgName.sendKeys(ar.organisationName);
         selectCountryFromAutoSuggests(driver, ".gwt-SuggestBox", ar.country, false);
 
