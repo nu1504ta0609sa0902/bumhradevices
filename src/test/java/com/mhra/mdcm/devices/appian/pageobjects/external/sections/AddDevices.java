@@ -158,7 +158,7 @@ public class AddDevices extends _Page {
     List<WebElement> listOfFileUploads;
 
     //Device Summary
-    @FindBy(xpath = ".//th[.='GMDN definition']//following::a")
+    @FindBy(xpath = ".//th[.='GMDN term']//following::a")
     List<WebElement> listOfGMDNLinksInSummary;
 
 
@@ -221,6 +221,7 @@ public class AddDevices extends _Page {
         }
 
         //Business doing testing so don't do any write only tests
+        WaitUtils.nativeWaitInSeconds(1);
         WaitUtils.waitForElementToBeClickable(driver, btnConfirm, TIMEOUT_5_SECOND, false);
         PageUtils.doubleClick(driver, btnConfirm);
 
@@ -249,10 +250,13 @@ public class AddDevices extends _Page {
 
     private void addProcedurePackDevice(DeviceData dd) {
         searchByGMDN(dd);
-        customMade(dd);
+//        customMade(dd); removed since 04/01/2017
+//        deviceMeasuring(dd); removed since 04/01/2017
         deviceSterile(dd);
-        deviceMeasuring(dd);
-        notifiedBody(dd);
+
+        if (dd.isDeviceSterile || dd.isDeviceMeasuring) {
+            notifiedBody(dd);
+        }
         packIncorporated(dd);
         devicesCompatible(dd);
         //saveProduct(dd);
@@ -278,6 +282,9 @@ public class AddDevices extends _Page {
                 if (dd.riskClassification.toLowerCase().contains("list a"))
                     conformToCTS(dd);
                 saveProduct(dd);
+
+                //Remove this if we find a better solution
+                WaitUtils.nativeWaitInSeconds(1);
             } else {
                 for (String x : dd.listOfProductName) {
                     dd.productName = x;
@@ -300,11 +307,14 @@ public class AddDevices extends _Page {
     private void addGeneralMedicalDevice(DeviceData dd) {
         searchByGMDN(dd);
         customMade(dd);
-        deviceSterile(dd);
-        deviceMeasuring(dd);
-        if (!dd.isCustomMade) {
-            riskClassification(dd);
-            notifiedBody(dd);
+
+        if(!dd.isCustomMade) {
+            deviceSterile(dd);
+            deviceMeasuring(dd);
+            if (!dd.isCustomMade) {
+                riskClassification(dd);
+                notifiedBody(dd);
+            }
         }
         //saveProduct(dd);
     }
@@ -384,9 +394,9 @@ public class AddDevices extends _Page {
             pdProductName.sendKeys(dd.productName);
         } else if (dd.productMake != null || !dd.productMake.equals("")) {
             pdProductMake.sendKeys(dd.productMake);
+            pdProductModel.sendKeys(dd.productModel);
         }
 
-        pdProductModel.sendKeys(dd.productModel);
     }
 
     private void devicesCompatible(DeviceData dd) {
@@ -536,7 +546,7 @@ public class AddDevices extends _Page {
     }
 
     public ExternalHomePage finish() {
-        WaitUtils.waitForElementToBeClickable(driver, btnFinish, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, btnFinish, TIMEOUT_15_SECOND, false);
         btnFinish.click();
         return new ExternalHomePage(driver);
     }

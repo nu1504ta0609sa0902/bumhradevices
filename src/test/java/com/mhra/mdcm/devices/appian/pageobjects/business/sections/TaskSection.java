@@ -223,12 +223,12 @@ public class TaskSection extends _Page {
     }
 
     public boolean isDevicesDisplayedCorrect(String deviceList) {
-        String[] data = deviceList.split(",");
+        String[] data = deviceList.toLowerCase().split(",");
 
         //Displayed list of gmdns
         List<String> gmdns = new ArrayList<>();
         for (WebElement el : listOfGMDNDefinitions) {
-            gmdns.add(el.getText());
+            gmdns.add(el.getText().toLowerCase());
         }
 
         //Verify it matches with my expected data set

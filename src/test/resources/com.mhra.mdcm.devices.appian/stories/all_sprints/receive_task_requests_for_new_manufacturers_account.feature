@@ -95,8 +95,8 @@ Feature: As a business user, I want a task to be created each time a customer su
     And The completed task status should update to "Completed"
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType                 | gmdnDefinition | riskClassification | listOfProductNames | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
-      | manufacturerAuto  | businessAuto | manufacturer  | Bangladesh  | In Vitro Diagnostic Device | Laboratory     | list a             | ford,hyundai       | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | In Vitro Diagnostic Device | Laboratory     | list a             | ford,honda         | ford        | focus        | NB 0086 BSI  | true              | true       | false         |
+      | manufacturerAuto  | businessAuto | manufacturer  | Bangladesh  | In Vitro Diagnostic Device | Needle introducer     | list a             | ford,hyundai       | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | In Vitro Diagnostic Device | Needle introducer     | list a             | ford,honda         | ford        | focus        | NB 0086 BSI  | true              | true       | false         |
 
 
   @regression @mdcm-161 @mdcm-232 @sprint4 @wip

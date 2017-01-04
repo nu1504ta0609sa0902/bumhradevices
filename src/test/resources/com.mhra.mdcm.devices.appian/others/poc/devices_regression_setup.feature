@@ -17,8 +17,8 @@ Feature: Reset all the information related to a manufacturer and authorisedRep
     Then I should see at least <count> account matches
     Examples:
       | user         | accountType   | approveReject | count | countryName    | link                | accountNameBeginsWith |
-      | businessNoor | manufacturer  | approve       | 1     | United Kingdom | New Account Request | ManufacturerRT00      |
-      | businessNoor | authorisedRep | approve       | 1     | Netherland     | New Account Request | AuthorisedRepRT00     |
+      | businessNoor | manufacturer  | approve       | 1     | United Kingdom | New Account Request | ManufacturerRT01      |
+      | businessNoor | authorisedRep | approve       | 1     | Netherland     | New Account Request | AuthorisedRepRT01     |
 
 
   @setup
@@ -32,19 +32,19 @@ Feature: Reset all the information related to a manufacturer and authorisedRep
       | authorisedRepAuto | org.country   |
 
 
-  @setup
-  Scenario Outline: Provide Indication of Devices Made By Manufacturer and AuthorisedRep
-    Given I am logged into appian as "<user>" user
-    And I go to list of manufacturers page
-    And Provide indication of devices made
-    When I logout of the application
-    And I am logged into appian as "<logBackInAas>" user
-    Then I view new task with link "New Service Request" for the new account
-    When I assign the task to me and "approve" the generated task
-    Examples:
-      | user              | logBackInAas |
-      | manufacturerAuto  | businessAuto |
-      | authorisedRepAuto | businessAuto |
+#  @setup
+#  Scenario Outline: Provide Indication of Devices Made By Manufacturer and AuthorisedRep
+#    Given I am logged into appian as "<user>" user
+#    And I go to list of manufacturers page
+#    And Provide indication of devices made
+#    When I logout of the application
+#    And I am logged into appian as "<logBackInAas>" user
+#    Then I view new task with link "New Service Request" for the new account
+#    When I assign the task to me and "approve" the generated task
+#    Examples:
+#      | user              | logBackInAas |
+#      | authorisedRepAuto | businessAuto |
+#      | manufacturerAuto  | businessAuto |
 
 
   @setup

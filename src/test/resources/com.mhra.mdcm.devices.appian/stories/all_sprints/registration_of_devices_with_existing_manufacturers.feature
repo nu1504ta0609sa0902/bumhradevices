@@ -45,7 +45,7 @@ Feature: As an account holder with access to the Device Registration Service
       | user             | deviceType                 | gmdnDefinition | customMade | deviceSterile | deviceMeasuring | riskClassification | notifiedBody | packIncorporated | devicesCompatible |
       | manufacturerAuto | General Medical Device     | Blood          | false      | true          | true            | class1             | NB 0086 BSI  |                  |                   |
       | manufacturerAuto | General Medical Device     | Blood          | true       | true          | true            |                    |              |                  |                   |
-      | manufacturerAuto | In Vitro Diagnostic Device | Laboratory     |            |               |                 | ivd general        |              |                  |                   |
+      | manufacturerAuto | In Vitro Diagnostic Device | Needle introducer     |            |               |                 | ivd general        |              |                  |                   |
       | manufacturerAuto | System or Procedure Pack   | Air sampling   | false      | true          | true            | class1             | NB 0086 BSI  | true             | true              |
       | manufacturerAuto | System or Procedure Pack   | Air sampling   | true       | true          | true            |                    | NB 0086 BSI  | true             | true              |
 

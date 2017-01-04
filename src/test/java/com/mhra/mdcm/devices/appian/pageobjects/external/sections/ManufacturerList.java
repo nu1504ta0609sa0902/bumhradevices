@@ -117,26 +117,41 @@ public class ManufacturerList extends _Page {
     }
 
     public int getNumberOfPages() {
-        WaitUtils.waitForElementToBeVisible(driver, itemCount, TIMEOUT_DEFAULT, false);
-        WaitUtils.waitForElementToBeClickable(driver, itemCount, TIMEOUT_5_SECOND, false);
-        try {
-            String text = itemCount.getText();
-            String total = text.substring(text.indexOf("of") + 3);
-            String itemPerPage = text.substring(text.indexOf("-") + 1, text.indexOf(" of "));
+        boolean isPaginationDisplayed = isPaginationDisplayed();
 
-            int tt = Integer.parseInt(total.trim());
-            int noi = Integer.parseInt(itemPerPage.trim());
+        if(isPaginationDisplayed) {
+            WaitUtils.waitForElementToBeClickable(driver, itemCount, TIMEOUT_5_SECOND, false);
+            try {
+                String text = itemCount.getText();
+                String total = text.substring(text.indexOf("of") + 3);
+                String itemPerPage = text.substring(text.indexOf("-") + 1, text.indexOf(" of "));
 
-            int reminder = tt % noi;
-            int numberOfPage = (tt/noi) - 1;
-            if(reminder > 0){
-                numberOfPage++;
+                int tt = Integer.parseInt(total.trim());
+                int noi = Integer.parseInt(itemPerPage.trim());
+
+                int reminder = tt % noi;
+                int numberOfPage = (tt / noi) - 1;
+                if (reminder > 0) {
+                    numberOfPage++;
+                }
+
+                return numberOfPage;
+            } catch (Exception e) {
+                return 0;
             }
-
-            return numberOfPage;
-        }catch (Exception e){
+        }else{
             return 0;
         }
+    }
+
+    private boolean isPaginationDisplayed() {
+        boolean isDisplayed = true;
+        try{
+            WaitUtils.waitForElementToBeVisible(driver, itemCount, TIMEOUT_10_SECOND, false);
+        }catch (Exception e){
+            isDisplayed = false;
+        }
+        return isDisplayed;
     }
 
     public String getRegistrationStatus(String name) {

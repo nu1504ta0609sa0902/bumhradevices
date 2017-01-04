@@ -14,13 +14,23 @@ Feature: As an account holder with access to the device registration service
       | relatedDeviceSterile   | true                   |
       | relatedDeviceMeasuring | true                   |
     When I add another device to SELECTED manufacturer with following data
+      | deviceType             | System or Procedure Pack |
+      | gmdnDefinition         | Acetabular Shell         |
+      | riskClassification     | class1                   |
+      | notifiedBody           | NB 0086 BSI              |
+      | customMade             | true                     |
+      | relatedDeviceSterile   | true                     |
+      | relatedDeviceMeasuring | true                     |
+      | packIncorporated       | false                    |
+      | devicesCompatible      | true                     |
+    When I add another device to SELECTED manufacturer with following data
       | deviceType     | Active Implantable Medical Devices |
       | gmdnDefinition | Housekeeping soap                  |
       | customMade     | true                               |
       | productName    | lordhelpme                         |
     When I add another device to SELECTED manufacturer with following data
       | deviceType         | In Vitro Diagnostic Device |
-      | gmdnDefinition     | Sodium kit                 |
+      | gmdnDefinition     | Needle introducer          |
       | riskClassification | list a                     |
       | notifiedBody       | NB 0086 BSI                |
       | productName        | premierLeague              |
@@ -29,16 +39,6 @@ Feature: As an account holder with access to the device registration service
       | subjectToPerfEval  | true                       |
       | newProduct         | true                       |
       | conformsToCTS      | true                       |
-    When I add another device to SELECTED manufacturer with following data
-      | deviceType             | System or Procedure Pack   |
-      | gmdnDefinition         | Acetabular Shell |
-      | riskClassification     | class1                     |
-      | notifiedBody           | NB 0086 BSI                |
-      | customMade             | true                       |
-      | relatedDeviceSterile   | true                       |
-      | relatedDeviceMeasuring | true                       |
-      | packIncorporated       | true                       |
-      | devicesCompatible      | true                       |
     Then I should see option to add another device
     And The gmdn code or term is "displayed" in summary section
     When Proceed to payment and confirm submit device details
@@ -50,6 +50,6 @@ Feature: As an account holder with access to the device registration service
     #And I assign the task to me and "approve" the generated task
     #Then The completed task status should update to "Completed"
     Examples:
-      | user             | logBackInAas | devices                                                                                  |
-      | manufacturerAuto | businessAuto | Blood donor set,Laboratory freezer,Abdominal radial retractor,Environmental air sampling |
+      | user             | logBackInAas | devices                                                                  |
+      | manufacturerAuto | businessAuto | Surgical Guillotine,Acetabular Shell,Housekeeping soap,Needle introducer |
 
