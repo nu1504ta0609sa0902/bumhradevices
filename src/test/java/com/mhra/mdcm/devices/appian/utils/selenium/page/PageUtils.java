@@ -121,7 +121,7 @@ public class PageUtils {
     }
 
     public static void uploadDocument(WebElement element, String fileName, int timeWaitForItToBeClickable, int timeWaitForDocumentUploadToFinish){
-        String fullPath = FileUtils.getFileFullPath("tmp" + File.separator + "data" + File.separator + "reps", fileName);
+        String fullPath = FileUtils.getFileFullPath("tmp" + File.separator + "data" + File.separator + "pdfs", fileName);
         WaitUtils.nativeWaitInSeconds(timeWaitForItToBeClickable);
         element.sendKeys(fullPath);
         //We will have to wait for uploading to finish
