@@ -19,11 +19,11 @@ Feature: As an account holder with access to the Device Registration Service I w
       | conformsToCTS      | <conformsToCTS>      |
     Then I should see option to add another device
     Examples:
-      | user             | deviceType                 | gmdnDefinition | riskClassification | productName | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
-      | manufacturerAuto | In Vitro Diagnostic Device | Needle introducer     | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
-      | manufacturerAuto | In Vitro Diagnostic Device | Needle introducer     | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | false         |
-      | manufacturerAuto | In Vitro Diagnostic Device | Needle introducer     | list b             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
-      | manufacturerAuto | In Vitro Diagnostic Device | Needle introducer     | self-test          | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      | user             | deviceType                 | gmdnDefinition    | riskClassification | productName | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
+      | manufacturerAuto | In Vitro Diagnostic Device | Needle introducer | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      | manufacturerAuto | In Vitro Diagnostic Device | Needle introducer | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | false         |
+      | manufacturerAuto | In Vitro Diagnostic Device | Needle introducer | list b             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      | manufacturerAuto | In Vitro Diagnostic Device | Needle introducer | self-test          | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
 
   @regression @mdcm-183 @sprint3
@@ -40,7 +40,7 @@ Feature: As an account holder with access to the Device Registration Service I w
     Examples:
       | user             | deviceType                         | gmdnDefinition | customMade | productName |
       | manufacturerAuto | Active Implantable Medical Devices | Blood          | true       | ford focus  |
-      | manufacturerAuto | Active Implantable Medical Devices | Blood          | false      | ford focus  |
+#      | manufacturerAuto | Active Implantable Medical Devices | Blood          | false      | ford focus  | can't add this
 
 
   @regression @mdcm-183 @sprint3
@@ -61,11 +61,11 @@ Feature: As an account holder with access to the Device Registration Service I w
       | listOfProductNames | <listOfProductNames> |
     Then I should see option to add another device
     Examples:
-      | user             | deviceType                 | gmdnDefinition | riskClassification | listOfProductNames | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
-      | manufacturerAuto | In Vitro Diagnostic Device | Needle introducer     | list a             | ford,hyundai       | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
-      | manufacturerAuto | In Vitro Diagnostic Device | Needle introducer     | list a             | ford,honda         | ford        | focus        | NB 0086 BSI  | true              | true       | false         |
-      | manufacturerAuto | In Vitro Diagnostic Device | Needle introducer     | list b             | honda,ferrari      | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
-      | manufacturerAuto | In Vitro Diagnostic Device | Needle introducer     | self-test          | ferrari,peugeot    | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      | user             | deviceType                 | gmdnDefinition    | riskClassification | listOfProductNames | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
+      | manufacturerAuto | In Vitro Diagnostic Device | Needle introducer | list a             | ford,hyundai       | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      | manufacturerAuto | In Vitro Diagnostic Device | Needle introducer | list a             | ford,honda         | ford        | focus        | NB 0086 BSI  | true              | true       | false         |
+      | manufacturerAuto | In Vitro Diagnostic Device | Needle introducer | list b             | honda,ferrari      | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      | manufacturerAuto | In Vitro Diagnostic Device | Needle introducer | self-test          | ferrari,peugeot    | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
 
   @regression @mdcm-183 @mdcm-240 @sprint3 @sprint4 @wip
@@ -87,5 +87,5 @@ Feature: As an account holder with access to the Device Registration Service I w
     Examples:
       | user             | logBackInAas | deviceType                         | gmdnDefinition | customMade | listOfProductNames | link                                     |
       | manufacturerAuto | businessAuto | Active Implantable Medical Devices | Blood          | true       | ford,hyundai       | Update Manufacturer Registration Request |
-      | manufacturerAuto | businessAuto | Active Implantable Medical Devices | Blood          | false      | vauxhall,honda     | Update Manufacturer Registration Request |
+#      | manufacturerAuto | businessAuto | Active Implantable Medical Devices | Blood          | false      | vauxhall,honda     | Update Manufacturer Registration Request |
 
