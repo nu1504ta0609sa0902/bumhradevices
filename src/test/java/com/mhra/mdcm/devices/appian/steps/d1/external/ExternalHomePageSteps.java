@@ -310,13 +310,12 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     @When("^I click on random manufacturer with status \"([^\"]*)\"$")
     public void i_click_on_random_manufacturer(String status) throws Throwable {
-        //manufacturerList.sortBy("Registration Status", 2);
 
         String name = manufacturerList.getARandomManufacturerName();
         String registered = manufacturerList.getRegistrationStatus(name);
         String country = manufacturerList.getOrganisationCountry(name);
 
-        int nop = manufacturerList.getNumberOfPages()-1;
+        int nop = manufacturerList.getNumberOfPages();
         int count = 0;
         while(registered!=null && !registered.toLowerCase().equals(status.toLowerCase())){
             count++;
@@ -340,6 +339,19 @@ public class ExternalHomePageSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.organisationName, name);
         scenarioSession.putData(SessionKey.organisationCountry, country);
         scenarioSession.putData(SessionKey.organisationRegistered, registered);
+    }
+
+
+    @When("^I view a random manufacturer with status \"([^\"]*)\"$")
+    public void i_view_a_random_manufacturer(String status) throws Throwable {
+        String name = manufacturerList.getARandomManufacturerNameWithStatus(status);
+        String country = manufacturerList.getOrganisationCountry(name);
+
+        log.info("Manufacturer selected : " + name + ", is " + status);
+        manufacturerDetails = manufacturerList.viewAManufacturer(name);
+        scenarioSession.putData(SessionKey.organisationName, name);
+        scenarioSession.putData(SessionKey.organisationCountry, country);
+        scenarioSession.putData(SessionKey.organisationRegistered, status);
     }
 
     @And("^Provide indication of devices made$")

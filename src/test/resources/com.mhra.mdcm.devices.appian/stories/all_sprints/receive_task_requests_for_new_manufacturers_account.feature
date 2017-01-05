@@ -63,7 +63,7 @@ Feature: As a business user, I want a task to be created each time a customer su
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
       | manufacturerAuto  | businessAuto | manufacturer  | Bangladesh  | Active Implantable Medical Devices | Blood          | true       | setmeup1           |
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Blood          | false      | setmeup2           |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Blood          | true      | setmeup2           |
 
 
   @regression @mdcm-15 @mdcm-39 @mdcm-186 @sprint2 @sprint3 @sprint5 @bug
@@ -96,11 +96,11 @@ Feature: As a business user, I want a task to be created each time a customer su
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType                 | gmdnDefinition | riskClassification | listOfProductNames | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
       | manufacturerAuto  | businessAuto | manufacturer  | Bangladesh  | In Vitro Diagnostic Device | Needle introducer     | list a             | ford,hyundai       | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | In Vitro Diagnostic Device | Needle introducer     | list a             | ford,honda         | ford        | focus        | NB 0086 BSI  | true              | true       | false         |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | In Vitro Diagnostic Device | Needle introducer     | list a             | ford,honda         | ford        | focus        | NB 0086 BSI  | true              | true       | true         |
 
 
   @regression @mdcm-161 @mdcm-232 @sprint4 @wip
-  Scenario Outline: Register manufacturer as authorisedRep and verify status is correct
+  Scenario Outline: Register manufacturer as authorisedRep and verify status of letter of designation is correct
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
     When I create a new manufacturer using manufacturer test harness page with following data

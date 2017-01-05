@@ -6,7 +6,7 @@ Feature: As an account holder with access to the Device Registration Service
   Scenario Outline: Users should be able to view already registered manufacturers
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    When I click on random manufacturer with status "<status>"
+    When I view a random manufacturer with status "<status>"
     Then I should see the correct manufacturer details
     Examples:
       | user              | status     |
@@ -42,12 +42,12 @@ Feature: As an account holder with access to the Device Registration Service
       | devicesCompatible      | <devicesCompatible>  |
     Then I should see option to add another device
     Examples:
-      | user             | deviceType                 | gmdnDefinition | customMade | deviceSterile | deviceMeasuring | riskClassification | notifiedBody | packIncorporated | devicesCompatible |
-      | manufacturerAuto | General Medical Device     | Blood          | false      | true          | true            | class1             | NB 0086 BSI  |                  |                   |
-      | manufacturerAuto | General Medical Device     | Blood          | true       | true          | true            |                    |              |                  |                   |
-      | manufacturerAuto | In Vitro Diagnostic Device | Needle introducer     |            |               |                 | ivd general        |              |                  |                   |
-      | manufacturerAuto | System or Procedure Pack   | Air sampling   | false      | true          | true            | class1             | NB 0086 BSI  | true             | true              |
-      | manufacturerAuto | System or Procedure Pack   | Air sampling   | true       | true          | true            |                    | NB 0086 BSI  | true             | true              |
+      | user             | deviceType                 | gmdnDefinition    | customMade | deviceSterile | deviceMeasuring | riskClassification | notifiedBody | packIncorporated | devicesCompatible |
+      | manufacturerAuto | General Medical Device     | Blood             | false      | true          | true            | class1             | NB 0086 BSI  |                  |                   |
+      | manufacturerAuto | General Medical Device     | Blood             | true       | true          | true            |                    |              |                  |                   |
+      | manufacturerAuto | In Vitro Diagnostic Device | Needle introducer |            |               |                 | ivd general        |              |                  |                   |
+      | manufacturerAuto | System or Procedure Pack   | Air sampling      |            | true          | true            | class1             | NB 0086 BSI  | false            | true              |
+      | manufacturerAuto | System or Procedure Pack   | Air sampling      |            | false         | true            |                    | NB 0086 BSI  | false            | true              |
 
 
   @regression @mdcm-14 @mdcm-489 @sprint3 @sprint5
@@ -120,15 +120,15 @@ Feature: As an account holder with access to the Device Registration Service
   Scenario Outline: Users should be able to add devices to existing manufacturers and verify devices are added
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on random manufacturer with status "<status>"
+    And I view a random manufacturer with status "<status>"
     And I add a device to SELECTED manufacturer with following data
       | deviceType             | <deviceType>         |
       | gmdnDefinition         | <gmdn>               |
       | riskClassification     | <riskClassification> |
       | notifiedBody           | <notifiedBody>       |
       | customMade             | <customMade>         |
-      | relatedDeviceSterile   | true                 |
-      | relatedDeviceMeasuring | true                 |
+      | relatedDeviceSterile   | <deviceSterile>      |
+      | relatedDeviceMeasuring | <deviceMeasuring>    |
     And Proceed to payment and confirm submit device details
     Then I should see stored manufacturer appear in the manufacturers list
     When I logout of the application
@@ -143,6 +143,6 @@ Feature: As an account holder with access to the Device Registration Service
     Then Verify devices displayed and other details are correct
     And I should be able to view products related to stored devices
     Examples:
-      | user             | logBackInAas | deviceType             | customMade | status     | gmdn            | riskClassification | notifiedBody |
-      | manufacturerAuto | businessAuto | General Medical Device | true       | Registered | Blood donor set |                    |              |
-      | authorisedRepAuto | businessAuto | General Medical Device | false       | Registered | Blood vessel sizer | class1             | NB 0086 BSI  |
+      | user              | logBackInAas | deviceType             | customMade | deviceSterile | deviceMeasuring | status     | gmdn               | riskClassification | notifiedBody |
+      | manufacturerAuto  | businessAuto | General Medical Device | true       | false         | false           | Registered | Blood donor set    |                    |              |
+      | authorisedRepAuto | businessAuto | General Medical Device | false      | true          | true            | Registered | Blood vessel sizer | class1             | NB 0086 BSI  |

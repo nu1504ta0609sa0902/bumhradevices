@@ -119,7 +119,7 @@ public class ManufacturerDetails extends _Page {
         //Displayed list of gmdns
         List<String> gmdns = new ArrayList<>();
         for(WebElement el: listOfGMDNDefinitions){
-            gmdns.add(el.getText());
+            gmdns.add(el.getText().toLowerCase());
         }
 
         //Verify it matches with my expected data set
@@ -127,7 +127,7 @@ public class ManufacturerDetails extends _Page {
         for(String d: data){
             boolean foundOne = false;
             for(String gmdn: gmdns){
-                if(gmdn.contains(d)){
+                if(gmdn.contains(d.toLowerCase())){
                     foundOne = true;
                     break;
                 }

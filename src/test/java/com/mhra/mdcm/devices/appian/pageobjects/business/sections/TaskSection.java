@@ -254,7 +254,7 @@ public class TaskSection extends _Page {
 
     public boolean isCompletedTaskStatusCorrect(String orgName, String expectedStatus) {
         By by = By.xpath(".//td[.='" + orgName + "']//following::td[3]");
-        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_10_SECOND, false);
         boolean contains = driver.findElement(by).getText().contains(expectedStatus);
         return contains;
 

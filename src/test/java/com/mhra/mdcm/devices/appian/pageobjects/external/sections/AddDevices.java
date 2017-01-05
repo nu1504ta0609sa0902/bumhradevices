@@ -254,7 +254,7 @@ public class AddDevices extends _Page {
 //        deviceMeasuring(dd); removed since 04/01/2017
         deviceSterile(dd);
 
-        if (dd.isDeviceSterile || dd.isDeviceMeasuring) {
+        if (dd.isDeviceSterile) {
             notifiedBody(dd);
         }
         packIncorporated(dd);
@@ -377,6 +377,7 @@ public class AddDevices extends _Page {
     }
 
     private void subjectToPerformanceEval(DeviceData dd) {
+        WaitUtils.waitForElementToBeClickable(driver, radioSubjectToPerformanceEvalYes, TIMEOUT_5_SECOND, false);
         if (dd.isSubjectToPerfEval) {
             PageUtils.clickIfVisible(driver, radioSubjectToPerformanceEvalYes);
         } else {

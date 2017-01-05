@@ -188,4 +188,20 @@ public class ManufacturerList extends _Page {
         }
         return country;
     }
+
+    public String getARandomManufacturerNameWithStatus(String status) {
+        String name = null;
+        boolean found = false;
+        int attempts = 1;
+        do {
+            name = getARandomManufacturerName();
+            String registered = getRegistrationStatus(name);
+            if(registered.toLowerCase().equals(status.toLowerCase())){
+                found = true;
+            }
+            attempts++;
+        }while(attempts < 5 && !found);
+
+        return name;
+    }
 }
