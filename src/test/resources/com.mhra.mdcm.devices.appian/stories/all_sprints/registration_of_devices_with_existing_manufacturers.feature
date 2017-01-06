@@ -144,5 +144,5 @@ Feature: As an account holder with access to the Device Registration Service
     And I should be able to view products related to stored devices
     Examples:
       | user              | logBackInAas | deviceType             | customMade | deviceSterile | deviceMeasuring | status     | gmdn               | riskClassification | notifiedBody |
-      | manufacturerAuto  | businessAuto | General Medical Device | true       | false         | false           | Registered | Blood donor set    |                    |              |
       | authorisedRepAuto | businessAuto | General Medical Device | false      | true          | true            | Registered | Blood vessel sizer | class1             | NB 0086 BSI  |
+      | manufacturerAuto  | businessAuto | General Medical Device | true       | false         | false           | Registered | Blood donor set    |                    |              |

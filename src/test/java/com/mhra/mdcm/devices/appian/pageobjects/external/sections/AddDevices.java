@@ -203,7 +203,7 @@ public class AddDevices extends _Page {
     }
 
     public AddDevices addFollowingDevice(DeviceData dd) {
-        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_15_SECOND, false);
         WaitUtils.waitForElementToBeClickable(driver, systemOrProcedurePack, TIMEOUT_3_SECOND, false);
         //Select device type
         selectDeviceType(dd);
@@ -386,11 +386,12 @@ public class AddDevices extends _Page {
     }
 
     private void addProduct(DeviceData dd) {
-        WaitUtils.waitForElementToBeClickable(driver, addProduct, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, addProduct, TIMEOUT_10_SECOND, false);
+        WaitUtils.nativeWaitInSeconds(1);
         addProduct.click();
 
         //Wait for form to be visible
-        WaitUtils.waitForElementToBeClickable(driver, pdProductModel, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, pdProductName, TIMEOUT_5_SECOND, false);
         if (dd.productName != null || !dd.productName.equals("")) {
             pdProductName.sendKeys(dd.productName);
         } else if (dd.productMake != null || !dd.productMake.equals("")) {
