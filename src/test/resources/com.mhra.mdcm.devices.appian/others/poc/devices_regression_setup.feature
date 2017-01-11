@@ -29,22 +29,23 @@ Feature: Reset all the information related to a manufacturer and authorisedRep
     Then I should see the changes "<keyValuePairs>" in my accounts page
     Examples:
       | user              | keyValuePairs |
-      | authorisedRepAuto | org.country   |
+      | manufacturerNoor | org.country   |
+      | authorisedRepNoor | org.country   |
 
 
-#  @setup
-#  Scenario Outline: Provide Indication of Devices Made By Manufacturer and AuthorisedRep
-#    Given I am logged into appian as "<user>" user
-#    And I go to list of manufacturers page
-#    And Provide indication of devices made
-#    When I logout of the application
-#    And I am logged into appian as "<logBackInAas>" user
-#    Then I view new task with link "New Service Request" for the new account
-#    When I assign the task to me and "approve" the generated task
-#    Examples:
-#      | user              | logBackInAas |
-#      | authorisedRepAuto | businessAuto |
-#      | manufacturerAuto  | businessAuto |
+  @setup
+  Scenario Outline: Provide Indication of Devices Made By Manufacturer and AuthorisedRep
+    Given I am logged into appian as "<user>" user
+    And I go to list of manufacturers page
+    And Provide indication of devices made
+    When I logout of the application
+    And I am logged into appian as "<logBackInAas>" user
+    Then I view new task with link "New Service Request" for the new account
+    When I assign the task to me and "approve" the generated task
+    Examples:
+      | user              | logBackInAas |
+      | manufacturerNoor  | businessNoor |
+#      | authorisedRepNoor | businessNoor |
 
 
   @setup
@@ -63,7 +64,7 @@ Feature: Reset all the information related to a manufacturer and authorisedRep
     Then The task should be removed from tasks list
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Blood          | true       | setmeup            |
+      | authorisedRepNoor | businessNoor | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Blood          | true       | setmeup            |
 
   @setup
   Scenario Outline: Able to register and Provide Indication of Devices Made By Manufacturers
@@ -81,7 +82,7 @@ Feature: Reset all the information related to a manufacturer and authorisedRep
     Then The task should be removed from tasks list
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
-      | manufacturerAuto  | businessAuto | manufacturer  | Bangladesh  | Active Implantable Medical Devices | Blood          | true       | setmeup            |
+      | manufacturerNoor  | businessNoor | manufacturer  | Bangladesh  | Active Implantable Medical Devices | Blood          | true       | setmeup            |
 
 
   @setup

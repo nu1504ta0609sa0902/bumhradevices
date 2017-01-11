@@ -79,4 +79,11 @@ public class TasksPage extends _Page {
         completedTasks.click();
         return new TaskSection(driver);
     }
+
+    public TaskSection clickOnLinkWithText(String orgName) {
+        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(orgName), TIMEOUT_DEFAULT, false);
+        WebElement taskLink = driver.findElement(By.partialLinkText(orgName));
+        taskLink.click();
+        return new TaskSection(driver);
+    }
 }

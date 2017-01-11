@@ -4,6 +4,7 @@ import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
+import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -78,26 +79,43 @@ public class TasksPageSteps extends CommonSteps {
         //Verify new taskSection generated and its the correct one
         boolean contains = false;
         boolean isCorrectTask = false;
+//        int count = 0;
+//        do {
+//            //Refresh each time, it may take a while for the new task to arrive
+//            tasksPage = mainNavigationBar.clickTasks();
+//
+//            //Click on link number X
+//            taskSection = tasksPage.clickOnTaskNumber(count, link);
+//            isCorrectTask = taskSection.isCorrectTask(orgName);
+//            if (isCorrectTask) {
+//                contains = true;
+//                scenarioSession.putData(SessionKey.position, count);
+//            } else {
+//                //Try position 0 again
+//                tasksPage = mainNavigationBar.clickTasks();
+//                taskSection = tasksPage.clickOnTaskNumber(0, link);
+//                isCorrectTask = taskSection.isCorrectTask(orgName);
+//                if (isCorrectTask) {
+//                    scenarioSession.putData(SessionKey.position, count);
+//                    contains = true;
+//                }
+//                count++;
+//            }
+//        } while (!contains && count <= 5);
         int count = 0;
         do {
             //Refresh each time, it may take a while for the new task to arrive
             tasksPage = mainNavigationBar.clickTasks();
 
             //Click on link number X
-            taskSection = tasksPage.clickOnTaskNumber(count, link);
-            isCorrectTask = taskSection.isCorrectTask(orgName);
-            if (isCorrectTask) {
+            try {
+                taskSection = tasksPage.clickOnLinkWithText(orgName);
                 contains = true;
-                scenarioSession.putData(SessionKey.position, count);
-            } else {
-                //Try position 0 again
-                tasksPage = mainNavigationBar.clickTasks();
-                taskSection = tasksPage.clickOnTaskNumber(0, link);
-                isCorrectTask = taskSection.isCorrectTask(orgName);
-                if (isCorrectTask) {
-                    scenarioSession.putData(SessionKey.position, count);
-                    contains = true;
-                }
+            } catch (Exception e) {
+                contains = false;
+            }
+            if (!contains){
+                WaitUtils.nativeWaitInSeconds(2);
                 count++;
             }
         } while (!contains && count <= 5);
@@ -250,7 +268,7 @@ public class TasksPageSteps extends CommonSteps {
 
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
 
-        boolean isTaskStatusCorrect = taskSection.isCompletedTaskStatusCorrect(orgName, expectedStatus);
+        boolean isTaskStatusCorrect = taskSection.isCompletedTaskStatusCorrect2(orgName, expectedStatus);
         assertThat("Expected completed task status : " + expectedStatus, isTaskStatusCorrect, is(equalTo(true)));
 
         //boolean isCorrectTask = taskSection.isOrganisationDisplayedOnLink(orgName);

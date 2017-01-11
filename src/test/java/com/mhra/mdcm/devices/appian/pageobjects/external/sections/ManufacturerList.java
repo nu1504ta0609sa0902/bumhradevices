@@ -72,7 +72,7 @@ public class ManufacturerList extends _Page {
 
     public boolean isManufacturerDisplayedInList(String manufacturerName){
         WaitUtils.nativeWaitInSeconds(2);
-        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector("td>div>a"), TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector("td>div>a"), TIMEOUT_15_SECOND, false);
         boolean found = false;
         for(WebElement item: listOfManufacturerNames){
             String name = item.getText();

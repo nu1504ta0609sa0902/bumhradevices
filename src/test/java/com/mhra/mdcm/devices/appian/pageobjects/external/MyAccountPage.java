@@ -59,7 +59,7 @@ public class MyAccountPage extends _Page {
     }
 
     public OrganisationDetails amendOrganisationDetails() {
-        WaitUtils.waitForElementToBeClickable(driver, amendOrganisationDetails, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, amendOrganisationDetails, TIMEOUT_10_SECOND, false);
         amendOrganisationDetails.click();
         return new OrganisationDetails(driver);
     }
@@ -112,7 +112,7 @@ public class MyAccountPage extends _Page {
     }
 
     public boolean isRolesCorrect(String loggedInUser, String expectedRoles) {
-        WaitUtils.waitForElementToBeClickable(driver, role, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, role, TIMEOUT_10_SECOND, false);
         String[] roles = expectedRoles.split(",");
         String rolesDisplayed = role.getText();
 

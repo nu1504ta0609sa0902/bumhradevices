@@ -7,6 +7,7 @@ Automated Issues:
     - @bug      - Bug blocking the test
     - @isReadyForRT - Is system ready for regression testing
                 - If not then set it up @setup
+                - Check there is no @bug tag
 
     EPICS:
     - @mdcm-
@@ -48,7 +49,7 @@ Automated Issues:
 
 
     Spring 5: @sprint5
-        - @mdcm-39  - Device type "Others" no longer visible
+        - @mdcm-39  - DONE
         - @mdcm-489 - DONE ish
         - @mdcm-277 - DONE
         - @mdcm-171 - DONE ish

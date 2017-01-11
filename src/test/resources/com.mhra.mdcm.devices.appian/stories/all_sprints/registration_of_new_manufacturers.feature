@@ -31,7 +31,7 @@ Feature: As a customer I want to register new manufacturers
     Examples:
       | user              | logBackInAs  | accountType  | countryName |
       | manufacturerAuto  | businessAuto | manufacturer | Bangladesh  |
-      | authorisedRepAuto | businessAuto | manufacturer | Bangladesh  |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  |
 
 
   @regression @mdcm-292 @mdcm-496 @sprint3 @sprint5 @wip @bug
