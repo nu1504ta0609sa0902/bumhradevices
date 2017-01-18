@@ -110,7 +110,7 @@ public class CreateTestsData extends _Page {
      */
     public ActionsPage createTestOrganisation(AccountRequest ar) throws Exception {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.forceWaitForPageToLoad(driver, By.xpath(".//label[.='Organisation name']//following::input[1]"), TIMEOUT_1_SECOND, 2) ;
+        //WaitUtils.forceWaitForPageToLoad(driver, By.xpath(".//label[.='Organisation name']//following::input[1]"), TIMEOUT_1_SECOND, 2) ;
         WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_15_SECOND, false);
         orgName.sendKeys(ar.organisationName);
 

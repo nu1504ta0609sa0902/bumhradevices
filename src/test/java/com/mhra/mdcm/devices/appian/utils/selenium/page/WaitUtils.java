@@ -237,7 +237,7 @@ public class WaitUtils {
             isLoadedFully = false;
         }
         long diff = (System.currentTimeMillis() - start)/1000;
-        System.out.println("Page Took : " + diff + " seconds to load");
+        System.out.println("\nPage Took : " + diff + " seconds to load");
 
         return isLoadedFully;
     }

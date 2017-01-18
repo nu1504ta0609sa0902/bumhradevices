@@ -147,7 +147,8 @@ public class Accounts extends _Page {
      * @return
      */
     public String getARandomAccount() {
-        WaitUtils.forceWaitForPageToLoad(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_5_SECOND, 1);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.forceWaitForPageToLoad(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_5_SECOND, 1);
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_5_SECOND, false);
 
         int position = RandomDataUtils.getSimpleRandomNumberBetween(1, listOfAccounts.size() - 1, false);
@@ -157,7 +158,8 @@ public class Accounts extends _Page {
     }
 
     public String getARandomAccountWithText(String name) {
-        WaitUtils.forceWaitForPageToLoad(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_3_SECOND, 1);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.forceWaitForPageToLoad(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_3_SECOND, 1);
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_5_SECOND, false);
 
         boolean found = false;

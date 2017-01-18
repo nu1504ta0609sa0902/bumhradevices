@@ -83,7 +83,8 @@ public class TaskSection extends _Page {
         }
 
         try {
-            WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
+            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+            //WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
             WaitUtils.waitForElementToBeVisible(driver, By.xpath(".//h4"), TIMEOUT_10_SECOND, false);
             boolean contains = taskHeading.getText().contains(orgName);
             return contains;
@@ -106,14 +107,16 @@ public class TaskSection extends _Page {
     }
 
     public TasksPage approveTask() {
-        WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
         WaitUtils.waitForElementToBeClickable(driver, approveTask, TIMEOUT_15_SECOND, false);
         PageUtils.doubleClick(driver, approveTask);
         return new TasksPage(driver);
     }
 
     public TasksPage acceptRegistrationTask() {
-        WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
         WaitUtils.waitForElementToBeClickable(driver, acceptRegistration, TIMEOUT_15_SECOND, false);
         PageUtils.doubleClick(driver, acceptRegistration);
         return new TasksPage(driver);
@@ -127,7 +130,8 @@ public class TaskSection extends _Page {
      * @return
      */
     public TaskSection rejectRegistrationTask() {
-        WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
         WaitUtils.waitForElementToBeClickable(driver, rejectRegistration, TIMEOUT_5_SECOND, false);
         //approve.click();
         PageUtils.doubleClick(driver, rejectRegistration);
@@ -135,7 +139,8 @@ public class TaskSection extends _Page {
     }
 
     public TaskSection rejectTask() {
-        WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
         WaitUtils.waitForElementToBeClickable(driver, rejectTask, TIMEOUT_5_SECOND, false);
         //approve.click();
         PageUtils.doubleClick(driver, rejectTask);
@@ -143,7 +148,8 @@ public class TaskSection extends _Page {
     }
 
     public TasksPage enterRejectionReason(String reason, String randomTestComment) {
-        WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
         if (reason.contains("Other")) {
             //Comment is mandatory
             WaitUtils.waitForElementToBeClickable(driver, other, TIMEOUT_10_SECOND, false);
@@ -179,7 +185,8 @@ public class TaskSection extends _Page {
         if (sortBy.equals("Submitted")) {
             for (int c = 0; c < numberOfTimesToClick; c++) {
                 submitted.click();
-                WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Doesnotexists"), TIMEOUT_1_SECOND, 3);
+                WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+                //WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Doesnotexists"), TIMEOUT_1_SECOND, 3);
             }
         }
 
