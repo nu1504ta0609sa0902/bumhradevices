@@ -150,7 +150,8 @@ public class CreateManufacturerTestsData extends _Page {
                 completed = true;
             } catch (Exception e) {
                 completed = false;
-                WaitUtils.nativeWaitInSeconds(1);
+                WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+                //WaitUtils.nativeWaitInSeconds(1);
                 //PageFactory.initElements(driver, this);
             }
         } while (!completed && count < 1);

@@ -214,29 +214,10 @@ public class CreateTestsData extends _Page {
         int count = 0;
         do {
             try {
-//                WaitUtils.nativeWaitInSeconds(1);
-//                String mainWindow = driver.getWindowHandle();
-//                driver.switchTo().activeElement().click();
-//                driver.switchTo().window("");
-//                WaitUtils.nativeWaitInSeconds(1);
-//                Set<String> handles = driver.getWindowHandles();
-//                for (String handler : handles) {
-//                    System.out.println(handler);
-//                    if (!handler.equals(mainWindow)) {
-//                        driver.switchTo().window(handler);
-//                        driver.findElement(By.cssSelector(elementPath)).click();
-//                        break;
-//                    }
-//                }
-//              ((JavascriptExecutor) driver).executeScript("window.focus();");
-//                driver.switchTo().defaultContent();
 
                 count++;    //It will go forever without this
                 WebElement country = driver.findElements(By.cssSelector(elementPath)).get(0);
                 new Actions(driver).moveToElement(country).perform();
-                //country.clear();
-                //country.sendKeys(RandomDataUtils.getRandomEUCountryName());
-                //new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(By.cssSelector(".item")));
 
                 //Enter the country I am interested in
                 country.sendKeys("\n");

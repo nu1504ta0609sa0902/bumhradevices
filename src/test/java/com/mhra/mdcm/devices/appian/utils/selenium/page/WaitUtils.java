@@ -228,6 +228,8 @@ public class WaitUtils {
                 }else{
                     //System.out.println("-----PAGE NOT LOADED YET-----");
                 }
+                driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+                elements = driver.findElements(By.xpath(".//div[@class='appian-indicator-message' and @style=' ']"));
                 driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
                 count++;
             }while(!isLoadedFully && count < 50);
@@ -239,6 +241,7 @@ public class WaitUtils {
         //long diff = (System.currentTimeMillis() - start)/1000;
         //System.out.println("\nPage Took : " + diff + " seconds to load");
         long diffMiliseconds = (System.currentTimeMillis() - start);
+        if(diffMiliseconds > 1000 * 3)
         System.out.println("\nPage Took : " + diffMiliseconds + " milliseconds to load");
 
         return isLoadedFully;

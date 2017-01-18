@@ -75,6 +75,7 @@ public class Accounts extends _Page {
 
 
     public boolean isHeadingCorrect(String expectedHeadings) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='" + expectedHeadings + "']") , TIMEOUT_DEFAULT, false);
         WebElement heading = driver.findElement(By.xpath(".//h2[.='" + expectedHeadings + "']"));
         boolean contains = heading.getText().contains(expectedHeadings);

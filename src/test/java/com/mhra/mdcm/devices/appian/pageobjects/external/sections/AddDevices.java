@@ -285,6 +285,7 @@ public class AddDevices extends _Page {
                 saveProduct(dd);
 
                 //Remove this if we find a better solution
+                WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
                 WaitUtils.nativeWaitInSeconds(1);
             } else {
                 for (String x : dd.listOfProductName) {
@@ -298,6 +299,7 @@ public class AddDevices extends _Page {
                     saveProduct(dd);
 
                     //Remove this if we find a better solution
+                    WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
                     WaitUtils.nativeWaitInSeconds(1);
                 }
             }
@@ -339,7 +341,9 @@ public class AddDevices extends _Page {
     private void productLabelName(String labelName) {
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//button[.='Add Product']"), TIMEOUT_10_SECOND, false);
         driver.findElement(By.xpath(".//button[.='Add Product']")).click();
-        WaitUtils.nativeWaitInSeconds(1);
+
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.nativeWaitInSeconds(1);
         WaitUtils.waitForElementToBeClickable(driver, txtProductNameLabel, TIMEOUT_10_SECOND, false);
         txtProductNameLabel.sendKeys(labelName);
 
@@ -352,6 +356,7 @@ public class AddDevices extends _Page {
     }
 
     private void conformToCTS(DeviceData dd) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         if (dd.isConformsToCTS) {
             PageUtils.clickIfVisible(driver, radioConformsToCTSYes);
             WaitUtils.waitForElementToBeClickable(driver, txtCTSReference, TIMEOUT_5_SECOND, false);
@@ -378,6 +383,7 @@ public class AddDevices extends _Page {
     }
 
     private void subjectToPerformanceEval(DeviceData dd) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, radioSubjectToPerformanceEvalYes, TIMEOUT_DEFAULT, false);
         if (dd.isSubjectToPerfEval) {
             PageUtils.clickIfVisible(driver, radioSubjectToPerformanceEvalYes);
@@ -427,8 +433,9 @@ public class AddDevices extends _Page {
     }
 
     private void riskClassificationIVD(DeviceData dd) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, ivdIVDGeneral, TIMEOUT_5_SECOND, false);
-        WaitUtils.nativeWaitInSeconds(1);
+        //WaitUtils.nativeWaitInSeconds(1);
 
         String lcRiskClassification = dd.riskClassification.toLowerCase();
 

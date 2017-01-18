@@ -11,7 +11,7 @@ Feature: As a business user, I want a task to be created each time a customer su
     Then I should see a new task for the new account
     When I assign the task to me and "<approveReject>" the generated task
     Then The task with link "<link>" should be removed from tasks list
-    And The completed task status should update to "Completed"
+    And The completed task status of new account should update to "Completed"
     When I search accounts for the stored organisation name
     Then I should see at least <count> account matches
     Examples:
@@ -30,7 +30,7 @@ Feature: As a business user, I want a task to be created each time a customer su
     When I assign the task to me and reject the task for following reason "<reason>"
 #    Then The task should be removed from tasks list
     Then The task with link "<link>" should be removed from tasks list
-    And The completed task status should update to "Completed"
+    And The completed task status of new account should update to "Completed"
     When I search accounts for the stored organisation name
     Then I should see no account matches
     Examples:

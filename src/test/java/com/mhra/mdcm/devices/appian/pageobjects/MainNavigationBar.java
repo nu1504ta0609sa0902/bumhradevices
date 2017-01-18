@@ -124,6 +124,7 @@ public class MainNavigationBar extends _Page {
             PageUtils.doubleClick(driver, driver.findElement(xp));
         }
         PageUtils.acceptAlert(driver, "accept", 1);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         return new ExternalHomePage(driver);
     }
 

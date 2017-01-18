@@ -194,10 +194,11 @@ public class TasksPageSteps extends CommonSteps {
     @Then("^The task should be removed from tasks list$")
     public void theTaskShouldBeRemovedFromTaskList() {
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
-        int position = (int) scenarioSession.getData(SessionKey.position);
-        taskSection = tasksPage.clickOnTaskNumber(position, "New Service Request");
-        boolean isHeadingMatched = taskSection.isCorrectTask(orgName);
-        assertThat("Task should be removed for organisation : " + orgName, isHeadingMatched, is(equalTo(false)));
+        //int position = (int) scenarioSession.getData(SessionKey.position);
+        //taskSection = tasksPage.clickOnTaskNumber(position, "New Service Request");
+        //boolean isHeadingMatched = taskSection.isCorrectTask(orgName);
+        boolean linkVisible = tasksPage.isLinkVisible(orgName, 5);
+        assertThat("Task should be removed for organisation : " + orgName, linkVisible, is(equalTo(false)));
     }
 
     @Then("^The task with link \"([^\"]*)\" should be removed from tasks list$")
@@ -209,10 +210,10 @@ public class TasksPageSteps extends CommonSteps {
             link = link.replace("Update","New");
         }
 
-        int position = (int) scenarioSession.getData(SessionKey.position);
-        taskSection = tasksPage.clickOnTaskNumber(position, link);
-        boolean isHeadingMatched = taskSection.isCorrectTask(orgName);
-        assertThat("Task should be removed for organisation : " + orgName, isHeadingMatched, is(equalTo(false)));
+        //int position = (int) scenarioSession.getData(SessionKey.position);
+        //taskSection = tasksPage.clickOnTaskNumber(position, link);
+        boolean isVisible = tasksPage.isLinkVisible(orgName, 5);
+        assertThat("Task should be removed for organisation : " + orgName, isVisible, is(equalTo(false)));
     }
 
     @When("^I go to WIP tasks page$")
@@ -273,6 +274,30 @@ public class TasksPageSteps extends CommonSteps {
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
 
         boolean isTaskStatusCorrect = taskSection.isCompletedTaskStatusCorrect(orgName, expectedStatus);
+        assertThat("Expected completed task status : " + expectedStatus, isTaskStatusCorrect, is(equalTo(true)));
+
+        //boolean isCorrectTask = taskSection.isOrganisationDisplayedOnLink(orgName);
+        //assertThat("Task not found in completed list : " + orgName, isCorrectTask, is(equalTo(true)));
+    }
+
+
+
+    @And("^The completed task status of new account should update to \"([^\"]*)\"$")
+    public void theCompletedTaskStatusOfNewAccountShouldUpdateTo(String expectedStatus) throws Throwable {
+
+        boolean tasks = mainNavigationBar.isCorrectPage("Tasks");
+        if(!tasks) {
+            mainNavigationBar = new MainNavigationBar(driver);
+            tasksPage = mainNavigationBar.clickTasks();
+        }
+
+        taskSection = tasksPage.gotoCompletedTasksPage();
+
+        taskSection = taskSection.sortBy("Submitted", 2);
+
+        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
+
+        boolean isTaskStatusCorrect = taskSection.isCompletedTaskStatusCorrect2(orgName, expectedStatus);
         assertThat("Expected completed task status : " + expectedStatus, isTaskStatusCorrect, is(equalTo(true)));
 
         //boolean isCorrectTask = taskSection.isOrganisationDisplayedOnLink(orgName);

@@ -43,7 +43,7 @@ public class TasksPage extends _Page {
     }
 
     public TaskSection clickOnTaskNumber(int count, String link) {
-        WaitUtils.nativeWaitInSeconds(1);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText("Work In Progress"), TIMEOUT_DEFAULT, false);
         //WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(link), TIMEOUT_5_SECOND, false);
         try {
@@ -90,9 +90,21 @@ public class TasksPage extends _Page {
 
 
     public boolean isLinkVisible(String link){
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean isVisible = true;
         try{
-            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(link), TIMEOUT_DEFAULT, false);
+            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(link), TIMEOUT_5_SECOND, false);
+        }catch (Exception e){
+            isVisible = false;
+        }
+        return isVisible;
+    }
+
+    public boolean isLinkVisible(String link, int timeout){
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        boolean isVisible = true;
+        try{
+            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(link), 5, false);
         }catch (Exception e){
             isVisible = false;
         }

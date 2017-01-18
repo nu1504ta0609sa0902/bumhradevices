@@ -186,7 +186,7 @@ public class TaskSection extends _Page {
             for (int c = 0; c < numberOfTimesToClick; c++) {
                 submitted.click();
                 WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-                //WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Doesnotexists"), TIMEOUT_1_SECOND, 3);
+                WaitUtils.nativeWaitInSeconds(2);
             }
         }
 
@@ -230,8 +230,8 @@ public class TaskSection extends _Page {
     }
 
     public boolean isDevicesDisplayedCorrect(String deviceList) {
-        //WaitUtils.waitForElementToBeVisible(driver, By.xpath(".//a[.='Risk classification']//following::td[2]"), TIMEOUT_15_SECOND, false);
-        WaitUtils.nativeWaitInSeconds(2);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.nativeWaitInSeconds(2);
         String[] data = deviceList.toLowerCase().split(",");
 
         //Displayed list of gmdns
