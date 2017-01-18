@@ -189,22 +189,22 @@ public class WaitUtils {
      * @param numberOfTimes
      * @return
      */
-    public static boolean forceWaitForPageToLoad(WebDriver driver, By by, int maxTimeToWait, int numberOfTimes) {
-        boolean loadingCompleted = false;
-        int attempt = 0;
-        do{
-            try {
-                new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.presenceOfElementLocated(by));
-                loadingCompleted = true;
-                break;
-            }catch (Exception e){
-                //
-            }
-            attempt++;
-        }while(!loadingCompleted && attempt < numberOfTimes);
-
-        return loadingCompleted;
-    }
+//    public static boolean forceWaitForPageToLoad(WebDriver driver, By by, int maxTimeToWait, int numberOfTimes) {
+//        boolean loadingCompleted = false;
+//        int attempt = 0;
+//        do{
+//            try {
+//                new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.presenceOfElementLocated(by));
+//                loadingCompleted = true;
+//                break;
+//            }catch (Exception e){
+//                //
+//            }
+//            attempt++;
+//        }while(!loadingCompleted && attempt < numberOfTimes);
+//
+//        return loadingCompleted;
+//    }
 
 
     /**
@@ -236,8 +236,9 @@ public class WaitUtils {
             driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
             isLoadedFully = false;
         }
-        long diff = (System.currentTimeMillis() - start)/1000;
-        System.out.println("\nPage Took : " + diff + " seconds to load");
+        //long diff = (System.currentTimeMillis() - start)/1000;
+        long diffMiliseconds = (System.currentTimeMillis() - start)/1000;
+        System.out.println("\nPage Took : " + diffMiliseconds + " seconds to load");
 
         return isLoadedFully;
     }

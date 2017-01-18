@@ -102,23 +102,6 @@ public class TasksPageSteps extends CommonSteps {
                 count++;
             }
         } while (!contains && count <= 5);
-//        int count = 0;
-//        do {
-//            //Refresh each time, it may take a while for the new task to arrive
-//            tasksPage = mainNavigationBar.clickTasks();
-//
-//            //Click on link number X
-//            try {
-//                taskSection = tasksPage.clickOnLinkWithText(orgName);
-//                contains = true;
-//            } catch (Exception e) {
-//                contains = false;
-//            }
-//            if (!contains){
-//                WaitUtils.nativeWaitInSeconds(2);
-//                count++;
-//            }
-//        } while (!contains && count <= 5);
 
         //If its still not found than try the first 1 again, because it may have taken few seconds longer than usual
         if (!contains) {
