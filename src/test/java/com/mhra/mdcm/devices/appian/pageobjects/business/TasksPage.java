@@ -87,4 +87,15 @@ public class TasksPage extends _Page {
         taskLink.click();
         return new TaskSection(driver);
     }
+
+
+    public boolean isLinkVisible(String link){
+        boolean isVisible = true;
+        try{
+            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(link), TIMEOUT_DEFAULT, false);
+        }catch (Exception e){
+            isVisible = false;
+        }
+        return isVisible;
+    }
 }

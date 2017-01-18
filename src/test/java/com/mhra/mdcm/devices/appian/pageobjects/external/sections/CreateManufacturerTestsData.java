@@ -125,6 +125,8 @@ public class CreateManufacturerTestsData extends _Page {
             next.click();
         }
 
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+
         return new AddDevices(driver);
     }
 

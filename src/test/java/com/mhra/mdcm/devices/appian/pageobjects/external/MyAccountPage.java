@@ -53,6 +53,7 @@ public class MyAccountPage extends _Page {
     }
 
     public PersonDetails amendContactPersonDetails() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, amendContactPersonDetails, TIMEOUT_5_SECOND, false);
         amendContactPersonDetails.click();
         return new PersonDetails(driver);

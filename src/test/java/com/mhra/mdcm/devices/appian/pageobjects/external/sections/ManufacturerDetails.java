@@ -144,6 +144,7 @@ public class ManufacturerDetails extends _Page {
     }
 
     public EditManufacturer amendRepresentedParty() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, amendRepresentativeParty, TIMEOUT_10_SECOND, false);
         amendRepresentativeParty.click();
         return new EditManufacturer(driver);
@@ -226,6 +227,7 @@ public class ManufacturerDetails extends _Page {
     }
 
     public ProductDetails viewProduct(DeviceData deviceData) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         if(deviceData.gmdnTermOrDefinition!=null) {
             WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(deviceData.gmdnTermOrDefinition), TIMEOUT_10_SECOND, false);
             driver.findElement(By.partialLinkText(deviceData.gmdnTermOrDefinition)).click();

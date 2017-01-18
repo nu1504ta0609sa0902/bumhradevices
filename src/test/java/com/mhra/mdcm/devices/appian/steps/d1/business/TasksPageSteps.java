@@ -74,24 +74,58 @@ public class TasksPageSteps extends CommonSteps {
 
         //Go to tasks page
         mainNavigationBar = new MainNavigationBar(driver);
-        tasksPage = mainNavigationBar.clickTasks();
+        //tasksPage = mainNavigationBar.clickTasks();
 
         //Verify new taskSection generated and its the correct one
         boolean contains = false;
         boolean isCorrectTask = false;
         int count = 0;
+
         do {
-            //Refresh each time, it may take a while for the new task to arrive
+            //mainNavigationBar = new MainNavigationBar(driver);
             tasksPage = mainNavigationBar.clickTasks();
 
             //Click on link number X
-            taskSection = tasksPage.clickOnTaskNumber(count, link);
-            isCorrectTask = taskSection.isCorrectTask(orgName);
-            if (isCorrectTask) {
-                contains = true;
-                scenarioSession.putData(SessionKey.position, count);
-            } else {
-                //Try position 0 again
+            boolean isLinkVisible = tasksPage.isLinkVisible(orgName);
+            if (isLinkVisible) {
+                taskSection = tasksPage.clickOnLinkWithText(orgName);
+                isCorrectTask = taskSection.isCorrectTask(orgName);
+                if (isCorrectTask) {
+                    contains = true;
+                } else {
+                    count++;
+                }
+            }
+        } while (!contains && count <= 5);
+
+        if(!contains) {
+
+//            do {
+//                //Refresh each time, it may take a while for the new task to arrive
+//                tasksPage = mainNavigationBar.clickTasks();
+//
+//                //Click on link number X
+//                taskSection = tasksPage.clickOnTaskNumber(count, link);
+//                isCorrectTask = taskSection.isCorrectTask(orgName);
+//                if (isCorrectTask) {
+//                    contains = true;
+//                    scenarioSession.putData(SessionKey.position, count);
+//                } else {
+//                    //Try position 0 again
+//                    tasksPage = mainNavigationBar.clickTasks();
+//                    taskSection = tasksPage.clickOnTaskNumber(0, link);
+//                    isCorrectTask = taskSection.isCorrectTask(orgName);
+//                    if (isCorrectTask) {
+//                        scenarioSession.putData(SessionKey.position, count);
+//                        contains = true;
+//                    }
+//                    count++;
+//                }
+//            } while (!contains && count <= 5);
+
+            //If its still not found than try the first 1 again, because it may have taken few seconds longer than usual
+            if (!contains) {
+                //mainNavigationBar = new MainNavigationBar(driver);
                 tasksPage = mainNavigationBar.clickTasks();
                 taskSection = tasksPage.clickOnTaskNumber(0, link);
                 isCorrectTask = taskSection.isCorrectTask(orgName);
@@ -99,19 +133,6 @@ public class TasksPageSteps extends CommonSteps {
                     scenarioSession.putData(SessionKey.position, count);
                     contains = true;
                 }
-                count++;
-            }
-        } while (!contains && count <= 5);
-
-        //If its still not found than try the first 1 again, because it may have taken few seconds longer than usual
-        if (!contains) {
-            //mainNavigationBar = new MainNavigationBar(driver);
-            tasksPage = mainNavigationBar.clickTasks();
-            taskSection = tasksPage.clickOnTaskNumber(0, link);
-            isCorrectTask = taskSection.isCorrectTask(orgName);
-            if (isCorrectTask) {
-                scenarioSession.putData(SessionKey.position, count);
-                contains = true;
             }
         }
 

@@ -45,6 +45,7 @@ public class ProductDetails extends _Page {
     }
 
     public boolean isProductOrDeviceDetailValid(DeviceData deviceData) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean allValid = true;
         String deviceType = deviceData.deviceType;
         if(deviceType.equals("General Medical Device")){
@@ -92,18 +93,22 @@ public class ProductDetails extends _Page {
                     allValid = AssertUtils.areChangesDisplayed(customMade, "No");
                 }
             }else if(field.equals("sterile")){
-                boolean data = deviceData.isDeviceSterile;
-                if(data){
-                    allValid = AssertUtils.areChangesDisplayed(sterile, "Yes");
-                }else{
-                    allValid = AssertUtils.areChangesDisplayed(sterile, "No");
+                if(!deviceData.isCustomMade) {
+                    boolean data = deviceData.isDeviceSterile;
+                    if (data) {
+                        allValid = AssertUtils.areChangesDisplayed(sterile, "Yes");
+                    } else {
+                        allValid = AssertUtils.areChangesDisplayed(sterile, "No");
+                    }
                 }
             }else if(field.equals("measuring")){
-                boolean data = deviceData.isDeviceMeasuring;
-                if(data){
-                    allValid = AssertUtils.areChangesDisplayed(measuring, "Yes");
-                }else{
-                    allValid = AssertUtils.areChangesDisplayed(measuring, "No");
+                if(!deviceData.isCustomMade) {
+                    boolean data = deviceData.isDeviceMeasuring;
+                    if (data) {
+                        allValid = AssertUtils.areChangesDisplayed(measuring, "Yes");
+                    } else {
+                        allValid = AssertUtils.areChangesDisplayed(measuring, "No");
+                    }
                 }
             }
 

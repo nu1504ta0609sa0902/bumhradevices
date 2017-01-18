@@ -203,6 +203,7 @@ public class AddDevices extends _Page {
     }
 
     public AddDevices addFollowingDevice(DeviceData dd) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_DEFAULT, false);
         WaitUtils.waitForElementToBeClickable(driver, systemOrProcedurePack, TIMEOUT_3_SECOND, false);
         //Select device type
@@ -534,20 +535,21 @@ public class AddDevices extends _Page {
     }
 
     public AddDevices proceedToPayment() {
-        WaitUtils.nativeWaitInSeconds(1);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnProceedToPayment, TIMEOUT_20_SECOND, false);
         btnProceedToPayment.click();
         return new AddDevices(driver);
     }
 
     public AddDevices submitRegistration() {
-        WaitUtils.nativeWaitInSeconds(1);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, submitConfirm, TIMEOUT_5_SECOND, false);
         submitConfirm.click();
         return new AddDevices(driver);
     }
 
     public ExternalHomePage finish() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnFinish, TIMEOUT_15_SECOND, false);
         btnFinish.click();
         return new ExternalHomePage(driver);
