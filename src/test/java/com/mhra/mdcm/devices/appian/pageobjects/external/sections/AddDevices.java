@@ -203,7 +203,7 @@ public class AddDevices extends _Page {
     }
 
     public AddDevices addFollowingDevice(DeviceData dd) {
-        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_15_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_DEFAULT, false);
         WaitUtils.waitForElementToBeClickable(driver, systemOrProcedurePack, TIMEOUT_3_SECOND, false);
         //Select device type
         selectDeviceType(dd);
@@ -221,8 +221,8 @@ public class AddDevices extends _Page {
         }
 
         //Business doing testing so don't do any write only tests
-        WaitUtils.nativeWaitInSeconds(1);
-        WaitUtils.waitForElementToBeClickable(driver, btnConfirm, TIMEOUT_5_SECOND, false);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, btnConfirm, TIMEOUT_10_SECOND, false);
         PageUtils.doubleClick(driver, btnConfirm);
 
         return new AddDevices(driver);
@@ -377,7 +377,7 @@ public class AddDevices extends _Page {
     }
 
     private void subjectToPerformanceEval(DeviceData dd) {
-        WaitUtils.waitForElementToBeClickable(driver, radioSubjectToPerformanceEvalYes, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, radioSubjectToPerformanceEvalYes, TIMEOUT_DEFAULT, false);
         if (dd.isSubjectToPerfEval) {
             PageUtils.clickIfVisible(driver, radioSubjectToPerformanceEvalYes);
         } else {

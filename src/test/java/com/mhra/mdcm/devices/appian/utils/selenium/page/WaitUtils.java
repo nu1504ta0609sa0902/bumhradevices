@@ -6,6 +6,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -203,5 +204,41 @@ public class WaitUtils {
         }while(!loadingCompleted && attempt < numberOfTimes);
 
         return loadingCompleted;
+    }
+
+
+    /**
+     * Page is loaded if we cannot see the message "Waiting..."
+     *
+     * So if "Waiting..." message is not displayed than page loading completed
+     * @param driver
+     * @param timeout
+     * @return
+     */
+    public static boolean isPageLoadingComplete(WebDriver driver, int timeout){
+        boolean isLoadedFully = false;
+        long start = System.currentTimeMillis();
+        try {
+            int count = 0;
+            do {
+                driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
+                List<WebElement> elements = driver.findElements(By.xpath(".//div[@class='appian-indicator-message' and @style='display: none;']"));
+                if (elements.size() == 1) {
+                    isLoadedFully = true;
+                }else{
+                    //System.out.println("-----PAGE NOT LOADED YET-----");
+                }
+                driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+                count++;
+            }while(!isLoadedFully && count < 50);
+
+        }catch (Exception e){
+            driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+            isLoadedFully = false;
+        }
+        long diff = (System.currentTimeMillis() - start)/1000;
+        System.out.println("Page Took : " + diff + " seconds to load");
+
+        return isLoadedFully;
     }
 }

@@ -59,6 +59,7 @@ public class MainNavigationBar extends _Page {
     }
 
     public TasksPage clickTasks() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, tasks, TIMEOUT_DEFAULT, false);
         tasks.click();
         PageUtils.doubleClick(driver, tasks);
@@ -87,6 +88,7 @@ public class MainNavigationBar extends _Page {
     }
 
     public ActionsPage clickActions() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, actions, TIMEOUT_DEFAULT, false);
         actions.click();
         PageUtils.doubleClick(driver, actions);

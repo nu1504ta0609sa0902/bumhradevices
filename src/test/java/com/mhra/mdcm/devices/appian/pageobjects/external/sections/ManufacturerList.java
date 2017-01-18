@@ -62,7 +62,8 @@ public class ManufacturerList extends _Page {
     }
 
     public String getARandomManufacturerName() {
-        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".left>div>a"), TIMEOUT_20_SECOND, false);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".left>div>a"), TIMEOUT_30_SECOND, false);
         WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".left>div>a"), TIMEOUT_10_SECOND, false);
         int index = RandomDataUtils.getNumberBetween(0, listOfManufacturerNames.size() - 1);
         WebElement link = listOfManufacturerNames.get(index);
@@ -72,7 +73,7 @@ public class ManufacturerList extends _Page {
 
     public boolean isManufacturerDisplayedInList(String manufacturerName){
         WaitUtils.nativeWaitInSeconds(2);
-        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector("td>div>a"), TIMEOUT_15_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector("td>div>a"), TIMEOUT_30_SECOND, false);
         boolean found = false;
         for(WebElement item: listOfManufacturerNames){
             String name = item.getText();
@@ -105,6 +106,7 @@ public class ManufacturerList extends _Page {
 
 
     public CreateManufacturerTestsData registerNewManufacturer() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, linkRegisterNewManufacturer, TIMEOUT_DEFAULT, false);
         linkRegisterNewManufacturer.click();
         return new CreateManufacturerTestsData(driver);
@@ -147,6 +149,7 @@ public class ManufacturerList extends _Page {
     private boolean isPaginationDisplayed() {
         boolean isDisplayed = true;
         try{
+            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector("td>div>a"), TIMEOUT_30_SECOND, false);
             WaitUtils.waitForElementToBeVisible(driver, itemCount, TIMEOUT_10_SECOND, false);
         }catch (Exception e){
             isDisplayed = false;
@@ -203,5 +206,16 @@ public class ManufacturerList extends _Page {
         }while(attempts < 5 && !found);
 
         return name;
+    }
+
+    public boolean isManufacturerLinkDisplayed(String name) {
+        boolean found = true;
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector("td>div>a"), TIMEOUT_30_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(name), TIMEOUT_5_SECOND, false);
+        }catch (Exception e){
+            found = false;
+        }
+        return found;
     }
 }

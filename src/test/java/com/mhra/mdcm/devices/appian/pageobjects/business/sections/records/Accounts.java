@@ -117,6 +117,7 @@ public class Accounts extends _Page {
     }
 
     public Accounts searchForAccount(String orgName) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, searchBox, TIMEOUT_30_SECOND, false);
         searchBox.clear();
         searchBox.sendKeys(orgName);
@@ -127,6 +128,7 @@ public class Accounts extends _Page {
 
     public boolean atLeast1MatchFound(String searchText) {
         boolean atLeast1MatchFound = true;
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".appian-informationPanel b"), TIMEOUT_40_SECOND, false);
         try{
             WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(searchText), TIMEOUT_5_SECOND, false);

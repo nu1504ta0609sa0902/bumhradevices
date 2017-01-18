@@ -63,13 +63,13 @@ Feature: Reset all the information related to a manufacturer and authorisedRep
     And I assign the task to me and "approve" the generated task
     Then The task should be removed from tasks list
     Examples:
-      | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
-      | authorisedRepNoor | businessNoor | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Blood          | true       | setmeup            |
+      | user              | logBackInAas | accountType   | countryName |
+      | authorisedRepNoor | businessNoor | authorisedRep | Bangladesh  |
 
   @setup
   Scenario Outline: Able to register and Provide Indication of Devices Made By Manufacturers
     Given I am logged into appian as "<user>" user
-    And I go to register my organisations page
+    And I go to register a new authorisedRep page
     When I create a new manufacturer using manufacturer test harness page with following data
       | accountType | <accountType> |
       | countryName | <countryName> |
@@ -81,8 +81,8 @@ Feature: Reset all the information related to a manufacturer and authorisedRep
     And I assign the task to me and "approve" the generated task
     Then The task should be removed from tasks list
     Examples:
-      | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
-      | manufacturerNoor  | businessNoor | manufacturer  | Bangladesh  | Active Implantable Medical Devices | Blood          | true       | setmeup            |
+      | user              | logBackInAas | accountType   | countryName |
+      | manufacturerNoor  | businessNoor | manufacturer  | Bangladesh  |
 
 
   @setup

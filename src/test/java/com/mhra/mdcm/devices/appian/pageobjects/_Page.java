@@ -13,6 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 @ContextConfiguration(locations = {"/cucumber.mhra.devices.xml"})
 public class _Page {
 
+    public static final int TIMEOUT_PAGE_LOAD = 1;
     public static final boolean USE_DEBUG_TIME = true;
     public static final int TIMEOUT_1_SECOND = 1;
     public static final int TIMEOUT_3_SECOND = 3;

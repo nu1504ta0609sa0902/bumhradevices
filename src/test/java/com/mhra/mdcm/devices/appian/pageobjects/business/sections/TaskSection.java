@@ -107,14 +107,14 @@ public class TaskSection extends _Page {
 
     public TasksPage approveTask() {
         WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
-        WaitUtils.waitForElementToBeClickable(driver, approveTask, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, approveTask, TIMEOUT_15_SECOND, false);
         PageUtils.doubleClick(driver, approveTask);
         return new TasksPage(driver);
     }
 
     public TasksPage acceptRegistrationTask() {
         WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
-        WaitUtils.waitForElementToBeClickable(driver, acceptRegistration, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, acceptRegistration, TIMEOUT_15_SECOND, false);
         PageUtils.doubleClick(driver, acceptRegistration);
         return new TasksPage(driver);
     }
@@ -223,6 +223,8 @@ public class TaskSection extends _Page {
     }
 
     public boolean isDevicesDisplayedCorrect(String deviceList) {
+        //WaitUtils.waitForElementToBeVisible(driver, By.xpath(".//a[.='Risk classification']//following::td[2]"), TIMEOUT_15_SECOND, false);
+        WaitUtils.nativeWaitInSeconds(2);
         String[] data = deviceList.toLowerCase().split(",");
 
         //Displayed list of gmdns
@@ -253,6 +255,7 @@ public class TaskSection extends _Page {
     }
 
     public boolean isCompletedTaskStatusCorrect2(String orgName, String expectedStatus) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         By by = By.xpath(".//td[.='" + orgName + "']//following::td[3]");
         WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_10_SECOND, false);
         boolean contains = driver.findElement(by).getText().contains(expectedStatus);

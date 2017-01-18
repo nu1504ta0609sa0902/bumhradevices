@@ -79,46 +79,46 @@ public class TasksPageSteps extends CommonSteps {
         //Verify new taskSection generated and its the correct one
         boolean contains = false;
         boolean isCorrectTask = false;
-//        int count = 0;
-//        do {
-//            //Refresh each time, it may take a while for the new task to arrive
-//            tasksPage = mainNavigationBar.clickTasks();
-//
-//            //Click on link number X
-//            taskSection = tasksPage.clickOnTaskNumber(count, link);
-//            isCorrectTask = taskSection.isCorrectTask(orgName);
-//            if (isCorrectTask) {
-//                contains = true;
-//                scenarioSession.putData(SessionKey.position, count);
-//            } else {
-//                //Try position 0 again
-//                tasksPage = mainNavigationBar.clickTasks();
-//                taskSection = tasksPage.clickOnTaskNumber(0, link);
-//                isCorrectTask = taskSection.isCorrectTask(orgName);
-//                if (isCorrectTask) {
-//                    scenarioSession.putData(SessionKey.position, count);
-//                    contains = true;
-//                }
-//                count++;
-//            }
-//        } while (!contains && count <= 5);
         int count = 0;
         do {
             //Refresh each time, it may take a while for the new task to arrive
             tasksPage = mainNavigationBar.clickTasks();
 
             //Click on link number X
-            try {
-                taskSection = tasksPage.clickOnLinkWithText(orgName);
+            taskSection = tasksPage.clickOnTaskNumber(count, link);
+            isCorrectTask = taskSection.isCorrectTask(orgName);
+            if (isCorrectTask) {
                 contains = true;
-            } catch (Exception e) {
-                contains = false;
-            }
-            if (!contains){
-                WaitUtils.nativeWaitInSeconds(2);
+                scenarioSession.putData(SessionKey.position, count);
+            } else {
+                //Try position 0 again
+                tasksPage = mainNavigationBar.clickTasks();
+                taskSection = tasksPage.clickOnTaskNumber(0, link);
+                isCorrectTask = taskSection.isCorrectTask(orgName);
+                if (isCorrectTask) {
+                    scenarioSession.putData(SessionKey.position, count);
+                    contains = true;
+                }
                 count++;
             }
         } while (!contains && count <= 5);
+//        int count = 0;
+//        do {
+//            //Refresh each time, it may take a while for the new task to arrive
+//            tasksPage = mainNavigationBar.clickTasks();
+//
+//            //Click on link number X
+//            try {
+//                taskSection = tasksPage.clickOnLinkWithText(orgName);
+//                contains = true;
+//            } catch (Exception e) {
+//                contains = false;
+//            }
+//            if (!contains){
+//                WaitUtils.nativeWaitInSeconds(2);
+//                count++;
+//            }
+//        } while (!contains && count <= 5);
 
         //If its still not found than try the first 1 again, because it may have taken few seconds longer than usual
         if (!contains) {
@@ -268,7 +268,7 @@ public class TasksPageSteps extends CommonSteps {
 
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
 
-        boolean isTaskStatusCorrect = taskSection.isCompletedTaskStatusCorrect2(orgName, expectedStatus);
+        boolean isTaskStatusCorrect = taskSection.isCompletedTaskStatusCorrect(orgName, expectedStatus);
         assertThat("Expected completed task status : " + expectedStatus, isTaskStatusCorrect, is(equalTo(true)));
 
         //boolean isCorrectTask = taskSection.isOrganisationDisplayedOnLink(orgName);

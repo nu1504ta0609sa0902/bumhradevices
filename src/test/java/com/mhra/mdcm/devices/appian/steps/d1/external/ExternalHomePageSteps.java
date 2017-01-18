@@ -112,6 +112,20 @@ public class ExternalHomePageSteps extends CommonSteps {
             }
         }while(!isFoundInManufacturerList && count <= nop);
 
+        if(!isFoundInManufacturerList){
+            //Try first page again
+            externalHomePage = mainNavigationBar.clickExternalHOME();
+            manufacturerList = externalHomePage.gotoListOfManufacturerPage();
+            count = 0;
+            do{
+                count++;
+                isFoundInManufacturerList = manufacturerList.isManufacturerLinkDisplayed(name);
+                if(!isFoundInManufacturerList){
+                    manufacturerList = manufacturerList.clickNext();
+                }
+            }while(!isFoundInManufacturerList && count <= nop);
+        }
+
         Assert.assertThat("Organisation Name Expected In Manufacturer List : " + name, isFoundInManufacturerList, Matchers.is(true));
     }
 
