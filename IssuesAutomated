@@ -14,60 +14,63 @@ Automated Issues:
 
     STORIES:
     Sprint 1: @sprint1
-        - @mdcm-10  - DONE
-        - @mdcm-126 - DONE
-        - @mdcm-143 - DONE
+        - @mdcm-10  -   6/7       DONE
+        - @mdcm-126 -   7/9       DONE
+        - @mdcm-143 -   20/21     DONE
+                Total   33/37
 
     Sprint 2: @sprint2
-        - @mdcm-41  - DONE
-        - @mdcm-175 - DONE
-        - @mdcm-178 - DONE
-        - @mdcm-186 - DONE
-        - @mdcm-187 - no tests for regression
-        - @mdcm-157 - no tests for regression
-        - @mdcm-174 - no tests for regression
-        - @mdcm-182 - no tests for regression
+        - @mdcm-41  -   8/9       DONE
+        - @mdcm-175 -   11/14     DONE
+        - @mdcm-178 -   30/35     DONE
+        - @mdcm-186 -   2/13      DONE
+        - @mdcm-187 -   no tests for regression
+        - @mdcm-157 -   no tests for regression
+        - @mdcm-174 -   no tests for regression
+        - @mdcm-182 -   no tests for regression
+                Total   51/71
 
     Sprint 3: @sprint3
-        - @mdcm-149 - DONE
-        - @mdcm-14  - DONE
-        - @mdcm-183 - DONE
-        - @mdcm-292 - DONE ish
-        - @mdcm-15  - DONE ish
-        - @mdcm-237 - no tests for regression
-        - @mdcm-238 - no tests for regression
+        - @mdcm-149 -   6/6       DONE
+        - @mdcm-14  -   15/15     DONE
+        - @mdcm-183 -   7/7       DONE
+        - @mdcm-292 -   1/1       DONE ish
+        - @mdcm-15  -   13/23     DONE ish
+        - @mdcm-237 -   no tests for regression
+        - @mdcm-238 -   no tests for regression
+                Total   42/52
 
     Spring 4: @sprint4
-        - @mdcm-13  - DONE
-        - @mdcm-240 - DONE
-        - @mdcm-161 - DONE
-        - @mdcm-232 - DONE
-        - @mdcm-261 - DONE
-        - @mdcm-353 - no tests for regression
-        - @mdcm-358 - no tests for regression
-        - @mdcm-362 - no tests for regression
-
+        - @mdcm-13  -   3/8       DONE
+        - @mdcm-240 -   11/17     DONE
+        - @mdcm-161 -   7/10      DONE
+        - @mdcm-232 -   6/10      DONE
+        - @mdcm-261 -   3/4       DONE
+        - @mdcm-353 -   no tests for regression
+        - @mdcm-358 -   no tests for regression
+        - @mdcm-362 -   no tests for regression
+                Total   30/49
 
     Spring 5: @sprint5
-        - @mdcm-39  - DONE
-        - @mdcm-489 - DONE ish
-        - @mdcm-277 - DONE
-        - @mdcm-171 - DONE ish
-        - @mdcm-162 - NEED TO LOOK AT IT AGAIN
-        - @mdcm-260 - Related to @mdcm-39
-                    - NEED TO LOOK AT IT AGAIN
-                    - TODO NEED THE LIST
-        - @mdcm-21  - DONE ish
-                    - Didn't receive a task for the updates
-        - @mdcm-496 - DONE
-        - @mdcm-485 - DONE ish
-        - @mdcm-465 - TODO NEED THE LIST
-                    - Verify no EU countries are displayed to authorisedReps
-        - @mdcm-374 - DONE ish
-        - @mdcm-467 - DONE ish
-        - @mdcm-298 - no tests for regression
-        - @mdcm-377 - no tests for regression
-        - @mdcm-359 - no tests for regression
+        - @mdcm-39  -   DONE
+        - @mdcm-489 -   DONE ish
+        - @mdcm-277 -   DONE
+        - @mdcm-171 -   DONE ish
+        - @mdcm-162 -   NEED TO LOOK AT IT AGAIN
+        - @mdcm-260 -   Related to @mdcm-39
+                    -   NEED TO LOOK AT IT AGAIN
+                    -   TODO NEED THE LIST
+        - @mdcm-21  -   DONE ish
+                    -   Didn't receive a task for the updates
+        - @mdcm-496 -   DONE
+        - @mdcm-485 -   DONE ish
+        - @mdcm-465 -   TODO NEED THE LIST
+                    -   Verify no EU countries are displayed to authorisedReps
+        - @mdcm-374 -   DONE ish
+        - @mdcm-467 -   DONE ish
+        - @mdcm-298 -   no tests for regression
+        - @mdcm-377 -   no tests for regression
+        - @mdcm-359 -   no tests for regression
 
 
     Spring 6: @sprint6

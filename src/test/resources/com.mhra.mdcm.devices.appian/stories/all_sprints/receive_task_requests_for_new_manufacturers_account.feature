@@ -39,7 +39,7 @@ Feature: As a business user, I want a task to be created each time a customer su
       | businessNoor | authorisedRep | 0     | Estonia     | No authorisation evidence provided | New Account Request |
 
 
-  @regression @mdcm-15 @mdcm-39 @mdcm-186 @sprint2 @sprint3 @sprint5 @bug
+  @regression @mdcm-15 @mdcm-39 @mdcm-186 @mdcm-240 @sprint4 @sprint2 @sprint3 @sprint5 @bug
   Scenario Outline: Business users should be able to review and process manufacturer and device registration tasks
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -99,7 +99,7 @@ Feature: As a business user, I want a task to be created each time a customer su
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | In Vitro Diagnostic Device | Needle introducer | list a             | ford,honda         | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
 
-  @regression @mdcm-161 @mdcm-232 @sprint4 @wip
+  @regression @mdcm-161 @mdcm-232 @mdcm-240 @sprint4 @wip
   Scenario Outline: Register manufacturer as authorisedRep and verify status of letter of designation is correct
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page

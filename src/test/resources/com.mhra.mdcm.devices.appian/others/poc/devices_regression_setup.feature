@@ -17,8 +17,8 @@ Feature: Reset all the information related to a manufacturer and authorisedRep
     Then I should see at least <count> account matches
     Examples:
       | user         | accountType   | approveReject | count | countryName    | link                | accountNameBeginsWith |
-      | businessNoor | manufacturer  | approve       | 1     | United Kingdom | New Account Request | ManufacturerRT01      |
-      | businessNoor | authorisedRep | approve       | 1     | Netherland     | New Account Request | AuthorisedRepRT01     |
+      | businessNoor | manufacturer  | approve       | 1     | United Kingdom | New Account Request | ManufacturerRT00      |
+      | businessNoor | authorisedRep | approve       | 1     | Netherland     | New Account Request | AuthorisedRepRT00     |
 
 
   @setup
