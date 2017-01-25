@@ -75,9 +75,9 @@ public class CreateTestsData extends _Page {
 
     //Organisational Role
     final String selectedRoles = "Selected roles";
-    @FindBy(xpath = ".//span[.='" + selectedRoles + "']//following::input[1]")
+    @FindBy(xpath = ".//span[.='" + selectedRoles + "']//following::label[contains(text(),'Authorised')]")
     WebElement authorisedRep;
-    @FindBy(xpath = ".//span[.='" + selectedRoles + "']//following::input[3]")
+    @FindBy(xpath = ".//span[.='" + selectedRoles + "']//following::label[contains(text(),'Manufacturer')]")
     WebElement manufacturer;
 
     //Services of Interests

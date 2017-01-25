@@ -1,5 +1,6 @@
 package com.mhra.mdcm.devices.appian.utils.reporter;
 
+import com.github.mkolisnyk.cucumber.reporting.CucumberResultsOverview;
 import net.masterthought.cucumber.ConfigurationOptions;
 import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.sandwich.CucumberReportMonitor;
@@ -26,10 +27,19 @@ import java.util.List;
 public class CreatePrettyReportManual {
 
     public static void main(String[] args) {
-        CreatePrettyReportManual cpr = new CreatePrettyReportManual();
-        //cpr.monitorFolder("PrettyReport", true);
-        //cpr.createReport("PrettyReport", true);
-        //cpr.createReport("PrettyReport2", false);
+//        CreatePrettyReportManual cpr = new CreatePrettyReportManual();
+//        cpr.monitorFolder("PrettyReport", true);
+//        cpr.createReport("PrettyReport", true);
+//        cpr.createReport("PrettyReport2", false);
+        CucumberResultsOverview results = new CucumberResultsOverview();
+        results.setOutputDirectory("target");
+        results.setOutputName("cucumber-results");
+        results.setSourceFile("./target/cucumber.json");
+        try {
+            results.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private String formatName(String fname) {

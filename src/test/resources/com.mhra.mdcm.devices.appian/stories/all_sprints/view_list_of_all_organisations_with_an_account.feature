@@ -34,3 +34,16 @@ Feature: As a business user, I want to access a list of organisations with an ac
       | businessAuto | Accounts | Accounts    |
 
 
+  @mdcm-126 @readonly @sprint1
+  Scenario Outline: Users should be able to filter and sort by headings
+    Given I am logged into appian as "<user>" user
+    When I go to records page and click on "<link>"
+    Then I should see items and heading "<pageHeading>" for link "<link>"
+    When filter by organisation role "<organisationType>"
+    And I sort by "<tableHeading>"
+    Then I should see only see organisation of type "<organisationType>"
+    Examples:
+      | user         | link     | pageHeading | organisationType | tableHeading      |
+      | businessAuto | Accounts | Accounts    | Authorised       | Organisation name |
+      | businessAuto | Accounts | Accounts    | Manufacturer     | Organisation name |
+

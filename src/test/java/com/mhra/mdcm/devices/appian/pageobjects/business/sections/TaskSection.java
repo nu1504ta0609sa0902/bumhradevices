@@ -78,7 +78,7 @@ public class TaskSection extends _Page {
     }
 
     public boolean isCorrectTask(String orgName) {
-        if(orgName==null){
+        if (orgName == null) {
             return true;
         }
 
@@ -169,6 +169,9 @@ public class TaskSection extends _Page {
         } else if (reason.contains("Non-qualifying party")) {
             WaitUtils.waitForElementToBeClickable(driver, reasonNonQualifyingParty, TIMEOUT_10_SECOND, false);
             PageUtils.clickIfVisible(driver, reasonNonQualifyingParty);
+        }else{
+            //They have changed rejection process: The options have disappeared
+
         }
 
         //Enter comment

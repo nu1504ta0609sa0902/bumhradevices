@@ -248,4 +248,21 @@ public class RecordsPageSteps extends CommonSteps {
         Assert.assertThat("Default ordering of organisation name should be A to Z", isOrderAtoZ, is(true));
 
     }
+
+
+    @When("^filter by organisation role \"([^\"]*)\"$")
+    public void filter_by_organisation_role(String organisationRole) throws Throwable {
+        accounts = accounts.filterBy(organisationRole);
+    }
+
+    @When("^I sort by \"([^\"]*)\"$")
+    public void i_sort_by(String tableHeading) throws Throwable {
+        accounts = accounts.sortBy(tableHeading, 1);
+    }
+
+    @Then("^I should see only see organisation of type \"([^\"]*)\"$")
+    public void i_should_see_only_see_organisation_of_type(String organisationType) throws Throwable {
+        boolean isOrganisationTypeAllSame = accounts.areAllOrganisationRoleOfType(organisationType);
+        Assert.assertThat("Organisation Roles Should Be Of Type : " + organisationType, isOrganisationTypeAllSame, is(true));
+    }
 }
