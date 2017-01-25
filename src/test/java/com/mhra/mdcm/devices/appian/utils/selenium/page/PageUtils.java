@@ -252,4 +252,11 @@ public class PageUtils {
         }
         return isDisplayed;
     }
+
+    public static void isValueCorrect(WebElement element, String value, List<String> listOfInvalidFields) {
+        String text = element.getText();
+        if(!text.contains(value)){
+            listOfInvalidFields.add(value);
+        }
+    }
 }

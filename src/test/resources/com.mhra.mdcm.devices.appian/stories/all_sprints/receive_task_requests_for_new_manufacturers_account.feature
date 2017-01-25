@@ -63,7 +63,7 @@ Feature: As a business user, I want a task to be created each time a customer su
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
       | manufacturerAuto  | businessAuto | manufacturer  | Bangladesh  | Active Implantable Medical Devices | Blood          | true       | setmeup1           |
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Blood          | true      | setmeup2           |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Blood          | true       | setmeup2           |
 
 
   @regression @mdcm-15 @mdcm-39 @mdcm-186 @sprint2 @sprint3 @sprint5 @bug
@@ -94,9 +94,9 @@ Feature: As a business user, I want a task to be created each time a customer su
     And I assign the task to me and "approve" the generated task
     And The completed task status should update to "Completed"
     Examples:
-      | user              | logBackInAas | accountType   | countryName | deviceType                 | gmdnDefinition | riskClassification | listOfProductNames | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
-      | manufacturerAuto  | businessAuto | manufacturer  | Bangladesh  | In Vitro Diagnostic Device | Needle introducer     | list a             | ford,hyundai       | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | In Vitro Diagnostic Device | Needle introducer     | list a             | ford,honda         | ford        | focus        | NB 0086 BSI  | true              | true       | true         |
+      | user              | logBackInAas | accountType   | countryName | deviceType                 | gmdnDefinition    | riskClassification | listOfProductNames | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
+      | manufacturerAuto  | businessAuto | manufacturer  | Bangladesh  | In Vitro Diagnostic Device | Needle introducer | list a             | ford,hyundai       | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | In Vitro Diagnostic Device | Needle introducer | list a             | ford,honda         | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
 
   @regression @mdcm-161 @mdcm-232 @sprint4 @wip
@@ -118,12 +118,12 @@ Feature: As a business user, I want a task to be created each time a customer su
     Then I view new task with link "<link>" for the new account
     And The status of designation letter should be "Awaiting Review"
     Examples:
-      | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition     | customMade | listOfProductNames | link                                  |
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Blood donor        | true       | ford               | New Manufacturer Registration Request |
+      | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition | customMade | listOfProductNames | link                                  |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Blood donor    | true       | ford               | New Manufacturer Registration Request |
 #      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Blood vessel sizer | false      | fiesta             | New Manufacturer Registration Request |
 
 
-  @regression @mdcm-41 @sprint2 @ignore
+  @regression @mdcm-41 @sprint2
   Scenario Outline: Verify WIP section shows newly created tasks and users can approve reject tasks
     Given I am logged into appian as "<user>" user
     When I create a new account using business test harness page with following data
@@ -136,7 +136,22 @@ Feature: As a business user, I want a task to be created each time a customer su
     Then I should see at least <count> account matches
     Examples:
       | user         | accountType   | approveReject | count | countryName    |
-      | businessNoor | manufacturer  | approve       | 1     | United Kingdom |
       | businessNoor | authorisedRep | approve       | 1     | Netherland     |
+      | businessNoor | manufacturer  | approve       | 1     | United Kingdom |
       | businessNoor | manufacturer  | reject        | 0     | Turkey         |
       | businessNoor | authorisedRep | reject        | 0     | Estonia        |
+
+
+  @regression @mdcm-178 @sprint2
+  Scenario Outline: Create new account and verify WIP task details are correct
+    Given I am logged into appian as "<user>" user
+    When I create a new account using business test harness page with following data
+      | accountType | <accountType> |
+      | countryName | <countryName> |
+    And I should see a new task for the new account in WIP page
+    Then validate task is displaying correct new account details
+    Examples:
+      | user         | accountType   | count | countryName | reason                             | link                |
+      | businessNoor | manufacturer  | 0     | Turkey      | Account already exists             | New Account Request |
+      | businessNoor | authorisedRep | 0     | Estonia     | No authorisation evidence provided | New Account Request |
+

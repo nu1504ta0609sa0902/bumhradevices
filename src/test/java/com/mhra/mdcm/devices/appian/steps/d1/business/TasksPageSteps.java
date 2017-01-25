@@ -1,5 +1,6 @@
 package com.mhra.mdcm.devices.appian.steps.d1.business;
 
+import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
@@ -10,6 +11,8 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.springframework.context.annotation.Scope;
+
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -323,5 +326,15 @@ public class TasksPageSteps extends CommonSteps {
     public void theStatusShouldBe(String expectedStatus) throws Throwable {
         boolean isStatusCorrect = taskSection.isDesignationLetterStatusCorrect(expectedStatus);
         assertThat("Expected to see letter of designation status : " + expectedStatus, isStatusCorrect, is(equalTo(true)));
+    }
+
+
+    @Then("^validate task is displaying correct new account details$")
+    public void validate_new_account_details() throws Throwable {
+        AccountRequest newAccount = (AccountRequest) scenarioSession.getData(SessionKey.manufacturerData);
+        log.info(newAccount.toString());
+        List<String> listOfDetailsWhichAreIncorrect = taskSection.verifyDetailsAreCorrect(newAccount);
+
+        assertThat("Following information was incorrect : " + listOfDetailsWhichAreIncorrect, listOfDetailsWhichAreIncorrect.size() == 0, is(equalTo(true)));
     }
 }

@@ -1,7 +1,9 @@
 package com.mhra.mdcm.devices.appian.pageobjects.business.sections;
 
+import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.business.TasksPage;
+import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
@@ -25,6 +27,37 @@ import java.util.List;
  */
 @Component
 public class TaskSection extends _Page {
+
+    //Task details
+    @FindBy(xpath = ".//span[contains(text(),'line 1')]//following::p[1]")
+    WebElement odAddressLine1;
+    @FindBy(xpath = ".//span[contains(text(),'line 2')]//following::p[1]")
+    WebElement odAddressLine2;
+    @FindBy(xpath = ".//span[contains(text(),'City')]//following::p[1]")
+    WebElement odCityTown;
+    @FindBy(xpath = "  .//span[contains(text(),'Postcode')]//following::p[1]")
+    WebElement odPostCode;
+    @FindBy(xpath = ".//span[contains(text(),'Country')]//following::p[1]")
+    WebElement odCountry;
+    @FindBy(xpath = "  .//label[contains(text(),'Organisation type')]//following::div[1]")
+    WebElement odOrganisationType;
+    @FindBy(xpath = ".//span[contains(text(),'Telephone')]//following::p[1]")
+    WebElement odTelephone;
+    @FindBy(xpath = ".//span[contains(text(),'Fax')]//following::p[1]")
+    WebElement odFax;
+    @FindBy(xpath = ".//span[contains(text(),'Website')]//following::p[1]")
+    WebElement odWebsite;
+
+    @FindBy(xpath = ".//*[contains(text(),'Full name')]//following::div[1]")
+    WebElement cdFullName;
+    @FindBy(xpath = ".//span[contains(text(),'Job title')]//following::p[1]")
+    WebElement cdJobTitle;
+    @FindBy(xpath = ".//h3[contains(text(),'Contact Person Details')]//following::span[contains(text(),'Telephone')]//following::p[1]")
+    WebElement cdContactPersonTelephone;
+    @FindBy(xpath = ".//span[contains(text(),'Email')]//following::p[1]")
+    WebElement cdEmail;
+
+
 
     @FindBy(xpath = ".//h4")
     WebElement taskHeading;
@@ -279,5 +312,30 @@ public class TaskSection extends _Page {
         boolean contains = driver.findElement(by).getText().contains(expectedStatus);
         return contains;
 
+    }
+
+    public List<String> verifyDetailsAreCorrect(AccountRequest accountDetails) {
+        List<String> listOfInvalidFields = new ArrayList<>();
+
+        //Verify organisation details
+        PageUtils.isValueCorrect(odAddressLine1, accountDetails.address1, listOfInvalidFields);
+        PageUtils.isValueCorrect(odAddressLine2, accountDetails.address2, listOfInvalidFields);
+        PageUtils.isValueCorrect(odCityTown, accountDetails.townCity, listOfInvalidFields);
+        PageUtils.isValueCorrect(odPostCode, accountDetails.postCode, listOfInvalidFields);
+        PageUtils.isValueCorrect(odCountry, accountDetails.country, listOfInvalidFields);
+        PageUtils.isValueCorrect(odOrganisationType, accountDetails.organisationType, listOfInvalidFields);
+        PageUtils.isValueCorrect(odTelephone, accountDetails.telephone, listOfInvalidFields);
+        PageUtils.isValueCorrect(odFax, accountDetails.fax, listOfInvalidFields);
+        PageUtils.isValueCorrect(odWebsite, accountDetails.website, listOfInvalidFields);
+
+        //Verify contact person details
+        String fullName = accountDetails.title + " " + accountDetails.firstName + " " + accountDetails.lastName;
+        PageUtils.isValueCorrect(cdFullName, fullName, listOfInvalidFields);
+        PageUtils.isValueCorrect(cdJobTitle, accountDetails.jobTitle, listOfInvalidFields);
+        PageUtils.isValueCorrect(cdContactPersonTelephone, accountDetails.phoneNumber, listOfInvalidFields);
+        PageUtils.isValueCorrect(cdEmail, accountDetails.email, listOfInvalidFields);
+
+
+        return listOfInvalidFields;
     }
 }

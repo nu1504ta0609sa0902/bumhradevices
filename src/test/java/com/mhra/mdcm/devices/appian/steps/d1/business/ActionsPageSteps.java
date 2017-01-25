@@ -91,6 +91,7 @@ public class ActionsPageSteps extends CommonSteps {
 
         log.warn("Created a new account : " + newAccount.organisationName);
         scenarioSession.putData(SessionKey.organisationName, newAccount.organisationName);
+        scenarioSession.putData(SessionKey.manufacturerData, newAccount);
 
     }
 

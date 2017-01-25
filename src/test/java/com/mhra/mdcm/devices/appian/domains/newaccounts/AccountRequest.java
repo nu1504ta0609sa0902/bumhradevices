@@ -220,29 +220,29 @@ public class AccountRequest {
     public String toString() {
         return "AccountRequest{" +
                 "\norganisationName='" + organisationName + '\'' +
-//                "\naddress1='" + address1 + '\'' +
-//                "\naddress2='" + address2 + '\'' +
-//                "\ntownCity='" + townCity + '\'' +
-//                "\npostCode='" + postCode + '\'' +
-//                "\ncountry='" + country + '\'' +
-//                "\ntelephone='" + telephone + '\'' +
-//                "\nfax='" + fax + '\'' +
+                "\naddress1='" + address1 + '\'' +
+                "\naddress2='" + address2 + '\'' +
+                "\ntownCity='" + townCity + '\'' +
+                "\npostCode='" + postCode + '\'' +
+                "\ncountry='" + country + '\'' +
+                "\ntelephone='" + telephone + '\'' +
+                "\nfax='" + fax + '\'' +
                 "\nwebsite='" + website + '\'' +
                 "\naddressType=" + addressType +
                 "\norganisationType='" + organisationType + '\'' +
-//                "\nvatRegistrationNumber='" + vatRegistrationNumber + '\'' +
-//                "\ncompanyRegistrationNumber='" + companyRegistrationNumber + '\'' +
-//                "\ntitle='" + title + '\'' +
+                "\nvatRegistrationNumber='" + vatRegistrationNumber + '\'' +
+                "\ncompanyRegistrationNumber='" + companyRegistrationNumber + '\'' +
+                "\ntitle='" + title + '\'' +
                 "\nfirstName='" + firstName + '\'' +
                 "\nlastName='" + lastName + '\'' +
-//                "\njobTitle='" + jobTitle + '\'' +
-//                "\nphoneNumber='" + phoneNumber + '\'' +
+                "\njobTitle='" + jobTitle + '\'' +
+                "\nphoneNumber='" + phoneNumber + '\'' +
                 "\nemail='" + email + '\'' +
                 "\nisManufacturer=" + isManufacturer +
-//                "\ndeviceRegistration=" + deviceRegistration +
-//                "\ncfsCertificateOfFreeSale=" + cfsCertificateOfFreeSale +
-//                "\nclinicalInvestigation=" + clinicalInvestigation +
-//                "\naitsAdverseIncidentTrackingSystem=" + aitsAdverseIncidentTrackingSystem +
+                "\ndeviceRegistration=" + deviceRegistration +
+                "\ncfsCertificateOfFreeSale=" + cfsCertificateOfFreeSale +
+                "\nclinicalInvestigation=" + clinicalInvestigation +
+                "\naitsAdverseIncidentTrackingSystem=" + aitsAdverseIncidentTrackingSystem +
                 '}';
     }
 
