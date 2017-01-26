@@ -50,9 +50,9 @@ Feature: As a business and account holder, I want to be able to update party det
     And I update the organisation details with following data "<keyValuePairs>"
     Then I should see the changes "<keyValuePairs>" in my accounts page
     Examples:
-      | user              | keyValuePairs                                                                      |
-      | authorisedRepAuto | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website          |
-      | manufacturerAuto  | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website          |
+      | user              | keyValuePairs                                                             |
+      | authorisedRepAuto | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website |
+      | manufacturerAuto  | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website |
       | authorisedRepNoor | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website |
       | manufacturerNoor  | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website |
 
@@ -77,11 +77,25 @@ Feature: As a business and account holder, I want to be able to update party det
     And I click on random manufacturer with status "<status>"
     And I update the manufacturer details with following data "<keyValuePairs>"
     Then I should see the changes "<keyValuePairs>" in my manufacturer details page
+    When I logout of the application
+    And I am logged into appian as "<logBackInAas>" user
+    Then I view new task with link "New Manufacturer Registration Request" for the new account
+    And Verify task information is correct
     Examples:
-      | user              | keyValuePairs                                                             | status     |
-      | manufacturerAuto  | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website          | Registered |
-      | manufacturerAuto  | contact.title,contact.firstname,contact.lastname,contact.job.title,contact.email,contact.telephone | Registered |
+      | user             | keyValuePairs                                                                                      | status     |
+      | manufacturerAuto | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website                          | Registered |
+#      | manufacturerAuto | contact.title,contact.firstname,contact.lastname,contact.job.title,contact.email,contact.telephone | Registered |
 #      | authorisedRepAuto | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website | Registered |
 #      | authorisedRepAuto | contact.title,contact.firstname,contact.lastname,contact.job.title,contact.email,contact.telephone          | Registered |
 
+
+  @regression @mdcm-21 @sprint5
+  Scenario Outline: Verify list of manufacturer table showing correct details
+    Given I am logged into appian as "<user>" user
+    When I go to list of manufacturers page
+    Then I should see the following columns for "<expectedHeadings>" list of manufacturer table
+    Examples:
+      | user              | expectedHeadings                                                                             |
+      | manufacturerAuto  | Organisation name,Organisation address,Organisation country,Manufacturer registration status |
+      | authorisedRepAuto | Organisation name,Organisation address,Organisation country,Manufacturer registration status |
 

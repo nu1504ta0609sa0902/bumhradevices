@@ -32,6 +32,21 @@ public class AddDevices extends _Page {
     @FindBy(css = ".GFWJSJ4DCW label")
     List<WebElement> listOfDeviceTypes;
 
+    //Product details verification
+    @FindBy(xpath = ".//a[contains(text(), 'Product code')]//following::tr/td[1]")
+    List<WebElement> listOfProductNames;
+    @FindBy(xpath = ".//a[contains(text(), 'Product code')]//following::tr/td[2]")
+    List<WebElement> listOfProductMake;
+    @FindBy(xpath = ".//a[contains(text(), 'Product code')]//following::tr/td[3]")
+    List<WebElement> listOfProductModel;
+
+    @FindBy(xpath = ".//label[contains(text(), 'Product name')]//following::input[1]")
+    WebElement txtProductName;
+    @FindBy(xpath = ".//label[contains(text(), 'Product Make')]//following::input[1]")
+    WebElement txtProductMake;
+    @FindBy(xpath = ".//label[contains(text(), 'Product Model')]//following::input[1]")
+    WebElement txtProductModel;
+
     //Device types
     @FindBy(xpath = ".//*[contains(text(),'ype of device')]//following::input[1]")
     WebElement generalMedicalDevice;
@@ -399,7 +414,7 @@ public class AddDevices extends _Page {
 
         //Wait for form to be visible
         WaitUtils.waitForElementToBeClickable(driver, pdProductName, TIMEOUT_5_SECOND, false);
-        if (dd.productName != null || !dd.productName.equals("")) {
+        if (dd.productName != null && !dd.productName.equals("")) {
             pdProductName.sendKeys(dd.productName);
         } else if (dd.productMake != null || !dd.productMake.equals("")) {
             pdProductMake.sendKeys(dd.productMake);
@@ -434,7 +449,7 @@ public class AddDevices extends _Page {
 
     private void riskClassificationIVD(DeviceData dd) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, ivdIVDGeneral, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, ivdIVDGeneral, TIMEOUT_10_SECOND, false);
         //WaitUtils.nativeWaitInSeconds(1);
 
         String lcRiskClassification = dd.riskClassification.toLowerCase();
@@ -607,7 +622,6 @@ public class AddDevices extends _Page {
 
 
     public AddDevices viewDeviceWithGMDNValue(String gmdnCode) {
-        //boolean isNumeric = AssertUtils.isNumeric(gmdnCode);
         WebElement el = CommonUtils.getElementWithLink(listOfGMDNLinksInSummary, gmdnCode);
         WaitUtils.waitForElementToBeClickable(driver, el, TIMEOUT_5_SECOND, false);
         el.click();
@@ -618,5 +632,63 @@ public class AddDevices extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, btnRemove, TIMEOUT_5_SECOND, false);
         btnRemove.click();
         return new AddDevices(driver);
+    }
+
+    public boolean isProductDetailsCorrect(DeviceData data) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        boolean allCorrect = true;
+
+        if(data.productName!=null && !data.productName.equals("")){
+            allCorrect = listOfProductNames.get(0).getText().contains(data.productName);
+        }else{
+            //Confirm make and model
+            allCorrect = listOfProductModel.get(0).getText().contains(data.productModel);
+            if(allCorrect){
+                allCorrect = listOfProductMake.get(0).getText().contains(data.productMake);
+            }
+        }
+
+        return allCorrect;
+    }
+
+    public AddDevices viewAProduct(DeviceData data) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WebElement link;
+        if(data.productName!=null && !data.productName.equals("")){
+            link = PageUtils.findCorrectElement(listOfProductNames, data.productName);
+        }else{
+            //Confirm model and make
+            link = PageUtils.findCorrectElement(listOfProductMake, data.productMake);
+        }
+
+        //WaitUtils.waitForElementToBeClickable(driver, link, TIMEOUT_5_SECOND, false);
+        //PageUtils.doubleClick(driver, link);
+        driver.findElement(By.linkText(link.getText())).click();
+        return new AddDevices(driver);
+    }
+
+
+    public boolean isCTSAndOthereDetailsCorrect(DeviceData data) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        boolean allCorrect = true;
+        String txt;
+
+        //Verify product make and models correct
+        if(data.productName!=null && !data.productName.equals("")){
+            txt = PageUtils.getText(txtProductName);
+            allCorrect = txt.contains(data.productName);
+        }else{
+            txt = PageUtils.getText(txtProductMake); //txtProductMake.getText();
+            allCorrect = txt.contains(data.productMake);
+            if(allCorrect){
+                txt = PageUtils.getText(txtProductModel);
+                allCorrect = txt.contains(data.productModel);
+            }
+        }
+
+        //Verify other selection : CTS, product new etc
+
+
+        return allCorrect;
     }
 }

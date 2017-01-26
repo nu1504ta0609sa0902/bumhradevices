@@ -409,6 +409,19 @@ public class ExternalHomePageSteps extends CommonSteps {
             Assert.assertThat("Expected not to see product with gmdn code/definition : " + data.getGMDN() , isGMDNCorrect, Matchers.is(false));
     }
 
+
+
+    @Then("^Verify name make model and other details are correct$")
+    public void product_name_make_and_model_detals_are_correct() throws Throwable {
+        DeviceData data = (DeviceData) scenarioSession.getData(SessionKey.deviceData);
+        addDevices = addDevices.viewDeviceWithGMDNValue(data.getGMDN());
+        boolean isProductDetailCorrect = addDevices.isProductDetailsCorrect(data);
+
+        addDevices = addDevices.viewAProduct(data);
+        boolean isCTSAndOtherDetailsCorrect = addDevices.isCTSAndOthereDetailsCorrect(data);
+        Assert.assertThat("Expected to see product details displayed", isProductDetailCorrect, Matchers.is(true));
+    }
+
     @When("^I remove the device with gmdn \"([^\"]*)\" code$")
     public void iRemoveTheDeviceWithGmdnCode(String gmdnCode) throws Throwable {
         addDevices = addDevices.viewDeviceWithGMDNValue(gmdnCode);
@@ -450,4 +463,12 @@ public class ExternalHomePageSteps extends CommonSteps {
         Assert.assertThat("Page heading is incorrect" , titleCorrect, Matchers.is(true));
         Assert.assertThat("Logged in user name should be displayed" , userNameIsCorrect, Matchers.is(true));
     }
+
+
+    @Then("^I should see the following columns for \"([^\"]*)\" list of manufacturer table$")
+    public void i_should_see_the_following_columns_for_list_of_manufacturer_table(String commaDelimitedHeading) throws Throwable {
+        boolean isHeadingCorrect = manufacturerList.isTableHeadingCorrect(commaDelimitedHeading);
+        Assert.assertThat("Expected to see the following headings : " + commaDelimitedHeading , isHeadingCorrect, Matchers.is(true));
+    }
+
 }

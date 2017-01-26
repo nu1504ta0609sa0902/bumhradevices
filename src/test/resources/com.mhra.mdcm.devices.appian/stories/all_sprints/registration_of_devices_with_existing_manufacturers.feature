@@ -41,13 +41,14 @@ Feature: As an account holder with access to the Device Registration Service
       | packIncorporated       | <packIncorporated>   |
       | devicesCompatible      | <devicesCompatible>  |
     Then I should see option to add another device
+    And The gmdn code or term is "displayed" in summary section
     Examples:
-      | user             | deviceType                 | gmdnDefinition    | customMade | deviceSterile | deviceMeasuring | riskClassification | notifiedBody | packIncorporated | devicesCompatible |
-      | manufacturerAuto | General Medical Device     | Blood             | false      | true          | true            | class1             | NB 0086 BSI  |                  |                   |
-      | manufacturerAuto | General Medical Device     | Blood             | true       | true          | true            |                    |              |                  |                   |
-      | manufacturerAuto | In Vitro Diagnostic Device | Needle introducer |            |               |                 | ivd general        |              |                  |                   |
-      | manufacturerAuto | System or Procedure Pack   | Air sampling      |            | true          | true            | class1             | NB 0086 BSI  | false            | true              |
-      | manufacturerAuto | System or Procedure Pack   | Air sampling      |            | false         | true            |                    | NB 0086 BSI  | false            | true              |
+      | user             | deviceType                 | gmdnDefinition                    | customMade | deviceSterile | deviceMeasuring | riskClassification | notifiedBody | packIncorporated | devicesCompatible |
+      | manufacturerAuto | General Medical Device     | Blood                             | false      | true          | true            | class1             | NB 0086 BSI  |                  |                   |
+      | manufacturerAuto | General Medical Device     | Blood                             | true       | true          | true            |                    |              |                  |                   |
+      | manufacturerAuto | In Vitro Diagnostic Device | Androgen receptor IVD, calibrator |            |               |                 | ivd general        |              |                  |                   |
+      | manufacturerAuto | System or Procedure Pack   | Air sampling                      |            | true          | true            | class1             | NB 0086 BSI  | false            | true              |
+      | manufacturerAuto | System or Procedure Pack   | Air sampling                      |            | false         | true            |                    | NB 0086 BSI  | false            | true              |
 
 
   @regression @mdcm-14 @mdcm-489 @sprint3 @sprint5
@@ -69,25 +70,33 @@ Feature: As an account holder with access to the Device Registration Service
 
 
   @regression @mdcm-489 @sprint5
-  Scenario Outline: Users should be able to add devices using GMDN code to existing manufacturers
+  Scenario Outline: Verify product details after adding IVD products
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
     And I click on a random manufacturer
     When I add a device to SELECTED manufacturer with following data
-      | deviceType             | <deviceType> |
-      | gmdnCode               | 10003        |
-      | customMade             | true         |
-      | relatedDeviceSterile   | true         |
-      | relatedDeviceMeasuring | true         |
+      | deviceType         | <deviceType>         |
+      | gmdnDefinition     | <gmdnDefinition>     |
+      | riskClassification | <riskClassification> |
+      | notifiedBody       | <notifiedBody>       |
+      | productMake        | <productMake>        |
+      | productModel       | <productModel>       |
+      | subjectToPerfEval  | <subjectToPerfEval>  |
+      | newProduct         | <newProduct>         |
+      | conformsToCTS      | <conformsToCTS>      |
+      | listOfProductNames | <listOfProductNames> |
     Then I should see option to add another device
     And The gmdn code or term is "displayed" in summary section
+    And Verify name make model and other details are correct
     Examples:
-      | user             | deviceType             |
-      | manufacturerAuto | General Medical Device |
+      | user              | deviceType                 | gmdnDefinition        | riskClassification | listOfProductNames | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
+      | manufacturerAuto  | In Vitro Diagnostic Device | Androgen receptor IVD | list a             |                    | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      | authorisedRepAuto | In Vitro Diagnostic Device | Androgen receptor IVD | list a             |                    | ford        | focus        | NB 0086 BSI  | true              | true       | false          |
+      | authorisedRepAuto | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | General Motors     | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
 
   @regression @mdcm-489 @sprint5
-  Scenario Outline: Users should be able to add and remove devices using GMDN code to existing manufacturers
+  Scenario Outline: Users should be able to add and remove devices using GMDN code from existing manufacturers
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
     And I click on a random manufacturer

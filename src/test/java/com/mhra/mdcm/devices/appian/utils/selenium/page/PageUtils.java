@@ -259,4 +259,16 @@ public class PageUtils {
             listOfInvalidFields.add(value);
         }
     }
+
+    public static WebElement findCorrectElement(List<WebElement> listOfElements, String productMake) {
+        WebElement element = null;
+        for(WebElement el: listOfElements){
+            String txt = el.getText();
+            if(txt.toLowerCase().contains(productMake.toLowerCase())){
+                element = el;
+                break;
+            }
+        }
+        return element;
+    }
 }

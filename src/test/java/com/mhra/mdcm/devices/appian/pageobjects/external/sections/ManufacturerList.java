@@ -11,7 +11,9 @@ import org.openqa.selenium.support.FindBy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Created by TPD_Auto
@@ -40,6 +42,9 @@ public class ManufacturerList extends _Page {
     WebElement prevPage;
     @FindBy(css = ".gwt-Image[aria-label='Last page']")
     WebElement lastPage;
+
+    @FindBy(xpath = ".//th/a")
+    List<WebElement> listOfTableHeadings;
 
     @Autowired
     public ManufacturerList(WebDriver driver) {
@@ -219,5 +224,19 @@ public class ManufacturerList extends _Page {
             found = false;
         }
         return found;
+    }
+
+    public boolean isTableHeadingCorrect(String commaDelimitedHeading) {
+        String lowerCaseHeadings = commaDelimitedHeading.toLowerCase();
+        //Get list of headings
+        boolean allFound = true;
+        for(WebElement el: listOfTableHeadings){
+            String heading = el.getText().toLowerCase();
+            if(!lowerCaseHeadings.contains(heading)){
+                allFound = false;
+                break;
+            }
+        }
+        return allFound;
     }
 }

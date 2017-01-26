@@ -52,22 +52,26 @@ Automated Issues:
                 Total   30/49
 
     Spring 5: @sprint5
-        - @mdcm-39  -   8/12      DONE
-        - @mdcm-489 -   DONE ish
-        - @mdcm-277 -   DONE
-        - @mdcm-171 -   DONE ish
-        - @mdcm-162 -   NEED TO LOOK AT IT AGAIN
+        - @mdcm-39  -   8/12        DONE
+        - @mdcm-489 -   10/14       DONE ish
+                    -   Add more tests for CTS and AIMD
+        - @mdcm-277 -   2/3         DONE
+                    -   Verify business users can't edit
         - @mdcm-260 -   Related to @mdcm-39
                     -   NEED TO LOOK AT IT AGAIN
                     -   TODO NEED THE LIST
-        - @mdcm-21  -   DONE ish
+        - @mdcm-21  -   7/8         DONE ish
                     -   Didn't receive a task for the updates
+                    -   Also need to make sure updates are checked in the task level before accept/reject
         - @mdcm-496 -   DONE
         - @mdcm-485 -   DONE ish
         - @mdcm-465 -   TODO NEED THE LIST
                     -   Verify no EU countries are displayed to authorisedReps
         - @mdcm-374 -   DONE ish
         - @mdcm-467 -   DONE ish
+        - @mdcm-345 -   TODO
+        - @mdcm-162 -   NEED TO LOOK AT IT AGAIN
+        - @mdcm-171 -   DONE ish
         - @mdcm-298 -   no tests for regression
         - @mdcm-377 -   no tests for regression
         - @mdcm-359 -   no tests for regression
