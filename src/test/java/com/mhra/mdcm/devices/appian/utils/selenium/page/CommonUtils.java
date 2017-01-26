@@ -1,10 +1,13 @@
 package com.mhra.mdcm.devices.appian.utils.selenium.page;
 
+import com.mhra.mdcm.devices.appian.utils.selenium.others.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.io.File;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * Created by TPD_Auto on 20/10/2016.
@@ -55,5 +58,20 @@ public class CommonUtils {
             }
         }
         return found;
+    }
+
+    public static String getHumanReadableUsername(String loggedInUser) {
+
+        String selectedProfile = System.getProperty("spring.profiles.active");
+        String name = FileUtils.getSpecificPropertyFromFile(FileUtils.userFileName, selectedProfile + ".username." + loggedInUser);
+
+        String[] split = name.split("\\.");
+        name = split[0] + " " + split[1];
+        if(split.length > 2){
+            name = name + " " + split[2];
+        }
+
+        return name;
+
     }
 }

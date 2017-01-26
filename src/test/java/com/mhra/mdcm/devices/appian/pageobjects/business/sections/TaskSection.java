@@ -306,12 +306,20 @@ public class TaskSection extends _Page {
 
     }
 
-    public boolean isCompletedTaskStatusCorrect(String orgName, String expectedStatus) {
+    public boolean isCompletedTaskStatusCorrect1(String orgName, String expectedStatus) {
         By by = By.xpath(".//td[contains(.,'" + orgName + "')]//following::td[4]");
         WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_10_SECOND, false);
         boolean contains = driver.findElement(by).getText().contains(expectedStatus);
         return contains;
 
+    }
+
+    public boolean isCompletedTaskStatusCorrect(String orgName, String expectedStatus) {
+        try{
+            return isCompletedTaskStatusCorrect1(orgName, expectedStatus);
+        }catch (Exception e){
+            return isCompletedTaskStatusCorrect2(orgName, expectedStatus);
+        }
     }
 
     public List<String> verifyDetailsAreCorrect(AccountRequest accountDetails) {

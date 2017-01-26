@@ -59,12 +59,14 @@ public class LoginPage extends _Page {
     public MainNavigationBar login(String unameKeyValue) {
         dontRemember();
 
-        //get login details
+        //System properties decides which users to use and which profile to use
         String selectedProfile = System.getProperty("spring.profiles.active");
         String overrideWithUsername = System.getProperty("test.as.user");
-        Properties props = FileUtils.loadPropertiesFile("data" + File.separator + "users.properties");
 
-        //check if local properties supplies a
+        //get login details from properties files
+        Properties props = FileUtils.loadPropertiesFile(FileUtils.userFileName);
+
+        //check if local properties supplies a user to override all tests with
         if(overrideWithUsername==null || overrideWithUsername.equals("")) {
             overrideWithUsername = props.getProperty("mhratest.user.default.override.username");
         }

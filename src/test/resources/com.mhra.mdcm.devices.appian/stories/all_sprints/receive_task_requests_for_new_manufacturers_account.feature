@@ -84,6 +84,7 @@ Feature: As a business user, I want a task to be created each time a customer su
       | newProduct         | <newProduct>         |
       | conformsToCTS      | <conformsToCTS>      |
       | listOfProductNames | <listOfProductNames> |
+    And The gmdn code or term is "displayed" in summary section
     And Proceed to payment and confirm submit device details
     Then I should see stored manufacturer appear in the manufacturers list
     When I logout of the application
@@ -95,8 +96,8 @@ Feature: As a business user, I want a task to be created each time a customer su
     And The completed task status should update to "Completed"
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType                 | gmdnDefinition    | riskClassification | listOfProductNames | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
-      | manufacturerAuto  | businessAuto | manufacturer  | Bangladesh  | In Vitro Diagnostic Device | Needle introducer | list a             | ford,hyundai       | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | In Vitro Diagnostic Device | Needle introducer | list a             | ford,honda         | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      | manufacturerAuto  | businessAuto | manufacturer  | Bangladesh  | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | ford,hyundai       | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | ford,honda         | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
 
   @regression @mdcm-161 @mdcm-232 @mdcm-240 @sprint4 @wip

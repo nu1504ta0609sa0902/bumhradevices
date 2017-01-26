@@ -58,7 +58,7 @@ public class AccountManufacturerRequest {
     private String getLoggedInUserName(ScenarioSession scenarioSession) {
         String selectedProfile = System.getProperty("spring.profiles.active");
         String unameKeyValue = (String) scenarioSession.getData(SessionKey.loggedInUser);
-        String userName = FileUtils.getSpecificPropertyFromFile("data" + File.separator + "users.properties", selectedProfile + ".username." + unameKeyValue);
+        String userName = FileUtils.getSpecificPropertyFromFile(FileUtils.userFileName, selectedProfile + ".username." + unameKeyValue);
         return userName;
     }
 

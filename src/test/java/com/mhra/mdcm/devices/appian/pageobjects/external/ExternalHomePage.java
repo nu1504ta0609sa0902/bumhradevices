@@ -5,6 +5,7 @@ import com.mhra.mdcm.devices.appian.pageobjects.external.sections.AddDevices;
 import com.mhra.mdcm.devices.appian.pageobjects.external.sections.CreateManufacturerTestsData;
 import com.mhra.mdcm.devices.appian.pageobjects.external.sections.ManufacturerDetails;
 import com.mhra.mdcm.devices.appian.pageobjects.external.sections.ManufacturerList;
+import com.mhra.mdcm.devices.appian.utils.selenium.others.FileUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.CommonUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
@@ -16,7 +17,9 @@ import org.openqa.selenium.support.FindBy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * Created by TPD_Auto
@@ -37,6 +40,9 @@ public class ExternalHomePage extends _Page {
     @FindBy(xpath = ".//*[contains(text(),'ype of device')]//following::input[1]")
     WebElement generalMedicalDevice;
 
+    @FindBy(xpath = ".//h4[contains(text(),'Healthcare Products')]")
+    WebElement pageHeading;
+
 
     @Autowired
     public ExternalHomePage(WebDriver driver) {
@@ -54,6 +60,7 @@ public class ExternalHomePage extends _Page {
     }
 
     public ManufacturerList gotoListOfManufacturerPage() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, linkManufacturerRegistration, TIMEOUT_DEFAULT, false);
         linkManufacturerRegistration.click();
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
@@ -161,5 +168,16 @@ public class ExternalHomePage extends _Page {
             WaitUtils.waitForElementToBeClickable(driver, customMadeNo, TIMEOUT_10_SECOND, false);
             driver.findElement(customMadeNo).click();
         }
+    }
+
+    public boolean isTitleCorrect() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        boolean titleCorrect = pageHeading.getText().contains("Healthcare Products Regulatory Agency Services");
+        return titleCorrect;
+    }
+
+    public boolean isCorrectUsernameDisplayed(String loggedInUser) {
+        String humanReadableUsername = CommonUtils.getHumanReadableUsername(loggedInUser);
+        return driver.getPageSource().contains(humanReadableUsername);
     }
 }

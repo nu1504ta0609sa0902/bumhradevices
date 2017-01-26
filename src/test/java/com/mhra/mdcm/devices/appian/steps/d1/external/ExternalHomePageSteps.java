@@ -7,6 +7,7 @@ import com.mhra.mdcm.devices.appian.pageobjects.external.sections.AddDevices;
 import com.mhra.mdcm.devices.appian.pageobjects.external.sections.ProductDetails;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
+import com.mhra.mdcm.devices.appian.utils.selenium.others.FileUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import cucumber.api.PendingException;
@@ -17,7 +18,9 @@ import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.springframework.context.annotation.Scope;
 
+import java.io.File;
 import java.util.Map;
+import java.util.Properties;
 
 /**
  * Created by TPD_Auto
@@ -436,5 +439,15 @@ public class ExternalHomePageSteps extends CommonSteps {
         productDetail = manufacturerDetails.viewProduct(deviceData);
         boolean isDetailValid = productDetail.isProductOrDeviceDetailValid(deviceData);
         Assert.assertThat("Expected to see device : \n" + deviceData , isDetailValid, Matchers.is(true));
+    }
+
+
+    @Then("^Landing page displays correct title and contact name$")
+    public void landing_page_displays_correct_title_and_contact_name() throws Throwable {
+        boolean titleCorrect = externalHomePage.isTitleCorrect();
+        String loggedInUser = (String) scenarioSession.getData(SessionKey.loggedInUser);
+        boolean userNameIsCorrect = externalHomePage.isCorrectUsernameDisplayed(loggedInUser);
+        Assert.assertThat("Page heading is incorrect" , titleCorrect, Matchers.is(true));
+        Assert.assertThat("Logged in user name should be displayed" , userNameIsCorrect, Matchers.is(true));
     }
 }

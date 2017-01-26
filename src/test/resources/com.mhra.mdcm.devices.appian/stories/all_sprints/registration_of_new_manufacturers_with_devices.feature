@@ -58,3 +58,13 @@ Feature: As a customer I want to register new manufacturers with devices
       | user              | logBackInAas | accountType   | countryName | deviceType             | customMade | gmdn               | riskClassification | notifiedBody |
       | manufacturerAuto  | businessAuto | manufacturer  | Bangladesh  | General Medical Device | true       | Blood donor set    |                    |              |
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | General Medical Device | false      | Blood vessel sizer | class1             | NB 0086 BSI  |
+
+  @regression @mdcm-39 @sprint5
+  Scenario Outline: Verify manufacturers landing page contents
+    Given I am logged into appian as "<user>" user
+    When I go to portal page
+    Then Landing page displays correct title and contact name
+    Examples:
+      | user              | accountType   | countryName | deviceType             | deviceType             | customMade | riskClassification | notifiedBody |
+      | manufacturerAuto  | manufacturer  | Bangladesh  | General Medical Device | General Medical Device | true       |                    |              |
+      | authorisedRepAuto | authorisedRep | Bangladesh  | General Medical Device | General Medical Device | false      | class1             | NB 0086 BSI  |

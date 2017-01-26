@@ -13,9 +13,10 @@ import java.util.Properties;
  */
 public class FileUtils {
 
+    public final static String userFileName = "data" + File.separator + "users.properties";
+
     private final static String resourceFolder = "src" + File.separator + "test" + File.separator + "resources" + File.separator;
     private final static String userFileLocation = "configs" + File.separator ;
-    private final static String driverFileLocation = "configs" + File.separator + "driver.properties";
     private final static Map<String, Properties> mapOfProperties = new HashMap<String, Properties>();
 
     /**
