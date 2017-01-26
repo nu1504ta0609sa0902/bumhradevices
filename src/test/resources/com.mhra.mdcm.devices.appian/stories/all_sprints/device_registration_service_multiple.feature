@@ -30,7 +30,7 @@ Feature: As an account holder with access to the device registration service
       | productName    | lordhelpme                         |
     When I add another device to SELECTED manufacturer with following data
       | deviceType         | In Vitro Diagnostic Device |
-      | gmdnDefinition     | Needle introducer          |
+      | gmdnDefinition     | Androgen receptor IVD          |
       | riskClassification | list a                     |
       | notifiedBody       | NB 0086 BSI                |
       | productName        | premierLeague              |
@@ -51,5 +51,5 @@ Feature: As an account holder with access to the device registration service
     #Then The completed task status should update to "Completed"
     Examples:
       | user             | logBackInAas | devices                                                                  |
-      | manufacturerAuto | businessAuto | Surgical Guillotine,Acetabular Shell,Housekeeping soap,Needle introducer |
+      | manufacturerAuto | businessAuto | Surgical Guillotine,Acetabular Shell,Housekeeping soap,Androgen receptor IVD |
 
