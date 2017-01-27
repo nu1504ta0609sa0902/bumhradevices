@@ -56,8 +56,8 @@ Feature: As a customer I want to register new manufacturers with devices
     And I should be able to view products related to stored devices
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType             | customMade | gmdn               | riskClassification | notifiedBody |
-      | manufacturerAuto  | businessAuto | manufacturer  | Bangladesh  | General Medical Device | true       | Blood donor set    |                    |              |
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | General Medical Device | false      | Blood vessel sizer | class1             | NB 0086 BSI  |
+      | manufacturerAuto  | businessAuto | manufacturer  | Bangladesh  | General Medical Device | true       | Blood weighing scale    |                    |              |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | General Medical Device | false      | Contact lens remover | class1             | NB 0086 BSI  |
 
   @regression @mdcm-39 @sprint5
   Scenario Outline: Verify manufacturers landing page contents
@@ -65,6 +65,6 @@ Feature: As a customer I want to register new manufacturers with devices
     When I go to portal page
     Then Landing page displays correct title and contact name
     Examples:
-      | user              | accountType   | countryName | deviceType             | deviceType             | customMade | riskClassification | notifiedBody |
-      | manufacturerAuto  | manufacturer  | Bangladesh  | General Medical Device | General Medical Device | true       |                    |              |
-      | authorisedRepAuto | authorisedRep | Bangladesh  | General Medical Device | General Medical Device | false      | class1             | NB 0086 BSI  |
+      | user              |
+      | manufacturerAuto  |
+      | authorisedRepAuto |

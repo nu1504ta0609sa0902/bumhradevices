@@ -12,7 +12,7 @@ Feature: As a customer I want to register new manufacturers
       | countryName | <countryName> |
     And I add devices to NEWLY created manufacturer with following data
       | deviceType             | General Medical Device |
-      | gmdnDefinition         | Surgical Guillotine    |
+      | gmdnDefinition         | Blood weighing scale    |
       | customMade             | true                   |
       | relatedDeviceSterile   | true                   |
       | relatedDeviceMeasuring | true                   |
@@ -43,7 +43,7 @@ Feature: As a customer I want to register new manufacturers
       | countryName | <countryName> |
     And I add devices to NEWLY created manufacturer with following data
       | deviceType             | General Medical Device |
-      | gmdnDefinition         | Surgical Guillotine    |
+      | gmdnDefinition         | Blood weighing scale    |
       | customMade             | true                   |
       | relatedDeviceSterile   | true                   |
       | relatedDeviceMeasuring | true                   |

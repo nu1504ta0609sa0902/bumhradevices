@@ -9,7 +9,7 @@ Feature: As an account holder with access to the device registration service
     And I click on a random manufacturer
     When I add a device to SELECTED manufacturer with following data
       | deviceType             | General Medical Device |
-      | gmdnDefinition         | Surgical Guillotine    |
+      | gmdnDefinition         | Blood weighing scale    |
       | customMade             | true                   |
       | relatedDeviceSterile   | true                   |
       | relatedDeviceMeasuring | true                   |

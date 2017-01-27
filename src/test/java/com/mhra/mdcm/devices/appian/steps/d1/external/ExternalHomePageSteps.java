@@ -223,8 +223,12 @@ public class ExternalHomePageSteps extends CommonSteps {
 
         //If registered we need to click on a button, else devices page is displayed
         String registeredStatus = (String) scenarioSession.getData(SessionKey.organisationRegistered);
-        if(registeredStatus!=null && registeredStatus.toLowerCase().equals("registered"))
-            addDevices = manufacturerDetails.clickAddDeviceBtn();
+        try {
+            if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
+                addDevices = manufacturerDetails.clickAddDeviceBtn();
+        }catch (Exception e){
+            addDevices = new AddDevices(driver);
+        }
 
         //Assumes we are in add device page
         DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
@@ -442,7 +446,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         DeviceData deviceData = (DeviceData) scenarioSession.getData(SessionKey.deviceData);
 
         //Verify manufacturer details showing correct data
-        boolean isAllDataCorrect = manufacturerDetails.isDisplayedDataCorrect(manufacaturerData, deviceData);
+        boolean isAllDataCorrect = manufacturerDetails.isDisplayedDeviceDataCorrect(manufacaturerData, deviceData);
         Assert.assertThat("Expected to see device : " + deviceData.gmdnTermOrDefinition , isAllDataCorrect, Matchers.is(true));
     }
 
@@ -469,6 +473,20 @@ public class ExternalHomePageSteps extends CommonSteps {
     public void i_should_see_the_following_columns_for_list_of_manufacturer_table(String commaDelimitedHeading) throws Throwable {
         boolean isHeadingCorrect = manufacturerList.isTableHeadingCorrect(commaDelimitedHeading);
         Assert.assertThat("Expected to see the following headings : " + commaDelimitedHeading , isHeadingCorrect, Matchers.is(true));
+    }
+
+    @Then("^I should see organisation details$")
+    public void i_should_see_organisation_details() throws Throwable {
+        String org = (String) scenarioSession.getData(SessionKey.organisationName);
+        boolean isCorrectFieldsDisplayed = manufacturerDetails.isDisplayedOrgFieldsCorrect(org);
+        Assert.assertThat("Please check organisation fields displayed are correct for : " + org, isCorrectFieldsDisplayed, Matchers.is(true));
+    }
+
+    @Then("^I should see contact person details$")
+    public void i_should_see_contact_person_details() throws Throwable {
+        String org = (String) scenarioSession.getData(SessionKey.organisationName);
+        boolean isCorrectFieldsDisplayed = manufacturerDetails.isDisplayedContactPersonFieldsCorrect(org);
+        Assert.assertThat("Please check organisation fields displayed are correct for : " + org, isCorrectFieldsDisplayed, Matchers.is(true));
     }
 
 }

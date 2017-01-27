@@ -63,10 +63,12 @@ public class ManufacturerDetails extends _Page {
     WebElement orgCityTown;
     @FindBy(xpath = ".//span[.='Postcode']//following::p[1]")
     WebElement orgPostCode;
-    @FindBy(css = ".GFWJSJ4DEY.GFWJSJ4DIY>div")
+    @FindBy(xpath = ".//span[contains(text(),'Country')]//following::p[1]")
     WebElement orgCountry;
     @FindBy(xpath = ".//span[contains(text(),'Telephone')]//following::p[1]")
     WebElement orgTelephone;
+    @FindBy(xpath = ".//span[contains(text(),'Fax')]//following::p[1]")
+    WebElement orgFax;
     @FindBy(xpath = ".//span[contains(text(),'Website')]//following::p[1]")
     WebElement webSite;
 
@@ -105,7 +107,7 @@ public class ManufacturerDetails extends _Page {
      * @param deviceData
      * @return
      */
-    public boolean isDisplayedDataCorrect(AccountManufacturerRequest manufacaturerData, DeviceData deviceData) {
+    public boolean isDisplayedDeviceDataCorrect(AccountManufacturerRequest manufacaturerData, DeviceData deviceData) {
         //Check displayed devices are correct
         String device = deviceData.gmdnTermOrDefinition;
         boolean allValid = isDevicesDisplayedCorrect(device);
@@ -233,5 +235,42 @@ public class ManufacturerDetails extends _Page {
             driver.findElement(By.partialLinkText(deviceData.gmdnTermOrDefinition)).click();
         }
         return new ProductDetails(driver);
+    }
+
+
+    public boolean isDisplayedOrgFieldsCorrect(String org) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        boolean fieldsDisplayed = true;
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, orgAddressLine1, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, orgAddressLine2, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, orgCityTown, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, orgPostCode, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, orgCountry, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, orgTelephone, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, orgFax, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, webSite, TIMEOUT_3_SECOND, false);
+        }catch (Exception e){
+            e.printStackTrace();
+            fieldsDisplayed = false;
+        }
+        return fieldsDisplayed;
+    }
+
+    public boolean isDisplayedContactPersonFieldsCorrect(String org) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        boolean fieldsDisplayed = true;
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, fullName, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, jobTitle, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, email, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, telephone, TIMEOUT_3_SECOND, false);
+        }catch (Exception e){
+            e.printStackTrace();
+            fieldsDisplayed = false;
+        }
+        return fieldsDisplayed;
     }
 }
