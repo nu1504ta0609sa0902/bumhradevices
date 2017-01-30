@@ -5,7 +5,6 @@ import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
-import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -110,11 +109,11 @@ public class ManufacturerDetails extends _Page {
     public boolean isDisplayedDeviceDataCorrect(AccountManufacturerRequest manufacaturerData, DeviceData deviceData) {
         //Check displayed devices are correct
         String device = deviceData.gmdnTermOrDefinition;
-        boolean allValid = isDevicesDisplayedCorrect(device);
+        boolean allValid = isDevicesGMDNDisplayedCorrect(device);
         return allValid;
     }
 
-    public boolean isDevicesDisplayedCorrect(String deviceList) {
+    public boolean isDevicesGMDNDisplayedCorrect(String deviceList) {
         String[] data = deviceList.split(",");
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//a[.='Risk classification']//following::td[2]"), TIMEOUT_10_SECOND, false);
 

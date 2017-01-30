@@ -25,11 +25,12 @@ Feature: As an account holder with access to the Device Registration Service
       | authorisedRepAuto |
 
 
-  @regression @mdcm-14 @mdcm-485 @mdcm-467 @mdcm-21 @sprint3 @sprint5
+  @regression @mdcm-14 @mdcm-467 @mdcm-21 @sprint3 @sprint5
   Scenario Outline: Verify correct options are displayed on add devices page
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
     And I click on a random manufacturer
+#    And I click on random manufacturer with status "<status>"
     When I add a device to SELECTED manufacturer with following data
       | deviceType             | <deviceType>         |
       | gmdnDefinition         | <gmdnDefinition>     |
@@ -43,12 +44,12 @@ Feature: As an account holder with access to the Device Registration Service
     Then I should see option to add another device
     And The gmdn code or term is "displayed" in summary section
     Examples:
-      | user             | deviceType                 | gmdnDefinition                    | customMade | deviceSterile | deviceMeasuring | riskClassification | notifiedBody | packIncorporated | devicesCompatible |
-      | manufacturerAuto | General Medical Device     | Blood                             | false      | true          | true            | class1             | NB 0086 BSI  |                  |                   |
-      | manufacturerAuto | General Medical Device     | Blood                             | true       | true          | true            |                    |              |                  |                   |
-      | manufacturerAuto | In Vitro Diagnostic Device | Androgen receptor IVD, calibrator |            |               |                 | ivd general        |              |                  |                   |
-      | manufacturerAuto | System or Procedure Pack   | Air sampling                      |            | true          | true            | class1             | NB 0086 BSI  | false            | true              |
-      | manufacturerAuto | System or Procedure Pack   | Air sampling                      |            | false         | true            |                    | NB 0086 BSI  | false            | true              |
+      | user             | status     | deviceType                 | gmdnDefinition                    | customMade | deviceSterile | deviceMeasuring | riskClassification | notifiedBody | packIncorporated | devicesCompatible |
+      | manufacturerAuto | Registered | General Medical Device     | Blood weighing scale                             | false      | true          | true            | class1             | NB 0086 BSI  |                  |                   |
+      | manufacturerAuto | Registered | General Medical Device     | Blood                             | true       | true          | true            |                    |              |                  |                   |
+      | manufacturerAuto | Registered | In Vitro Diagnostic Device | Androgen receptor IVD, calibrator |            |               |                 | ivd general        |              |                  |                   |
+      | manufacturerAuto | Registered | System or Procedure Pack   | Air sampling                      |            | true          | true            | class1             | NB 0086 BSI  | false            | true              |
+      | manufacturerAuto | Registered | System or Procedure Pack   | Air sampling                      |            | false         | true            |                    | NB 0086 BSI  | false            | true              |
 
 
   @regression @mdcm-14 @mdcm-489 @sprint3 @sprint5
@@ -91,7 +92,7 @@ Feature: As an account holder with access to the Device Registration Service
     Examples:
       | user              | deviceType                 | gmdnDefinition        | riskClassification | listOfProductNames | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
       | manufacturerAuto  | In Vitro Diagnostic Device | Androgen receptor IVD | list a             |                    | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
-      | authorisedRepAuto | In Vitro Diagnostic Device | Androgen receptor IVD | list a             |                    | ford        | focus        | NB 0086 BSI  | true              | true       | false          |
+      | authorisedRepAuto | In Vitro Diagnostic Device | Androgen receptor IVD | list a             |                    | ford        | focus        | NB 0086 BSI  | true              | true       | false         |
       | authorisedRepAuto | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | General Motors     | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
 
@@ -125,10 +126,10 @@ Feature: As an account holder with access to the Device Registration Service
       | manufacturerAuto | General Medical Device | Blood            |            |                   | 10003      |
       | manufacturerAuto | General Medical Device |                  | 10003      | Housekeeping soap |            |
 
-  @regression @mdcm-162 @mdcm-485 @mdcm-374 @sprint5 @wip
+  @regression @mdcm-485 @mdcm-374 @sprint5 @wip @bug
   Scenario Outline: Users should be able to add devices to existing manufacturers and verify devices are added
     Given I am logged into appian as "<user>" user
-    And I go to list of manufacturers page
+    When I go to list of manufacturers page
     And I view a random manufacturer with status "<status>"
     And I add a device to SELECTED manufacturer with following data
       | deviceType             | <deviceType>         |
@@ -152,6 +153,19 @@ Feature: As an account holder with access to the Device Registration Service
     Then Verify devices displayed and other details are correct
     And I should be able to view products related to stored devices
     Examples:
-      | user              | logBackInAas | deviceType             | customMade | deviceSterile | deviceMeasuring | status     | gmdn               | riskClassification | notifiedBody |
-      | authorisedRepAuto | businessAuto | General Medical Device | false      | true          | true            | Registered | Blood vessel sizer | class1             | NB 0086 BSI  |
-      | manufacturerAuto  | businessAuto | General Medical Device | true       | false         | false           | Registered | Blood donor set    |                    |              |
+      | user              | logBackInAas | deviceType             | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
+      | authorisedRepAuto | businessAuto | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
+      | manufacturerAuto  | businessAuto | General Medical Device | true       | false         | false           | Registered | Blood weighing scale |                    |              |
+
+
+  @regression @mdcm-485 @mdcm-171 @sprint5 @wip
+  Scenario Outline: Users should be able to VIEW additional info related to registered manufacturers
+    Given I am logged into appian as "<user>" user
+    When I go to list of manufacturers page
+    And I view a random manufacturer with status "<status>"
+    Then I should see organisation details
+    And I should see contact person details
+    Examples:
+      | user              | status     |
+      | manufacturerAuto  | Registered |
+      | authorisedRepAuto | Registered |

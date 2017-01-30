@@ -102,30 +102,6 @@ public class TasksPageSteps extends CommonSteps {
         } while (!contains && count <= 5);
 
         if(!contains) {
-
-//            do {
-//                //Refresh each time, it may take a while for the new task to arrive
-//                tasksPage = mainNavigationBar.clickTasks();
-//
-//                //Click on link number X
-//                taskSection = tasksPage.clickOnTaskNumber(count, link);
-//                isCorrectTask = taskSection.isCorrectTask(orgName);
-//                if (isCorrectTask) {
-//                    contains = true;
-//                    scenarioSession.putData(SessionKey.position, count);
-//                } else {
-//                    //Try position 0 again
-//                    tasksPage = mainNavigationBar.clickTasks();
-//                    taskSection = tasksPage.clickOnTaskNumber(0, link);
-//                    isCorrectTask = taskSection.isCorrectTask(orgName);
-//                    if (isCorrectTask) {
-//                        scenarioSession.putData(SessionKey.position, count);
-//                        contains = true;
-//                    }
-//                    count++;
-//                }
-//            } while (!contains && count <= 5);
-
             //If its still not found than try the first 1 again, because it may have taken few seconds longer than usual
             if (!contains) {
                 //mainNavigationBar = new MainNavigationBar(driver);

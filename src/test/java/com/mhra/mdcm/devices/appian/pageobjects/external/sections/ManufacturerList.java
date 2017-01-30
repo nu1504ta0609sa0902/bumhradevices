@@ -208,6 +208,8 @@ public class ManufacturerList extends _Page {
             String registered = getRegistrationStatus(name);
             if(registered.toLowerCase().equals(status.toLowerCase())){
                 found = true;
+            }else{
+                name = null;
             }
             attempts++;
         }while(attempts < 5 && !found);

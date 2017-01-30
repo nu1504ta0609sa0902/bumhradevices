@@ -366,13 +366,14 @@ public class ExternalHomePageSteps extends CommonSteps {
     @When("^I view a random manufacturer with status \"([^\"]*)\"$")
     public void i_view_a_random_manufacturer(String status) throws Throwable {
         String name = manufacturerList.getARandomManufacturerNameWithStatus(status);
+        String actualStatus = manufacturerList.getRegistrationStatus(name);
         String country = manufacturerList.getOrganisationCountry(name);
 
         log.info("Manufacturer selected : " + name + ", is " + status);
         manufacturerDetails = manufacturerList.viewAManufacturer(name);
         scenarioSession.putData(SessionKey.organisationName, name);
         scenarioSession.putData(SessionKey.organisationCountry, country);
-        scenarioSession.putData(SessionKey.organisationRegistered, status);
+        scenarioSession.putData(SessionKey.organisationRegistered, actualStatus);
     }
 
     @And("^Provide indication of devices made$")

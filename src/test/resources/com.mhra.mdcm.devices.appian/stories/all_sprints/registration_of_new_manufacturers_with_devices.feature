@@ -26,7 +26,7 @@ Feature: As a customer I want to register new manufacturers with devices
       | authorisedRepAuto | authorisedRep | Bangladesh  | General Medical Device | General Medical Device | false      | class1             | NB 0086 BSI  |
 
 
-  @regression @mdcm-162 @mdcm-485 @mdcm-374 @mdcm-186 @sprint2 @sprint5 @wip
+  @regression @mdcm-485 @mdcm-374 @mdcm-186 @sprint2 @sprint5 @wip @bug
   Scenario Outline: Users should be able to register new manufacturers with devices  and verify devices are added
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -39,8 +39,8 @@ Feature: As a customer I want to register new manufacturers with devices
       | customMade             | <customMade>         |
       | riskClassification     | <riskClassification> |
       | notifiedBody           | <notifiedBody>       |
-      | relatedDeviceSterile   | true                 |
-      | relatedDeviceMeasuring | true                 |
+      | relatedDeviceSterile   | <deviceSterile>                 |
+      | relatedDeviceMeasuring | <deviceMeasuring>                 |
     And Proceed to payment and confirm submit device details
     Then I should see stored manufacturer appear in the manufacturers list
     When I logout of the application
@@ -52,12 +52,16 @@ Feature: As a customer I want to register new manufacturers with devices
     And I am logged into appian as "<user>" user
 #    And I go to list of manufacturers page
     When I go to list of manufacturers page and click on stored manufacturer
-#    Then Verify devices displayed and other details are correct
+    Then Verify devices displayed and other details are correct
     And I should be able to view products related to stored devices
     Examples:
-      | user              | logBackInAas | accountType   | countryName | deviceType             | customMade | gmdn               | riskClassification | notifiedBody |
-      | manufacturerAuto  | businessAuto | manufacturer  | Bangladesh  | General Medical Device | true       | Blood weighing scale    |                    |              |
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | General Medical Device | false      | Contact lens remover | class1             | NB 0086 BSI  |
+      | user              | logBackInAas | deviceType             | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
+      | authorisedRepAuto | businessAuto | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
+      | manufacturerAuto  | businessAuto | General Medical Device | true       | false         | false           | Registered | Blood weighing scale |                    |              |
+
+#      | user              | logBackInAas | accountType   | countryName | deviceType             | customMade | gmdn                 | riskClassification | notifiedBody |
+#      | manufacturerAuto  | businessAuto | manufacturer  | Bangladesh  | General Medical Device | true       | Blood weighing scale |                    |              |
+#      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | General Medical Device | false      | Contact lens remover | class1             | NB 0086 BSI  |
 
   @regression @mdcm-39 @sprint5
   Scenario Outline: Verify manufacturers landing page contents
