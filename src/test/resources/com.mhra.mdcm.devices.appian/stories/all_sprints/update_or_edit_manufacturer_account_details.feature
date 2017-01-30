@@ -37,6 +37,7 @@ Feature: As a business and account holder, I want to be able to update party det
     When I go to my accounts page
     And I update the contact person details with following data "<keyValuePairs>"
     Then I should see the changes "<keyValuePairs>" in my accounts page
+    And I should see creation and association dates
     Examples:
       | user              | keyValuePairs                                                                                      |
       | authorisedRepAuto | contact.title,contact.firstname,contact.lastname,contact.job.title,contact.email,contact.telephone |
@@ -49,6 +50,7 @@ Feature: As a business and account holder, I want to be able to update party det
     When I go to my accounts page
     And I update the organisation details with following data "<keyValuePairs>"
     Then I should see the changes "<keyValuePairs>" in my accounts page
+    And I should see creation and association dates
     Examples:
       | user              | keyValuePairs                                                             |
       | authorisedRepAuto | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website |
@@ -57,7 +59,7 @@ Feature: As a business and account holder, I want to be able to update party det
       | manufacturerNoor  | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website |
 
 
-  @regression @readonly @mdcm-261 @mdcm-277 @sprint4 @sprint5
+  @regression @readonly @mdcm-171 @mdcm-261 @mdcm-277 @sprint4 @sprint5
   Scenario Outline: Verify correct roles are displayed for approved UK account holder
     Given I am logged into appian as "<user>" user
     When I go to my accounts page
@@ -70,7 +72,7 @@ Feature: As a business and account holder, I want to be able to update party det
       | manufacturerAuto  | Manufacturer,Authorised Representative |
 
 
-  @regression @mdcm-21 @mdcm-162 @mdcm-485 @sprint5 @wip @ignore
+  @regression @mdcm-21 @mdcm-162 @mdcm-171 @mdcm-485 @sprint5 @wip @ignore
   Scenario Outline: Manufacturer and authorisedRep user should be able to update manufacturer details
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -80,7 +82,7 @@ Feature: As a business and account holder, I want to be able to update party det
     When I logout of the application
     And I am logged into appian as "<logBackInAas>" user
     Then I view new task with link "New Manufacturer Registration Request" for the new account
-    And Verify task information is correct
+    And Verify task information matches users changes
     Examples:
       | user             | keyValuePairs                                                                                      | status     |
       | manufacturerAuto | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website                          | Registered |

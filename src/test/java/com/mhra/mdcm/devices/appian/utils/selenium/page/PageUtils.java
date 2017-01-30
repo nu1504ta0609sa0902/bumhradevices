@@ -271,4 +271,19 @@ public class PageUtils {
         }
         return element;
     }
+
+    public static boolean isTableHeadingCorrect(String commaDelimitedHeading, List<WebElement> listOfTableHeadings) {
+
+        String lowerCaseHeadings = commaDelimitedHeading.toLowerCase();
+        //Get list of headings
+        boolean allFound = true;
+        for(WebElement el: listOfTableHeadings){
+            String heading = el.getText().toLowerCase();
+            if(!lowerCaseHeadings.contains(heading)){
+                allFound = false;
+                break;
+            }
+        }
+        return allFound;
+    }
 }

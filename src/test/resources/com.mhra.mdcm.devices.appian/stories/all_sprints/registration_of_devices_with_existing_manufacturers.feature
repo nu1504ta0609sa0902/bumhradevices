@@ -158,7 +158,7 @@ Feature: As an account holder with access to the Device Registration Service
       | manufacturerAuto  | businessAuto | General Medical Device | true       | false         | false           | Registered | Blood weighing scale |                    |              |
 
 
-  @regression @mdcm-485 @mdcm-171 @sprint5 @wip
+  @regression @mdcm-485 @sprint5 @wip
   Scenario Outline: Users should be able to VIEW additional info related to registered manufacturers
     Given I am logged into appian as "<user>" user
     When I go to list of manufacturers page

@@ -3,6 +3,7 @@ package com.mhra.mdcm.devices.appian.pageobjects.external.sections;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.external.ExternalHomePage;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
+import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 /**
  * Created by TPD_Auto
@@ -230,15 +230,6 @@ public class ManufacturerList extends _Page {
 
     public boolean isTableHeadingCorrect(String commaDelimitedHeading) {
         String lowerCaseHeadings = commaDelimitedHeading.toLowerCase();
-        //Get list of headings
-        boolean allFound = true;
-        for(WebElement el: listOfTableHeadings){
-            String heading = el.getText().toLowerCase();
-            if(!lowerCaseHeadings.contains(heading)){
-                allFound = false;
-                break;
-            }
-        }
-        return allFound;
+        return PageUtils.isTableHeadingCorrect(lowerCaseHeadings, listOfTableHeadings);
     }
 }

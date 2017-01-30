@@ -58,6 +58,14 @@ public class MyAccountPageSteps extends CommonSteps {
     }
 
 
+    @Then("^I should see creation and association dates$")
+    public void i_should_see_creation_and_association_dates() throws Throwable {
+        AccountRequest updatedData = (AccountRequest) scenarioSession.getData(SessionKey.manufacturerData);
+        boolean updatesFound = myAccountPage.verifyDatesDisplayedOnPage(updatedData);
+        Assert.assertThat("Expected to see created and association dates", updatesFound, is(true));
+    }
+
+
     @When("^I update the organisation details with following data \"([^\"]*)\"$")
     public void i_update_the_organisation_details_with_following_data(String keyValuePair) throws Throwable {
         amendOrganisationDetails = myAccountPage.amendOrganisationDetails();

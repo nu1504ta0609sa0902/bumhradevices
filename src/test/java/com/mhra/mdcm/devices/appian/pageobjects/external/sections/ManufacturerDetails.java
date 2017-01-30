@@ -5,6 +5,7 @@ import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
+import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -52,8 +53,6 @@ public class ManufacturerDetails extends _Page {
     //ORGANISATION DETAILS
     @FindBy(css = "div>h4")
     WebElement orgName;
-//    @FindBy(xpath = ".//label[.='Organisation name']//following::p[1]")
-//    WebElement orgName;
     @FindBy(xpath = ".//span[.='Address line 1']//following::p[1]")
     WebElement orgAddressLine1;
     @FindBy(xpath = ".//span[contains(text(),'Address line 2')]//following::p[1]")
@@ -70,6 +69,17 @@ public class ManufacturerDetails extends _Page {
     WebElement orgFax;
     @FindBy(xpath = ".//span[contains(text(),'Website')]//following::p[1]")
     WebElement webSite;
+
+
+    //Table headers
+    @FindBy(xpath = ".//h6[contains(text(),'General Medical')]//following::th/a")
+    List<WebElement> listOfGeneralMedicalDeviceTableHeadings;
+    @FindBy(xpath = ".//h6[contains(text(),'Vitro')]//following::th/a")
+    List<WebElement> listOfVitroDiagnosticsDeviceTableHeadings;
+    @FindBy(xpath = ".//h6[contains(text(),'Active Implantable')]//following::th/a")
+    List<WebElement> listOfActiveImplantableDeviceTableHeadings;
+    @FindBy(xpath = ".//h6[contains(text(),'Procedure Pack')]//following::th/a")
+    List<WebElement> listOfSystemProcedurePackDeviceTableHeadings;
 
     @Autowired
     public ManufacturerDetails(WebDriver driver) {
@@ -109,8 +119,25 @@ public class ManufacturerDetails extends _Page {
     public boolean isDisplayedDeviceDataCorrect(AccountManufacturerRequest manufacaturerData, DeviceData deviceData) {
         //Check displayed devices are correct
         String device = deviceData.gmdnTermOrDefinition;
+        boolean allHeadingValid = isDeviceTableHeadingCorrect(deviceData);
         boolean allValid = isDevicesGMDNDisplayedCorrect(device);
-        return allValid;
+        return allValid && allHeadingValid;
+    }
+
+    private boolean isDeviceTableHeadingCorrect(DeviceData dd) {
+        boolean isCorrect = false;
+        String headings = "";
+        if (dd.deviceType.toLowerCase().contains("general medical device")) {
+            headings = "GMDN code,GMDN definition,Risk classification";
+            isCorrect = PageUtils.isTableHeadingCorrect(headings, listOfGeneralMedicalDeviceTableHeadings);
+        } else if (dd.deviceType.toLowerCase().contains("vitro diagnostic")) {
+            isCorrect = PageUtils.isTableHeadingCorrect(headings, listOfVitroDiagnosticsDeviceTableHeadings);
+        } else if (dd.deviceType.toLowerCase().contains("active implantable")) {
+            isCorrect = PageUtils.isTableHeadingCorrect(headings, listOfActiveImplantableDeviceTableHeadings);
+        } else if (dd.deviceType.toLowerCase().contains("procedure pack")) {
+            isCorrect = PageUtils.isTableHeadingCorrect(headings, listOfSystemProcedurePackDeviceTableHeadings);
+        }
+        return isCorrect;
     }
 
     public boolean isDevicesGMDNDisplayedCorrect(String deviceList) {
