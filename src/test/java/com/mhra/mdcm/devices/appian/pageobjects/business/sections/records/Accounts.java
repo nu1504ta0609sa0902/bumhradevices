@@ -244,44 +244,6 @@ public class Accounts extends _Page {
         return allChangesDisplayed;
     }
 
-    public boolean isOrderedAtoZ() {
-        int getFirstX = 20;
-        List<String> listOfOrderedOrganisations = new ArrayList<>();
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_5_SECOND, false);
-
-        //Get list of organisation names
-        int position = 0;   //Only even ones are organisation name
-        int elementCount = 0;
-        for(WebElement el: listOfAccounts){
-
-            //At the moment only the even ones are organisation names
-            if(position!=0 && position % 2 == 1){
-                String orgName = el.getText();
-
-                //
-                if(!orgName.equals("Next") && !orgName.equals("Previous"))
-                    listOfOrderedOrganisations.add(orgName);
-            }
-
-            if(elementCount == (getFirstX*2)){  //Every 2nd link is an organisation name
-                break;
-            }
-
-            elementCount++;
-            position++;
-        }
-
-        //Check if a-Z
-        String previous = "";
-        for (final String current: listOfOrderedOrganisations) {
-            //Its <=0 organisation should be unique
-            if (!current.equals("") && !previous.equals("") && current.compareToIgnoreCase(previous) <= 0)
-                return false;
-            previous = current;
-        }
-
-        return true;
-    }
 
     public boolean isCorrectPage() {
         try {
@@ -329,4 +291,12 @@ public class Accounts extends _Page {
 
         return allMatched;
     }
+
+    public boolean isOrderedAtoZ() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_5_SECOND, false);
+        boolean isOrderedAToZ = PageUtils.isOrderedAtoZ(listOfAccounts, 2);
+        return isOrderedAToZ;
+    }
+
 }

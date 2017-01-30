@@ -129,15 +129,23 @@ public class RecordsPageSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.organisationName, organisationName);
     }
 
-    @Then("^The search result should \"([^\"]*)\" the organisation$")
-    public void the_search_result_should_contain_the_organisation(String contain) throws Throwable {
+    @When("^I search for a stored organisation in all organisation page$")
+    public void i_search_for_a_stored_organisation(String existing) throws Throwable {
+        String organisationName = (String) scenarioSession.getData(SessionKey.organisationName);
+        allOrganisations = allOrganisations.searchForOrganisation(organisationName);
+
+        scenarioSession.putData(SessionKey.organisationName, organisationName);
+    }
+
+    @Then("^The all organisation search result should return (\\d+) matches$")
+    public void the_allorganisation_search_result_should_contain_the_organisation(int matchCount) throws Throwable {
         String organisationName = (String) scenarioSession.getData(SessionKey.organisationName);
         int count = allOrganisations.getNumberOfMatches();
-        if (contain.contains("not")) {
+        if (matchCount == 0) {
             Assert.assertThat("Searching for " + organisationName + " should return 0 matches, but it was : " + count, count == 0, is(true));
         } else {
             //Search was performed with an existing organisation
-            Assert.assertThat("Searching for " + organisationName + " should return at least 1 matches, but it was : " + count, count >= 1, is(true));
+            Assert.assertThat("Searching for " + organisationName + " should return at least 1 matches, but it was : " + count, count >= matchCount, is(true));
         }
     }
 
@@ -173,6 +181,7 @@ public class RecordsPageSteps extends CommonSteps {
             Assert.assertThat("Expected to see atleast 1 matches", atLeast1Match, is(true));
         }
     }
+
 
     @When("^I should see no account matches$")
     public void i_should_see_no_account_matches() throws Throwable {
@@ -242,27 +251,46 @@ public class RecordsPageSteps extends CommonSteps {
         Assert.assertThat("Expected to see following updates : " + keyValuePairToUpdate, updatesFound, is(true));
     }
 
-    @Then("^The items are displayed in alphabetical order$")
-    public void the_items_are_displayed_in_alphabetical_order() throws Throwable {
-        boolean isOrderAtoZ = accounts.isOrderedAtoZ();
+    @Then("^The items in \"([^\"]*)\" page are displayed in alphabetical order$")
+    public void the_items_are_displayed_in_alphabetical_order(String page) throws Throwable {
+        boolean isOrderAtoZ = false;
+        if (page.equals("Accounts")) {
+            isOrderAtoZ = accounts.isOrderedAtoZ();
+        } else if (page.equals("All Organisations")) {
+            isOrderAtoZ = allOrganisations.isOrderedAtoZ();
+        }
+
         Assert.assertThat("Default ordering of organisation name should be A to Z", isOrderAtoZ, is(true));
 
     }
 
 
-    @When("^filter by organisation role \"([^\"]*)\"$")
-    public void filter_by_organisation_role(String organisationRole) throws Throwable {
-        accounts = accounts.filterBy(organisationRole);
+    @When("^I filter items in \"([^\"]*)\" page by organisation role \"([^\"]*)\"$")
+    public void filter_by_organisation_role(String page, String organisationRole) throws Throwable {
+        if (page.equals("Accounts")) {
+            accounts = accounts.filterBy(organisationRole);
+        } else if (page.equals("All Organisations")) {
+            allOrganisations = allOrganisations.filterBy(organisationRole);
+        }
     }
 
-    @When("^I sort by \"([^\"]*)\"$")
-    public void i_sort_by(String tableHeading) throws Throwable {
-        accounts = accounts.sortBy(tableHeading, 1);
+    @When("^I sort items in \"([^\"]*)\" page by \"([^\"]*)\"$")
+    public void i_sort_by(String page, String tableHeading) throws Throwable {
+        if (page.equals("Accounts")) {
+            accounts = accounts.sortBy(tableHeading, 1);
+        } else if (page.equals("All Organisations")) {
+            allOrganisations = allOrganisations.sortBy(tableHeading, 2);
+        }
     }
 
-    @Then("^I should see only see organisation of type \"([^\"]*)\"$")
-    public void i_should_see_only_see_organisation_of_type(String organisationType) throws Throwable {
-        boolean isOrganisationTypeAllSame = accounts.areAllOrganisationRoleOfType(organisationType);
+    @Then("^I should see only see organisation of type \"([^\"]*)\" in \"([^\"]*)\" page$")
+    public void i_should_see_only_see_organisation_of_type(String organisationType, String page) throws Throwable {
+        boolean isOrganisationTypeAllSame = false;
+        if (page.equals("Accounts")) {
+            isOrganisationTypeAllSame = accounts.areAllOrganisationRoleOfType(organisationType);
+        } else if (page.equals("All Organisations")) {
+            isOrganisationTypeAllSame = allOrganisations.areAllOrganisationRoleOfType(organisationType);
+        }
         Assert.assertThat("Organisation Roles Should Be Of Type : " + organisationType, isOrganisationTypeAllSame, is(true));
     }
 }

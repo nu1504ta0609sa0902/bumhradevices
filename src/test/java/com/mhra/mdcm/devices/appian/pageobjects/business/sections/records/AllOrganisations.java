@@ -2,6 +2,7 @@ package com.mhra.mdcm.devices.appian.pageobjects.business.sections.records;
 
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
+import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -24,6 +25,12 @@ public class AllOrganisations extends _Page {
     List<WebElement> listOfAllOrganisations;
     @FindBy(xpath = ".//table//th")
     List<WebElement> listOfTableColumns;
+    @FindBy(xpath = ".//*[.='Status']//following::tr//td[2]")
+    List<WebElement> listOfOrganisationRoles;
+
+    //TABLE Heading
+    @FindBy(linkText = "Name")
+    WebElement thOrganisationName;
 
     //Search box
     @FindBy(xpath = ".//*[contains(@class, 'filter')]//following::input[1]")
@@ -108,10 +115,60 @@ public class AllOrganisations extends _Page {
      * @return
      */
     public int getNumberOfMatches() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForPageToLoad(driver, By.xpath("WaitForPageToLoad") , TIMEOUT_5_SECOND, false);
         WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText("Manufacturer") , TIMEOUT_DEFAULT, false);
         int size = listOfAllOrganisations.size();
         size = (size-1) / 2;
         return size;
+    }
+
+    public boolean isOrderedAtoZ() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_5_SECOND, false);
+        boolean isOrderedAToZ = PageUtils.isOrderedAtoZ(listOfAllOrganisations, 1);
+        return isOrderedAToZ;
+    }
+
+    public AllOrganisations filterBy(String organisationRole) {
+
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        By by = By.partialLinkText(organisationRole);
+        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_10_SECOND, false);
+        WebElement element = driver.findElement(by);
+        PageUtils.doubleClick(driver, element);
+
+        return new AllOrganisations(driver);
+    }
+
+
+    public AllOrganisations sortBy(String tableHeading, int numberOfTimesToClick) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        if (tableHeading.equals("Name")) {
+            for (int c = 0; c < numberOfTimesToClick; c++) {
+                WaitUtils.waitForElementToBeClickable(driver, thOrganisationName, TIMEOUT_DEFAULT, false);
+                thOrganisationName.click();
+                WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+                //WaitUtils.nativeWaitInSeconds(2);
+            }
+        }
+
+        return new AllOrganisations(driver);
+    }
+
+
+    public boolean areAllOrganisationRoleOfType(String organisationType) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        boolean allMatched = true;
+        for(WebElement el: listOfOrganisationRoles){
+            String text = el.getText();
+            log.info(text);
+            allMatched = text.contains(organisationType);
+            if(!allMatched){
+                break;
+            }
+        }
+
+        return allMatched;
     }
 }

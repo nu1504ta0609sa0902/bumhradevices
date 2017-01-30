@@ -286,4 +286,46 @@ public class PageUtils {
         }
         return allFound;
     }
+
+    public static boolean isOrderedAtoZ(List<WebElement> listOfElements, int everyXItem) {
+        int getFirstX = 20;
+        int reminder = 1;
+        if(everyXItem == 1){
+            reminder = 0;
+        }
+        List<String> listOfOrderedOrganisations = new ArrayList<>();
+
+        //Get list of account names
+        int position = 0;   //Only even ones are organisation name
+        int elementCount = 0;
+        for(WebElement el: listOfElements){
+
+            //At the moment only the even ones are organisation names
+            if(position!=0 && position % everyXItem == reminder){
+                String orgName = el.getText();
+
+                //
+                if(!orgName.equals("Next") && !orgName.equals("Previous"))
+                    listOfOrderedOrganisations.add(orgName);
+            }
+
+            if(elementCount == (getFirstX*everyXItem)){  //Every 2nd link is an organisation name
+                break;
+            }
+
+            elementCount++;
+            position++;
+        }
+
+        //Check if a-Z
+        String previous = "";
+        for (final String current: listOfOrderedOrganisations) {
+            //Its <=0 organisation should be unique
+            if (!current.equals("") && !previous.equals("") && current.compareToIgnoreCase(previous) <= 0)
+                return false;
+            previous = current;
+        }
+
+        return true;
+    }
 }

@@ -78,7 +78,9 @@ Automated Issues:
 
 
     Spring 6: @sprint6
-        - @mdcm-23  -   0/16
+        - @mdcm-23  -   13/16
+                    -   Test for search + verify full details
+                    -
         - @mdcm-125 -
         - @mdcm-134 -
         - @mdcm-164 -
