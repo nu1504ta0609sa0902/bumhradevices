@@ -95,7 +95,7 @@ Feature: As a business user, I want a task to be created each time a customer su
     And I assign the task to me and "approve" the generated task
     And The completed task status should update to "Completed"
     Examples:
-      | user              | logBackInAas | accountType   | countryName | deviceType                 | gmdnDefinition    | riskClassification | listOfProductNames | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
+      | user              | logBackInAas | accountType   | countryName | deviceType                 | gmdnDefinition        | riskClassification | listOfProductNames | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
       | manufacturerAuto  | businessAuto | manufacturer  | Bangladesh  | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | ford,hyundai       | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | ford,honda         | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
@@ -156,3 +156,37 @@ Feature: As a business user, I want a task to be created each time a customer su
       | businessNoor | manufacturer  | 0     | Turkey      | Account already exists             | New Account Request |
       | businessNoor | authorisedRep | 0     | Estonia     | No authorisation evidence provided | New Account Request |
 
+
+  @regression @mdcm-263 @sprint6
+  Scenario Outline: Verify only 1 task is created when we create manufacturer with multiple devices
+    Given I am logged into appian as "<user>" user
+    And I go to register a new manufacturer page
+    When I create a new manufacturer using manufacturer test harness page with following data
+      | accountType | <accountType> |
+      | countryName | <countryName> |
+    When I add a device to SELECTED manufacturer with following data
+      | deviceType             | General Medical Device |
+      | gmdnDefinition         | <gmdn1>      |
+      | customMade             | true         |
+    And I add another device to SELECTED manufacturer with following data
+      | deviceType             | General Medical Device |
+      | gmdnDefinition         | <gmdn2>      |
+      | customMade             | true         |
+    And Proceed to payment and confirm submit device details
+    Then I should see stored manufacturer appear in the manufacturers list
+    When I logout of the application
+    And I am logged into appian as "<logBackInAs>" user
+    And I go to WIP tasks page
+    Then Verify the WIP entry details for the new account is correct
+    When I view task for the new account in WIP page
+    Then Task contains correct devices and products and other details
+    And Task shows devices which are arranged by device types
+    And I assign the task to me and "<approveReject>" the generated task
+#    Then The task should be removed from WIP tasks list
+    Then The completed task status should update to "Completed"
+    When I search accounts for the stored organisation name
+    Then I should see at least 0 account matches
+    Examples:
+      | user              | logBackInAs  | accountType   | countryName | gmdn1                | gmdn2           | approveReject |
+      | manufacturerAuto  | businessAuto | manufacturer  | Bangladesh  | Blood weighing scale | Autopsy measure | approve       |
+#      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Blood weighing scale | Autopsy measure | approve       |

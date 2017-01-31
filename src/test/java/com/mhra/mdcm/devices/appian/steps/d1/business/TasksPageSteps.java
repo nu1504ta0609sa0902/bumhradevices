@@ -1,5 +1,6 @@
 package com.mhra.mdcm.devices.appian.steps.d1.business;
 
+import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountManufacturerRequest;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
@@ -200,6 +201,9 @@ public class TasksPageSteps extends CommonSteps {
         mainNavigationBar = new MainNavigationBar(driver);
         tasksPage = mainNavigationBar.clickTasks();
         taskSection = tasksPage.gotoWIPTasksPage();
+
+        //Sort by submitted, at the moment sorting by default not working as expected
+        taskSection = taskSection.sortBy("Submitted", 2);
     }
 
 
@@ -215,17 +219,35 @@ public class TasksPageSteps extends CommonSteps {
 
         taskSection = tasksPage.gotoWIPTasksPage();
 
-        //Sort by submitted, at the moment sorting doesnt work as expected
+        //Sort by submitted, at the moment sorting doesn't work as expected
         taskSection = taskSection.sortBy("Submitted", 2);
 
         //Click on link number X
         taskSection = taskSection.clickOnTaskName(orgName);
         boolean isCorrectTask = taskSection.isCorrectTask(orgName);
 
+        String taskType = (String) scenarioSession.getData(SessionKey.taskType);
+        if(taskType == null)
         scenarioSession.putData(SessionKey.taskType, "New Account");
 
         assertThat("Task not found for organisation : " + orgName, isCorrectTask, is(equalTo(true)));
 
+    }
+
+
+    @When("^I view task for the new account in WIP page$")
+    public void i_view_task_related_to_stored_account(){
+        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
+
+        //Click on link number X
+        taskSection = taskSection.clickOnTaskName(orgName);
+        boolean isCorrectTask = taskSection.isCorrectTask(orgName);
+
+        String taskType = (String) scenarioSession.getData(SessionKey.taskType);
+        if(taskType == null)
+            scenarioSession.putData(SessionKey.taskType, "New Account");
+
+        assertThat("Task not found for organisation : " + orgName, isCorrectTask, is(equalTo(true)));
     }
 
 
@@ -237,6 +259,14 @@ public class TasksPageSteps extends CommonSteps {
         taskSection = taskSection.sortBy("Submitted", 2);
         boolean isTaskVisible = taskSection.isTaskVisibleWithName(orgName);
         assertThat("Task not found for organisation : " + orgName, isTaskVisible, is(equalTo(false)));
+    }
+
+    @Then("^Verify the WIP entry details for the new account is correct$")
+    public void verify_the_WIP_entry_details_for_the_new_account_is_correct() throws Throwable {
+        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
+        AccountManufacturerRequest organisationData = (AccountManufacturerRequest) scenarioSession.getData(SessionKey.manufacturerData);
+        boolean isWIPDataCorrect = taskSection.isWIPDetailCorrectForNewAccount(orgName, organisationData);
+        assertThat("WIP page not showing correct data for : " + orgName, isWIPDataCorrect, is(equalTo(true)));
     }
 
     @And("^The completed task status should update to \"([^\"]*)\"$")

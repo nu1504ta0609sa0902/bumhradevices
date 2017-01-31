@@ -70,7 +70,7 @@ Automated Issues:
         - @mdcm-374 -   DONE ish
         - @mdcm-467 -   2/2         DONE
         - @mdcm-345 -   TODO
-        - @mdcm-162 -   NEED TO LOOK AT IT AGAIN
+        - @mdcm-162 -   TODO NEED TO LOOK AT IT AGAIN
         - @mdcm-171 -   11/12       DONE ish
         - @mdcm-298 -   no tests for regression
         - @mdcm-377 -   no tests for regression
@@ -81,32 +81,33 @@ Automated Issues:
         - @mdcm-23  -   13/16       DONE ish
                     -   Test for search + verify full details
                     -   Creating manufacturer without device is not possible, it seems
-        - @mdcm-125 -
+        - @mdcm-125 -   @todo
         - @mdcm-134 -   7/9         DONE ish
                     -   Test for duplicate registration request
                     -   Test for AIM device with multiple products
-        - @mdcm-164 -
-        - @mdcm-263 -
-        - @mdcm-637 -
+        - @mdcm-164 -   @Todo
+        - @mdcm-263 -   DONE ish
+        - @mdcm-637 -   @TODO
+                    -   3 TCs have bugs associated
         - @mdcm-268 - no tests for regression
 
     Spring 7: @sprint7
-        - @mdcm-2797- no tests for regression
-        - @mdcm-148 - no tests for regression
-        - @mdcm-275 - no tests for regression
-        - @mdcm-345 - no tests for regression
-        - @mdcm-3365- no tests for regression
+        - @mdcm-2797-
+        - @mdcm-148 -
+        - @mdcm-275 -
+        - @mdcm-345 -
+        - @mdcm-3365-
+        - @mdcm-2910-
+        - @mdcm-490 -
+        - @mdcm-2399-
+        - @mdcm-626 -
         - @mdcm-3360- no tests for regression
-        - @mdcm-2910- no tests for regression
         - @mdcm-2339- no tests for regression
-        - @mdcm-490 - no tests for regression
-        - @mdcm-2399- no tests for regression
-        - @mdcm-626 - no tests for regression
 
     Spring 8: @sprint8
-        - @mdcm-1924- no tests for regression
+        - @mdcm-1924-
+        - @mdcm-2185-
         - @mdcm-2049- no tests for regression
-        - @mdcm-2185- no tests for regression
         - @mdcm-3271- no tests for regression
         - @mdcm-3158- no tests for regression
         - @mdcm-1836- no tests for regression

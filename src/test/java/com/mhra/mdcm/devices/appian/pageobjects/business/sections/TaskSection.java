@@ -1,9 +1,11 @@
 package com.mhra.mdcm.devices.appian.pageobjects.business.sections;
 
+import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountManufacturerRequest;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.business.TasksPage;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
+import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
@@ -96,13 +98,15 @@ public class TaskSection extends _Page {
 
     @FindBy(css = ".aui-TextAreaInput")
     WebElement commentArea;
-    @FindBy(xpath = ".//button[.='Submit']")
-    WebElement submitBtn;
     @FindBy(xpath = ".//a[.='Risk classification']//following::td[2]")
     List<WebElement> listOfGMDNDefinitions;
+    @FindBy(css = "div.aui-DataGrid-Table> table > tbody > tr")
+    List<WebElement> listOfWIPTableRows;
 
     @FindBy(partialLinkText = "Submitted")
     WebElement submitted;
+    @FindBy(xpath = ".//button[.='Submit']")
+    WebElement submitBtn;
 
 
     @Autowired
@@ -217,6 +221,7 @@ public class TaskSection extends _Page {
 
 
     public TaskSection sortBy(String sortBy, int numberOfTimesToClick) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, submitted, TIMEOUT_DEFAULT, false);
         if (sortBy.equals("Submitted")) {
             for (int c = 0; c < numberOfTimesToClick; c++) {
@@ -345,5 +350,34 @@ public class TaskSection extends _Page {
 
 
         return listOfInvalidFields;
+    }
+
+    public boolean isWIPDetailCorrectForNewAccount(String orgName, AccountManufacturerRequest organisationData) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WebElement tr = PageUtils.getTableRow(listOfWIPTableRows, orgName);
+        //Task
+        boolean isDataCorrect = PageUtils.isTableDataContentCorrect(tr, 1, "New Manufacturer Registration Request");
+        //Name: Organisation name
+        if(isDataCorrect) {
+            isDataCorrect = PageUtils.isTableDataContentCorrect(tr, 2, orgName);
+        }
+        //role
+        if(isDataCorrect) {
+            isDataCorrect = PageUtils.isTableDataContentCorrect(tr, 3, organisationData.getRoleName());
+        }
+        //Task Owner
+        if(isDataCorrect) {
+            isDataCorrect = PageUtils.isTableDataContentCorrect(tr, 4, "Staff");
+        }
+        //Submitted Date
+        if(isDataCorrect) {
+            isDataCorrect = PageUtils.isTableDataContentCorrect(tr, 5, organisationData.submissionDate);
+        }
+        //Status
+        if(isDataCorrect) {
+            isDataCorrect = PageUtils.isTableDataContentCorrect(tr, 6, "Assigned");
+        }
+
+        return isDataCorrect;
     }
 }

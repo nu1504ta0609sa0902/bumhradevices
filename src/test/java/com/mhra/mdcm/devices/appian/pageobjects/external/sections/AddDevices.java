@@ -410,6 +410,7 @@ public class AddDevices extends _Page {
     private void subjectToPerformanceEval(DeviceData dd) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, radioSubjectToPerformanceEvalYes, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeVisible(driver, radioSubjectToPerformanceEvalYes, TIMEOUT_DEFAULT, false);
         if (dd.isSubjectToPerfEval) {
             PageUtils.clickIfVisible(driver, radioSubjectToPerformanceEvalYes);
         } else {

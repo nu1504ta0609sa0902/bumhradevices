@@ -328,4 +328,26 @@ public class PageUtils {
 
         return true;
     }
+
+    public static WebElement getTableRow(List<WebElement> listOfWIPTableRows, String textToMatch) {
+        WebElement trFound = null;
+        for(WebElement tr: listOfWIPTableRows){
+            String txt = tr.getText();
+            //System.out.println(txt);
+            boolean contains = txt.contains(textToMatch);
+            if(contains){
+                trFound = tr;
+                break;
+            }
+        }
+        return trFound;
+    }
+
+    public static boolean isTableDataContentCorrect(WebElement tr, int tableDataPosition, String textToMatch) {
+        List<WebElement> tdElements = tr.findElements(By.tagName("td"));
+        WebElement element = tdElements.get(tableDataPosition);
+        String actualText = element.getText();
+        boolean matched = actualText.contains(textToMatch);
+        return matched;
+    }
 }

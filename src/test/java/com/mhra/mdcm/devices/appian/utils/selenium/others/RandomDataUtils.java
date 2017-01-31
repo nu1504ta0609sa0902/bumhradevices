@@ -2,6 +2,7 @@ package com.mhra.mdcm.devices.appian.utils.selenium.others;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -16,6 +17,13 @@ public class RandomDataUtils {
         Random r = new Random( System.currentTimeMillis() );
         int thousands = (int) Math.pow(10,numberOfDigits-1);
         return thousands + r.nextInt(9 * thousands);
+    }
+
+    public static String getDateWIPPage() {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf4 = new SimpleDateFormat("dd MMMMM yyyy");
+        String date = sdf4.format(cal.getTime());
+        return date;
     }
 
     public static String getDateInFutureMonths(int monthsInFuture) {

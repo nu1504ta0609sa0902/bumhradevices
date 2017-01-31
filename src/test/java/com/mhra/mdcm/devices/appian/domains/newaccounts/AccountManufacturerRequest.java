@@ -21,6 +21,7 @@ public class AccountManufacturerRequest {
     public static final String MANUFACTURER_RT_TEST = "ManufacturerRT01Test";
     public static final String AUTHORISED_REP_RT_TEST = "AuthorisedRepRT01Test";
     public String organisationName;
+    public String submissionDate;
 
     //Organisation Details
     public String address1;
@@ -53,7 +54,10 @@ public class AccountManufacturerRequest {
         if(scenarioSession!=null){
             setUserDetails(getLoggedInUserName(scenarioSession));
         }
+        
+        submissionDate = RandomDataUtils.getDateWIPPage();
     }
+
 
     private String getLoggedInUserName(ScenarioSession scenarioSession) {
         String selectedProfile = System.getProperty("spring.profiles.active");
@@ -176,6 +180,11 @@ public class AccountManufacturerRequest {
             business = "AuthorisedRep";
         }
         return business;
+    }
+
+    public String getRoleName(){
+        //WTF just make this public
+        return generateLastName();
     }
 
 

@@ -97,6 +97,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         }
         scenarioSession.putData(SessionKey.organisationName, newAccount.organisationName);
         scenarioSession.putData(SessionKey.manufacturerData, newAccount);
+        scenarioSession.putData(SessionKey.taskType, "New Manufacturer");
     }
 
     @Then("^I should see stored manufacturer appear in the manufacturers list$")
