@@ -45,14 +45,14 @@ Feature: As an account holder with access to the Device Registration Service
     And The gmdn code or term is "displayed" in summary section
     Examples:
       | user             | status     | deviceType                 | gmdnDefinition                    | customMade | deviceSterile | deviceMeasuring | riskClassification | notifiedBody | packIncorporated | devicesCompatible |
-      | manufacturerAuto | Registered | General Medical Device     | Blood weighing scale                             | false      | true          | true            | class1             | NB 0086 BSI  |                  |                   |
+      | manufacturerAuto | Registered | General Medical Device     | Blood weighing scale              | false      | true          | true            | class1             | NB 0086 BSI  |                  |                   |
       | manufacturerAuto | Registered | General Medical Device     | Blood                             | true       | true          | true            |                    |              |                  |                   |
       | manufacturerAuto | Registered | In Vitro Diagnostic Device | Androgen receptor IVD, calibrator |            |               |                 | ivd general        |              |                  |                   |
       | manufacturerAuto | Registered | System or Procedure Pack   | Air sampling                      |            | true          | true            | class1             | NB 0086 BSI  | false            | true              |
       | manufacturerAuto | Registered | System or Procedure Pack   | Air sampling                      |            | false         | true            |                    | NB 0086 BSI  | false            | true              |
 
 
-  @regression @mdcm-14 @mdcm-489 @sprint3 @sprint5
+  @regression @mdcm-14 @mdcm-489 @sprint3 @sprint5 @mdcm-134 @sprint6
   Scenario Outline: Users should be able to add devices to existing manufacturers
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -68,6 +68,32 @@ Feature: As an account holder with access to the Device Registration Service
     Examples:
       | user             | deviceType             |
       | manufacturerAuto | General Medical Device |
+
+
+  @regression @mdcm-134 @sprint6 @bug
+  Scenario Outline: Users should be able to remove devices from manufacturers
+    Given I am logged into appian as "<user>" user
+    And I go to list of manufacturers page
+    And I click on a random manufacturer
+    When I add a device to SELECTED manufacturer with following data
+      | deviceType             | <deviceType> |
+      | gmdnDefinition         | <gmdn1>      |
+      | customMade             | true         |
+      | relatedDeviceSterile   | true         |
+      | relatedDeviceMeasuring | true         |
+    And I add another device to SELECTED manufacturer with following data
+      | deviceType             | <deviceType> |
+      | gmdnDefinition         | <gmdn2>      |
+      | customMade             | true         |
+      | relatedDeviceSterile   | true         |
+      | relatedDeviceMeasuring | true         |
+    Then I should see option to add another device
+    When I remove ALL the stored device with gmdn code or definition
+    Then I should see option to add another device
+    Examples:
+      | user             | deviceType             | gmdn1                | gmdn2           |
+      | manufacturerAuto | General Medical Device | Blood weighing scale | Autopsy measure |
+#      | authorisedRepAuto | General Medical Device |
 
 
   @regression @mdcm-489 @sprint5
@@ -96,7 +122,7 @@ Feature: As an account holder with access to the Device Registration Service
       | authorisedRepAuto | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | General Motors     | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
 
-  @regression @mdcm-489 @sprint5
+  @regression @mdcm-489 @sprint5 @mdcm-134 @sprint6
   Scenario Outline: Users should be able to add and remove devices using GMDN code from existing manufacturers
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page

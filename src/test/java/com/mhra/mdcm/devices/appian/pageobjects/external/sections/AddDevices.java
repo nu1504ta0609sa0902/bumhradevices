@@ -172,6 +172,10 @@ public class AddDevices extends _Page {
     @FindBy(css = ".gwt-FileUpload")
     List<WebElement> listOfFileUploads;
 
+    //Error message
+    @FindBy(css = ".component_error")
+    WebElement errMessage;
+
     //Device Summary
     @FindBy(xpath = ".//th[.='GMDN term']//following::a")
     List<WebElement> listOfGMDNLinksInSummary;
@@ -215,6 +219,12 @@ public class AddDevices extends _Page {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public boolean isErrorMessageCorrect(String expectedErrorMsg) {
+        WaitUtils.waitForElementToBeVisible(driver, errMessage, 10, false);
+        boolean contains = errMessage.getText().contains(expectedErrorMsg);
+        return contains;
     }
 
     public AddDevices addFollowingDevice(DeviceData dd) {
@@ -623,6 +633,7 @@ public class AddDevices extends _Page {
 
 
     public AddDevices viewDeviceWithGMDNValue(String gmdnCode) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WebElement el = CommonUtils.getElementWithLink(listOfGMDNLinksInSummary, gmdnCode);
         WaitUtils.waitForElementToBeClickable(driver, el, TIMEOUT_5_SECOND, false);
         el.click();
@@ -630,6 +641,7 @@ public class AddDevices extends _Page {
     }
 
     public AddDevices removeSelectedDevice() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnRemove, TIMEOUT_5_SECOND, false);
         btnRemove.click();
         return new AddDevices(driver);
@@ -691,5 +703,15 @@ public class AddDevices extends _Page {
 
 
         return allCorrect;
+    }
+
+    public AddDevices removeAllDevices(List<DeviceData> listOfDeviceData) {
+        for(DeviceData data: listOfDeviceData) {
+            String gmdnCode = data.getGMDN();
+            viewDeviceWithGMDNValue(gmdnCode);
+            removeSelectedDevice();
+        }
+
+        return new AddDevices(driver);
     }
 }

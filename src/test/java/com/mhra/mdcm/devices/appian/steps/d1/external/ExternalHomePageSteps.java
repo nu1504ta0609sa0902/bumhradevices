@@ -8,6 +8,7 @@ import com.mhra.mdcm.devices.appian.pageobjects.external.sections.ProductDetails
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.FileUtils;
+import com.mhra.mdcm.devices.appian.utils.selenium.others.StepsUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import cucumber.api.PendingException;
@@ -19,6 +20,7 @@ import org.junit.Assert;
 import org.springframework.context.annotation.Scope;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -235,6 +237,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         addDevices = addDevices.addFollowingDevice(dd);
 
         scenarioSession.putData(SessionKey.deviceData, dd);
+        StepsUtils.addToDeviceDataList(scenarioSession, dd);
     }
 
     @When("^I add multiple devices to SELECTED manufacturer with following data$")
@@ -261,6 +264,16 @@ public class ExternalHomePageSteps extends CommonSteps {
         addDevices = addDevices.addFollowingDevice(dd);
 
         scenarioSession.putData(SessionKey.deviceData, dd);
+        StepsUtils.addToDeviceDataList(scenarioSession, dd);
+    }
+
+    @Then("^I should see error message in devices page with text \"([^\"]*)\"$")
+    public void i_should_see_error_message_in_devices_page_with_text(String message) throws Throwable {
+        boolean errorMessageDisplayed = addDevices.isErrorMessageDisplayed();
+        if(errorMessageDisplayed){
+            errorMessageDisplayed = addDevices.isErrorMessageCorrect(message);
+        }
+        Assert.assertThat("Expected error message to contain : " + message , errorMessageDisplayed, Matchers.is(true));
     }
 
     @Then("^I should see correct device types$")
@@ -439,6 +452,12 @@ public class ExternalHomePageSteps extends CommonSteps {
         String gmdnCode = data.getGMDN();
         addDevices = addDevices.viewDeviceWithGMDNValue(gmdnCode);
         addDevices = addDevices.removeSelectedDevice();
+    }
+
+    @When("^I remove ALL the stored device with gmdn code or definition$")
+    public void iRemoveAllTheDeviceWithGmdnCode() throws Throwable {
+        List<DeviceData> listOfDeviceData = (List<DeviceData>) scenarioSession.getData(SessionKey.deviceDataList);
+        addDevices = addDevices.removeAllDevices(listOfDeviceData);
     }
 
     @Then("^Verify devices displayed and other details are correct$")

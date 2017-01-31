@@ -78,11 +78,13 @@ Automated Issues:
 
 
     Spring 6: @sprint6
-        - @mdcm-23  -   13/16
+        - @mdcm-23  -   13/16       DONE ish
                     -   Test for search + verify full details
-                    -
+                    -   Creating manufacturer without device is not possible, it seems
         - @mdcm-125 -
-        - @mdcm-134 -
+        - @mdcm-134 -   7/9         DONE ish
+                    -   Test for duplicate registration request
+                    -   Test for AIM device with multiple products
         - @mdcm-164 -
         - @mdcm-263 -
         - @mdcm-637 -

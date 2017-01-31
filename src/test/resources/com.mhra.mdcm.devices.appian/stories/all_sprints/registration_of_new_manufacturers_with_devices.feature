@@ -48,6 +48,7 @@ Feature: As a customer I want to register new manufacturers with devices
     And I view new task with link "New Manufacturer Registration Request" for the new account
     Then Check task contains correct devices "<gmdn>" and other details
     And I assign the task to me and "approve" the generated task
+    Then The task should be removed from tasks list
     When I logout of the application
     And I am logged into appian as "<user>" user
 #    And I go to list of manufacturers page
@@ -55,13 +56,13 @@ Feature: As a customer I want to register new manufacturers with devices
     Then Verify devices displayed and other details are correct
     And I should be able to view products related to stored devices
     Examples:
-      | user              | logBackInAas | deviceType             | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
-      | authorisedRepAuto | businessAuto | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
-      | manufacturerAuto  | businessAuto | General Medical Device | true       | false         | false           | Registered | Blood weighing scale |                    |              |
+      | user              | logBackInAas | accountType   | countryName | deviceType             | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
+      | authorisedRepAuto | businessAuto | manufacturer  | Bangladesh  | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
+      | manufacturerAuto  | businessAuto | authorisedRep | Bangladesh  | General Medical Device |  true       | false         | false           | Registered | Blood weighing scale |                    |              |
 
-#      | user              | logBackInAas | accountType   | countryName | deviceType             | customMade | gmdn                 | riskClassification | notifiedBody |
-#      | manufacturerAuto  | businessAuto | manufacturer  | Bangladesh  | General Medical Device | true       | Blood weighing scale |                    |              |
-#      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | General Medical Device | false      | Contact lens remover | class1             | NB 0086 BSI  |
+#      | user              | logBackInAas |  customMade | gmdn                 | riskClassification | notifiedBody |
+#      | manufacturerAuto  | businessAuto |  true       | Blood weighing scale |                    |              |
+#      | authorisedRepAuto | businessAuto |  false      | Contact lens remover | class1             | NB 0086 BSI  |
 
   @regression @mdcm-39 @sprint5
   Scenario Outline: Verify manufacturers landing page contents
@@ -72,3 +73,47 @@ Feature: As a customer I want to register new manufacturers with devices
       | user              |
       | manufacturerAuto  |
       | authorisedRepAuto |
+
+
+  @regression @mdcm-134 @sprint6 @bug
+  Scenario Outline: Users should be able to add and remove devices from a newly created manufacturers and submit for approval
+    Given I am logged into appian as "<user>" user
+    And I go to register a new manufacturer page
+    When I create a new manufacturer using manufacturer test harness page with following data
+      | accountType | <accountType> |
+      | countryName | <countryName> |
+    When I add a device to SELECTED manufacturer with following data
+      | deviceType             | <deviceType> |
+      | gmdnDefinition         | <gmdn1>      |
+      | customMade             | true         |
+      | relatedDeviceSterile   | true         |
+      | relatedDeviceMeasuring | true         |
+    And I add another device to SELECTED manufacturer with following data
+      | deviceType             | <deviceType> |
+      | gmdnDefinition         | <gmdn2>      |
+      | customMade             | true         |
+      | relatedDeviceSterile   | true         |
+      | relatedDeviceMeasuring | true         |
+    Then I should see option to add another device
+#    When I remove ALL the stored device with gmdn code or definition
+    When I remove the stored device with gmdn code or definition
+    Then I should see option to add another device
+    And Proceed to payment and confirm submit device details
+    Then I should see stored manufacturer appear in the manufacturers list
+#    When I logout of the application
+#    And I am logged into appian as "<logBackInAas>" user
+#    And I view new task with link "New Manufacturer Registration Request" for the new account
+##    Then Check task contains correct devices "<gmdn>" and other details
+#    And I assign the task to me and "approve" the generated task
+#    Then The task should be removed from tasks list
+#    When I logout of the application
+#    And I am logged into appian as "<user>" user
+##    And I go to list of manufacturers page
+#    When I go to list of manufacturers page and click on stored manufacturer
+#    Then Verify devices displayed and other details are correct
+##    And I should be able to view products related to stored devices
+    Examples:
+      | user             | logBackInAas | accountType   | countryName |  deviceType             | gmdn1                | gmdn2           |
+      | manufacturerAuto | businessAuto | manufacturer  | Bangladesh  |General Medical Device | Blood weighing scale | Autopsy measure |
+#      | authorisedRepAuto |  businessAuto | authorisedRep  | Bangladesh  |General Medical Device | Blood weighing scale | Autopsy measure |
+
