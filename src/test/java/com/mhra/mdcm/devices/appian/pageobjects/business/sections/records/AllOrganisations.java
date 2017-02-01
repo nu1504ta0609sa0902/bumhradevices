@@ -60,24 +60,7 @@ public class AllOrganisations extends _Page {
 
     public List<String> isTableColumnCorrect(String[] columns) {
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th") , TIMEOUT_DEFAULT, false);
-        List<String> listOfColumns = new ArrayList<>();
-        for(WebElement el: listOfTableColumns){
-            String text = el.getText();
-            if(text!=null){
-                listOfColumns.add(text);
-            }
-        }
-
-        //Verify columns matches expectation
-        List<String> columnsNotFound = new ArrayList<>();
-        for(String c: columns){
-            c = c.trim();
-            if(!listOfColumns.contains(c)){
-                System.out.println("Column Not Found : " + c);
-                columnsNotFound.add(c);
-            }
-        }
-
+        List<String> columnsNotFound = PageUtils.areTheColumnsCorrect(columns, listOfTableColumns);
         return columnsNotFound;
     }
 
@@ -102,11 +85,9 @@ public class AllOrganisations extends _Page {
         return name;
     }
 
-    public AllOrganisations searchForOrganisation(String organisationName) {
+    public AllOrganisations searchForAllOrganisation(String searchTerm) {
         WaitUtils.waitForElementToBeClickable(driver, searchBox, TIMEOUT_DEFAULT, false);
-        searchBox.clear();
-        searchBox.sendKeys(organisationName);
-        searchBox.sendKeys(Keys.ENTER);
+        PageUtils.searchPageFor(searchTerm, searchBox);
         return new AllOrganisations(driver);
     }
 
@@ -170,5 +151,22 @@ public class AllOrganisations extends _Page {
         }
 
         return allMatched;
+    }
+
+
+    public boolean atLeast1MatchFound(String searchText) {
+        boolean atLeast1MatchFound = true;
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".appian-informationPanel b"), TIMEOUT_40_SECOND, false);
+        try{
+            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(searchText), TIMEOUT_5_SECOND, false);
+            int actualCount = (listOfAllOrganisations.size()-1)/2;
+            atLeast1MatchFound = actualCount >= 1;
+        }catch (Exception e){
+            log.error("Timeout : Trying to search");
+            atLeast1MatchFound = false;
+        }
+
+        return atLeast1MatchFound;
     }
 }

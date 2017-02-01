@@ -2,6 +2,7 @@ package com.mhra.mdcm.devices.appian.steps.d1.business;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
+import com.mhra.mdcm.devices.appian.pageobjects.business.sections.records.BusinessProductDetails;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
@@ -90,6 +91,8 @@ public class RecordsPageSteps extends CommonSteps {
             tableColumnsNotFound = accounts.isTableColumnCorrect(columns);
         } else if (page.equals("Devices")) {
         } else if (page.equals("Products")) {
+        } else if (page.equals("All Products")) {
+            tableColumnsNotFound = allProducts.isTableColumnCorrect(columns);
         } else if (page.equals("All Organisations")) {
             tableColumnsNotFound = allOrganisations.isTableColumnCorrect(columns);
         }
@@ -97,24 +100,39 @@ public class RecordsPageSteps extends CommonSteps {
         Assert.assertThat("Following columns not found : " + tableColumnsNotFound, tableColumnsNotFound.size() == 0, is(true));
     }
 
-//    @Then("^I should see the following columns for \"([^\"]*)\" page$")
-//    public void i_should_see_the_following_columns_to(List<String> dataValues, String page) throws Throwable {
-//        String columnsDelimitedTxt = dataValues.get(0);
-//        String[] columns = columnsDelimitedTxt.split(",");
-//        log.info("Expected columns : " + columns);
-//
-//        List<String> tableColumnsNotFound = null;
-//
-//        if (page.equals("Accounts")) {
-//            tableColumnsNotFound = accounts.isTableColumnCorrect(columns);
-//        } else if (page.equals("Devices")) {
-//        } else if (page.equals("Products")) {
-//        } else if (page.equals("All Organisations")) {
-//        }
-//
-//        Assert.assertThat("Following columns not found : " + tableColumnsNotFound, tableColumnsNotFound.size() == 0, Matchers.is(true));
-//    }
+    @When("^I perform a search for \"([^\"]*)\" in \"([^\"]*)\" page$")
+    public void i_search_for_a_organisation(String searchTerm, String page) throws Throwable {
+        if (page.equals("Accounts")) {
+            accounts = accounts.searchForAccount(searchTerm);
+        } else if (page.equals("Devices")) {
+        } else if (page.equals("Products")) {
+        } else if (page.equals("All Products")) {
+            allProducts = allProducts.searchForAllProducts(searchTerm);
+        } else if (page.equals("All Organisations")) {
+            allOrganisations = allOrganisations.searchForAllOrganisation(searchTerm);
+        }
 
+        scenarioSession.putData(SessionKey.searchTerm, searchTerm);
+    }
+
+    @When("^I perform a search for random account organisation or product in \"([^\"]*)\" page$")
+    public void i_search_for_a_random_value_in_the_specified_page(String page) throws Throwable {
+        String searchTerm = "";
+        if (page.equals("Accounts")) {
+            searchTerm = accounts.getARandomAccount();
+            accounts = accounts.searchForAccount(searchTerm);
+        } else if (page.equals("Devices")) {
+        } else if (page.equals("Products")) {
+        } else if (page.equals("All Products")) {
+            searchTerm = allProducts.getARandomProductEntry();
+            allProducts = allProducts.searchForAllProducts(searchTerm);
+        } else if (page.equals("All Organisations")) {
+            searchTerm = allOrganisations.getRandomOrganisation(true);
+            allOrganisations = allOrganisations.searchForAllOrganisation(searchTerm);
+        }
+
+        scenarioSession.putData(SessionKey.searchTerm, searchTerm);
+    }
 
     @When("^I search for a \"([^\"]*)\" organisation$")
     public void i_search_for_a_organisation(String existing) throws Throwable {
@@ -124,7 +142,7 @@ public class RecordsPageSteps extends CommonSteps {
         }
 
         String organisationName = allOrganisations.getRandomOrganisation(exists);
-        allOrganisations = allOrganisations.searchForOrganisation(organisationName);
+        allOrganisations = allOrganisations.searchForAllOrganisation(organisationName);
 
         scenarioSession.putData(SessionKey.organisationName, organisationName);
     }
@@ -132,12 +150,12 @@ public class RecordsPageSteps extends CommonSteps {
     @When("^I search for a stored organisation in all organisation page$")
     public void i_search_for_a_stored_organisation(String existing) throws Throwable {
         String organisationName = (String) scenarioSession.getData(SessionKey.organisationName);
-        allOrganisations = allOrganisations.searchForOrganisation(organisationName);
+        allOrganisations = allOrganisations.searchForAllOrganisation(organisationName);
 
         scenarioSession.putData(SessionKey.organisationName, organisationName);
     }
 
-    @Then("^The all organisation search result should return (\\d+) matches$")
+    @Then("^All organisation search result should return (\\d+) matches$")
     public void the_allorganisation_search_result_should_contain_the_organisation(int matchCount) throws Throwable {
         String organisationName = (String) scenarioSession.getData(SessionKey.organisationName);
         int count = allOrganisations.getNumberOfMatches();
@@ -182,6 +200,34 @@ public class RecordsPageSteps extends CommonSteps {
         }
     }
 
+    @When("^I should see at least (\\d+) matches in \"([^\"]*)\" page search results$")
+    public void i_should_see_at_least_X_matches_in_page_search_results(int expectedMinCount, String page) throws Throwable {
+        String searchTerm = (String) scenarioSession.getData(SessionKey.searchTerm);
+        boolean atLeast1Match = accounts.atLeast1MatchFound(searchTerm);
+
+        if (page.equals("Accounts")) {
+            atLeast1Match = accounts.atLeast1MatchFound(searchTerm);
+        } else if (page.equals("Devices")) {
+        } else if (page.equals("Products")) {
+        } else if (page.equals("All Products")) {
+            atLeast1Match = allProducts.atLeast1MatchFound(searchTerm);
+        } else if (page.equals("All Organisations")) {
+            atLeast1Match = allOrganisations.atLeast1MatchFound(searchTerm);
+        }
+
+        //Assert the expected results
+        if (expectedMinCount == 0) {
+            Assert.assertThat("Expected to see no matches ", atLeast1Match, is(false));
+        } else {
+            Assert.assertThat("Expected to see atleast 1 matches", atLeast1Match, is(true));
+        }
+
+    }
+
+    @When("^I view a random product by \"([^\"]*)\"$")
+    public void i_view_a_random_product_by(String tableHeading) throws Throwable {
+        businessProductDetails = allProducts.viewProductBy(tableHeading);
+    }
 
     @When("^I should see no account matches$")
     public void i_should_see_no_account_matches() throws Throwable {

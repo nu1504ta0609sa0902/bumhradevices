@@ -17,7 +17,7 @@ import java.util.List;
 @Component
 public class AllDevices extends _Page {
 
-    @FindBy(xpath = ".//h2[.='GMDN definition']//following::a")
+    @FindBy(xpath = ".//h2[.='GMDN term']//following::a")
     List<WebElement> listOfAllDevices;
 
     @Autowired

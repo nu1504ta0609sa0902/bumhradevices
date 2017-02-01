@@ -79,6 +79,10 @@ public class CommonSteps {
     public TaskSection taskSection;
     @Autowired
     public EditAccounts editAccounts;
+    @Autowired
+    public BusinessManufacturerDetails businessManufacturerDetails;
+    @Autowired
+    public BusinessProductDetails businessProductDetails;
 
 
     /**

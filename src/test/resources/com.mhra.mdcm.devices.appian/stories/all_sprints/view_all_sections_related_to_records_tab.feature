@@ -1,27 +1,54 @@
 Feature: As a business user, I want to access a list of organisations with an account
   so that I can quickly confirm if they are known to the MHRA and retrieve key contact information
 
-  @mdcm-126 @readonly @sprint1
-  Scenario Outline: As a business user I should be able to view all accounts
-    Given I am logged into appian as "<user>" user
-    When I go to records page and click on "<link>"
-    Then I should see items and heading "<pageHeading>" for link "<link>"
-    And I should see the following columns for "<link>" page
-      | columns | <columns> |
-    Examples:
-      | user         | link     | pageHeading | columns                                                                                                          |
-      | businessAuto | Accounts | Accounts    | Organisation name,Account number,Organisation role,Contact name,Organisation address,Organisation country,Status |
+#  @mdcm-126 @readonly @sprint1
+#  Scenario Outline: As a business user I should be able to view all accounts
+#    Given I am logged into appian as "<user>" user
+#    When I go to records page and click on "<link>"
+#    Then I should see items and heading "<pageHeading>" for link "<link>"
+#    And I should see the following columns for "<link>" page
+#      | columns | <columns> |
+#    Examples:
+#      | user         | link     | pageHeading | columns                                                                                                          |
+#      | businessAuto | Accounts | Accounts    | Organisation name,Account number,Organisation role,Contact name,Organisation address,Organisation country,Status |
+#
+#  @regression @mdcm-23 @mdcm-126 @readonly @sprint1 @sprint6
+#  Scenario Outline: As a business user I should be able to view all organisation page
+#    Given I am logged into appian as "<user>" user
+#    When I go to records page and click on "<link>"
+#    Then I should see items and heading "<pageHeading>" for link "<link>"
+#    And I should see the following columns for "<link>" page
+#      | columns | <columns> |
+#    Examples:
+#      | user         | link              | pageHeading       | columns                                       |
+#      | businessAuto | All Organisations | All Organisations | Name,Role,Contact name,Address,Country,Status |
 
-  @regression @mdcm-23 @mdcm-126 @readonly @sprint1 @sprint6
-  Scenario Outline: As a business user I should be able to view all organisation page
+
+  @regression @mdcm-23 @mdcm-126 @2797 @readonly @sprint1 @sprint6 @sprint7
+  Scenario Outline: As a business user I should be able to view all sections in records page and verify details
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
     Then I should see items and heading "<pageHeading>" for link "<link>"
     And I should see the following columns for "<link>" page
       | columns | <columns> |
     Examples:
-      | user         | link              | pageHeading       | columns                                       |
-      | businessAuto | All Organisations | All Organisations | Name,Role,Contact name,Address,Country,Status |
+      | user         | link              | pageHeading       | columns                                                                                                          |
+      | businessAuto | All Products      | All Products      | Device Type,Product Make,Product Model,Product Name,Device Label,Manufacturer,Country,Authorised Representative  |
+      | businessAuto | All Organisations | All Organisations | Name,Role,Contact name,Address,Country,Status                                                                    |
+      | businessAuto | Accounts          | Accounts          | Organisation name,Account number,Organisation role,Contact name,Organisation address,Organisation country,Status |
+
+
+  @mdcm-2797 @sprint7
+  Scenario Outline: As a business user I should be able to view accounts, devices, all organisations and products page
+    Given I am logged into appian as "<user>" user
+    When I go to records page and click on "<link>"
+    Then I should see items and heading "<pageHeading>" for link "<link>"
+    Examples:
+      | user         | pageHeading  | link         |
+      | businessAuto | All Products | All Products |
+      | businessAuto | Devices      | Devices      |
+      | businessAuto | Accounts     | Accounts     |
+      | businessAuto | All Devices  | All Devices  |
 
   @mdcm-126 @mdcm-23 @readonly @sprint1 @sprint6 @bug
   Scenario Outline: By default list of accounts should be displayed in a to z order
@@ -56,8 +83,64 @@ Feature: As a business user, I want to access a list of organisations with an ac
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
     And I search for a "<existing>" organisation
-    Then The all organisation search result should return <count> matches
+    Then All organisation search result should return <count> matches
     Examples:
       | user         | link              | existing     | count |
       | businessAuto | All Organisations | existing     | 1     |
       | businessAuto | All Organisations | non existing | 0     |
+
+
+  @mdcm-23 @2797 @readonly @sprint6 @sprint7
+  Scenario Outline: As a business user I should be able to RANDOMLY search for an existing organisation products and accounts
+    Given I am logged into appian as "<user>" user
+    When I go to records page and click on "<page>"
+    And I perform a search for random account organisation or product in "<page>" page
+    Then I should see at least <count> matches in "<page>" page search results
+    Examples:
+      | user         | page              | count |
+      | businessAuto | All Products      | 1     |
+      | businessAuto | All Organisations | 1     |
+
+  @2797 @readonly @sprint7
+  Scenario Outline: As a business user I should be able to perform SPECIFIC search for an existing organisation products and accounts
+    Given I am logged into appian as "<user>" user
+    When I go to records page and click on "<page>"
+    And I perform a search for "<searchTerm>" in "<page>" page
+    Then I should see at least <count> matches in "<page>" page search results
+#    When I view a random product by "<fieldName>"
+#    Then I should see all the correct product details
+    Examples:
+      | user         | page              | searchTerm      | count | fieldName    |
+      | businessAuto | All Products      | 56797           | 1     | Product Name |
+      | businessAuto | All Products      | AuthorisedRepRT | 1     | Product Name |
+      | businessAuto | All Products      | ManufacturerRT  | 1     | Product Name |
+      | businessAuto | All Organisations | AuthorisedRepRT | 1     | Product Name |
+
+
+
+  @2797 @readonly @sprint7
+  Scenario Outline: As a business user I should be able to view product details by gmdn and organisation names
+    Given I am logged into appian as "<user>" user
+    When I go to records page and click on "<page>"
+    And I perform a search for "<searchTerm>" in "<page>" page
+#    Then I should see at least <count> matches in "<page>" page search results
+    When I view a random product by "<fieldName>"
+    Then I should see all the correct product details
+    Examples:
+      | user         | page              | searchTerm      | count | fieldName    |
+      | businessAuto | All Products      | 56797           | 1     | Product Name |
+      | businessAuto | All Products      | AuthorisedRepRT | 1     | Product Name |
+      | businessAuto | All Products      | ManufacturerRT  | 1     | Product Name |
+
+
+  @2797 @readonly @sprint7
+  Scenario Outline: As a business user I should be able to manufacturer details after a search
+    Given I am logged into appian as "<user>" user
+    When I go to records page and click on "<page>"
+    And I perform a search for "<searchTerm>" in "<page>" page
+    And I click on a random organisation link "<searchTerm>" in "<page>" page
+    Then I should see business manufacturer details page for the manufacturer
+    Examples:
+      | user         | page         | searchTerm      | count |
+      | businessAuto | All Products | AuthorisedRepRT | 1     |
+      | businessAuto | All Products | ManufacturerRT  | 1     |

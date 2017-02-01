@@ -56,7 +56,7 @@ Feature: As a business user I want to view all the organisations associated with
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
     And I search for a "<existing>" organisation
-    Then The all organisation search result should return <count> matches
+    Then All organisation search result should return <count> matches
     Examples:
       | user         | link              | existing     | count |
       | businessAuto | All Organisations | existing     | 1     |

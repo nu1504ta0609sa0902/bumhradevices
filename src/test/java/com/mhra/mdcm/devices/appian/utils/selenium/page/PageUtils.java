@@ -350,4 +350,33 @@ public class PageUtils {
         boolean matched = actualText.contains(textToMatch);
         return matched;
     }
+
+    public static List<String> areTheColumnsCorrect(String[] columns, List<WebElement> listOfTableColumns) {
+        List<String> listOfColumns = new ArrayList<>();
+        for(WebElement el: listOfTableColumns){
+            String text = el.getText();
+            System.out.println(text);
+            if(text!=null){
+                listOfColumns.add(text);
+            }
+        }
+
+        //Verify columns matches expectation
+        List<String> columnsNotFound = new ArrayList<>();
+        for(String c: columns){
+            c = c.trim();
+            if(!listOfColumns.contains(c)){
+                System.out.println("Column Not Found : " + c);
+                columnsNotFound.add(c);
+            }
+        }
+
+        return columnsNotFound;
+    }
+
+    public static void searchPageFor(String searchTerm, WebElement searchBox) {
+        searchBox.clear();
+        searchBox.sendKeys(searchTerm);
+        searchBox.sendKeys(Keys.ENTER);
+    }
 }

@@ -103,34 +103,14 @@ public class Accounts extends _Page {
 
     public List<String> isTableColumnCorrect(String[] columns) {
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th") , TIMEOUT_DEFAULT, false);
-        List<String> listOfColumns = new ArrayList<>();
-        for(WebElement el: listOfTableColumns){
-            String text = el.getText();
-            if(text!=null){
-                listOfColumns.add(text);
-            }
-        }
-
-        //Verify columns matches expectation
-        List<String> columnsNotFound = new ArrayList<>();
-        for(String c: columns){
-            c = c.trim();
-            if(!listOfColumns.contains(c)){
-                System.out.println("Column Not Found : " + c);
-                columnsNotFound.add(c);
-            }
-        }
-
+        List<String> columnsNotFound = PageUtils.areTheColumnsCorrect(columns, listOfTableColumns);
         return columnsNotFound;
     }
 
-    public Accounts searchForAccount(String orgName) {
+    public Accounts searchForAccount(String searchTerm) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, searchBox, TIMEOUT_30_SECOND, false);
-        searchBox.clear();
-        searchBox.sendKeys(orgName);
-        searchBox.sendKeys(Keys.ENTER);
-        //WaitUtils.forceWaitForPageToLoad(driver, By.xpath("Wait For Certain Time"), TIMEOUT_10_SECOND, 1);
+        PageUtils.searchPageFor(searchTerm, searchBox);
         return new Accounts(driver);
     }
 
