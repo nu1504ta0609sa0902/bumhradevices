@@ -67,6 +67,7 @@ public class TasksPage extends _Page {
     }
 
     public TaskSection gotoWIPTasksPage() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeVisible(driver, workInProgress, TIMEOUT_DEFAULT, false);
         WaitUtils.waitForElementToBeClickable(driver, workInProgress, TIMEOUT_DEFAULT, false);
         workInProgress.click();

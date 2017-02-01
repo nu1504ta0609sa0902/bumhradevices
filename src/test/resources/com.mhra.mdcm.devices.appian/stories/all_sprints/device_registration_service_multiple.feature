@@ -9,13 +9,13 @@ Feature: As an account holder with access to the device registration service
     And I click on a random manufacturer
     When I add a device to SELECTED manufacturer with following data
       | deviceType             | General Medical Device |
-      | gmdnDefinition         | Blood weighing scale    |
+      | gmdnDefinition         | <device1>              |
       | customMade             | true                   |
       | relatedDeviceSterile   | true                   |
       | relatedDeviceMeasuring | true                   |
     When I add another device to SELECTED manufacturer with following data
       | deviceType             | System or Procedure Pack |
-      | gmdnDefinition         | Acetabular Shell         |
+      | gmdnDefinition         | <device2>                |
       | riskClassification     | class1                   |
       | notifiedBody           | NB 0086 BSI              |
       | customMade             | true                     |
@@ -25,12 +25,12 @@ Feature: As an account holder with access to the device registration service
       | devicesCompatible      | true                     |
     When I add another device to SELECTED manufacturer with following data
       | deviceType     | Active Implantable Medical Devices |
-      | gmdnDefinition | Housekeeping soap                  |
+      | gmdnDefinition | <device3>                          |
       | customMade     | true                               |
       | productName    | lordhelpme                         |
     When I add another device to SELECTED manufacturer with following data
       | deviceType         | In Vitro Diagnostic Device |
-      | gmdnDefinition     | Androgen receptor IVD          |
+      | gmdnDefinition     | <device4>                  |
       | riskClassification | list a                     |
       | notifiedBody       | NB 0086 BSI                |
       | productName        | premierLeague              |
@@ -46,10 +46,10 @@ Feature: As an account holder with access to the device registration service
     When I logout of the application
     And I am logged into appian as "<logBackInAas>" user
     And I view new task with link "Update Manufacturer Registration Request" for the new account
-    Then Check task contains correct devices "<devices>" and other details
+    Then Check task contains correct devices "<device1>,<device2>,<device3>,<device4>" and other details
     #And I assign the task to me and "approve" the generated task
     #Then The completed task status should update to "Completed"
     Examples:
-      | user             | logBackInAas | devices                                                                  |
-      | manufacturerAuto | businessAuto | Surgical Guillotine,Acetabular Shell,Housekeeping soap,Androgen receptor IVD |
+      | user             | logBackInAas | device1              | device2             | device3                   | device4               |
+      | manufacturerAuto | businessAuto | Blood weighing scale | Desiccating chamber | Sinus irrigation catheter | Androgen receptor IVD |
 

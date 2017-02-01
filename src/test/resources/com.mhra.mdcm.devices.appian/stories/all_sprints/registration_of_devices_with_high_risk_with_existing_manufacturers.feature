@@ -39,7 +39,7 @@ Feature: As an account holder with access to the Device Registration Service I w
     Then I should see option to add another device
     Examples:
       | user             | deviceType                         | gmdnDefinition | customMade | productName |
-      | manufacturerAuto | Active Implantable Medical Devices | Blood          | true       | ford focus  |
+      | manufacturerAuto | Active Implantable Medical Devices | Desiccating chamber          | true       | ford focus  |
 #      | manufacturerAuto | Active Implantable Medical Devices | Blood          | false      | ford focus  | can't add this
 
 
@@ -86,6 +86,6 @@ Feature: As an account holder with access to the Device Registration Service I w
     Then The task with link "<link>" should be removed from tasks list
     Examples:
       | user             | logBackInAas | deviceType                         | gmdnDefinition | customMade | listOfProductNames | link                                     |
-      | manufacturerAuto | businessAuto | Active Implantable Medical Devices | Blood          | true       | ford,hyundai       | Update Manufacturer Registration Request |
-#      | manufacturerAuto | businessAuto | Active Implantable Medical Devices | Blood          | false      | vauxhall,honda     | Update Manufacturer Registration Request |
+      | manufacturerAuto | businessAuto | Active Implantable Medical Devices | Desiccating chamber          | true       | ford,hyundai       | Update Manufacturer Registration Request |
+#      | manufacturerAuto | businessAuto | Active Implantable Medical Devices | Desiccating chamber          | false      | vauxhall,honda     | Update Manufacturer Registration Request |
 

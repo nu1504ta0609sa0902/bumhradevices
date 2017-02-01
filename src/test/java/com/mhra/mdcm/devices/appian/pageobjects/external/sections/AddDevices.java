@@ -198,8 +198,8 @@ public class AddDevices extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_10_SECOND, false);
         for (WebElement e : listOfDeviceTypes) {
             String text = e.getText();
-            if (text.toLowerCase().contains("general medical device") || text.toLowerCase().contains("in vitro diagnostic device") ||
-                    text.toLowerCase().contains("active implantable medical device") || text.toLowerCase().contains("system or procedure pack")) {
+            if (text.toLowerCase().contains("general medical") || text.toLowerCase().contains("in vitro diagnostic") ||
+                    text.toLowerCase().contains("active implantable") || text.toLowerCase().contains("system or procedure pack")) {
                 allCorrect = true;
             } else {
                 allCorrect = false;
@@ -409,6 +409,7 @@ public class AddDevices extends _Page {
 
     private void subjectToPerformanceEval(DeviceData dd) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.nativeWaitInSeconds(1);
         WaitUtils.waitForElementToBeClickable(driver, radioSubjectToPerformanceEvalYes, TIMEOUT_DEFAULT, false);
         WaitUtils.waitForElementToBeVisible(driver, radioSubjectToPerformanceEvalYes, TIMEOUT_DEFAULT, false);
         if (dd.isSubjectToPerfEval) {
@@ -518,7 +519,7 @@ public class AddDevices extends _Page {
 
     private void customMade(DeviceData dd) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, radioCustomMadeYes, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, radioCustomMadeYes, TIMEOUT_10_SECOND, false);
         if (dd.isCustomMade) {
             PageUtils.clickIfVisible(driver, radioCustomMadeYes);
         } else {

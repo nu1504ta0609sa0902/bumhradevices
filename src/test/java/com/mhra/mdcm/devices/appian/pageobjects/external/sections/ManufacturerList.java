@@ -212,7 +212,7 @@ public class ManufacturerList extends _Page {
                 name = null;
             }
             attempts++;
-        }while(attempts < 5 && !found);
+        }while(attempts < 10 && !found);
 
         return name;
     }

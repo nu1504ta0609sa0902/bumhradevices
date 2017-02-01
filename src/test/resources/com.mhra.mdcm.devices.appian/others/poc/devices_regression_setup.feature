@@ -110,7 +110,7 @@ Feature: Reset all the information related to a manufacturer and authorisedRep
     Then I should see at least 0 account matches
     Examples:
       | user             | logBackInAas | accountType  | countryName | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
-      | manufacturerAuto | businessAuto | manufacturer | Nepal       | Active Implantable Medical Devices | Blood          | true       | setmeup            |
+      | manufacturerAuto | businessAuto | manufacturer | Nepal       | Active Implantable Medical Devices | Desiccating chamber          | true       | setmeup            |
 
 
   @setup
@@ -138,7 +138,7 @@ Feature: Reset all the information related to a manufacturer and authorisedRep
     Then I should see at least 0 account matches
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Blood          | true       | ford,hyundai       |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Desiccating chamber          | true       | ford,hyundai       |
 
 
   @setup

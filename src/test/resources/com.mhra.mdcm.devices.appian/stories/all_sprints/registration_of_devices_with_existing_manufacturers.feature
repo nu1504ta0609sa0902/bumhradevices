@@ -48,8 +48,8 @@ Feature: As an account holder with access to the Device Registration Service
       | manufacturerAuto | Registered | General Medical Device     | Blood weighing scale              | false      | true          | true            | class1             | NB 0086 BSI  |                  |                   |
       | manufacturerAuto | Registered | General Medical Device     | Blood                             | true       | true          | true            |                    |              |                  |                   |
       | manufacturerAuto | Registered | In Vitro Diagnostic Device | Androgen receptor IVD, calibrator |            |               |                 | ivd general        |              |                  |                   |
-      | manufacturerAuto | Registered | System or Procedure Pack   | Air sampling                      |            | true          | true            | class1             | NB 0086 BSI  | false            | true              |
-      | manufacturerAuto | Registered | System or Procedure Pack   | Air sampling                      |            | false         | true            |                    | NB 0086 BSI  | false            | true              |
+      | manufacturerAuto | Registered | System or Procedure Pack   | Desiccating chamber                      |            | true          | true            | class1             | NB 0086 BSI  | false            | true              |
+      | manufacturerAuto | Registered | System or Procedure Pack   | Desiccating chamber                      |            | false         | true            |                    | NB 0086 BSI  | false            | true              |
 
 
   @regression @mdcm-14 @mdcm-489 @sprint3 @sprint5 @mdcm-134 @sprint6
