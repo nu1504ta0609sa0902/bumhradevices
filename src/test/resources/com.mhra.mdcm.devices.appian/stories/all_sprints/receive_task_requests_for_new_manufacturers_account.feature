@@ -158,7 +158,7 @@ Feature: As a business user, I want a task to be created each time a customer su
 
 
   @regression @mdcm-263 @sprint6 @wip
-  Scenario Outline: Verify only 1 task is created when we create manufacturer with multiple devices
+  Scenario Outline: Verify only 1 task is created when we create NEW manufacturer with multiple devices
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
     When I create a new manufacturer using manufacturer test harness page with following data
