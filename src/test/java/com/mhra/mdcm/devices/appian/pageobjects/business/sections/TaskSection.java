@@ -4,8 +4,6 @@ import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountManufacturerReque
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.business.TasksPage;
-import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
-import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
@@ -352,26 +350,30 @@ public class TaskSection extends _Page {
         return listOfInvalidFields;
     }
 
-    public boolean isWIPDetailCorrectForNewAccount(String orgName, AccountManufacturerRequest organisationData) {
+    public boolean isWIPTaskDetailsCorrectForAccount(String orgName, AccountManufacturerRequest organisationData, String taskType) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WebElement tr = PageUtils.getTableRow(listOfWIPTableRows, orgName);
         //Task
-        boolean isDataCorrect = PageUtils.isTableDataContentCorrect(tr, 1, "New Manufacturer Registration Request");
+        boolean isDataCorrect = PageUtils.isTableDataContentCorrect(tr, 1, taskType);
         //Name: Organisation name
         if(isDataCorrect) {
             isDataCorrect = PageUtils.isTableDataContentCorrect(tr, 2, orgName);
         }
         //role
-        if(isDataCorrect) {
+        if(isDataCorrect && organisationData!=null) {
             isDataCorrect = PageUtils.isTableDataContentCorrect(tr, 3, organisationData.getRoleName());
+        }else{
+            isDataCorrect = !(PageUtils.isTableDataContentIsEmpty(tr, 3));
         }
         //Task Owner
         if(isDataCorrect) {
             isDataCorrect = PageUtils.isTableDataContentCorrect(tr, 4, "Staff");
         }
         //Submitted Date
-        if(isDataCorrect) {
+        if(isDataCorrect && organisationData!=null) {
             isDataCorrect = PageUtils.isTableDataContentCorrect(tr, 5, organisationData.submissionDate);
+        }else{
+            isDataCorrect = !(PageUtils.isTableDataContentIsEmpty(tr, 5));
         }
         //Status
         if(isDataCorrect) {

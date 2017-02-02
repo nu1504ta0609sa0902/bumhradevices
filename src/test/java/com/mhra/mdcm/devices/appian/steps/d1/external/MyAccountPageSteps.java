@@ -120,7 +120,7 @@ public class MyAccountPageSteps extends CommonSteps {
     @Then("^I should see the changes \"([^\"]*)\" in my manufacturer details page$")
     public void iShouldSeeTheChangesInManufacturerDetailsPage(String keyValuePairToUpdate) throws Throwable {
         AccountRequest updatedData = (AccountRequest) scenarioSession.getData(SessionKey.manufacturerData);
-        boolean isCorrectPage = manufacturerDetails.isCorrectPage();
+        //boolean isCorrectPage = manufacturerDetails.isCorrectPage();
         boolean updatesFound = manufacturerDetails.verifyManufacturerUpdatesDisplayedOnPage(keyValuePairToUpdate, updatedData);
         Assert.assertThat("Expected to see following updates : " + keyValuePairToUpdate, updatesFound, is(true));
     }

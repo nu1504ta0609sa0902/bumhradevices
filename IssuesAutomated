@@ -93,8 +93,11 @@ Automated Issues:
 
     Spring 7: @sprint7
         - @mdcm-2797-   15/16       DONE ish
-        - @mdcm-148 -   9/9         DONE ish
-        - @mdcm-275 -
+                    -   1 or 2 stories have bugs associated with them
+        - @mdcm-148 -   8/9         DONE ish
+                    -   1 or 2 stories have bugs associated with them
+        - @mdcm-275 -   5/20        DONE ish
+                    -   RAG status and device data
         - @mdcm-345 -
         - @mdcm-3365-
         - @mdcm-2910-

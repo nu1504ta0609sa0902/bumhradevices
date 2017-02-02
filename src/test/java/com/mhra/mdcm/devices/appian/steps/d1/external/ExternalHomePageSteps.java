@@ -346,7 +346,7 @@ public class ExternalHomePageSteps extends CommonSteps {
     @When("^I click on random manufacturer with status \"([^\"]*)\"$")
     public void i_click_on_random_manufacturer(String status) throws Throwable {
 
-        String name = manufacturerList.getARandomManufacturerName();
+        String name = manufacturerList.getARandomManufacturerNameWithStatus(status);
         String registered = manufacturerList.getRegistrationStatus(name);
         String country = manufacturerList.getOrganisationCountry(name);
 
@@ -361,7 +361,7 @@ public class ExternalHomePageSteps extends CommonSteps {
                 manufacturerList = manufacturerList.clickNext();
 
                 //Try again
-                name = manufacturerList.getARandomManufacturerName();
+                name = manufacturerList.getARandomManufacturerNameWithStatus(status);
                 registered = manufacturerList.getRegistrationStatus(name);
                 country = manufacturerList.getOrganisationCountry(name);
             }
@@ -374,6 +374,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.organisationName, name);
         scenarioSession.putData(SessionKey.organisationCountry, country);
         scenarioSession.putData(SessionKey.organisationRegistered, registered);
+        scenarioSession.putData(SessionKey.taskType, "Update Manufacturer");
     }
 
 

@@ -6,7 +6,6 @@ import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
-import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -265,7 +264,18 @@ public class TasksPageSteps extends CommonSteps {
     public void verify_the_WIP_entry_details_for_the_new_account_is_correct() throws Throwable {
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
         AccountManufacturerRequest organisationData = (AccountManufacturerRequest) scenarioSession.getData(SessionKey.manufacturerData);
-        boolean isWIPDataCorrect = taskSection.isWIPDetailCorrectForNewAccount(orgName, organisationData);
+        boolean isWIPDataCorrect = taskSection.isWIPTaskDetailsCorrectForAccount(orgName, organisationData, "New Manufacturer Registration Request");
+        assertThat("WIP page not showing correct data for : " + orgName, isWIPDataCorrect, is(equalTo(true)));
+    }
+
+    @Then("^Verify the WIP entry details for the \"([^\"]*)\" task is correct$")
+    public void verify_the_WIP_entry_details_for_the_task_is_correct(String taskType) throws Throwable {
+        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
+        AccountManufacturerRequest organisationData = null;
+        if(taskType.contains("New Manufacturer")){
+            organisationData = (AccountManufacturerRequest) scenarioSession.getData(SessionKey.manufacturerData);
+        }
+        boolean isWIPDataCorrect = taskSection.isWIPTaskDetailsCorrectForAccount(orgName, organisationData, taskType);
         assertThat("WIP page not showing correct data for : " + orgName, isWIPDataCorrect, is(equalTo(true)));
     }
 

@@ -344,11 +344,15 @@ public class PageUtils {
     }
 
     public static boolean isTableDataContentCorrect(WebElement tr, int tableDataPosition, String textToMatch) {
-        List<WebElement> tdElements = tr.findElements(By.tagName("td"));
-        WebElement element = tdElements.get(tableDataPosition);
-        String actualText = element.getText();
-        boolean matched = actualText.contains(textToMatch);
-        return matched;
+        if(textToMatch!=null) {
+            List<WebElement> tdElements = tr.findElements(By.tagName("td"));
+            WebElement element = tdElements.get(tableDataPosition);
+            String actualText = element.getText();
+            boolean matched = actualText.contains(textToMatch);
+            return matched;
+        }else{
+            return true;
+        }
     }
 
     public static List<String> areTheColumnsCorrect(String[] columns, List<WebElement> listOfTableColumns) {
@@ -378,5 +382,13 @@ public class PageUtils {
         searchBox.clear();
         searchBox.sendKeys(searchTerm);
         searchBox.sendKeys(Keys.ENTER);
+    }
+
+    public static boolean isTableDataContentIsEmpty(WebElement tr, int tableDataPosition) {
+        List<WebElement> tdElements = tr.findElements(By.tagName("td"));
+        WebElement element = tdElements.get(tableDataPosition);
+        String actualText = element.getText();
+        boolean isEmpty = actualText.trim().equals("");
+        return isEmpty;
     }
 }
