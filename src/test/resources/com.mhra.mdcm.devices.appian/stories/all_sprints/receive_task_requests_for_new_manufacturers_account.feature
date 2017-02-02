@@ -157,7 +157,7 @@ Feature: As a business user, I want a task to be created each time a customer su
       | businessNoor | authorisedRep | 0     | Estonia     | No authorisation evidence provided | New Account Request |
 
 
-  @regression @mdcm-263 @sprint6
+  @regression @mdcm-263 @sprint6 @wip
   Scenario Outline: Verify only 1 task is created when we create manufacturer with multiple devices
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -177,7 +177,7 @@ Feature: As a business user, I want a task to be created each time a customer su
     When I logout of the application
     And I am logged into appian as "<logBackInAs>" user
     And I go to WIP tasks page
-    Then Verify the WIP entry details for the new account is correct
+    Then Verify the WIP entry details for the "New Manufacturer Registration Request" task is correct
     When I view task for the new account in WIP page
     Then Task contains correct devices and products and other details
     And Task shows devices which are arranged by device types
