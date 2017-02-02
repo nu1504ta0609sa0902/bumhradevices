@@ -96,7 +96,7 @@ Feature: As an account holder with access to the Device Registration Service
 #      | authorisedRepAuto | General Medical Device |
 
 
-  @regression @mdcm-489 @sprint5
+  @regression @mdcm-489 @sprint5 @mdcm-148 @sprint7
   Scenario Outline: Verify product details after adding IVD products
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -122,7 +122,7 @@ Feature: As an account holder with access to the Device Registration Service
       | authorisedRepAuto | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | General Motors     | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
 
-  @regression @mdcm-489 @sprint5 @mdcm-134 @sprint6
+  @regression @mdcm-489 @sprint5 @mdcm-134 @sprint6 @mdcm-148 @sprint7
   Scenario Outline: Users should be able to add and remove devices using GMDN code from existing manufacturers
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page

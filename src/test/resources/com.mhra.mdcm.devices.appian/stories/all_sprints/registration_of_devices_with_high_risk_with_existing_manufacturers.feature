@@ -19,14 +19,14 @@ Feature: As an account holder with access to the Device Registration Service I w
       | conformsToCTS      | <conformsToCTS>      |
     Then I should see option to add another device
     Examples:
-      | user             | deviceType                 | gmdnDefinition    | riskClassification | productName | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
+      | user             | deviceType                 | gmdnDefinition        | riskClassification | productName | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
       | manufacturerAuto | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
       | manufacturerAuto | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | false         |
       | manufacturerAuto | In Vitro Diagnostic Device | Androgen receptor IVD | list b             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
       | manufacturerAuto | In Vitro Diagnostic Device | Androgen receptor IVD | self-test          | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
 
-  @regression @mdcm-183 @sprint3
+  @regression @mdcm-183 @sprint3 @mdcm-148 @sprint7
   Scenario Outline: Register device with SINGLE product for active implantable medical devices
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -38,13 +38,13 @@ Feature: As an account holder with access to the Device Registration Service I w
       | productName    | <productName>    |
     Then I should see option to add another device
     Examples:
-      | user             | deviceType                         | gmdnDefinition | customMade | productName |
-      | manufacturerAuto | Active Implantable Medical Devices | Desiccating chamber          | true       | ford focus  |
-#      | manufacturerAuto | Active Implantable Medical Devices | Blood          | false      | ford focus  | can't add this
+      | user             | deviceType                         | gmdnDefinition      | customMade | productName |
+      | manufacturerAuto | Active Implantable Medical Devices | Desiccating chamber | true       | ford focus  |
+#      | manufacturerAuto | Active Implantable Medical Devices | Blood          | false      | ford focus  | can't register if custom made is false
 
 
-  @regression @mdcm-183 @sprint3
-  Scenario Outline: Register device with MULTIPLE products for IVD devices
+  @regression @mdcm-183 @sprint3 @mdcm-148 @sprint7
+  Scenario Outline: Register device with MULTIPLE products and devices for IVD devices type
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
     And I click on a random manufacturer
@@ -59,17 +59,28 @@ Feature: As an account holder with access to the Device Registration Service I w
       | newProduct         | <newProduct>         |
       | conformsToCTS      | <conformsToCTS>      |
       | listOfProductNames | <listOfProductNames> |
+    When I add another device to SELECTED manufacturer with following data
+      | deviceType         | <deviceType>         |
+      | gmdnDefinition     | <gmdnDefinition2>    |
+      | riskClassification | <riskClassification> |
+      | notifiedBody       | <notifiedBody>       |
+      | productMake        | <productMake>        |
+      | productModel       | <productModel>       |
+      | subjectToPerfEval  | <subjectToPerfEval>  |
+      | newProduct         | <newProduct>         |
+      | conformsToCTS      | <conformsToCTS>      |
+      | listOfProductNames | <listOfProductNames> |
     Then I should see option to add another device
     Examples:
-      | user             | deviceType                 | gmdnDefinition    | riskClassification | listOfProductNames | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
-      | manufacturerAuto | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | ford,hyundai       | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
-      | manufacturerAuto | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | ford,honda         | ford        | focus        | NB 0086 BSI  | true              | true       | false         |
-      | manufacturerAuto | In Vitro Diagnostic Device | Androgen receptor IVD | list b             | honda,ferrari      | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
-      | manufacturerAuto | In Vitro Diagnostic Device | Androgen receptor IVD | self-test          | ferrari,peugeot    | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      | user             | deviceType                 | gmdnDefinition        | gmdnDefinition2 | riskClassification | listOfProductNames | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
+      | manufacturerAuto | In Vitro Diagnostic Device | Androgen receptor IVD | Cat             | list a             | ford,hyundai       | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      | manufacturerAuto | In Vitro Diagnostic Device | Androgen receptor IVD | Cat             | list a             | ford,honda         | ford        | focus        | NB 0086 BSI  | true              | true       | false         |
+      | manufacturerAuto | In Vitro Diagnostic Device | Androgen receptor IVD | Cat             | list b             | honda,ferrari      | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      | manufacturerAuto | In Vitro Diagnostic Device | Androgen receptor IVD | Cat             | self-test          | ferrari,peugeot    | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
 
-  @regression @mdcm-183 @mdcm-240 @sprint3 @sprint4 @wip
-  Scenario Outline: Register a device with MULTIPLE product for active implantable medical devices
+  @regression @mdcm-183 @mdcm-240 @sprint3 @sprint4  @mdcm-148 @sprint7 @wip
+  Scenario Outline: Register a device with MULTIPLE product and devices for active implantable medical devices type
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
     And I click on a random manufacturer
@@ -78,6 +89,12 @@ Feature: As an account holder with access to the Device Registration Service I w
       | gmdnDefinition     | <gmdnDefinition>     |
       | customMade         | <customMade>         |
       | listOfProductNames | <listOfProductNames> |
+    When I add another device to SELECTED manufacturer with following data
+      | deviceType         | <deviceType>         |
+      | gmdnDefinition     | <gmdnDefinition2>    |
+      | customMade         | <customMade>         |
+      | listOfProductNames | <listOfProductNames> |
+    Then I should see option to add another device
     And Proceed to payment and confirm submit device details
     When I logout of the application
     And I login to appian as "<logBackInAas>" user
@@ -85,7 +102,7 @@ Feature: As an account holder with access to the Device Registration Service I w
     And I assign the task to me and "approve" the generated task
     Then The task with link "<link>" should be removed from tasks list
     Examples:
-      | user             | logBackInAas | deviceType                         | gmdnDefinition | customMade | listOfProductNames | link                                     |
-      | manufacturerAuto | businessAuto | Active Implantable Medical Devices | Desiccating chamber          | true       | ford,hyundai       | Update Manufacturer Registration Request |
-#      | manufacturerAuto | businessAuto | Active Implantable Medical Devices | Desiccating chamber          | false      | vauxhall,honda     | Update Manufacturer Registration Request |
+      | user             | logBackInAas | deviceType                         | gmdnDefinition      | gmdnDefinition2 | customMade | listOfProductNames | link                                     |
+      | manufacturerAuto | businessAuto | Active Implantable Medical Devices | Desiccating chamber | suction         | true       | ford,hyundai       | Update Manufacturer Registration Request |
+#      | manufacturerAuto | businessAuto | Active Implantable Medical Devices | Blood          | false      | vauxhall,honda     | Update Manufacturer Registration Request |
 

@@ -368,7 +368,7 @@ public class AddDevices extends _Page {
         driver.findElement(By.xpath(".//button[.='Add Product']")).click();
 
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        //WaitUtils.nativeWaitInSeconds(1);
+        WaitUtils.nativeWaitInSeconds(1);
         WaitUtils.waitForElementToBeClickable(driver, txtProductNameLabel, TIMEOUT_10_SECOND, false);
         txtProductNameLabel.sendKeys(labelName);
 
