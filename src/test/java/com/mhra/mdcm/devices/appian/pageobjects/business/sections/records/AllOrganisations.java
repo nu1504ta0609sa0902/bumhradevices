@@ -21,8 +21,10 @@ import java.util.List;
 @Component
 public class AllOrganisations extends _Page {
 
-    @FindBy(xpath = ".//h2[.='Status']//following::a")
+    @FindBy(xpath = ".//h2[.='Status']//following::tr")
     List<WebElement> listOfAllOrganisations;
+    @FindBy(xpath = ".//td[1]")
+    List<WebElement> listOfAllOrganisationsNames;
     @FindBy(xpath = ".//table//th")
     List<WebElement> listOfTableColumns;
     @FindBy(xpath = ".//*[.='Status']//following::tr//td[2]")
@@ -72,8 +74,8 @@ public class AllOrganisations extends _Page {
             WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText("Manufacturer") , TIMEOUT_DEFAULT, false);
             boolean found = false;
             do {
-                int randomNumberBetween = RandomDataUtils.getSimpleRandomNumberBetween(0, listOfAllOrganisations.size(), false);
-                WebElement element = listOfAllOrganisations.get(randomNumberBetween);
+                int randomNumberBetween = RandomDataUtils.getSimpleRandomNumberBetween(0, listOfAllOrganisationsNames.size()-1, false);
+                WebElement element = listOfAllOrganisationsNames.get(randomNumberBetween);
                 String orgName = element.getText();
                 if(orgName!=null && !orgName.trim().equals("")){
                     name = orgName;
@@ -100,14 +102,14 @@ public class AllOrganisations extends _Page {
         WaitUtils.waitForPageToLoad(driver, By.xpath("WaitForPageToLoad") , TIMEOUT_5_SECOND, false);
         WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText("Manufacturer") , TIMEOUT_DEFAULT, false);
         int size = listOfAllOrganisations.size();
-        size = (size-1) / 2;
+        size = (size-1);
         return size;
     }
 
     public boolean isOrderedAtoZ() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_5_SECOND, false);
-        boolean isOrderedAToZ = PageUtils.isOrderedAtoZ(listOfAllOrganisations, 1);
+        boolean isOrderedAToZ = PageUtils.isOrderedAtoZ(listOfAllOrganisationsNames, 1);
         return isOrderedAToZ;
     }
 
@@ -159,8 +161,8 @@ public class AllOrganisations extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".appian-informationPanel b"), TIMEOUT_40_SECOND, false);
         try{
-            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(searchText), TIMEOUT_5_SECOND, false);
-            int actualCount = (listOfAllOrganisations.size()-1)/2;
+            //WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(searchText), TIMEOUT_5_SECOND, false);
+            int actualCount = (listOfAllOrganisations.size()-1);
             atLeast1MatchFound = actualCount >= 1;
         }catch (Exception e){
             log.error("Timeout : Trying to search");

@@ -91,6 +91,8 @@ public class RecordsPageSteps extends CommonSteps {
             tableColumnsNotFound = accounts.isTableColumnCorrect(columns);
         } else if (page.equals("Devices")) {
         } else if (page.equals("Products")) {
+        } else if (page.equals("All Devices")) {
+            tableColumnsNotFound = allDevices.isTableColumnCorrect(columns);
         } else if (page.equals("All Products")) {
             tableColumnsNotFound = allProducts.isTableColumnCorrect(columns);
         } else if (page.equals("All Organisations")) {
@@ -106,6 +108,8 @@ public class RecordsPageSteps extends CommonSteps {
             accounts = accounts.searchForAccount(searchTerm);
         } else if (page.equals("Devices")) {
         } else if (page.equals("Products")) {
+        } else if (page.equals("All Devices")) {
+            allDevices = allDevices.searchForAllDevices(searchTerm);
         } else if (page.equals("All Products")) {
             allProducts = allProducts.searchForAllProducts(searchTerm);
         } else if (page.equals("All Organisations")) {
@@ -123,6 +127,9 @@ public class RecordsPageSteps extends CommonSteps {
             accounts = accounts.searchForAccount(searchTerm);
         } else if (page.equals("Devices")) {
         } else if (page.equals("Products")) {
+        } else if (page.equals("All Devices")) {
+            searchTerm = allDevices.getARandomGMDNCode();
+            allDevices = allDevices.searchForAllDevices(searchTerm);
         } else if (page.equals("All Products")) {
             searchTerm = allProducts.getARandomProductEntry();
             allProducts = allProducts.searchForAllProducts(searchTerm);
@@ -209,7 +216,9 @@ public class RecordsPageSteps extends CommonSteps {
             atLeast1Match = accounts.atLeast1MatchFound(searchTerm);
         } else if (page.equals("Devices")) {
         } else if (page.equals("Products")) {
-        } else if (page.equals("All Products")) {
+        } else if (page.equals("All Devices")) {
+            atLeast1Match = allDevices.atLeast1MatchFound(searchTerm);
+        }  else if (page.equals("All Products")) {
             atLeast1Match = allProducts.atLeast1MatchFound(searchTerm);
         } else if (page.equals("All Organisations")) {
             atLeast1Match = allOrganisations.atLeast1MatchFound(searchTerm);
@@ -338,5 +347,16 @@ public class RecordsPageSteps extends CommonSteps {
             isOrganisationTypeAllSame = allOrganisations.areAllOrganisationRoleOfType(organisationType);
         }
         Assert.assertThat("Organisation Roles Should Be Of Type : " + organisationType, isOrganisationTypeAllSame, is(true));
+    }
+
+    @When("^I click on a random gmdn in all devices page$")
+    public void i_click_on_a_random_gmdn_in_all_devices_page() throws Throwable {
+        allDevices = allDevices.clickOnARandomGMDNCode();
+    }
+
+    @Then("^I should see a list of manufacturers using this gmdn product$")
+    public void i_should_see_a_list_of_manufacturers_using_this_gmdn_product() throws Throwable {
+        boolean isListOfManufacturersVisible = allDevices.isListOfManufacturersVisible();
+        Assert.assertThat("Expected to list of manufacturers using the selected GMDN code", isListOfManufacturersVisible, is(true));
     }
 }

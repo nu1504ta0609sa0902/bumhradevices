@@ -23,8 +23,10 @@ import java.util.List;
 @Component
 public class Accounts extends _Page {
 
-    @FindBy(xpath = ".//h2[.='Status']//following::a")
+    @FindBy(xpath = ".//h2[.='Status']//following::tr")
     List<WebElement> listOfAccounts;
+    @FindBy(xpath = ".//td[1]")
+    List<WebElement> listOfAccountsNames;
     @FindBy(xpath = ".//table//th")
     List<WebElement> listOfTableColumns;
     @FindBy(xpath = ".//*[.='Status']//following::tr//td[3]")
@@ -120,7 +122,7 @@ public class Accounts extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".appian-informationPanel b"), TIMEOUT_40_SECOND, false);
         try{
             WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(searchText), TIMEOUT_5_SECOND, false);
-            int actualCount = (listOfAccounts.size()-1)/2;
+            int actualCount = (listOfAccounts.size()-1);
             atLeast1MatchFound = actualCount >= 1;
         }catch (Exception e){
             log.error("Timeout : Trying to search");
@@ -139,8 +141,8 @@ public class Accounts extends _Page {
         //WaitUtils.forceWaitForPageToLoad(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_5_SECOND, 1);
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_5_SECOND, false);
 
-        int position = RandomDataUtils.getSimpleRandomNumberBetween(1, listOfAccounts.size() - 1, false);
-        WebElement accountLinks = listOfAccounts.get(position);
+        int position = RandomDataUtils.getSimpleRandomNumberBetween(1, listOfAccountsNames.size() - 1, false);
+        WebElement accountLinks = listOfAccountsNames.get(position);
         String accountName = accountLinks.getText();
         return accountName;
     }
@@ -155,8 +157,8 @@ public class Accounts extends _Page {
         String accountName = "";
         do {
             count++;
-            int position = RandomDataUtils.getSimpleRandomNumberBetween(1, listOfAccounts.size() - 1, false);
-            WebElement accountLinks = listOfAccounts.get(position);
+            int position = RandomDataUtils.getSimpleRandomNumberBetween(1, listOfAccountsNames.size() - 1, false);
+            WebElement accountLinks = listOfAccountsNames.get(position);
             accountName = accountLinks.getText();
             if(accountName.contains(name)){
                 found = true;
@@ -275,7 +277,7 @@ public class Accounts extends _Page {
     public boolean isOrderedAtoZ() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_5_SECOND, false);
-        boolean isOrderedAToZ = PageUtils.isOrderedAtoZ(listOfAccounts, 2);
+        boolean isOrderedAToZ = PageUtils.isOrderedAtoZ(listOfAccountsNames, 2);
         return isOrderedAToZ;
     }
 

@@ -104,11 +104,11 @@ Automated Issues:
         - @mdcm-2910-   @TODO cant see add a product button
                     -   Add a product button not visible
         - @mdcm-2399-   7/7         DONE ish
-                    -   Test harness auto suggests code
-        - @mdcm-490 -
+                    -   Add more tests
+        - @mdcm-490 -   @Todo add tests when deployment finishes
                     -   Business manufacturer details page
-        - @mdcm-626 -
-                    -   Records > All Devices tests
+        - @mdcm-626 -   10/13       DONE ish
+                    -   Last 3 or 4 still remaining to do
         - @mdcm-3360- no tests for regression
         - @mdcm-2339- no tests for regression
 

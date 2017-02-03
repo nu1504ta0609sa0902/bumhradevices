@@ -20,7 +20,7 @@ import java.util.List;
 @Component
 public class AllProducts extends _Page {
 
-    @FindBy(xpath = ".//h2[.='Authorised Representative']//following::a")
+    @FindBy(xpath = ".//h2[.='Authorised Representative']//following::tr")
     List<WebElement> listOfAllProducts;
     @FindBy(xpath = ".//td[6]")
     List<WebElement> listOfAllManufacturerNames;
@@ -74,7 +74,7 @@ public class AllProducts extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".appian-informationPanel b"), TIMEOUT_40_SECOND, false);
         try{
             //WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(searchText), TIMEOUT_5_SECOND, false);
-            int actualCount = (listOfAllProducts.size()-1)/2;
+            int actualCount = (listOfAllProducts.size()-1);
             atLeast1MatchFound = actualCount >= 1;
         }catch (Exception e){
             log.error("Timeout : Trying to search");

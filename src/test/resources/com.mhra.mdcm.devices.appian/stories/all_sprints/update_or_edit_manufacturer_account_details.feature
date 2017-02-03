@@ -72,7 +72,7 @@ Feature: As a business and account holder, I want to be able to update party det
       | manufacturerAuto  | Manufacturer,Authorised Representative |
 
 
-  @regression @mdcm-21 @sprint5
+  @regression @readonly @mdcm-21 @sprint5
   Scenario Outline: Verify list of manufacturer table showing correct details
     Given I am logged into appian as "<user>" user
     When I go to list of manufacturers page
