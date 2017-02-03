@@ -1,6 +1,7 @@
 package com.mhra.mdcm.devices.appian.utils.selenium.page;
 
 
+import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.FileUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import org.openqa.selenium.By;
@@ -233,6 +234,35 @@ public class PageUtils {
                 //PageFactory.initElements(driver, this);
             }
         } while (!completed && count < 1);
+    }
+
+
+    public static List<String> getListOfMatchesFromAutoSuggests(WebDriver driver, By elementPath, String text )   {
+        List<String> listOfCountries = new ArrayList<>();
+
+        try {
+            //Some browsers need the Actions api to interact with it
+            WebElement country = driver.findElements(elementPath).get(0);
+            //new Actions(driver).moveToElement(country).perform();
+
+            //Enter the country I am interested in
+            country.sendKeys("\n");
+            country.clear();
+            country.sendKeys(text, Keys.ENTER);
+            new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(By.cssSelector(".item")));
+
+            //Generate list of items
+            WaitUtils.isPageLoadingComplete(driver, _Page.TIMEOUT_PAGE_LOAD);
+            List<WebElement> listOfItems = driver.findElements(By.cssSelector(".item"));
+            for (WebElement el : listOfItems) {
+                String countryName = (el.getText());
+                listOfCountries.add(countryName);
+            }
+        }catch (Exception e){
+            listOfCountries.add("No results found");
+        }
+
+        return listOfCountries;
     }
 
 

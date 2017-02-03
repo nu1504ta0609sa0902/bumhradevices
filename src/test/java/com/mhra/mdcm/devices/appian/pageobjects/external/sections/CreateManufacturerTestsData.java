@@ -175,4 +175,10 @@ public class CreateManufacturerTestsData extends _Page {
             return false;
         }
     }
+
+    public List<String> getListOfAutosuggestionsFor(String searchTerm) {
+        List<String> matchesFromAutoSuggests = PageUtils.getListOfMatchesFromAutoSuggests(driver, By.cssSelector(".gwt-SuggestBox"), searchTerm);
+        System.out.println(matchesFromAutoSuggests);
+        return matchesFromAutoSuggests;
+    }
 }

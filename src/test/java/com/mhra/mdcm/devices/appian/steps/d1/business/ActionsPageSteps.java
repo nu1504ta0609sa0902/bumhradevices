@@ -6,9 +6,14 @@ import com.mhra.mdcm.devices.appian.pageobjects.business.ActionsPage;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
+import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.hamcrest.Matchers;
+import org.junit.Assert;
 import org.springframework.context.annotation.Scope;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,6 +34,19 @@ public class ActionsPageSteps extends CommonSteps {
         mainNavigationBar = new MainNavigationBar(driver);
         actionsPage = mainNavigationBar.clickActions();
         createTestsData = actionsPage.gotoTestsHarnessPage();
+    }
+
+    @When("^I enter \"([^\"]*)\" in the new country field$")
+    public void i_enter_in_the_new_country_field(String searchTerm) throws Throwable {
+        List<String> listOfCountries = createTestsData.getListOfAutosuggestionsFor(searchTerm);
+        scenarioSession.putData(SessionKey.autoSuggestResults, listOfCountries);
+    }
+
+    @Then("^I should see following \"([^\"]*)\" returned by autosuggests$")
+    public void i_should_see_following_returned_by_autosuggests(String commaDelimitedExpectedMatches) throws Throwable {
+        List<String> listOfMatches = (List<String>) scenarioSession.getData(SessionKey.autoSuggestResults);
+        boolean isResultMatchingExpectation = AssertUtils.areAllDataInAutosuggestCorrect(listOfMatches, commaDelimitedExpectedMatches);
+        Assert.assertThat("Expected to see : " + commaDelimitedExpectedMatches + ", in auto suggested list : " + listOfMatches, isResultMatchingExpectation, Matchers.is(true));
     }
 
 

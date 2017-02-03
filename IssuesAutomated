@@ -98,24 +98,63 @@ Automated Issues:
                     -   1 or 2 stories have bugs associated with them
         - @mdcm-275 -   5/20        DONE ish
                     -   RAG status and device data
-        - @mdcm-345 -
-        - @mdcm-3365-
-        - @mdcm-2910-
+        - @mdcm-345 -   @Todo Business has moved this outside of this sprints, all 3 TC
+        - @mdcm-3365-   4/4         DONE ish
+                    -   Once approved users can register more manufacturer
+        - @mdcm-2910-   @TODO cant see add a product button
+                    -   Add a product button not visible
+        - @mdcm-2399-   7/7         DONE ish
+                    -   Test harness auto suggests code
         - @mdcm-490 -
-        - @mdcm-2399-
+                    -   Business manufacturer details page
         - @mdcm-626 -
+                    -   Records > All Devices tests
         - @mdcm-3360- no tests for regression
         - @mdcm-2339- no tests for regression
 
     Spring 8: @sprint8
         - @mdcm-1924-
+                    -   Device and notified body
         - @mdcm-2185-
-        - @mdcm-2049- no tests for regression
-        - @mdcm-3271- no tests for regression
-        - @mdcm-3158- no tests for regression
-        - @mdcm-1836- no tests for regression
-        - @mdcm-2097- no tests for regression
-        - @mdcm-3104- no tests for regression
+                    -   Indicate notified body
+        - @mdcm-2049-   no tests for regression
+        - @mdcm-3271-   no tests for regression
+        - @mdcm-3158-   no tests for regression
+        - @mdcm-1836-   no tests for regression
+        - @mdcm-2097-   no tests for regression
+        - @mdcm-3104-   no tests for regression
+
+
+    Spring 9: @sprint9
+        - @mdcm-3777-
+                    -   Device summary
+        - @mdcm-3762-
+                    -   Update manufacturer registration
+        - @mdcm-3761-
+                    -   Manufacturer list
+        - @mdcm-1996-   no tests for regression
+        - @mdcm-1840-   no tests for regression
+        - @mdcm-1956-   no tests for regression
+        - @mdcm-2184-   no tests for regression
+
+
+    Spring 10: @sprint10
+        - @mdcm-3294-   Manufacturer with no device
+                    -
+        - @mdcm-2191-   no tests for regression
+        - @mdcm-3756-   no tests for regression
+        - @mdcm-1937-   no tests for regression
+        - @mdcm-3296-   no tests for regression
+        - @mdcm-3972-   no tests for regression
+        - @mdcm-3559-   no tests for regression
+        - @mdcm-3560-   no tests for regression
+        - @mdcm-2143-   no tests for regression
+        - @mdcm-2190-   no tests for regression
+        - @mdcm-3837-   no tests for regression
+        - @mdcm-2192-   no tests for regression
+        - @mdcm-3894-   no tests for regression
+        - @mdcm-3895-   no tests for regression
+        - @mdcm-2193-   no tests for regression
 
 
     Spring MIXED: @sprintMixed

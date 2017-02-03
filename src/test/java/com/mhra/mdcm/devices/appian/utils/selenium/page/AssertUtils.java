@@ -2,6 +2,8 @@ package com.mhra.mdcm.devices.appian.utils.selenium.page;
 
 import org.openqa.selenium.WebElement;
 
+import java.util.List;
+
 /**
  * Created by TPD_Auto
  */
@@ -34,6 +36,19 @@ public class AssertUtils {
             isNumeric = false;
         }
         return isNumeric;
+    }
+
+    public static boolean areAllDataInAutosuggestCorrect(List<String> listOfMatches, String commaDelimitedExpectedMatches) {
+        String[] data = commaDelimitedExpectedMatches.split(",");
+        boolean allFound = true;
+        for(String d: data){
+            boolean contains = listOfMatches.contains(d);
+            if(!contains){
+                allFound = false;
+                break;
+            }
+        }
+        return allFound;
     }
 }
 

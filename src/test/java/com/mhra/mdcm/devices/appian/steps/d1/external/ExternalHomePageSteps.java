@@ -10,6 +10,7 @@ import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.FileUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.StepsUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
+import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
@@ -509,6 +510,20 @@ public class ExternalHomePageSteps extends CommonSteps {
         String org = (String) scenarioSession.getData(SessionKey.organisationName);
         boolean isCorrectFieldsDisplayed = manufacturerDetails.isDisplayedContactPersonFieldsCorrect(org);
         Assert.assertThat("Please check organisation fields displayed are correct for : " + org, isCorrectFieldsDisplayed, Matchers.is(true));
+    }
+
+
+    @When("^I enter \"([^\"]*)\" in the new country field in manufacturer test harness$")
+    public void i_enter_in_the_new_country_field(String searchTerm) throws Throwable {
+        List<String> listOfCountries = createNewManufacturer.getListOfAutosuggestionsFor(searchTerm);
+        scenarioSession.putData(SessionKey.autoSuggestResults, listOfCountries);
+    }
+
+    @Then("^I should see following \"([^\"]*)\" returned by manufacturer test harness autosuggests$")
+    public void i_should_see_following_returned_by_autosuggests(String commaDelimitedExpectedMatches) throws Throwable {
+        List<String> listOfMatches = (List<String>) scenarioSession.getData(SessionKey.autoSuggestResults);
+        boolean isResultMatchingExpectation = AssertUtils.areAllDataInAutosuggestCorrect(listOfMatches, commaDelimitedExpectedMatches);
+        Assert.assertThat("Expected to see : " + commaDelimitedExpectedMatches + ", in auto suggested list : " + listOfMatches, isResultMatchingExpectation, Matchers.is(true));
     }
 
 }

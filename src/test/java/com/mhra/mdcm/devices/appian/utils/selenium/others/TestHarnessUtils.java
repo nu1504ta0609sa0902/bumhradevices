@@ -4,6 +4,14 @@ import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountManufacturerReque
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
 import com.mhra.mdcm.devices.appian.session.ScenarioSession;
+import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Map;
 
@@ -176,4 +184,33 @@ public class TestHarnessUtils {
         return dd;
     }
 
+    public static void selectCountryFromAutoSuggests(WebDriver driver, String elementPath, String countryName, boolean throwException) throws Exception {
+            boolean completed = true;
+            int count = 0;
+            do {
+                try {
+
+                    count++;    //It will go forever without this
+                    WebElement country = driver.findElements(By.cssSelector(elementPath)).get(0);
+                    new Actions(driver).moveToElement(country).perform();
+
+                    //Enter the country I am interested in
+                    country.sendKeys("\n");
+                    country.clear();
+                    country.sendKeys(countryName, Keys.ENTER);
+                    new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(By.cssSelector(".item")));
+                    country.sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
+
+                    completed = true;
+                } catch (Exception e) {
+                    completed = false;
+                    WaitUtils.nativeWaitInSeconds(1);
+                    //PageFactory.initElements(driver, this);
+                }
+            } while (!completed && count < 1);
+
+            if(!completed && throwException){
+                throw new Exception("Country name not selected");
+            }
+        }
 }

@@ -3,16 +3,16 @@ package com.mhra.mdcm.devices.appian.pageobjects.business.sections;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.business.ActionsPage;
+import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * Created by TPD_Auto
@@ -118,7 +118,7 @@ public class CreateTestsData extends _Page {
         boolean exception = false;
         try {
             orgName.click();
-            selectCountryFromAutoSuggests(driver, ".gwt-SuggestBox", ar.country, true);
+            TestHarnessUtils.selectCountryFromAutoSuggests(driver, ".gwt-SuggestBox", ar.country, true);
         }catch (Exception e){
             exception = true;
         }
@@ -200,7 +200,7 @@ public class CreateTestsData extends _Page {
         //Some weired bug where input boxes looses value on focus
         if(exception) {
             orgName.click();
-            selectCountryFromAutoSuggests(driver, ".gwt-SuggestBox", ar.country, false);
+            TestHarnessUtils.selectCountryFromAutoSuggests(driver, ".gwt-SuggestBox", ar.country, false);
         }
 
         //Submit form : remember to verify
@@ -209,38 +209,15 @@ public class CreateTestsData extends _Page {
         return new ActionsPage(driver);
     }
 
-    private void selectCountryFromAutoSuggests(WebDriver driver, String elementPath, String countryName, boolean throwException) throws Exception {
-        boolean completed = true;
-        int count = 0;
-        do {
-            try {
-
-                count++;    //It will go forever without this
-                WebElement country = driver.findElements(By.cssSelector(elementPath)).get(0);
-                new Actions(driver).moveToElement(country).perform();
-
-                //Enter the country I am interested in
-                country.sendKeys("\n");
-                country.clear();
-                country.sendKeys(countryName, Keys.ENTER);
-                new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(By.cssSelector(".item")));
-                country.sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
-
-                completed = true;
-            } catch (Exception e) {
-                completed = false;
-                WaitUtils.nativeWaitInSeconds(1);
-                //PageFactory.initElements(driver, this);
-            }
-        } while (!completed && count < 1);
-
-        if(!completed && throwException){
-            throw new Exception("Country name not selected");
-        }
-    }
 
     public ActionsPage clickCancel() {
         PageUtils.doubleClick(driver, cancel);
         return new ActionsPage(driver);
+    }
+
+    public List<String> getListOfAutosuggestionsFor(String searchTerm) {
+        List<String> matchesFromAutoSuggests = PageUtils.getListOfMatchesFromAutoSuggests(driver, By.cssSelector(".gwt-SuggestBox"), searchTerm);
+        System.out.println(matchesFromAutoSuggests);
+        return matchesFromAutoSuggests;
     }
 }
