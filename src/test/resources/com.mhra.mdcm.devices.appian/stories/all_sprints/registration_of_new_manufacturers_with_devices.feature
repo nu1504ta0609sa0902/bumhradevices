@@ -64,7 +64,7 @@ Feature: As a customer I want to register new manufacturers with devices
 #      | manufacturerAuto  | businessAuto |  true       | Blood weighing scale |                    |              |
 #      | authorisedRepAuto | businessAuto |  false      | Contact lens remover | class1             | NB 0086 BSI  |
 
-  @regression @mdcm-39 @sprint5
+  @regression @readonly @mdcm-39 @sprint5
   Scenario Outline: Verify manufacturers landing page contents
     Given I am logged into appian as "<user>" user
     When I go to portal page
@@ -100,18 +100,6 @@ Feature: As a customer I want to register new manufacturers with devices
     Then I should see option to add another device
     And Proceed to payment and confirm submit device details
     Then I should see stored manufacturer appear in the manufacturers list
-#    When I logout of the application
-#    And I am logged into appian as "<logBackInAas>" user
-#    And I view new task with link "New Manufacturer Registration Request" for the new account
-##    Then Check task contains correct devices "<gmdn>" and other details
-#    And I assign the task to me and "approve" the generated task
-#    Then The task should be removed from tasks list
-#    When I logout of the application
-#    And I am logged into appian as "<user>" user
-##    And I go to list of manufacturers page
-#    When I go to list of manufacturers page and click on stored manufacturer
-#    Then Verify devices displayed and other details are correct
-##    And I should be able to view products related to stored devices
     Examples:
       | user             | logBackInAas | accountType   | countryName |  deviceType             | gmdn1                | gmdn2           |
       | manufacturerAuto | businessAuto | manufacturer  | Bangladesh  |General Medical Device | Blood weighing scale | Autopsy measure |
