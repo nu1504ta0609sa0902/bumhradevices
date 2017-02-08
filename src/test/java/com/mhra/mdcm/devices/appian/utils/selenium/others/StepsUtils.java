@@ -32,4 +32,16 @@ public class StepsUtils {
         listOfStrings.add(value);
         scenarioSession.putData(sessionKey, listOfStrings);
     }
+
+    public static String getCommaDelimitedData(List<String> listOfGmdns) {
+        String commaDelimited = "";
+        for(String x: listOfGmdns){
+            if(x.contains(",")){
+                commaDelimited = commaDelimited + "," + x.split(",")[0];
+            }else{
+                commaDelimited = commaDelimited + "," + x ;
+            }
+        }
+        return commaDelimited;
+    }
 }

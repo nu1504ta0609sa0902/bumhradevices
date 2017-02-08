@@ -81,7 +81,7 @@ public class ManufacturerList extends _Page {
         //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean found = false;
         try {
-            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector("td>div>a"), TIMEOUT_30_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector("td>div>a"), TIMEOUT_10_SECOND, false);
             WaitUtils.nativeWaitInSeconds(2);
             for (WebElement item : listOfManufacturerNames) {
                 String name = item.getText();
@@ -234,6 +234,7 @@ public class ManufacturerList extends _Page {
     }
 
     public boolean isManufacturerLinkDisplayed(String name) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean found = true;
         try {
             WaitUtils.waitForElementToBeClickable(driver, By.cssSelector("td>div>a"), TIMEOUT_30_SECOND, false);
@@ -247,5 +248,10 @@ public class ManufacturerList extends _Page {
     public boolean isTableHeadingCorrect(String commaDelimitedHeading) {
         String lowerCaseHeadings = commaDelimitedHeading.toLowerCase();
         return PageUtils.isTableHeadingCorrect(lowerCaseHeadings, listOfTableHeadings);
+    }
+
+    public boolean isSpecificTableHeadingCorrect(String commaDelimitedHeading) {
+        String lowerCaseHeadings = commaDelimitedHeading.toLowerCase();
+        return PageUtils.isSpecificTableHeadingCorrect(lowerCaseHeadings, listOfTableHeadings);
     }
 }

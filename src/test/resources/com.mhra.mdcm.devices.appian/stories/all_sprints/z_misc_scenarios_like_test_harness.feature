@@ -11,7 +11,7 @@ Feature: Aa a user I would like to verify features which are not related to devi
       | user         | searchTerm | matches          |
       | businessNoor | ZZ         | No results found |
       | businessNoor | Ba         | Bangladesh       |
-      | businessNoor | Au         | Austria          |
+      | businessNoor | Au         | Australia        |
 
   @2399 @3365 @readonly @sprint7
   Scenario Outline: Verify the new countries list in MANUFACTURER test harness uses autosuggestion
@@ -21,7 +21,7 @@ Feature: Aa a user I would like to verify features which are not related to devi
     Then I should see following "<matches>" returned by manufacturer test harness autosuggests
     Examples:
       | user              | searchTerm | matches          |
-      | manufacturerNoor  | Au         | Austria          |
+      | manufacturerNoor  | Au         | Australia        |
       | manufacturerNoor  | ZZ         | No results found |
-      | authorisedRepNoor | Au         | Austria          |
+      | authorisedRepNoor | Au         | Australia        |
       | authorisedRepNoor | ZZ         | No results found |

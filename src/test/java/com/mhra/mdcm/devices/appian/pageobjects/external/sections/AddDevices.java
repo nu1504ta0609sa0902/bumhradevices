@@ -228,7 +228,7 @@ public class AddDevices extends _Page {
             for(WebElement msg: errorMessages){
                 String txt = msg.getText();
                 System.out.println("Error message : "+txt);
-                isDisplayed = txt.toLowerCase().contains(message);
+                isDisplayed = txt.toLowerCase().contains(message.toLowerCase());
                 if(isDisplayed){
                     break;
                 }
@@ -567,8 +567,8 @@ public class AddDevices extends _Page {
         if (dd.gmdnTermOrDefinition != null) {
 
             List<String> arrayOfDeviceBecauseTheyKeepBloodyChanging = TestHarnessUtils.getListOfSearchTermsForGMDN();
-            int pos = 0;
-            String searchFor = arrayOfDeviceBecauseTheyKeepBloodyChanging.get(pos);
+            int pos = -1;
+            String searchFor = dd.gmdnTermOrDefinition;
             boolean isErrorMessageDisplayed = false;
             do {
                 WaitUtils.waitForElementToBeClickable(driver, tbxGMDNDefinitionOrTerm, TIMEOUT_5_SECOND, false);
@@ -579,6 +579,8 @@ public class AddDevices extends _Page {
                 //Wait for list of items to appear and add it only if its not a duplicate
                 WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//*[.='Term']//following::td[contains(@class, 'GFWJSJ4DCEB')]"), TIMEOUT_DEFAULT, false);
                 int randomPosition = RandomDataUtils.getARandomNumberBetween(0, listOfTermsOrCodeMatches.size());
+
+                //Click gmdn from search results
                 WebElement element = listOfTermsOrCodeMatches.get(randomPosition);
                 element.findElement(By.tagName("a")).click();
                 WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
@@ -587,9 +589,11 @@ public class AddDevices extends _Page {
                 isErrorMessageDisplayed = isErrorMessageDisplayed("Duplicate");
                 if(isErrorMessageDisplayed) {
                     //Try again
-                    arrayOfDeviceBecauseTheyKeepBloodyChanging.remove(pos);
+                    //arrayOfDeviceBecauseTheyKeepBloodyChanging.remove(pos);
+                    pos++;
                     searchFor = arrayOfDeviceBecauseTheyKeepBloodyChanging.get(pos);
                 }else{
+                    log.info(dd.deviceType + " => " + searchFor);
                     gmdnSelected = PageUtils.getText(tbxGMDNDefinitionOrTerm);  //tbxGMDNDefinitionOrTerm.getText();
                 }
             }while (isErrorMessageDisplayed);
@@ -631,6 +635,7 @@ public class AddDevices extends _Page {
 
     public AddDevices submitRegistration() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.nativeWaitInSeconds(1);
         WaitUtils.waitForElementToBeClickable(driver, submitConfirm, TIMEOUT_5_SECOND, false);
         submitConfirm.click();
         return new AddDevices(driver);
@@ -638,6 +643,7 @@ public class AddDevices extends _Page {
 
     public ExternalHomePage finish() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.nativeWaitInSeconds(1);
         WaitUtils.waitForElementToBeClickable(driver, btnFinish, TIMEOUT_15_SECOND, false);
         btnFinish.click();
         return new ExternalHomePage(driver);

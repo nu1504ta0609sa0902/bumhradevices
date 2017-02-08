@@ -19,10 +19,10 @@ Feature: As a customer I want to register new manufacturers with devices
       | relatedDeviceSterile   | true                 |
       | relatedDeviceMeasuring | true                 |
     And Proceed to payment and confirm submit device details
-    Then I should see stored manufacturer appear in the manufacturers list
+    Then I should see the registered manufacturers list
     Examples:
       | user              | accountType   | countryName | deviceType             | deviceType             | customMade | riskClassification | notifiedBody |
-      | manufacturerAuto  | manufacturer  | Bangladesh  | General Medical Device | General Medical Device | true       |                    |              |
+      #| manufacturerAuto  | manufacturer  | Brazil  | General Medical Device | General Medical Device | true       |                    |              |
       | authorisedRepAuto | authorisedRep | Bangladesh  | General Medical Device | General Medical Device | false      | class1             | NB 0086 BSI  |
 
 
@@ -42,7 +42,8 @@ Feature: As a customer I want to register new manufacturers with devices
       | relatedDeviceSterile   | <deviceSterile>                 |
       | relatedDeviceMeasuring | <deviceMeasuring>                 |
     And Proceed to payment and confirm submit device details
-    Then I should see stored manufacturer appear in the manufacturers list
+    #Then I should see stored manufacturer appear in the manufacturers list
+    Then I should see the registered manufacturers list
     When I logout of the application
     And I am logged into appian as "<logBackInAas>" user
     And I view new task with link "New Manufacturer Registration Request" for the new account
@@ -58,11 +59,8 @@ Feature: As a customer I want to register new manufacturers with devices
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType             | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
       | authorisedRepAuto | businessAuto | manufacturer  | Bangladesh  | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
-      | manufacturerAuto  | businessAuto | authorisedRep | Bangladesh  | General Medical Device |  true       | false         | false           | Registered | Blood weighing scale |                    |              |
+      #| manufacturerAuto  | businessAuto | authorisedRep | Brazil  | General Medical Device |  true       | false         | false           | Registered | Blood weighing scale |                    |              |
 
-#      | user              | logBackInAas |  customMade | gmdn                 | riskClassification | notifiedBody |
-#      | manufacturerAuto  | businessAuto |  true       | Blood weighing scale |                    |              |
-#      | authorisedRepAuto | businessAuto |  false      | Contact lens remover | class1             | NB 0086 BSI  |
 
   @regression @readonly @mdcm-39 @sprint5
   Scenario Outline: Verify manufacturers landing page contents
@@ -99,9 +97,10 @@ Feature: As a customer I want to register new manufacturers with devices
     When I remove the stored device with gmdn code or definition
     Then I should see option to add another device
     And Proceed to payment and confirm submit device details
-    Then I should see stored manufacturer appear in the manufacturers list
+#    Then I should see stored manufacturer appear in the manufacturers list
+    Then I should see the registered manufacturers list
     Examples:
       | user             | logBackInAas | accountType   | countryName |  deviceType             | gmdn1                | gmdn2           |
-      | manufacturerAuto | businessAuto | manufacturer  | Bangladesh  |General Medical Device | Blood weighing scale | Autopsy measure |
-#      | authorisedRepAuto |  businessAuto | authorisedRep  | Bangladesh  |General Medical Device | Blood weighing scale | Autopsy measure |
+#      | manufacturerAuto | businessAuto | manufacturer  | United Kingdom  |General Medical Device | Blood weighing scale | Autopsy measure |
+      | authorisedRepAuto |  businessAuto | authorisedRep  | Bangladesh  |General Medical Device | Blood weighing scale | Autopsy measure |
 

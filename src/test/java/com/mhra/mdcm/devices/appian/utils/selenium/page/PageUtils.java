@@ -317,6 +317,26 @@ public class PageUtils {
         return allFound;
     }
 
+    public static boolean isSpecificTableHeadingCorrect(String commaDelimitedHeading, List<WebElement> listOfTableHeadings) {
+        String lowerCaseHeadings = commaDelimitedHeading.toLowerCase();
+        String[] tableHeadings = lowerCaseHeadings.split(",");
+        //Get list of headings
+        String headings = "";
+        for(WebElement el: listOfTableHeadings){
+            String heading = el.getText().toLowerCase();
+            headings = headings + "," + heading;
+        }
+
+        boolean found = true;
+        for(String head: tableHeadings){
+            found = headings.contains(head);
+            if(!found){
+                break;
+            }
+        }
+        return found;
+    }
+
     public static boolean isOrderedAtoZ(List<WebElement> listOfElements, int everyXItem) {
         int getFirstX = 20;
         int reminder = 1;

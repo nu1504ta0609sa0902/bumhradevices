@@ -52,7 +52,8 @@ Feature: As a business user, I want a task to be created each time a customer su
       | customMade         | <customMade>         |
       | listOfProductNames | <listOfProductNames> |
     And Proceed to payment and confirm submit device details
-    Then I should see stored manufacturer appear in the manufacturers list
+    #Then I should see stored manufacturer appear in the manufacturers list
+    Then I should see the registered manufacturers list
     When I logout of the application
     And I am logged into appian as "<logBackInAas>" user
     Then I view new task with link "New Manufacturer Registration Request" for the new account
@@ -61,9 +62,9 @@ Feature: As a business user, I want a task to be created each time a customer su
     And I assign the task to me and "approve" the generated task
     Then The completed task status should update to "Completed"
     Examples:
-      | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
-      | manufacturerAuto  | businessAuto | manufacturer  | Bangladesh  | Active Implantable Medical Devices | Desiccating chamber          | true       | setmeup1           |
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Desiccating chamber          | true       | setmeup2           |
+      | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition      | customMade | listOfProductNames |
+      #| manufacturerAuto  | businessAuto | manufacturer  | Brazil  | Active Implantable Medical Devices | Desiccating chamber          | true       | setmeup1           |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Desiccating chamber | true       | setmeup2           |
 
 
   @regression @mdcm-15 @mdcm-21 @mdcm-39 @mdcm-186 @sprint2 @sprint3 @sprint5 @bug
@@ -86,7 +87,8 @@ Feature: As a business user, I want a task to be created each time a customer su
       | listOfProductNames | <listOfProductNames> |
     And The gmdn code or term is "displayed" in summary section
     And Proceed to payment and confirm submit device details
-    Then I should see stored manufacturer appear in the manufacturers list
+    #Then I should see stored manufacturer appear in the manufacturers list
+    Then I should see the registered manufacturers list
     When I logout of the application
     And I am logged into appian as "<logBackInAas>" user
     Then I view new task with link "New Manufacturer Registration Request" for the new account
@@ -96,7 +98,7 @@ Feature: As a business user, I want a task to be created each time a customer su
     And The completed task status should update to "Completed"
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType                 | gmdnDefinition        | riskClassification | listOfProductNames | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
-      | manufacturerAuto  | businessAuto | manufacturer  | Bangladesh  | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | ford,hyundai       | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      #| manufacturerAuto  | businessAuto | manufacturer  | Brazil  | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | ford,hyundai       | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | ford,honda         | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
 
@@ -112,15 +114,14 @@ Feature: As a business user, I want a task to be created each time a customer su
       | gmdnDefinition     | <gmdnDefinition>     |
       | customMade         | <customMade>         |
       | listOfProductNames | <listOfProductNames> |
-      #| productName    | lordhelpme2      |
     And Proceed to payment and confirm submit device details
     When I logout of the application
     And I login to appian as "<logBackInAas>" user
     Then I view new task with link "<link>" for the new account
     And The status of designation letter should be "Awaiting Review"
     Examples:
-      | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition | customMade | listOfProductNames | link                                  |
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Desiccating chamber    | true       | ford               | New Manufacturer Registration Request |
+      | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition      | customMade | listOfProductNames | link                                  |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Desiccating chamber | true       | ford               | New Manufacturer Registration Request |
 #      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Blood vessel sizer | false      | fiesta             | New Manufacturer Registration Request |
 
 
@@ -165,28 +166,29 @@ Feature: As a business user, I want a task to be created each time a customer su
       | accountType | <accountType> |
       | countryName | <countryName> |
     When I add a device to SELECTED manufacturer with following data
-      | deviceType             | General Medical Device |
-      | gmdnDefinition         | <gmdn1>      |
-      | customMade             | true         |
+      | deviceType     | General Medical Device |
+      | gmdnDefinition | <gmdn1>                |
+      | customMade     | true                   |
     And I add another device to SELECTED manufacturer with following data
-      | deviceType             | General Medical Device |
-      | gmdnDefinition         | <gmdn2>      |
-      | customMade             | true         |
+      | deviceType     | General Medical Device |
+      | gmdnDefinition | <gmdn2>                |
+      | customMade     | true                   |
     And Proceed to payment and confirm submit device details
-    Then I should see stored manufacturer appear in the manufacturers list
+    #Then I should see stored manufacturer appear in the manufacturers list
+    Then I should see the registered manufacturers list
     When I logout of the application
     And I am logged into appian as "<logBackInAs>" user
     And I go to WIP tasks page
     Then Verify the WIP entry details for the new account is correct
     When I view task for the new account in WIP page
-    Then Task contains correct devices and products and other details
-    And Task shows devices which are arranged by device types
+#    Then Task contains correct devices and products and other details
+#    And Task shows devices which are arranged by device types
     And I assign the task to me and "<approveReject>" the generated task
 #    Then The task should be removed from WIP tasks list
     Then The completed task status should update to "Completed"
     When I search accounts for the stored organisation name
     Then I should see at least 0 account matches
     Examples:
-      | user              | logBackInAs  | accountType   | countryName | gmdn1                | gmdn2           | approveReject |
-      | manufacturerAuto  | businessAuto | manufacturer  | Bangladesh  | Blood weighing scale | Autopsy measure | approve       |
-#      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Blood weighing scale | Autopsy measure | approve       |
+      | user             | logBackInAs  | accountType  | countryName | gmdn1                | gmdn2           | approveReject |
+      #| manufacturerAuto | businessAuto | manufacturer | Brazil      | Blood weighing scale | Autopsy measure | approve       |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Blood weighing scale | Autopsy measure | approve       |

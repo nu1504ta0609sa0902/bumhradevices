@@ -96,6 +96,16 @@ public class ExternalHomePageSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.taskType, "New Manufacturer");
     }
 
+
+    @Then("^I should see the registered manufacturers list$")
+    public void iShouldSeeTheManufacturersList() throws Throwable {
+        String name = (String) scenarioSession.getData(SessionKey.organisationName);
+        externalHomePage = mainNavigationBar.clickExternalHOME();
+        manufacturerList = externalHomePage.gotoListOfManufacturerPage();
+        boolean isCorrect = manufacturerList.isSpecificTableHeadingCorrect("Organisation country");
+        Assert.assertThat("Expected To See Manufacturer List : " + name, isCorrect, Matchers.is(true));
+    }
+
     @Then("^I should see stored manufacturer appear in the manufacturers list$")
     public void iShouldSeeTheManufacturerAppearInTheManufacturersList() throws Throwable {
         externalHomePage = mainNavigationBar.clickExternalHOME();
@@ -109,7 +119,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         do{
             count++;
             isFoundInManufacturerList = manufacturerList.isManufacturerDisplayedInList(name);
-            if(!isFoundInManufacturerList){
+            if(!isFoundInManufacturerList && nop > 0){
                 manufacturerList = manufacturerList.clickNext();
             }
         }while(!isFoundInManufacturerList && count <= nop);
@@ -122,7 +132,7 @@ public class ExternalHomePageSteps extends CommonSteps {
             do{
                 count++;
                 isFoundInManufacturerList = manufacturerList.isManufacturerLinkDisplayed(name);
-                if(!isFoundInManufacturerList){
+                if(!isFoundInManufacturerList && nop > 0){
                     manufacturerList = manufacturerList.clickNext();
                 }
             }while(!isFoundInManufacturerList && count <= nop);

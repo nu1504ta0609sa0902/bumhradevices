@@ -6,6 +6,7 @@ import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
+import com.mhra.mdcm.devices.appian.utils.selenium.others.StepsUtils;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -334,6 +335,14 @@ public class TasksPageSteps extends CommonSteps {
 
     @And("^Check task contains correct devices \"([^\"]*)\" and other details$")
     public void checkCorrectDevicesAreDisplayed(String deviceList) throws Throwable {
+        boolean isDevicesCorrect = taskSection.isDevicesDisplayedCorrect(deviceList);
+        assertThat("Expected to see following devices : " + deviceList, isDevicesCorrect, is(equalTo(true)));
+    }
+
+    @And("^Check task contains correct stored devices and other details$")
+    public void checkTaskContainsCorrectDevicesAreDisplayed() throws Throwable {
+        List<String> listOfGmdns = (List<String>) scenarioSession.getData(SessionKey.listOfGmndsAdded);
+        String deviceList = StepsUtils.getCommaDelimitedData(listOfGmdns);
         boolean isDevicesCorrect = taskSection.isDevicesDisplayedCorrect(deviceList);
         assertThat("Expected to see following devices : " + deviceList, isDevicesCorrect, is(equalTo(true)));
     }
