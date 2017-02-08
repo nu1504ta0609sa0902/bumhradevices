@@ -153,41 +153,24 @@ public class RandomDataUtils {
 
     public static String getRandomEUCountryName() {
         List<String> list = new ArrayList<>();
-        list.add("Austria");
-        list.add("Belgium");
-        list.add("Bulgaria");
-        list.add("Croatia");
-        list.add("Cyprus");
-        list.add("Czech Republic");
-        list.add("Denmark");
-        list.add("Estonia");
-        list.add("Finland");
-        list.add("France");
-        list.add("Germany");
-        list.add("Greece");
-        list.add("Hungary");
-        list.add("Iceland");
-        list.add("Ireland");
-        list.add("Italy");
-        list.add("Latvia");
-        list.add("Lichtenstein");
-        list.add("Lithuania");
-        list.add("Luxembourg");
-        list.add("Malta");
-        list.add("Netherlands");
-        list.add("Norway");
-        list.add("Poland");
-        list.add("Portugal");
-        list.add("Romania");
-        list.add("Slovakia");
-        list.add("Slovenia");
-        list.add("Spain");
-        list.add("Sweden");
-        list.add("Switzerland");
-        list.add("Turkey");
+        list.add("Austria");list.add("Belgium");list.add("Bulgaria");list.add("Croatia");list.add("Cyprus");
+        list.add("Czech Republic");list.add("Denmark");list.add("Estonia");list.add("Finland");list.add("France");
+        list.add("Germany");list.add("Greece");list.add("Hungary");list.add("Iceland");list.add("Ireland");
+        list.add("Italy");list.add("Latvia");list.add("Lichtenstein");list.add("Lithuania");list.add("Luxembourg");
+        list.add("Malta");list.add("Netherlands");list.add("Norway");list.add("Poland");list.add("Portugal");
+        list.add("Romania");list.add("Slovakia");list.add("Slovenia");list.add("Spain");list.add("Sweden");
+        list.add("Switzerland");list.add("Turkey");
 
         String n = getSimpleRandomNumberBetween(0, list.size()-1);
         String euCountry = list.get(Integer.parseInt(n));
         return euCountry;
+    }
+
+    public static int getARandomNumberBetween(int min, int max) {
+        int val = ( int )( Math.random() * max );
+        if(val < min){
+            val = val + min;
+        }
+        return val;
     }
 }

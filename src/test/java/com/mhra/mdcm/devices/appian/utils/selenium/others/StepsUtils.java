@@ -21,4 +21,15 @@ public class StepsUtils {
         listOfDeviceData.add(dd);
         scenarioSession.putData(SessionKey.deviceDataList, listOfDeviceData);
     }
+
+
+    public static void addToListOfStrings(ScenarioSession scenarioSession, String sessionKey, String value) {
+        List<String> listOfStrings = (List<String>) scenarioSession.getData(sessionKey);
+        if(listOfStrings == null){
+            listOfStrings = new ArrayList<>();
+        }
+
+        listOfStrings.add(value);
+        scenarioSession.putData(sessionKey, listOfStrings);
+    }
 }

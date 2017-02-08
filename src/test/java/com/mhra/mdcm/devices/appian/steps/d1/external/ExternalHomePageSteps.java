@@ -4,15 +4,12 @@ import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountManufacturerReque
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.pageobjects.external.sections.AddDevices;
-import com.mhra.mdcm.devices.appian.pageobjects.external.sections.ProductDetails;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
-import com.mhra.mdcm.devices.appian.utils.selenium.others.FileUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.StepsUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -20,10 +17,8 @@ import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.springframework.context.annotation.Scope;
 
-import java.io.File;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 /**
  * Created by TPD_Auto
@@ -137,53 +132,6 @@ public class ExternalHomePageSteps extends CommonSteps {
     }
 
 
-//    @Then("^I should see stored manufacturer appear in the manufacturers list$")
-//    public void iShouldSeeTheManufacturerAppearInTheManufacturersList2() throws Throwable {
-//        externalHomePage = mainNavigationBar.clickExternalHOME();
-//        externalHomePage = externalHomePage.gotoListOfManufacturerPage();
-//        //externalHomePage = externalHomePage.registerAnotherManufacturer();
-//
-//        String name = (String) scenarioSession.getData(SessionKey.organisationName);
-//        int nop = externalHomePage.getNumberOfPages();
-//        boolean isFoundInManufacturerList = false;
-//        int count = 0;
-//        externalHomePage = externalHomePage.clickLastPage();
-//        do{
-//            count++;
-//            isFoundInManufacturerList = externalHomePage.isManufacturerDisplayedInList(name);
-//            if(!isFoundInManufacturerList){
-//                externalHomePage = externalHomePage.clickPrev();
-//            }
-//        }while(!isFoundInManufacturerList && count <= nop);
-//
-//        Assert.assertThat("Organisation Name Expected In Manufacturer List : " + name, isFoundInManufacturerList, Matchers.is(true));
-//    }
-
-
-//    @When("^I select the stored manufacturer$")
-//    public void iSelectTheStoredManufacturer() throws Throwable {
-//        String name = (String) scenarioSession.getData(SessionKey.organisationName);
-//        externalHomePage = externalHomePage.selectManufacturerFromList(name);
-//    }
-
-//    @And("^I should see the following link \"([^\"]*)\"$")
-//    public void iShouldSeeTheFollowingLink(String partialLink) throws Throwable {
-//        String name = (String) scenarioSession.getData(SessionKey.organisationName);
-//        boolean isDisplayed = externalHomePage.isLinkDisplayed(partialLink);
-//        boolean isNameDisplayed = externalHomePage.isLinkDisplayed(name);
-//        Assert.assertThat("Declare devices link not found for manufacturer : " + name, isDisplayed, Matchers.is(true));
-//        Assert.assertThat("Declare devices link not found for manufacturer : " + name, isNameDisplayed, Matchers.is(true));
-//    }
-
-//    @When("^I go to add devices page for the stored manufacturer")
-//    public void iGoToAddDevicesPage() throws Throwable {
-//        String name = (String) scenarioSession.getData(SessionKey.organisationName);
-//        //Go to add devices page
-//        externalHomePage = new ExternalHomePage(driver);
-//        clickAddDeviceBtn = externalHomePage.gotoAddDevicesPageForManufacturer(name);
-//        //clickAddDeviceBtn = clickAddDeviceBtn.addDevice(); removed 02/12/2016
-//    }
-
     @When("^I add devices to NEWLY created manufacturer with following data$")
     public void iAddDevicesToNewlyCreatedManufacturerWithFollowingData(Map<String, String> dataSets) throws Throwable {
         //Its not registered
@@ -205,23 +153,6 @@ public class ExternalHomePageSteps extends CommonSteps {
     }
 
 
-//    @When("^I add a device to STORED manufacturer with following data$")
-//    public void i_add_a_device_of_type_with_following_data(Map<String, String> dataSets) throws Throwable {
-//        String name = (String) scenarioSession.getData(SessionKey.organisationName);
-//        //Go to add devices page
-//        externalHomePage = new ExternalHomePage(driver);
-//        clickAddDeviceBtn = externalHomePage.gotoAddDevicesPageForManufacturer(name);
-//        //clickAddDeviceBtn = clickAddDeviceBtn.addDevice(); Removed on 02/12/2016
-//
-//        //Assumes we are in add device page
-//        DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
-//        clickAddDeviceBtn = clickAddDeviceBtn.addFollowingDevice(dd);
-
-//    scenarioSession.putData(SessionKey.deviceData, dd);
-//    }
-
-
-
     @When("^I add a device to SELECTED manufacturer with following data$")
     public void i_add_a_device_to_selected_manufactuerer_of_type_with_following_data(Map<String, String> dataSets) throws Throwable {
 
@@ -238,6 +169,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
         addDevices = addDevices.addFollowingDevice(dd);
 
+        StepsUtils.addToListOfStrings(scenarioSession, SessionKey.listOfGmndsAdded, AddDevices.gmdnSelected);
         scenarioSession.putData(SessionKey.deviceData, dd);
         StepsUtils.addToDeviceDataList(scenarioSession, dd);
     }
@@ -252,6 +184,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
         addDevices = addDevices.addFollowingDevice(dd);
 
+        StepsUtils.addToListOfStrings(scenarioSession, SessionKey.listOfGmndsAdded, AddDevices.gmdnSelected);
         scenarioSession.putData(SessionKey.deviceData, dd);
     }
 
@@ -265,13 +198,14 @@ public class ExternalHomePageSteps extends CommonSteps {
         DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
         addDevices = addDevices.addFollowingDevice(dd);
 
+        StepsUtils.addToListOfStrings(scenarioSession, SessionKey.listOfGmndsAdded, AddDevices.gmdnSelected);
         scenarioSession.putData(SessionKey.deviceData, dd);
         StepsUtils.addToDeviceDataList(scenarioSession, dd);
     }
 
     @Then("^I should see error message in devices page with text \"([^\"]*)\"$")
     public void i_should_see_error_message_in_devices_page_with_text(String message) throws Throwable {
-        boolean errorMessageDisplayed = addDevices.isErrorMessageDisplayed();
+        boolean errorMessageDisplayed = addDevices.isErrorMessageDisplayed("Duplicate");
         if(errorMessageDisplayed){
             errorMessageDisplayed = addDevices.isErrorMessageCorrect(message);
         }
@@ -428,6 +362,17 @@ public class ExternalHomePageSteps extends CommonSteps {
             Assert.assertThat("Expected gmdn code/definition : " + data.getGMDN() , isGMDNCorrect, Matchers.is(true));
         else
             Assert.assertThat("Expected not to see product with gmdn code/definition : " + data.getGMDN() , isGMDNCorrect, Matchers.is(false));
+    }
+
+    @And("^All the gmdn codes or terms are \"([^\"]*)\" in summary section$")
+    public void allTheGmdnCodeOrTermIsCorrect(String displayed) throws Throwable {
+        List<String> listOfGmdns = (List<String>) scenarioSession.getData(SessionKey.listOfGmndsAdded);
+        boolean isGMDNCorrect = addDevices.isAllTheGMDNValueDisplayed(listOfGmdns);
+
+        if(displayed!=null && displayed.equals("displayed"))
+            Assert.assertThat("Expected gmdn code/definition : " + listOfGmdns , isGMDNCorrect, Matchers.is(true));
+        else
+            Assert.assertThat("Expected not to see product with gmdn code/definition : " + listOfGmdns , isGMDNCorrect, Matchers.is(false));
     }
 
 

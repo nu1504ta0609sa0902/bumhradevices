@@ -4,7 +4,7 @@ import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.external.ExternalHomePage;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
-import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
+import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.CommonUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
@@ -15,6 +15,7 @@ import org.openqa.selenium.support.FindBy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,6 +23,8 @@ import java.util.List;
  */
 @Component
 public class AddDevices extends _Page {
+
+    public static String gmdnSelected = null;
 
     @FindBy(css = ".component_error")
     List<WebElement> errorMessages;
@@ -31,6 +34,8 @@ public class AddDevices extends _Page {
 
     @FindBy(css = ".GFWJSJ4DCW label")
     List<WebElement> listOfDeviceTypes;
+    @FindBy(xpath = ".//*[.='Term']//following::td[contains(@class, 'GFWJSJ4DCEB')]")
+    List<WebElement> listOfTermsOrCodeMatches;
 
     //Product details verification
     @FindBy(xpath = ".//a[contains(text(), 'Product code')]//following::tr/td[1]")
@@ -63,6 +68,8 @@ public class AddDevices extends _Page {
     @FindBy(xpath = ".//*[contains(text(),'Search GMDN')]//following::input[2]")
     WebElement radioGMDNDefinitionOrTerm;
     @FindBy(css = "input.gwt-SuggestBox")
+    WebElement tbxGMDNDefinitionOrTermSuggest;
+    @FindBy(css = "input[type='text']")
     WebElement tbxGMDNDefinitionOrTerm;
     @FindBy(xpath = ".//label[.='GMDN term']")
     WebElement lblGMDNDefinitionOrTerm;
@@ -153,7 +160,7 @@ public class AddDevices extends _Page {
     //Confirm and btnDeclareDevices
     @FindBy(css = "button.GFWJSJ4DCF")
     WebElement btnConfirm;
-    @FindBy(css = "button.GFWJSJ4DAF.GFWJSJ4DCF")
+    @FindBy(xpath = ".//button[contains(text(),'Review your order')]")
     WebElement btnReviewYourOrder;
     @FindBy(xpath = ".//button[.='Proceed to payment']")
     WebElement btnProceedToPayment;
@@ -177,7 +184,7 @@ public class AddDevices extends _Page {
     WebElement errMessage;
 
     //Device Summary
-    @FindBy(xpath = ".//th[.='GMDN term']//following::a")
+    @FindBy(xpath = ".//a[contains(text(),'GMDN code')]//following::a")
     List<WebElement> listOfGMDNLinksInSummary;
 
 
@@ -211,10 +218,21 @@ public class AddDevices extends _Page {
     }
 
 
-    public boolean isErrorMessageDisplayed() {
+    public boolean isErrorMessageDisplayed(String message) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         try {
+            WaitUtils.nativeWaitInSeconds(1);
             WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".component_error"), 3, false);
-            boolean isDisplayed = errorMessages.size() > 0;
+            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".component_error"), 3, false);
+            boolean isDisplayed = false;
+            for(WebElement msg: errorMessages){
+                String txt = msg.getText();
+                System.out.println("Error message : "+txt);
+                isDisplayed = txt.toLowerCase().contains(message);
+                if(isDisplayed){
+                    break;
+                }
+            }
             return isDisplayed;
         } catch (Exception e) {
             return false;
@@ -248,8 +266,8 @@ public class AddDevices extends _Page {
 
         //Business doing testing so don't do any write only tests
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, btnConfirm, TIMEOUT_10_SECOND, false);
-        PageUtils.doubleClick(driver, btnConfirm);
+        WaitUtils.waitForElementToBeClickable(driver, btnReviewYourOrder, TIMEOUT_10_SECOND, false);
+        PageUtils.doubleClick(driver, btnReviewYourOrder);
 
         return new AddDevices(driver);
     }
@@ -547,12 +565,37 @@ public class AddDevices extends _Page {
 
     private void searchByGMDN(DeviceData dd) {
         if (dd.gmdnTermOrDefinition != null) {
-            //Default is search by gmdn term or definition
-            WaitUtils.waitForElementToBeClickable(driver, radioGMDNDefinitionOrTerm, TIMEOUT_5_SECOND, false);
-            radioGMDNDefinitionOrTerm.click();
-            WaitUtils.waitForElementToBeClickable(driver, tbxGMDNDefinitionOrTerm, TIMEOUT_5_SECOND, false);
-            //tbxGMDNDefinitionOrTerm.sendKeys(dd.gmdnTermOrDefinition);
-            PageUtils.selectFromAutoSuggests(driver, By.cssSelector("input.gwt-SuggestBox"), dd.gmdnTermOrDefinition);
+
+            List<String> arrayOfDeviceBecauseTheyKeepBloodyChanging = TestHarnessUtils.getListOfSearchTermsForGMDN();
+            int pos = 0;
+            String searchFor = arrayOfDeviceBecauseTheyKeepBloodyChanging.get(pos);
+            boolean isErrorMessageDisplayed = false;
+            do {
+                WaitUtils.waitForElementToBeClickable(driver, tbxGMDNDefinitionOrTerm, TIMEOUT_5_SECOND, false);
+                tbxGMDNDefinitionOrTerm.clear();
+                tbxGMDNDefinitionOrTerm.sendKeys(searchFor);
+                WaitUtils.isPageLoadingComplete(driver, 2);
+
+                //Wait for list of items to appear and add it only if its not a duplicate
+                WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//*[.='Term']//following::td[contains(@class, 'GFWJSJ4DCEB')]"), TIMEOUT_DEFAULT, false);
+                int randomPosition = RandomDataUtils.getARandomNumberBetween(0, listOfTermsOrCodeMatches.size());
+                WebElement element = listOfTermsOrCodeMatches.get(randomPosition);
+                element.findElement(By.tagName("a")).click();
+                WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+
+                //If its a duplicate Try again
+                isErrorMessageDisplayed = isErrorMessageDisplayed("Duplicate");
+                if(isErrorMessageDisplayed) {
+                    //Try again
+                    arrayOfDeviceBecauseTheyKeepBloodyChanging.remove(pos);
+                    searchFor = arrayOfDeviceBecauseTheyKeepBloodyChanging.get(pos);
+                }else{
+                    gmdnSelected = PageUtils.getText(tbxGMDNDefinitionOrTerm);  //tbxGMDNDefinitionOrTerm.getText();
+                }
+            }while (isErrorMessageDisplayed);
+
+            //Default is search by gmdn term or definition : This removed 03/02/2017 push
+            //previousGMDNSelection(dd);
         } else {
             WaitUtils.waitForElementToBeClickable(driver, radioByGMDNCode, TIMEOUT_5_SECOND, false);
             radioByGMDNCode.click();
@@ -563,7 +606,17 @@ public class AddDevices extends _Page {
         }
     }
 
+    private void previousGMDNSelection(DeviceData dd) {
+        //Default is search by gmdn term or definition
+        WaitUtils.waitForElementToBeClickable(driver, radioGMDNDefinitionOrTerm, TIMEOUT_5_SECOND, false);
+        radioGMDNDefinitionOrTerm.click();
+        WaitUtils.waitForElementToBeClickable(driver, tbxGMDNDefinitionOrTerm, TIMEOUT_5_SECOND, false);
+        //tbxGMDNDefinitionOrTerm.sendKeys(dd.gmdnTermOrDefinition);
+        PageUtils.selectFromAutoSuggests(driver, By.cssSelector("input.gwt-SuggestBox"), dd.gmdnTermOrDefinition);
+    }
+
     public boolean isOptionToAddAnotherDeviceVisible() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnAddAnotherDevice, TIMEOUT_10_SECOND, false);
         boolean isVisible = btnAddAnotherDevice.isDisplayed() && btnAddAnotherDevice.isEnabled();
         return isVisible;
@@ -618,6 +671,7 @@ public class AddDevices extends _Page {
 
         for(WebElement el: listOfGMDNLinksInSummary){
             String text = el.getText();
+            //System.out.println("GMDN : " + text);
             if(text.contains(valueToCheck)){
                 isCorrect = true;
                 break;
@@ -628,6 +682,7 @@ public class AddDevices extends _Page {
     }
 
     public AddDevices addAnotherDevice() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnAddAnotherDevice, TIMEOUT_5_SECOND, false);
         btnAddAnotherDevice.click();
         return new AddDevices(driver);
@@ -715,5 +770,17 @@ public class AddDevices extends _Page {
         }
 
         return new AddDevices(driver);
+    }
+
+    public boolean isAllTheGMDNValueDisplayed(List<String> listOfGmdns) {
+        WaitUtils.isPageLoadingComplete(driver, 1);
+        boolean allDisplayed = true;
+        for(String gmdn: listOfGmdns){
+            allDisplayed = isGMDNValueDisplayed(gmdn);
+            if(!allDisplayed){
+                break;
+            }
+        }
+        return allDisplayed;
     }
 }
