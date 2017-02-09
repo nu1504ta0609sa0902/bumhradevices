@@ -146,16 +146,14 @@ Feature: As an account holder with access to the Device Registration Service
       | customMade             | true               |
       | relatedDeviceSterile   | true               |
       | relatedDeviceMeasuring | true               |
-#    Then I should see option to add another device
+    Then I should see option to add another device
     And The gmdn code or term is "displayed" in summary section
-#    When I remove the device with gmdn "<gmdnCodeD2>" code
     When I remove the stored device with gmdn code or definition
-#    Then I should see option to add another device
     Then The gmdn code or term is "removed" in summary section
     Examples:
       | user             | deviceType             | gmdnDefinitionD1 | gmdnCodeD1 | gmdnDefinitionD2  | gmdnCodeD2 |
-      | authorisedRepAuto | General Medical Device | Blood            |            |                   | 10003      |
-      | authorisedRepAuto | General Medical Device |                  | 10003      | Housekeeping soap |            |
+      | authorisedRepAuto | General Medical Device | Blood            |            |                   | 17500      |
+      | authorisedRepAuto | General Medical Device |                  | 17500      | Housekeeping soap |            |
       #| manufacturerAuto | General Medical Device | Blood            |            |                   | 10003      |
       #| manufacturerAuto | General Medical Device |                  | 10003      | Housekeeping soap |            |
 

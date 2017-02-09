@@ -4,6 +4,7 @@ import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.external.ExternalHomePage;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
+import com.mhra.mdcm.devices.appian.utils.selenium.others.StepsUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.CommonUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
@@ -219,17 +220,17 @@ public class AddDevices extends _Page {
 
 
     public boolean isErrorMessageDisplayed(String message) {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         try {
             WaitUtils.nativeWaitInSeconds(1);
             WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".component_error"), 3, false);
             WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".component_error"), 3, false);
             boolean isDisplayed = false;
-            for(WebElement msg: errorMessages){
+            for (WebElement msg : errorMessages) {
                 String txt = msg.getText();
-                System.out.println("Error message : "+txt);
+                System.out.println("Error message : " + txt);
                 isDisplayed = txt.toLowerCase().contains(message.toLowerCase());
-                if(isDisplayed){
+                if (isDisplayed) {
                     break;
                 }
             }
@@ -276,16 +277,16 @@ public class AddDevices extends _Page {
         searchByGMDN(dd);
         customMade(dd);
         int numberOfProductName = dd.listOfProductName.size();
-        if(numberOfProductName <= 1) {
-            if(numberOfProductName==1){
+        if (numberOfProductName <= 1) {
+            if (numberOfProductName == 1) {
                 dd.productName = dd.listOfProductName.get(0);
             }
             //List of device to add
             if (dd.isCustomMade) {
                 productLabelName(dd);
             }
-        }else{
-            for(String x: dd.listOfProductName){
+        } else {
+            for (String x : dd.listOfProductName) {
                 productLabelName(x);
             }
         }
@@ -311,7 +312,7 @@ public class AddDevices extends _Page {
         riskClassificationIVD(dd);
 
         //No product needs to be added when Risk Classification = IVD General
-        if(dd.riskClassification!=null && !dd.riskClassification.equals("ivd general")) {
+        if (dd.riskClassification != null && !dd.riskClassification.equals("ivd general")) {
             //If more than 1 product listed
             int numberOfProductName = dd.listOfProductName.size();
             if (numberOfProductName <= 1) {
@@ -354,7 +355,7 @@ public class AddDevices extends _Page {
         searchByGMDN(dd);
         customMade(dd);
 
-        if(!dd.isCustomMade) {
+        if (!dd.isCustomMade) {
             deviceSterile(dd);
             deviceMeasuring(dd);
             if (!dd.isCustomMade) {
@@ -472,7 +473,7 @@ public class AddDevices extends _Page {
     private void notifiedBody(DeviceData dd) {
         WaitUtils.waitForElementToBeClickable(driver, nb0086BSI, TIMEOUT_5_SECOND, false);
         //Select notified body
-        if (dd.notifiedBody!=null && dd.notifiedBody.toLowerCase().contains("0086")) {
+        if (dd.notifiedBody != null && dd.notifiedBody.toLowerCase().contains("0086")) {
             PageUtils.clickIfVisible(driver, nb0086BSI);
         }
     }
@@ -550,7 +551,7 @@ public class AddDevices extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, radioRiskClass1, TIMEOUT_5_SECOND, false);
         WaitUtils.waitForElementToBeClickable(driver, nb0086BSI, TIMEOUT_5_SECOND, false);
         String lcRiskClassiffication = dd.riskClassification.toLowerCase();
-        if(lcRiskClassiffication!=null) {
+        if (lcRiskClassiffication != null) {
             if (lcRiskClassiffication.contains("class1")) {
                 PageUtils.clickIfVisible(driver, radioRiskClass1);
             } else if (lcRiskClassiffication.contains("class2a")) {
@@ -574,7 +575,7 @@ public class AddDevices extends _Page {
                 WaitUtils.waitForElementToBeClickable(driver, tbxGMDNDefinitionOrTerm, TIMEOUT_5_SECOND, false);
                 tbxGMDNDefinitionOrTerm.clear();
                 tbxGMDNDefinitionOrTerm.sendKeys(searchFor);
-                WaitUtils.isPageLoadingComplete(driver, 2);
+                //WaitUtils.isPageLoadingComplete(driver, 2);
 
                 //Wait for list of items to appear and add it only if its not a duplicate
                 WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//*[.='Term']//following::td[contains(@class, 'GFWJSJ4DCEB')]"), TIMEOUT_DEFAULT, false);
@@ -583,30 +584,28 @@ public class AddDevices extends _Page {
                 //Click gmdn from search results
                 WebElement element = listOfTermsOrCodeMatches.get(randomPosition);
                 element.findElement(By.tagName("a")).click();
-                WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+                //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
 
                 //If its a duplicate Try again
                 isErrorMessageDisplayed = isErrorMessageDisplayed("Duplicate");
-                if(isErrorMessageDisplayed) {
+                if (isErrorMessageDisplayed) {
                     //Try again
                     //arrayOfDeviceBecauseTheyKeepBloodyChanging.remove(pos);
                     pos++;
                     searchFor = arrayOfDeviceBecauseTheyKeepBloodyChanging.get(pos);
-                }else{
+                } else {
                     log.info(dd.deviceType + " => " + searchFor);
                     gmdnSelected = PageUtils.getText(tbxGMDNDefinitionOrTerm);  //tbxGMDNDefinitionOrTerm.getText();
                 }
-            }while (isErrorMessageDisplayed);
+
+            } while (isErrorMessageDisplayed);
 
             //Default is search by gmdn term or definition : This removed 03/02/2017 push
             //previousGMDNSelection(dd);
         } else {
-            WaitUtils.waitForElementToBeClickable(driver, radioByGMDNCode, TIMEOUT_5_SECOND, false);
-            radioByGMDNCode.click();
-            WaitUtils.waitForElementToBeClickable(driver, tbxGMDNCode, TIMEOUT_5_SECOND, false);
-            tbxGMDNCode.sendKeys(dd.gmdnCode);
-            lblGMDNDefinitionOrTerm.click();
-            //PageUtils.selectFromAutoSuggests(driver, By.cssSelector("input.gwt-SuggestBox"), dd.gmdnTermOrDefinition);
+            WaitUtils.waitForElementToBeClickable(driver, tbxGMDNDefinitionOrTerm, TIMEOUT_5_SECOND, false);
+            tbxGMDNDefinitionOrTerm.clear();
+            tbxGMDNDefinitionOrTerm.sendKeys(dd.gmdnCode);
         }
     }
 
@@ -625,7 +624,7 @@ public class AddDevices extends _Page {
             WaitUtils.waitForElementToBeClickable(driver, btnAddAnotherDevice, TIMEOUT_10_SECOND, false);
             boolean isVisible = btnAddAnotherDevice.isDisplayed() && btnAddAnotherDevice.isEnabled();
             return isVisible;
-        }catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
@@ -659,15 +658,15 @@ public class AddDevices extends _Page {
         boolean isDisplayed = false;
         String valueToCheck = "";
 
-        if(data.gmdnTermOrDefinition!=null){
+        if (data.gmdnTermOrDefinition != null) {
             valueToCheck = data.gmdnTermOrDefinition.toLowerCase();
-        }else{
+        } else {
             valueToCheck = data.gmdnCode;
         }
 
-        for(WebElement el: listOfGMDNLinksInSummary){
+        for (WebElement el : listOfGMDNLinksInSummary) {
             String text = el.getText();
-            if(text.toLowerCase().contains(valueToCheck)){
+            if (text.toLowerCase().contains(valueToCheck)) {
                 isDisplayed = true;
                 break;
             }
@@ -679,10 +678,10 @@ public class AddDevices extends _Page {
     public boolean isGMDNValueDisplayed(String valueToCheck) {
         boolean isCorrect = false;
 
-        for(WebElement el: listOfGMDNLinksInSummary){
+        for (WebElement el : listOfGMDNLinksInSummary) {
             String text = el.getText();
             //System.out.println("GMDN : " + text);
-            if(text.contains(valueToCheck)){
+            if (text.contains(valueToCheck)) {
                 isCorrect = true;
                 break;
             }
@@ -718,12 +717,12 @@ public class AddDevices extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean allCorrect = true;
 
-        if(data.productName!=null && !data.productName.equals("")){
+        if (data.productName != null && !data.productName.equals("")) {
             allCorrect = listOfProductNames.get(0).getText().contains(data.productName);
-        }else{
+        } else {
             //Confirm make and model
             allCorrect = listOfProductModel.get(0).getText().contains(data.productModel);
-            if(allCorrect){
+            if (allCorrect) {
                 allCorrect = listOfProductMake.get(0).getText().contains(data.productMake);
             }
         }
@@ -734,9 +733,9 @@ public class AddDevices extends _Page {
     public AddDevices viewAProduct(DeviceData data) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WebElement link;
-        if(data.productName!=null && !data.productName.equals("")){
+        if (data.productName != null && !data.productName.equals("")) {
             link = PageUtils.findCorrectElement(listOfProductNames, data.productName);
-        }else{
+        } else {
             //Confirm model and make
             link = PageUtils.findCorrectElement(listOfProductMake, data.productMake);
         }
@@ -754,13 +753,13 @@ public class AddDevices extends _Page {
         String txt;
 
         //Verify product make and models correct
-        if(data.productName!=null && !data.productName.equals("")){
+        if (data.productName != null && !data.productName.equals("")) {
             txt = PageUtils.getText(txtProductName);
             allCorrect = txt.contains(data.productName);
-        }else{
+        } else {
             txt = PageUtils.getText(txtProductMake); //txtProductMake.getText();
             allCorrect = txt.contains(data.productMake);
-            if(allCorrect){
+            if (allCorrect) {
                 txt = PageUtils.getText(txtProductModel);
                 allCorrect = txt.contains(data.productModel);
             }
@@ -773,7 +772,7 @@ public class AddDevices extends _Page {
     }
 
     public AddDevices removeAllDevices(List<DeviceData> listOfDeviceData) {
-        for(DeviceData data: listOfDeviceData) {
+        for (DeviceData data : listOfDeviceData) {
             String gmdnCode = data.getGMDN();
             viewDeviceWithGMDNValue(gmdnCode);
             removeSelectedDevice();
@@ -785,9 +784,9 @@ public class AddDevices extends _Page {
     public boolean isAllTheGMDNValueDisplayed(List<String> listOfGmdns) {
         WaitUtils.isPageLoadingComplete(driver, 1);
         boolean allDisplayed = true;
-        for(String gmdn: listOfGmdns){
+        for (String gmdn : listOfGmdns) {
             allDisplayed = isGMDNValueDisplayed(gmdn);
-            if(!allDisplayed){
+            if (!allDisplayed) {
                 break;
             }
         }

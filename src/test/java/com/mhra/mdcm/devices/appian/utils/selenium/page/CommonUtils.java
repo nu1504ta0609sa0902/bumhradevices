@@ -74,4 +74,14 @@ public class CommonUtils {
         return name;
 
     }
+
+    public static boolean isNumericValue(String searchFor) {
+        boolean isNumeric = true;
+        try{
+            Integer.parseInt(searchFor);
+        }catch (Exception e){
+            isNumeric = false;
+        }
+        return isNumeric;
+    }
 }
