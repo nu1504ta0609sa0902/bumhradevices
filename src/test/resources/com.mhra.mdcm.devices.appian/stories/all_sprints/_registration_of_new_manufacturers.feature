@@ -48,7 +48,7 @@ Feature: As a customer I want to register new manufacturers
       | relatedDeviceSterile   | true                   |
       | relatedDeviceMeasuring | true                   |
     And Proceed to payment and confirm submit device details
-    Then I should see stored manufacturer appear in the manufacturers list
+    Then I should see the registered manufacturers list
     When I logout of the application
     And I am logged into appian as "<logBackInAs>" user
     #Then I should see a new task for the new account
