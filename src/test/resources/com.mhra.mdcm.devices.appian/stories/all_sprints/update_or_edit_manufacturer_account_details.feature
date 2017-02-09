@@ -98,10 +98,10 @@ Feature: As a business and account holder, I want to be able to update party det
     And Verify task information matches users changes
     Examples:
       | user             | logBackInAs  | keyValuePairs                                                             | status     |
-      | manufacturerAuto | businessAuto | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website | Registered |
+#      | manufacturerAuto | businessAuto | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website | Registered |
 #      | manufacturerAuto | businessAuto |contact.title,contact.firstname,contact.lastname,contact.job.title,contact.email,contact.telephone | Registered |
-#      | authorisedRepAuto | businessAuto |org.address1,org.address2,org.city,org.postcode,org.telephone,org.website | Registered |
-#      | authorisedRepAuto | businessAuto |contact.title,contact.firstname,contact.lastname,contact.job.title,contact.email,contact.telephone          | Registered |
+      | authorisedRepAuto | businessAuto |org.address1,org.address2,org.city,org.postcode,org.telephone,org.website | Registered |
+      | authorisedRepAuto | businessAuto |contact.title,contact.firstname,contact.lastname,contact.job.title,contact.email,contact.telephone          | Registered |
 
 
   @regression @mdcm-263 @sprint6 @mdcm-275 @sprint7
@@ -133,6 +133,8 @@ Feature: As a business and account holder, I want to be able to update party det
     Then I should see at least 0 account matches
     Examples:
       | user             | logBackInAs  | status         | gmdn1                | gmdn2           | approveReject | taskType                                 |
-      | manufacturerAuto | businessAuto | Registered     | Blood weighing scale | Autopsy measure | approve       | Update Manufacturer Registration Request    |
-      | manufacturerAuto | businessAuto | Not Registered | Blood weighing scale | Autopsy measure | reject       | Update Manufacturer Registration Request |
-#      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Blood weighing scale | Autopsy measure | approve       |
+      | authorisedRepAuto | businessAuto | Registered     | Blood weighing scale | Autopsy measure | approve       | Update Manufacturer Registration Request    |
+      | authorisedRepAuto | businessAuto | Not Registered | Blood weighing scale | Autopsy measure | reject       | Update Manufacturer Registration Request |
+#      | manufacturerAuto | businessAuto | Registered     | Blood weighing scale | Autopsy measure | approve       | Update Manufacturer Registration Request    |
+#      | manufacturerAuto | businessAuto | Not Registered | Blood weighing scale | Autopsy measure | reject       | Update Manufacturer Registration Request |
+

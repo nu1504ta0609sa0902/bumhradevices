@@ -216,6 +216,7 @@ public class CreateTestsData extends _Page {
     }
 
     public List<String> getListOfAutosuggestionsFor(String searchTerm) {
+        WaitUtils.isPageLoadingComplete(driver,TIMEOUT_PAGE_LOAD);
         List<String> matchesFromAutoSuggests = PageUtils.getListOfMatchesFromAutoSuggests(driver, By.cssSelector(".gwt-SuggestBox"), searchTerm);
         System.out.println(matchesFromAutoSuggests);
         return matchesFromAutoSuggests;

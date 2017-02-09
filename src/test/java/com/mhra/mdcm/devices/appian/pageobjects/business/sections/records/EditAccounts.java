@@ -35,23 +35,23 @@ public class EditAccounts extends _Page {
     WebElement roleManufacturer;
 
     //ORGANISATION DETAILS
-    @FindBy(xpath = ".//h3[contains(text(),'Organisation Details')]//following::input[1]")
+    @FindBy(xpath = ".//h3[contains(text(),'Organisation details')]//following::input[1]")
     WebElement orgAddressLine1;
-    @FindBy(xpath = ".//h3[contains(text(),'Organisation Details')]//following::input[2]")
+    @FindBy(xpath = ".//h3[contains(text(),'Organisation details')]//following::input[2]")
     WebElement orgAddressLine2;
-    @FindBy(xpath = ".//h3[contains(text(),'Organisation Details')]//following::input[3]")
+    @FindBy(xpath = ".//h3[contains(text(),'Organisation details')]//following::input[3]")
     WebElement orgCityTown;
-    @FindBy(xpath = ".//h3[contains(text(),'Organisation Details')]//following::input[4]")
+    @FindBy(xpath = ".//h3[contains(text(),'Organisation details')]//following::input[4]")
     WebElement orgPostCode;
-    @FindBy(xpath = ".//h3[contains(text(),'Organisation Details')]//following::input[5]")
+    @FindBy(xpath = ".//h3[contains(text(),'Organisation details')]//following::input[5]")
     WebElement orgCountry;
     @FindBy(xpath = ".//span[contains(text(),'Address type')]//following::input[1]")
     WebElement addressType;
-    @FindBy(xpath = ".//h3[contains(text(),'Organisation Details')]//following::input[7]")
+    @FindBy(xpath = ".//h3[contains(text(),'Organisation details')]//following::input[7]")
     WebElement orgTelephone;
-    @FindBy(xpath = ".//h3[contains(text(),'Organisation Details')]//following::input[8]")
+    @FindBy(xpath = ".//h3[contains(text(),'Organisation details')]//following::input[8]")
     WebElement orgFax;
-    @FindBy(xpath = ".//h3[contains(text(),'Organisation Details')]//following::input[9]")
+    @FindBy(xpath = ".//h3[contains(text(),'Organisation details')]//following::input[9]")
     WebElement webSite;
 
     //CONTACT PERSON DETAILS
@@ -112,7 +112,7 @@ public class EditAccounts extends _Page {
         }
 
         //Bug: email and telephone is not maintained
-        enterMissingData();
+        //enterMissingData();
 
         //Submit data, but you must select address types
         PageUtils.doubleClick(driver, submitBtn);

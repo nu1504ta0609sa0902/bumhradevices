@@ -86,9 +86,16 @@ public class ManufacturerDetails extends _Page {
         super(driver);
     }
 
-    public boolean isOrganisationNameCorrect(String name) {
-        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_DEFAULT, false);
-        boolean contains = orgName.getText().contains(name);
+    public boolean isOrganisationNameCorrect(String name, boolean isManufacturer) {
+        WaitUtils.isPageLoadingComplete(driver, 1);
+        boolean contains = false;
+        if(isManufacturer){
+            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector("div>h2"), TIMEOUT_10_SECOND, false);
+            contains = driver.findElement(By.cssSelector("div>h2")).getText().contains(name);
+        }else{
+            WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_10_SECOND, false);
+            contains = orgName.getText().contains(name);
+        }
         return contains;
     }
 
@@ -104,6 +111,7 @@ public class ManufacturerDetails extends _Page {
     }
 
     public AddDevices clickAddDeviceBtn() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeVisible(driver, addADevice, TIMEOUT_15_SECOND, false);
         WaitUtils.waitForElementToBeClickable(driver, addADevice, TIMEOUT_15_SECOND, false);
         addADevice.click();

@@ -21,7 +21,7 @@ Feature: As an account holder with access to the Device Registration Service
     Then I should see correct device types
     Examples:
       | user              |
-      | manufacturerAuto  |
+      #| manufacturerAuto  |
       | authorisedRepAuto |
 
 
@@ -45,11 +45,15 @@ Feature: As an account holder with access to the Device Registration Service
     And The gmdn code or term is "displayed" in summary section
     Examples:
       | user             | status     | deviceType                 | gmdnDefinition                    | customMade | deviceSterile | deviceMeasuring | riskClassification | notifiedBody | packIncorporated | devicesCompatible |
-      | manufacturerAuto | Registered | General Medical Device     | Blood weighing scale              | false      | true          | true            | class1             | NB 0086 BSI  |                  |                   |
-      | manufacturerAuto | Registered | General Medical Device     | Blood                             | true       | true          | true            |                    |              |                  |                   |
-      | manufacturerAuto | Registered | In Vitro Diagnostic Device | Androgen receptor IVD, calibrator |            |               |                 | ivd general        |              |                  |                   |
-      | manufacturerAuto | Registered | System or Procedure Pack   | Desiccating chamber                      |            | true          | true            | class1             | NB 0086 BSI  | false            | true              |
+      | authorisedRepAuto | Registered | General Medical Device     | Blood weighing scale              | false      | true          | true            | class1             | NB 0086 BSI  |                  |                   |
+      | authorisedRepAuto | Registered | General Medical Device     | Blood                             | true       | true          | true            |                    |              |                  |                   |
+      | authorisedRepAuto | Registered | In Vitro Diagnostic Device | Androgen receptor IVD, calibrator |            |               |                 | ivd general        |              |                  |                   |
+      | authorisedRepAuto | Registered | System or Procedure Pack   | Desiccating chamber                      |            | true          | true            | class1             | NB 0086 BSI  | false            | true              |
       | manufacturerAuto | Registered | System or Procedure Pack   | Desiccating chamber                      |            | false         | true            |                    | NB 0086 BSI  | false            | true              |
+#      | manufacturerAuto | Registered | General Medical Device     | Blood weighing scale              | false      | true          | true            | class1             | NB 0086 BSI  |                  |                   |
+#      | manufacturerAuto | Registered | General Medical Device     | Blood                             | true       | true          | true            |                    |              |                  |                   |
+#      | manufacturerAuto | Registered | In Vitro Diagnostic Device | Androgen receptor IVD, calibrator |            |               |                 | ivd general        |              |                  |                   |
+#      | manufacturerAuto | Registered | System or Procedure Pack   | Desiccating chamber                      |            | true          | true            | class1             | NB 0086 BSI  | false            | true              |
 
 
   @regression @mdcm-14 @mdcm-489 @sprint3 @sprint5 @mdcm-134 @sprint6
@@ -67,7 +71,8 @@ Feature: As an account holder with access to the Device Registration Service
     And The gmdn code or term is "displayed" in summary section
     Examples:
       | user             | deviceType             |
-      | manufacturerAuto | General Medical Device |
+      | authorisedRepAuto | General Medical Device |
+      #| manufacturerAuto | General Medical Device |
 
 
   @regression @mdcm-134 @sprint6 @bug
@@ -89,11 +94,11 @@ Feature: As an account holder with access to the Device Registration Service
       | relatedDeviceMeasuring | true         |
     Then I should see option to add another device
     When I remove ALL the stored device with gmdn code or definition
-    Then I should see option to add another device
+    Then I should not see option to add another device
     Examples:
       | user             | deviceType             | gmdn1                | gmdn2           |
-      | manufacturerAuto | General Medical Device | Blood weighing scale | Autopsy measure |
-#      | authorisedRepAuto | General Medical Device |
+      | authorisedRepAuto | General Medical Device | Blood weighing scale | Autopsy measure |
+      #| manufacturerAuto | General Medical Device | Blood weighing scale | Autopsy measure |
 
 
   @regression @mdcm-489 @sprint5 @mdcm-148 @sprint7
@@ -117,7 +122,7 @@ Feature: As an account holder with access to the Device Registration Service
     And Verify name make model and other details are correct
     Examples:
       | user              | deviceType                 | gmdnDefinition        | riskClassification | listOfProductNames | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
-      | manufacturerAuto  | In Vitro Diagnostic Device | Androgen receptor IVD | list a             |                    | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      #| manufacturerAuto  | In Vitro Diagnostic Device | Androgen receptor IVD | list a             |                    | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
       | authorisedRepAuto | In Vitro Diagnostic Device | Androgen receptor IVD | list a             |                    | ford        | focus        | NB 0086 BSI  | true              | true       | false         |
       | authorisedRepAuto | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | General Motors     | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
@@ -149,8 +154,10 @@ Feature: As an account holder with access to the Device Registration Service
     Then The gmdn code or term is "removed" in summary section
     Examples:
       | user             | deviceType             | gmdnDefinitionD1 | gmdnCodeD1 | gmdnDefinitionD2  | gmdnCodeD2 |
-      | manufacturerAuto | General Medical Device | Blood            |            |                   | 10003      |
-      | manufacturerAuto | General Medical Device |                  | 10003      | Housekeeping soap |            |
+      | authorisedRepAuto | General Medical Device | Blood            |            |                   | 10003      |
+      | authorisedRepAuto | General Medical Device |                  | 10003      | Housekeeping soap |            |
+      #| manufacturerAuto | General Medical Device | Blood            |            |                   | 10003      |
+      #| manufacturerAuto | General Medical Device |                  | 10003      | Housekeeping soap |            |
 
   @regression @mdcm-485 @mdcm-374 @sprint5 @wip @bug
   Scenario Outline: Users should be able to add devices to existing manufacturers and verify devices are added
@@ -166,7 +173,8 @@ Feature: As an account holder with access to the Device Registration Service
       | relatedDeviceSterile   | <deviceSterile>      |
       | relatedDeviceMeasuring | <deviceMeasuring>    |
     And Proceed to payment and confirm submit device details
-    Then I should see stored manufacturer appear in the manufacturers list
+    #Then I should see stored manufacturer appear in the manufacturers list
+    Then I should see the registered manufacturers list
     When I logout of the application
     And I am logged into appian as "<logBackInAas>" user
     And I view new task with link "Update Manufacturer Registration Request" for the new account
@@ -181,7 +189,7 @@ Feature: As an account holder with access to the Device Registration Service
     Examples:
       | user              | logBackInAas | deviceType             | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
       | authorisedRepAuto | businessAuto | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
-      | manufacturerAuto  | businessAuto | General Medical Device | true       | false         | false           | Registered | Blood weighing scale |                    |              |
+      #| manufacturerAuto  | businessAuto | General Medical Device | true       | false         | false           | Registered | Blood weighing scale |                    |              |
 
 
   @regression @readonly @mdcm-485 @sprint5 @wip
@@ -193,5 +201,5 @@ Feature: As an account holder with access to the Device Registration Service
     And I should see contact person details
     Examples:
       | user              | status     |
-      | manufacturerAuto  | Registered |
+      #| manufacturerAuto  | Registered |
       | authorisedRepAuto | Registered |

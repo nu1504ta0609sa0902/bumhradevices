@@ -243,7 +243,7 @@ public class PageUtils {
         try {
             //Some browsers need the Actions api to interact with it
             WebElement country = driver.findElements(elementPath).get(0);
-            //new Actions(driver).moveToElement(country).perform();
+            new Actions(driver).moveToElement(country).perform();
 
             //Enter the country I am interested in
             country.sendKeys("\n");

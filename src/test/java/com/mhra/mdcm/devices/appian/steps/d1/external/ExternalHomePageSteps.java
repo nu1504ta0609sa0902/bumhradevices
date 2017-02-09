@@ -55,7 +55,11 @@ public class ExternalHomePageSteps extends CommonSteps {
     @Then("^I should see the correct manufacturer details$")
     public void i_should_see_the_correct_manufacturer_details() throws Throwable {
         String name = (String) scenarioSession.getData(SessionKey.organisationName);
-        boolean isCorrectOrgLoaded = manufacturerDetails.isOrganisationNameCorrect(name);
+        boolean isManufacturer = true;
+        if(name.contains("thorised")){
+            isManufacturer = false;
+        }
+        boolean isCorrectOrgLoaded = manufacturerDetails.isOrganisationNameCorrect(name, isManufacturer);
         Assert.assertThat("Organisation Name Expected : " + name, isCorrectOrgLoaded, Matchers.is(true));
     }
 
@@ -360,6 +364,12 @@ public class ExternalHomePageSteps extends CommonSteps {
     public void iShouldSeeOptionToAddAnotherDevice() throws Throwable {
         boolean isVisible = addDevices.isOptionToAddAnotherDeviceVisible();
         Assert.assertThat("Expected to see option to : Add another device" , isVisible, Matchers.is(true));
+    }
+
+    @Then("^I should not see option to add another device$")
+    public void iShouldNotSeeOptionToAddAnotherDevice() throws Throwable {
+        boolean isVisible = addDevices.isOptionToAddAnotherDeviceVisible();
+        Assert.assertThat("Expected to see option to : Add another device" , isVisible, Matchers.is(false));
     }
 
     @And("^The gmdn code or term is \"([^\"]*)\" in summary section$")
