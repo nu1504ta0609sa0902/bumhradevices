@@ -64,10 +64,13 @@ Automated Issues:
                     -   Didn't receive a task for the updates
                     -   Also need to make sure updates are checked in the task level before accept/reject
         - @mdcm-496 -   2/2         DONE
-        - @mdcm-485 -   DONE ish
+        - @mdcm-485 -   12/15       DONE ish
+                    -   Tests for product code
+                    -   Tests few more for product details
         - @mdcm-465 -   TODO NEED THE LIST
                     -   Verify no EU countries are displayed to authorisedReps
-        - @mdcm-374 -   DONE ish
+        - @mdcm-374 -   13/16   DONE ish
+                    -   No CE marking for S&PP
         - @mdcm-467 -   2/2         DONE
         - @mdcm-345 -   TODO
         - @mdcm-162 -   TODO NEED TO LOOK AT IT AGAIN
@@ -75,6 +78,7 @@ Automated Issues:
         - @mdcm-298 -   no tests for regression
         - @mdcm-377 -   no tests for regression
         - @mdcm-359 -   no tests for regression
+                Total
 
 
     Spring 6: @sprint6
@@ -90,6 +94,7 @@ Automated Issues:
         - @mdcm-637 -   @TODO
                     -   3 TCs have bugs associated
         - @mdcm-268 - no tests for regression
+                Total
 
     Spring 7: @sprint7
         - @mdcm-2797-   15/16       DONE ish
@@ -111,6 +116,7 @@ Automated Issues:
                     -   Last 3 or 4 still remaining to do
         - @mdcm-3360- no tests for regression
         - @mdcm-2339- no tests for regression
+                Total
 
     Spring 8: @sprint8
         - @mdcm-1924-
@@ -123,6 +129,7 @@ Automated Issues:
         - @mdcm-1836-   no tests for regression
         - @mdcm-2097-   no tests for regression
         - @mdcm-3104-   no tests for regression
+                Total
 
 
     Spring 9: @sprint9
@@ -136,6 +143,7 @@ Automated Issues:
         - @mdcm-1840-   no tests for regression
         - @mdcm-1956-   no tests for regression
         - @mdcm-2184-   no tests for regression
+                Total
 
 
     Spring 10: @sprint10
@@ -155,6 +163,7 @@ Automated Issues:
         - @mdcm-3894-   no tests for regression
         - @mdcm-3895-   no tests for regression
         - @mdcm-2193-   no tests for regression
+                Total
 
 
     Spring MIXED: @sprintMixed

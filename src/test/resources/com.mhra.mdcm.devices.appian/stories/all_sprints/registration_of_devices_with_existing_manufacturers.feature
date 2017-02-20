@@ -44,12 +44,12 @@ Feature: As an account holder with access to the Device Registration Service
     Then I should see option to add another device
     And The gmdn code or term is "displayed" in summary section
     Examples:
-      | user             | status     | deviceType                 | gmdnDefinition                    | customMade | deviceSterile | deviceMeasuring | riskClassification | notifiedBody | packIncorporated | devicesCompatible |
+      | user              | status     | deviceType                 | gmdnDefinition                    | customMade | deviceSterile | deviceMeasuring | riskClassification | notifiedBody | packIncorporated | devicesCompatible |
       | authorisedRepAuto | Registered | General Medical Device     | Blood weighing scale              | false      | true          | true            | class1             | NB 0086 BSI  |                  |                   |
       | authorisedRepAuto | Registered | General Medical Device     | Blood                             | true       | true          | true            |                    |              |                  |                   |
       | authorisedRepAuto | Registered | In Vitro Diagnostic Device | Androgen receptor IVD, calibrator |            |               |                 | ivd general        |              |                  |                   |
-      | authorisedRepAuto | Registered | System or Procedure Pack   | Desiccating chamber                      |            | true          | true            | class1             | NB 0086 BSI  | false            | true              |
-      | manufacturerAuto | Registered | System or Procedure Pack   | Desiccating chamber                      |            | false         | true            |                    | NB 0086 BSI  | false            | true              |
+      | authorisedRepAuto | Registered | System or Procedure Pack   | Desiccating chamber               |            | true          | true            | class1             | NB 0086 BSI  | false            | true              |
+      | manufacturerAuto  | Registered | System or Procedure Pack   | Desiccating chamber               |            | false         | true            |                    | NB 0086 BSI  | false            | true              |
 #      | manufacturerAuto | Registered | General Medical Device     | Blood weighing scale              | false      | true          | true            | class1             | NB 0086 BSI  |                  |                   |
 #      | manufacturerAuto | Registered | General Medical Device     | Blood                             | true       | true          | true            |                    |              |                  |                   |
 #      | manufacturerAuto | Registered | In Vitro Diagnostic Device | Androgen receptor IVD, calibrator |            |               |                 | ivd general        |              |                  |                   |
@@ -70,7 +70,7 @@ Feature: As an account holder with access to the Device Registration Service
     Then I should see option to add another device
     And The gmdn code or term is "displayed" in summary section
     Examples:
-      | user             | deviceType             |
+      | user              | deviceType             |
       | authorisedRepAuto | General Medical Device |
       #| manufacturerAuto | General Medical Device |
 
@@ -96,7 +96,7 @@ Feature: As an account holder with access to the Device Registration Service
     When I remove ALL the stored device with gmdn code or definition
     Then I should not see option to add another device
     Examples:
-      | user             | deviceType             | gmdn1                | gmdn2           |
+      | user              | deviceType             | gmdn1                | gmdn2           |
       | authorisedRepAuto | General Medical Device | Blood weighing scale | Autopsy measure |
       #| manufacturerAuto | General Medical Device | Blood weighing scale | Autopsy measure |
 
@@ -151,7 +151,7 @@ Feature: As an account holder with access to the Device Registration Service
     When I remove the stored device with gmdn code or definition
     Then The gmdn code or term is "removed" in summary section
     Examples:
-      | user             | deviceType             | gmdnDefinitionD1 | gmdnCodeD1 | gmdnDefinitionD2  | gmdnCodeD2 |
+      | user              | deviceType             | gmdnDefinitionD1 | gmdnCodeD1 | gmdnDefinitionD2  | gmdnCodeD2 |
       | authorisedRepAuto | General Medical Device | Blood            |            |                   | 17500      |
       | authorisedRepAuto | General Medical Device |                  | 17500      | Housekeeping soap |            |
       #| manufacturerAuto | General Medical Device | Blood            |            |                   | 10003      |
@@ -185,8 +185,9 @@ Feature: As an account holder with access to the Device Registration Service
     Then Verify devices displayed and other details are correct
     And I should be able to view products related to stored devices
     Examples:
-      | user              | logBackInAas | deviceType             | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
-      | authorisedRepAuto | businessAuto | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
+      | user              | logBackInAas | deviceType                         | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
+      | authorisedRepAuto | businessAuto | General Medical Device             | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
+      | authorisedRepAuto | businessAuto | Active Implantable Medical Devices | true       |               |                 | Registered | Desiccating chamber  |                    |              |
       #| manufacturerAuto  | businessAuto | General Medical Device | true       | false         | false           | Registered | Blood weighing scale |                    |              |
 
 
