@@ -13,10 +13,14 @@ public class NetworkUtils {
 
     public static String getTestUrl(String baseUrl) {
 
-        String testUrl = "mhratest.appiancloud.com";
+        String testUrl = "https://mhratest.appiancloud.com";
         if (baseUrl != null) {
             testUrl = baseUrl;
         }
+
+        //Giving me 401 error message : Appian said to use https://mhratest.appiancloud.com/suite/portal/loginPage.none
+        testUrl = testUrl + "/suite/portal/loginPage.none";
+
         return testUrl;
     }
 
