@@ -159,7 +159,7 @@ public class RandomDataUtils {
         list.add("Italy");list.add("Latvia");list.add("Lichtenstein");list.add("Lithuania");list.add("Luxembourg");
         list.add("Malta");list.add("Netherlands");list.add("Norway");list.add("Poland");list.add("Portugal");
         list.add("Romania");list.add("Slovakia");list.add("Slovenia");list.add("Spain");list.add("Sweden");
-        list.add("Switzerland");list.add("Turkey");
+        list.add("Switzerland");list.add("Turkey");list.add("United Kingdom");
 
         String n = getSimpleRandomNumberBetween(0, list.size()-1);
         String euCountry = list.get(Integer.parseInt(n));
