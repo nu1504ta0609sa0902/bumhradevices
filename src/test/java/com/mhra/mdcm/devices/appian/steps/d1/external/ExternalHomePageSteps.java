@@ -6,6 +6,7 @@ import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.pageobjects.external.sections.AddDevices;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
+import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.StepsUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
@@ -480,6 +481,9 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     @When("^I enter \"([^\"]*)\" in the new country field in manufacturer test harness$")
     public void i_enter_in_the_new_country_field(String searchTerm) throws Throwable {
+        if(searchTerm.contains("randomEU")){
+            searchTerm = RandomDataUtils.getRandomEUCountryName();
+        }
         List<String> listOfCountries = createNewManufacturer.getListOfAutosuggestionsFor(searchTerm);
         scenarioSession.putData(SessionKey.autoSuggestResults, listOfCountries);
     }

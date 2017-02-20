@@ -57,9 +57,9 @@ Automated Issues:
                     -   Add more tests for CTS and AIMD
         - @mdcm-277 -   2/3         DONE
                     -   Verify business users can't edit
-        - @mdcm-260 -   Related to @mdcm-39
-                    -   NEED TO LOOK AT IT AGAIN
-                    -   TODO NEED THE LIST
+        - @mdcm-260 -   1/5
+                    -   Related to @mdcm-39
+                    -   Lots of TCs marked with "Need Clarificatons"
         - @mdcm-21  -   7/8         DONE ish
                     -   Didn't receive a task for the updates
                     -   Also need to make sure updates are checked in the task level before accept/reject
@@ -67,18 +67,20 @@ Automated Issues:
         - @mdcm-485 -   12/15       DONE ish
                     -   Tests for product code
                     -   Tests few more for product details
-        - @mdcm-465 -   TODO NEED THE LIST
+        - @mdcm-465 -   1/1         DONE ish
                     -   Verify no EU countries are displayed to authorisedReps
         - @mdcm-374 -   13/16   DONE ish
                     -   No CE marking for S&PP
         - @mdcm-467 -   2/2         DONE
-        - @mdcm-345 -   TODO
-        - @mdcm-162 -   TODO NEED TO LOOK AT IT AGAIN
+        - @mdcm-345 -   TODO: Moved to sprint 7
+        - @mdcm-162 -   7/11    DONE ish
+                    -   Update organisation name
+                    -   Previous name/address
         - @mdcm-171 -   11/12       DONE ish
         - @mdcm-298 -   no tests for regression
         - @mdcm-377 -   no tests for regression
         - @mdcm-359 -   no tests for regression
-                Total
+                Total   76/99
 
 
     Spring 6: @sprint6
