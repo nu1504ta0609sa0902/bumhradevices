@@ -21,13 +21,13 @@ Feature: Aa a user I would like to verify features which are not related to devi
     Then I should see following "<matches>" returned by manufacturer test harness autosuggests
     Examples:
       | user              | searchTerm | matches          |
-      | manufacturerNoor  | Au         | Australia        |
-      | manufacturerNoor  | ZZ         | No results found |
-      | authorisedRepNoor | Au         | Australia        |
-      | authorisedRepNoor | ZZ         | No results found |
+      | manufacturerAuto  | Au         | Australia        |
+      | manufacturerAuto  | ZZ         | No results found |
+      | authorisedRepAuto | Au         | Australia        |
+      | authorisedRepAuto | ZZ         | No results found |
 
 
-  @mdcm-465 @readonly @sprint5 @wip
+  @mdcm-465 @mdcm-164 @readonly @sprint5 @sprint6
   Scenario Outline: Verify no EU countries are displayed to authorisedReps
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -35,5 +35,5 @@ Feature: Aa a user I would like to verify features which are not related to devi
     Then I should see following "<matches>" returned by manufacturer test harness autosuggests
     Examples:
       | user              | searchTerm      | matches          |
-      | authorisedRepNoor | randomEUCountry | No results found |
-      | authorisedRepNoor | randomEUCountry | No results found |
+      | manufacturerAuto  | randomEUCountry | No results found |
+      | authorisedRepAuto | randomEUCountry | No results found |
