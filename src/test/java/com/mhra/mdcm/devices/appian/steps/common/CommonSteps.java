@@ -122,14 +122,15 @@ public class CommonSteps {
         }
 
         //Make sure network connection is available
-        String testUrl = NetworkUtils.getTestUrl(baseUrl);
-        boolean connected = NetworkUtils.verifyConnectedToNetwork(testUrl, 10);
-        if(!connected){
-            NetworkUtils.shutdownIfRequired(connected, testUrl, log);
-        }else {
-            //loadMapOfExcelData();
-            addShutdownHooks();
-        }
+//        String testUrl = NetworkUtils.getTestUrl(baseUrl);
+//        boolean connected = NetworkUtils.verifyConnectedToNetwork(testUrl, 10);
+//        if(!connected){
+//            NetworkUtils.shutdownIfRequired(connected, testUrl, log);
+//        }else {
+//            //loadMapOfExcelData();
+//            addShutdownHooks();
+//        }
+        addShutdownHooks();
     }
 
 //    private void loadMapOfExcelData() {

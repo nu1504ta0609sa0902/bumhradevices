@@ -19,6 +19,8 @@ import java.util.Properties;
 @Component
 public class LoginPage extends _Page {
 
+    private static String baseUrl;
+
     @FindBy(id = "un")
     WebElement username;
     @FindBy(id = "pw")
@@ -53,6 +55,7 @@ public class LoginPage extends _Page {
         PageUtils.acceptAlert(driver, true, 1);
         driver.get(url);
         PageUtils.acceptAlert(driver, "accept", 1);
+        baseUrl = url;
         return new LoginPage(driver);
     }
 
@@ -140,8 +143,13 @@ public class LoginPage extends _Page {
                 //settings.click();
                 PageUtils.doubleClick(driver, settings);
                 driver.findElement(By.linkText("Sign Out")).click();
-                WaitUtils.waitForElementToBeClickable(driver, remember, 10, false);
+
+                //If logout and login is too fast, appian system shows 404 in some instance of automation
                 WaitUtils.nativeWaitInSeconds(2);
+                driver.get(baseUrl);
+
+                WaitUtils.waitForElementToBeClickable(driver, remember, 10, false);
+                //WaitUtils.nativeWaitInSeconds(2);
             }
         } catch (Exception e) {
             //Probably not logged in
@@ -162,10 +170,15 @@ public class LoginPage extends _Page {
                 //settings.click();
                 PageUtils.doubleClick(driver, photoIcon);
                 signOutLink.click();
-                WaitUtils.waitForElementToBeClickable(driver, remember, 10, false);
 
                 //If logout and login is too fast, appian system shows 404 in some instance of automation
                 WaitUtils.nativeWaitInSeconds(2);
+                driver.get(baseUrl);
+
+                WaitUtils.waitForElementToBeClickable(driver, remember, 10, false);
+                //WaitUtils.waitForElementToBeClickable(driver, remember, 10, false);
+                //If logout and login is too fast, appian system shows 404 in some instance of automation
+                //WaitUtils.nativeWaitInSeconds(2);
             }
         } catch (Exception e) {
             //Probably not logged in
