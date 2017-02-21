@@ -82,17 +82,23 @@ Automated Issues:
         - @mdcm-359 -   no tests for regression
                 Total   76/99
 
-
     Spring 6: @sprint6
         - @mdcm-23  -   13/16       DONE ish
                     -   Test for search + verify full details
-                    -   Creating manufacturer without device is not possible, it seems
+                    -   Creating manufacturer without device is not possible, AT THE MOMENT
         - @mdcm-125 -   @todo
         - @mdcm-134 -   7/9         DONE ish
                     -   Test for duplicate registration request
                     -   Test for AIM device with multiple products
-        - @mdcm-164 -   @Todo
-        - @mdcm-263 -   DONE ish
+        - @mdcm-164 -   11/17       DONE ish
+                    -   Add multiple authorisedReps
+                    -   Address should be displayed as Registered
+                    -   Address validation for telephone, phone , fax
+                    -   Submit without filling all the mandatory fields
+        - @mdcm-263 -   9/15        DONE ish
+                    -   RAG status tests
+                    -   Submission date tests
+                    -   Device types and product details in the task
         - @mdcm-637 -   @TODO
                     -   3 TCs have bugs associated
         - @mdcm-268 - no tests for regression

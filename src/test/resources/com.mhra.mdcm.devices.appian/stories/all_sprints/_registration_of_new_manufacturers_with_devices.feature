@@ -73,7 +73,7 @@ Feature: As a customer I want to register new manufacturers with devices
       | authorisedRepAuto |
 
 
-  @regression @mdcm-374 @mdcm-134 @sprint5 @sprint6 @bug
+  @regression @mdcm-374 @mdcm-134 @sprint5  @mdcm-164 @sprint6 @bug
   Scenario Outline: Users should be able to add and remove devices from a newly created manufacturers and submit for approval
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
