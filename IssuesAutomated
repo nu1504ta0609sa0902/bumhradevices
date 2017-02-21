@@ -86,7 +86,11 @@ Automated Issues:
         - @mdcm-23  -   13/16       DONE ish
                     -   Test for search + verify full details
                     -   Creating manufacturer without device is not possible, AT THE MOMENT
-        - @mdcm-125 -   @todo
+        - @mdcm-125 -   0/14
+                    -   @todo most of the TC
+                    -   Verify all the associated organisations
+                    -   And all the info related to the org is correct
+                    -   Test for organisation role
         - @mdcm-134 -   7/9         DONE ish
                     -   Test for duplicate registration request
                     -   Test for AIM device with multiple products

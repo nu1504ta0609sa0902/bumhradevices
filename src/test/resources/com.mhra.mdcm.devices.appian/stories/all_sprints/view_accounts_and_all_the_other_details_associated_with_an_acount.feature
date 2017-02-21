@@ -1,63 +1,43 @@
 Feature: As a business user I want to view all the organisations associated with an account, not just the account holder details
   so that I can understand relationships between account holders and organisations, and retrieve information quickly
 
-  @mdcm-126 @readonly @sprint1
+  @mdcm-126 @readonly @sprint1 @mdcm-125 @sprint6 @wip
   Scenario Outline: As a business user I should be able to view all accounts
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
     Then I should see items and heading "<pageHeading>" for link "<link>"
     And I should see the following columns for "<link>" page
       | columns | <columns> |
+    And I search for account with following text "RT01Test_"
+    And I view a random account from search result
     Examples:
       | user         | link     | pageHeading | columns                                                                                                          |
       | businessAuto | Accounts | Accounts    | Organisation name,Account number,Organisation role,Contact name,Organisation address,Organisation country,Status |
 
-  @regression @mdcm-23 @mdcm-126 @readonly @sprint1 @sprint6
-  Scenario Outline: As a business user I should be able to view all organisation page
+
+  @regression @mdcm-125 @sprint6 @wip
+  Scenario Outline: Business users should be able to view all the associated organisations related with an account
     Given I am logged into appian as "<user>" user
-    When I go to records page and click on "<link>"
-    Then I should see items and heading "<pageHeading>" for link "<link>"
-    And I should see the following columns for "<link>" page
-      | columns | <columns> |
+    And I go to register a new manufacturer page
+    When I create a new manufacturer using manufacturer test harness page with following data
+      | accountType | <accountType> |
+      | countryName | <countryName> |
+    And I add devices to NEWLY created manufacturer with following data
+      | deviceType             | General Medical Device |
+      | gmdnDefinition         | Blood weighing scale    |
+      | customMade             | true                   |
+      | relatedDeviceSterile   | true                   |
+      | relatedDeviceMeasuring | true                   |
+    And Proceed to payment and confirm submit device details
+    Then I should see the registered manufacturers list
+    When I logout of the application
+    And I am logged into appian as "<logBackInAs>" user
+    And I view new task with link "New Manufacturer Registration Request" for the new account
+    When I assign the task to me and "<approveReject>" the generated task
+    Then The task should be removed from tasks list
+    And I search accounts for the stored organisation name
+    And I view a random account from search result
     Examples:
-      | user         | link              | pageHeading       | columns                                       |
-      | businessAuto | All Organisations | All Organisations | Name,Role,Contact name,Address,Country,Status |
-
-  @mdcm-126 @mdcm-23 @readonly @sprint1 @sprint6 @bug
-  Scenario Outline: By default list of accounts should be displayed in a to z order
-    Given I am logged into appian as "<user>" user
-    When I go to records page and click on "<link>"
-    Then I should see items and heading "<pageHeading>" for link "<link>"
-    And The items in "<pageHeading>" page are displayed in alphabetical order
-    Examples:
-      | user         | link              | pageHeading       |
-      | businessAuto | All Organisations | All Organisations |
-      | businessAuto | Accounts          | Accounts          |
-
-
-  @mdcm-126 @mdcm-23 @readonly @sprint1 @sprint6
-  Scenario Outline: Users should be able to filter and sort by headings
-    Given I am logged into appian as "<user>" user
-    When I go to records page and click on "<link>"
-    Then I should see items and heading "<pageHeading>" for link "<link>"
-    When I filter items in "<pageHeading>" page by organisation role "<organisationType>"
-    And I sort items in "<pageHeading>" page by "<tableHeading>"
-    Then I should see only see organisation of type "<organisationType>" in "<pageHeading>" page
-    Examples:
-      | user         | link              | pageHeading       | organisationType | tableHeading      |
-      | businessAuto | All Organisations | All Organisations | Authorised       | Name              |
-      | businessAuto | All Organisations | All Organisations | Manufacturer     | Name              |
-      | businessAuto | Accounts          | Accounts          | Authorised       | Organisation name |
-      | businessAuto | Accounts          | Accounts          | Manufacturer     | Organisation name |
-
-
-  @mdcm-23 @readonly @sprint6
-  Scenario Outline: As a business user I should be able to search for an existing organisation
-    Given I am logged into appian as "<user>" user
-    When I go to records page and click on "<link>"
-    And I search for a "<existing>" organisation
-    Then All organisation search result should return <count> matches
-    Examples:
-      | user         | link              | existing     | count |
-      | businessAuto | All Organisations | existing     | 1     |
-      | businessAuto | All Organisations | non existing | 0     |
+      | user              | logBackInAs  | accountType   | approveReject | count | countryName |link     | pageHeading |
+      | manufacturerAuto  | businessAuto | manufacturer  | approve       | 1     | Brazil       |Accounts | Accounts    |
+#      | authorisedRepAuto | businessAuto | authorisedRep | approve       | 0     | Belarus     |Accounts | Accounts    |

@@ -84,4 +84,15 @@ public class CommonUtils {
         }
         return isNumeric;
     }
+
+    public static int getNumberOfItemsInList(WebDriver driver, List<WebElement> listOfTermsOrCodeMatches) {
+        int numberOfItems = 0;
+        for(WebElement element: listOfTermsOrCodeMatches){
+            String text = element.findElement(By.tagName("a")).getText();
+            if(!text.trim().equals("")){
+                numberOfItems++;
+            }
+        }
+        return numberOfItems;
+    }
 }

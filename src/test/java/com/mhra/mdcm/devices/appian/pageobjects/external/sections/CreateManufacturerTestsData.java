@@ -68,7 +68,7 @@ public class CreateManufacturerTestsData extends _Page {
     WebElement fileUpload;
 
     //Submit and cancel
-    @FindBy(xpath = ".//button[.='Declare devices']")
+    @FindBy(xpath = ".//button[contains(text(),'eclare devices')]")
     WebElement btnDeclareDevices;
     @FindBy(xpath = ".//button[.='Next']")
     WebElement next;

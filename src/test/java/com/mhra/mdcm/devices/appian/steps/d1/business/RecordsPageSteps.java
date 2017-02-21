@@ -246,7 +246,7 @@ public class RecordsPageSteps extends CommonSteps {
     }
 
 
-    @When("^I view a randomly selected account$")
+    @When("^I view a random account from search result$")
     public void i_view_a_randomly_selected_account() throws Throwable {
         String randomAccountName = accounts.getARandomAccount();
         accounts = accounts.viewSpecifiedAccount(randomAccountName);

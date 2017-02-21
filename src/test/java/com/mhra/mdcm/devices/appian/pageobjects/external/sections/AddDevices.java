@@ -579,7 +579,8 @@ public class AddDevices extends _Page {
 
                 //Wait for list of items to appear and add it only if its not a duplicate
                 WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//*[.='Term']//following::td[contains(@class, 'GFWJSJ4DCEB')]"), TIMEOUT_DEFAULT, false);
-                int randomPosition = RandomDataUtils.getARandomNumberBetween(0, listOfTermsOrCodeMatches.size());
+                int noi = CommonUtils.getNumberOfItemsInList(driver, listOfTermsOrCodeMatches);
+                int randomPosition = RandomDataUtils.getARandomNumberBetween(0, noi);
 
                 //Click gmdn from search results
                 WebElement element = listOfTermsOrCodeMatches.get(randomPosition);

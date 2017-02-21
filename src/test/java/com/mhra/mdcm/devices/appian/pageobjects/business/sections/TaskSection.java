@@ -58,7 +58,6 @@ public class TaskSection extends _Page {
     WebElement cdEmail;
 
 
-
     @FindBy(xpath = ".//h4")
     WebElement taskHeading;
 
@@ -72,7 +71,7 @@ public class TaskSection extends _Page {
     @FindBy(xpath = ".//button[.='Accept Registration']")
     WebElement acceptRegistration;
     @FindBy(xpath = ".//button[.='Accept Registration']//following::button[1]") //Stupid to have 2 buttons called Reject on same page
-            WebElement rejectRegistration;
+    WebElement rejectRegistration;
     @FindBy(xpath = ".//button[.='Approve']")
     WebElement approveTask;
     @FindBy(xpath = ".//button[.='Approve']//following::button[1]")
@@ -204,7 +203,7 @@ public class TaskSection extends _Page {
         } else if (reason.contains("Non-qualifying party")) {
             WaitUtils.waitForElementToBeClickable(driver, reasonNonQualifyingParty, TIMEOUT_10_SECOND, false);
             PageUtils.clickIfVisible(driver, reasonNonQualifyingParty);
-        }else{
+        } else {
             //They have changed rejection process: The options have disappeared
 
         }
@@ -318,9 +317,9 @@ public class TaskSection extends _Page {
     }
 
     public boolean isCompletedTaskStatusCorrect(String orgName, String expectedStatus) {
-        try{
+        try {
             return isCompletedTaskStatusCorrect1(orgName, expectedStatus);
-        }catch (Exception e){
+        } catch (Exception e) {
             return isCompletedTaskStatusCorrect2(orgName, expectedStatus);
         }
     }
@@ -356,27 +355,27 @@ public class TaskSection extends _Page {
         //Task
         boolean isDataCorrect = PageUtils.isTableDataContentCorrect(tr, 1, taskType);
         //Name: Organisation name
-        if(isDataCorrect) {
+        if (isDataCorrect) {
             isDataCorrect = PageUtils.isTableDataContentCorrect(tr, 2, orgName);
         }
         //role
-        if(isDataCorrect && organisationData!=null) {
+        if (isDataCorrect && organisationData != null) {
             isDataCorrect = PageUtils.isTableDataContentCorrect(tr, 3, organisationData.getRoleName());
-        }else{
+        } else {
             isDataCorrect = !(PageUtils.isTableDataContentIsEmpty(tr, 3));
         }
         //Task Owner
-        if(isDataCorrect) {
+        if (isDataCorrect) {
             isDataCorrect = PageUtils.isTableDataContentCorrect(tr, 4, "Staff");
         }
         //Submitted Date
-        if(isDataCorrect && organisationData!=null) {
+        if (isDataCorrect && organisationData != null) {
             isDataCorrect = PageUtils.isTableDataContentCorrect(tr, 5, organisationData.submissionDate);
-        }else{
+        } else {
             isDataCorrect = !(PageUtils.isTableDataContentIsEmpty(tr, 5));
         }
         //Status
-        if(isDataCorrect) {
+        if (isDataCorrect) {
             isDataCorrect = PageUtils.isTableDataContentCorrect(tr, 6, "Assigned");
         }
 
