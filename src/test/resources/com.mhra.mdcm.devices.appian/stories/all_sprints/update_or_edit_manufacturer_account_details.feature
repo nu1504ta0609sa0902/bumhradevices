@@ -31,7 +31,7 @@ Feature: As a business and account holder, I want to be able to update party det
       | businessAuto | Accounts | AuthorisedRepRT00 | org.name                                       |
 
 
-  @regression @mdcm-149 @mdcm-171 @mdcm-162 @sprint3 @sprint5
+  @regression @mdcm-149 @mdcm-171 @mdcm-162 @mdcm-164 @sprint3 @sprint5 @sprint6
   Scenario Outline: Manufacturer and authorisedRep user should be able to update account contact details
     Given I am logged into appian as "<user>" user
     When I go to my accounts page
@@ -44,7 +44,7 @@ Feature: As a business and account holder, I want to be able to update party det
       | manufacturerAuto  | contact.job.title,contact.email,contact.telephone,contact.firstname,contact.lastname               |
 
 
-  @regression @mdcm-13 @mdcm-171 @mdcm-162 @sprint4 @sprint5 @wip
+  @regression @mdcm-13 @mdcm-171 @mdcm-162  @mdcm-164@sprint4 @sprint5 @sprint6 @wip
   Scenario Outline: Manufacturer and authorisedRep user should be able to update organisation details
     Given I am logged into appian as "<user>" user
     When I go to my accounts page
@@ -55,8 +55,8 @@ Feature: As a business and account holder, I want to be able to update party det
       | user              | keyValuePairs                                                             |
       | authorisedRepAuto | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website |
       | manufacturerAuto  | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website |
-      | authorisedRepNoor | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website |
-      | manufacturerNoor  | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website |
+      | authorisedRepAuto | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website |
+      | manufacturerAuto  | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website |
 
 
   @regression @readonly @mdcm-171 @mdcm-261 @mdcm-277 @sprint4 @sprint5
@@ -104,7 +104,7 @@ Feature: As a business and account holder, I want to be able to update party det
       | authorisedRepAuto | businessAuto |contact.title,contact.firstname,contact.lastname,contact.job.title,contact.email,contact.telephone          | Registered |
 
 
-  @regression @mdcm-263 @sprint6 @mdcm-275 @sprint7
+  @regression @mdcm-263 @sprint6 @mdcm-275 @sprint7 @wip
   Scenario Outline: Verify only 1 task is created when update EXISTING manufacturer with multiple devices
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page

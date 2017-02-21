@@ -102,7 +102,7 @@ Feature: As a business user, I want a task to be created each time a customer su
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | ford,honda         | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
 
-  @regression @mdcm-161 @mdcm-232 @mdcm-240 @sprint4 @wip
+  @regression @mdcm-161 @mdcm-232 @mdcm-164 @mdcm-240 @sprint4 @sprint6 @wip
   Scenario Outline: Register manufacturer as authorisedRep and verify status of letter of designation is correct
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -181,8 +181,8 @@ Feature: As a business user, I want a task to be created each time a customer su
     And I go to WIP tasks page
     Then Verify the WIP entry details for the new account is correct
     When I view task for the new account in WIP page
-#    Then Task contains correct devices and products and other details
-#    And Task shows devices which are arranged by device types
+    Then Task contains correct devices and products and other details
+    And Task shows devices which are arranged by device types
     And I assign the task to me and "<approveReject>" the generated task
 #    Then The task should be removed from WIP tasks list
     Then The completed task status should update to "Completed"
