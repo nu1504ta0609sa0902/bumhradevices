@@ -3,7 +3,7 @@ Feature: As a business user, I want a task to be created each time a customer su
 
 
   @regression @mdcm-10 @mdcm-41 @mdcm-178 @sprint1 @sprint2 @bug
-  Scenario Outline: Create new account and approve tasks
+  Scenario Outline: Create new account as business user and approve tasks
     Given I am logged into appian as "<user>" user
     When I create a new account using business test harness page with following data
       | accountType | <accountType> |
@@ -21,7 +21,7 @@ Feature: As a business user, I want a task to be created each time a customer su
 
 
   @regression @mdcm-41 @mdcm-178 @sprint2 @bug
-  Scenario Outline: Create new account and reject tasks
+  Scenario Outline: Create new account as business user and reject tasks
     Given I am logged into appian as "<user>" user
     When I create a new account using business test harness page with following data
       | accountType | <accountType> |

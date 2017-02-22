@@ -409,7 +409,7 @@ public class PageUtils {
         List<String> listOfColumns = new ArrayList<>();
         for(WebElement el: listOfTableColumns){
             String text = el.getText();
-            System.out.println(text);
+            //System.out.println(text);
             if(text!=null){
                 listOfColumns.add(text);
             }

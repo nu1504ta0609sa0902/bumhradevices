@@ -53,39 +53,38 @@ Automated Issues:
 
     Spring 5: @sprint5
         - @mdcm-39  -   8/12        DONE
-        - @mdcm-489 -   10/14       DONE ish
+        - @mdcm-489 -   10/14       DONE
                     -   Add more tests for CTS and AIMD
         - @mdcm-277 -   2/3         DONE
                     -   Verify business users can't edit
         - @mdcm-260 -   1/5
                     -   Related to @mdcm-39
                     -   Lots of TCs marked with "Need Clarificatons"
-        - @mdcm-21  -   7/8         DONE ish
+        - @mdcm-21  -   7/8         DONE
                     -   Didn't receive a task for the updates
                     -   Also need to make sure updates are checked in the task level before accept/reject
         - @mdcm-496 -   2/2         DONE
-        - @mdcm-485 -   12/15       DONE ish
+        - @mdcm-485 -   12/15       DONE
                     -   Tests for product code
                     -   Tests few more for product details
-        - @mdcm-465 -   1/1         DONE ish
-                    -   Verify no EU countries are displayed to authorisedReps
-        - @mdcm-374 -   13/16   DONE ish
+        - @mdcm-465 -   1/1         DONE
+        - @mdcm-374 -   13/16       DONE
                     -   No CE marking for S&PP
         - @mdcm-467 -   2/2         DONE
-        - @mdcm-345 -   TODO: Moved to sprint 7
-        - @mdcm-162 -   7/11    DONE ish
+        - @mdcm-171 -   11/12       DONE
+        - @mdcm-162 -   7/11        DONE
                     -   Update organisation name
                     -   Previous name/address
-        - @mdcm-171 -   11/12       DONE ish
         - @mdcm-298 -   no tests for regression
         - @mdcm-377 -   no tests for regression
         - @mdcm-359 -   no tests for regression
+        - @mdcm-345 -   TODO: Moved to sprint 7
                 Total   76/99
 
     Spring 6: @sprint6
-        - @mdcm-23  -   13/16       DONE ish
-                    -   Test for search + verify full details
-                    -   Creating manufacturer without device is not possible, AT THE MOMENT
+        - @mdcm-23  -   13/16
+                    -   Test for search + view full organisation details
+                    -   Creating manufacturer without device doesn't generate a task, AT THE MOMENT
         - @mdcm-125 -   0/14
                     -   @todo most of the TC
                     -   Verify all the associated organisations

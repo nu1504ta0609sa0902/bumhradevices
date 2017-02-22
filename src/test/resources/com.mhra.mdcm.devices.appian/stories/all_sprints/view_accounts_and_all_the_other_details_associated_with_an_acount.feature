@@ -2,7 +2,7 @@ Feature: As a business user I want to view all the organisations associated with
   so that I can understand relationships between account holders and organisations, and retrieve information quickly
 
   @mdcm-126 @readonly @sprint1 @mdcm-125 @sprint6 @wip
-  Scenario Outline: As a business user I should be able to view all accounts
+  Scenario Outline: As a business user I should be able to view specific account in all accounts page
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
     Then I should see items and heading "<pageHeading>" for link "<link>"
@@ -10,6 +10,7 @@ Feature: As a business user I want to view all the organisations associated with
       | columns | <columns> |
     And I search for account with following text "RT01Test_"
     And I view a random account from search result
+    Then I should see account displaying correct fields
     Examples:
       | user         | link     | pageHeading | columns                                                                                                          |
       | businessAuto | Accounts | Accounts    | Organisation name,Account number,Organisation role,Contact name,Organisation address,Organisation country,Status |

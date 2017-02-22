@@ -67,8 +67,10 @@ public class Accounts extends _Page {
     WebElement jobTitle;
     @FindBy(xpath = ".//span[contains(text(),'Email')]//following::p[1]")
     WebElement emailAddress;
-    @FindBy(xpath = ".//span[contains(text(),'Telephone')]//following::p[1]")
-    WebElement phoneNumber;
+    @FindBy(xpath = ".//span[contains(text(),'Full')]//following::p[1]")
+    WebElement fullName;
+    @FindBy(xpath = ".//h3[contains(text(),'Person Details')]//following::span[.='Telephone']/following::p[1]")
+    WebElement telephone;
 
     //Search box
     @FindBy(xpath = ".//*[contains(@class, 'filter')]//following::input[1]")
@@ -282,4 +284,47 @@ public class Accounts extends _Page {
         return isOrderedAToZ;
     }
 
+    public boolean verifyCorrectFieldsDisplayedOnPage() {
+        boolean isCorrect = isDisplayedOrgFieldsCorrect();
+        if(isCorrect){
+            isCorrect = isDisplayedContactPersonFieldsCorrect();
+        }
+        return isCorrect;
+    }
+
+    public boolean isDisplayedOrgFieldsCorrect() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        boolean fieldsDisplayed = true;
+        try {
+            //WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, orgAddressLine1, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, orgAddressLine2, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, orgCityTown, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, orgPostCode, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, orgCountry, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, orgTelephone, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, orgFax, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, webSite, TIMEOUT_3_SECOND, false);
+        }catch (Exception e){
+            e.printStackTrace();
+            fieldsDisplayed = false;
+        }
+        return fieldsDisplayed;
+    }
+
+    public boolean isDisplayedContactPersonFieldsCorrect() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        boolean fieldsDisplayed = true;
+        try {
+            //WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, fullName, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, jobTitle, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, emailAddress, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, telephone, TIMEOUT_3_SECOND, false);
+        }catch (Exception e){
+            e.printStackTrace();
+            fieldsDisplayed = false;
+        }
+        return fieldsDisplayed;
+    }
 }

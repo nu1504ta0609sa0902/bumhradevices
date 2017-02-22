@@ -252,6 +252,7 @@ public class RecordsPageSteps extends CommonSteps {
         accounts = accounts.viewSpecifiedAccount(randomAccountName);
     }
 
+
     @When("^I view a randomly searched account and update the following data \"([^\"]*)\"$")
     public void i_view_a_randomly_selected_account(String keyValuePairToUpdate) throws Throwable {
         String searchTerm = (String) scenarioSession.getData(SessionKey.searchTerm);
@@ -267,6 +268,12 @@ public class RecordsPageSteps extends CommonSteps {
 
         scenarioSession.putData(SessionKey.organisationName, randomAccountName);
         scenarioSession.putData(SessionKey.updatedData, updatedData);
+    }
+
+    @Then("^I should see account displaying correct fields$")
+    public void i_should_see_account_displaying_correct_fields() throws Throwable {
+        boolean isCorrect = accounts.verifyCorrectFieldsDisplayedOnPage();
+        Assert.assertThat("Account, Organisation Details and Contact Details May Not Be Valid" , isCorrect, is(true));
     }
 
 
