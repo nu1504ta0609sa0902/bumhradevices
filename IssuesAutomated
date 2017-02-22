@@ -105,7 +105,7 @@ Automated Issues:
         - @mdcm-637 -   @TODO
                     -   3 TCs have bugs associated
         - @mdcm-268 - no tests for regression
-                Total
+                Total   40/74
 
     Spring 7: @sprint7
         - @mdcm-2797-   15/16       DONE ish
@@ -127,55 +127,109 @@ Automated Issues:
                     -   Last 3 or 4 still remaining to do
         - @mdcm-3360- no tests for regression
         - @mdcm-2339- no tests for regression
-                Total
+                Total   49/69
 
     Spring 8: @sprint8
-        - @mdcm-1924-
-                    -   Device and notified body
-        - @mdcm-2185-
-                    -   Indicate notified body
-        - @mdcm-2049-   no tests for regression
-        - @mdcm-3271-   no tests for regression
-        - @mdcm-3158-   no tests for regression
-        - @mdcm-1836-   no tests for regression
-        - @mdcm-2097-   no tests for regression
-        - @mdcm-3104-   no tests for regression
+        - @1924 -
+                -   Device and notified body
+        - @2049 -
+        - @2185 -
+                -   Indicate notified body
+        - @3271 -
+        - @3158 -
+        - @1836 -
+        - @2097 -
+        - @3104 -
                 Total
 
 
     Spring 9: @sprint9
-        - @mdcm-3777-
-                    -   Device summary
-        - @mdcm-3762-
-                    -   Update manufacturer registration
-        - @mdcm-3761-
-                    -   Manufacturer list
-        - @mdcm-1996-   no tests for regression
-        - @mdcm-1840-   no tests for regression
-        - @mdcm-1956-   no tests for regression
-        - @mdcm-2184-   no tests for regression
+        - @3777 -
+                -   Device summary
+        - @3762 -
+                -   Update manufacturer registration
+        - @3761 -
+                -   Manufacturer list
+        - @1996 -
+        - @1840 -
+        - @1956 -
+        - @2184 -
                 Total
 
 
     Spring 10: @sprint10
-        - @mdcm-3294-   Manufacturer with no device
-                    -
-        - @mdcm-2191-   no tests for regression
-        - @mdcm-3756-   no tests for regression
-        - @mdcm-1937-   no tests for regression
-        - @mdcm-3296-   no tests for regression
-        - @mdcm-3972-   no tests for regression
-        - @mdcm-3559-   no tests for regression
-        - @mdcm-3560-   no tests for regression
-        - @mdcm-2143-   no tests for regression
-        - @mdcm-2190-   no tests for regression
-        - @mdcm-3837-   no tests for regression
-        - @mdcm-2192-   no tests for regression
-        - @mdcm-3894-   no tests for regression
-        - @mdcm-3895-   no tests for regression
-        - @mdcm-2193-   no tests for regression
+        - @2191 -
+        - @1937 -
+        - @3559 -
+        - @3560 -
+        - @2143 -
+        - @2190 -
+        - @3837 -
+        - @2192 -
+        - @3894 -
+        - @3895 -
+        - @2193 -
+        - @3296 -   no tests for regression
+        - @3972 -   no tests for regression
+        - @3294 -   no tests for regression
+        - @3756 -   no tests for regression
                 Total
 
+    Spring 11: @sprint11
+        - @4088 -
+        - @3755 -
+        - @3875 -
+        - @4006 -
+        - @1839 -   no tests for regression
+        - @3213 -   no tests for regression
+        - @2832 -   no tests for regression
+        - @1867 -   no tests for regression
+        - @1891 -   no tests for regression
+        - @3975 -   no tests for regression
+        - @3780 -   no tests for regression
+        - @3358 -   no tests for regression
+        - @2577 -   no tests for regression
+
+    Spring 12: @sprint12
+        - @4211 -
+        - @4214 -   no tests for regression
+        - @4215 -   no tests for regression
+        - @4216 -   no tests for regression
+        - @4217 -   no tests for regression
+        - @4220 -   no tests for regression
+        - @4221 -   no tests for regression
+
+    Spring 13: @sprint13
+        - @1838 -   6/8     DONE ish
+                -   Create manufacturer and add devices by searching gmdn code
+        - @4090 -
+        - @2190 -
+        - @4026 -
+        - @4155 -   no tests for regression
+        - @4604 -   no tests for regression
+        - @4613 -   no tests for regression
+        - @4324 -   no tests for regression
+        - @3876 -   no tests for regression
+        - @3991 -   no tests for regression
+        - @3205 -   no tests for regression
+        - @3390 -   no tests for regression
+        - @4614 -   no tests for regression
+        - @3986 -   no tests for regression
+        - @4275 -   no tests for regression
+        - @3497 -   no tests for regression
+        - @4340 -   no tests for regression
+        - @4361 -   no tests for regression
+
+    Spring 14: @sprint14
+        - @2833 -   no tests for regression
+        - @3298 -   no tests for regression
+        - @3264 -   no tests for regression
+        - @4337 -   no tests for regression
+        - @4331 -   no tests for regression
+        - @4374 -   no tests for regression
+        - @2170 -   no tests for regression
+        - @2141 -   no tests for regression
+        - @1957 -   no tests for regression
 
     Spring MIXED: @sprintMixed
         - @mdcm-159 - no tests for regression

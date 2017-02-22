@@ -37,3 +37,38 @@ Feature: Aa a user I would like to verify features which are not related to devi
       | user              | searchTerm      | matches          |
       | manufacturerAuto  | randomEUCountry | No results found |
       | authorisedRepAuto | randomEUCountry | No results found |
+
+
+  @regression @1838 @sprint13
+  Scenario Outline: Users should be able to search using  GMDN code or term
+    Given I am logged into appian as "<user>" user
+    And I go to list of manufacturers page
+    And I click on a random manufacturer
+    When I search for device type "<deviceType>" with gmdn "<gmdn>"
+    Then I should see at least <count> devices matches
+    Examples:
+      | user              | deviceType             | gmdn      | count |
+      | authorisedRepAuto | General Medical Device | Blood     | 1     |
+      | authorisedRepAuto | General Medical Device | 17500     | 1     |
+      | authorisedRepAuto | General Medical Device | HllNBlood | 0     |
+      | authorisedRepAuto | General Medical Device | 175001    | 0     |
+      | manufacturerAuto  | General Medical Device | Blood     | 1     |
+      | manufacturerAuto  | General Medical Device | 17500     | 1     |
+
+  @regression @1838 @sprint13
+  Scenario Outline: Users should be able to view all gmdn terms or definitions
+    Given I am logged into appian as "<user>" user
+    And I go to list of manufacturers page
+    And I click on a random manufacturer
+    When I click on view all gmdn term or definitions for device type "<deviceType>"
+    Then I should see all gmdn term and definition table
+    When I search for gmdn "<gmdn>"
+    Then I should see at least <count> devices matches
+    Examples:
+      | user              | deviceType             | gmdn      | count |
+      | authorisedRepAuto | General Medical Device | Air     | 1     |
+#      | authorisedRepAuto | General Medical Device | 17500     | 1     |
+#      | authorisedRepAuto | General Medical Device | HllNBlood | 0     |
+#      | authorisedRepAuto | General Medical Device | 175001    | 0     |
+#      | manufacturerAuto  | General Medical Device | Blood     | 1     |
+#      | manufacturerAuto  | General Medical Device | 17500     | 1     |

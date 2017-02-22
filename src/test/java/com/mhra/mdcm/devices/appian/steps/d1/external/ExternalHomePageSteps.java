@@ -21,6 +21,8 @@ import org.springframework.context.annotation.Scope;
 import java.util.List;
 import java.util.Map;
 
+import static org.hamcrest.Matchers.is;
+
 /**
  * Created by TPD_Auto
  */
@@ -493,6 +495,66 @@ public class ExternalHomePageSteps extends CommonSteps {
         List<String> listOfMatches = (List<String>) scenarioSession.getData(SessionKey.autoSuggestResults);
         boolean isResultMatchingExpectation = AssertUtils.areAllDataInAutosuggestCorrect(listOfMatches, commaDelimitedExpectedMatches);
         Assert.assertThat("Expected to see : " + commaDelimitedExpectedMatches + ", in auto suggested list : " + listOfMatches, isResultMatchingExpectation, Matchers.is(true));
+    }
+
+
+    @When("^I search for device type \"([^\"]*)\" with gmdn \"([^\"]*)\"$")
+    public void i_search_for_device_type_General_Medical_Device_with_gmdn_gmdnCode(String deviceType, String gmdnTermCodeOrDefinition) throws Throwable {
+        //If registered we need to click on a button, else devices page is displayed
+        String registeredStatus = (String) scenarioSession.getData(SessionKey.organisationRegistered);
+        try {
+            if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
+                addDevices = manufacturerDetails.clickAddDeviceBtn();
+        }catch (Exception e){
+            addDevices = new AddDevices(driver);
+        }
+
+        //Search for specific device of a specific type
+        DeviceData dd = TestHarnessUtils.updateDeviceData(null, scenarioSession);
+        addDevices = addDevices.searchForDevice(dd, deviceType, gmdnTermCodeOrDefinition);
+        scenarioSession.putData(SessionKey.searchTerm, gmdnTermCodeOrDefinition);
+    }
+
+    @When("^I search for gmdn \"([^\"]*)\"$")
+    public void i_search_for_gmdn_gmdnCode(String gmdnTermCodeOrDefinition) throws Throwable {
+        //Search for specific device of a specific type
+        DeviceData dd = TestHarnessUtils.updateDeviceData(null, scenarioSession);
+        addDevices = addDevices.searchForDevice(dd, null, gmdnTermCodeOrDefinition);
+        scenarioSession.putData(SessionKey.searchTerm, gmdnTermCodeOrDefinition);
+    }
+
+    @Then("^I should see at least (\\d+) devices matches$")
+    public void i_should_see_at_least_count_devices_matches(int expectedMinCount) throws Throwable {
+        String searchTerm = (String) scenarioSession.getData(SessionKey.searchTerm);
+        boolean atLeast1Match = addDevices.atLeast1MatchFound(searchTerm);
+        if (expectedMinCount == 0) {
+            Assert.assertThat("Expected to see no matches ", atLeast1Match, is(false));
+        } else {
+            Assert.assertThat("Expected to see atleast 1 matches", atLeast1Match, is(true));
+        }
+    }
+
+
+    @When("^I click on view all gmdn term or definitions for device type \"([^\"]*)\"$")
+    public void i_click_on_view_all_gmdn_term_or_definitions(String deviceType) throws Throwable {
+        //If registered we need to click on a button, else devices page is displayed
+        String registeredStatus = (String) scenarioSession.getData(SessionKey.organisationRegistered);
+        try {
+            if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
+                addDevices = manufacturerDetails.clickAddDeviceBtn();
+        }catch (Exception e){
+            addDevices = new AddDevices(driver);
+        }
+
+        //View all gmdn
+        DeviceData dd = TestHarnessUtils.updateDeviceData(null, scenarioSession);
+        addDevices = addDevices.viewAllGmdnTermDefinitions(dd, deviceType);
+    }
+
+    @Then("^I should see all gmdn term and definition table$")
+    public void i_should_see_all_gmdn_term_and_definition_table() throws Throwable {
+        boolean allGmdnTableVisible = addDevices.isAllGMDNTableDisplayed();
+        Assert.assertThat("Expected to see All GMDN Table", allGmdnTableVisible, is(true));
     }
 
 }

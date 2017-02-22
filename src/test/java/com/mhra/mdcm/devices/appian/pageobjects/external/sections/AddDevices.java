@@ -188,6 +188,14 @@ public class AddDevices extends _Page {
     @FindBy(xpath = ".//a[contains(text(),'GMDN code')]//following::a")
     List<WebElement> listOfGMDNLinksInSummary;
 
+    //All GMDN table
+    @FindBy(xpath = ".//*[.='Term definition']//following::tr/td[2]")
+    List<WebElement> listOfAllGmdnTermDefinitions;
+
+    //Links
+    @FindBy(partialLinkText = "View all GMDN terms")
+    WebElement viewAllGMDNTermDefinition;
+
 
     @Autowired
     public AddDevices(WebDriver driver) {
@@ -610,6 +618,16 @@ public class AddDevices extends _Page {
         }
     }
 
+    public void searchForGMDN(String searchTerm){
+        WaitUtils.waitForElementToBeClickable(driver, tbxGMDNDefinitionOrTerm, TIMEOUT_5_SECOND, false);
+        tbxGMDNDefinitionOrTerm.clear();
+        tbxGMDNDefinitionOrTerm.sendKeys(searchTerm);
+
+        //Wait for list of items to appear and add it only if its not a duplicate
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//*[.='Term']//following::td[contains(@class, 'GFWJSJ4DCEB')]"), TIMEOUT_DEFAULT, false);
+
+    }
+
     private void previousGMDNSelection(DeviceData dd) {
         //Default is search by gmdn term or definition
         WaitUtils.waitForElementToBeClickable(driver, radioGMDNDefinitionOrTerm, TIMEOUT_5_SECOND, false);
@@ -792,5 +810,39 @@ public class AddDevices extends _Page {
             }
         }
         return allDisplayed;
+    }
+
+    public AddDevices searchForDevice(DeviceData dd, String deviceType, String gmdnTermCodeOrDefinition) {
+
+        dd.gmdnTermOrDefinition = gmdnTermCodeOrDefinition;
+        if(deviceType != null){
+            dd.deviceType = deviceType;
+            selectDeviceType(dd);
+        }
+        searchForGMDN(dd.gmdnTermOrDefinition);
+        return new AddDevices(driver);
+    }
+
+    public boolean atLeast1MatchFound(String searchTerm) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        int noi = CommonUtils.getNumberOfItemsInList(driver, listOfTermsOrCodeMatches);
+        boolean atLeast1Match = noi >= 1 ? true : false;
+        return atLeast1Match;
+    }
+
+
+    public AddDevices viewAllGmdnTermDefinitions(DeviceData dd, String deviceType) {
+        if(deviceType!=null) {
+            dd.deviceType = deviceType;
+            selectDeviceType(dd);
+        }
+        WaitUtils.waitForElementToBeClickable(driver, viewAllGMDNTermDefinition, TIMEOUT_3_SECOND, false);
+        viewAllGMDNTermDefinition.click();
+        return new AddDevices(driver);
+    }
+
+    public boolean isAllGMDNTableDisplayed() {
+        boolean isDisplayed = listOfAllGmdnTermDefinitions.size() >= 1 ? true : false;
+        return isDisplayed;
     }
 }
