@@ -18,6 +18,8 @@ public class AccountRequest {
 
     public static final String MANUFACTURER_RT_TEST = "ManufacturerRT01Test";
     public static final String AUTHORISED_REP_RT_TEST = "AuthorisedRepRT01Test";
+    public static final String DISTRIBUTOR_RT_TEST = "DistributorRT01Test";
+    public static final String NOTIFIED_BODY_RT_TEST = "NotifiedBodyRT01Test";
     public String organisationName;
 
     //Organisation Details
@@ -48,6 +50,7 @@ public class AccountRequest {
     //public String autorisedRep;
     //public String manufacturer;
     public boolean isManufacturer;
+    public String organisationRole;
 
     //Services of interest
     public boolean deviceRegistration;
@@ -113,6 +116,7 @@ public class AccountRequest {
         //autorisedRep = "false";
         //manufacturer = "true";
         isManufacturer = true;
+        //organisationRole = "Manufacturer";
 
         //Services of interest
         deviceRegistration = true;
@@ -167,12 +171,22 @@ public class AccountRequest {
     }
 
     public void updateName(ScenarioSession scenarioSession) {
-        if(isManufacturer){
-            organisationName = organisationName.replace("OrganisationTest", MANUFACTURER_RT_TEST);
-            website = website.replace("organisationtest", MANUFACTURER_RT_TEST);
-        }else{
-            organisationName = organisationName.replace("OrganisationTest", AUTHORISED_REP_RT_TEST);
-            website = website.replace("organisationtest", AUTHORISED_REP_RT_TEST);
+        if(organisationRole!=null){
+            if(organisationRole.toLowerCase().equals("distributor")){
+                organisationName = organisationName.replace("OrganisationTest", DISTRIBUTOR_RT_TEST);
+                website = website.replace("organisationtest", DISTRIBUTOR_RT_TEST);
+            }else if(organisationRole.toLowerCase().equals("notifiedbody")){
+                organisationName = organisationName.replace("OrganisationTest", NOTIFIED_BODY_RT_TEST);
+                website = website.replace("organisationtest", NOTIFIED_BODY_RT_TEST);
+            }else{
+                if(isManufacturer){
+                    organisationName = organisationName.replace("OrganisationTest", MANUFACTURER_RT_TEST);
+                    website = website.replace("organisationtest", MANUFACTURER_RT_TEST);
+                }else{
+                    organisationName = organisationName.replace("OrganisationTest", AUTHORISED_REP_RT_TEST);
+                    website = website.replace("organisationtest", AUTHORISED_REP_RT_TEST);
+                }
+            }
         }
 
         if(scenarioSession!=null){
@@ -181,12 +195,22 @@ public class AccountRequest {
     }
 
     public void updateName(String searchTerm) {
-        if(searchTerm.contains("anufacturer")){
-            organisationName = organisationName.replace("OrganisationTest", searchTerm);
-            website = website.replace("organisationtest", searchTerm);
-        }else{
-            organisationName = organisationName.replace("OrganisationTest", searchTerm);
-            website = website.replace("organisationtest", searchTerm);
+        if(organisationRole!=null){
+            if(searchTerm.toLowerCase().equals("distributor")){
+                organisationName = organisationName.replace("OrganisationTest", DISTRIBUTOR_RT_TEST);
+                website = website.replace("organisationtest", DISTRIBUTOR_RT_TEST);
+            }else if(searchTerm.toLowerCase().equals("notifiedbody")){
+                organisationName = organisationName.replace("OrganisationTest", NOTIFIED_BODY_RT_TEST);
+                website = website.replace("organisationtest", NOTIFIED_BODY_RT_TEST);
+            }else{
+                if(searchTerm.contains("anufacturer")){
+                    organisationName = organisationName.replace("OrganisationTest", searchTerm);
+                    website = website.replace("organisationtest", searchTerm);
+                }else{
+                    organisationName = organisationName.replace("OrganisationTest", searchTerm);
+                    website = website.replace("organisationtest", searchTerm);
+                }
+            }
         }
     }
 
@@ -207,11 +231,22 @@ public class AccountRequest {
 
     private String generateLastName() {
         String business = "";
-        if(isManufacturer){
-            business = "Manufacturer";
-        }else{
-            business = "AuthorisedRep";
+
+        if(organisationRole!=null){
+            if(organisationRole.toLowerCase().equals("distributor")){
+                business = "Distributor";
+            }else if(organisationRole.toLowerCase().equals("notifiedbody")){
+                business = "NotifiedBody";
+            }else{
+                //It can only be a manufacturer or authorisedRep
+                if(isManufacturer){
+                    business = "Manufacturer";
+                }else{
+                    business = "AuthorisedRep";
+                }
+            }
         }
+
         return business;
     }
 

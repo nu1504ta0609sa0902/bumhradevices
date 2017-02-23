@@ -40,10 +40,19 @@ public class TestHarnessUtils {
             String countryName = dataSets.get("countryName");
 
             if(isNotEmptyOrNull(accountType)){
-                if(accountType.contains("manufacturer")){
-                    defaultAccount.isManufacturer = true;
+
+                //If others like distributor or notifiedBody
+                if(accountType.equals("distributor")){
+                    defaultAccount.organisationRole = "distributor";
+                }else if(accountType.equals("notifiedbody")){
+                    defaultAccount.organisationRole = "notifiedbody";
                 }else{
-                    defaultAccount.isManufacturer = false;
+                    //Than set manufacturer
+                    if(accountType.contains("manufacturer")){
+                        defaultAccount.isManufacturer = true;
+                    }else{
+                        defaultAccount.isManufacturer = false;
+                    }
                 }
                 defaultAccount.updateName(scenarioSession);
             }

@@ -79,6 +79,10 @@ public class CreateTestsData extends _Page {
     WebElement authorisedRep;
     @FindBy(xpath = ".//span[.='" + selectedRoles + "']//following::label[contains(text(),'Manufacturer')]")
     WebElement manufacturer;
+    @FindBy(xpath = ".//span[.='" + selectedRoles + "']//following::label[contains(text(),'Distributor')]")
+    WebElement distributor;
+    @FindBy(xpath = ".//span[.='" + selectedRoles + "']//following::label[contains(text(),'Notified Body')]")
+    WebElement notifiedBody;
 
     //Services of Interests
     final String selectedServices = "Selected services";
@@ -174,10 +178,17 @@ public class CreateTestsData extends _Page {
         emailAddress.sendKeys(ar.email);
 
         //Organisation Role
-        if(ar.isManufacturer){
-            PageUtils.doubleClick(driver, manufacturer);
+        if(ar.organisationRole.equals("distributor")){
+            PageUtils.doubleClick(driver, distributor);
+        }else if(ar.organisationRole.equals("notifiedbody")){
+            PageUtils.doubleClick(driver, notifiedBody);
         }else{
-            PageUtils.doubleClick(driver, authorisedRep);
+            //Is either a manufacturer or authorisedRep
+            if(ar.isManufacturer){
+                PageUtils.doubleClick(driver, manufacturer);
+            }else{
+                PageUtils.doubleClick(driver, authorisedRep);
+            }
         }
 
         //Services of Interests

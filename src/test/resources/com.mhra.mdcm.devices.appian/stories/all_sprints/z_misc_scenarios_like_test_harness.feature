@@ -39,7 +39,7 @@ Feature: Aa a user I would like to verify features which are not related to devi
       | authorisedRepAuto | randomEUCountry | No results found |
 
 
-  @regression @1838 @sprint13
+  @regression @1838 @sprint13 @wip
   Scenario Outline: Users should be able to search using  GMDN code or term
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -55,7 +55,7 @@ Feature: Aa a user I would like to verify features which are not related to devi
       | manufacturerAuto  | General Medical Device | Blood     | 1     |
       | manufacturerAuto  | General Medical Device | 17500     | 1     |
 
-  @regression @1838 @sprint13
+  @regression @1838 @4211 @sprint12 @sprint13 @wip
   Scenario Outline: Users should be able to view all gmdn terms or definitions
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -65,10 +65,12 @@ Feature: Aa a user I would like to verify features which are not related to devi
     When I search for gmdn "<gmdn>"
     Then I should see at least <count> devices matches
     Examples:
-      | user              | deviceType             | gmdn      | count |
-      | authorisedRepAuto | General Medical Device | Air     | 1     |
-#      | authorisedRepAuto | General Medical Device | 17500     | 1     |
-#      | authorisedRepAuto | General Medical Device | HllNBlood | 0     |
-#      | authorisedRepAuto | General Medical Device | 175001    | 0     |
-#      | manufacturerAuto  | General Medical Device | Blood     | 1     |
-#      | manufacturerAuto  | General Medical Device | 17500     | 1     |
+      | user              | deviceType                        | gmdn      | count |
+      | authorisedRepAuto | General Medical Device            | Air       | 1     |
+      | authorisedRepAuto | In Vitro Diagnostic Device        | Blood     | 1     |
+      | authorisedRepAuto | Active Implantable Medical Device | Blood     | 1     |
+      | authorisedRepAuto | System or Procedure Pack          | Blood     | 1     |
+      | manufacturerAuto  | General Medical Device            | Air       | 1     |
+      | manufacturerAuto  | In Vitro Diagnostic Device        | Blood     | 1     |
+      | manufacturerAuto  | Active Implantable Medical Device | Blood | 1     |
+      | manufacturerAuto  | System or Procedure Pack          | Blood    | 1     |

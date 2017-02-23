@@ -35,7 +35,7 @@ public class AddDevices extends _Page {
 
     @FindBy(css = ".GFWJSJ4DCW label")
     List<WebElement> listOfDeviceTypes;
-    @FindBy(xpath = ".//*[.='Term']//following::td[contains(@class, 'GFWJSJ4DCEB')]")
+    @FindBy(xpath = ".//*[.='Term']//following::td/div/a[string-length(text()) > 0]")
     List<WebElement> listOfTermsOrCodeMatches;
 
     //Product details verification
@@ -592,7 +592,8 @@ public class AddDevices extends _Page {
 
                 //Click gmdn from search results
                 WebElement element = listOfTermsOrCodeMatches.get(randomPosition);
-                element.findElement(By.tagName("a")).click();
+                element.click();
+                //element.findElement(By.tagName("a")).click();
                 //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
 
                 //If its a duplicate Try again
@@ -825,6 +826,7 @@ public class AddDevices extends _Page {
 
     public boolean atLeast1MatchFound(String searchTerm) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, listOfTermsOrCodeMatches.get(0), TIMEOUT_3_SECOND, false);
         int noi = CommonUtils.getNumberOfItemsInList(driver, listOfTermsOrCodeMatches);
         boolean atLeast1Match = noi >= 1 ? true : false;
         return atLeast1Match;
@@ -842,6 +844,7 @@ public class AddDevices extends _Page {
     }
 
     public boolean isAllGMDNTableDisplayed() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean isDisplayed = listOfAllGmdnTermDefinitions.size() >= 1 ? true : false;
         return isDisplayed;
     }
