@@ -269,7 +269,7 @@ public class TasksPageSteps extends CommonSteps {
         assertThat("WIP page not showing correct data for : " + orgName, isWIPDataCorrect, is(equalTo(true)));
     }
 
-    @Then("^Verify the WIP entry details for the \"([^\"]*)\" task is correct$")
+    @Then("^Check the WIP entry details for the \"([^\"]*)\" task is correct$")
     public void verify_the_WIP_entry_details_for_the_task_is_correct(String taskType) throws Throwable {
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
         AccountManufacturerRequest organisationData = null;
@@ -361,5 +361,18 @@ public class TasksPageSteps extends CommonSteps {
         List<String> listOfDetailsWhichAreIncorrect = taskSection.verifyDetailsAreCorrect(newAccount);
 
         assertThat("Following information was incorrect : " + listOfDetailsWhichAreIncorrect, listOfDetailsWhichAreIncorrect.size() == 0, is(equalTo(true)));
+    }
+
+    @When("^I filter WIP tasks by \"([^\"]*)\" stored organisation name$")
+    public void i_filter_WIP_tasks_by_stored_org_name(String filterBy) throws Throwable {
+        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
+        taskSection = taskSection.filterWIPTasksBy(filterBy, orgName, null);
+    }
+
+    @When("^I filter WIP tasks by \"([^\"]*)\"$")
+    public void i_filter_WIP_tasks_by(String filterBy) throws Throwable {
+        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
+        String taskType = (String) scenarioSession.getData(SessionKey.taskType);
+        taskSection = taskSection.filterWIPTasksBy(filterBy, orgName, taskType);
     }
 }

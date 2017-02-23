@@ -255,6 +255,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         manufacturerDetails = manufacturerList.viewAManufacturer(name);
         scenarioSession.putData(SessionKey.organisationName, name);
         scenarioSession.putData(SessionKey.organisationRegistered, registered);
+        scenarioSession.putData(SessionKey.taskType, "Update Manufacturer");
     }
 
     @When("^I click on stored manufacturer$")
@@ -319,7 +320,7 @@ public class ExternalHomePageSteps extends CommonSteps {
             }
         }
 
-        Assert.assertThat("Status of organisation should be : " + status , status.equals(registered), Matchers.is(true));
+        Assert.assertThat("Status of organisation should be : " + status , status.toLowerCase().equals(registered.toLowerCase()), Matchers.is(true));
 
         log.info("Manufacturer selected : " + name + ", is " + registered);
         manufacturerDetails = manufacturerList.viewAManufacturer(name);

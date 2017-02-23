@@ -26,7 +26,7 @@ public class ManufacturerList extends _Page {
     @FindBy(xpath = ".//button[.='Register My Organisation']")
     WebElement linkRegisterMyNewOrganisation;
 
-    @FindBy(css = "td>div>a")
+    @FindBy(xpath = ".//*[.='Organisation name']/following::tbody[1]/tr/td[1]")
     List<WebElement> listOfManufacturerNames;
     @FindBy(xpath = ".//*[contains(text(), 'registration status')]//following::tr[@__gwt_subrow='0']")
     List<WebElement> listOfTableRows;

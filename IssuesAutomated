@@ -202,8 +202,9 @@ Automated Issues:
     Spring 13: @sprint13
         - @1838 -   6/8     DONE ish
                 -   Create manufacturer and add devices by searching gmdn code
-        - @4090 -
-        - @2190 -
+        - @4090 -   3/7     DONE ish
+                -   Add more filtering by other attributes
+        - @2109 -
         - @4026 -
         - @4155 -   no tests for regression
         - @4604 -   no tests for regression

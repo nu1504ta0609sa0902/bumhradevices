@@ -105,6 +105,12 @@ public class TaskSection extends _Page {
     @FindBy(xpath = ".//button[.='Submit']")
     WebElement submitBtn;
 
+    //New filter section introduced in sprint 13
+    @FindBy(xpath = ".//*[.='Organisation']/following::input[1]")
+    WebElement orgName;
+    @FindBy(xpath = ".//*[.='Task type']//following::select[1]")
+    WebElement taskTypeDD;
+
 
     @Autowired
     public TaskSection(WebDriver driver) {
@@ -380,5 +386,18 @@ public class TaskSection extends _Page {
         }
 
         return isDataCorrect;
+    }
+
+    public TaskSection filterWIPTasksBy(String filterBy, String txtOrgName, String other) {
+        if(filterBy.contains("orgName")){
+            orgName.sendKeys(txtOrgName);
+        }else if(filterBy.contains("taskType")){
+            String value = "Update Manufacturer Registration Request";
+            if(value.contains("New Manufacturer")){
+                value = "New Manufacturer Registration Request";
+            }
+            PageUtils.selectByText(taskTypeDD, value);
+        }
+        return new TaskSection(driver);
     }
 }

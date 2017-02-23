@@ -122,7 +122,7 @@ Feature: As a business and account holder, I want to be able to update party det
     When I logout of the application
     And I am logged into appian as "<logBackInAs>" user
     And I go to WIP tasks page
-    Then Verify the WIP entry details for the "<taskType>" task is correct
+    Then Check the WIP entry details for the "<taskType>" task is correct
     When I view task for the new account in WIP page
     Then Task contains correct devices and products and other details
     And Task shows devices which are arranged by device types

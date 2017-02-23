@@ -189,6 +189,35 @@ Feature: As a business user, I want a task to be created each time a customer su
     When I search accounts for the stored organisation name
     Then I should see at least 0 account matches
     Examples:
-      | user             | logBackInAs  | accountType  | countryName | gmdn1                | gmdn2           | approveReject |
+      | user              | logBackInAs  | accountType   | countryName | gmdn1                | gmdn2           | approveReject |
       #| manufacturerAuto | businessAuto | manufacturer | Brazil      | Blood weighing scale | Autopsy measure | approve       |
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Blood weighing scale | Autopsy measure | approve       |
+
+
+  @regression @4090 @sprint13
+  Scenario Outline: Users should be able to search and filter tasks
+    Given I am logged into appian as "<user>" user
+    And I go to list of manufacturers page
+    And I click on a random manufacturer
+    When I add a device to SELECTED manufacturer with following data
+      | deviceType             | General Medical Device |
+      | gmdnDefinition         | <gmdn>                 |
+      | customMade             | true                   |
+      | relatedDeviceSterile   | true                   |
+      | relatedDeviceMeasuring | true                   |
+    And Proceed to payment and confirm submit device details
+#    Then I should see stored manufacturer appear in the manufacturers list
+    Then I should see the registered manufacturers list
+    When I logout of the application
+    And I am logged into appian as "<logBackInAs>" user
+    And I go to WIP tasks page
+    And I filter WIP tasks by "<filterBy>"
+    And I filter WIP tasks by "<taskType>"
+    Then Check the WIP entry details for the "<taskType>" task is correct
+    When I view task for the new account in WIP page
+    And I assign the task to me and "approve" the generated task
+    Then The completed task status should update to "Completed"
+    Examples:
+      | user              | logBackInAs  | gmdn                 | filterBy | taskType            |
+      #| manufacturerAuto | businessAuto | Blood weighing scale | orgName       | taskType |
+      | authorisedRepAuto | businessAuto | Blood weighing scale | orgName  | taskType |
