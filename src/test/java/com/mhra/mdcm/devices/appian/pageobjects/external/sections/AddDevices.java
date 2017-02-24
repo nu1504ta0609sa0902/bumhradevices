@@ -355,7 +355,30 @@ public class AddDevices extends _Page {
                     WaitUtils.nativeWaitInSeconds(1);
                 }
             }
+
+            //Product Details Table Heading Check
+            boolean headingCorrect = verifyProductDetailsHeading();
+            if(!headingCorrect){
+                throw new RuntimeException("Product details table not correct. Expected : Name Make Model Product code");
+            }
         }
+    }
+
+    private boolean verifyProductDetailsHeading() {
+        String expectedHeadings = "name,make,model,product code";
+        boolean allHeadingCorrect = true;
+        List<WebElement> listOfProductDetailsTable = driver.findElements(By.xpath(".//*[.='Product details']//following::th/a"));
+
+        for(WebElement el: listOfProductDetailsTable){
+            String text = el.getText().toLowerCase();
+            //System.out.println("Table headings : " + text);
+            if(!expectedHeadings.contains(text)){
+                allHeadingCorrect = false;
+                break;
+            }
+        }
+
+        return allHeadingCorrect;
     }
 
 

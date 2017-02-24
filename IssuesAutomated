@@ -177,10 +177,10 @@ Automated Issues:
 
     Spring 11: @sprint11
         - @4088 -   3/3     DONE
-                -   Questions related custom made
-        - @3755 -   IVD product summary
-        - @3875 -   Manufacturer first time login
-        - @4006 -   Organisation role
+        - @3755 -   1/2
+                -   @todo All organisation test still remaining
+        - @3875 -   @todo Manufacturer first time login
+        - @4006 -   1/1     DONE
         - @1839 -   no tests for regression
         - @3213 -   no tests for regression
         - @2832 -   no tests for regression

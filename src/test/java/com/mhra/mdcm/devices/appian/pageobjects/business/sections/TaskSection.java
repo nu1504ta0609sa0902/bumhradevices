@@ -95,7 +95,7 @@ public class TaskSection extends _Page {
 
     @FindBy(css = ".aui-TextAreaInput")
     WebElement commentArea;
-    @FindBy(xpath = ".//a[.='Risk classification']//following::td[2]")
+    @FindBy(xpath = ".//a[.='Risk classification']//following::td[3]")
     List<WebElement> listOfGMDNDefinitions;
     @FindBy(css = "div.aui-DataGrid-Table> table > tbody > tr")
     List<WebElement> listOfWIPTableRows;
@@ -399,5 +399,14 @@ public class TaskSection extends _Page {
             PageUtils.selectByText(taskTypeDD, value);
         }
         return new TaskSection(driver);
+    }
+
+    @FindBy(xpath = ".//table//th")
+    List<WebElement> listOfTableColumns;
+
+    public List<String> isTableColumnCorrect(String[] columns) {
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th") , TIMEOUT_DEFAULT, false);
+        List<String> columnsNotFound = PageUtils.areTheColumnsCorrect(columns, listOfTableColumns);
+        return columnsNotFound;
     }
 }

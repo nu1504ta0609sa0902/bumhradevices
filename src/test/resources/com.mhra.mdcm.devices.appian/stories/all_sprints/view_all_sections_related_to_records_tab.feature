@@ -15,6 +15,17 @@ Feature: As a business user, I want to access a list of organisations with an ac
       | businessAuto | All Organisations | All Organisations | Name,Role,Contact name,Address,Country,Status                                                                    |
       | businessAuto | Accounts          | Accounts          | Organisation name,Account number,Organisation role,Contact name,Organisation address,Organisation country,Status |
 
+  @regression @4006 @sprint11
+  Scenario Outline: Completed tasks page should show correct data
+    Given I am logged into appian as "<user>" user
+    When I go to completed task page
+    Then I should see the following columns for completed task page
+      | columns | <columns> |
+    Examples:
+      | user              | logBackInAs  | gmdn                 | filterBy | taskType | columns                                   |
+      #| businessAuto | businessAuto | Blood weighing scale | orgName       | taskType | Task,Name,Role,Submitted,Status,Documents|
+      | businessAuto | businessAuto | Blood weighing scale | orgName  | taskType | Task,Name,Role,Submitted,Status,Documents |
+
 
   @regression @mdcm-23 @mdcm-126 @readonly @sprint1 @sprint6
   Scenario Outline: As a business user I should be able to view all organisation page
@@ -26,7 +37,6 @@ Feature: As a business user, I want to access a list of organisations with an ac
     Examples:
       | user         | link              | pageHeading       | columns                                       |
       | businessAuto | All Organisations | All Organisations | Name,Role,Contact name,Address,Country,Status |
-
 
 
   @mdcm-126 @mdcm-23 @readonly @sprint1 @sprint6 @bug
@@ -101,15 +111,15 @@ Feature: As a business user, I want to access a list of organisations with an ac
     And I perform a search for "<searchTerm>" in "<page>" page
     Then I should see at least <count> matches in "<page>" page search results
     Examples:
-      | user         | page              | searchTerm      | count |
-      | businessAuto | All Devices       | AuthorisedRepRT | 1     |
-      | businessAuto | All Devices       | ManufacturerRT  | 1     |
-      | businessAuto | All Devices       | 13459  | 1     |
-      | businessAuto | All Devices       | Blood weighing scale  | 1     |
-      | businessAuto | All Products      | 56797           | 1     |
-      | businessAuto | All Products      | AuthorisedRepRT | 1     |
-      | businessAuto | All Products      | ManufacturerRT  | 1     |
-      | businessAuto | All Organisations | AuthorisedRepRT | 1     |
+      | user         | page              | searchTerm           | count |
+      | businessAuto | All Devices       | AuthorisedRepRT      | 1     |
+      | businessAuto | All Devices       | ManufacturerRT       | 1     |
+      | businessAuto | All Devices       | 13459                | 1     |
+      | businessAuto | All Devices       | Blood weighing scale | 1     |
+      | businessAuto | All Products      | 56797                | 1     |
+      | businessAuto | All Products      | AuthorisedRepRT      | 1     |
+      | businessAuto | All Products      | ManufacturerRT       | 1     |
+      | businessAuto | All Organisations | AuthorisedRepRT      | 1     |
 
 
   @2797 @readonly @sprint7
@@ -152,6 +162,6 @@ Feature: As a business user, I want to access a list of organisations with an ac
     And Each row of manufacturers should display "Organisation country"
     And Each row of manufacturers should display "Authorised Rep"
     Examples:
-      | user         | page              | searchTerm      | count |
-      | businessAuto | All Devices       | AuthorisedRepRT | 1     |
+      | user         | page        | searchTerm      | count |
+      | businessAuto | All Devices | AuthorisedRepRT | 1     |
 #      | businessAuto | All Devices       | ManufacturerRT  | 1     |

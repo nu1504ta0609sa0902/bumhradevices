@@ -11,9 +11,11 @@ import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.junit.Assert;
 import org.springframework.context.annotation.Scope;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -174,9 +176,6 @@ public class TasksPageSteps extends CommonSteps {
     @Then("^The task should be removed from tasks list$")
     public void theTaskShouldBeRemovedFromTaskList() {
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
-        //int position = (int) scenarioSession.getData(SessionKey.position);
-        //taskSection = tasksPage.clickOnTaskNumber(position, "New Service Request");
-        //boolean isHeadingMatched = taskSection.isCorrectTask(orgName);
         boolean linkVisible = tasksPage.isLinkVisible(orgName, 5);
         assertThat("Task should be removed for organisation : " + orgName, linkVisible, is(equalTo(false)));
     }
@@ -302,6 +301,17 @@ public class TasksPageSteps extends CommonSteps {
         //assertThat("Task not found in completed list : " + orgName, isCorrectTask, is(equalTo(true)));
     }
 
+    @When("^I go to completed task page$")
+    public void i_go_to_completed_task_page() throws Throwable {
+
+        boolean tasks = mainNavigationBar.isCorrectPage("Tasks");
+        if(!tasks) {
+            mainNavigationBar = new MainNavigationBar(driver);
+            tasksPage = mainNavigationBar.clickTasks();
+        }
+
+        taskSection = tasksPage.gotoCompletedTasksPage();
+    }
 
 
     @And("^The completed task status of new account should update to \"([^\"]*)\"$")
@@ -374,5 +384,16 @@ public class TasksPageSteps extends CommonSteps {
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
         String taskType = (String) scenarioSession.getData(SessionKey.taskType);
         taskSection = taskSection.filterWIPTasksBy(filterBy, orgName, taskType);
+    }
+
+
+    @Then("^I should see the following columns for completed task page$")
+    public void i_should_see_the_following_columns_for_completed_task_page(Map<String, String> dataValues) throws Throwable {
+        String columnsDelimitedTxt = dataValues.get("columns");
+        String[] columns = columnsDelimitedTxt.split(",");
+        log.info("Expected columns : " + columnsDelimitedTxt);
+
+        List<String> tableColumnsNotFound = taskSection.isTableColumnCorrect(columns);
+        Assert.assertThat("Following columns not found : " + tableColumnsNotFound, tableColumnsNotFound.size() == 0, is(true));
     }
 }
