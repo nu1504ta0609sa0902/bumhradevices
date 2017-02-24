@@ -176,7 +176,8 @@ Automated Issues:
                 Total
 
     Spring 11: @sprint11
-        - @4088 -   Questions related custom made
+        - @4088 -   3/3     DONE
+                -   Questions related custom made
         - @3755 -   IVD product summary
         - @3875 -   Manufacturer first time login
         - @4006 -   Organisation role
@@ -204,8 +205,10 @@ Automated Issues:
                 -   Create manufacturer and add devices by searching gmdn code
         - @4090 -   3/7     DONE ish
                 -   Add more filtering by other attributes
-        - @2109 -
-        - @4026 -
+        - @2109 -   DONE ish
+                -   HASAN said to ignore until we get confirmation on how to link Distributors to manufacturers
+        - @4026 -   @todo Multiple attempts at login is allowed
+                -   @todo Reject, try again, reject try again
         - @4155 -   no tests for regression
         - @4604 -   no tests for regression
         - @4613 -   no tests for regression

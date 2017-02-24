@@ -84,14 +84,10 @@ Feature: As a customer I want to register new manufacturers with devices
       | deviceType             | <deviceType> |
       | gmdnDefinition         | <gmdn1>      |
       | customMade             | true         |
-      | relatedDeviceSterile   | true         |
-      | relatedDeviceMeasuring | true         |
     And I add another device to SELECTED manufacturer with following data
       | deviceType             | <deviceType> |
       | gmdnDefinition         | <gmdn2>      |
       | customMade             | true         |
-      | relatedDeviceSterile   | true         |
-      | relatedDeviceMeasuring | true         |
     Then I should see option to add another device
 #    When I remove ALL the stored device with gmdn code or definition
     When I remove the stored device with gmdn code or definition

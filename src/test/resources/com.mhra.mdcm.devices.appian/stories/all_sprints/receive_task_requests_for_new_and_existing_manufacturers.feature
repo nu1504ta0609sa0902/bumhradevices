@@ -207,8 +207,6 @@ Feature: As a business user, I want a task to be created each time a customer su
       | deviceType             | General Medical Device |
       | gmdnDefinition         | <gmdn>                 |
       | customMade             | true                   |
-#      | relatedDeviceSterile   | true                   |
-#      | relatedDeviceMeasuring | true                   |
     And Proceed to payment and confirm submit device details
 #    Then I should see stored manufacturer appear in the manufacturers list
     Then I should see the registered manufacturers list

@@ -65,8 +65,6 @@ Feature: As an account holder with access to the Device Registration Service
       | deviceType             | <deviceType> |
       | gmdnDefinition         | Blood        |
       | customMade             | true         |
-      | relatedDeviceSterile   | true         |
-      | relatedDeviceMeasuring | true         |
     Then I should see option to add another device
     And The gmdn code or term is "displayed" in summary section
     Examples:
@@ -84,14 +82,12 @@ Feature: As an account holder with access to the Device Registration Service
       | deviceType             | <deviceType> |
       | gmdnDefinition         | <gmdn1>      |
       | customMade             | true         |
-      | relatedDeviceSterile   | true         |
-      | relatedDeviceMeasuring | true         |
+#      | relatedDeviceSterile   | true         |
+#      | relatedDeviceMeasuring | true         |
     And I add another device to SELECTED manufacturer with following data
       | deviceType             | <deviceType> |
       | gmdnDefinition         | <gmdn2>      |
       | customMade             | true         |
-      | relatedDeviceSterile   | true         |
-      | relatedDeviceMeasuring | true         |
     Then I should see option to add another device
     When I remove ALL the stored device with gmdn code or definition
     Then I should not see option to add another device
@@ -137,15 +133,11 @@ Feature: As an account holder with access to the Device Registration Service
       | gmdnDefinition         | <gmdnDefinitionD1> |
       | gmdnCode               | <gmdnCodeD1>       |
       | customMade             | true               |
-      | relatedDeviceSterile   | true               |
-      | relatedDeviceMeasuring | true               |
     And I add another device to SELECTED manufacturer with following data
       | deviceType             | <deviceType>       |
       | gmdnDefinition         | <gmdnDefinitionD2> |
       | gmdnCode               | <gmdnCodeD2>       |
       | customMade             | true               |
-      | relatedDeviceSterile   | true               |
-      | relatedDeviceMeasuring | true               |
     Then I should see option to add another device
     And The gmdn code or term is "displayed" in summary section
     When I remove the stored device with gmdn code or definition

@@ -11,8 +11,6 @@ Feature: As an account holder with access to the device registration service
       | deviceType             | General Medical Device |
       | gmdnDefinition         | <device1>              |
       | customMade             | true                   |
-      | relatedDeviceSterile   | true                   |
-      | relatedDeviceMeasuring | true                   |
     When I add another device to SELECTED manufacturer with following data
       | deviceType             | System or Procedure Pack |
       | gmdnDefinition         | <device2>                |

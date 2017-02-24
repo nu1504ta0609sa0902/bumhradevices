@@ -27,8 +27,6 @@ Feature: As a business user I want to view all the organisations associated with
       | deviceType             | General Medical Device |
       | gmdnDefinition         | Blood weighing scale    |
       | customMade             | true                   |
-      | relatedDeviceSterile   | true                   |
-      | relatedDeviceMeasuring | true                   |
     And Proceed to payment and confirm submit device details
     Then I should see the registered manufacturers list
     When I logout of the application

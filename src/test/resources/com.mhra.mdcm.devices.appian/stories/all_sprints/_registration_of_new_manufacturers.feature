@@ -14,8 +14,6 @@ Feature: As a customer I want to register new manufacturers
       | deviceType             | General Medical Device |
       | gmdnDefinition         | Blood weighing scale    |
       | customMade             | true                   |
-      | relatedDeviceSterile   | true                   |
-      | relatedDeviceMeasuring | true                   |
     And Proceed to payment and confirm submit device details
     #Then I should see stored manufacturer appear in the manufacturers list
     When I logout of the application
@@ -45,8 +43,6 @@ Feature: As a customer I want to register new manufacturers
       | deviceType             | General Medical Device |
       | gmdnDefinition         | Blood weighing scale    |
       | customMade             | true                   |
-      | relatedDeviceSterile   | true                   |
-      | relatedDeviceMeasuring | true                   |
     And Proceed to payment and confirm submit device details
     Then I should see the registered manufacturers list
     When I logout of the application
