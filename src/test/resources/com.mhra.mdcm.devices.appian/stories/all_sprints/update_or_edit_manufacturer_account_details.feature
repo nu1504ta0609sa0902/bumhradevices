@@ -97,14 +97,14 @@ Feature: As a business and account holder, I want to be able to update party det
     Then Verify the WIP entry details for the "New Manufacturer Registration Request" task is correct
     And Verify task information matches users changes
     Examples:
-      | user             | logBackInAs  | keyValuePairs                                                             | status     |
+      | user              | logBackInAs  | keyValuePairs                                                                                      | status     |
 #      | manufacturerAuto | businessAuto | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website | Registered |
 #      | manufacturerAuto | businessAuto |contact.title,contact.firstname,contact.lastname,contact.job.title,contact.email,contact.telephone | Registered |
-      | authorisedRepAuto | businessAuto |org.address1,org.address2,org.city,org.postcode,org.telephone,org.website | Registered |
-      | authorisedRepAuto | businessAuto |contact.title,contact.firstname,contact.lastname,contact.job.title,contact.email,contact.telephone          | Registered |
+      | authorisedRepAuto | businessAuto | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website                          | Registered |
+      | authorisedRepAuto | businessAuto | contact.title,contact.firstname,contact.lastname,contact.job.title,contact.email,contact.telephone | Registered |
 
 
-  @regression @mdcm-263 @sprint6 @mdcm-275 @sprint7 @wip
+  @regression @mdcm-263 @sprint6 @mdcm-275 @sprint7 @4088 @sprint11 @wip
   Scenario Outline: Verify only 1 task is created when update EXISTING manufacturer with multiple devices
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -114,11 +114,16 @@ Feature: As a business and account holder, I want to be able to update party det
       | gmdnDefinition | <gmdn1>                |
       | customMade     | true                   |
     And I add another device to SELECTED manufacturer with following data
-      | deviceType     | General Medical Device |
-      | gmdnDefinition | <gmdn2>                |
-      | customMade     | true                   |
+      | deviceType             | General Medical Device |
+      | gmdnDefinition         | <gmdn2>                |
+      | customMade             | false                  |
+      | relatedDeviceSterile   | true                   |
+      | relatedDeviceMeasuring | true                   |
+      | riskClassification     | class1                 |
+      | notifiedBody           | NB 0086 BSI            |
     And Proceed to payment and confirm submit device details
-    Then I should see stored manufacturer appear in the manufacturers list
+#    Then I should see stored manufacturer appear in the manufacturers list
+    Then I should see the registered manufacturers list
     When I logout of the application
     And I am logged into appian as "<logBackInAs>" user
     And I go to WIP tasks page
@@ -132,9 +137,9 @@ Feature: As a business and account holder, I want to be able to update party det
     When I search accounts for the stored organisation name
     Then I should see at least 0 account matches
     Examples:
-      | user             | logBackInAs  | status         | gmdn1                | gmdn2           | approveReject | taskType                                 |
-      | authorisedRepAuto | businessAuto | Registered     | Blood weighing scale | Autopsy measure | approve       | Update Manufacturer Registration Request    |
-      | authorisedRepAuto | businessAuto | Not Registered | Blood weighing scale | Autopsy measure | reject       | Update Manufacturer Registration Request |
+      | user              | logBackInAs  | status         | gmdn1                | gmdn2           | approveReject | taskType                                 |
+      | authorisedRepAuto | businessAuto | Registered     | Blood weighing scale | Autopsy measure | approve       | Update Manufacturer Registration Request |
+      | authorisedRepAuto | businessAuto | Not Registered | Blood weighing scale | Autopsy measure | reject        | Update Manufacturer Registration Request |
 #      | manufacturerAuto | businessAuto | Registered     | Blood weighing scale | Autopsy measure | approve       | Update Manufacturer Registration Request    |
 #      | manufacturerAuto | businessAuto | Not Registered | Blood weighing scale | Autopsy measure | reject       | Update Manufacturer Registration Request |
 

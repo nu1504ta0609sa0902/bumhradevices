@@ -158,7 +158,7 @@ Feature: As a business user, I want a task to be created each time a customer su
       | businessNoor | authorisedRep | 0     | Estonia     | No authorisation evidence provided | New Account Request |
 
 
-  @regression @mdcm-263 @sprint6 @wip
+  @regression @mdcm-263 @sprint6  @4088 @sprint11 @wip
   Scenario Outline: Verify only 1 task is created when we create NEW manufacturer with multiple devices
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -170,9 +170,13 @@ Feature: As a business user, I want a task to be created each time a customer su
       | gmdnDefinition | <gmdn1>                |
       | customMade     | true                   |
     And I add another device to SELECTED manufacturer with following data
-      | deviceType     | General Medical Device |
-      | gmdnDefinition | <gmdn2>                |
-      | customMade     | true                   |
+      | deviceType             | General Medical Device |
+      | gmdnDefinition         | <gmdn2>                |
+      | customMade             | false                  |
+      | relatedDeviceSterile   | true                   |
+      | relatedDeviceMeasuring | true                   |
+      | riskClassification     | class1                 |
+      | notifiedBody           | NB 0086 BSI            |
     And Proceed to payment and confirm submit device details
     #Then I should see stored manufacturer appear in the manufacturers list
     Then I should see the registered manufacturers list
@@ -203,8 +207,8 @@ Feature: As a business user, I want a task to be created each time a customer su
       | deviceType             | General Medical Device |
       | gmdnDefinition         | <gmdn>                 |
       | customMade             | true                   |
-      | relatedDeviceSterile   | true                   |
-      | relatedDeviceMeasuring | true                   |
+#      | relatedDeviceSterile   | true                   |
+#      | relatedDeviceMeasuring | true                   |
     And Proceed to payment and confirm submit device details
 #    Then I should see stored manufacturer appear in the manufacturers list
     Then I should see the registered manufacturers list
@@ -218,6 +222,6 @@ Feature: As a business user, I want a task to be created each time a customer su
     And I assign the task to me and "approve" the generated task
     Then The completed task status should update to "Completed"
     Examples:
-      | user              | logBackInAs  | gmdn                 | filterBy | taskType            |
+      | user              | logBackInAs  | gmdn                 | filterBy | taskType |
       #| manufacturerAuto | businessAuto | Blood weighing scale | orgName       | taskType |
       | authorisedRepAuto | businessAuto | Blood weighing scale | orgName  | taskType |
