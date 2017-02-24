@@ -158,17 +158,17 @@ Automated Issues:
 
 
     Spring 10: @sprint10
-        - @2191 -
-        - @1937 -
-        - @3559 -
-        - @3560 -
-        - @2143 -
-        - @2190 -
-        - @3837 -
-        - @2192 -
-        - @3894 -
-        - @3895 -
-        - @2193 -
+        - @2191 -   Email related
+        - @1937 -   Search for accounts in All Accounts
+        - @3559 -   Error message
+        - @3560 -   Custom made no for AIMD
+        - @2143 -   Custome made no for SSP
+        - @2190 -   Email and notifications
+        - @3837 -   Filtering all organisation
+        - @2192 -   Email
+        - @3894 -   Filtering all devices
+        - @3895 -   Filtering all products
+        - @2193 -   Email
         - @3296 -   no tests for regression
         - @3972 -   no tests for regression
         - @3294 -   no tests for regression
@@ -176,10 +176,10 @@ Automated Issues:
                 Total
 
     Spring 11: @sprint11
-        - @4088 -
-        - @3755 -
-        - @3875 -
-        - @4006 -
+        - @4088 -   Questions related custom made
+        - @3755 -   IVD product summary
+        - @3875 -   Manufacturer first time login
+        - @4006 -   Organisation role
         - @1839 -   no tests for regression
         - @3213 -   no tests for regression
         - @2832 -   no tests for regression
@@ -191,7 +191,7 @@ Automated Issues:
         - @2577 -   no tests for regression
 
     Spring 12: @sprint12
-        - @4211 -
+        - @4211 -   DONE
         - @4214 -   no tests for regression
         - @4215 -   no tests for regression
         - @4216 -   no tests for regression

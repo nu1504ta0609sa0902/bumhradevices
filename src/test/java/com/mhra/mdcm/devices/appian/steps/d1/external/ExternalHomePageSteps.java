@@ -558,4 +558,22 @@ public class ExternalHomePageSteps extends CommonSteps {
         Assert.assertThat("Expected to see All GMDN Table", allGmdnTableVisible, is(true));
     }
 
+
+    @Then("^I should see error message \"([^\"]*)\" in instead of list of manufacturers$")
+    public void i_should_see_error_message_in_instead_of_list_of_manufacturers(String message) throws Throwable {
+        boolean isDisplayed = externalHomePage.isErrorMessageDsiplayed(message);
+        Assert.assertThat("Expected to see error message with : " + message, isDisplayed, is(true));
+    }
+
+    @When("^I click the back button$")
+    public void i_click_the_back_button() throws Throwable {
+        externalHomePage = externalHomePage.clickBackButton();
+    }
+
+    @Then("^I should be in the portal home page$")
+    public void i_should_be_in_the_portal_home_page() throws Throwable {
+        boolean correctPage = externalHomePage.isInExternalHomePage();
+        Assert.assertThat("Expected to be in portal home page", correctPage, is(true));
+    }
+
 }

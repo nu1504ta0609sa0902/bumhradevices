@@ -31,6 +31,8 @@ public class ExternalHomePage extends _Page {
     WebElement linkManufacturerRegistration;
     @FindBy(css = ".GFWJSJ4DCF")
     WebElement linkRegisterAnotherManufacturer;
+    @FindBy(css = ".GFWJSJ4DFE.GFWJSJ4DNE.GFWJSJ4DPE")
+    WebElement btnBackButton;
 
     @FindBy(css = ".gwt-ListBox.GFWJSJ4DC0")
     WebElement manufacturerDropDown;
@@ -39,10 +41,12 @@ public class ExternalHomePage extends _Page {
 
     @FindBy(xpath = ".//*[contains(text(),'ype of device')]//following::input[1]")
     WebElement generalMedicalDevice;
-
     @FindBy(xpath = ".//h4[contains(text(),'Healthcare Products')]")
     WebElement pageHeading;
 
+    //Error messages
+    @FindBy(xpath = ".//*[.='Device Rejected']//following::strong[1]")
+    WebElement errorMessage;
 
     @Autowired
     public ExternalHomePage(WebDriver driver) {
@@ -176,8 +180,30 @@ public class ExternalHomePage extends _Page {
         return titleCorrect;
     }
 
+    public boolean isInExternalHomePage() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        boolean correctPage = true;
+        try{
+            WaitUtils.waitForElementToBeClickable(driver, linkManufacturerRegistration, TIMEOUT_3_SECOND, false);
+        }catch (Exception e){
+            correctPage = false;
+        }
+        return correctPage;
+    }
+
     public boolean isCorrectUsernameDisplayed(String loggedInUser) {
         String humanReadableUsername = CommonUtils.getHumanReadableUsername(loggedInUser);
         return driver.getPageSource().contains(humanReadableUsername);
+    }
+
+    public boolean isErrorMessageDsiplayed(String message) {
+        boolean contains = errorMessage.getText().contains(message);
+        return contains;
+    }
+
+    public ExternalHomePage clickBackButton() {
+        WaitUtils.waitForElementToBeClickable(driver, btnBackButton, TIMEOUT_3_SECOND, false);
+        btnBackButton.click();
+        return new ExternalHomePage(driver);
     }
 }

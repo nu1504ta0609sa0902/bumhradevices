@@ -216,7 +216,7 @@ public class AccountRequest {
 
     public void setUserDetails(String loggedInAs) {
         String[] data = loggedInAs.split("\\.");
-        System.out.println(data);
+        //System.out.println(data);
         firstName = data[0];
 
         //Because we have Auto.Business and Noor.Uddin.Business
@@ -234,7 +234,7 @@ public class AccountRequest {
 
         if(organisationRole!=null){
             if(organisationRole.toLowerCase().equals("distributor")){
-                business = "Distributor";
+                business = "Manufacturer";
             }else if(organisationRole.toLowerCase().equals("notifiedbody")){
                 business = "NotifiedBody";
             }else{
