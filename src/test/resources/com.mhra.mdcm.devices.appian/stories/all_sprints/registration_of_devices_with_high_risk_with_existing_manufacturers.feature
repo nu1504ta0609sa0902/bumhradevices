@@ -19,7 +19,7 @@ Feature: As an account holder with access to the Device Registration Service I w
       | conformsToCTS      | <conformsToCTS>      |
     Then I should see option to add another device
     Examples:
-      | user             | deviceType                 | gmdnDefinition        | riskClassification | productName | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
+      | user              | deviceType                 | gmdnDefinition        | riskClassification | productName | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
       | authorisedRepAuto | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
       | authorisedRepAuto | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | false         |
       #| manufacturerAuto | In Vitro Diagnostic Device | Androgen receptor IVD | list b             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
@@ -38,10 +38,27 @@ Feature: As an account holder with access to the Device Registration Service I w
       | productName    | <productName>    |
     Then I should see option to add another device
     Examples:
-      | user             | deviceType                         | gmdnDefinition      | customMade | productName |
+      | user              | deviceType                         | gmdnDefinition      | customMade | productName |
       | authorisedRepAuto | Active Implantable Medical Devices | Desiccating chamber | true       | ford focus  |
       #| manufacturerAuto | Active Implantable Medical Devices | Desiccating chamber | true       | ford focus  |
 #      | manufacturerAuto | Active Implantable Medical Devices | Blood          | false      | ford focus  | can't register if custom made is false
+
+
+  @regression @3560 @sprint10
+  Scenario Outline: Error message is displayed for high risk devices with certain risk classification
+    Given I am logged into appian as "<user>" user
+    And I go to list of manufacturers page
+    And I click on a random manufacturer
+    When I try to add an incomplete device to SELECTED manufacturer with following data
+      | deviceType     | <deviceType>     |
+      | gmdnDefinition | <gmdnDefinition> |
+      | customMade     | <customMade>     |
+    Then I should see validation error message in devices page with text "<errorMsg>"
+    And I should be prevented from adding the high risk devices
+    Examples:
+      | user              | deviceType                         | gmdnDefinition      | customMade | notifiedBody | errorMsg                                                                             |
+      | authorisedRepAuto | Active Implantable Medical Devices | Desiccating chamber | false      | NB 0086 BSI  | You cannot register non custom made active implantable medical devices with the MHRA |
+      | manufacturerAuto  | Active Implantable Medical Devices | Desiccating chamber | false      | NB 0086 BSI  | You cannot register non custom made active implantable medical devices with the MHRA |
 
 
   @regression @mdcm-183 @sprint3 @mdcm-148 @sprint7
@@ -73,7 +90,7 @@ Feature: As an account holder with access to the Device Registration Service I w
       | listOfProductNames | <listOfProductNames> |
     Then I should see option to add another device
     Examples:
-      | user             | deviceType                 | gmdnDefinition        | gmdnDefinition2 | riskClassification | listOfProductNames | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
+      | user              | deviceType                 | gmdnDefinition        | gmdnDefinition2 | riskClassification | listOfProductNames | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
       | authorisedRepAuto | In Vitro Diagnostic Device | Androgen receptor IVD | Cat             | list a             | ford,hyundai       | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
       | authorisedRepAuto | In Vitro Diagnostic Device | Androgen receptor IVD | Cat             | list a             | ford,honda         | ford        | focus        | NB 0086 BSI  | true              | true       | false         |
       #| manufacturerAuto | In Vitro Diagnostic Device | Androgen receptor IVD | Cat             | list b             | honda,ferrari      | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
@@ -103,7 +120,7 @@ Feature: As an account holder with access to the Device Registration Service I w
     And I assign the task to me and "approve" the generated task
     Then The task with link "<link>" should be removed from tasks list
     Examples:
-      | user             | logBackInAas | deviceType                         | gmdnDefinition      | gmdnDefinition2 | customMade | listOfProductNames | link                                     |
+      | user              | logBackInAas | deviceType                         | gmdnDefinition      | gmdnDefinition2 | customMade | listOfProductNames | link                                     |
       | authorisedRepAuto | businessAuto | Active Implantable Medical Devices | Desiccating chamber | suction         | true       | ford,hyundai       | Update Manufacturer Registration Request |
       #| manufacturerAuto | businessAuto | Active Implantable Medical Devices | Desiccating chamber | suction         | true       | ford,hyundai       | Update Manufacturer Registration Request |
 #      | manufacturerAuto | businessAuto | Active Implantable Medical Devices | Blood          | false      | vauxhall,honda     | Update Manufacturer Registration Request |

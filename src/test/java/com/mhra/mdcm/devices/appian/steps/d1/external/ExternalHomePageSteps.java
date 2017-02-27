@@ -191,6 +191,41 @@ public class ExternalHomePageSteps extends CommonSteps {
         StepsUtils.addToDeviceDataList(scenarioSession, dd);
     }
 
+
+    @When("^I try to add an incomplete device to SELECTED manufacturer with following data$")
+    public void i_try_to_add_an_incomplete_device_to_selected_manufactuerer_of_type_with_following_data(Map<String, String> dataSets) throws Throwable {
+
+        //If registered we need to click on a button, else devices page is displayed
+        String registeredStatus = (String) scenarioSession.getData(SessionKey.organisationRegistered);
+        try {
+            if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
+                addDevices = manufacturerDetails.clickAddDeviceBtn();
+        }catch (Exception e){
+            addDevices = new AddDevices(driver);
+        }
+
+        //Assumes we are in add device page
+        DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
+        addDevices = addDevices.addInvalidFollowingDevice(dd);
+
+        StepsUtils.addToListOfStrings(scenarioSession, SessionKey.listOfGmndsAdded, AddDevices.gmdnSelected);
+        scenarioSession.putData(SessionKey.deviceData, dd);
+        StepsUtils.addToDeviceDataList(scenarioSession, dd);
+    }
+
+    @Then("^I should be prevented from adding the devices$")
+    public void i_should_be_prevented_from_adding_the_devices() throws Throwable {
+        addDevices = addDevices.addAnotherDevice();
+        boolean isErrorMessageDisplayed = addDevices.isValidationErrorMessageVisible();
+        Assert.assertThat("Error message should still be displayed and user should be prevented going forward" , isErrorMessageDisplayed, Matchers.is(true));
+    }
+
+    @Then("^I should be prevented from adding the high risk devices$")
+    public void i_should_be_prevented_from_adding_the_aimd_devices() throws Throwable {
+        boolean isAbleToSubmitForReview = addDevices.isAbleToSubmitForReview();
+        Assert.assertThat("User should be prevented from proceeding to the next step" , isAbleToSubmitForReview, Matchers.is(false));
+    }
+
     @When("^I add multiple devices to SELECTED manufacturer with following data$")
     public void i_add_multiple_devices_to_selected_manufactuerer_of_type_with_following_data(Map<String, String> dataSets) throws Throwable {
         //If registered we need to click on a button, else devices page is displayed
@@ -222,11 +257,14 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     @Then("^I should see error message in devices page with text \"([^\"]*)\"$")
     public void i_should_see_error_message_in_devices_page_with_text(String message) throws Throwable {
-        boolean errorMessageDisplayed = addDevices.isErrorMessageDisplayed("Duplicate");
-        if(errorMessageDisplayed){
-            errorMessageDisplayed = addDevices.isErrorMessageCorrect(message);
-        }
+        boolean errorMessageDisplayed = addDevices.isErrorMessageCorrect(message);
         Assert.assertThat("Expected error message to contain : " + message , errorMessageDisplayed, Matchers.is(true));
+    }
+
+    @Then("^I should see validation error message in devices page with text \"([^\"]*)\"$")
+    public void i_should_see_validation_error_message_in_devices_page_with_text(String message) throws Throwable {
+        boolean errorMessageDisplayed = addDevices.isValidationErrorMessageCorrect(message);
+        Assert.assertThat("Expected to see validation error message to contain : " + message , errorMessageDisplayed, Matchers.is(true));
     }
 
     @Then("^I should see correct device types$")

@@ -78,17 +78,19 @@ Feature: As an account holder with access to the Device Registration Service
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
     And I click on a random manufacturer
-    When I add a device to SELECTED manufacturer with following data
+    When I try to add an incomplete device to SELECTED manufacturer with following data
       | deviceType         | <deviceType>         |
       | gmdnDefinition     | Blood                |
       | customMade         | false                |
       | riskClassification | <riskClassification> |
+      | notifiedBody       | <notifiedBody>       |
     Then I should see validation error message in devices page with text "<errorMsg>"
+    And I should be prevented from adding the devices
     Examples:
-      | user              | deviceType             | riskClassification | errorMsg                                            |
-      | authorisedRepAuto | General Medical Device | class2a            | You cannot register class IIa devices with the MHRA |
-      | manufacturerAuto  | General Medical Device | class2b            | You cannot register class IIb devices with the MHRA |
-      | manufacturerAuto  | General Medical Device | class3             | You cannot register class III devices with the MHRA |
+      | user              | deviceType             | riskClassification | errorMsg                                            | notifiedBody |
+      | authorisedRepAuto | General Medical Device | class2a            | You cannot register class IIa devices with the MHRA | NB 0086 BSI  |
+      | manufacturerAuto  | General Medical Device | class2b            | You cannot register class IIb devices with the MHRA | NB 0086 BSI  |
+      | manufacturerAuto  | General Medical Device | class3             | You cannot register class III devices with the MHRA | NB 0086 BSI  |
 
   @regression @mdcm-134 @sprint6 @bug
   Scenario Outline: Users should be able to remove devices from manufacturers

@@ -183,6 +183,8 @@ public class AddDevices extends _Page {
     //Error message
     @FindBy(css = ".component_error")
     WebElement errMessage;
+    @FindBy(css = ".validationMessage")
+    WebElement validationErrMessage;
 
     //Device Summary
     @FindBy(xpath = ".//a[contains(text(),'GMDN code')]//following::a")
@@ -277,6 +279,30 @@ public class AddDevices extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnReviewYourOrder, TIMEOUT_10_SECOND, false);
         PageUtils.doubleClick(driver, btnReviewYourOrder);
+
+        return new AddDevices(driver);
+    }
+
+
+
+    public AddDevices addInvalidFollowingDevice(DeviceData dd) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, systemOrProcedurePack, TIMEOUT_3_SECOND, false);
+        //Select device type
+        selectDeviceType(dd);
+
+        if (dd.deviceType.toLowerCase().contains("general medical device")) {
+            addGeneralMedicalDevice(dd);
+        } else if (dd.deviceType.toLowerCase().contains("vitro diagnostic")) {
+            addVitroDiagnosticDevice(dd);
+        } else if (dd.deviceType.toLowerCase().contains("active implantable")) {
+            addActiveImplantableDevice(dd);
+        } else if (dd.deviceType.toLowerCase().contains("procedure pack")) {
+            addProcedurePackDevice(dd);
+        } else {
+            //Verify all error messages if possible
+        }
 
         return new AddDevices(driver);
     }
@@ -870,5 +896,31 @@ public class AddDevices extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean isDisplayed = listOfAllGmdnTermDefinitions.size() >= 1 ? true : false;
         return isDisplayed;
+    }
+
+    public boolean isValidationErrorMessageCorrect(String expectedErrorMsg) {
+        WaitUtils.waitForElementToBeVisible(driver, validationErrMessage, 10, false);
+        boolean contains = validationErrMessage.getText().contains(expectedErrorMsg);
+        return contains;
+    }
+
+    public boolean isAbleToSubmitForReview() {
+        boolean isAbleToSubmit = true;
+        try{
+            WaitUtils.waitForElementToBeClickable(driver, btnReviewYourOrder, TIMEOUT_3_SECOND, false);
+        }catch (Exception e){
+            isAbleToSubmit = false;
+        }
+        return isAbleToSubmit;
+    }
+
+    public boolean isValidationErrorMessageVisible() {
+        boolean isErrorMessageDisplayed = true;
+        try{
+            WaitUtils.waitForElementToBeClickable(driver, validationErrMessage, TIMEOUT_3_SECOND, false);
+        }catch (Exception e){
+            isErrorMessageDisplayed = false;
+        }
+        return isErrorMessageDisplayed;
     }
 }

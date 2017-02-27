@@ -159,9 +159,11 @@ Automated Issues:
 
     Spring 10: @sprint10
         - @2191 -   Email related
-        - @1937 -   Search for accounts in All Accounts
-        - @3559 -   Error message
-        - @3560 -   Custom made no for AIMD
+        - @1937 -   Search for accounts in All Accounts ( now its called Accounts )
+                -   @TODO cant find Records>All Accounts link
+                -   @Todo cant filter by Registered
+        - @3559 -   3/6     DONE
+        - @3560 -   3/4     DONE
         - @2143 -   Custome made no for SSP
         - @2190 -   Email and notifications
         - @3837 -   Filtering all organisation
