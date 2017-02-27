@@ -55,19 +55,20 @@ Feature: As a business user, I want to access a list of organisations with an ac
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
     Then I should see items and heading "<pageHeading>" for link "<link>"
-    When I filter items in "<pageHeading>" page by organisation role "<organisationRole>"
+    When I perform a search for "<searchTerm>" in "<link>" page
+    And I filter items in "<pageHeading>" page by organisation role "<organisationRole>"
     And I sort items in "<pageHeading>" page by "<tableHeading>"
     Then I should see only see organisation of type "<organisationRole>" in "<pageHeading>" page
     Examples:
-      | user         | link              | pageHeading       | organisationRole | tableHeading      |
-      | businessAuto | Accounts          | Accounts          | Authorised       | Organisation name |
-      | businessAuto | Accounts          | Accounts          | Manufacturer     | Organisation name |
-      | businessAuto | All Organisations | All Organisations | Authorised       | Name              |
-      | businessAuto | All Organisations | All Organisations | Manufacturer     | Name              |
+      | user         | link              | pageHeading       | organisationRole | tableHeading      | searchTerm |
+      | businessAuto | Accounts          | Accounts          | Authorised       | Organisation name | RepRT01    |
+      | businessAuto | Accounts          | Accounts          | Manufacturer     | Organisation name | rerRT01    |
+      | businessAuto | All Organisations | All Organisations | Authorised       | Name              | RepRT01    |
+      | businessAuto | All Organisations | All Organisations | Manufacturer     | Name              | rerRT01    |
 
 
   @mdcm-23 @readonly @sprint6
-  Scenario Outline: As a business user I should be able to search for an existing organisation
+  Scenario Outline: As a business user I should be able to search and filter for an existing organisation
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
     And I search for a "<existing>" organisation
