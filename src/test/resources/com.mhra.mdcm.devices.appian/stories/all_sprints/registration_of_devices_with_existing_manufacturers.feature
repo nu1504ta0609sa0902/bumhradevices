@@ -62,9 +62,9 @@ Feature: As an account holder with access to the Device Registration Service
     And I go to list of manufacturers page
     And I click on a random manufacturer
     When I add a device to SELECTED manufacturer with following data
-      | deviceType             | <deviceType> |
-      | gmdnDefinition         | Blood        |
-      | customMade             | true         |
+      | deviceType     | <deviceType> |
+      | gmdnDefinition | Blood        |
+      | customMade     | true         |
     Then I should see option to add another device
     And The gmdn code or term is "displayed" in summary section
     Examples:
@@ -73,21 +73,38 @@ Feature: As an account holder with access to the Device Registration Service
       #| manufacturerAuto | General Medical Device |
 
 
+  @regression @3559 @sprint10
+  Scenario Outline: Error message is displayed for devices with certain risk classification
+    Given I am logged into appian as "<user>" user
+    And I go to list of manufacturers page
+    And I click on a random manufacturer
+    When I add a device to SELECTED manufacturer with following data
+      | deviceType         | <deviceType>         |
+      | gmdnDefinition     | Blood                |
+      | customMade         | false                |
+      | riskClassification | <riskClassification> |
+    Then I should see validation error message in devices page with text "<errorMsg>"
+    Examples:
+      | user              | deviceType             | riskClassification | errorMsg                                            |
+      | authorisedRepAuto | General Medical Device | class2a            | You cannot register class IIa devices with the MHRA |
+      | manufacturerAuto  | General Medical Device | class2b            | You cannot register class IIb devices with the MHRA |
+      | manufacturerAuto  | General Medical Device | class3             | You cannot register class III devices with the MHRA |
+
   @regression @mdcm-134 @sprint6 @bug
   Scenario Outline: Users should be able to remove devices from manufacturers
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
     And I click on a random manufacturer
     When I add a device to SELECTED manufacturer with following data
-      | deviceType             | <deviceType> |
-      | gmdnDefinition         | <gmdn1>      |
-      | customMade             | true         |
+      | deviceType     | <deviceType> |
+      | gmdnDefinition | <gmdn1>      |
+      | customMade     | true         |
 #      | relatedDeviceSterile   | true         |
 #      | relatedDeviceMeasuring | true         |
     And I add another device to SELECTED manufacturer with following data
-      | deviceType             | <deviceType> |
-      | gmdnDefinition         | <gmdn2>      |
-      | customMade             | true         |
+      | deviceType     | <deviceType> |
+      | gmdnDefinition | <gmdn2>      |
+      | customMade     | true         |
     Then I should see option to add another device
     When I remove ALL the stored device with gmdn code or definition
     Then I should not see option to add another device
@@ -129,15 +146,15 @@ Feature: As an account holder with access to the Device Registration Service
     And I go to list of manufacturers page
     And I click on a random manufacturer
     When I add a device to SELECTED manufacturer with following data
-      | deviceType             | <deviceType>       |
-      | gmdnDefinition         | <gmdnDefinitionD1> |
-      | gmdnCode               | <gmdnCodeD1>       |
-      | customMade             | true               |
+      | deviceType     | <deviceType>       |
+      | gmdnDefinition | <gmdnDefinitionD1> |
+      | gmdnCode       | <gmdnCodeD1>       |
+      | customMade     | true               |
     And I add another device to SELECTED manufacturer with following data
-      | deviceType             | <deviceType>       |
-      | gmdnDefinition         | <gmdnDefinitionD2> |
-      | gmdnCode               | <gmdnCodeD2>       |
-      | customMade             | true               |
+      | deviceType     | <deviceType>       |
+      | gmdnDefinition | <gmdnDefinitionD2> |
+      | gmdnCode       | <gmdnCodeD2>       |
+      | customMade     | true               |
     Then I should see option to add another device
     And The gmdn code or term is "displayed" in summary section
     When I remove the stored device with gmdn code or definition
