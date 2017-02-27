@@ -44,7 +44,7 @@ Feature: As an account holder with access to the Device Registration Service I w
 #      | manufacturerAuto | Active Implantable Medical Devices | Blood          | false      | ford focus  | can't register if custom made is false
 
 
-  @regression @3559 @sprint10
+  @regression @3559 @2143 @sprint10
   Scenario Outline: Error message is displayed for devices with certain risk classification
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -68,7 +68,7 @@ Feature: As an account holder with access to the Device Registration Service I w
       | manufacturerAuto  | System or Procedure Pack | Desiccating chamber |                    | NB 0086 BSI  | false              | false             | This System/procedure pack cannot be registered with us                                          |
 
 
-  @regression @3560 @sprint10
+  @regression @3560 @2143 @sprint10
   Scenario Outline: Error message is displayed for AIMD devices with certain risk classification
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
