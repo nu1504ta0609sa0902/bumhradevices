@@ -31,7 +31,7 @@ public class DeviceData {
     public boolean isDeviceSterile;
     public boolean isDeviceMeasuring;
     public boolean isDeviceCompatible;
-    public boolean isPackIncorporated;
+    public boolean isBearingCEMarking;
 
     //If Custom made = No
     public String riskClassification;
@@ -65,7 +65,7 @@ public class DeviceData {
         //notifiedBody = "NB 0086 BSI";
 
         isDeviceCompatible = true;
-        isPackIncorporated = true;
+        isBearingCEMarking = true;
 
     }
 
@@ -87,7 +87,7 @@ public class DeviceData {
                 ", isDeviceSterile=" + isDeviceSterile +
                 ", isDeviceMeasuring=" + isDeviceMeasuring +
                 ", isDeviceCompatible=" + isDeviceCompatible +
-                ", isPackIncorporated=" + isPackIncorporated +
+                ", isBearingCEMarking=" + isBearingCEMarking +
                 ", riskClassification='" + riskClassification + '\'' +
                 ", notifiedBody='" + notifiedBody + '\'' +
                 ", productName='" + productName + '\'' +

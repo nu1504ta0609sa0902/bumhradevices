@@ -19,7 +19,7 @@ Feature: As an account holder with access to the device registration service
       | customMade             | true                     |
       | relatedDeviceSterile   | true                     |
       | relatedDeviceMeasuring | true                     |
-      | packIncorporated       | false                    |
+      | isBearingCEMarking       | false                    |
       | devicesCompatible      | true                     |
     When I add another device to SELECTED manufacturer with following data
       | deviceType     | Active Implantable Medical Devices |

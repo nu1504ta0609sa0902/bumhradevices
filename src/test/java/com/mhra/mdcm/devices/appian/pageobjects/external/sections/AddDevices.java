@@ -4,7 +4,6 @@ import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.external.ExternalHomePage;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
-import com.mhra.mdcm.devices.appian.utils.selenium.others.StepsUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.CommonUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
@@ -16,7 +15,6 @@ import org.openqa.selenium.support.FindBy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -115,9 +113,9 @@ public class AddDevices extends _Page {
 
     //Procedure pack
     @FindBy(xpath = ".//*[contains(text(),'pack incorporate')]//following::input[1]")
-    WebElement ppPackIncorporatedYes;
+    WebElement ppIsBearingCEMarkingYes;
     @FindBy(xpath = ".//*[contains(text(),'pack incorporate')]//following::input[2]")
-    WebElement ppPackIncorporatedNo;
+    WebElement ppIsBearingCEMarkingNo;
     @FindBy(xpath = ".//*[contains(text(),'devices compatible')]//following::input[1]")
     WebElement ppDevicesCompatibleYes;
     @FindBy(xpath = ".//*[contains(text(),'devices compatible')]//following::input[2]")
@@ -336,7 +334,7 @@ public class AddDevices extends _Page {
         if (dd.isDeviceSterile) {
             notifiedBody(dd);
         }
-        packIncorporated(dd);
+        isBearingCEMarking(dd);
         devicesCompatible(dd);
         //saveProduct(dd);
     }
@@ -519,11 +517,11 @@ public class AddDevices extends _Page {
         }
     }
 
-    private void packIncorporated(DeviceData dd) {
-        if (dd.isPackIncorporated) {
-            PageUtils.clickIfVisible(driver, ppPackIncorporatedYes);
+    private void isBearingCEMarking(DeviceData dd) {
+        if (dd.isBearingCEMarking) {
+            PageUtils.clickIfVisible(driver, ppIsBearingCEMarkingYes);
         } else {
-            PageUtils.clickIfVisible(driver, ppPackIncorporatedNo);
+            PageUtils.clickIfVisible(driver, ppIsBearingCEMarkingNo);
         }
     }
 

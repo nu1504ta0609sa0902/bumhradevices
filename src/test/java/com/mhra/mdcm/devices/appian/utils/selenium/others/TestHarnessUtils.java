@@ -118,7 +118,7 @@ public class TestHarnessUtils {
             String relatedDeviceMeasuring = dataSets.get("relatedDeviceMeasuring");
             String riskClassification = dataSets.get("riskClassification");
             String notifiedBody = dataSets.get("notifiedBody");
-            String packIncorporated = dataSets.get("packIncorporated");
+            String isBearingCEMarking = dataSets.get("isBearingCEMarking");
             String devicesCompatible = dataSets.get("devicesCompatible");
 
             String productName = dataSets.get("productName");
@@ -155,8 +155,8 @@ public class TestHarnessUtils {
                 dd.notifiedBody = notifiedBody;
             }
 
-            if(isNotEmptyOrNull(packIncorporated)){
-                dd.isPackIncorporated = Boolean.parseBoolean(packIncorporated);
+            if(isNotEmptyOrNull(isBearingCEMarking)){
+                dd.isBearingCEMarking = Boolean.parseBoolean(isBearingCEMarking);
             }
             if(isNotEmptyOrNull(devicesCompatible)){
                 dd.isDeviceCompatible = Boolean.parseBoolean(devicesCompatible);

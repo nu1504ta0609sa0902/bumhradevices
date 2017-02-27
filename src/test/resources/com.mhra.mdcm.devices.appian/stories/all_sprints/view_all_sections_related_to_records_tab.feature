@@ -22,9 +22,8 @@ Feature: As a business user, I want to access a list of organisations with an ac
     Then I should see the following columns for completed task page
       | columns | <columns> |
     Examples:
-      | user              | logBackInAs  | gmdn                 | filterBy | taskType | columns                                   |
-      #| businessAuto | businessAuto | Blood weighing scale | orgName       | taskType | Task,Name,Role,Submitted,Status,Documents|
-      | businessAuto | businessAuto | Blood weighing scale | orgName  | taskType | Task,Name,Role,Submitted,Status,Documents |
+      | user         | columns                                   |
+      | businessAuto | Task,Name,Role,Submitted,Status,Documents |
 
 
   @regression @mdcm-23 @mdcm-126 @readonly @sprint1 @sprint6
