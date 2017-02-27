@@ -201,7 +201,7 @@ public class ExternalHomePageSteps extends CommonSteps {
             if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
                 addDevices = manufacturerDetails.clickAddDeviceBtn();
         }catch (Exception e){
-            addDevices = new AddDevices(driver);
+            addDevices = addDevices.addDevice();
         }
 
         //Assumes we are in add device page

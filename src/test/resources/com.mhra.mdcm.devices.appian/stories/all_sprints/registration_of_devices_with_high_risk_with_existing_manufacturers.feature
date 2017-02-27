@@ -44,8 +44,32 @@ Feature: As an account holder with access to the Device Registration Service I w
 #      | manufacturerAuto | Active Implantable Medical Devices | Blood          | false      | ford focus  | can't register if custom made is false
 
 
+  @regression @3559 @sprint10
+  Scenario Outline: Error message is displayed for devices with certain risk classification
+    Given I am logged into appian as "<user>" user
+    And I go to list of manufacturers page
+    And I click on a random manufacturer
+    When I try to add an incomplete device to SELECTED manufacturer with following data
+      | deviceType         | <deviceType>         |
+      | gmdnDefinition     | <gmdnDefinition>     |
+      | customMade         | false                |
+      | riskClassification | <riskClassification> |
+      | notifiedBody       | <notifiedBody>       |
+      | isBearingCEMarking | <isBearingCEMarking> |
+      | devicesCompatible  | <devicesCompatible>  |
+    Then I should see validation error message in devices page with text "<errorMsg>"
+    And I should be prevented from adding the devices
+    Examples:
+      | user              | deviceType               | gmdnDefinition      | riskClassification | notifiedBody | isBearingCEMarking | devicesCompatible | errorMsg                                                                                         |
+      | authorisedRepAuto | General Medical Device   | Blood               | class2a            | NB 0086 BSI  |                    |                   | You cannot register class IIa devices with the MHRA                                              |
+      | manufacturerAuto  | General Medical Device   | Blood               | class2b            | NB 0086 BSI  |                    |                   | You cannot register class IIb devices with the MHRA                                              |
+      | manufacturerAuto  | General Medical Device   | Blood               | class3             | NB 0086 BSI  |                    |                   | You cannot register class III devices with the MHRA                                              |
+      | authorisedRepAuto | System or Procedure Pack | Desiccating chamber |                    | NB 0086 BSI  | true               | true              | You cannot register this as a System/procedure pack because all the components must be CE marked |
+      | manufacturerAuto  | System or Procedure Pack | Desiccating chamber |                    | NB 0086 BSI  | false              | false             | This System/procedure pack cannot be registered with us                                          |
+
+
   @regression @3560 @sprint10
-  Scenario Outline: Error message is displayed for high risk devices with certain risk classification
+  Scenario Outline: Error message is displayed for AIMD devices with certain risk classification
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
     And I click on a random manufacturer
@@ -53,6 +77,7 @@ Feature: As an account holder with access to the Device Registration Service I w
       | deviceType     | <deviceType>     |
       | gmdnDefinition | <gmdnDefinition> |
       | customMade     | <customMade>     |
+      | notifiedBody   | <notifiedBody>   |
     Then I should see validation error message in devices page with text "<errorMsg>"
     And I should be prevented from adding the high risk devices
     Examples:

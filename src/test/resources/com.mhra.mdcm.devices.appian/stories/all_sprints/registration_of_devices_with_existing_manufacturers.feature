@@ -39,12 +39,12 @@ Feature: As an account holder with access to the Device Registration Service
       | relatedDeviceMeasuring | <deviceMeasuring>    |
       | riskClassification     | <riskClassification> |
       | notifiedBody           | <notifiedBody>       |
-      | packIncorporated       | <packIncorporated>   |
+      | isBearingCEMarking       | <isBearingCEMarking>   |
       | devicesCompatible      | <devicesCompatible>  |
     Then I should see option to add another device
     And The gmdn code or term is "displayed" in summary section
     Examples:
-      | user              | status     | deviceType                 | gmdnDefinition                    | customMade | deviceSterile | deviceMeasuring | riskClassification | notifiedBody | packIncorporated | devicesCompatible |
+      | user              | status     | deviceType                 | gmdnDefinition                    | customMade | deviceSterile | deviceMeasuring | riskClassification | notifiedBody | isBearingCEMarking | devicesCompatible |
       | authorisedRepAuto | Registered | General Medical Device     | Blood weighing scale              | false      | true          | true            | class1             | NB 0086 BSI  |                  |                   |
       | authorisedRepAuto | Registered | General Medical Device     | Blood                             | true       | true          | true            |                    |              |                  |                   |
       | authorisedRepAuto | Registered | In Vitro Diagnostic Device | Androgen receptor IVD, calibrator |            |               |                 | ivd general        |              |                  |                   |
@@ -72,25 +72,6 @@ Feature: As an account holder with access to the Device Registration Service
       | authorisedRepAuto | General Medical Device |
       #| manufacturerAuto | General Medical Device |
 
-
-  @regression @3559 @sprint10
-  Scenario Outline: Error message is displayed for devices with certain risk classification
-    Given I am logged into appian as "<user>" user
-    And I go to list of manufacturers page
-    And I click on a random manufacturer
-    When I try to add an incomplete device to SELECTED manufacturer with following data
-      | deviceType         | <deviceType>         |
-      | gmdnDefinition     | Blood                |
-      | customMade         | false                |
-      | riskClassification | <riskClassification> |
-      | notifiedBody       | <notifiedBody>       |
-    Then I should see validation error message in devices page with text "<errorMsg>"
-    And I should be prevented from adding the devices
-    Examples:
-      | user              | deviceType             | riskClassification | errorMsg                                            | notifiedBody |
-      | authorisedRepAuto | General Medical Device | class2a            | You cannot register class IIa devices with the MHRA | NB 0086 BSI  |
-      | manufacturerAuto  | General Medical Device | class2b            | You cannot register class IIb devices with the MHRA | NB 0086 BSI  |
-      | manufacturerAuto  | General Medical Device | class3             | You cannot register class III devices with the MHRA | NB 0086 BSI  |
 
   @regression @mdcm-134 @sprint6 @bug
   Scenario Outline: Users should be able to remove devices from manufacturers
