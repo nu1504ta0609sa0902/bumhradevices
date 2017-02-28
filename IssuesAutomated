@@ -159,14 +159,14 @@ Automated Issues:
 
     Spring 10: @sprint10
         - @2191 -   Email related
-        - @1937 -   Search for accounts in All Accounts ( now its called Accounts )
-                -   @TODO cant find Records>All Accounts link
+        - @1937 -   3/6     DONE
                 -   @Todo cant filter by Registered
         - @3559 -   3/6     DONE
         - @3560 -   3/4     DONE
         - @2143 -   4/5     DONE
         - @2190 -   Email and notifications
-        - @3837 -   Filtering all organisation
+        - @3837 -
+                -   @todo Tests to unfilter the filters
         - @2192 -   Email
         - @3894 -   Filtering all devices
         - @3895 -   Filtering all products

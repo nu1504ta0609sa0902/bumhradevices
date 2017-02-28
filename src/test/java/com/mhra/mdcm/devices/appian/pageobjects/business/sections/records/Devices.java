@@ -1,6 +1,7 @@
 package com.mhra.mdcm.devices.appian.pageobjects.business.sections.records;
 
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
+import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -17,8 +18,15 @@ import java.util.List;
 @Component
 public class Devices extends _Page {
 
+    //List of all devices and types
     @FindBy(xpath = ".//h2[.='Device Id']//following::a")
     List<WebElement> listOfDevices;
+    @FindBy(xpath = ".//*[.='GMDN term']//following::tr//td[1]")
+    List<WebElement> listOfDeviceTypes;
+
+    //Filter values
+    @FindBy(partialLinkText = "IVD")
+    WebElement filterByDeviceType;
 
     @Autowired
     public Devices(WebDriver driver) {
@@ -43,5 +51,52 @@ public class Devices extends _Page {
         }
 
         return itemsDisplayed;
+    }
+
+    public Devices filterBy(String deviceType) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        By by = By.partialLinkText(deviceType);
+        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_10_SECOND, false);
+        WebElement element = driver.findElement(by);
+        PageUtils.doubleClick(driver, element);
+        return new Devices(driver);
+    }
+
+    public boolean areAllDevicesOfType(String deviceType) {
+
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        boolean allMatched = true;
+        for(WebElement el: listOfDeviceTypes){
+            String text = el.getText();
+            //log.info(text);
+            if(!text.contains("revious") && !text.contains("ext")) {
+                allMatched = text.contains(deviceType);
+                if (!allMatched) {
+                    break;
+                }
+            }
+        }
+        return allMatched;
+    }
+
+    public Devices clearFilterByDeviceType() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, filterByDeviceType, TIMEOUT_3_SECOND, false);
+        filterByDeviceType.click();
+        return new Devices(driver);
+    }
+
+    public boolean areDevicesOfTypeVisible(String deviceType) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        boolean aMatchFound = false;
+        for(WebElement el: listOfDeviceTypes){
+            String text = el.getText();
+            //log.info(text);
+            aMatchFound = text.contains(deviceType);
+            if (aMatchFound) {
+                break;
+            }
+        }
+        return aMatchFound;
     }
 }

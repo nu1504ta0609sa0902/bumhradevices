@@ -336,6 +336,11 @@ public class RecordsPageSteps extends CommonSteps {
         }
     }
 
+    @When("^I filter items in \"([^\"]*)\" page by device type \"([^\"]*)\"$")
+    public void i_filter_items_in_page_by_device_type(String page, String deviceType) throws Throwable {
+        devices = devices.filterBy(deviceType);
+    }
+
     @When("^I sort items in \"([^\"]*)\" page by \"([^\"]*)\"$")
     public void i_sort_by(String page, String tableHeading) throws Throwable {
         if (page.equals("Accounts")) {
@@ -356,6 +361,21 @@ public class RecordsPageSteps extends CommonSteps {
         Assert.assertThat("Organisation Roles Should Be Of Type : " + organisationType, isOrganisationTypeAllSame, is(true));
     }
 
+    @Then("^I should see only see device of type \"([^\"]*)\" in \"([^\"]*)\" page$")
+    public void i_should_see_only_see_device_of_type_in_page(String deviceType, String page) throws Throwable {
+        boolean allSame = devices.areAllDevicesOfType(deviceType);
+        Assert.assertThat("Device Type Should Be Of Type : " + deviceType, allSame, is(true));
+    }
+
+
+    @When("^I clear the filter than I should see device of type \"([^\"]*)\"$")
+    public void i_clear_the_filter_than_I_should_see_device_of_type(String deviceType) throws Throwable {
+        devices = devices.clearFilterByDeviceType();
+        boolean deviceTypeVisible = devices.areDevicesOfTypeVisible(deviceType);
+        Assert.assertThat("Expected To See Device Of Type : " + deviceType, deviceTypeVisible, is(true));
+    }
+
+
     @When("^I click on a random gmdn in all devices page$")
     public void i_click_on_a_random_gmdn_in_all_devices_page() throws Throwable {
         allDevices = allDevices.clickOnARandomGMDNCode();
@@ -365,5 +385,12 @@ public class RecordsPageSteps extends CommonSteps {
     public void i_should_see_a_list_of_manufacturers_using_this_gmdn_product() throws Throwable {
         boolean isListOfManufacturersVisible = allDevices.isListOfManufacturersVisible();
         Assert.assertThat("Expected to list of manufacturers using the selected GMDN code", isListOfManufacturersVisible, is(true));
+    }
+
+    @Then("^I should see the following columns \"([^\"]*)\" for all devices list of manufacturer table$")
+    public void i_should_see_the_following_columns_for_all_devices_list_of_manufacturer_table(String expectedColumns) throws Throwable {
+        String[] columns = expectedColumns.split(",");
+        boolean allColumnsVisible = allDevices.isListOfManufacturersUsingDeviceTableColumnCorrect(columns);
+        Assert.assertThat("Expected to see the following columns : " + expectedColumns, allColumnsVisible, is(true));
     }
 }

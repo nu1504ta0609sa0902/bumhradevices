@@ -126,4 +126,10 @@ public class AllDevices extends _Page {
         }
         return isVisible;
     }
+
+    public boolean isListOfManufacturersUsingDeviceTableColumnCorrect(String[] columns) {
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th") , TIMEOUT_DEFAULT, false);
+        List<String> columnsNotFound = PageUtils.areTheColumnsCorrect(columns, listOfTableColumns);
+        return columnsNotFound.size() == 0;
+    }
 }
