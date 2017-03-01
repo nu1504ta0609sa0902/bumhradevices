@@ -29,6 +29,8 @@ public class AllOrganisations extends _Page {
     List<WebElement> listOfTableColumns;
     @FindBy(xpath = ".//*[.='Status']//following::tr//td[2]")
     List<WebElement> listOfOrganisationRoles;
+    @FindBy(xpath = ".//*[.='Status']//following::tr//td[6]")
+    List<WebElement> listOfAllStatus;
 
     //TABLE Heading
     @FindBy(linkText = "Name")
@@ -148,9 +150,11 @@ public class AllOrganisations extends _Page {
         for(WebElement el: listOfOrganisationRoles){
             String text = el.getText();
             log.info(text);
-            allMatched = text.contains(organisationType);
-            if(!allMatched){
-                break;
+            if(!text.contains("revious") && !text.contains("ext")) {
+                allMatched = text.contains(organisationType);
+                if (!allMatched) {
+                    break;
+                }
             }
         }
 
@@ -194,5 +198,43 @@ public class AllOrganisations extends _Page {
             }
         }
         return aMatchFound;
+    }
+
+    public boolean areAllStatusOfType(String value) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        boolean allMatched = true;
+        for(WebElement el: listOfAllStatus){
+            String text = el.getText();
+            log.info(text);
+            if(!text.contains("revious") && !text.contains("ext")) {
+                allMatched = text.equals(value);
+                if (!allMatched) {
+                    break;
+                }
+            }
+        }
+
+        return allMatched;
+    }
+
+    public boolean areStatusOfTypeVisible(String status) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        boolean aMatchFound = false;
+        for(WebElement el: listOfAllStatus){
+            String text = el.getText();
+            log.info(text);
+            aMatchFound = text.contains(status);
+            if (aMatchFound) {
+                break;
+            }
+        }
+        return aMatchFound;
+    }
+
+    public AllOrganisations clearFilterByStatus() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, listOfFilters.get(0), TIMEOUT_3_SECOND, false);
+        listOfFilters.get(0).click();
+        return new AllOrganisations(driver);
     }
 }

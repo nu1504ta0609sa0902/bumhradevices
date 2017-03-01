@@ -279,9 +279,11 @@ public class Accounts extends _Page {
         for(WebElement el: listOfOrganisationRoles){
             String text = el.getText();
             log.info(text);
-            allMatched = text.contains(organisationType);
-            if(!allMatched){
-                break;
+            if(!text.contains("revious") && !text.contains("ext")) {
+                allMatched = text.contains(organisationType);
+                if(!allMatched){
+                    break;
+                }
             }
         }
 

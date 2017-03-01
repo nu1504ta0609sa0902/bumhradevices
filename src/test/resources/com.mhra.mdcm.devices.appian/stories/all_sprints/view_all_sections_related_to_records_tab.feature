@@ -50,23 +50,23 @@ Feature: As a business user, I want to access a list of organisations with an ac
       | businessAuto | Accounts          | Accounts          |
 
 
-  @mdcm-126 @mdcm-23 @1937 @3837 @sprint10 @readonly @sprint1 @sprint6
+  @regression @mdcm-126 @mdcm-23 @1937 @3837 @sprint10 @readonly @sprint1 @sprint6
   Scenario Outline: Users should be able to filter search and sort by headings
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
     Then I should see items and heading "<pageHeading>" for link "<link>"
     When I perform a search for "<searchTerm>" in "<link>" page
-    And I filter by "<filterBy>" for the value "<organisationRole>" in "<pageHeading>" page
+    And I filter by "<filterBy>" for the value "<filterValue>" in "<pageHeading>" page
     And I sort items in "<pageHeading>" page by "<tableHeading>"
-    Then I should see table column "<column>" displaying only "<organisationRole>" in "<pageHeading>" page
+    Then I should see table column "<column>" displaying only "<filterValue>" in "<pageHeading>" page
     When I clear the filter by "<filterBy>" in "<pageHeading>" page
-    Then I should see table column "<column>" also displaying "<organisationRole2>" in "<pageHeading>" page
+    Then I should see table column "<column>" also displaying "<expectedFilteredData>" in "<pageHeading>" page
     Examples:
-      | user         | link              | pageHeading       | filterBy          | organisationRole | organisationRole2 | tableHeading      | searchTerm | column |
+      | user         | link              | pageHeading       | filterBy          | filterValue | expectedFilteredData | tableHeading | searchTerm | column |
       | businessAuto | Accounts          | Accounts          | Organisation Role | Authorised       | Manufacturer      | Organisation name | RT01       | Role   |
       | businessAuto | Accounts          | Accounts          | Organisation Role | Manufacturer     | Authorised        | Organisation name | RT01       | Role   |
-      | businessAuto | All Organisations | All Organisations | Registered status | REGISTERED       | Manufacturer      | Name              | RT01       | Role   |
       | businessAuto | All Organisations | All Organisations | Organisation Role | Manufacturer     | Authorised        | Name              | RT01       | Role   |
+      | businessAuto | All Organisations | All Organisations | Registered status | REGISTERED  | NOT REGISTERED       | Name         | RT01       | Status |
 
 
   @mdcm-23 @readonly @sprint6 @3837 @sprint10

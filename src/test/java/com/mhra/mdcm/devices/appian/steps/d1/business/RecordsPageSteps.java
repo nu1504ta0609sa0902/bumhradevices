@@ -216,7 +216,7 @@ public class RecordsPageSteps extends CommonSteps {
         } else if (page.equals("Products")) {
         } else if (page.equals("All Devices")) {
             atLeast1Match = allDevices.atLeast1MatchFound(searchTerm);
-        }  else if (page.equals("All Products")) {
+        } else if (page.equals("All Products")) {
             atLeast1Match = allProducts.atLeast1MatchFound(searchTerm);
         } else if (page.equals("All Organisations")) {
             atLeast1Match = allOrganisations.atLeast1MatchFound(searchTerm);
@@ -271,7 +271,7 @@ public class RecordsPageSteps extends CommonSteps {
     @Then("^I should see account displaying correct fields$")
     public void i_should_see_account_displaying_correct_fields() throws Throwable {
         boolean isCorrect = accounts.verifyCorrectFieldsDisplayedOnPage();
-        Assert.assertThat("Account, Organisation Details and Contact Details May Not Be Valid" , isCorrect, is(true));
+        Assert.assertThat("Account, Organisation Details and Contact Details May Not Be Valid", isCorrect, is(true));
     }
 
 
@@ -343,7 +343,7 @@ public class RecordsPageSteps extends CommonSteps {
             allOrganisations = allOrganisations.filterBy(value);
         }
         //Filter by registered status
-        if (page.equals("Accounts") && filterBy.contains("Registered")) {
+        if (page.equals("All Organisations") && filterBy.contains("Registered")) {
             accounts = accounts.filterByRegisteredStatus(value);
         }
     }
@@ -376,24 +376,39 @@ public class RecordsPageSteps extends CommonSteps {
     @Then("^I should see table column \"([^\"]*)\" displaying only \"([^\"]*)\" in \"([^\"]*)\" page$")
     public void i_should_see_table_column_only_displaying_in_page(String tableColumnName, String value, String page) throws Throwable {
         boolean isDataAsExpected = false;
+
+        //Filtered by organisation role
         if (page.equals("Accounts") && tableColumnName.toLowerCase().contains("role")) {
             isDataAsExpected = accounts.areAllOrganisationRoleOfType(value);
         } else if (page.equals("All Organisations") && tableColumnName.toLowerCase().contains("role")) {
             isDataAsExpected = allOrganisations.areAllOrganisationRoleOfType(value);
         }
-        Assert.assertThat("Data may not be correct after filtering " , isDataAsExpected, is(true));
+
+        //Filtered by registered status
+        if (page.equals("All Organisations") && tableColumnName.toLowerCase().contains("status")) {
+            isDataAsExpected = allOrganisations.areAllStatusOfType(value);
+        }
+        Assert.assertThat("Data may not be correct after filtering ", isDataAsExpected, is(true));
     }
 
 
     @Then("^I should see table column \"([^\"]*)\" also displaying \"([^\"]*)\" in \"([^\"]*)\" page$")
     public void i_should_see_table_column_also_displaying_in_page(String tableColumnName, String value, String page) throws Throwable {
         boolean isDataAsExpected = false;
+
+        //If filtered by organisation roles
         if (page.equals("Accounts") && tableColumnName.toLowerCase().contains("role")) {
             isDataAsExpected = accounts.areOrganisationOfRoleVisible(value);
         } else if (page.equals("All Organisations") && tableColumnName.toLowerCase().contains("role")) {
             isDataAsExpected = allOrganisations.areOrganisationOfRoleVisible(value);
         }
-        Assert.assertThat("Data may not be correct after filtering " , isDataAsExpected, is(true));
+
+        //If filtered by status
+        if (page.equals("All Organisations") && tableColumnName.toLowerCase().contains("status")) {
+            isDataAsExpected = allOrganisations.areStatusOfTypeVisible(value);
+        }
+
+        Assert.assertThat("Data may not be correct after filtering ", isDataAsExpected, is(true));
     }
 
     @Then("^I should see only see device of type \"([^\"]*)\" in \"([^\"]*)\" page$")
@@ -412,10 +427,17 @@ public class RecordsPageSteps extends CommonSteps {
 
     @When("^I clear the filter by \"([^\"]*)\" in \"([^\"]*)\" page$")
     public void i_clear_the_filter_in_page(String filterBy, String page) throws Throwable {
+
+        //If filtered by organisation role
         if (page.equals("Accounts") && filterBy.contains("Organisation")) {
             accounts = accounts.clearFilterByOrganisation();
         } else if (page.equals("All Organisations") && filterBy.contains("Organisation")) {
             allOrganisations = allOrganisations.clearFilterByOrganisation();
+        }
+
+        //If filtered by registered status
+        if (page.equals("All Organisations") && filterBy.contains("status")) {
+            allOrganisations = allOrganisations.clearFilterByStatus();
         }
     }
 
