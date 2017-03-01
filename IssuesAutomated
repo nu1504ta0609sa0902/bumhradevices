@@ -165,10 +165,9 @@ Automated Issues:
         - @3560 -   3/4     DONE
         - @2143 -   4/5     DONE
         - @2190 -   Email and notifications
-        - @3837 -
-                -   @todo Tests to unfilter the filters
+        - @3837 -   5/5     DONE
         - @2192 -   Email
-        - @3894 -   Filtering all devices
+        - @3894 -   3/3     DONE
         - @3895 -   Filtering all products
         - @2193 -   Email
         - @3296 -   no tests for regression

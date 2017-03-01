@@ -34,9 +34,11 @@ public class AllOrganisations extends _Page {
     @FindBy(linkText = "Name")
     WebElement thOrganisationName;
 
-    //Search box
+    //Search box and filters
     @FindBy(xpath = ".//*[contains(@class, 'filter')]//following::input[1]")
     WebElement searchBox;
+    @FindBy(css = ".selected")
+    List<WebElement> listOfFilters;
 
     @Autowired
     public AllOrganisations(WebDriver driver) {
@@ -170,5 +172,27 @@ public class AllOrganisations extends _Page {
         }
 
         return atLeast1MatchFound;
+    }
+
+    public AllOrganisations clearFilterByOrganisation() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, listOfFilters.get(0), TIMEOUT_3_SECOND, false);
+        listOfFilters.get(0).click();
+        return new AllOrganisations(driver);
+    }
+
+
+    public boolean areOrganisationOfRoleVisible(String organisationType) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        boolean aMatchFound = false;
+        for(WebElement el: listOfOrganisationRoles){
+            String text = el.getText();
+            log.info(text);
+            aMatchFound = text.contains(organisationType);
+            if (aMatchFound) {
+                break;
+            }
+        }
+        return aMatchFound;
     }
 }

@@ -50,24 +50,26 @@ Feature: As a business user, I want to access a list of organisations with an ac
       | businessAuto | Accounts          | Accounts          |
 
 
-  @mdcm-126 @mdcm-23 @1937 @readonly @sprint1 @sprint6
+  @mdcm-126 @mdcm-23 @1937 @3837 @sprint10 @readonly @sprint1 @sprint6
   Scenario Outline: Users should be able to filter search and sort by headings
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
     Then I should see items and heading "<pageHeading>" for link "<link>"
     When I perform a search for "<searchTerm>" in "<link>" page
-    And I filter items in "<pageHeading>" page by organisation role "<organisationRole>"
+    And I filter by "<filterBy>" for the value "<organisationRole>" in "<pageHeading>" page
     And I sort items in "<pageHeading>" page by "<tableHeading>"
-    Then I should see only see organisation of type "<organisationRole>" in "<pageHeading>" page
+    Then I should see table column "<column>" displaying only "<organisationRole>" in "<pageHeading>" page
+    When I clear the filter by "<filterBy>" in "<pageHeading>" page
+    Then I should see table column "<column>" also displaying "<organisationRole2>" in "<pageHeading>" page
     Examples:
-      | user         | link              | pageHeading       | organisationRole | tableHeading      | searchTerm |
-      | businessAuto | Accounts          | Accounts          | Authorised       | Organisation name | RepRT01    |
-      | businessAuto | Accounts          | Accounts          | Manufacturer     | Organisation name | rerRT01    |
-      | businessAuto | All Organisations | All Organisations | Authorised       | Name              | RepRT01    |
-      | businessAuto | All Organisations | All Organisations | Manufacturer     | Name              | rerRT01    |
+      | user         | link              | pageHeading       | filterBy          | organisationRole | organisationRole2 | tableHeading      | searchTerm | column |
+      | businessAuto | Accounts          | Accounts          | Organisation Role | Authorised       | Manufacturer      | Organisation name | RT01       | Role   |
+      | businessAuto | Accounts          | Accounts          | Organisation Role | Manufacturer     | Authorised        | Organisation name | RT01       | Role   |
+      | businessAuto | All Organisations | All Organisations | Registered status | REGISTERED       | Manufacturer      | Name              | RT01       | Role   |
+      | businessAuto | All Organisations | All Organisations | Organisation Role | Manufacturer     | Authorised        | Name              | RT01       | Role   |
 
 
-  @mdcm-23 @readonly @sprint6
+  @mdcm-23 @readonly @sprint6 @3837 @sprint10
   Scenario Outline: As a business user I should be able to search and filter for an existing organisation
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
@@ -163,6 +165,6 @@ Feature: As a business user, I want to access a list of organisations with an ac
     Then I should see a list of manufacturers using this gmdn product
     And I should see the following columns "<columns>" for all devices list of manufacturer table
     Examples:
-      | user         | pageHeading | searchTerm      | count | deviceType | deviceType2 | columns                                               |
-      | businessAuto | All Devices | AuthorisedRepRT | 1     | IVD        | Non-IVD     | Organisation name,Country,Authorised Representative |
-      | businessAuto | All Devices | ManufacturerRT  | 1     | Non-IVD    | IVD         |Organisation name,Organisation country,Authorised Representative |
+      | user         | pageHeading | searchTerm      | count | deviceType | deviceType2 | columns                                                          |
+      | businessAuto | All Devices | AuthorisedRepRT | 1     | IVD        | Non-IVD     | Organisation name,Country,Authorised Representative              |
+      | businessAuto | All Devices | ManufacturerRT  | 1     | Non-IVD    | IVD         | Organisation name,Organisation country,Authorised Representative |

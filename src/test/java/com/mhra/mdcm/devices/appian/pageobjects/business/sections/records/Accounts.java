@@ -72,9 +72,11 @@ public class Accounts extends _Page {
     @FindBy(xpath = ".//h3[contains(text(),'Person Details')]//following::span[.='Telephone']/following::p[1]")
     WebElement telephone;
 
-    //Search box
+    //Search box and filters
     @FindBy(xpath = ".//*[contains(@class, 'filter')]//following::input[1]")
     WebElement searchBox;
+    @FindBy(css = ".selected")
+    List<WebElement> listOfFilters;
     @FindBy(linkText = "Follow")
     WebElement followBtn;
 
@@ -239,9 +241,18 @@ public class Accounts extends _Page {
         }
     }
 
-    public Accounts filterBy(String organisationRole) {
+    public Accounts filterByOrganistionRole(String organisationRole) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         By by = By.partialLinkText(organisationRole);
+        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_10_SECOND, false);
+        WebElement element = driver.findElement(by);
+        PageUtils.doubleClick(driver, element);
+        return new Accounts(driver);
+    }
+
+    public Accounts filterByRegisteredStatus(String status) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        By by = By.linkText(status);
         WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_10_SECOND, false);
         WebElement element = driver.findElement(by);
         PageUtils.doubleClick(driver, element);
@@ -326,5 +337,26 @@ public class Accounts extends _Page {
             fieldsDisplayed = false;
         }
         return fieldsDisplayed;
+    }
+
+    public Accounts clearFilterByOrganisation() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, listOfFilters.get(0), TIMEOUT_3_SECOND, false);
+        listOfFilters.get(0).click();
+        return new Accounts(driver);
+    }
+
+    public boolean areOrganisationOfRoleVisible(String organisationType) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        boolean aMatchFound = false;
+        for(WebElement el: listOfOrganisationRoles){
+            String text = el.getText();
+            log.info(text);
+            aMatchFound = text.contains(organisationType);
+            if (aMatchFound) {
+                break;
+            }
+        }
+        return aMatchFound;
     }
 }

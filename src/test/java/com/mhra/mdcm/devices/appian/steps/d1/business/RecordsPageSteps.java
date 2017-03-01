@@ -2,10 +2,8 @@ package com.mhra.mdcm.devices.appian.steps.d1.business;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
-import com.mhra.mdcm.devices.appian.pageobjects.business.sections.records.BusinessProductDetails;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
-import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -327,12 +325,26 @@ public class RecordsPageSteps extends CommonSteps {
     }
 
 
-    @When("^I filter items in \"([^\"]*)\" page by organisation role \"([^\"]*)\"$")
-    public void filter_by_organisation_role(String page, String organisationRole) throws Throwable {
-        if (page.equals("Accounts")) {
-            accounts = accounts.filterBy(organisationRole);
-        } else if (page.equals("All Organisations")) {
-            allOrganisations = allOrganisations.filterBy(organisationRole);
+//    @When("^I filter items in \"([^\"]*)\" page by organisation role \"([^\"]*)\"$")
+//    public void filter_by_organisation_role(String page, String organisationRole) throws Throwable {
+//        if (page.equals("Accounts")) {
+//            accounts = accounts.filterByOrganistionRole(organisationRole);
+//        } else if (page.equals("All Organisations")) {
+//            allOrganisations = allOrganisations.filterByOrganistionRole(organisationRole);
+//        }
+//    }
+
+    @When("^I filter by \"([^\"]*)\" for the value \"([^\"]*)\" in \"([^\"]*)\" page$")
+    public void i_filter_by_for_the_value_in_page(String filterBy, String value, String page) throws Throwable {
+        //Filter by organisation role
+        if (page.equals("Accounts") && filterBy.contains("Organisation")) {
+            accounts = accounts.filterByOrganistionRole(value);
+        } else if (page.equals("All Organisations") && filterBy.contains("Organisation")) {
+            allOrganisations = allOrganisations.filterBy(value);
+        }
+        //Filter by registered status
+        if (page.equals("Accounts") && filterBy.contains("Registered")) {
+            accounts = accounts.filterByRegisteredStatus(value);
         }
     }
 
@@ -350,15 +362,38 @@ public class RecordsPageSteps extends CommonSteps {
         }
     }
 
-    @Then("^I should see only see organisation of type \"([^\"]*)\" in \"([^\"]*)\" page$")
-    public void i_should_see_only_see_organisation_of_type(String organisationType, String page) throws Throwable {
-        boolean isOrganisationTypeAllSame = false;
-        if (page.equals("Accounts")) {
-            isOrganisationTypeAllSame = accounts.areAllOrganisationRoleOfType(organisationType);
-        } else if (page.equals("All Organisations")) {
-            isOrganisationTypeAllSame = allOrganisations.areAllOrganisationRoleOfType(organisationType);
+//    @Then("^I should see only see organisation of type \"([^\"]*)\" in \"([^\"]*)\" page$")
+//    public void i_should_see_only_see_organisation_of_type(String organisationType, String page) throws Throwable {
+//        boolean isOrganisationTypeAllSame = false;
+//        if (page.equals("Accounts")) {
+//            isOrganisationTypeAllSame = accounts.areAllOrganisationRoleOfType(organisationType);
+//        } else if (page.equals("All Organisations")) {
+//            isOrganisationTypeAllSame = allOrganisations.areAllOrganisationRoleOfType(organisationType);
+//        }
+//        Assert.assertThat("Organisation Roles Should Be Of Type : " + organisationType, isOrganisationTypeAllSame, is(true));
+//    }
+
+    @Then("^I should see table column \"([^\"]*)\" displaying only \"([^\"]*)\" in \"([^\"]*)\" page$")
+    public void i_should_see_table_column_only_displaying_in_page(String tableColumnName, String value, String page) throws Throwable {
+        boolean isDataAsExpected = false;
+        if (page.equals("Accounts") && tableColumnName.toLowerCase().contains("role")) {
+            isDataAsExpected = accounts.areAllOrganisationRoleOfType(value);
+        } else if (page.equals("All Organisations") && tableColumnName.toLowerCase().contains("role")) {
+            isDataAsExpected = allOrganisations.areAllOrganisationRoleOfType(value);
         }
-        Assert.assertThat("Organisation Roles Should Be Of Type : " + organisationType, isOrganisationTypeAllSame, is(true));
+        Assert.assertThat("Data may not be correct after filtering " , isDataAsExpected, is(true));
+    }
+
+
+    @Then("^I should see table column \"([^\"]*)\" also displaying \"([^\"]*)\" in \"([^\"]*)\" page$")
+    public void i_should_see_table_column_also_displaying_in_page(String tableColumnName, String value, String page) throws Throwable {
+        boolean isDataAsExpected = false;
+        if (page.equals("Accounts") && tableColumnName.toLowerCase().contains("role")) {
+            isDataAsExpected = accounts.areOrganisationOfRoleVisible(value);
+        } else if (page.equals("All Organisations") && tableColumnName.toLowerCase().contains("role")) {
+            isDataAsExpected = allOrganisations.areOrganisationOfRoleVisible(value);
+        }
+        Assert.assertThat("Data may not be correct after filtering " , isDataAsExpected, is(true));
     }
 
     @Then("^I should see only see device of type \"([^\"]*)\" in \"([^\"]*)\" page$")
@@ -375,6 +410,14 @@ public class RecordsPageSteps extends CommonSteps {
         Assert.assertThat("Expected To See Device Of Type : " + deviceType, deviceTypeVisible, is(true));
     }
 
+    @When("^I clear the filter by \"([^\"]*)\" in \"([^\"]*)\" page$")
+    public void i_clear_the_filter_in_page(String filterBy, String page) throws Throwable {
+        if (page.equals("Accounts") && filterBy.contains("Organisation")) {
+            accounts = accounts.clearFilterByOrganisation();
+        } else if (page.equals("All Organisations") && filterBy.contains("Organisation")) {
+            allOrganisations = allOrganisations.clearFilterByOrganisation();
+        }
+    }
 
     @When("^I click on a random gmdn in all devices page$")
     public void i_click_on_a_random_gmdn_in_all_devices_page() throws Throwable {
