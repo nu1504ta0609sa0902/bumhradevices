@@ -50,7 +50,7 @@ Feature: As a business user, I want to access a list of organisations with an ac
       | businessAuto | Accounts          | Accounts          |
 
 
-  @regression @mdcm-126 @mdcm-23 @1937 @3837 @sprint10 @readonly @sprint1 @sprint6
+  @regression @mdcm-126 @mdcm-23 @1937 @3837 @3895 @sprint10 @readonly @sprint1 @sprint6
   Scenario Outline: Users should be able to filter search and sort by headings
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
@@ -60,13 +60,15 @@ Feature: As a business user, I want to access a list of organisations with an ac
     And I sort items in "<pageHeading>" page by "<tableHeading>"
     Then I should see table column "<column>" displaying only "<filterValue>" in "<pageHeading>" page
     When I clear the filter by "<filterBy>" in "<pageHeading>" page
-    Then I should see table column "<column>" also displaying "<expectedFilteredData>" in "<pageHeading>" page
+    Then I should see table column "<column>" also displaying "<unFilteredData>" in "<pageHeading>" page
     Examples:
-      | user         | link              | pageHeading       | filterBy          | filterValue | expectedFilteredData | tableHeading | searchTerm | column |
-      | businessAuto | Accounts          | Accounts          | Organisation Role | Authorised       | Manufacturer      | Organisation name | RT01       | Role   |
-      | businessAuto | Accounts          | Accounts          | Organisation Role | Manufacturer     | Authorised        | Organisation name | RT01       | Role   |
-      | businessAuto | All Organisations | All Organisations | Organisation Role | Manufacturer     | Authorised        | Name              | RT01       | Role   |
-      | businessAuto | All Organisations | All Organisations | Registered status | REGISTERED  | NOT REGISTERED       | Name         | RT01       | Status |
+      | user         | link              | pageHeading       | filterBy          | filterValue        | unFilteredData     | tableHeading      | searchTerm | column      |
+      | businessAuto | Accounts          | Accounts          | Organisation Role | Authorised         | Manufacturer       | Organisation name | RT01       | Role        |
+      | businessAuto | Accounts          | Accounts          | Organisation Role | Manufacturer       | Authorised         | Organisation name | RT01       | Role        |
+      | businessAuto | All Organisations | All Organisations | Organisation Role | Manufacturer       | Authorised         | Name              | RT01       | Role        |
+      | businessAuto | All Organisations | All Organisations | Registered status | REGISTERED         | NOT REGISTERED     | Name              | RT01       | Status      |
+      | businessAuto | All Products      | All Products      | Device type       | Active Implantable | In Vitro           | Device Type       | RT01       | Device type |
+      | businessAuto | All Products      | All Products      | Device type       | In Vitro           | Active Implantable | Device Type       | RT01       | Device type |
 
 
   @mdcm-23 @readonly @sprint6 @3837 @sprint10
@@ -81,7 +83,7 @@ Feature: As a business user, I want to access a list of organisations with an ac
       | businessAuto | All Organisations | non existing | 0     |
 
 
-  @mdcm-2797 @readonly @mdcm-626 @sprint7
+  @mdcm-2797 @readonly @mdcm-626 @3895 @sprint7 @sprint10
   Scenario Outline: As a business user I should be able to view accounts, devices, all organisations and products page
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
@@ -94,7 +96,7 @@ Feature: As a business user, I want to access a list of organisations with an ac
       | businessAuto | All Devices  | All Devices  |
 
 
-  @mdcm-23 @2797 @mdcm-626 @readonly @sprint6 @sprint7
+  @mdcm-23 @2797 @mdcm-626 @readonly @3895 @sprint6 @sprint7 @sprint10
   Scenario Outline: As a business user I should be able to RANDOMLY search for an existing organisation products and accounts
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<page>"
@@ -152,7 +154,7 @@ Feature: As a business user, I want to access a list of organisations with an ac
       | businessAuto | All Products | ManufacturerRT  | 1     |
 
 
-  @2797 @mdcm-626 @readonly @3894 @sprint10 @sprint7 @wip
+  @2797 @mdcm-626 @readonly @3894 @sprint10 @sprint7
   Scenario Outline: As a business user I should be able to view all manufacturers who are using a gmdn code or gmdn term
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<pageHeading>"

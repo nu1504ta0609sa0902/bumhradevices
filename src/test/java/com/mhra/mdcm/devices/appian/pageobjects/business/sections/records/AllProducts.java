@@ -24,14 +24,18 @@ public class AllProducts extends _Page {
     List<WebElement> listOfAllProducts;
     @FindBy(xpath = ".//td[6]")
     List<WebElement> listOfAllManufacturerNames;
+    @FindBy(xpath = ".//td[1]")
+    List<WebElement> listOfDeviceTypes;
     @FindBy(xpath = ".//td[4]")
     List<WebElement> listOfAllProductNames;
     @FindBy(xpath = ".//table//th")
     List<WebElement> listOfTableColumns;
 
-    //Search box
+    //Search box and filters
     @FindBy(xpath = ".//*[contains(@class, 'filter')]//following::input[1]")
     WebElement searchBox;
+    @FindBy(css = ".selected")
+    List<WebElement> listOfFilters;
 
     @Autowired
     public AllProducts(WebDriver driver) {
@@ -136,5 +140,52 @@ public class AllProducts extends _Page {
             return listOfAllManufacturerNames;
         }
         return null;
+    }
+
+    public AllProducts filterByDeviceType(String deviceType) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        By by = By.partialLinkText(deviceType);
+        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_10_SECOND, false);
+        WebElement element = driver.findElement(by);
+        PageUtils.doubleClick(driver, element);
+        return new AllProducts(driver);
+    }
+
+    public boolean areAllProductOfType(String value) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        boolean allMatched = true;
+        for(WebElement el: listOfDeviceTypes){
+            String text = el.getText();
+            log.info(text);
+            if(!text.contains("revious") && !text.contains("ext")) {
+                allMatched = text.contains(value);
+                if (!allMatched) {
+                    break;
+                }
+            }
+        }
+
+        return allMatched;
+    }
+
+    public AllProducts clearFilterByStatus() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, listOfFilters.get(0), TIMEOUT_3_SECOND, false);
+        listOfFilters.get(0).click();
+        return new AllProducts(driver);
+    }
+
+    public boolean areDevicesOfTypeVisible(String value) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        boolean aMatchFound = false;
+        for(WebElement el: listOfDeviceTypes){
+            String text = el.getText();
+            log.info(text);
+            aMatchFound = text.contains(value);
+            if (aMatchFound) {
+                break;
+            }
+        }
+        return aMatchFound;
     }
 }

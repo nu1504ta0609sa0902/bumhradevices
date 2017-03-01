@@ -158,18 +158,18 @@ Automated Issues:
 
 
     Spring 10: @sprint10
-        - @2191 -   Email related
+        - @2191 -   @todo Email related
         - @1937 -   3/6     DONE
                 -   @Todo cant filter by Registered
         - @3559 -   3/6     DONE
         - @3560 -   3/4     DONE
         - @2143 -   4/5     DONE
-        - @2190 -   Email and notifications
+        - @2190 -   @todo Email and notifications
         - @3837 -   5/5     DONE
-        - @2192 -   Email
+        - @2192 -   @todo Email
         - @3894 -   3/3     DONE
-        - @3895 -   Filtering all products
-        - @2193 -   Email
+        - @3895 -   3/3     DONE
+        - @2193 -   @todo Email
         - @3296 -   no tests for regression
         - @3972 -   no tests for regression
         - @3294 -   no tests for regression

@@ -346,6 +346,11 @@ public class RecordsPageSteps extends CommonSteps {
         if (page.equals("All Organisations") && filterBy.contains("Registered")) {
             accounts = accounts.filterByRegisteredStatus(value);
         }
+
+        //Filter by device type
+        if (page.equals("All Products") && filterBy.contains("Device type")) {
+            allProducts = allProducts.filterByDeviceType(value);
+        }
     }
 
     @When("^I filter items in \"([^\"]*)\" page by device type \"([^\"]*)\"$")
@@ -388,6 +393,11 @@ public class RecordsPageSteps extends CommonSteps {
         if (page.equals("All Organisations") && tableColumnName.toLowerCase().contains("status")) {
             isDataAsExpected = allOrganisations.areAllStatusOfType(value);
         }
+
+        //Filter by device type
+        if (page.equals("All Products") && tableColumnName.toLowerCase().contains("device type")) {
+            isDataAsExpected = allProducts.areAllProductOfType(value);
+        }
         Assert.assertThat("Data may not be correct after filtering ", isDataAsExpected, is(true));
     }
 
@@ -406,6 +416,10 @@ public class RecordsPageSteps extends CommonSteps {
         //If filtered by status
         if (page.equals("All Organisations") && tableColumnName.toLowerCase().contains("status")) {
             isDataAsExpected = allOrganisations.areStatusOfTypeVisible(value);
+        }
+        //If filtered by device types
+        if (page.equals("All Products") && tableColumnName.toLowerCase().contains("evice type")) {
+            isDataAsExpected = allProducts.areDevicesOfTypeVisible(value);
         }
 
         Assert.assertThat("Data may not be correct after filtering ", isDataAsExpected, is(true));
@@ -438,6 +452,11 @@ public class RecordsPageSteps extends CommonSteps {
         //If filtered by registered status
         if (page.equals("All Organisations") && filterBy.contains("status")) {
             allOrganisations = allOrganisations.clearFilterByStatus();
+        }
+
+        //If filtered by device type
+        if (page.equals("All Products") && filterBy.contains("evice type")) {
+            allProducts = allProducts.clearFilterByStatus();
         }
     }
 
