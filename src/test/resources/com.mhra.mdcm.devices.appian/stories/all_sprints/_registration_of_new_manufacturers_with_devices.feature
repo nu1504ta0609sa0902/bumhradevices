@@ -97,6 +97,6 @@ Feature: As a customer I want to register new manufacturers with devices
     Then I should see the registered manufacturers list
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType             | gmdn1                | gmdn2           |
-      | manufacturerAuto | businessAuto | manufacturer  | United Kingdom  |General Medical Device | Blood weighing scale | Autopsy measure |
+      | manufacturerAuto | businessAuto | manufacturer  | Belarus  |General Medical Device | Blood weighing scale | Autopsy measure |
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | General Medical Device | Blood weighing scale | Autopsy measure |
 
