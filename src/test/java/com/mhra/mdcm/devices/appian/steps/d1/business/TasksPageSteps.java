@@ -260,6 +260,11 @@ public class TasksPageSteps extends CommonSteps {
         assertThat("Task not found for organisation : " + orgName, isTaskVisible, is(equalTo(false)));
     }
 
+    /**
+     * Manufacturer account request
+     * Use only after a new account has been created using manufacturer/authorised rep view
+     * @throws Throwable
+     */
     @Then("^Verify the WIP entry details for the new account is correct$")
     public void verify_the_WIP_entry_details_for_the_new_account_is_correct() throws Throwable {
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);

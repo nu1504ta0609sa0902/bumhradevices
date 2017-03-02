@@ -19,6 +19,26 @@ Feature: As a customer I want to register other types of organisations such as D
     When I click the back button
     Then I should be in the portal home page
     Examples:
-      | user         | accountType | count | countryName | link                | logBackInAs | errorMessage |
+      | user         | accountType | count | countryName | link                | logBackInAs      | errorMessage                                                                                        |
       | businessNoor | distributor | 1     | Turkey      | New Account Request | manufacturerNoor | Unfortunately, you are not eligible for registering the devices. Only manufacturers based in the UK |
-#      | businessNoor | authorisedRep | 0     | Switzerland     | No authorisation evidence provided | New Account Request |
+
+
+
+  @regression @1996 @sprint9 @wip
+  Scenario Outline: Check new role added to create distributor account as business user and approve the tasks
+    Given I am logged into appian as "<user>" user
+    When I create a new account using business test harness page with following data
+      | accountType | <accountType> |
+      | countryName | <countryName> |
+    Then I should see a new task for the new account in WIP page
+    Then validate task is displaying correct new account details
+    And I assign the task to me and "approve" the generated task
+    Then The task with link "<link>" should be removed from tasks list
+    And The completed task status of new account should update to "Completed"
+    When I go to records page and click on "<pageHeading>"
+    And I perform a search for "<searchFor>" in "<pageHeading>" page
+    Then I should see at least <count> matches in "All Organisations" page search results
+    Examples:
+      | user         | accountType | count | countryName | link                | pageHeading       | searchFor   |
+      | businessNoor | distributor | 1     | Turkey      | New Account Request | All Organisations | Distributor |
+
