@@ -145,9 +145,9 @@ Feature: As an account holder with access to the Device Registration Service
     Examples:
       | user              | deviceType             | gmdnDefinitionD1 | gmdnCodeD1 | gmdnDefinitionD2  | gmdnCodeD2 |
       | authorisedRepAuto | General Medical Device | Blood            |            |                   | 17500      |
-      | authorisedRepAuto | General Medical Device |                  | 17500      | Housekeeping soap |            |
-      | manufacturerAuto | General Medical Device | Blood            |            |                   | 17500      |
-      | manufacturerAuto | General Medical Device |                  | 17500      | Housekeeping soap |            |
+      | manufacturerAuto  | General Medical Device | Blood            |            |                   | 17500      |
+      | authorisedRepAuto | General Medical Device |                  | 17500      | Dress |            |
+      | manufacturerAuto  | General Medical Device |                  | 17500      | Dress |            |
 
   @regression @mdcm-485 @mdcm-374 @3777 @sprint9 @sprint5 @wip @bug
   Scenario Outline: Users should be able to add devices to existing manufacturers and verify devices are added

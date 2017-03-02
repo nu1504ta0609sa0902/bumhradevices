@@ -52,8 +52,8 @@ public class CommonUtils {
     public static WebElement getElementWithLink(List<WebElement> listOfLinks, String linkText) {
         WebElement found = null;
         for(WebElement el: listOfLinks){
-            String text = el.getText();
-            if(text.contains(linkText)){
+            String text = el.getText().toLowerCase();
+            if(text.contains(linkText.toLowerCase())){
                 found = el;
                 break;
             }

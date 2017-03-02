@@ -89,11 +89,9 @@ Feature: As a customer I want to register new manufacturers with devices
       | gmdnDefinition | <gmdn2>      |
       | customMade     | true         |
     Then I should see option to add another device
-#    When I remove ALL the stored device with gmdn code or definition
     When I remove the stored device with gmdn code or definition
     Then I should see option to add another device
     And Proceed to payment and confirm submit device details
-#    Then I should see stored manufacturer appear in the manufacturers list
     Then I should see the registered manufacturers list
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType             | gmdn1                | gmdn2           |
