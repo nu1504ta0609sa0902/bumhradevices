@@ -23,6 +23,7 @@ public class MixedPageSteps extends CommonSteps {
         } else if (page.equals("All Products")) {
             businessManufacturerDetails = allProducts.viewManufacturerByText(searchTerm);
         } else if (page.equals("All Organisations")) {
+            businessManufacturerDetails = allOrganisations.viewManufacturerByText(searchTerm);
         }
         scenarioSession.putData(SessionKey.searchTerm, searchTerm);
     }
@@ -39,5 +40,21 @@ public class MixedPageSteps extends CommonSteps {
         boolean fieldsVisible = businessProductDetails.areAllFieldsVisible();
         Assert.assertThat("Product details didn't show all expected fields", fieldsVisible, is(true));
 
+    }
+
+    @When("^I click on link \"([^\"]*)\" and go to \"([^\"]*)\" page$")
+    public void i_click_on_link(String link, String page) throws Throwable {
+        if(page.equals("devices")){
+            businessDevicesDetails = businessManufacturerDetails.clickOnDevicesLink(link);
+        }
+    }
+
+    @Then("^I should see device table with devices$")
+    public void i_should_see_device_table_with_devices() throws Throwable {
+        String expectedHeadings = "GMDN code,GMDN definition,Risk classification";
+        boolean isDevicesTableDisplayed = businessDevicesDetails.isDeviceTableDisplayed();
+        boolean isTableHeadingCorrect = businessDevicesDetails.isTableColumnsCorrect(expectedHeadings);
+        Assert.assertThat("Table heading expected : " + expectedHeadings, isTableHeadingCorrect, is(true));
+        Assert.assertThat("Table should have data " , isDevicesTableDisplayed, is(true));
     }
 }

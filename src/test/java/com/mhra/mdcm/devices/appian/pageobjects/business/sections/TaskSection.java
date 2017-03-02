@@ -4,6 +4,7 @@ import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountManufacturerReque
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.business.TasksPage;
+import com.mhra.mdcm.devices.appian.utils.selenium.page.CommonUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
@@ -97,6 +98,8 @@ public class TaskSection extends _Page {
     WebElement commentArea;
     @FindBy(xpath = ".//a[.='Risk classification']//following::td[3]")
     List<WebElement> listOfGMDNDefinitions;
+    @FindBy(xpath = ".//a[.='Intended use']//following::td[3]")
+    List<WebElement> listOfGMDNDefinitionsForSSP;
     @FindBy(css = "div.aui-DataGrid-Table> table > tbody > tr")
     List<WebElement> listOfWIPTableRows;
 
@@ -278,11 +281,8 @@ public class TaskSection extends _Page {
         //WaitUtils.nativeWaitInSeconds(2);
         String[] data = deviceList.toLowerCase().split(",");
 
-        //Displayed list of gmdns
-        List<String> gmdns = new ArrayList<>();
-        for (WebElement el : listOfGMDNDefinitions) {
-            gmdns.add(el.getText().toLowerCase());
-        }
+        //Displayed list of gmdns for AIMD, IVD and GMD
+        List<String> gmdns = CommonUtils.getListOfGMDNS(listOfGMDNDefinitions, listOfGMDNDefinitionsForSSP);
 
         //Verify it matches with my expected data set
         boolean allFound = true;

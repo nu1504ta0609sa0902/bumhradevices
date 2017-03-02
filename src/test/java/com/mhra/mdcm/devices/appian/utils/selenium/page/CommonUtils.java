@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -97,5 +98,17 @@ public class CommonUtils {
             }catch (Exception e){}
         }
         return numberOfItems;
+    }
+
+    public static List<String> getListOfGMDNS(List<WebElement> listOfGMDNDefinitions, List<WebElement> listOfGMDNDefinitionsForSSP) {
+        List<String> gmdns = new ArrayList<>();
+        for (WebElement el : listOfGMDNDefinitions) {
+            gmdns.add(el.getText().toLowerCase());
+        }
+
+        //List of gmdns for SPP
+        String sppGMDN = listOfGMDNDefinitionsForSSP.get(0).getText();
+        gmdns.add(sppGMDN);
+        return gmdns;
     }
 }

@@ -14,8 +14,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class BusinessManufacturerDetails extends _Page {
 
+    //Headings
     @FindBy(xpath = ".//h4")
     WebElement heading;
+    @FindBy(xpath = ".//h2")
+    WebElement subHeading;
+
+    //Links to other sections like devices, documents
+    @FindBy(partialLinkText = "product details")
+    WebElement devicesAndProductDetails;
 
     @Autowired
     public BusinessManufacturerDetails(WebDriver driver) {
@@ -24,7 +31,18 @@ public class BusinessManufacturerDetails extends _Page {
 
     public boolean isManufacturerHeadingCorrect(String searchTerm) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        boolean contains = heading.getText().contains(searchTerm);
+        boolean contains = true;
+        try {
+            contains = heading.getText().contains(searchTerm);
+        }catch (Exception e){
+            contains = subHeading.getText().contains(searchTerm);
+        }
         return contains;
+    }
+
+    public BusinessDeviceDetails clickOnDevicesLink(String link) {
+        WaitUtils.waitForElementToBeClickable(driver, devicesAndProductDetails, TIMEOUT_3_SECOND, false);
+        devicesAndProductDetails.click();
+        return new BusinessDeviceDetails(driver);
     }
 }

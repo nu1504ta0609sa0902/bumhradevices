@@ -237,4 +237,32 @@ public class AllOrganisations extends _Page {
         listOfFilters.get(0).click();
         return new AllOrganisations(driver);
     }
+
+    public BusinessManufacturerDetails viewManufacturerByText(String searchTerm) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.waitForElementToBeClickable(driver, listOfAllOrganisationsNames.get(0), TIMEOUT_3_SECOND, false);
+        WebElement manufacturer = null;
+        boolean found = false;
+        do {
+            int randomNumberBetween = RandomDataUtils.getSimpleRandomNumberBetween(0, listOfAllOrganisationsNames.size()-1, false);
+            if(listOfAllOrganisationsNames.size() == 1)
+                randomNumberBetween = 0;
+            WebElement element = listOfAllOrganisationsNames.get(randomNumberBetween);
+            String orgName = element.getText();
+            if(orgName.contains(searchTerm)){
+                manufacturer = element.findElement(By.tagName("a"));
+                found = true;
+            }
+        }while(!found);
+
+        //Click the manufacturer name
+        if(manufacturer!=null) {
+            PageUtils.doubleClick(driver, manufacturer);
+            //manufacturer.click();
+        }else {
+            throw new RuntimeException("No manufacturer found for search term : " + searchTerm);
+        }
+
+        return new BusinessManufacturerDetails(driver);
+    }
 }

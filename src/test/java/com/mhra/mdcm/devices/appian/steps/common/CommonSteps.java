@@ -83,6 +83,8 @@ public class CommonSteps {
     public BusinessManufacturerDetails businessManufacturerDetails;
     @Autowired
     public BusinessProductDetails businessProductDetails;
+    @Autowired
+    public BusinessDeviceDetails businessDevicesDetails;
 
 
     /**

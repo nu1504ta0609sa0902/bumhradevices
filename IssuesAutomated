@@ -135,11 +135,11 @@ Automated Issues:
         - @2049 -
         - @2185 -
                 -   Indicate notified body
-        - @3271 -
-        - @3158 -
-        - @1836 -
-        - @2097 -
-        - @3104 -
+        - @3271 -   View devices as part of manufacturers
+        - @3158 -   View devices as part of manufacturers
+        - @1836 -   Registration message
+        - @2097 -   PARD
+        - @3104 -   Amending details
                 Total
 
 
@@ -151,9 +151,13 @@ Automated Issues:
         - @3761 -
                 -   Manufacturer list
         - @1996 -
+                -
         - @1840 -
+                -   Verify logos and page elements
         - @1956 -
+                -   Prooceed to payment page
         - @2184 -
+                -   Device
                 Total
 
 

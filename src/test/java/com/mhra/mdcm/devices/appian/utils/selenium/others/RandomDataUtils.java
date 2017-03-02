@@ -109,6 +109,8 @@ public class RandomDataUtils {
         int val = ( int )( Math.random() * max );
         if(val < min){
             val = val + min;
+        }else if(val == 0){
+            return String.valueOf(val);
         }
         return String.valueOf(val);
     }
@@ -119,16 +121,22 @@ public class RandomDataUtils {
         do{
             String number = getSimpleRandomNumberBetween(min, max);
             int xx = Integer.parseInt(number);
-            int m = xx % 2;
-            if(even){
-                if(m == 0){
-                    found = true;
-                    foundNumber = xx;
-                }
-            }else{
-                if(m == 1){
-                    found = true;
-                    foundNumber = xx;
+
+            if(xx == 0){
+                found = true;
+                foundNumber = xx;
+            }else {
+                int m = xx % 2;
+                if (even) {
+                    if (m == 0) {
+                        found = true;
+                        foundNumber = xx;
+                    }
+                } else {
+                    if (m == 1) {
+                        found = true;
+                        foundNumber = xx;
+                    }
                 }
             }
         }while (!found);
