@@ -2,7 +2,7 @@ Feature: As a customer I want to register other types of organisations such as D
   so that I am granted access to that and can then register overseas manufacturers on their behalf
 
 
-  @regression @2109 @sprint13 @wip @
+  @regression @2109 @sprint13 @wip
   Scenario Outline: Create new distributor account as business user and approve the tasks
     Given I am logged into appian as "<user>" user
     When I create a new account using business test harness page with following data
