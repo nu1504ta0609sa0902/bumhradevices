@@ -146,8 +146,8 @@ Automated Issues:
     Spring 9: @sprint9
         - @3777 -   7/7     DONE
                 -   @todo Device summary and payments page
-        - @3762 -
-                -   Update manufacturer registration
+        - @3762 -   4/6
+                -   @todo verify cancel button is visible in add devices page
         - @3761 -   4/4     DONE
                 -   @TODO register my organisation tests
         - @1996 -

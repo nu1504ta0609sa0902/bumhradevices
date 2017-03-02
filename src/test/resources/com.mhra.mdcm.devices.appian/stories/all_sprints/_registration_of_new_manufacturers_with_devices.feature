@@ -73,7 +73,7 @@ Feature: As a customer I want to register new manufacturers with devices
       | authorisedRepAuto |
 
 
-  @regression @mdcm-374 @mdcm-134 @sprint5  @mdcm-164 @sprint6 @bug
+  @regression @mdcm-374 @mdcm-134 @sprint5 @3762 @sprint9 @mdcm-164 @sprint6 @bug
   Scenario Outline: Users should be able to add and remove devices from a newly created manufacturers and submit for approval
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -97,6 +97,6 @@ Feature: As a customer I want to register new manufacturers with devices
     Then I should see the registered manufacturers list
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType             | gmdn1                | gmdn2           |
-#      | manufacturerAuto | businessAuto | manufacturer  | United Kingdom  |General Medical Device | Blood weighing scale | Autopsy measure |
+      | manufacturerAuto | businessAuto | manufacturer  | United Kingdom  |General Medical Device | Blood weighing scale | Autopsy measure |
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | General Medical Device | Blood weighing scale | Autopsy measure |
 
