@@ -38,6 +38,27 @@ Feature: As a business user, I want a task to be created each time a customer su
       | businessNoor | manufacturer  | 0     | Turkey      | Account already exists             | New Account Request |
       | businessNoor | authorisedRep | 0     | Estonia     | No authorisation evidence provided | New Account Request |
 
+  @regression @3761 @sprint9 @ignore @wip
+  Scenario Outline: Register my organisation button is displayed to UK Manufacturers who are not registered yet
+    Given I am logged into appian as "<user>" user
+    When I create a new account using business test harness page with following data
+      | accountType | <accountType> |
+      | countryName | <countryName> |
+    Then I should see a new task for the new account
+    When I assign the task to me and "<approveReject>" the generated task
+    Then The task with link "<link>" should be removed from tasks list
+#    And The completed task status of new account should update to "Completed"
+#    When I search accounts for the stored organisation name
+#    Then I should see at least <count> account matches
+    When I logout of the application
+    And I am logged into appian as "<logBackInAs>" user
+    And I goto list of manufacturers page again
+    And I go to register my organisations page
+    Examples:
+      | user         | accountType  | logBackInAs      | approveReject | count | countryName    | link                |
+      | businessNoor | manufacturer | manufacturerNoor | approve       | 1     | United Kingdom | New Account Request |
+#      | businessNoor | authorisedRep | authorisedRepNoor |approve       | 1     | Netherland     | New Account Request |
+
 
   @regression @mdcm-15 @mdcm-21 @mdcm-39 @mdcm-186 @mdcm-240 @sprint4 @sprint2 @sprint3 @sprint5 @bug
   Scenario Outline: Business users should be able to review and process manufacturer and device registration tasks
@@ -204,9 +225,9 @@ Feature: As a business user, I want a task to be created each time a customer su
     And I go to list of manufacturers page
     And I click on a random manufacturer
     When I add a device to SELECTED manufacturer with following data
-      | deviceType             | General Medical Device |
-      | gmdnDefinition         | <gmdn>                 |
-      | customMade             | true                   |
+      | deviceType     | General Medical Device |
+      | gmdnDefinition | <gmdn>                 |
+      | customMade     | true                   |
     And Proceed to payment and confirm submit device details
 #    Then I should see stored manufacturer appear in the manufacturers list
     Then I should see the registered manufacturers list

@@ -26,12 +26,19 @@ public class ManufacturerList extends _Page {
     @FindBy(xpath = ".//button[.='Register My Organisation']")
     WebElement linkRegisterMyNewOrganisation;
 
+    //Registered or completed manufactureres
     @FindBy(xpath = ".//*[.='Organisation name']/following::tbody[1]/tr/td[1]")
     List<WebElement> listOfManufacturerNames;
+    @FindBy(xpath = ".//*[.='Organisation name']/following::tbody[1]/tr/td[4]")
+    List<WebElement> listOfManufacturerStatuses;
     @FindBy(xpath = ".//*[contains(text(), 'registration status')]//following::tr[@__gwt_subrow='0']")
     List<WebElement> listOfTableRows;
     @FindBy(xpath = ".//*[contains(text(), 'registration status')]")
     WebElement manufacturerRegistrationStatus;
+
+    //Registration in progress table
+    @FindBy(xpath = ".//*[contains(text(), 'Application status')]//following::tr/td[2]")
+    List<WebElement> listOfManufacturerNamesInProgress;
 
 
     @FindBy(css = ".GFWJSJ4DFDC div")
@@ -247,11 +254,24 @@ public class ManufacturerList extends _Page {
 
     public boolean isTableHeadingCorrect(String commaDelimitedHeading) {
         String lowerCaseHeadings = commaDelimitedHeading.toLowerCase();
-        return PageUtils.isTableHeadingCorrect(lowerCaseHeadings, listOfTableHeadings);
+        return PageUtils.isTableHeadingCorrect(lowerCaseHeadings, listOfTableHeadings, 1, 4);
     }
 
     public boolean isSpecificTableHeadingCorrect(String commaDelimitedHeading) {
         String lowerCaseHeadings = commaDelimitedHeading.toLowerCase();
         return PageUtils.isSpecificTableHeadingCorrect(lowerCaseHeadings, listOfTableHeadings);
+    }
+
+    public boolean isManufacturerLinkDisplayedOnInProgressTable(String name) {
+        boolean found = false;
+        for(WebElement manufacturer: listOfManufacturerNamesInProgress){
+            String manName = manufacturer.getText();
+            if(manName.contains(name)){
+                found = true;
+                break;
+            }
+        }
+
+        return found;
     }
 }

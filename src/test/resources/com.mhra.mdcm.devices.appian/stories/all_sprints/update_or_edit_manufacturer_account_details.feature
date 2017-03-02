@@ -72,11 +72,12 @@ Feature: As a business and account holder, I want to be able to update party det
       | manufacturerAuto  | Manufacturer,Authorised Representative |
 
 
-  @regression @readonly @mdcm-21 @sprint5
+  @regression @readonly @mdcm-21 @3761 @sprint9 @sprint5
   Scenario Outline: Verify list of manufacturer table showing correct details
     Given I am logged into appian as "<user>" user
     When I go to list of manufacturers page
     Then I should see the following columns for "<expectedHeadings>" list of manufacturer table
+    And I click on random manufacturer with status "REGISTERED"
     Examples:
       | user              | expectedHeadings                                                                             |
       | manufacturerAuto  | Organisation name,Organisation address,Organisation country,Manufacturer registration status |

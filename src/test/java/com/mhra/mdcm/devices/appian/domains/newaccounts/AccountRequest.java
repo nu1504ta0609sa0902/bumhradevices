@@ -113,10 +113,8 @@ public class AccountRequest {
         email = "mhra.uat@gmail.com";
 
         //Organisation Role
-        //autorisedRep = "false";
-        //manufacturer = "true";
         isManufacturer = true;
-        //organisationRole = "Manufacturer";
+        organisationRole = "Manufacturer";
 
         //Services of interest
         deviceRegistration = true;

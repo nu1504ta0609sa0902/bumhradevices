@@ -309,10 +309,31 @@ public class PageUtils {
         boolean allFound = true;
         for(WebElement el: listOfTableHeadings){
             String heading = el.getText().toLowerCase();
+            System.out.println(heading);
             if(!lowerCaseHeadings.contains(heading)){
                 allFound = false;
                 break;
             }
+        }
+        return allFound;
+    }
+
+    public static boolean isTableHeadingCorrect(String commaDelimitedHeading, List<WebElement> listOfTableHeadings, int headingFrom, int headingTo) {
+
+        String lowerCaseHeadings = commaDelimitedHeading.toLowerCase();
+        //Get list of headings
+        boolean allFound = true;
+        int position = 1;
+        for(WebElement el: listOfTableHeadings){
+            if(position >= headingFrom && position <= headingTo) {
+                String heading = el.getText().toLowerCase();
+                System.out.println(heading);
+                if (!lowerCaseHeadings.contains(heading)) {
+                    allFound = false;
+                    break;
+                }
+            }
+            position++;
         }
         return allFound;
     }

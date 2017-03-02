@@ -10,6 +10,7 @@ import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.StepsUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
+import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -52,6 +53,13 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     @And("^I go to list of manufacturers page$")
     public void iGoToManufacturerRegistrationPage() throws Throwable {
+        manufacturerList = externalHomePage.gotoListOfManufacturerPage();
+    }
+
+
+    @Then("^I goto list of manufacturers page again$")
+    public void iGotoListOfManufacturersPage() throws Throwable {
+        externalHomePage = mainNavigationBar.clickExternalHOME();
         manufacturerList = externalHomePage.gotoListOfManufacturerPage();
     }
 
@@ -104,6 +112,14 @@ public class ExternalHomePageSteps extends CommonSteps {
     }
 
 
+    @When("^I save progress without adding a new device$")
+    public void i_save_without_adding_a_new_device() throws Throwable {
+        //Not sure which page this should take us to : ManufacturerList or AddDevices
+        addDevices = addDevices.save();
+        PageUtils.acceptAlert(driver, true, 2);
+    }
+
+
     @Then("^I should see the registered manufacturers list$")
     public void iShouldSeeTheManufacturersList() throws Throwable {
         String name = (String) scenarioSession.getData(SessionKey.organisationName);
@@ -111,6 +127,16 @@ public class ExternalHomePageSteps extends CommonSteps {
         manufacturerList = externalHomePage.gotoListOfManufacturerPage();
         boolean isCorrect = manufacturerList.isSpecificTableHeadingCorrect("Organisation country");
         Assert.assertThat("Expected To See Manufacturer List : " + name, isCorrect, Matchers.is(true));
+    }
+
+
+    @Then("^I should see stored manufacturer appear in the registration in progress list$")
+    public void i_should_see_stored_manufacturer_appear_in_the_registration_in_progress_list() throws Throwable {
+        String name = (String) scenarioSession.getData(SessionKey.organisationName);
+
+        //Check stored manufacturer appears in the registration in progress list
+        boolean isFoundInManufacturerList = manufacturerList.isManufacturerLinkDisplayedOnInProgressTable(name);
+        Assert.assertThat("Organisation Name Expected In Registration In Progress List : " + name, isFoundInManufacturerList, Matchers.is(true));
     }
 
     @Then("^I should see stored manufacturer appear in the manufacturers list$")

@@ -28,9 +28,6 @@ public class AddDevices extends _Page {
     @FindBy(css = ".component_error")
     List<WebElement> errorMessages;
 
-    @FindBy(xpath = ".//button[.='Add device']")
-    WebElement btnAddDevice;
-
     @FindBy(css = ".GFWJSJ4DCW label")
     List<WebElement> listOfDeviceTypes;
     @FindBy(xpath = ".//*[.='Term']//following::td/div/a[string-length(text()) > 0]")
@@ -177,6 +174,12 @@ public class AddDevices extends _Page {
     WebElement fileUpload;
     @FindBy(css = ".gwt-FileUpload")
     List<WebElement> listOfFileUploads;
+
+    //Submit and save buttons
+    @FindBy(xpath = ".//button[.='Add device']")
+    WebElement btnAddDevice;
+    @FindBy(xpath = ".//button[.='Save']")
+    WebElement btnSaveProgress;
 
     //Error message
     @FindBy(css = ".component_error")
@@ -921,4 +924,12 @@ public class AddDevices extends _Page {
         }
         return isErrorMessageDisplayed;
     }
+
+    public AddDevices save() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, btnSaveProgress, TIMEOUT_5_SECOND, false);
+        PageUtils.doubleClick(driver, btnSaveProgress);
+        return new AddDevices(driver);
+    }
+
 }
