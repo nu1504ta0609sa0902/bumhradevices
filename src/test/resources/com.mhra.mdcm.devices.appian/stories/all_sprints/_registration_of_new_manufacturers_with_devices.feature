@@ -26,7 +26,7 @@ Feature: As a customer I want to register new manufacturers with devices
       | authorisedRepAuto | authorisedRep | Bangladesh  | General Medical Device | General Medical Device | false      | class1             | NB 0086 BSI  |
 
 
-  @regression @mdcm-485 @mdcm-374 @mdcm-186 @sprint2 @1838 @sprint13 @sprint5 @wip @bug
+  @regression @mdcm-485 @mdcm-374 @mdcm-186 @sprint2 @1838 @3777 @sprint9 @sprint13 @sprint5 @wip @bug
   Scenario Outline: Users should be able to register new manufacturers with devices  and verify devices are added
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -39,8 +39,8 @@ Feature: As a customer I want to register new manufacturers with devices
       | customMade             | <customMade>         |
       | riskClassification     | <riskClassification> |
       | notifiedBody           | <notifiedBody>       |
-      | relatedDeviceSterile   | <deviceSterile>                 |
-      | relatedDeviceMeasuring | <deviceMeasuring>                 |
+      | relatedDeviceSterile   | <deviceSterile>      |
+      | relatedDeviceMeasuring | <deviceMeasuring>    |
     And Proceed to payment and confirm submit device details
     #Then I should see stored manufacturer appear in the manufacturers list
     Then I should see the registered manufacturers list
@@ -59,7 +59,7 @@ Feature: As a customer I want to register new manufacturers with devices
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType             | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
       | authorisedRepAuto | businessAuto | manufacturer  | Bangladesh  | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
-      #| manufacturerAuto  | businessAuto | authorisedRep | Brazil  | General Medical Device |  true       | false         | false           | Registered | Blood weighing scale |                    |              |
+      | manufacturerAuto  | businessAuto | authorisedRep | Brazil      | General Medical Device | true       | false         | false           | Registered | Blood weighing scale |                    |              |
 
 
   @regression @readonly @mdcm-39 @sprint5
@@ -81,13 +81,13 @@ Feature: As a customer I want to register new manufacturers with devices
       | accountType | <accountType> |
       | countryName | <countryName> |
     When I add a device to SELECTED manufacturer with following data
-      | deviceType             | <deviceType> |
-      | gmdnDefinition         | <gmdn1>      |
-      | customMade             | true         |
+      | deviceType     | <deviceType> |
+      | gmdnDefinition | <gmdn1>      |
+      | customMade     | true         |
     And I add another device to SELECTED manufacturer with following data
-      | deviceType             | <deviceType> |
-      | gmdnDefinition         | <gmdn2>      |
-      | customMade             | true         |
+      | deviceType     | <deviceType> |
+      | gmdnDefinition | <gmdn2>      |
+      | customMade     | true         |
     Then I should see option to add another device
 #    When I remove ALL the stored device with gmdn code or definition
     When I remove the stored device with gmdn code or definition
@@ -96,7 +96,7 @@ Feature: As a customer I want to register new manufacturers with devices
 #    Then I should see stored manufacturer appear in the manufacturers list
     Then I should see the registered manufacturers list
     Examples:
-      | user             | logBackInAas | accountType   | countryName |  deviceType             | gmdn1                | gmdn2           |
+      | user              | logBackInAas | accountType   | countryName | deviceType             | gmdn1                | gmdn2           |
 #      | manufacturerAuto | businessAuto | manufacturer  | United Kingdom  |General Medical Device | Blood weighing scale | Autopsy measure |
-      | authorisedRepAuto |  businessAuto | authorisedRep  | Bangladesh  |General Medical Device | Blood weighing scale | Autopsy measure |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | General Medical Device | Blood weighing scale | Autopsy measure |
 

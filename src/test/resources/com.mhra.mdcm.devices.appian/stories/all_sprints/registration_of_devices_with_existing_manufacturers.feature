@@ -39,17 +39,17 @@ Feature: As an account holder with access to the Device Registration Service
       | relatedDeviceMeasuring | <deviceMeasuring>    |
       | riskClassification     | <riskClassification> |
       | notifiedBody           | <notifiedBody>       |
-      | isBearingCEMarking       | <isBearingCEMarking>   |
+      | isBearingCEMarking     | <isBearingCEMarking> |
       | devicesCompatible      | <devicesCompatible>  |
     Then I should see option to add another device
     And The gmdn code or term is "displayed" in summary section
     Examples:
       | user              | status     | deviceType                 | gmdnDefinition                    | customMade | deviceSterile | deviceMeasuring | riskClassification | notifiedBody | isBearingCEMarking | devicesCompatible |
-      | authorisedRepAuto | Registered | General Medical Device     | Blood weighing scale              | false      | true          | true            | class1             | NB 0086 BSI  |                  |                   |
-      | authorisedRepAuto | Registered | General Medical Device     | Blood                             | true       | true          | true            |                    |              |                  |                   |
-      | authorisedRepAuto | Registered | In Vitro Diagnostic Device | Androgen receptor IVD, calibrator |            |               |                 | ivd general        |              |                  |                   |
-      | authorisedRepAuto | Registered | System or Procedure Pack   | Desiccating chamber               |            | true          | true            | class1             | NB 0086 BSI  | false            | true              |
-      | manufacturerAuto  | Registered | System or Procedure Pack   | Desiccating chamber               |            | false         | true            |                    | NB 0086 BSI  | false            | true              |
+      | authorisedRepAuto | Registered | General Medical Device     | Blood weighing scale              | false      | true          | true            | class1             | NB 0086 BSI  |                    |                   |
+      | authorisedRepAuto | Registered | General Medical Device     | Blood                             | true       | true          | true            |                    |              |                    |                   |
+      | authorisedRepAuto | Registered | In Vitro Diagnostic Device | Androgen receptor IVD, calibrator |            |               |                 | ivd general        |              |                    |                   |
+      | authorisedRepAuto | Registered | System or Procedure Pack   | Desiccating chamber               |            | true          | true            | class1             | NB 0086 BSI  | false              | true              |
+      | manufacturerAuto  | Registered | System or Procedure Pack   | Desiccating chamber               |            | false         | true            |                    | NB 0086 BSI  | false              | true              |
 #      | manufacturerAuto | Registered | General Medical Device     | Blood weighing scale              | false      | true          | true            | class1             | NB 0086 BSI  |                  |                   |
 #      | manufacturerAuto | Registered | General Medical Device     | Blood                             | true       | true          | true            |                    |              |                  |                   |
 #      | manufacturerAuto | Registered | In Vitro Diagnostic Device | Androgen receptor IVD, calibrator |            |               |                 | ivd general        |              |                  |                   |
@@ -149,7 +149,7 @@ Feature: As an account holder with access to the Device Registration Service
       #| manufacturerAuto | General Medical Device | Blood            |            |                   | 10003      |
       #| manufacturerAuto | General Medical Device |                  | 10003      | Housekeeping soap |            |
 
-  @regression @mdcm-485 @mdcm-374 @sprint5 @wip @bug
+  @regression @mdcm-485 @mdcm-374 @3777 @sprint9 @sprint5 @wip @bug
   Scenario Outline: Users should be able to add devices to existing manufacturers and verify devices are added
     Given I am logged into appian as "<user>" user
     When I go to list of manufacturers page
@@ -180,7 +180,7 @@ Feature: As an account holder with access to the Device Registration Service
       | user              | logBackInAas | deviceType                         | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
       | authorisedRepAuto | businessAuto | General Medical Device             | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
       | authorisedRepAuto | businessAuto | Active Implantable Medical Devices | true       |               |                 | Registered | Desiccating chamber  |                    |              |
-      #| manufacturerAuto  | businessAuto | General Medical Device | true       | false         | false           | Registered | Blood weighing scale |                    |              |
+      | manufacturerAuto  | businessAuto | General Medical Device             | true       | false         | false           | Registered | Blood weighing scale |                    |              |
 
 
   @regression @readonly @mdcm-485 @sprint5 @wip
