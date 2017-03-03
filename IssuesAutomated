@@ -108,25 +108,25 @@ Automated Issues:
                 Total   40/74
 
     Spring 7: @sprint7
-        - @mdcm-2797-   15/16       DONE ish
+        - @2797     -   15/16       DONE ish
                     -   1 or 2 stories have bugs associated with them
         - @mdcm-148 -   8/9         DONE ish
                     -   1 or 2 stories have bugs associated with them
         - @mdcm-275 -   5/20        DONE ish
                     -   RAG status and device data
         - @mdcm-345 -   @Todo Business has moved this outside of this sprints, all 3 TC
-        - @mdcm-3365-   4/4         DONE ish
+        - @3365     -   4/4         DONE ish
                     -   Once approved users can register more manufacturer
-        - @mdcm-2910-   @TODO cant see add a product button
+        - @2910     -   @TODO cant see add a product button
                     -   Add a product button not visible
-        - @mdcm-2399-   7/7         DONE ish
+        - @2399     -   7/7         DONE ish
                     -   Add more tests
         - @mdcm-490 -   @Todo add tests when deployment finishes
                     -   Business manufacturer details page
         - @mdcm-626 -   10/13       DONE ish
                     -   Last 3 or 4 still remaining to do
-        - @mdcm-3360- no tests for regression
-        - @mdcm-2339- no tests for regression
+        - @3360     -   no tests for regression
+        - @2339     -   no tests for regression
                 Total   49/69
 
     Spring 8: @sprint8
@@ -158,10 +158,11 @@ Automated Issues:
                 -   Proceed to payment page
         - @2184 -
                 -   Device review AIMD
+                -   @todo from 3 attachements approve 1 and reject 2, And manufacturer registration should be approved
                 Total
 
 
-    Spring 10: @sprint10
+    Sprint 10: @sprint10
         - @2191 -   @todo Email related
         - @1937 -   3/6     DONE
                 -   @Todo cant filter by Registered
@@ -180,7 +181,7 @@ Automated Issues:
         - @3756 -   no tests for regression
                 Total
 
-    Spring 11: @sprint11
+    Sprint 11: @sprint11
         - @4088 -   3/3     DONE
         - @3755 -   1/2
                 -   @todo All organisation test still remaining
@@ -196,7 +197,7 @@ Automated Issues:
         - @3358 -   no tests for regression
         - @2577 -   no tests for regression
 
-    Spring 12: @sprint12
+    Sprint 12: @sprint12
         - @4211 -   DONE
         - @4214 -   no tests for regression
         - @4215 -   no tests for regression
@@ -205,7 +206,7 @@ Automated Issues:
         - @4220 -   no tests for regression
         - @4221 -   no tests for regression
 
-    Spring 13: @sprint13
+    Sprint 13: @sprint13
         - @1838 -   6/8     DONE ish
                 -   Create manufacturer and add devices by searching gmdn code
         - @4090 -   3/7     DONE ish
@@ -229,7 +230,7 @@ Automated Issues:
         - @4340 -   no tests for regression
         - @4361 -   no tests for regression
 
-    Spring 14: @sprint14
+    Sprint 14: @sprint14
         - @2833 -   no tests for regression
         - @3298 -   no tests for regression
         - @3264 -   no tests for regression
@@ -240,7 +241,7 @@ Automated Issues:
         - @2141 -   no tests for regression
         - @1957 -   no tests for regression
 
-    Spring MIXED: @sprintMixed
+    Sprint MIXED: @sprintMixed
         - @mdcm-159 - no tests for regression
         - @mdcm-2151- no tests for regression
         - @mdcm-22  - no tests for regression
