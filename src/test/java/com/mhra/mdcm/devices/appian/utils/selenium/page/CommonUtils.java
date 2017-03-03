@@ -107,8 +107,10 @@ public class CommonUtils {
         }
 
         //List of gmdns for SPP
-        String sppGMDN = listOfGMDNDefinitionsForSSP.get(0).getText();
-        gmdns.add(sppGMDN);
+        if(listOfGMDNDefinitionsForSSP!=null) {
+            String sppGMDN = listOfGMDNDefinitionsForSSP.get(0).getText();
+            gmdns.add(sppGMDN);
+        }
         return gmdns;
     }
 }

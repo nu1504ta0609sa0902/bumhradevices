@@ -206,6 +206,23 @@ public class TasksPageSteps extends CommonSteps {
     }
 
 
+    @When("^I wait for task to appear for stored manufacturer in WIP page$")
+    public void iWaitForTaskToAppearForStoredManufacturerInWIPPage() throws Throwable {
+        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
+        boolean isVisible = false;
+        int count = 0;
+        do {
+            isVisible = taskSection.isTaskVisibleWithName(orgName);
+            if(!isVisible){
+                tasksPage = mainNavigationBar.clickTasks();
+                taskSection = tasksPage.gotoWIPTasksPage();
+                //Sort by submitted, at the moment sorting by default not working as expected
+                taskSection = taskSection.sortBy("Submitted", 2);
+            }
+            count++;
+        }while(!isVisible && count < 5);
+    }
+
     @Then("^I should see a new task for the new account in WIP page$")
     public void i_should_see_a_new_task_for_the_new_account_in_WIP_page() throws Throwable {
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
@@ -250,6 +267,34 @@ public class TasksPageSteps extends CommonSteps {
     }
 
 
+    @When("^I view task for the stored account in WIP page$")
+    public void i_view_task_for_the_stored_account(){
+        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
+
+        //Click on link number X
+        taskSection = taskSection.clickOnTaskName(orgName);
+        boolean isCorrectTask = taskSection.isCorrectTask(orgName);
+
+        String taskType = (String) scenarioSession.getData(SessionKey.taskType);
+        if(taskType == null)
+            scenarioSession.putData(SessionKey.taskType, "New Account");
+
+        assertThat("Task not found for organisation : " + orgName, isCorrectTask, is(equalTo(true)));
+    }
+
+    @Then("^Task contains correct devices and products and other details for \"([^\"]*)\"$")
+    public void task_contains_correct_devices_and_products_and_other_details_for(String deviceType) throws Throwable {
+        List<String> listOfProducts = (List<String>) scenarioSession.getData(SessionKey.listOfProductsAdded);
+        boolean productsFound = taskSection.isProductsDisplayedForDeviceType(deviceType, listOfProducts);
+        assertThat("Expected to see the following products : " + listOfProducts, productsFound, is(equalTo(true)));
+
+        //Check GMDN values are displayed
+        List<String> listOfGmdns = (List<String>) scenarioSession.getData(SessionKey.listOfGmndsAdded);
+        boolean isGMDNCorrect = taskSection.isAllTheGMDNValueDisplayed(listOfGmdns);
+        assertThat("Expected to see the following GMDNs : " + listOfGmdns, isGMDNCorrect, is(equalTo(true)));
+    }
+
+
     @Then("^The task should be removed from WIP tasks list$")
     public void theTaskShouldBeRemovedFromWIPTaskList() {
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
@@ -273,6 +318,11 @@ public class TasksPageSteps extends CommonSteps {
         assertThat("WIP page not showing correct data for : " + orgName, isWIPDataCorrect, is(equalTo(true)));
     }
 
+    /**
+     * Only after a NEW manufacturer was created as part of the scenario
+     * @param taskType
+     * @throws Throwable
+     */
     @Then("^Check the WIP entry details for the \"([^\"]*)\" task is correct$")
     public void verify_the_WIP_entry_details_for_the_task_is_correct(String taskType) throws Throwable {
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
@@ -282,6 +332,13 @@ public class TasksPageSteps extends CommonSteps {
         }
         boolean isWIPDataCorrect = taskSection.isWIPTaskDetailsCorrectForAccount(orgName, organisationData, taskType);
         assertThat("WIP page not showing correct data for : " + orgName, isWIPDataCorrect, is(equalTo(true)));
+    }
+
+    @And("^The WIP task for stored manufacturer should contain a paper click image$")
+    public void theWIPTaskForStoredManufacturerShouldContainAPaperClickImage() throws Throwable {
+        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
+        boolean isPaperClipDisplayed = taskSection.isPaperClipDisplayed(orgName);
+        assertThat("Expected to see paper clip for : " + orgName, isPaperClipDisplayed, is(true));
     }
 
     @And("^The completed task status should update to \"([^\"]*)\"$")
@@ -378,10 +435,10 @@ public class TasksPageSteps extends CommonSteps {
         assertThat("Following information was incorrect : " + listOfDetailsWhichAreIncorrect, listOfDetailsWhichAreIncorrect.size() == 0, is(equalTo(true)));
     }
 
-    @When("^I filter WIP tasks by \"([^\"]*)\" stored organisation name$")
-    public void i_filter_WIP_tasks_by_stored_org_name(String filterBy) throws Throwable {
+    @When("^I filter WIP tasks by stored organisation name$")
+    public void i_filter_WIP_tasks_by_stored_org_name() throws Throwable {
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
-        taskSection = taskSection.filterWIPTasksBy(filterBy, orgName, null);
+        taskSection = taskSection.filterWIPTasksBy("orgName", orgName, null);
     }
 
     @When("^I filter WIP tasks by \"([^\"]*)\"$")

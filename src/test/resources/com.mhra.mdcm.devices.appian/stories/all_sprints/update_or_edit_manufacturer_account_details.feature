@@ -111,17 +111,17 @@ Feature: As a business and account holder, I want to be able to update party det
     And I go to list of manufacturers page
     And I click on random manufacturer with status "<status>"
     When I add a device to SELECTED manufacturer with following data
-      | deviceType     | General Medical Device |
-      | gmdnDefinition | <gmdn1>                |
-      | customMade     | true                   |
+      | deviceType     | <deviceType> |
+      | gmdnDefinition | <gmdn1>      |
+      | customMade     | true         |
     And I add another device to SELECTED manufacturer with following data
-      | deviceType             | General Medical Device |
-      | gmdnDefinition         | <gmdn2>                |
-      | customMade             | false                  |
-      | relatedDeviceSterile   | true                   |
-      | relatedDeviceMeasuring | true                   |
-      | riskClassification     | class1                 |
-      | notifiedBody           | NB 0086 BSI            |
+      | deviceType             | <deviceType> |
+      | gmdnDefinition         | <gmdn2>      |
+      | customMade             | false        |
+      | relatedDeviceSterile   | true         |
+      | relatedDeviceMeasuring | true         |
+      | riskClassification     | class1       |
+      | notifiedBody           | NB 0086 BSI  |
     And Proceed to payment and confirm submit device details
 #    Then I should see stored manufacturer appear in the manufacturers list
     Then I should see the registered manufacturers list
@@ -130,7 +130,7 @@ Feature: As a business and account holder, I want to be able to update party det
     And I go to WIP tasks page
     Then Check the WIP entry details for the "<taskType>" task is correct
     When I view task for the new account in WIP page
-    Then Task contains correct devices and products and other details
+    Then Task contains correct devices and products and other details for "<deviceType>"
     And Task shows devices which are arranged by device types
     And I assign the task to me and "<approveReject>" the generated task
 #    Then The task should be removed from WIP tasks list
@@ -138,9 +138,9 @@ Feature: As a business and account holder, I want to be able to update party det
     When I search accounts for the stored organisation name
     Then I should see at least 0 account matches
     Examples:
-      | user              | logBackInAs  | status         | gmdn1                | gmdn2           | approveReject | taskType                                 |
-      | authorisedRepAuto | businessAuto | Registered     | Blood weighing scale | Autopsy measure | approve       | Update Manufacturer Registration Request |
-      | authorisedRepAuto | businessAuto | Not Registered | Blood weighing scale | Autopsy measure | reject        | Update Manufacturer Registration Request |
-#      | manufacturerAuto | businessAuto | Registered     | Blood weighing scale | Autopsy measure | approve       | Update Manufacturer Registration Request    |
-#      | manufacturerAuto | businessAuto | Not Registered | Blood weighing scale | Autopsy measure | reject       | Update Manufacturer Registration Request |
+      | user              | logBackInAs  | status         | gmdn1                | gmdn2           | approveReject | taskType                                 | deviceType             |
+      | authorisedRepAuto | businessAuto | Registered     | Blood weighing scale | Autopsy measure | approve       | Update Manufacturer Registration Request | General Medical Device |
+      | authorisedRepAuto | businessAuto | Not Registered | Blood weighing scale | Autopsy measure | reject        | Update Manufacturer Registration Request | General Medical Device |
+#      | manufacturerAuto | businessAuto | Registered     | Blood weighing scale | Autopsy measure | approve       | Update Manufacturer Registration Request    |General Medical Device|
+#      | manufacturerAuto | businessAuto | Not Registered | Blood weighing scale | Autopsy measure | reject       | Update Manufacturer Registration Request |General Medical Device|
 

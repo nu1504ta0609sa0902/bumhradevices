@@ -259,6 +259,7 @@ public class AddDevices extends _Page {
 
     public AddDevices addFollowingDevice(DeviceData dd) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.nativeWaitInSeconds(1);
         WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_DEFAULT, false);
         WaitUtils.waitForElementToBeClickable(driver, systemOrProcedurePack, TIMEOUT_3_SECOND, false);
         //Select device type

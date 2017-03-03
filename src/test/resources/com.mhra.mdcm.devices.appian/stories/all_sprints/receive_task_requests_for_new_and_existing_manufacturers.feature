@@ -187,11 +187,11 @@ Feature: As a business user, I want a task to be created each time a customer su
       | accountType | <accountType> |
       | countryName | <countryName> |
     When I add a device to SELECTED manufacturer with following data
-      | deviceType     | General Medical Device |
+      | deviceType     | <deviceType> |
       | gmdnDefinition | <gmdn1>                |
       | customMade     | true                   |
     And I add another device to SELECTED manufacturer with following data
-      | deviceType             | General Medical Device |
+      | deviceType             | <deviceType> |
       | gmdnDefinition         | <gmdn2>                |
       | customMade             | false                  |
       | relatedDeviceSterile   | true                   |
@@ -206,7 +206,7 @@ Feature: As a business user, I want a task to be created each time a customer su
     And I go to WIP tasks page
     Then Verify the WIP entry details for the new account is correct
     When I view task for the new account in WIP page
-    Then Task contains correct devices and products and other details
+    Then Task contains correct devices and products and other details for "<deviceType>"
     And Task shows devices which are arranged by device types
     And I assign the task to me and "<approveReject>" the generated task
 #    Then The task should be removed from WIP tasks list
@@ -214,9 +214,9 @@ Feature: As a business user, I want a task to be created each time a customer su
     When I search accounts for the stored organisation name
     Then I should see at least 0 account matches
     Examples:
-      | user              | logBackInAs  | accountType   | countryName | gmdn1                | gmdn2           | approveReject |
-      #| manufacturerAuto | businessAuto | manufacturer | Brazil      | Blood weighing scale | Autopsy measure | approve       |
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Blood weighing scale | Autopsy measure | approve       |
+      | user              | logBackInAs  | accountType   | countryName | gmdn1                | gmdn2           | approveReject | deviceType |
+      #| manufacturerAuto | businessAuto | manufacturer | Brazil      | Blood weighing scale | Autopsy measure | approve       |General Medical Device |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Blood weighing scale | Autopsy measure | approve       |General Medical Device |
 
 
   @regression @4090 @sprint13

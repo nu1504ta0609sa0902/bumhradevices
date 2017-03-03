@@ -33,6 +33,20 @@ public class StepsUtils {
         scenarioSession.putData(sessionKey, listOfStrings);
     }
 
+
+    public static void addToListOfStrings(ScenarioSession scenarioSession, String sessionKey, List<String> values) {
+        List<String> listOfStrings = (List<String>) scenarioSession.getData(sessionKey);
+        if(listOfStrings == null){
+            listOfStrings = new ArrayList<>();
+        }
+
+        for(String item: values) {
+            listOfStrings.add(item);
+        }
+
+        scenarioSession.putData(sessionKey, listOfStrings);
+    }
+
     public static String getCommaDelimitedData(List<String> listOfGmdns) {
         String commaDelimited = "";
         for(String x: listOfGmdns){

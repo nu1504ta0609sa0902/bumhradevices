@@ -114,6 +114,14 @@ public class TaskSection extends _Page {
     @FindBy(xpath = ".//*[.='Task type']//following::select[1]")
     WebElement taskTypeDD;
 
+    //Table data generic
+    @FindBy(xpath = ".//th[contains(text(), 'GMDN definition')]//following::tr/td[3]")
+    List<WebElement> listOfGMDNs;
+
+    //Active Implantable MD table
+    @FindBy(xpath = ".//h3[contains(text(), 'Active Implant')]//following::tr/td[8]")
+    List<WebElement> listOfDeviceLabelAIMD;
+
 
     @Autowired
     public TaskSection(WebDriver driver) {
@@ -408,5 +416,66 @@ public class TaskSection extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th") , TIMEOUT_DEFAULT, false);
         List<String> columnsNotFound = PageUtils.areTheColumnsCorrect(columns, listOfTableColumns);
         return columnsNotFound;
+    }
+
+
+    public boolean isPaperClipDisplayed(String orgName) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        By by = By.xpath(".//td[.='" + orgName + "']//following::td[5]");
+        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_10_SECOND, false);
+        WebElement tdWithDocuments = driver.findElement(by);
+        WebElement img = tdWithDocuments.findElement(By.tagName("img"));
+        String link = img.getAttribute("src");
+
+        //At the moment the link which displays paper clip contains _5CxeEbDl1rWAa94_
+        boolean contains = link.contains("_5CxeEbDl1rWAa94_");
+        return contains;
+    }
+
+    public boolean isProductsDisplayedForDeviceType(String deviceType, List<String> listOfProducts) {
+        boolean allProductsFound = true;
+
+        String products = "";
+
+        if(deviceType.toLowerCase().contains("active implantable")) {
+            for (WebElement el : listOfDeviceLabelAIMD) {
+                products = products + el.getText() + ",";
+            }
+        }
+
+        //Check all products displayed
+        for(String product: listOfProducts){
+            allProductsFound = products.contains(product);
+            if(!allProductsFound){
+                break;
+            }
+        }
+
+        return allProductsFound;
+    }
+
+    public boolean isAllTheGMDNValueDisplayed(List<String> listOfGmdns) {
+
+        List<String> gmdns = CommonUtils.getListOfGMDNS(listOfGMDNDefinitions, null);
+
+        //Verify it matches with my expected data set
+        boolean allFound = true;
+        for (String d : listOfGmdns) {
+            boolean foundOne = false;
+            for (String gmdn : gmdns) {
+                if (gmdn.toLowerCase().contains(d.toLowerCase())) {
+                    foundOne = true;
+                    break;
+                }
+            }
+
+            //All of them must exists, therefore foundOne should be true
+            if (!foundOne) {
+                allFound = false;
+                break;
+            }
+        }
+
+        return allFound;
     }
 }

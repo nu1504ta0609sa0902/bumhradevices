@@ -263,6 +263,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         addDevices = addDevices.addFollowingDevice(dd);
 
         StepsUtils.addToListOfStrings(scenarioSession, SessionKey.listOfGmndsAdded, AddDevices.gmdnSelected);
+        StepsUtils.addToListOfStrings(scenarioSession, SessionKey.listOfProductsAdded, dd.listOfProductName);
         scenarioSession.putData(SessionKey.deviceData, dd);
     }
 
@@ -277,6 +278,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         addDevices = addDevices.addFollowingDevice(dd);
 
         StepsUtils.addToListOfStrings(scenarioSession, SessionKey.listOfGmndsAdded, AddDevices.gmdnSelected);
+        StepsUtils.addToListOfStrings(scenarioSession, SessionKey.listOfProductsAdded, dd.listOfProductName);
         scenarioSession.putData(SessionKey.deviceData, dd);
         StepsUtils.addToDeviceDataList(scenarioSession, dd);
     }

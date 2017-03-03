@@ -64,8 +64,8 @@ Feature: As an account holder with access to the Device Registration Service I w
       | authorisedRepAuto | General Medical Device   | Blood               | class2a            | NB 0086 BSI  |                    |                   | You cannot register class IIa devices with the MHRA                                              |
       | manufacturerAuto  | General Medical Device   | Blood               | class2b            | NB 0086 BSI  |                    |                   | You cannot register class IIb devices with the MHRA                                              |
       | manufacturerAuto  | General Medical Device   | Blood               | class3             | NB 0086 BSI  |                    |                   | You cannot register class III devices with the MHRA                                              |
-      | authorisedRepAuto | System or Procedure Pack | Desiccating chamber |                    | NB 0086 BSI  | true               |               | You cannot register this as a System/procedure pack because all the components must be CE marked |
-      | authorisedRepAuto | System or Procedure Pack | Desiccating chamber |                    | NB 0086 BSI  |                | false              | You cannot register this as a System/procedure pack because all the components must be CE marked |
+      | authorisedRepAuto | System or Procedure Pack | Desiccating chamber |                    | NB 0086 BSI  | true               |                   | You cannot register this as a System/procedure pack because all the components must be CE marked |
+      | authorisedRepAuto | System or Procedure Pack | Desiccating chamber |                    | NB 0086 BSI  |                    | false             | You cannot register this as a System/procedure pack because all the components must be CE marked |
       | manufacturerAuto  | System or Procedure Pack | Desiccating chamber |                    | NB 0086 BSI  | false              | false             | This System/procedure pack cannot be registered with us                                          |
 
 
@@ -123,7 +123,7 @@ Feature: As an account holder with access to the Device Registration Service I w
       #| manufacturerAuto | In Vitro Diagnostic Device | Androgen receptor IVD | Cat             | self-test          | ferrari,peugeot    | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
 
-  @regression @mdcm-183 @mdcm-240 @sprint3 @sprint4 @3777 @sprint9 @mdcm-148 @sprint7 @wip
+  @regression @mdcm-183 @mdcm-240 @sprint3 @sprint4 @3777 @2184 @sprint9 @mdcm-148 @sprint7 @wip
   Scenario Outline: Register a device with MULTIPLE product and devices for active implantable medical devices type
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -142,12 +142,16 @@ Feature: As an account holder with access to the Device Registration Service I w
     And Proceed to payment and confirm submit device details
     When I logout of the application
     And I login to appian as "<logBackInAas>" user
-    Then I view new task with link "<link>" for the new account
+    When I go to WIP tasks page
+    And I wait for task to appear for stored manufacturer in WIP page
+    Then The WIP task for stored manufacturer should contain a paper click image
+    When I view task for the stored account in WIP page
+    Then Task contains correct devices and products and other details for "<deviceType>"
+    And Task shows devices which are arranged by device types
     And I assign the task to me and "approve" the generated task
-    Then The task with link "<link>" should be removed from tasks list
+    Then The completed task status should update to "Completed"
     Examples:
-      | user              | logBackInAas | deviceType                         | gmdnDefinition      | gmdnDefinition2 | customMade | listOfProductNames | link                                     |
-      | authorisedRepAuto | businessAuto | Active Implantable Medical Devices | Desiccating chamber | suction         | true       | ford,hyundai       | Update Manufacturer Registration Request |
-      #| manufacturerAuto | businessAuto | Active Implantable Medical Devices | Desiccating chamber | suction         | true       | ford,hyundai       | Update Manufacturer Registration Request |
-#      | manufacturerAuto | businessAuto | Active Implantable Medical Devices | Blood          | false      | vauxhall,honda     | Update Manufacturer Registration Request |
+      | user              | logBackInAas | deviceType                         | gmdnDefinition      | gmdnDefinition2 | customMade | listOfProductNames    | link                                     |
+      | authorisedRepAuto | businessAuto | Active Implantable Medical Devices | Desiccating chamber | suction         | true       | ford,hyundai          | Update Manufacturer Registration Request |
+#      | manufacturerAuto  | businessAuto | Active Implantable Medical Devices | Desiccating chamber | suction         | true       | ford,hyundai,toyota          | Update Manufacturer Registration Request |
 
