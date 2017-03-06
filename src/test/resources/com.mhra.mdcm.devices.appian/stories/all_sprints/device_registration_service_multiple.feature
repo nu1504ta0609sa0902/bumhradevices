@@ -8,9 +8,9 @@ Feature: As an account holder with access to the device registration service
     And I go to list of manufacturers page
     And I click on a random manufacturer
     When I add a device to SELECTED manufacturer with following data
-      | deviceType             | General Medical Device |
-      | gmdnDefinition         | <device1>              |
-      | customMade             | true                   |
+      | deviceType     | General Medical Device |
+      | gmdnDefinition | <device1>              |
+      | customMade     | true                   |
     When I add another device to SELECTED manufacturer with following data
       | deviceType             | System or Procedure Pack |
       | gmdnDefinition         | <device2>                |
@@ -19,7 +19,7 @@ Feature: As an account holder with access to the device registration service
       | customMade             | true                     |
       | relatedDeviceSterile   | true                     |
       | relatedDeviceMeasuring | true                     |
-      | isBearingCEMarking       | false                    |
+      | isBearingCEMarking     | false                    |
       | devicesCompatible      | true                     |
     When I add another device to SELECTED manufacturer with following data
       | deviceType     | Active Implantable Medical Devices |
@@ -51,6 +51,6 @@ Feature: As an account holder with access to the device registration service
     And I assign the task to me and "approve" the generated task
     Then The completed task status should update to "Completed"
     Examples:
-      | user             | logBackInAas | device1              | device2             | device3                   | device4               |
+      | user              | logBackInAas | device1              | device2             | device3                   | device4               |
       | authorisedRepAuto | businessAuto | Blood weighing scale | Desiccating chamber | Sinus irrigation catheter | Androgen receptor IVD |
 

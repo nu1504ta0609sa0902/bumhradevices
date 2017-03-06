@@ -12,6 +12,6 @@ Feature: As a customer I want to register new manufacturers WITHOUT devices
     And  I goto list of manufacturers page again
     Then I should see stored manufacturer appear in the registration in progress list
     Examples:
-      | user              | accountType   | countryName | deviceType             | deviceType             | customMade | riskClassification | notifiedBody |
-      | manufacturerAuto  | manufacturer  | Brazil      | General Medical Device | General Medical Device | true       |                    |              |
-#      | authorisedRepAuto | authorisedRep | Bangladesh  | General Medical Device | General Medical Device | false      | class1             | NB 0086 BSI  |
+      | user              | accountType   | countryName |
+      | manufacturerAuto  | manufacturer  | Brazil      |
+      | authorisedRepAuto | authorisedRep | Bangladesh  |
