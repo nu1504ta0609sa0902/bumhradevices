@@ -25,7 +25,7 @@ Feature: As an account holder with access to the Device Registration Service
       | authorisedRepAuto |
 
 
-  @regression @mdcm-14 @mdcm-467 @mdcm-21 @sprint3 @sprint5
+  @regression @mdcm-14 @mdcm-467 @mdcm-21 @sprint3 @sprint5 @2185 @sprint8
   Scenario Outline: Verify correct options are displayed on add devices page
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -49,7 +49,7 @@ Feature: As an account holder with access to the Device Registration Service
       | authorisedRepAuto | Registered | General Medical Device     | Blood                             | true       | true          | true            |                    |              |                    |                   |
       | authorisedRepAuto | Registered | In Vitro Diagnostic Device | Androgen receptor IVD, calibrator |            |               |                 | ivd general        |              |                    |                   |
       | authorisedRepAuto | Registered | System or Procedure Pack   | Desiccating chamber               |            | true          | true            | class1             | NB 0086 BSI  | false              | true              |
-      | manufacturerAuto  | Registered | System or Procedure Pack   | Desiccating chamber               |            | false         | true            |                    | NB 0086 BSI  | false              | true              |
+      | manufacturerAuto  | Registered | System or Procedure Pack   | Desiccating chamber               |            | false         | true            |                    |              | false              | true              |
 #      | manufacturerAuto | Registered | General Medical Device     | Blood weighing scale              | false      | true          | true            | class1             | NB 0086 BSI  |                  |                   |
 #      | manufacturerAuto | Registered | General Medical Device     | Blood                             | true       | true          | true            |                    |              |                  |                   |
 #      | manufacturerAuto | Registered | In Vitro Diagnostic Device | Androgen receptor IVD, calibrator |            |               |                 | ivd general        |              |                  |                   |
@@ -143,11 +143,11 @@ Feature: As an account holder with access to the Device Registration Service
     When I remove the stored device with gmdn code or definition
     Then The gmdn code or term is "removed" in summary section
     Examples:
-      | user              | deviceType             | gmdnDefinitionD1 | gmdnCodeD1 | gmdnDefinitionD2  | gmdnCodeD2 |
-      | authorisedRepAuto | General Medical Device | Blood            |            |                   | 17500      |
-      | manufacturerAuto  | General Medical Device | Blood            |            |                   | 17500      |
-      | authorisedRepAuto | General Medical Device |                  | 17500      | Dress |            |
-      | manufacturerAuto  | General Medical Device |                  | 17500      | Dress |            |
+      | user              | deviceType             | gmdnDefinitionD1 | gmdnCodeD1 | gmdnDefinitionD2 | gmdnCodeD2 |
+      | authorisedRepAuto | General Medical Device | Blood            |            |                  | 17500      |
+      | manufacturerAuto  | General Medical Device | Blood            |            |                  | 17500      |
+      | authorisedRepAuto | General Medical Device |                  | 17500      | Dress            |            |
+      | manufacturerAuto  | General Medical Device |                  | 17500      | Dress            |            |
 
   @regression @mdcm-485 @mdcm-374 @3777 @sprint9 @sprint5 @wip @bug
   Scenario Outline: Users should be able to add devices to existing manufacturers and verify devices are added

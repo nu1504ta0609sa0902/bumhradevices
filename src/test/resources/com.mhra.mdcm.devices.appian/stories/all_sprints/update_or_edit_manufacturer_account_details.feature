@@ -105,7 +105,7 @@ Feature: As a business and account holder, I want to be able to update party det
       | authorisedRepAuto | businessAuto | contact.title,contact.firstname,contact.lastname,contact.job.title,contact.email,contact.telephone | Registered |
 
 
-  @regression @mdcm-263 @sprint6 @mdcm-275 @sprint7 @4088 @sprint11 @wip
+  @regression @mdcm-263 @sprint6 @mdcm-275 @sprint7 @4088 @sprint11 @2185 @sprint8 @wip
   Scenario Outline: Verify only 1 task is created when update EXISTING manufacturer with multiple devices
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page

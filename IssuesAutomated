@@ -133,8 +133,10 @@ Automated Issues:
         - @1924 -
                 -   Device and notified body
         - @2049 -
+                -   IVD device and notified body related
         - @2185 -
                 -   Indicate notified body
+                -   @todo verify the number of notified body in the list
         - @3271 -   View devices as part of manufacturers
         - @3158 -   View devices as part of manufacturers
         - @1836 -   Registration message
@@ -153,9 +155,10 @@ Automated Issues:
         - @1996 -   3/4     DONE
                 -   @todo "Assigned to me" link in WIP page takes me back to the old tasks page
         - @1840 -
-                -   Verify logos and page elements
+                -   @TODO Verify logos and page elements
         - @1956 -
                 -   Proceed to payment page
+                -   @TODO this depends on "Register My Organisation"
         - @2184 -
                 -   Device review AIMD
                 -   @todo from 3 attachements approve 1 and reject 2, And manufacturer registration should be approved

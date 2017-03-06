@@ -478,4 +478,11 @@ public class TaskSection extends _Page {
 
         return allFound;
     }
+
+    public boolean areDevicesOrderedByDeviceTypes() {
+        boolean isOrdered = true;
+
+        //This is harder than expected because you may only have IDV or AIMD or GMD or SPP or any combinations
+        return isOrdered;
+    }
 }

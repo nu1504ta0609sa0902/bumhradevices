@@ -44,7 +44,7 @@ Feature: As an account holder with access to the Device Registration Service I w
 #      | manufacturerAuto | Active Implantable Medical Devices | Blood          | false      | ford focus  | can't register if custom made is false
 
 
-  @regression @3559 @2143 @sprint10
+  @regression @3559 @2143 @sprint10 @2185 @sprint8
   Scenario Outline: Error message is displayed for devices with certain risk classification
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page

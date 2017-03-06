@@ -458,4 +458,10 @@ public class TasksPageSteps extends CommonSteps {
         List<String> tableColumnsNotFound = taskSection.isTableColumnCorrect(columns);
         Assert.assertThat("Following columns not found : " + tableColumnsNotFound, tableColumnsNotFound.size() == 0, is(true));
     }
+
+    @And("^Task shows devices which are arranged by device types$")
+    public void taskShowsDevicesWhichAreArrangedByDeviceTypes() throws Throwable {
+        boolean isOrderedCorrectly = taskSection.areDevicesOrderedByDeviceTypes();
+        Assert.assertThat("Devices should be ordered by device type", isOrderedCorrectly, is(true));
+    }
 }
