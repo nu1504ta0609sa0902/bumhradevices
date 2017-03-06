@@ -139,6 +139,26 @@ public class RecordsPageSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.searchTerm, searchTerm);
     }
 
+
+
+    @When("^I search for stored organisation \"([^\"]*)\" page$")
+    public void i_search_for_stored_organisation_in_specified_page(String page) throws Throwable {
+        String searchTerm = (String) scenarioSession.getData(SessionKey.organisationName);
+        if (page.equals("Accounts")) {
+            accounts = accounts.searchForAccount(searchTerm);
+        } else if (page.equals("Devices")) {
+        } else if (page.equals("Products")) {
+        } else if (page.equals("All Devices")) {
+            allDevices = allDevices.searchForAllDevices(searchTerm);
+        } else if (page.equals("All Products")) {
+            allProducts = allProducts.searchForAllProducts(searchTerm);
+        } else if (page.equals("All Organisations")) {
+            allOrganisations = allOrganisations.searchForAllOrganisation(searchTerm);
+        }
+
+        scenarioSession.putData(SessionKey.searchTerm, searchTerm);
+    }
+
     @When("^I search for a \"([^\"]*)\" organisation$")
     public void i_search_for_a_organisation(String existing) throws Throwable {
         boolean exists = true;

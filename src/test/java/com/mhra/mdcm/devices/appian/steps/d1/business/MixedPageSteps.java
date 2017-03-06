@@ -1,7 +1,9 @@
 package com.mhra.mdcm.devices.appian.steps.d1.business;
 
+import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
@@ -56,5 +58,27 @@ public class MixedPageSteps extends CommonSteps {
         boolean isTableHeadingCorrect = businessDevicesDetails.isTableColumnsCorrect(expectedHeadings);
         Assert.assertThat("Table heading expected : " + expectedHeadings, isTableHeadingCorrect, is(true));
         Assert.assertThat("Table should have data " , isDevicesTableDisplayed, is(true));
+    }
+
+
+    @When("^I click on a device for device type \"([^\"]*)\"$")
+    public void iClickOnADeviceForDeviceType(String deviceType) throws Throwable {
+        DeviceData dd = (DeviceData) scenarioSession.getData(SessionKey.deviceData);
+        deviceType = deviceType.toLowerCase();
+        businessDevicesDetails = businessDevicesDetails.viewDeviceOfType(deviceType, dd.gmdnTermOrDefinition);
+    }
+
+
+    @When("^I click on a device with link \"([^\"]*)\" for device type \"([^\"]*)\"$")
+    public void iClickOnADeviceForDeviceType(String link, String deviceType) throws Throwable {
+        deviceType = deviceType.toLowerCase();
+        businessDevicesDetails = businessDevicesDetails.viewDeviceOfType(deviceType, link);
+    }
+
+
+    @Then("^I should see correct information for device type \"([^\"]*)\"$")
+    public void i_should_see_correct_information_for_device_type(String deviceType) throws Throwable {
+        boolean areFieldsCorrect = businessDevicesDetails.areDeviceInformationPageShowingCorrectFields(deviceType);
+        Assert.assertThat("Not all the expected FIELDS displayed for device type : " + deviceType, areFieldsCorrect, is(true));
     }
 }

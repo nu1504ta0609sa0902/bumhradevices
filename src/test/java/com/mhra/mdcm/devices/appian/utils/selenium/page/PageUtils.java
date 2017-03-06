@@ -462,4 +462,24 @@ public class PageUtils {
         boolean isEmpty = actualText.trim().equals("");
         return isEmpty;
     }
+
+    public static void clickOnGMDNCodeOrDefinition(List<WebElement> listOfDevices, String gmdnTermOrDefinition) {
+        WebElement linkToClick = null;
+        for(WebElement tr: listOfDevices){
+            try {
+                linkToClick = tr.findElement(By.partialLinkText(gmdnTermOrDefinition));
+                if (linkToClick != null) {
+                    break;
+                }
+            }catch (Exception e){
+                //Not found
+            }
+        }
+
+        //If link doesn't exist than next step will fail
+        if(linkToClick!=null){
+            linkToClick.click();
+        }
+
+    }
 }

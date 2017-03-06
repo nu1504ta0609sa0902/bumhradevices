@@ -1,4 +1,4 @@
-package com.mhra.mdcm.devices.appian.utils.selenium.others;
+package com.mhra.mdcm.devices.appian.utils.selenium.page;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
 import com.mhra.mdcm.devices.appian.session.ScenarioSession;

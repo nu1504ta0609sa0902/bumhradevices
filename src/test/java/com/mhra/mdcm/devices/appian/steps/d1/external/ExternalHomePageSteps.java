@@ -7,7 +7,7 @@ import com.mhra.mdcm.devices.appian.pageobjects.external.sections.AddDevices;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
-import com.mhra.mdcm.devices.appian.utils.selenium.others.StepsUtils;
+import com.mhra.mdcm.devices.appian.utils.selenium.page.StepsUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;

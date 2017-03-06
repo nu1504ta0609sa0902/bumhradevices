@@ -1,23 +1,8 @@
-Feature: As a user, I want to view devices and product details
+Feature: As a user, I want to view devices and product details associated with an account
   so that I can quickly verify correct device and related product information is correct
 
-  @regression @1924 @wip
-  Scenario Outline: As a business user I should be able to verify device and product details related to a manufacturer
-    Given I am logged into appian as "<user>" user
-    When I go to records page and click on "<page>"
-    And I perform a search for "<searchTerm>" in "<page>" page
-    And I filter by "Registered status" for the value "REGISTERED" in "<page>" page
-    And I click on a random organisation link "<searchTerm>" in "<page>" page
-    Then I should see business manufacturer details page for the manufacturer
-    When I click on link "product details" and go to "devices" page
-    Then I should see device table with devices
-    Examples:
-      | user         | page              | searchTerm                       | count |
-      | businessAuto | All Organisations | AuthorisedRepRT01Test_24_2_85237 | 1     |
-
-
-  @regression @1924 @wip
-  Scenario Outline: As a business user I should be able to create new manufacturers and verify device and product details related to a manufacturer
+  @regression @mdcm-125 @sprint6 @wip
+  Scenario Outline: Business users should be able to view all the associated organisations related with an account
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
     When I create a new manufacturer using manufacturer test harness page with following data
@@ -32,13 +17,75 @@ Feature: As a user, I want to view devices and product details
     When I logout of the application
     And I am logged into appian as "<logBackInAs>" user
     And I view new task with link "New Manufacturer Registration Request" for the new account
+#    Then I should see associated organisations related to this account
+    When I assign the task to me and "<approveReject>" the generated task
+    Then The task should be removed from tasks list
+    And I search accounts for the stored organisation name
+    And I view a random account from search result
+    Examples:
+      | user             | logBackInAs  | accountType  | approveReject | count | countryName | link     | pageHeading |
+      | manufacturerAuto | businessAuto | manufacturer | approve       | 1     | Brazil      | Accounts | Accounts    |
+#      | authorisedRepAuto | businessAuto | authorisedRep | approve       | 0     | Belarus     |Accounts | Accounts    |
+
+  @mdcm-126 @readonly @sprint1 @mdcm-125 @sprint6 @wip
+  Scenario Outline: As a business user I should be able to view specific account in all accounts page
+    Given I am logged into appian as "<user>" user
+    When I go to records page and click on "<link>"
+    Then I should see items and heading "<pageHeading>" for link "<link>"
+    And I should see the following columns for "<link>" page
+      | columns | <columns> |
+    And I search for account with following text "<accountInitials>"
+    And I view a random account from search result
+    Then I should see account displaying correct fields
+    Examples:
+      | user         | accountInitials | link     | pageHeading | columns                                                                                                          |
+      | businessAuto | _AT             | Accounts | Accounts    | Organisation name,Account number,Organisation role,Contact name,Organisation address,Organisation country,Status |
+
+  @regression @1924 @wip
+  Scenario Outline: As a business user I should be able to create new manufacturers and verify device and product details related to a manufacturer
+    Given I am logged into appian as "<user>" user
+    And I go to register a new manufacturer page
+    When I create a new manufacturer using manufacturer test harness page with following data
+      | accountType | <accountType> |
+      | countryName | <countryName> |
+    And I add devices to NEWLY created manufacturer with following data
+      | deviceType     | <deviceType>         |
+      | gmdnDefinition | Blood weighing scale |
+      | customMade     | true                 |
+    And Proceed to payment and confirm submit device details
+    Then I should see the registered manufacturers list
+    When I logout of the application
+    And I am logged into appian as "<logBackInAs>" user
+    And I view new task with link "New Manufacturer Registration Request" for the new account
     When I assign the task to me and "<approveReject>" the generated task
     Then The task should be removed from tasks list
     When I go to records page and click on "<page>"
-    And I perform a search for "<searchTerm>" in "<page>" page
+    And I search for stored organisation "<page>" page
+#    And I perform a search for "<searchTerm>" in "<page>" page
     And I click on a random organisation link "<searchTerm>" in "<page>" page
     Then I should see business manufacturer details page for the manufacturer
+    When I click on link "product details" and go to "devices" page
+    Then I should see device table with devices
+    When I click on a device for device type "<deviceType>"
+    Then I should see correct information for device type "<deviceType>"
     Examples:
-      | user              | logBackInAs  | accountType   | approveReject | count | countryName | page              | searchTerm       |
-      #| manufacturerAuto  | businessAuto | manufacturer  | approve       | 1     | Brazil       |All Organisations | ManufacturerRT01 |
-      | authorisedRepAuto | businessAuto | authorisedRep | approve       | 0     | Belarus     | All Organisations | ManufacturerRT01 |
+      | user              | logBackInAs  | accountType   | approveReject | countryName | page              | searchTerm        | deviceType             |
+      #| manufacturerAuto  | businessAuto | manufacturer  | approve          | Brazil       |All Organisations | ManufacturerRT01 |General Medical Device|
+      | authorisedRepAuto | businessAuto | authorisedRep | approve       | Belarus     | All Organisations | AuthorisedRepRT01 | General Medical Device |
+
+  @regression @1924 @wip
+  Scenario Outline: As a business user I should be able to verify device and product details related to a manufacturer
+    Given I am logged into appian as "<user>" user
+    When I go to records page and click on "<page>"
+#    And I perform a search for "<searchTerm>" in "<page>" page
+    And I click on a random organisation link "<searchTerm>" in "<page>" page
+    Then I should see business manufacturer details page for the manufacturer
+    When I click on link "product details" and go to "devices" page
+    Then I should see device table with devices
+    When I click on a device with link "heart" for device type "<deviceType>"
+    Then I should see correct information for device type "<deviceType>"
+    And I should see account displaying correct fields
+    Examples:
+      | user         | page              | searchTerm | deviceType             |
+#      | businessAuto | Accounts          | _AT        | General Medical Device |
+      | businessAuto | All Organisations | AuthorisedRepST_5_3_590885__NU   | General Medical Device |

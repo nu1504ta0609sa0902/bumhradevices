@@ -137,11 +137,16 @@ Automated Issues:
         - @2185 -
                 -   Indicate notified body
                 -   @todo verify the number of notified body in the list
-        - @3271 -   View devices as part of manufacturers
-        - @3158 -   View devices as part of manufacturers
-        - @1836 -   Registration message
-        - @2097 -   PARD
-        - @3104 -   Amending details
+        - @3271 -
+                -   View devices as part of manufacturers
+        - @3158 -
+                -   View devices as part of manufacturers
+        - @1836 -
+                -   Registration message
+        - @2097 -
+                -   PARD
+        - @3104 -
+                -   Amending details
                 Total
 
 
