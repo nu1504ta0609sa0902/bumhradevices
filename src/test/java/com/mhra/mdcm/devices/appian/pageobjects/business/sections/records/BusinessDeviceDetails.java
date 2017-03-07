@@ -33,7 +33,31 @@ public class BusinessDeviceDetails extends _Page {
     @FindBy(xpath = ".//h6[contains(text(), 'Procedure')]//following::tbody[1]/tr")
     List<WebElement> listOfSPPDevices;
 
-    //Device information page fields
+    //Device information page fields GMD
+    @FindBy(xpath = ".//span[contains(text(), 'GMDN code')]//following::p[1]")
+    WebElement fieldGMDNCode;
+    @FindBy(xpath = ".//span[contains(text(), 'GMDN term')]//following::p[1]")
+    WebElement fieldGMDNTerm;
+    @FindBy(xpath = ".//span[contains(text(), 'Risk class')]//following::p[1]")
+    WebElement fieldRiskClassification;
+    @FindBy(xpath = ".//span[contains(text(), 'Custom made')]//following::p[1]")
+    WebElement fieldCustomMade;
+    @FindBy(xpath = ".//span[contains(text(), 'Sterile')]//following::p[1]")
+    WebElement fieldSterile;
+    @FindBy(xpath = ".//span[contains(text(), 'Measuring')]//following::p[1]")
+    WebElement fieldMeasuring;
+
+    //Device information page fields Procedure Pack
+    @FindBy(xpath = ".//span[contains(text(), 'Notified Body')]//following::p[1]")
+    WebElement fieldNotifiedBody;
+    @FindBy(xpath = ".//span[contains(text(), 'CE marked')]//following::p[1]")
+    WebElement fieldCEMarked;
+    @FindBy(xpath = ".//span[contains(text(), 'Inteded use')]//following::p[1]")
+    WebElement fieldIntendedUse;
+
+    //Device information page fields Active Implantable Medical Device
+
+    //Device information page fields In Vitro Diagnostic Devices
 
     @Autowired
     public BusinessDeviceDetails(WebDriver driver) {
@@ -74,7 +98,7 @@ public class BusinessDeviceDetails extends _Page {
     public boolean areDeviceInformationPageShowingCorrectFields(String deviceType) {
         boolean fieldsCorrect = true;
         if(deviceType.contains("general medical")){
-
+            fieldsCorrect = isGMDNDeviceDisplayingCorrectFields();
         }else if(deviceType.contains("vitro")){
 
         }else if(deviceType.contains("active")){
@@ -82,22 +106,20 @@ public class BusinessDeviceDetails extends _Page {
         }else if(deviceType.contains("procedure pack")){
 
         }
+        return fieldsCorrect;
     }
 
 
-    public boolean isDisplayedOrgFieldsCorrect() {
+    public boolean isGMDNDeviceDisplayingCorrectFields() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean fieldsDisplayed = true;
         try {
-            //WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgAddressLine1, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgAddressLine2, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgCityTown, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgPostCode, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgCountry, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgTelephone, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgFax, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, webSite, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, fieldGMDNCode, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, fieldGMDNTerm, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, fieldRiskClassification, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, fieldCustomMade, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, fieldSterile, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, fieldMeasuring, TIMEOUT_3_SECOND, false);
         }catch (Exception e){
             e.printStackTrace();
             fieldsDisplayed = false;

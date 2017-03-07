@@ -37,6 +37,8 @@ public class ProductDetails extends _Page {
     WebElement sterile;
     @FindBy(xpath = ".//span[contains(text(),'Measuring')]//following::p[1]")
     WebElement measuring;
+    @FindBy(xpath = ".//span[contains(text(),'Notified')]//following::p[1]")
+    WebElement notifiedBody;
 
 
     @Autowired
@@ -48,13 +50,13 @@ public class ProductDetails extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean allValid = true;
         String deviceType = deviceData.deviceType;
-        if(deviceType.equals("General Medical Device")){
+        if (deviceType.equals("General Medical Device")) {
             allValid = isGeneralMedicalDeviceValid(deviceData);
-        }else if(deviceType.equals("In Vitro Diagnostic Device")){
+        } else if (deviceType.equals("In Vitro Diagnostic Device")) {
             allValid = isGeneralMedicalDeviceValid(deviceData);
-        }else if(deviceType.equals("System or Procedure Pack")){
+        } else if (deviceType.equals("System or Procedure Pack")) {
             allValid = isGeneralMedicalDeviceValid(deviceData);
-        }else if(deviceType.equals("Active Implantable Medical Devices")){
+        } else if (deviceType.equals("Active Implantable Medical Devices")) {
             allValid = isGeneralMedicalDeviceValid(deviceData);
         }
 
@@ -63,37 +65,41 @@ public class ProductDetails extends _Page {
 
     private boolean isGeneralMedicalDeviceValid(DeviceData deviceData) {
         boolean allValid = true;
-        String fields [] = new String []{
-            "gmdn", "risk classification", "custom made", "sterile", "measuring"
+        String fields[] = new String[]{
+                "gmdn", "risk classification", "custom made", "sterile", "measuring", "notified body"
         };
 
-        for(String field: fields){
-            if(field.equals("gmdn")){
+        for (String field : fields) {
+            if (field.equals("gmdn")) {
                 //Check and verify data is correct
                 String termOrDefinition = deviceData.gmdnTermOrDefinition;
-                if(termOrDefinition!=null && !termOrDefinition.equals("")){
+                if (termOrDefinition != null && !termOrDefinition.equals("")) {
                     WaitUtils.waitForElementToBeClickable(driver, gmdnTermDefinition, TIMEOUT_5_SECOND, false);
                     allValid = AssertUtils.areChangesDisplayed(gmdnTermDefinition, termOrDefinition);
-                }else{
+                } else {
                     //Gmdn code
                     WaitUtils.waitForElementToBeClickable(driver, gmdnCode, TIMEOUT_5_SECOND, false);
-                    allValid =  AssertUtils.areChangesDisplayed(gmdnCode, deviceData.gmdnCode);
+                    allValid = AssertUtils.areChangesDisplayed(gmdnCode, deviceData.gmdnCode);
                 }
-            }else if(field.equals("risk classification")){
-                String data = deviceData.riskClassification;
-                if(data!=null && !data.equals("")){
-                    data = "Class";
-                    allValid = AssertUtils.areChangesDisplayed(riskClassification, data);
-                }
-            }else if(field.equals("custom made")){
+            } else if (field.equals("custom made")) {
                 boolean data = deviceData.isCustomMade;
-                if(data){
+                if (data) {
                     allValid = AssertUtils.areChangesDisplayed(customMade, "Yes");
-                }else{
+                } else {
                     allValid = AssertUtils.areChangesDisplayed(customMade, "No");
                 }
-            }else if(field.equals("sterile")){
-                if(!deviceData.isCustomMade) {
+            } else if (field.equals("risk classification")) {
+                //Only relevant if its not custom made
+                if (!deviceData.isCustomMade) {
+                    String data = deviceData.riskClassification;
+                    if (data != null && !data.equals("")) {
+                        data = "Class";
+                        allValid = AssertUtils.areChangesDisplayed(riskClassification, data);
+                    }
+                }
+            } else if (field.equals("sterile")) {
+                //Only relevant if its not custom made
+                if (!deviceData.isCustomMade) {
                     boolean data = deviceData.isDeviceSterile;
                     if (data) {
                         allValid = AssertUtils.areChangesDisplayed(sterile, "Yes");
@@ -101,8 +107,9 @@ public class ProductDetails extends _Page {
                         allValid = AssertUtils.areChangesDisplayed(sterile, "No");
                     }
                 }
-            }else if(field.equals("measuring")){
-                if(!deviceData.isCustomMade) {
+            } else if (field.equals("measuring")) {
+                //Only relevant if its not custom made
+                if (!deviceData.isCustomMade) {
                     boolean data = deviceData.isDeviceMeasuring;
                     if (data) {
                         allValid = AssertUtils.areChangesDisplayed(measuring, "Yes");
@@ -110,9 +117,18 @@ public class ProductDetails extends _Page {
                         allValid = AssertUtils.areChangesDisplayed(measuring, "No");
                     }
                 }
+            } else if (field.equals("notified body")) {
+                //Only relevant if its not custom made
+                if (!deviceData.isCustomMade) {
+                    String notifiedBodyTxt = deviceData.notifiedBody;
+                    if (notifiedBodyTxt != null) {
+                        allValid = AssertUtils.areChangesDisplayed(notifiedBody, notifiedBodyTxt);
+                    }
+                }
             }
 
-            if(!allValid){
+            if (!allValid) {
+                log.error("Field data not correct : " + field);
                 break;
             }
         }

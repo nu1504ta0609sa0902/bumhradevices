@@ -112,6 +112,8 @@ public class CommonSteps {
     public EditManufacturer editManufacturer;
     @Autowired
     public ProductDetails productDetail;
+    @Autowired
+    public DeviceDetails deviceDetails;
 
 
 

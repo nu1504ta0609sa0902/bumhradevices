@@ -26,7 +26,7 @@ Feature: As a customer I want to register new manufacturers with devices
       | authorisedRepAuto | authorisedRep | Bangladesh  | General Medical Device | General Medical Device | false      | class1             | NB 0086 BSI  |
 
 
-  @regression @mdcm-485 @mdcm-374 @mdcm-186 @sprint2 @1838 @3777 @sprint9 @sprint13 @sprint5 @wip @bug
+  @regression @mdcm-485 @mdcm-374 @mdcm-186 @sprint2 @1838 @3777 @1924 @sprint8 @sprint9 @sprint13 @sprint5 @wip @bug
   Scenario Outline: Users should be able to register new manufacturers with devices  and verify devices are added
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -54,12 +54,12 @@ Feature: As a customer I want to register new manufacturers with devices
     And I am logged into appian as "<user>" user
 #    And I go to list of manufacturers page
     When I go to list of manufacturers page and click on stored manufacturer
-    Then Verify devices displayed and other details are correct
+    Then Verify devices displayed and GMDN details are correct
     And I should be able to view products related to stored devices
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType             | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
       | authorisedRepAuto | businessAuto | manufacturer  | Bangladesh  | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
-      | manufacturerAuto  | businessAuto | authorisedRep | Brazil      | General Medical Device | true       | false         | false           | Registered | Blood weighing scale |                    |              |
+      | manufacturerAuto  | businessAuto | authorisedRep | Brazil      | General Medical Device | true       |               |                 | Registered | Blood weighing scale |                    |              |
 
 
   @regression @readonly @mdcm-39 @sprint5
@@ -95,6 +95,6 @@ Feature: As a customer I want to register new manufacturers with devices
     Then I should see the registered manufacturers list
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType             | gmdn1                | gmdn2           |
-      | manufacturerAuto | businessAuto | manufacturer  | Belarus  |General Medical Device | Blood weighing scale | Autopsy measure |
+      | manufacturerAuto  | businessAuto | manufacturer  | Belarus     | General Medical Device | Blood weighing scale | Autopsy measure |
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | General Medical Device | Blood weighing scale | Autopsy measure |
 

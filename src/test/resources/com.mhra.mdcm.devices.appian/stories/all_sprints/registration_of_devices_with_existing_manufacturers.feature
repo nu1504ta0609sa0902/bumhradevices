@@ -149,7 +149,7 @@ Feature: As an account holder with access to the Device Registration Service
       | authorisedRepAuto | General Medical Device |                  | 17500      | Dress            |            |
       | manufacturerAuto  | General Medical Device |                  | 17500      | Dress            |            |
 
-  @regression @mdcm-485 @mdcm-374 @3777 @sprint9 @sprint5 @wip @bug
+  @regression @mdcm-485 @mdcm-374 @3777 @sprint9 @sprint5 @1924 @sprint8 @wip @bug
   Scenario Outline: Users should be able to add devices to existing manufacturers and verify devices are added
     Given I am logged into appian as "<user>" user
     When I go to list of manufacturers page
@@ -174,13 +174,13 @@ Feature: As an account holder with access to the Device Registration Service
     And I am logged into appian as "<user>" user
 #    And I go to list of manufacturers page
     When I go to list of manufacturers page and click on stored manufacturer
-    Then Verify devices displayed and other details are correct
+    Then Verify devices displayed and GMDN details are correct
     And I should be able to view products related to stored devices
     Examples:
       | user              | logBackInAas | deviceType                         | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
       | authorisedRepAuto | businessAuto | General Medical Device             | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
       | authorisedRepAuto | businessAuto | Active Implantable Medical Devices | true       |               |                 | Registered | Desiccating chamber  |                    |              |
-      | manufacturerAuto  | businessAuto | General Medical Device             | true       | false         | false           | Registered | Blood weighing scale |                    |              |
+      | manufacturerAuto  | businessAuto | General Medical Device             | true       |               |                 | Registered | Blood weighing scale |                    |              |
 
 
   @regression @readonly @mdcm-485 @sprint5 @wip

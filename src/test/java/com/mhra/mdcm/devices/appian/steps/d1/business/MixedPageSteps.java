@@ -78,6 +78,7 @@ public class MixedPageSteps extends CommonSteps {
 
     @Then("^I should see correct information for device type \"([^\"]*)\"$")
     public void i_should_see_correct_information_for_device_type(String deviceType) throws Throwable {
+        deviceType = deviceType.toLowerCase();
         boolean areFieldsCorrect = businessDevicesDetails.areDeviceInformationPageShowingCorrectFields(deviceType);
         Assert.assertThat("Not all the expected FIELDS displayed for device type : " + deviceType, areFieldsCorrect, is(true));
     }
