@@ -74,3 +74,30 @@ Feature: Aa a user I would like to verify features which are not related to devi
       | manufacturerAuto  | In Vitro Diagnostic Device        | Blood     | 1     |
       | manufacturerAuto  | Active Implantable Medical Device | Blood | 1     |
       | manufacturerAuto  | System or Procedure Pack          | Blood    | 1     |
+
+
+
+#  @regression @2049 @sprint8
+#  Scenario Outline: Check correct options shown to users when adding devices
+#    Given I am logged into appian as "<user>" user
+#    And I go to list of manufacturers page
+#    And I click on a random manufacturer
+#    When I try to add an incomplete device to SELECTED manufacturer with following data
+#      | deviceType         | <deviceType>         |
+#      | gmdnDefinition     | <gmdnDefinition>     |
+#      | customMade         | false                |
+#      | riskClassification | <riskClassification> |
+#      | notifiedBody       | <notifiedBody>       |
+#      | isBearingCEMarking | <isBearingCEMarking> |
+#      | devicesCompatible  | <devicesCompatible>  |
+#    Then I should see validation error message in devices page with text "<errorMsg>"
+#    And I should be prevented from adding the devices
+#    Examples:
+#      | user              | deviceType               | gmdnDefinition      | riskClassification | notifiedBody | isBearingCEMarking | devicesCompatible | errorMsg                                                                                         |
+#      | authorisedRepAuto | General Medical Device   | Blood               | class2a            | NB 0086 BSI  |                    |                   | You cannot register class IIa devices with the MHRA                                              |
+#      | manufacturerAuto  | General Medical Device   | Blood               | class2b            | NB 0086 BSI  |                    |                   | You cannot register class IIb devices with the MHRA                                              |
+#      | manufacturerAuto  | General Medical Device   | Blood               | class3             | NB 0086 BSI  |                    |                   | You cannot register class III devices with the MHRA                                              |
+#      | authorisedRepAuto | System or Procedure Pack | Desiccating chamber |                    | NB 0086 BSI  | true               |                   | You cannot register this as a System/procedure pack because all the components must be CE marked |
+#      | authorisedRepAuto | System or Procedure Pack | Desiccating chamber |                    | NB 0086 BSI  |                    | false             | You cannot register this as a System/procedure pack because all the components must be CE marked |
+#      | manufacturerAuto  | System or Procedure Pack | Desiccating chamber |                    | NB 0086 BSI  | false              | false             | This System/procedure pack cannot be registered with us                                          |
+

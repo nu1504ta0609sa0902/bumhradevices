@@ -95,8 +95,24 @@ public class AddDevices extends _Page {
     WebElement radioRiskClass2b;
     @FindBy(xpath = ".//*[contains(text(),'risk class')]//following::input[4]")
     WebElement radioRiskClass3;
+
+    //Notified bodies
     @FindBy(xpath = ".//*[contains(text(),'Notified Body')]//following::input[1]")
     WebElement nb0086BSI;
+    @FindBy(xpath = ".//*[contains(text(),'Notified Body')]//following::input[2]")
+    WebElement nb0088BSI;
+    @FindBy(xpath = ".//*[contains(text(),'Notified Body')]//following::input[3]")
+    WebElement nb0120BSI;
+    @FindBy(xpath = ".//*[contains(text(),'Notified Body')]//following::input[4]")
+    WebElement nb0473BSI;
+    @FindBy(xpath = ".//*[contains(text(),'Notified Body')]//following::input[5]")
+    WebElement nb0843BSI;
+    @FindBy(xpath = ".//*[contains(text(),'Notified Body')]//following::input[6]")
+    WebElement nbOther;
+
+    //List of notified bodies
+    @FindBy(xpath = ".//*[contains(text(),'Notified Body')]//following::input[@type='radio']")
+    List<WebElement> listOfNotifiedBodies;
 
     //IVD risk classification
     @FindBy(xpath = ".//label[contains(text(),'List A')]")
@@ -530,11 +546,19 @@ public class AddDevices extends _Page {
     }
 
     private void notifiedBody(DeviceData dd) {
+        boolean notifiedBodyOptionsCorrect = isNotifiedBodyListDisplayingCorrectDetails();
         WaitUtils.waitForElementToBeClickable(driver, nb0086BSI, TIMEOUT_5_SECOND, false);
         //Select notified body
-        if (dd.notifiedBody != null && dd.notifiedBody.toLowerCase().contains("0086")) {
+        if (notifiedBodyOptionsCorrect && dd.notifiedBody != null && dd.notifiedBody.toLowerCase().contains("0086")) {
             PageUtils.clickIfVisible(driver, nb0086BSI);
         }
+    }
+
+    private boolean isNotifiedBodyListDisplayingCorrectDetails() {
+        WaitUtils.waitForElementToBeClickable(driver, nbOther, TIMEOUT_3_SECOND, false);
+        boolean numberOfNB = listOfNotifiedBodies.size() == 6;
+        boolean otherDisplayed = listOfNotifiedBodies.get(5).getText().contains("Other");
+        return numberOfNB && otherDisplayed;
     }
 
     private void riskClassificationIVD(DeviceData dd) {

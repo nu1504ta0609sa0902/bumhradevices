@@ -16,14 +16,14 @@ Feature: As a customer I want to register new manufacturers with devices
       | riskClassification     | <riskClassification> |
       | notifiedBody           | <notifiedBody>       |
       | customMade             | <customMade>         |
-      | relatedDeviceSterile   | true                 |
-      | relatedDeviceMeasuring | true                 |
+      | relatedDeviceSterile   | <deviceSterile>      |
+      | relatedDeviceMeasuring | <deviceMeasuring>    |
     And Proceed to payment and confirm submit device details
     Then I should see the registered manufacturers list
     Examples:
-      | user              | accountType   | countryName | deviceType             | deviceType             | customMade | riskClassification | notifiedBody |
-      #| manufacturerAuto  | manufacturer  | Brazil  | General Medical Device | General Medical Device | true       |                    |              |
-      | authorisedRepAuto | authorisedRep | Bangladesh  | General Medical Device | General Medical Device | false      | class1             | NB 0086 BSI  |
+      | user              | accountType   | countryName | deviceType             | deviceType             | customMade | deviceSterile | deviceMeasuring | riskClassification | notifiedBody |
+      | manufacturerAuto  | manufacturer  | Brazil      | General Medical Device | General Medical Device | true       |               |                 |                    |              |
+      | authorisedRepAuto | authorisedRep | Bangladesh  | General Medical Device | General Medical Device | false      | true          | true            | class1             | NB 0086 BSI  |
 
 
   @regression @mdcm-485 @mdcm-374 @mdcm-186 @sprint2 @1838 @3777 @1924 @sprint8 @sprint9 @sprint13 @sprint5 @wip @bug

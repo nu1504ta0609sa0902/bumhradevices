@@ -215,7 +215,7 @@ Feature: As a business user, I want a task to be created each time a customer su
     Then I should see at least 0 account matches
     Examples:
       | user              | logBackInAs  | accountType   | countryName | gmdn1                | gmdn2           | approveReject | deviceType |
-      #| manufacturerAuto | businessAuto | manufacturer | Brazil      | Blood weighing scale | Autopsy measure | approve       |General Medical Device |
+      | manufacturerAuto | businessAuto | manufacturer | Brazil      | Blood weighing scale | Autopsy measure | approve       |General Medical Device |
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Blood weighing scale | Autopsy measure | approve       |General Medical Device |
 
 

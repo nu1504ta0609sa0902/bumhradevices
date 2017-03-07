@@ -1,7 +1,7 @@
 Feature: As an account holder with access to the Device Registration Service I want to register a manufacturer and declare higher risk devices and declare the specific products being manufactured
   so that they can place the device for sale on the EU market
 
-  @regression @mdcm-183 @mdcm-21 @sprint3 @sprint5
+  @regression @mdcm-183 @mdcm-21 @sprint3 @sprint5 @2049 @sprint8
   Scenario Outline: Register device with SINGLE product for IVD devices
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -50,23 +50,24 @@ Feature: As an account holder with access to the Device Registration Service I w
     And I go to list of manufacturers page
     And I click on a random manufacturer
     When I try to add an incomplete device to SELECTED manufacturer with following data
-      | deviceType         | <deviceType>         |
-      | gmdnDefinition     | <gmdnDefinition>     |
-      | customMade         | false                |
-      | riskClassification | <riskClassification> |
-      | notifiedBody       | <notifiedBody>       |
-      | isBearingCEMarking | <isBearingCEMarking> |
-      | devicesCompatible  | <devicesCompatible>  |
+      | deviceType           | <deviceType>         |
+      | gmdnDefinition       | <gmdnDefinition>     |
+      | customMade           | false                |
+      | riskClassification   | <riskClassification> |
+      | notifiedBody         | <notifiedBody>       |
+      | isBearingCEMarking   | <isBearingCEMarking> |
+      | devicesCompatible    | <devicesCompatible>  |
+      | relatedDeviceSterile | <deviceSterile>      |
     Then I should see validation error message in devices page with text "<errorMsg>"
     And I should be prevented from adding the devices
     Examples:
-      | user              | deviceType               | gmdnDefinition      | riskClassification | notifiedBody | isBearingCEMarking | devicesCompatible | errorMsg                                                                                         |
-      | authorisedRepAuto | General Medical Device   | Blood               | class2a            | NB 0086 BSI  |                    |                   | You cannot register class IIa devices with the MHRA                                              |
-      | manufacturerAuto  | General Medical Device   | Blood               | class2b            | NB 0086 BSI  |                    |                   | You cannot register class IIb devices with the MHRA                                              |
-      | manufacturerAuto  | General Medical Device   | Blood               | class3             | NB 0086 BSI  |                    |                   | You cannot register class III devices with the MHRA                                              |
-      | authorisedRepAuto | System or Procedure Pack | Desiccating chamber |                    | NB 0086 BSI  | true               |                   | You cannot register this as a System/procedure pack because all the components must be CE marked |
-      | authorisedRepAuto | System or Procedure Pack | Desiccating chamber |                    | NB 0086 BSI  |                    | false             | You cannot register this as a System/procedure pack because all the components must be CE marked |
-      | manufacturerAuto  | System or Procedure Pack | Desiccating chamber |                    | NB 0086 BSI  | false              | false             | This System/procedure pack cannot be registered with us                                          |
+      | user              | deviceType               | gmdnDefinition      | deviceSterile | riskClassification | notifiedBody | isBearingCEMarking | devicesCompatible | errorMsg                                                                                         |
+#      | authorisedRepAuto | General Medical Device   | Blood               |               | class2a            | NB 0086 BSI  |                    |                   | You cannot register class IIa devices with the MHRA                                              |
+#      | manufacturerAuto  | General Medical Device   | Blood               |               | class2b            | NB 0086 BSI  |                    |                   | You cannot register class IIb devices with the MHRA                                              |
+#      | manufacturerAuto  | General Medical Device   | Blood               |               | class3             | NB 0086 BSI  |                    |                   | You cannot register class III devices with the MHRA                                              |
+      | authorisedRepAuto | System or Procedure Pack | Desiccating chamber | false         |                    |              | true               |                   | You cannot register this as a System/procedure pack because all the components must be CE marked |
+      | authorisedRepAuto | System or Procedure Pack | Desiccating chamber | true          |                    | NB 0086 BSI  |                    | false             | You cannot register this as a System/procedure pack because all the components must be CE marked |
+      | manufacturerAuto  | System or Procedure Pack | Desiccating chamber |               |                    | NB 0086 BSI  | false              | false             | This System/procedure pack cannot be registered with us                                          |
 
 
   @regression @3560 @2143 @sprint10
@@ -87,7 +88,7 @@ Feature: As an account holder with access to the Device Registration Service I w
       | manufacturerAuto  | Active Implantable Medical Devices | Desiccating chamber | false      | NB 0086 BSI  | You cannot register non custom made active implantable medical devices with the MHRA |
 
 
-  @regression @mdcm-183 @sprint3 @mdcm-148 @sprint7
+  @regression @mdcm-183 @sprint3 @mdcm-148 @sprint7 @2049 @sprint8
   Scenario Outline: Register device with MULTIPLE products and devices for IVD devices type
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -151,7 +152,7 @@ Feature: As an account holder with access to the Device Registration Service I w
     And I assign the task to me and "approve" the generated task
     Then The completed task status should update to "Completed"
     Examples:
-      | user              | logBackInAas | deviceType                         | gmdnDefinition      | gmdnDefinition2 | customMade | listOfProductNames    | link                                     |
-      | authorisedRepAuto | businessAuto | Active Implantable Medical Devices | Desiccating chamber | suction         | true       | ford,hyundai          | Update Manufacturer Registration Request |
-#      | manufacturerAuto  | businessAuto | Active Implantable Medical Devices | Desiccating chamber | suction         | true       | ford,hyundai,toyota          | Update Manufacturer Registration Request |
+      | user              | logBackInAas | deviceType                         | gmdnDefinition      | gmdnDefinition2 | customMade | listOfProductNames  | link                                     |
+      | authorisedRepAuto | businessAuto | Active Implantable Medical Devices | Desiccating chamber | suction         | true       | ford,hyundai        | Update Manufacturer Registration Request |
+      | manufacturerAuto  | businessAuto | Active Implantable Medical Devices | Desiccating chamber | suction         | true       | ford,hyundai,toyota | Update Manufacturer Registration Request |
 

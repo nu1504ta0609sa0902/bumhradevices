@@ -132,10 +132,9 @@ Automated Issues:
     Spring 8: @sprint8
         - @1924 -   4/4     DONE
         - @2049 -
-                -   IVD device and notified body related
+                -   @todo IVD device and notified body related
         - @2185 -
-                -   Indicate notified body
-                -   @todo verify the number of notified body in the list
+                -   @todo Notified body of type others
         - @3271 -
                 -   View devices as part of manufacturers
                 -   time consuming
