@@ -28,6 +28,16 @@ public class EditAccounts extends _Page {
     @FindBy(xpath = ".//label[contains(text(),'Organisation name')]//following::input[1]")
     WebElement orgName;
 
+    //PARD options
+    @FindBy(xpath = ".//*[contains(text(),'PARD')]//following::input[@type='radio'][1]")
+    WebElement pardNameOptIn;
+    @FindBy(xpath = ".//*[contains(text(),'PARD')]//following::input[@type='radio'][2]")
+    WebElement pardNameOptOut;
+    @FindBy(xpath = ".//*[contains(text(),'Website')]//following::input[@type='radio'][1]")
+    WebElement pardAddressOptIn;
+    @FindBy(xpath = ".//*[contains(text(),'Website')]//following::input[@type='radio'][2]")
+    WebElement pardAddressOptOut;
+
     //ORGANISATION ROLES
     @FindBy(xpath = ".//span[contains(text(),'Selected roles')]//following::input[1]")
     WebElement roleAuthorisedRep;
@@ -128,5 +138,64 @@ public class EditAccounts extends _Page {
         WaitUtils.waitForElementToBeClickable(driver,emailAddress,TIMEOUT_DEFAULT, false);
         emailAddress.clear();
         emailAddress.sendKeys("mhra.uat@gmail.com");
+    }
+
+    public boolean isPardOptionSelected(String pardOption, String nameOrAddress) {
+        boolean isSelected = false;
+        WaitUtils.waitForElementToBeClickable(driver, pardNameOptIn, TIMEOUT_3_SECOND, false);
+
+        if(nameOrAddress.equals("name") && pardOption.contains("in")){
+            isSelected = pardNameOptIn.isSelected();
+        }else if(nameOrAddress.equals("name") && pardOption.contains("out")){
+            isSelected = pardNameOptOut.isSelected();
+        }else if(nameOrAddress.equals("address") && pardOption.contains("in")){
+            isSelected = pardAddressOptIn.isSelected();
+        }else if(nameOrAddress.equals("address") && pardOption.contains("out")){
+            isSelected = pardAddressOptOut.isSelected();
+        }
+        return isSelected;
+    }
+
+    public BusinessManufacturerDetails updatePARDOptionFor(String pardOption, String nameOrAddress) {
+        WaitUtils.waitForElementToBeClickable(driver, pardNameOptIn, TIMEOUT_3_SECOND, false);
+        if(nameOrAddress.equals("name") && pardOption.contains("in")){
+            pardNameOptIn.click();
+        }else if(nameOrAddress.equals("name") && pardOption.contains("out")){
+            pardNameOptOut.click();
+        }else if(nameOrAddress.equals("address") && pardOption.contains("in")){
+            pardAddressOptIn.click();
+        }else if(nameOrAddress.equals("address") && pardOption.contains("out")){
+            pardAddressOptOut.click();
+        }
+
+        //Submit the form
+        submitBtn.click();
+        return new BusinessManufacturerDetails(driver);
+    }
+
+    public BusinessManufacturerDetails updatePARDOptionsFor(String pardOptions) {
+        String[] updateNameAndAddress = pardOptions.split(",");
+        for(String whichOne: updateNameAndAddress){
+            String[] keyValue = whichOne.split("=");
+            String nameOrAddress = keyValue[0];
+            String optInOrOut = keyValue[1];
+            updatePARDOptionFor2(optInOrOut, nameOrAddress);
+        }
+
+        //Submit the form
+        submitBtn.click();
+        return new BusinessManufacturerDetails(driver);
+    }
+
+    private void updatePARDOptionFor2(String pardOption, String nameOrAddress) {
+        if(nameOrAddress.equals("name") && pardOption.contains("in")){
+            pardNameOptIn.click();
+        }else if(nameOrAddress.equals("name") && pardOption.contains("out")){
+            pardNameOptOut.click();
+        }else if(nameOrAddress.equals("address") && pardOption.contains("in")){
+            pardAddressOptIn.click();
+        }else if(nameOrAddress.equals("address") && pardOption.contains("out")){
+            pardAddressOptOut.click();
+        }
     }
 }

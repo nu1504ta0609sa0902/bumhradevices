@@ -1,7 +1,9 @@
 package com.mhra.mdcm.devices.appian.pageobjects.business.sections.records;
 
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
+import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -23,6 +25,12 @@ public class BusinessManufacturerDetails extends _Page {
     //Links to other sections like devices, documents
     @FindBy(partialLinkText = "product details")
     WebElement devicesAndProductDetails;
+    @FindBy(linkText = "Edit Account Information")
+    WebElement editAccountInfoLink;
+
+    //PARD message
+    @FindBy(xpath = ".//*[contains(text(),'PARD selection')]//following::p[1]")
+    WebElement pardMessage;
 
     @Autowired
     public BusinessManufacturerDetails(WebDriver driver) {
@@ -44,5 +52,22 @@ public class BusinessManufacturerDetails extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, devicesAndProductDetails, TIMEOUT_3_SECOND, false);
         devicesAndProductDetails.click();
         return new BusinessDeviceDetails(driver);
+    }
+
+
+    public EditAccounts gotoEditAccountInformation() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, editAccountInfoLink, TIMEOUT_DEFAULT, false);
+        PageUtils.doubleClick(driver, editAccountInfoLink);
+        //editAccountInfoLink.click();
+        return new EditAccounts(driver);
+    }
+
+    public boolean isPARDMessaageCorrect(String expectedMessage) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        String msg = pardMessage.getText();
+        log.info("Message : " + msg);
+        boolean found = msg.contains(expectedMessage);
+        return found;
     }
 }

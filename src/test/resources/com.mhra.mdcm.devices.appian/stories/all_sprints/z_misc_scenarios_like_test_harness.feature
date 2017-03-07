@@ -65,17 +65,39 @@ Feature: Aa a user I would like to verify features which are not related to devi
     When I search for gmdn "<gmdn>"
     Then I should see at least <count> devices matches
     Examples:
-      | user              | deviceType                        | gmdn      | count |
-      | authorisedRepAuto | General Medical Device            | Air       | 1     |
-      | authorisedRepAuto | In Vitro Diagnostic Device        | Blood     | 1     |
-      | authorisedRepAuto | Active Implantable Medical Device | Blood     | 1     |
-      | authorisedRepAuto | System or Procedure Pack          | Blood     | 1     |
-      | manufacturerAuto  | General Medical Device            | Air       | 1     |
-      | manufacturerAuto  | In Vitro Diagnostic Device        | Blood     | 1     |
+      | user              | deviceType                        | gmdn  | count |
+      | authorisedRepAuto | General Medical Device            | Air   | 1     |
+      | authorisedRepAuto | In Vitro Diagnostic Device        | Blood | 1     |
+      | authorisedRepAuto | Active Implantable Medical Device | Blood | 1     |
+      | authorisedRepAuto | System or Procedure Pack          | Blood | 1     |
+      | manufacturerAuto  | General Medical Device            | Air   | 1     |
+      | manufacturerAuto  | In Vitro Diagnostic Device        | Blood | 1     |
       | manufacturerAuto  | Active Implantable Medical Device | Blood | 1     |
-      | manufacturerAuto  | System or Procedure Pack          | Blood    | 1     |
+      | manufacturerAuto  | System or Procedure Pack          | Blood | 1     |
 
 
+  @regression @2097 @sprint8
+  Scenario Outline: Override PARD preferences when reviewing a manufacturer registration
+    Given I am logged into appian as "<user>" user
+    When I go to records page and click on "<page>"
+    And I perform a search for "<searchTerm>" in "<page>" page
+    And I click on a random organisation link "<searchTerm>" in "<page>" page
+    When I click on edit account information
+    And I update PARD options to "<pardOptions>" for both name and address
+    Then I should see following PARD "<PARDUpdateMessage>" message
+#    Then I should see PARD option "<pardOption>" to be selected for "<updateNameOrAddressPard>"
+#    And I should see PARD option "<pardOption>" to be selected for "<updateNameOrAddressPard>"
+#    Then I should see business manufacturer details page for the manufacturer
+#    When I click on link "product details" and go to "devices" page
+#    Then I should see device table with devices
+#    When I click on a device with link "heart" for device type "<deviceType>"
+#    Then I should see correct information for device type "<deviceType>"
+    Examples:
+      | user         | page              | searchTerm      | pardOptions                | updateNameOrAddressPard | PARDUpdateMessage    |
+      | businessAuto | All Organisations | AuthorisedRepRT | name=Optin,address=Optin   | name                    | Publish name only    |
+      | businessAuto | All Organisations | ManufacturerRT  | name=Optout,address=Optout | address                 | Publish address only |
+      | businessAuto | All Organisations | ManufacturerRT  | name=Optin,address=Optout | address                 | Publish address only |
+      | businessAuto | All Organisations | ManufacturerRT  | name=Optout,address=Optin | address                 | Publish address only |
 
 #  @regression @2049 @sprint8
 #  Scenario Outline: Check correct options shown to users when adding devices

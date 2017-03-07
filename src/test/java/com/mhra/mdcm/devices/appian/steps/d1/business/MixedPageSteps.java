@@ -82,4 +82,6 @@ public class MixedPageSteps extends CommonSteps {
         boolean areFieldsCorrect = businessDevicesDetails.areDeviceInformationPageShowingCorrectFields(deviceType);
         Assert.assertThat("Not all the expected FIELDS displayed for device type : " + deviceType, areFieldsCorrect, is(true));
     }
+
+
 }

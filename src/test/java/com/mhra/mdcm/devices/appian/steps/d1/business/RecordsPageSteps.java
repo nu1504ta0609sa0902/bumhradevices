@@ -5,6 +5,7 @@ import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -496,5 +497,32 @@ public class RecordsPageSteps extends CommonSteps {
         String[] columns = expectedColumns.split(",");
         boolean allColumnsVisible = allDevices.isListOfManufacturersUsingDeviceTableColumnCorrect(columns);
         Assert.assertThat("Expected to see the following columns : " + expectedColumns, allColumnsVisible, is(true));
+    }
+
+    @When("^I click on edit account information$")
+    public void iClickOnEditAccountInformation() throws Throwable {
+        editAccounts = businessManufacturerDetails.gotoEditAccountInformation();
+    }
+
+    @Then("^I update PARD option to \"([^\"]*)\" for organisation \"([^\"]*)\"$")
+    public void iShouldSeePARDOptionToBeSelected(String pardOption, String nameOrAddress) throws Throwable {
+        businessManufacturerDetails = editAccounts.updatePARDOptionFor(pardOption, nameOrAddress);
+    }
+
+    @Then("^I update PARD options to \"([^\"]*)\" for both name and address$")
+    public void iShouldSeePARDOptionsToBeSelected(String pardOptions) throws Throwable {
+        businessManufacturerDetails = editAccounts.updatePARDOptionsFor(pardOptions);
+    }
+
+    @Then("^I should see PARD option \"([^\"]*)\" to be selected for \"name\"$")
+    public void iShouldSeePARDOptionToBeSelectedForNameAndAddress(String pardOption, String nameOrAddress) throws Throwable {
+        boolean correctOptionSelected = editAccounts.isPardOptionSelected(pardOption, nameOrAddress);
+        Assert.assertThat("Expected to see the following option selected : " + pardOption + " for : " + nameOrAddress, correctOptionSelected, is(true));
+    }
+
+    @Then("^I should see following PARD \"([^\"]*)\" message$")
+    public void iShouldSeeFollowingPARDMessage(String expectedMessage) throws Throwable {
+        boolean isMessageCorrect = businessManufacturerDetails.isPARDMessaageCorrect(expectedMessage);
+        Assert.assertThat("Expected to see the following message : " + expectedMessage, isMessageCorrect, is(true));
     }
 }
