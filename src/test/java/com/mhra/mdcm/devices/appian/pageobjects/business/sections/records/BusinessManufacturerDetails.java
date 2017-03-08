@@ -65,6 +65,7 @@ public class BusinessManufacturerDetails extends _Page {
 
     public boolean isPARDMessaageCorrect(String expectedMessage) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, pardMessage, TIMEOUT_DEFAULT, false);
         String msg = pardMessage.getText();
         log.info("Message : " + msg);
         boolean found = msg.contains(expectedMessage);

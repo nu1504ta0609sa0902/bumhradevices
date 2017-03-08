@@ -177,7 +177,7 @@ public class CommonSteps {
                         String generateReport = System.getProperty("generate.report");
                         if(generateReport != null && ( generateReport.trim().equals("true") || generateReport.trim().equals("yes"))){
                             log.info("Generating report may take upto 20 seconds");
-                            sleep(20000);
+                            sleep(30000);
                         }else {
                             //No need to wait for report to be generated
                             log.info("Report generation is disabled, to enable set -Dgenerate.report=true");

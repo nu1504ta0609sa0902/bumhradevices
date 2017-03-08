@@ -93,11 +93,11 @@ Feature: Aa a user I would like to verify features which are not related to devi
 #    When I click on a device with link "heart" for device type "<deviceType>"
 #    Then I should see correct information for device type "<deviceType>"
     Examples:
-      | user         | page              | searchTerm      | pardOptions                | updateNameOrAddressPard | PARDUpdateMessage    |
-      | businessAuto | All Organisations | AuthorisedRepRT | name=Optin,address=Optin   | name                    | Publish name only    |
-      | businessAuto | All Organisations | ManufacturerRT  | name=Optout,address=Optout | address                 | Publish address only |
-      | businessAuto | All Organisations | ManufacturerRT  | name=Optin,address=Optout | address                 | Publish address only |
-      | businessAuto | All Organisations | ManufacturerRT  | name=Optout,address=Optin | address                 | Publish address only |
+      | user         | page              | searchTerm      | pardOptions                | updateNameOrAddressPard | PARDUpdateMessage              |
+      | businessAuto | All Organisations | AuthorisedRepRT | name=Optin,address=Optin   | name                    | Publish name & address         |
+      | businessAuto | All Organisations | ManufacturerRT  | name=Optin,address=Optout  | address                 | Publish name only              |
+      | businessAuto | All Organisations | AuthorisedRepRT | name=Optout,address=Optin  | name                 | Publish address only           |
+      | businessAuto | All Organisations | ManufacturerRT  | name=Optout,address=Optout | address                 | Do not publish name or address |
 
 #  @regression @2049 @sprint8
 #  Scenario Outline: Check correct options shown to users when adding devices

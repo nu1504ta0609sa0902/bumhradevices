@@ -514,7 +514,7 @@ public class RecordsPageSteps extends CommonSteps {
         businessManufacturerDetails = editAccounts.updatePARDOptionsFor(pardOptions);
     }
 
-    @Then("^I should see PARD option \"([^\"]*)\" to be selected for \"name\"$")
+    @Then("^I should see PARD option \"([^\"]*)\" to be selected for \"([^\"]*)\"$")
     public void iShouldSeePARDOptionToBeSelectedForNameAndAddress(String pardOption, String nameOrAddress) throws Throwable {
         boolean correctOptionSelected = editAccounts.isPardOptionSelected(pardOption, nameOrAddress);
         Assert.assertThat("Expected to see the following option selected : " + pardOption + " for : " + nameOrAddress, correctOptionSelected, is(true));

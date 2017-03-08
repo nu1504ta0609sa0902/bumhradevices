@@ -174,6 +174,8 @@ public class EditAccounts extends _Page {
     }
 
     public BusinessManufacturerDetails updatePARDOptionsFor(String pardOptions) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, pardAddressOptIn, TIMEOUT_5_SECOND, false);
         String[] updateNameAndAddress = pardOptions.split(",");
         for(String whichOne: updateNameAndAddress){
             String[] keyValue = whichOne.split("=");
