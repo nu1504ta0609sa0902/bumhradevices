@@ -35,7 +35,7 @@ public class CreateTestsData extends _Page {
     //WebElement country;
     @FindBy(xpath = ".//label[contains(text(),'Country')]//following::input[1]")
     WebElement country;
-    @FindBy(xpath = ".//label[contains(text(),'Telephone')]//following::input[1]")
+    @FindBy(xpath = ".//label[contains(text(),'Telephone')]//following::input[@type='text'][1]")
     WebElement telephone;
     @FindBy(xpath = ".//label[contains(text(),'Fax')]//following::input[1]")
     WebElement fax;
@@ -87,12 +87,14 @@ public class CreateTestsData extends _Page {
     //Services of Interests
     final String selectedServices = "Selected services";
     @FindBy(xpath = ".//span[.='" + selectedServices + "']//following::input[1]")
-    WebElement deviceReg;
+    WebElement accountManagement;
     @FindBy(xpath = ".//span[.='" + selectedServices + "']//following::input[2]")
-    WebElement cfsCertification;
+    WebElement deviceReg;
     @FindBy(xpath = ".//span[.='" + selectedServices + "']//following::input[3]")
-    WebElement clinicalInvestigation;
+    WebElement cfsCertification;
     @FindBy(xpath = ".//span[.='" + selectedServices + "']//following::input[4]")
+    WebElement clinicalInvestigation;
+    @FindBy(xpath = ".//span[.='" + selectedServices + "']//following::input[5]")
     WebElement aitsAdverseIncidient;
 
     //Submit and cancel

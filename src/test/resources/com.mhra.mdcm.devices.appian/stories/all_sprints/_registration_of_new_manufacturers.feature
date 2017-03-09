@@ -11,9 +11,9 @@ Feature: As a customer I want to register new manufacturers
       | accountType | <accountType> |
       | countryName | <countryName> |
     And I add devices to NEWLY created manufacturer with following data
-      | deviceType             | General Medical Device |
-      | gmdnDefinition         | Blood weighing scale    |
-      | customMade             | true                   |
+      | deviceType     | General Medical Device |
+      | gmdnDefinition | Blood weighing scale   |
+      | customMade     | true                   |
     And Proceed to payment and confirm submit device details
     #Then I should see stored manufacturer appear in the manufacturers list
     When I logout of the application
@@ -27,8 +27,8 @@ Feature: As a customer I want to register new manufacturers
     When I search accounts for the stored organisation name
     Then I should see at least 0 account matches
     Examples:
-      | user              | logBackInAs  | accountType  | countryName |
-      #| manufacturerAuto  | businessAuto | manufacturer | Brazil  |
+      | user              | logBackInAs  | accountType   | countryName |
+      | manufacturerAuto  | businessAuto | manufacturer  | Brazil      |
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  |
 
 
@@ -40,9 +40,9 @@ Feature: As a customer I want to register new manufacturers
       | accountType | <accountType> |
       | countryName | <countryName> |
     And I add devices to NEWLY created manufacturer with following data
-      | deviceType             | General Medical Device |
-      | gmdnDefinition         | Blood weighing scale    |
-      | customMade             | true                   |
+      | deviceType     | General Medical Device |
+      | gmdnDefinition | Blood weighing scale   |
+      | customMade     | true                   |
     And Proceed to payment and confirm submit device details
     Then I should see the registered manufacturers list
     When I logout of the application
@@ -56,6 +56,6 @@ Feature: As a customer I want to register new manufacturers
     Then I should see at least <count> account matches
     Examples:
       | user              | logBackInAs  | accountType   | approveReject | count | countryName |
-      #| manufacturerAuto  | businessAuto | manufacturer  | approve       | 1     | Brazil       |
+      | manufacturerAuto  | businessAuto | manufacturer  | approve       | 1     | Brazil      |
       | authorisedRepAuto | businessAuto | authorisedRep | approve       | 0     | Belarus     |
 

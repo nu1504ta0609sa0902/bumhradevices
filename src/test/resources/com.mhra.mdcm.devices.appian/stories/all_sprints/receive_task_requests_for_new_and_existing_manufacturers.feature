@@ -119,7 +119,7 @@ Feature: As a business user, I want a task to be created each time a customer su
     And The completed task status should update to "Completed"
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType                 | gmdnDefinition        | riskClassification | listOfProductNames | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
-      #| manufacturerAuto  | businessAuto | manufacturer  | Brazil  | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | ford,hyundai       | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      | manufacturerAuto  | businessAuto | manufacturer  | Brazil      | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | ford,hyundai       | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | ford,honda         | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
 
@@ -188,16 +188,16 @@ Feature: As a business user, I want a task to be created each time a customer su
       | countryName | <countryName> |
     When I add a device to SELECTED manufacturer with following data
       | deviceType     | <deviceType> |
-      | gmdnDefinition | <gmdn1>                |
-      | customMade     | true                   |
+      | gmdnDefinition | <gmdn1>      |
+      | customMade     | true         |
     And I add another device to SELECTED manufacturer with following data
       | deviceType             | <deviceType> |
-      | gmdnDefinition         | <gmdn2>                |
-      | customMade             | false                  |
-      | relatedDeviceSterile   | true                   |
-      | relatedDeviceMeasuring | true                   |
-      | riskClassification     | class1                 |
-      | notifiedBody           | NB 0086 BSI            |
+      | gmdnDefinition         | <gmdn2>      |
+      | customMade             | false        |
+      | relatedDeviceSterile   | true         |
+      | relatedDeviceMeasuring | true         |
+      | riskClassification     | class1       |
+      | notifiedBody           | NB 0086 BSI  |
     And Proceed to payment and confirm submit device details
     #Then I should see stored manufacturer appear in the manufacturers list
     Then I should see the registered manufacturers list
@@ -214,9 +214,9 @@ Feature: As a business user, I want a task to be created each time a customer su
     When I search accounts for the stored organisation name
     Then I should see at least 0 account matches
     Examples:
-      | user              | logBackInAs  | accountType   | countryName | gmdn1                | gmdn2           | approveReject | deviceType |
-      | manufacturerAuto | businessAuto | manufacturer | Brazil      | Blood weighing scale | Autopsy measure | approve       |General Medical Device |
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Blood weighing scale | Autopsy measure | approve       |General Medical Device |
+      | user              | logBackInAs  | accountType   | countryName | gmdn1                | gmdn2           | approveReject | deviceType             |
+      | manufacturerAuto  | businessAuto | manufacturer  | Brazil      | Blood weighing scale | Autopsy measure | approve       | General Medical Device |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Blood weighing scale | Autopsy measure | approve       | General Medical Device |
 
 
   @regression @4090 @sprint13

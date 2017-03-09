@@ -12,6 +12,17 @@ Feature: As an account holder with access to the device registration service
       | gmdnDefinition | <device1>              |
       | customMade     | true                   |
     When I add another device to SELECTED manufacturer with following data
+      | deviceType         | In Vitro Diagnostic Device |
+      | gmdnDefinition     | <device4>                  |
+      | riskClassification | list a                     |
+      | notifiedBody       | NB 0086 BSI                |
+      | productName        | premierLeague              |
+      | productMake        | britishsky                 |
+      | productModel       | wtf1                       |
+      | subjectToPerfEval  | true                       |
+      | newProduct         | true                       |
+      | conformsToCTS      | true                       |
+    When I add another device to SELECTED manufacturer with following data
       | deviceType             | System or Procedure Pack |
       | gmdnDefinition         | <device2>                |
       | riskClassification     | class1                   |
@@ -26,17 +37,6 @@ Feature: As an account holder with access to the device registration service
       | gmdnDefinition | <device3>                          |
       | customMade     | true                               |
       | productName    | lordhelpme                         |
-    When I add another device to SELECTED manufacturer with following data
-      | deviceType         | In Vitro Diagnostic Device |
-      | gmdnDefinition     | <device4>                  |
-      | riskClassification | list a                     |
-      | notifiedBody       | NB 0086 BSI                |
-      | productName        | premierLeague              |
-      | productMake        | britishsky                 |
-      | productModel       | wtf1                       |
-      | subjectToPerfEval  | true                       |
-      | newProduct         | true                       |
-      | conformsToCTS      | true                       |
     Then I should see option to add another device
 #    And The gmdn code or term is "displayed" in summary section
     And All the gmdn codes or terms are "displayed" in summary section

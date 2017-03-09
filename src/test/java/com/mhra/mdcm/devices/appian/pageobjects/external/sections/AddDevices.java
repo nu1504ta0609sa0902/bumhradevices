@@ -111,7 +111,7 @@ public class AddDevices extends _Page {
     WebElement nbOther;
 
     //List of notified bodies
-    @FindBy(xpath = ".//*[contains(text(),'Notified Body')]//following::input[@type='radio']")
+    @FindBy(xpath = ".//*[contains(text(),'Notified Body')]//following::input[@type='radio']//following::label")
     List<WebElement> listOfNotifiedBodies;
 
     //IVD risk classification
@@ -514,9 +514,11 @@ public class AddDevices extends _Page {
     }
 
     private void addProduct(DeviceData dd) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, addProduct, TIMEOUT_10_SECOND, false);
-        WaitUtils.nativeWaitInSeconds(1);
+        //WaitUtils.nativeWaitInSeconds(2);
         addProduct.click();
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
 
         //Wait for form to be visible
         WaitUtils.waitForElementToBeClickable(driver, pdProductName, TIMEOUT_5_SECOND, false);
@@ -551,13 +553,19 @@ public class AddDevices extends _Page {
         //Select notified body
         if (notifiedBodyOptionsCorrect && dd.notifiedBody != null && dd.notifiedBody.toLowerCase().contains("0086")) {
             PageUtils.clickIfVisible(driver, nb0086BSI);
+        }else if (notifiedBodyOptionsCorrect && dd.notifiedBody != null && dd.notifiedBody.toLowerCase().contains("Other")) {
+            PageUtils.clickIfVisible(driver, nbOther);
+        }else{
+            //PageUtils.clickIfVisible(driver, nb0086BSI);
         }
     }
 
     private boolean isNotifiedBodyListDisplayingCorrectDetails() {
-        WaitUtils.waitForElementToBeClickable(driver, nbOther, TIMEOUT_3_SECOND, false);
-        boolean numberOfNB = listOfNotifiedBodies.size() == 6;
-        boolean otherDisplayed = listOfNotifiedBodies.get(5).getText().contains("Other");
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, nb0086BSI, TIMEOUT_3_SECOND, false);
+        boolean numberOfNB = listOfNotifiedBodies.size() >= 6;
+        String txt = PageUtils.getText(listOfNotifiedBodies.get(5));
+        boolean otherDisplayed = txt.contains("Other");
         return numberOfNB && otherDisplayed;
     }
 
@@ -748,6 +756,7 @@ public class AddDevices extends _Page {
     }
 
     public boolean isGMDNValueDisplayed(DeviceData data) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnAddAnotherDevice, TIMEOUT_15_SECOND, false);
         WaitUtils.waitForElementToBeClickable(driver, btnProceedToPayment, TIMEOUT_15_SECOND, false);
         boolean isDisplayed = false;

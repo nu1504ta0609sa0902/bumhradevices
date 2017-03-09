@@ -118,8 +118,8 @@ Feature: As an account holder with access to the Device Registration Service
     And Verify name make model and other details are correct
     Examples:
       | user              | deviceType                 | gmdnDefinition        | riskClassification | listOfProductNames | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
-      #| manufacturerAuto  | In Vitro Diagnostic Device | Androgen receptor IVD | list a             |                    | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
-      | authorisedRepAuto | In Vitro Diagnostic Device | Androgen receptor IVD | list a             |                    | ford        | focus        | NB 0086 BSI  | true              | true       | false         |
+      | manufacturerAuto  | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | Ford               | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      | authorisedRepAuto | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | Opal               | ford        | focus        | NB 0086 BSI  | true              | true       | false         |
       | authorisedRepAuto | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | General Motors     | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
 

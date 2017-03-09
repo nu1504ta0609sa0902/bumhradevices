@@ -38,25 +38,44 @@ public class TasksPageSteps extends CommonSteps {
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
         String taskType = "New Account Request";
         //Verify new taskSection generated and its the correct one
+//        boolean contains = false;
+//        boolean isCorrectTask = false;
+//        int count = 0;
+//        do {
+//            mainNavigationBar = new MainNavigationBar(driver);
+//            tasksPage = mainNavigationBar.clickTasks();
+//
+//            //Click on link number X
+//            taskSection = tasksPage.clickOnTaskNumber(count, taskType);
+//            isCorrectTask = taskSection.isCorrectTask(orgName);
+//            if (isCorrectTask) {
+//                contains = true;
+//                scenarioSession.putData(SessionKey.position, count);
+//            } else {
+//                taskSection = tasksPage.clickOnTaskNumber(0, taskType);
+//                isCorrectTask = taskSection.isCorrectTask(orgName);
+//                count++;
+//            }
+//        } while (!contains && count <= 5);
         boolean contains = false;
         boolean isCorrectTask = false;
-        int count = 0;
+        int count2 = 0;
         do {
             mainNavigationBar = new MainNavigationBar(driver);
             tasksPage = mainNavigationBar.clickTasks();
 
             //Click on link number X
-            taskSection = tasksPage.clickOnTaskNumber(count, taskType);
-            isCorrectTask = taskSection.isCorrectTask(orgName);
-            if (isCorrectTask) {
-                contains = true;
-                scenarioSession.putData(SessionKey.position, count);
-            } else {
-                taskSection = tasksPage.clickOnTaskNumber(0, taskType);
+            boolean isLinkVisible = tasksPage.isLinkVisible(orgName);
+            if (isLinkVisible) {
+                taskSection = tasksPage.clickOnLinkWithText(orgName);
                 isCorrectTask = taskSection.isCorrectTask(orgName);
-                count++;
+                if (isCorrectTask) {
+                    contains = true;
+                } else {
+                    count2++;
+                }
             }
-        } while (!contains && count <= 5);
+        } while (!contains && count2 <= 5);
 
         //If its still not found than try the first 1 again
         if (!contains) {
