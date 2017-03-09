@@ -9,7 +9,6 @@ import com.mhra.mdcm.devices.appian.pageobjects.external.MyAccountPage;
 import com.mhra.mdcm.devices.appian.pageobjects.external.ExternalHomePage;
 import com.mhra.mdcm.devices.appian.pageobjects.external.sections.*;
 import com.mhra.mdcm.devices.appian.session.ScenarioSession;
-import com.mhra.mdcm.devices.appian.utils.network.NetworkUtils;
 
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import org.openqa.selenium.WebDriver;
@@ -50,15 +49,15 @@ public class CommonSteps {
     @Autowired
     public LoginPage loginPage;
     @Autowired
-    public NewsPage newsPage;
+    public NewsTabPage newsPage;
     @Autowired
-    public RecordsPage recordsPage;
+    public RecordsTabPage recordsPage;
     @Autowired
-    public ActionsPage actionsPage;
+    public ActionsTabPage actionsTabPage;
     @Autowired
-    public TasksPage tasksPage;
+    public TasksTabPage tasksPage;
     @Autowired
-    public ReportsPage reportsPage;
+    public ReportsTabPage reportsPage;
 
     //SECTIONS
     @Autowired

@@ -2,7 +2,7 @@ package com.mhra.mdcm.devices.appian.pageobjects.business.sections;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
-import com.mhra.mdcm.devices.appian.pageobjects.business.ActionsPage;
+import com.mhra.mdcm.devices.appian.pageobjects.business.ActionsTabPage;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
@@ -114,7 +114,7 @@ public class CreateTestsData extends _Page {
      * @param ar
      * @return
      */
-    public ActionsPage createTestOrganisation(AccountRequest ar) throws Exception {
+    public ActionsTabPage createTestOrganisation(AccountRequest ar) throws Exception {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         //WaitUtils.forceWaitForPageToLoad(driver, By.xpath(".//label[.='Organisation name']//following::input[1]"), TIMEOUT_1_SECOND, 2) ;
         WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_15_SECOND, false);
@@ -219,13 +219,13 @@ public class CreateTestsData extends _Page {
         //Submit form : remember to verify
         submit.click();
 
-        return new ActionsPage(driver);
+        return new ActionsTabPage(driver);
     }
 
 
-    public ActionsPage clickCancel() {
+    public ActionsTabPage clickCancel() {
         PageUtils.doubleClick(driver, cancel);
-        return new ActionsPage(driver);
+        return new ActionsTabPage(driver);
     }
 
     public List<String> getListOfAutosuggestionsFor(String searchTerm) {

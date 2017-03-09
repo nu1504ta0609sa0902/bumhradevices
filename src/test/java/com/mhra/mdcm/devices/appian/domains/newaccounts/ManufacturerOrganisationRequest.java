@@ -5,7 +5,6 @@ import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.FileUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +15,7 @@ import java.util.List;
  *
  * OVERRIDE THE DEFAULTS USING CUCUMBER SCENARIOS TEST DATA
  */
-public class AccountManufacturerRequest {
+public class ManufacturerOrganisationRequest {
 
     public static final String MANUFACTURER_RT_TEST = "ManufacturerRT01Test";
     public static final String AUTHORISED_REP_RT_TEST = "AuthorisedRepRT01Test";
@@ -48,7 +47,7 @@ public class AccountManufacturerRequest {
     public boolean isManufacturer;
 
 
-    public AccountManufacturerRequest(ScenarioSession scenarioSession) {
+    public ManufacturerOrganisationRequest(ScenarioSession scenarioSession) {
         createDefaultRandom();
         //Update as required
         if(scenarioSession!=null){
@@ -140,7 +139,7 @@ public class AccountManufacturerRequest {
     }
 
     public static void main(String[] args){
-        AccountManufacturerRequest ar = new AccountManufacturerRequest(null);
+        ManufacturerOrganisationRequest ar = new ManufacturerOrganisationRequest(null);
     }
 
     public void updateName(ScenarioSession scenarioSession) {

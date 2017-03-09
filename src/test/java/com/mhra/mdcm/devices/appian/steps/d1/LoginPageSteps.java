@@ -109,7 +109,7 @@ public class LoginPageSteps extends CommonSteps {
         }else if(page.equals("Reports")){
             reportsPage = mainNavigationBar.clickReports();
         }else if(page.equals("Actions")){
-            actionsPage = mainNavigationBar.clickActions();
+            actionsTabPage = mainNavigationBar.clickActions();
         }
     }
 

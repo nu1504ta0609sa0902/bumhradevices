@@ -1,6 +1,6 @@
 package com.mhra.mdcm.devices.appian.utils.selenium.others;
 
-import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountManufacturerRequest;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerOrganisationRequest;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
 import com.mhra.mdcm.devices.appian.session.ScenarioSession;
@@ -77,8 +77,8 @@ public class TestHarnessUtils {
         return isValid;
     }
 
-    public static AccountManufacturerRequest updateManufacturerDefaultsWithData(Map<String, String> dataSets, ScenarioSession scenarioSession) {
-        AccountManufacturerRequest defaultAccount = new AccountManufacturerRequest(scenarioSession);
+    public static ManufacturerOrganisationRequest updateManufacturerDefaultsWithData(Map<String, String> dataSets, ScenarioSession scenarioSession) {
+        ManufacturerOrganisationRequest defaultAccount = new ManufacturerOrganisationRequest(scenarioSession);
 
         if(dataSets!=null){
             String accountType = dataSets.get("accountType");

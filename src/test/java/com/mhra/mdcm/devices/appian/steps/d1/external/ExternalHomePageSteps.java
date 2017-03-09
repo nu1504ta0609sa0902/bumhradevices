@@ -1,6 +1,6 @@
 package com.mhra.mdcm.devices.appian.steps.d1.external;
 
-import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountManufacturerRequest;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerOrganisationRequest;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.pageobjects.external.sections.AddDevices;
@@ -95,7 +95,7 @@ public class ExternalHomePageSteps extends CommonSteps {
     @When("^I create a new manufacturer using manufacturer test harness page with following data$")
     public void i_create_a_new_manufacturer_using_test_harness_page_with_following_data(Map<String, String> dataSets) throws Throwable {
 
-        AccountManufacturerRequest newAccount = TestHarnessUtils.updateManufacturerDefaultsWithData(dataSets, scenarioSession);
+        ManufacturerOrganisationRequest newAccount = TestHarnessUtils.updateManufacturerDefaultsWithData(dataSets, scenarioSession);
         log.info("New Manufacturer Account Requested With Following Data : \n" + newAccount);
 
         //Create new manufacturer data
@@ -500,7 +500,7 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     @Then("^Verify devices displayed and GMDN details are correct$")
     public void verifyDevicesDisplayedAndOtherDetailsAreCorrect() throws Throwable {
-        AccountManufacturerRequest manufacaturerData = (AccountManufacturerRequest) scenarioSession.getData(SessionKey.manufacturerData);
+        ManufacturerOrganisationRequest manufacaturerData = (ManufacturerOrganisationRequest) scenarioSession.getData(SessionKey.manufacturerData);
         DeviceData deviceData = (DeviceData) scenarioSession.getData(SessionKey.deviceData);
 
         //Go to devices page by clicking on the "Devices and product details" link

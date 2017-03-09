@@ -16,13 +16,13 @@ import org.springframework.stereotype.Component;
  * Created by TPD_Auto
  */
 @Component
-public class ActionsPage extends _Page {
+public class ActionsTabPage extends _Page {
 
     @FindBy(partialLinkText = "Create Test Account")
     WebElement linkCreateTestAccount;
 
     @Autowired
-    public ActionsPage(WebDriver driver) {
+    public ActionsTabPage(WebDriver driver) {
         super(driver);
     }
 

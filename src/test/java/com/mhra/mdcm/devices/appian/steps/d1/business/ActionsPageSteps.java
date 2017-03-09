@@ -2,7 +2,7 @@ package com.mhra.mdcm.devices.appian.steps.d1.business;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
-import com.mhra.mdcm.devices.appian.pageobjects.business.ActionsPage;
+import com.mhra.mdcm.devices.appian.pageobjects.business.ActionsTabPage;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
@@ -25,15 +25,15 @@ public class ActionsPageSteps extends CommonSteps {
     @When("^I go to actions page$")
     public void i_go_to_actions_page() throws Throwable {
         mainNavigationBar = new MainNavigationBar(driver);
-        actionsPage = mainNavigationBar.clickActions();
+        actionsTabPage = mainNavigationBar.clickActions();
     }
 
 
     @When("^I go to test harness page$")
     public void i_go_to_test_harness_page() throws Throwable {
         mainNavigationBar = new MainNavigationBar(driver);
-        actionsPage = mainNavigationBar.clickActions();
-        createTestsData = actionsPage.gotoTestsHarnessPage();
+        actionsTabPage = mainNavigationBar.clickActions();
+        createTestsData = actionsTabPage.gotoTestsHarnessPage();
     }
 
     @When("^I enter \"([^\"]*)\" in the new country field$")
@@ -53,14 +53,14 @@ public class ActionsPageSteps extends CommonSteps {
     @When("^I create a new account using test harness page$")
     public void i_create_a_new_account_using_test_harness_page() throws Throwable {
         //go to accounts page > test harness page
-        actionsPage = mainNavigationBar.clickActions();
-        createTestsData = actionsPage.gotoTestsHarnessPage();
+        actionsTabPage = mainNavigationBar.clickActions();
+        createTestsData = actionsTabPage.gotoTestsHarnessPage();
 
         //Now create the test data using harness page
         AccountRequest ar = new AccountRequest(scenarioSession);
-        actionsPage = createTestsData.createTestOrganisation(ar);
+        actionsTabPage = createTestsData.createTestOrganisation(ar);
 
-        boolean createdSuccessfully = actionsPage.isInActionsPage();
+        boolean createdSuccessfully = actionsTabPage.isInActionsPage();
         if(createdSuccessfully){
             log.warn("Created a new account : " + ar.organisationName);
             scenarioSession.putData(SessionKey.organisationName, ar.organisationName);
@@ -81,28 +81,28 @@ public class ActionsPageSteps extends CommonSteps {
         //log.info("New Account Requested With Following Data : \n" + newAccount);
 
         //go to accounts page > test harness page
-        actionsPage = mainNavigationBar.clickActions();
-        createTestsData = actionsPage.gotoTestsHarnessPage();
-        actionsPage = createTestsData.createTestOrganisation(newAccount);
+        actionsTabPage = mainNavigationBar.clickActions();
+        createTestsData = actionsTabPage.gotoTestsHarnessPage();
+        actionsTabPage = createTestsData.createTestOrganisation(newAccount);
 
         //You may need to do it again, page is not really good
-        boolean isInCorrectPage = actionsPage.isInActionsPage();
+        boolean isInCorrectPage = actionsTabPage.isInActionsPage();
         if(!isInCorrectPage){
             int count = 1;
             do {
-                actionsPage = createTestsData.clickCancel();
-                isInCorrectPage = actionsPage.isInActionsPage();
+                actionsTabPage = createTestsData.clickCancel();
+                isInCorrectPage = actionsTabPage.isInActionsPage();
                 if(!isInCorrectPage) {
-                    actionsPage = mainNavigationBar.clickActions();
+                    actionsTabPage = mainNavigationBar.clickActions();
                 }else{
                     driver.navigate().refresh();
-                    actionsPage = new ActionsPage(driver);
+                    actionsTabPage = new ActionsTabPage(driver);
                 }
 
                 //In actions page try creating agaim
-                createTestsData = actionsPage.gotoTestsHarnessPage();
-                actionsPage = createTestsData.createTestOrganisation(newAccount);
-                isInCorrectPage = actionsPage.isInActionsPage();
+                createTestsData = actionsTabPage.gotoTestsHarnessPage();
+                actionsTabPage = createTestsData.createTestOrganisation(newAccount);
+                isInCorrectPage = actionsTabPage.isInActionsPage();
                 count++;
             } while (!isInCorrectPage && count <= 3);
         }

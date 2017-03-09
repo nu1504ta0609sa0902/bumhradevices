@@ -52,35 +52,35 @@ public class MainNavigationBar extends _Page {
     //==========================================================
 
 
-    public NewsPage clickNews() {
+    public NewsTabPage clickNews() {
         WaitUtils.waitForElementToBeClickable(driver, news, TIMEOUT_DEFAULT, false);
         PageUtils.doubleClick(driver, news);
-        return new NewsPage(driver);
+        return new NewsTabPage(driver);
     }
 
-    public TasksPage clickTasks() {
+    public TasksTabPage clickTasks() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, tasks, TIMEOUT_DEFAULT, false);
         tasks.click();
         PageUtils.acceptAlert(driver, true, 2);
         //PageUtils.doubleClick(driver, tasks);
-        return new TasksPage(driver);
+        return new TasksTabPage(driver);
     }
 
-    public RecordsPage clickRecords() {
+    public RecordsTabPage clickRecords() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         //WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Records"), TIMEOUT_1_SECOND, 3);
         WaitUtils.waitForElementToBeClickable(driver, records, TIMEOUT_20_SECOND, false);
         //records.click();
         PageUtils.doubleClick(driver, records);
-        return new RecordsPage(driver);
+        return new RecordsTabPage(driver);
     }
 
-    public ReportsPage clickReports() {
+    public ReportsTabPage clickReports() {
         WaitUtils.waitForElementToBeClickable(driver, reports, TIMEOUT_DEFAULT, false);
         reports.click();
         PageUtils.doubleClick(driver, reports);
-        return new ReportsPage(driver);
+        return new ReportsTabPage(driver);
     }
 
     public String getCurrentSelectedMenu() {
@@ -89,12 +89,12 @@ public class MainNavigationBar extends _Page {
         return selectedMenu;
     }
 
-    public ActionsPage clickActions() {
+    public ActionsTabPage clickActions() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, actions, TIMEOUT_DEFAULT, false);
         actions.click();
         PageUtils.doubleClick(driver, actions);
-        return new ActionsPage(driver);
+        return new ActionsTabPage(driver);
     }
 
     public boolean isCorrectPage(String expectedHeading) {

@@ -1,10 +1,9 @@
 package com.mhra.mdcm.devices.appian.pageobjects.external.sections;
 
-import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountManufacturerRequest;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerOrganisationRequest;
 
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
-import com.mhra.mdcm.devices.appian.pageobjects.business.ActionsPage;
-import com.mhra.mdcm.devices.appian.pageobjects.external.ExternalHomePage;
+import com.mhra.mdcm.devices.appian.pageobjects.business.ActionsTabPage;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
@@ -86,7 +85,7 @@ public class CreateManufacturerTestsData extends _Page {
      * @param ar
      * @return
      */
-    public AddDevices createTestOrganisation(AccountManufacturerRequest ar) throws Exception {
+    public AddDevices createTestOrganisation(ManufacturerOrganisationRequest ar) throws Exception {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_DEFAULT, false);
         orgName.sendKeys(ar.organisationName);
@@ -161,9 +160,9 @@ public class CreateManufacturerTestsData extends _Page {
         }
     }
 
-    public ActionsPage clickCancel() {
+    public ActionsTabPage clickCancel() {
         PageUtils.doubleClick(driver, cancel);
-        return new ActionsPage(driver);
+        return new ActionsTabPage(driver);
     }
 
     public boolean isErrorMessageDisplayed() {

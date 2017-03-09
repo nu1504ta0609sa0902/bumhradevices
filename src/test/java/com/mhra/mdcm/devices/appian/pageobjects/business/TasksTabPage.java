@@ -17,7 +17,7 @@ import java.util.List;
  * Created by TPD_Auto
  */
 @Component
-public class TasksPage extends _Page {
+public class TasksTabPage extends _Page {
 
     @FindBy(partialLinkText = "New Service Request")
     List<WebElement> listOfNewServiceRequest;
@@ -38,7 +38,7 @@ public class TasksPage extends _Page {
     WebElement completedTasks;
 
     @Autowired
-    public TasksPage(WebDriver driver) {
+    public TasksTabPage(WebDriver driver) {
         super(driver);
     }
 

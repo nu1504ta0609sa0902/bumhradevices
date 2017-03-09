@@ -1,9 +1,9 @@
 package com.mhra.mdcm.devices.appian.pageobjects.business.sections;
 
-import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountManufacturerRequest;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerOrganisationRequest;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
-import com.mhra.mdcm.devices.appian.pageobjects.business.TasksPage;
+import com.mhra.mdcm.devices.appian.pageobjects.business.TasksTabPage;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.CommonUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
@@ -96,7 +96,7 @@ public class TaskSection extends _Page {
 
     @FindBy(css = ".aui-TextAreaInput")
     WebElement commentArea;
-    @FindBy(xpath = ".//a[.='Risk classification']//following::td[3]")
+    @FindBy(xpath = ".//a[.='Risk classification']//following::tr/td[3]")
     List<WebElement> listOfGMDNDefinitions;
     @FindBy(xpath = ".//a[.='Intended use']//following::td[3]")
     List<WebElement> listOfGMDNDefinitionsForSSP;
@@ -157,20 +157,20 @@ public class TaskSection extends _Page {
         return new TaskSection(driver);
     }
 
-    public TasksPage approveTask() {
+    public TasksTabPage approveTask() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         //WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
         WaitUtils.waitForElementToBeClickable(driver, approveTask, TIMEOUT_15_SECOND, false);
         PageUtils.doubleClick(driver, approveTask);
-        return new TasksPage(driver);
+        return new TasksTabPage(driver);
     }
 
-    public TasksPage acceptRegistrationTask() {
+    public TasksTabPage acceptRegistrationTask() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         //WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
         WaitUtils.waitForElementToBeClickable(driver, acceptRegistration, TIMEOUT_15_SECOND, false);
         PageUtils.doubleClick(driver, acceptRegistration);
-        return new TasksPage(driver);
+        return new TasksTabPage(driver);
     }
 
     /**
@@ -198,7 +198,7 @@ public class TaskSection extends _Page {
         return new TaskSection(driver);
     }
 
-    public TasksPage enterRejectionReason(String reason, String randomTestComment) {
+    public TasksTabPage enterRejectionReason(String reason, String randomTestComment) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         //WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
         if (reason.contains("Other")) {
@@ -230,13 +230,13 @@ public class TaskSection extends _Page {
 
         //Submit rejection
         PageUtils.doubleClick(driver, submitBtn);
-        return new TasksPage(driver);
+        return new TasksTabPage(driver);
     }
 
 
     public TaskSection sortBy(String sortBy, int numberOfTimesToClick) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, submitted, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, submitted, TIMEOUT_5_SECOND, false);
         if (sortBy.equals("Submitted")) {
             for (int c = 0; c < numberOfTimesToClick; c++) {
                 submitted.click();
@@ -363,8 +363,9 @@ public class TaskSection extends _Page {
         return listOfInvalidFields;
     }
 
-    public boolean isWIPTaskDetailsCorrectForAccount(String orgName, AccountManufacturerRequest organisationData, String taskType) {
+    public boolean isWIPTaskDetailsCorrectForAccount(String orgName, ManufacturerOrganisationRequest organisationData, String taskType) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, listOfWIPTableRows.get(0), TIMEOUT_3_SECOND, false);
         WebElement tr = PageUtils.getTableRow(listOfWIPTableRows, orgName);
         //Task
         boolean isDataCorrect = PageUtils.isTableDataContentCorrect(tr, 1, taskType);

@@ -1,6 +1,6 @@
 package com.mhra.mdcm.devices.appian.steps.d1.business;
 
-import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountManufacturerRequest;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerOrganisationRequest;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
@@ -332,7 +332,7 @@ public class TasksPageSteps extends CommonSteps {
     @Then("^Verify the WIP entry details for the new account is correct$")
     public void verify_the_WIP_entry_details_for_the_new_account_is_correct() throws Throwable {
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
-        AccountManufacturerRequest organisationData = (AccountManufacturerRequest) scenarioSession.getData(SessionKey.manufacturerData);
+        ManufacturerOrganisationRequest organisationData = (ManufacturerOrganisationRequest) scenarioSession.getData(SessionKey.manufacturerData);
         boolean isWIPDataCorrect = taskSection.isWIPTaskDetailsCorrectForAccount(orgName, organisationData, "New Manufacturer Registration Request");
         assertThat("WIP page not showing correct data for : " + orgName, isWIPDataCorrect, is(equalTo(true)));
     }
@@ -345,9 +345,9 @@ public class TasksPageSteps extends CommonSteps {
     @Then("^Check the WIP entry details for the \"([^\"]*)\" task is correct$")
     public void verify_the_WIP_entry_details_for_the_task_is_correct(String taskType) throws Throwable {
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
-        AccountManufacturerRequest organisationData = null;
+        ManufacturerOrganisationRequest organisationData = null;
         if(taskType.contains("New Manufacturer")){
-            organisationData = (AccountManufacturerRequest) scenarioSession.getData(SessionKey.manufacturerData);
+            organisationData = (ManufacturerOrganisationRequest) scenarioSession.getData(SessionKey.manufacturerData);
         }
         boolean isWIPDataCorrect = taskSection.isWIPTaskDetailsCorrectForAccount(orgName, organisationData, taskType);
         assertThat("WIP page not showing correct data for : " + orgName, isWIPDataCorrect, is(equalTo(true)));

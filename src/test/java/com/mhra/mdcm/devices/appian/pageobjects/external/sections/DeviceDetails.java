@@ -1,6 +1,6 @@
 package com.mhra.mdcm.devices.appian.pageobjects.external.sections;
 
-import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountManufacturerRequest;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerOrganisationRequest;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
@@ -48,7 +48,7 @@ public class DeviceDetails extends _Page {
      * @param deviceData
      * @return
      */
-    public boolean isDisplayedDeviceDataCorrect(AccountManufacturerRequest manufacaturerData, DeviceData deviceData) {
+    public boolean isDisplayedDeviceDataCorrect(ManufacturerOrganisationRequest manufacaturerData, DeviceData deviceData) {
         //Check displayed devices are correct
         String device = deviceData.gmdnTermOrDefinition;
         boolean allHeadingValid = isDeviceTableHeadingCorrect(deviceData);

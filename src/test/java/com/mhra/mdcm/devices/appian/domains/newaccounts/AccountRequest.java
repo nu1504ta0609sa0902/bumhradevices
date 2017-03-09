@@ -93,7 +93,7 @@ public class AccountRequest {
         country = "United Kingdom";
         addressType = true;
         telephone = "07941" + (int) RandomDataUtils.getRandomDigits(7);
-        fax = "044941" + (int) RandomDataUtils.getRandomDigits(7);
+        fax = ""; //"044941" + (int) RandomDataUtils.getRandomDigits(7);
         website = "www." + organisationName.toLowerCase() + ".com";
 
         //Organisation type

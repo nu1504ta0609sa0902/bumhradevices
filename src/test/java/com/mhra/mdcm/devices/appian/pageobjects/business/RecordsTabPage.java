@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
  * Created by TPD_Auto
  */
 @Component
-public class RecordsPage extends _Page {
+public class RecordsTabPage extends _Page {
 
     @FindBy(linkText = "Accounts")
     WebElement linkAccounts;
@@ -37,7 +37,7 @@ public class RecordsPage extends _Page {
     WebElement linkAll;
 
     @Autowired
-    public RecordsPage(WebDriver driver) {
+    public RecordsTabPage(WebDriver driver) {
         super(driver);
     }
 

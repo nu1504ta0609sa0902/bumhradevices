@@ -2,6 +2,8 @@ package com.mhra.mdcm.devices.appian.pageobjects.business;
 
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -9,10 +11,11 @@ import org.springframework.stereotype.Component;
  * Created by TPD_Auto
  */
 @Component
-public class NewsPage extends _Page {
+public class ReportsTabPage extends _Page {
 
     @Autowired
-    public NewsPage(WebDriver driver) {
+    public ReportsTabPage(WebDriver driver) {
         super(driver);
     }
+
 }

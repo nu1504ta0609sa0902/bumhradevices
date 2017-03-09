@@ -206,6 +206,8 @@ public class AddDevices extends _Page {
     //Device Summary
     @FindBy(xpath = ".//a[contains(text(),'GMDN code')]//following::a")
     List<WebElement> listOfGMDNLinksInSummary;
+    @FindBy(partialLinkText = "Change Notified Body")
+    WebElement linkChangeNotifiedBody;
 
     //All GMDN table
     @FindBy(xpath = ".//*[.='Term definition']//following::tr/td[2]")
@@ -549,6 +551,7 @@ public class AddDevices extends _Page {
 
     private void notifiedBody(DeviceData dd) {
         boolean notifiedBodyOptionsCorrect = isNotifiedBodyListDisplayingCorrectDetails();
+        changeNotifiedBody();
         WaitUtils.waitForElementToBeClickable(driver, nb0086BSI, TIMEOUT_5_SECOND, false);
         //Select notified body
         if (notifiedBodyOptionsCorrect && dd.notifiedBody != null && dd.notifiedBody.toLowerCase().contains("0086")) {
@@ -557,6 +560,17 @@ public class AddDevices extends _Page {
             PageUtils.clickIfVisible(driver, nbOther);
         }else{
             //PageUtils.clickIfVisible(driver, nb0086BSI);
+        }
+    }
+
+    private void changeNotifiedBody() {
+        try{
+            WaitUtils.waitForElementToBeClickable(driver, linkChangeNotifiedBody, TIMEOUT_1_SECOND, false);
+            linkChangeNotifiedBody.click();
+            WaitUtils.waitForElementToBeClickable(driver, nb0086BSI, TIMEOUT_1_SECOND, false);
+            WaitUtils.nativeWaitInSeconds(1);
+        }catch (Exception e){
+            //Bug which maintains previous selection of notified body
         }
     }
 
