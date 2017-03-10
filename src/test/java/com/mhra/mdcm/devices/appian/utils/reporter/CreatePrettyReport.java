@@ -25,7 +25,7 @@ public class CreatePrettyReport {
 
 	public static void main(String[] args) {
 		CreatePrettyReport cpr = new CreatePrettyReport();
-		cpr.monitorFolder("PrettyReport", true);
+		cpr.monitorFolder("PrettyReport", false);
 	}
 
 	/**
