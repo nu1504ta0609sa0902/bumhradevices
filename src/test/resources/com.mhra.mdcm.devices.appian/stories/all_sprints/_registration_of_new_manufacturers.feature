@@ -56,6 +56,6 @@ Feature: As a customer I want to register new manufacturers
     Then I should see at least <count> account matches
     Examples:
       | user              | logBackInAs  | accountType   | approveReject | count | countryName |
-      | manufacturerAuto  | businessAuto | manufacturer  | approve       | 1     | Brazil      |
+      | manufacturerAuto  | businessAuto | manufacturer  | approve       | 0     | Brazil      |
       | authorisedRepAuto | businessAuto | authorisedRep | approve       | 0     | Belarus     |
 
