@@ -31,36 +31,34 @@ public class CreateTestsData extends _Page {
     WebElement townCity;
     @FindBy(xpath = ".//label[contains(text(),'Postcode')]//following::input[1]")
     WebElement postCode;
-    //@FindBy(xpath = ".//span[contains(text(),'Country')]//following::select[1]")
-    //WebElement country;
-    @FindBy(xpath = ".//label[contains(text(),'Country')]//following::input[1]")
-    WebElement country;
-    @FindBy(xpath = ".//label[contains(text(),'Telephone')]//following::input[@type='text'][1]")
+    @FindBy(xpath = ".//label[contains(text(),'Postcode')]//following::input[@type='text'][2]")
     WebElement telephone;
     @FindBy(xpath = ".//label[contains(text(),'Fax')]//following::input[1]")
     WebElement fax;
     @FindBy(xpath = ".//label[contains(text(),'Website')]//following::input[1]")
     WebElement website;
-    @FindBy(xpath = ".//span[contains(text(),'Address type')]//following::input[1]")
+    @FindBy(xpath = ".//label[contains(text(),'Registered Address')]")
     WebElement addressType;
+    @FindBy(xpath = ".//label[contains(text(),'Country')]//following::input[1]")
+    WebElement country;
 
     //Organisation Type
-    final String selectedType = "Selected type";
-    @FindBy(xpath = ".//span[.='" + selectedType + "']//following::input[1]")
+    @FindBy(xpath = ".//label[contains(text(),'Limited Company')]")
     WebElement limitedCompany;
-    @FindBy(xpath = ".//span[.='" + selectedType + "']//following::input[2]")
+    @FindBy(xpath = ".//label[contains(text(),'Business Partnership')]")
     WebElement businessPartnership;
-    @FindBy(xpath = ".//span[.='" + selectedType + "']//following::input[3]")
+    @FindBy(xpath = ".//label[contains(text(),'Unincorporated Association')]")
     WebElement unincorporatedAssociation;
-    @FindBy(xpath = ".//span[.='" + selectedType + "']//following::input[4]")
+    @FindBy(xpath = ".//label[contains(text(),'Other')]")
     WebElement other;
+    final String selectedType = "Selected type";
     @FindBy(xpath = ".//span[.='" + selectedType + "']//following::input[5]")
     WebElement vatRegistrationNumber;
     @FindBy(xpath = ".//span[.='" + selectedType + "']//following::input[6]")
     WebElement companyRegistrationNumber;
 
     //Contact Person Details
-    @FindBy(xpath = ".//span[contains(text(),'Title')]//following::select[1]")
+    @FindBy(xpath = ".//span[contains(text(),'Title')]//following::div[@role='listbox']")
     WebElement title;
     @FindBy(xpath = ".//label[.='First name']//following::input[1]")
     WebElement firstName;
@@ -68,37 +66,36 @@ public class CreateTestsData extends _Page {
     WebElement lastName;
     @FindBy(xpath = ".//label[contains(text(),'Job title')]//following::input[1]")
     WebElement jobTitle;
-    @FindBy(xpath = ".//h3[contains(text(),'Person Details')]//following::input[4]")
+    @FindBy(xpath = ".//h2[contains(text(),'Person Details')]//following::input[4]")
     WebElement phoneNumber;
     @FindBy(xpath = ".//label[.='Email']//following::input[1]")
     WebElement emailAddress;
 
     //Organisational Role
     final String selectedRoles = "Selected roles";
-    @FindBy(xpath = ".//span[.='" + selectedRoles + "']//following::label[contains(text(),'Authorised')]")
+    @FindBy(xpath = ".//label[contains(text(),'Authorised Rep')]")
     WebElement authorisedRep;
-    @FindBy(xpath = ".//span[.='" + selectedRoles + "']//following::label[contains(text(),'Manufacturer')]")
+    @FindBy(xpath = ".//label[contains(text(),'Manufacturer')]")
     WebElement manufacturer;
-    @FindBy(xpath = ".//span[.='" + selectedRoles + "']//following::label[contains(text(),'Distributor')]")
+    @FindBy(xpath = ".//label[contains(text(),'Distributor')]")
     WebElement distributor;
-    @FindBy(xpath = ".//span[.='" + selectedRoles + "']//following::label[contains(text(),'Notified Body')]")
+    @FindBy(xpath = ".//label[contains(text(),'Notified Body')]")
     WebElement notifiedBody;
 
     //Services of Interests
-    final String selectedServices = "Selected services";
-    @FindBy(xpath = ".//span[.='" + selectedServices + "']//following::input[1]")
+    @FindBy(xpath = ".//label[contains(text(),'Account Management')]")
     WebElement accountManagement;
-    @FindBy(xpath = ".//span[.='" + selectedServices + "']//following::input[2]")
+    @FindBy(xpath = ".//label[contains(text(),'Device Registration')]")
     WebElement deviceReg;
-    @FindBy(xpath = ".//span[.='" + selectedServices + "']//following::input[3]")
+    @FindBy(xpath = ".//label[contains(text(),'Certificate of Freesales')]")
     WebElement cfsCertification;
-    @FindBy(xpath = ".//span[.='" + selectedServices + "']//following::input[4]")
+    @FindBy(xpath = ".//label[contains(text(),'Clinical Investigation')]")
     WebElement clinicalInvestigation;
-    @FindBy(xpath = ".//span[.='" + selectedServices + "']//following::input[5]")
+    @FindBy(xpath = ".//label[contains(text(),'Adverse Incident Tracking System')]")
     WebElement aitsAdverseIncidient;
 
     //Submit and cancel
-    @FindBy(xpath = ".//button[.='Submit']")
+    @FindBy(xpath = ".//button[contains(text(),'Submit')]")
     WebElement submit;
     @FindBy(xpath = ".//button[.='Cancel']")
     WebElement cancel;
@@ -115,16 +112,15 @@ public class CreateTestsData extends _Page {
      * @return
      */
     public ActionsTabPage createTestOrganisation(AccountRequest ar) throws Exception {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        //WaitUtils.forceWaitForPageToLoad(driver, By.xpath(".//label[.='Organisation name']//following::input[1]"), TIMEOUT_1_SECOND, 2) ;
-        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_15_SECOND, false);
+        WaitUtils.waitForPageToLoad(driver, By.xpath(".//label[.='Organisation name']//following::input[1]"), 5, false); ;
+        WaitUtils.waitForElementToBeClickable(driver, orgName, 5, false);
         orgName.sendKeys(ar.organisationName);
 
         //Selecting country has changed to auto suggest
         boolean exception = false;
         try {
             orgName.click();
-            TestHarnessUtils.selectCountryFromAutoSuggests(driver, ".gwt-SuggestBox", ar.country, true);
+            PageUtils.selectFromAutoSuggestedListItems(driver, ".PickerWidget---picker_value", ar.country, true);
         }catch (Exception e){
             exception = true;
         }
@@ -172,7 +168,16 @@ public class CreateTestsData extends _Page {
         }
 
         //Contact Person Details
-        PageUtils.selectByText(title, ar.title);
+        try {
+            PageUtils.singleClick(driver, title);
+            WaitUtils.isPageLoadingComplete(driver, 1);
+            WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//div[contains(text(), '"+ ar.title + "')]"), TIMEOUT_3_SECOND, false);
+            WebElement titleToSelect = driver.findElement(By.xpath(".//div[contains(text(), '"+ ar.title + "')]"));
+            PageUtils.singleClick(driver, titleToSelect);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         firstName.sendKeys(ar.firstName);
         lastName.sendKeys(ar.lastName);
         jobTitle.sendKeys(ar.jobTitle);
@@ -212,8 +217,11 @@ public class CreateTestsData extends _Page {
 
         //Some weired bug where input boxes looses value on focus
         if(exception) {
-            orgName.click();
-            TestHarnessUtils.selectCountryFromAutoSuggests(driver, ".gwt-SuggestBox", ar.country, false);
+            try {
+                PageUtils.selectFromAutoSuggestedListItems(driver, ".PickerWidget---picker_value", ar.country, false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         //Submit form : remember to verify

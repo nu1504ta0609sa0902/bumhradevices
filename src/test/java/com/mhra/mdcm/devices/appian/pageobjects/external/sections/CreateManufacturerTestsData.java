@@ -39,17 +39,17 @@ public class CreateManufacturerTestsData extends _Page {
     WebElement townCity;
     @FindBy(xpath = ".//label[contains(text(),'Postcode')]//following::input[1]")
     WebElement postCode;
-    @FindBy(xpath = ".//label[contains(text(),'Country')]//following::input[1]")
-    WebElement country;
     @FindBy(xpath = ".//label[contains(text(),'Telephone')]//following::input[1]")
     WebElement telephone;
     @FindBy(xpath = ".//label[contains(text(),'Fax')]//following::input[1]")
     WebElement fax;
     @FindBy(xpath = ".//label[contains(text(),'Website')]//following::input[1]")
     WebElement website;
+    @FindBy(xpath = ".//label[contains(text(),'Country')]//following::input[1]")
+    WebElement country;
 
     //Contact Person Details
-    @FindBy(xpath = ".//span[contains(text(),'Title')]//following::select[1]")
+    @FindBy(xpath = ".//span[contains(text(),'Title')]//following::div[@role='listbox']")
     WebElement title;
     @FindBy(xpath = ".//label[.='First name']//following::input[1]")
     WebElement firstName;
@@ -57,17 +57,17 @@ public class CreateManufacturerTestsData extends _Page {
     WebElement lastName;
     @FindBy(xpath = ".//label[contains(text(),'Job title')]//following::input[1]")
     WebElement jobTitle;
-    @FindBy(xpath = ".//h3[contains(text(),'Person Details')]//following::input[5]")
-    WebElement phoneNumber;
     @FindBy(xpath = ".//label[.='Email']//following::input[1]")
     WebElement emailAddress;
+    @FindBy(xpath = ".//label[.='Email']//following::input[2]")
+    WebElement phoneNumber;
 
     //Letter of designation
-    @FindBy(css = ".gwt-FileUpload")
+    @FindBy(css = ".FileUploadWidget---ui-inaccessible")
     WebElement fileUpload;
 
     //Submit and cancel
-    @FindBy(xpath = ".//button[contains(text(),'eclare devices')]")
+    @FindBy(xpath = ".//button[contains(text(),'Declare devices')]")
     WebElement btnDeclareDevices;
     @FindBy(xpath = ".//button[.='Next']")
     WebElement next;
@@ -86,10 +86,17 @@ public class CreateManufacturerTestsData extends _Page {
      * @return
      */
     public AddDevices createTestOrganisation(ManufacturerOrganisationRequest ar) throws Exception {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_DEFAULT, false);
+        WaitUtils.nativeWaitInSeconds(3);
+        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".PickerWidget---picker_value"), TIMEOUT_3_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND, false);
         orgName.sendKeys(ar.organisationName);
-        selectCountryFromAutoSuggests(driver, ".gwt-SuggestBox", ar.country, false);
+        //PageUtils.selectCountryFromAutoSuggests(driver, ".gwt-SuggestBox", ar.country, false);
+        boolean exception = false;
+        try {
+            PageUtils.selectFromAutoSuggestedListItemsManufacturers(driver, ".PickerWidget---picker_value", ar.country, true);
+        }catch (Exception e){
+            exception = true;
+        }
 
         //Organisation details
         WaitUtils.waitForElementToBeClickable(driver, addressLine1, TIMEOUT_DEFAULT, false);
@@ -103,19 +110,30 @@ public class CreateManufacturerTestsData extends _Page {
         website.sendKeys(ar.website);
 
         //Contact Person Details
-        PageUtils.selectByText(title, ar.title);
+        try {
+            PageUtils.singleClick(driver, title);
+            WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//div[contains(text(), '"+ ar.title + "')]"), TIMEOUT_3_SECOND, false);
+            WebElement titleToSelect = driver.findElement(By.xpath(".//div[contains(text(), '"+ ar.title + "')]"));
+            PageUtils.singleClick(driver, titleToSelect);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         firstName.sendKeys(ar.firstName);
         lastName.sendKeys(ar.lastName);
         jobTitle.sendKeys(ar.jobTitle);
         phoneNumber.sendKeys(ar.phoneNumber);
         emailAddress.sendKeys(ar.email);
 
+        if(exception){
+            PageUtils.selectFromAutoSuggestedListItemsManufacturers(driver, ".PickerWidget---picker_value", ar.country, true);
+        }
+
         //Upload letter of designation
         String fileName = "DesignationLetter1.pdf";
         if(!ar.isManufacturer){
             fileName = "DesignationLetter2.pdf";
         }
-        PageUtils.uploadDocument(fileUpload, fileName, 1, 3);
+        PageUtils.uploadDocument(fileUpload, fileName, 1, 2);
 
         //Submit form : remember to verify
         try{

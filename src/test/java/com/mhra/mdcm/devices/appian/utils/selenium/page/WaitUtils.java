@@ -2,6 +2,7 @@ package com.mhra.mdcm.devices.appian.utils.selenium.page;
 
 import com.google.common.base.Predicate;
 
+import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -216,33 +217,48 @@ public class WaitUtils {
      * @return
      */
     public static boolean isPageLoadingComplete(WebDriver driver, int timeout){
+        nativeWaitInSeconds(1);
         boolean isLoadedFully = false;
         long start = System.currentTimeMillis();
         try {
-            int count = 0;
-            do {
-                driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
-                List<WebElement> elements = driver.findElements(By.xpath(".//div[@class='appian-indicator-message' and @style='display: none;']"));
-                if (elements.size() == 1) {
-                    isLoadedFully = true;
-                }else{
-                    //System.out.println("-----PAGE NOT LOADED YET-----");
-                }
-                //driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
-                //elements = driver.findElements(By.xpath(".//div[@class='appian-indicator-message' and @style=' ']"));
-                driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-                count++;
-            }while(!isLoadedFully && count < 50);
+            boolean isWaitingMessageDisplayed = isWaitingMessageDisplayed(driver);
+            if(isWaitingMessageDisplayed) {
+                int count = 0;
+                do {
+                    driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
+                    List<WebElement> elements = driver.findElements(By.xpath(".//div[@class='appian-indicator-message' and @style='display: none;']"));
+                    if (elements.size() == 1) {
+                        isLoadedFully = true;
+                    } else {
+                        //System.out.println("-----PAGE NOT LOADED YET-----");
+                    }
+                    //driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+                    //elements = driver.findElements(By.xpath(".//div[@class='appian-indicator-message' and @style=' ']"));
+                    driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+                    count++;
+                } while (!isLoadedFully && count < 50);
+            }
 
         }catch (Exception e){
             driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
             isLoadedFully = false;
         }
 
-        long diffMiliseconds = (System.currentTimeMillis() - start);
+        //long diffMiliseconds = (System.currentTimeMillis() - start);
         //if(diffMiliseconds > 1000 * 3)
         //System.out.println("\nPage Took : " + diffMiliseconds + " milliseconds to load");
 
         return isLoadedFully;
+    }
+
+    private static boolean isWaitingMessageDisplayed(WebDriver driver) {
+        boolean isDisplayed = true;
+        try{
+            waitForElementToBeClickable(driver, By.xpath(".//div[@class='appian-indicator-message' and @style='display: none;']"), _Page.TIMEOUT_1_SECOND, false);
+            System.out.println("Waiting message is displayed");
+        }catch (Exception e){
+            isDisplayed = false;
+        }
+        return isDisplayed;
     }
 }

@@ -27,6 +27,8 @@ public class LoginPage extends _Page {
     WebElement password;
     @FindBy(css = "input#remember")
     WebElement remember;
+    @FindBy(css = ".choice_pair>label")
+    WebElement rememberLabel;
     @FindBy(css = ".gwt-Anchor.pull-down-toggle")
     WebElement settings;
     @FindBy(css = ".settings-pull-down .gwt-Anchor.pull-down-toggle")
@@ -127,7 +129,8 @@ public class LoginPage extends _Page {
     public void dontRemember() {
         WaitUtils.waitForElementToBeClickable(driver, remember, TIMEOUT_DEFAULT, false);
         if (remember.getAttribute("checked") != null) {
-            remember.click();
+            //remember.click();
+            rememberLabel.click();
         }
     }
 

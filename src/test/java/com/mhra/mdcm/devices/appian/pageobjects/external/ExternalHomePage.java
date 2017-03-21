@@ -27,20 +27,21 @@ import java.util.Properties;
 @Component
 public class ExternalHomePage extends _Page {
 
-    @FindBy(css = ".SafeImage.GFWJSJ4DOFB")
+    @FindBy(css = ".DocumentImage---image.DocumentImage---small")
     WebElement linkManufacturerRegistration;
-    @FindBy(css = ".GFWJSJ4DCF")
-    WebElement linkRegisterAnotherManufacturer;
+
+    @FindBy(xpath = ".//button[contains(text(),'Register new manufacturer')]")
+    WebElement registerANewManufacturer;
+
+    @FindBy(xpath = ".//*[contains(text(),'ype of device')]//following::label[1]")
+    WebElement generalMedicalDevice;
+
+    @FindBy(css=".CheckboxGroup---choice_pair>label")
+    List<WebElement> listOfDeviceTypes;
+
     @FindBy(css = ".GFWJSJ4DFE.GFWJSJ4DNE.GFWJSJ4DPE")
     WebElement btnBackButton;
 
-    @FindBy(css = ".gwt-ListBox.GFWJSJ4DC0")
-    WebElement manufacturerDropDown;
-    @FindBy(css = "Declare devices for")
-    WebElement linkDeclareDevicesFor;
-
-    @FindBy(xpath = ".//*[contains(text(),'ype of device')]//following::input[1]")
-    WebElement generalMedicalDevice;
     @FindBy(xpath = ".//h4[contains(text(),'Healthcare Products')]")
     WebElement pageHeading;
 

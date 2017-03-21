@@ -97,7 +97,7 @@ public class CommonUtils {
                 }
             }catch (Exception e){}
         }
-        return numberOfItems;
+        return numberOfItems - 1;
     }
 
     public static List<String> getListOfGMDNS(List<WebElement> listOfGMDNDefinitions, List<WebElement> listOfGMDNDefinitionsForSSP) {

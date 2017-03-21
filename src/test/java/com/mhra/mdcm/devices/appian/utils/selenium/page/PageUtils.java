@@ -482,4 +482,73 @@ public class PageUtils {
         }
 
     }
+
+    public static void selectFromAutoSuggestedListItemsManufacturers(WebDriver driver, String elementPath, String countryName, boolean throwException) throws Exception {
+        boolean completed = true;
+        int count = 0;
+        do {
+            try {
+
+                count++;    //It will go forever without this
+                WebElement country = driver.findElements(By.cssSelector(elementPath)).get(0);
+                country.sendKeys(countryName);
+                WaitUtils.nativeWaitInSeconds(1);
+                new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(By.cssSelector("li[role='option']")));
+
+                //Get list of options displayed
+                WaitUtils.nativeWaitInSeconds(1);
+                List<WebElement> countryOptions = driver.findElements(By.cssSelector("li[role='option']"));
+                WebElement item = countryOptions.get(0);
+                String text = item.getText();
+                //System.out.println("country : " + text);
+
+                if(text!=null && !text.contains("Searching")) {
+                    PageUtils.singleClick(driver, item);
+                    completed = true;
+                }
+            } catch (Exception e) {
+                completed = false;
+                WaitUtils.nativeWaitInSeconds(1);
+            }
+        } while (!completed && count < 3);
+
+        if (!completed && throwException) {
+            throw new Exception("Country name not selected");
+        }
+    }
+
+
+    public static void selectFromAutoSuggestedListItems(WebDriver driver, String elementPath, String countryName, boolean throwException) throws Exception {
+        boolean completed = true;
+        int count = 0;
+        do {
+            try {
+
+                count++;    //It will go forever without this
+                WebElement country = driver.findElements(By.cssSelector(elementPath)).get(0);
+                country.sendKeys(countryName);
+                WaitUtils.nativeWaitInSeconds(1);
+                new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(By.cssSelector("li[role='option']")));
+
+                //Get list of options displayed
+                WaitUtils.isPageLoadingComplete(driver, 1);
+                List<WebElement> countryOptions = driver.findElements(By.cssSelector("li[role='option']"));
+                WebElement item = countryOptions.get(0);
+                String text = item.getText();
+                //System.out.println("country : " + text);
+
+                if(text!=null && !text.contains("Searching")) {
+                    PageUtils.singleClick(driver, item);
+                    completed = true;
+                }
+            } catch (Exception e) {
+                completed = false;
+                WaitUtils.nativeWaitInSeconds(1);
+            }
+        } while (!completed && count < 3);
+
+        if (!completed && throwException) {
+            throw new Exception("Country name not selected");
+        }
+    }
 }

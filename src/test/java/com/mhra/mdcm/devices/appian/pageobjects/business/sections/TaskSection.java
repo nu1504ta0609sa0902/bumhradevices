@@ -59,16 +59,18 @@ public class TaskSection extends _Page {
     WebElement cdEmail;
 
 
-    @FindBy(xpath = ".//h4")
+    @FindBy(xpath = ".//h3")
     WebElement taskHeading;
 
     //Accept taskSection
-    @FindBy(xpath = ".//button[.='Accept']")
+    @FindBy(xpath = ".//button[contains(text(), 'Accept')]")
     WebElement accept;
     @FindBy(xpath = ".//button[.='Go Back']")
     WebElement goBack;
 
     //Approve reject taskSection
+    @FindBy(xpath = ".//button[contains(text(), 'Approve')]")
+    WebElement approveNewAccount;
     @FindBy(xpath = ".//button[.='Accept Registration']")
     WebElement acceptRegistration;
     @FindBy(xpath = ".//button[.='Accept Registration']//following::button[1]") //Stupid to have 2 buttons called Reject on same page
@@ -103,7 +105,7 @@ public class TaskSection extends _Page {
     @FindBy(css = "div.aui-DataGrid-Table> table > tbody > tr")
     List<WebElement> listOfWIPTableRows;
 
-    @FindBy(partialLinkText = "Submitted")
+    @FindBy(xpath = ".//div[contains(text(),'Submitted')]")
     WebElement submitted;
     @FindBy(xpath = ".//button[.='Submit']")
     WebElement submitBtn;
@@ -136,7 +138,7 @@ public class TaskSection extends _Page {
         try {
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
             //WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
-            WaitUtils.waitForElementToBeVisible(driver, By.xpath(".//h4"), TIMEOUT_10_SECOND, false);
+            WaitUtils.waitForElementToBeVisible(driver, By.xpath(".//h3"), TIMEOUT_10_SECOND, false);
             boolean contains = taskHeading.getText().contains(orgName);
             return contains;
         } catch (Exception e) {
@@ -162,6 +164,14 @@ public class TaskSection extends _Page {
         //WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
         WaitUtils.waitForElementToBeClickable(driver, approveTask, TIMEOUT_15_SECOND, false);
         PageUtils.doubleClick(driver, approveTask);
+        return new TasksTabPage(driver);
+    }
+
+    public TasksTabPage approveTaskNewAccount() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, approveNewAccount, TIMEOUT_3_SECOND, false);
+        PageUtils.doubleClick(driver, approveNewAccount);
+        log.info("Task should be approved now");
         return new TasksTabPage(driver);
     }
 

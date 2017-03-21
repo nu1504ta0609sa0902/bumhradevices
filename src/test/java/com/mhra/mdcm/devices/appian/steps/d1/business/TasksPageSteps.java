@@ -37,26 +37,8 @@ public class TasksPageSteps extends CommonSteps {
     public void i_should_see_a_new_task_for_the_new_account() throws Throwable {
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
         String taskType = "New Account Request";
+
         //Verify new taskSection generated and its the correct one
-//        boolean contains = false;
-//        boolean isCorrectTask = false;
-//        int count = 0;
-//        do {
-//            mainNavigationBar = new MainNavigationBar(driver);
-//            tasksPage = mainNavigationBar.clickTasks();
-//
-//            //Click on link number X
-//            taskSection = tasksPage.clickOnTaskNumber(count, taskType);
-//            isCorrectTask = taskSection.isCorrectTask(orgName);
-//            if (isCorrectTask) {
-//                contains = true;
-//                scenarioSession.putData(SessionKey.position, count);
-//            } else {
-//                taskSection = tasksPage.clickOnTaskNumber(0, taskType);
-//                isCorrectTask = taskSection.isCorrectTask(orgName);
-//                count++;
-//            }
-//        } while (!contains && count <= 5);
         boolean contains = false;
         boolean isCorrectTask = false;
         int count2 = 0;
@@ -150,7 +132,7 @@ public class TasksPageSteps extends CommonSteps {
         String taskType = (String) scenarioSession.getData(SessionKey.taskType);
         if (approveOrReject.equals("approve")) {
             if(taskType!=null && taskType.contains("New Account")) {
-                tasksPage = taskSection.approveTask();
+                tasksPage = taskSection.approveTaskNewAccount();
             }else if(taskType!=null && taskType.contains("New Manufacturer")){
                 tasksPage = taskSection.acceptRegistrationTask();
             }else if(taskType!=null && taskType.contains("Update Manufacturer Registration Request")){

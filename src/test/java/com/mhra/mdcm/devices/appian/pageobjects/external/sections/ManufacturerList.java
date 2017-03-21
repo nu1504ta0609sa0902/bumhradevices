@@ -21,7 +21,7 @@ import java.util.List;
 @Component
 public class ManufacturerList extends _Page {
 
-    @FindBy(css = "button.GFWJSJ4DCF")
+    @FindBy(xpath = ".//button[contains(text(), 'Register new manufacturer')]")
     WebElement linkRegisterNewManufacturer;
     @FindBy(xpath = ".//button[.='Register My Organisation']")
     WebElement linkRegisterMyNewOrganisation;
