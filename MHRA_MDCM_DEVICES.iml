@@ -38,6 +38,7 @@
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.4" level="project" />
     <orderEntry type="library" name="Maven: commons-logging:commons-logging:1.2" level="project" />
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.9" level="project" />
+    <orderEntry type="library" name="Maven: org.seleniumhq.selenium:htmlunit-driver:2.24" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: info.cukes:cucumber-junit:1.2.3" level="project" />
     <orderEntry type="library" name="Maven: info.cukes:cucumber-core:1.2.3" level="project" />
     <orderEntry type="library" name="Maven: info.cukes:cucumber-html:0.2.3" level="project" />

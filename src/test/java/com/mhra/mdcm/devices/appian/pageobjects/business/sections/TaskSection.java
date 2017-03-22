@@ -93,14 +93,14 @@ public class TaskSection extends _Page {
     WebElement other;
 
     //Letter of designation
-    @FindBy(css = ".gwt-ListBox.GFWJSJ4DB0")
+    @FindBy(xpath = ".//div[contains(text(),'Uploaded date')]//following::tr/td[6]")
     WebElement letterOfDesignationStatus;
 
     @FindBy(css = ".aui-TextAreaInput")
     WebElement commentArea;
-    @FindBy(xpath = ".//a[.='Risk classification']//following::tr/td[3]")
+    @FindBy(xpath = ".//div[contains(text(),'Risk classification')]//following::tr/td[3]")
     List<WebElement> listOfGMDNDefinitions;
-    @FindBy(xpath = ".//a[.='Intended use']//following::td[3]")
+    @FindBy(xpath = ".//div[contains(text(),'Intended use')]//following::td[3]")
     List<WebElement> listOfGMDNDefinitionsForSSP;
     @FindBy(css = "div.aui-DataGrid-Table> table > tbody > tr")
     List<WebElement> listOfWIPTableRows;
@@ -137,8 +137,8 @@ public class TaskSection extends _Page {
 
         try {
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-            //WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
-            WaitUtils.waitForElementToBeVisible(driver, By.xpath(".//h3"), TIMEOUT_10_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//button[contains(text(), 'Reassign')]") , TIMEOUT_5_SECOND, false);
+            WaitUtils.waitForElementToBeVisible(driver, taskHeading, TIMEOUT_10_SECOND, false);
             boolean contains = taskHeading.getText().contains(orgName);
             return contains;
         } catch (Exception e) {
@@ -282,8 +282,7 @@ public class TaskSection extends _Page {
 
     public boolean isDesignationLetterStatusCorrect(String expectedStatus) {
         WaitUtils.waitForElementToBeVisible(driver, letterOfDesignationStatus, TIMEOUT_5_SECOND, false);
-        Select sl = new Select(letterOfDesignationStatus);
-        String text = sl.getFirstSelectedOption().getText();
+        String text = letterOfDesignationStatus.getText();
 
         //Verify status is correct
         boolean statusMatched = false;

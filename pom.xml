@@ -18,8 +18,9 @@
         <junit.version>4.12</junit.version>
         <rest-assured-version>2.3.1</rest-assured-version>
         <hamcrest-version>1.3</hamcrest-version>
-        <selenium.java.version>3.0.1</selenium.java.version>
         <apache.httpclient.version>4.5.2</apache.httpclient.version>
+        <httpunit.driver>2.24</httpunit.driver>
+        <selenium.java.version>3.0.1</selenium.java.version>
         <skipTests>false</skipTests>
     </properties>
 
@@ -67,6 +68,12 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>${apache.httpclient.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>htmlunit-driver</artifactId>
+            <version>${httpunit.driver}</version>
         </dependency>
 
 

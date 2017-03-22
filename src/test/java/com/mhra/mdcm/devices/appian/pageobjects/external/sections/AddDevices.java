@@ -138,11 +138,11 @@ public class AddDevices extends _Page {
     //Add product
     @FindBy(xpath = ".//button[.='Add product']")
     WebElement addProduct;
-    @FindBy(xpath = ".//*[contains(text(),'Product name')]//following::label[1]")
+    @FindBy(xpath = ".//*[contains(text(),'Product name')]//following::input[1]")
     WebElement pdProductName;
-    @FindBy(xpath = ".//*[contains(text(),'Product make')]//following::label[1]")
+    @FindBy(xpath = ".//*[contains(text(),'Product make')]//following::input[1]")
     WebElement pdProductMake;
-    @FindBy(xpath = ".//*[contains(text(),'Product model')]//following::label[1]")
+    @FindBy(xpath = ".//*[contains(text(),'Product model')]//following::input[1]")
     WebElement pdProductModel;
 
     @FindBy(xpath = ".//*[contains(text(),'performance eval')]//following::label[1]")
@@ -157,13 +157,13 @@ public class AddDevices extends _Page {
     WebElement radioConformsToCTSYes;
     @FindBy(xpath = ".//*[contains(text(),'product conform to')]//following::label[2]")
     WebElement radioConformsToCTSNo;
-    @FindBy(xpath = ".//*[contains(text(),'provide the CTS')]//following::label[1]")
+    @FindBy(xpath = ".//*[contains(text(),'provide the CTS')]//following::input[1]")
     WebElement txtCTSReference;
     @FindBy(xpath = ".//*[contains(text(),'demonstrated compliance')]//following::textarea[1]")
     WebElement txtDemonstratedCompliance;
     @FindBy(xpath = ".//*[contains(text(),'testing method')]//following::textarea[1]")
     WebElement txtTestingMethod;
-    @FindBy(xpath = ".//*[contains(text(),'device label')]//following::label[1]")
+    @FindBy(xpath = ".//*[contains(text(),'product name as it appears')]//following::input[1]")
     WebElement txtProductNameLabel;
 
     //Option to add other devices
@@ -187,9 +187,9 @@ public class AddDevices extends _Page {
     WebElement submitConfirm;
 
     //File upload buttons
-    @FindBy(css = ".gwt-FileUpload")
+    @FindBy(css = ".FileUploadWidget---ui-inaccessible")
     WebElement fileUpload;
-    @FindBy(css = ".gwt-FileUpload")
+    @FindBy(css = ".FileUploadWidget---ui-inaccessible")
     List<WebElement> listOfFileUploads;
 
     //Submit and save buttons
@@ -205,7 +205,7 @@ public class AddDevices extends _Page {
     WebElement validationErrMessage;
 
     //Device Summary
-    @FindBy(xpath = ".//a[contains(text(),'GMDN code')]//following::a")
+    @FindBy(xpath = ".//div[contains(text(),'GMDN code')]//following::a")
     List<WebElement> listOfGMDNLinksInSummary;
     @FindBy(partialLinkText = "Change Notified Body")
     WebElement linkChangeNotifiedBody;
@@ -451,7 +451,7 @@ public class AddDevices extends _Page {
         txtProductNameLabel.sendKeys(RandomDataUtils.getRandomTestName("Label"));
 
         PageUtils.uploadDocument(fileUpload, "DeviceLabelDoc2.pdf", 1, 3);
-        PageUtils.uploadDocument(listOfFileUploads.get(1), "DeviceInstructionForUse1.pdf", 1, 3);
+        PageUtils.uploadDocument(listOfFileUploads.get(0), "DeviceInstructionForUse1.pdf", 1, 3);
 
         //Save product label details
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//button[.='Save Product']"), TIMEOUT_5_SECOND, false);
@@ -551,9 +551,12 @@ public class AddDevices extends _Page {
     }
 
     private void notifiedBody(DeviceData dd) {
-        boolean notifiedBodyOptionsCorrect = isNotifiedBodyListDisplayingCorrectDetails();
         changeNotifiedBody();
+        boolean notifiedBodyOptionsCorrect = isNotifiedBodyListDisplayingCorrectDetails();
+        WaitUtils.nativeWaitInSeconds(2);
+        WaitUtils.waitForElementToBeVisible(driver, nb0086BSI, TIMEOUT_5_SECOND, false);
         WaitUtils.waitForElementToBeClickable(driver, nb0086BSI, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, nbOther, TIMEOUT_5_SECOND, false);
         //Select notified body
         if (notifiedBodyOptionsCorrect && dd.notifiedBody != null && dd.notifiedBody.toLowerCase().contains("0086")) {
             PageUtils.clickIfVisible(driver, nb0086BSI);
@@ -762,12 +765,12 @@ public class AddDevices extends _Page {
         return new AddDevices(driver);
     }
 
-    public ExternalHomePage finish() {
+    public ManufacturerList finish() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.nativeWaitInSeconds(1);
         WaitUtils.waitForElementToBeClickable(driver, btnFinish, TIMEOUT_15_SECOND, false);
         btnFinish.click();
-        return new ExternalHomePage(driver);
+        return new ManufacturerList(driver);
     }
 
     public boolean isGMDNValueDisplayed(DeviceData data) {

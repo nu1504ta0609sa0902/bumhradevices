@@ -27,17 +27,17 @@ public class ManufacturerList extends _Page {
     WebElement linkRegisterMyNewOrganisation;
 
     //Registered or completed manufactureres
-    @FindBy(xpath = ".//*[.='Organisation name']/following::tbody[1]/tr/td[1]")
+    @FindBy(xpath = ".//h2[contains(text(),'Manufacturer')]//following::tbody[1]/tr/td[1]")
     List<WebElement> listOfManufacturerNames;
-    @FindBy(xpath = ".//*[.='Organisation name']/following::tbody[1]/tr/td[4]")
+    @FindBy(xpath = ".//h2[contains(text(),'Manufacturer')]//following::tbody[1]/tr/td[4]")
     List<WebElement> listOfManufacturerStatuses;
-    @FindBy(xpath = ".//*[contains(text(), 'registration status')]//following::tr[@__gwt_subrow='0']")
+    @FindBy(xpath = ".//h2[contains(text(),'Manufacturer')]//following::tbody[1]/tr")
     List<WebElement> listOfTableRows;
     @FindBy(xpath = ".//*[contains(text(), 'registration status')]")
     WebElement manufacturerRegistrationStatus;
 
     //Registration in progress table
-    @FindBy(xpath = ".//*[contains(text(), 'Application status')]//following::tr/td[2]")
+    @FindBy(xpath = ".//h2[contains(text(),'Registration')]//following::tbody[1]/tr/td[3]")
     List<WebElement> listOfManufacturerNamesInProgress;
 
 
@@ -50,7 +50,7 @@ public class ManufacturerList extends _Page {
     @FindBy(css = ".gwt-Image[aria-label='Last page']")
     WebElement lastPage;
 
-    @FindBy(xpath = ".//th/a")
+    @FindBy(xpath = ".//th/div")
     List<WebElement> listOfTableHeadings;
 
     @Autowired
@@ -75,9 +75,9 @@ public class ManufacturerList extends _Page {
     }
 
     public String getARandomManufacturerName() {
-        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".left>div>a"), TIMEOUT_30_SECOND, false);
-        WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".left>div>a"), TIMEOUT_10_SECOND, false);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".elements---global_p .elements---global_a"), TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[contains(text(),'Manufacturer')]//following::tbody[1]/tr/td[1]"), TIMEOUT_5_SECOND, false);
         int index = RandomDataUtils.getNumberBetween(0, listOfManufacturerNames.size() - 1);
         WebElement link = listOfManufacturerNames.get(index);
         String name = link.getText();
@@ -258,6 +258,7 @@ public class ManufacturerList extends _Page {
     }
 
     public boolean isSpecificTableHeadingCorrect(String commaDelimitedHeading) {
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[contains(text(),'Manufacturer')]//following::tbody[1]/tr/td[1]"), TIMEOUT_15_SECOND, false);
         String lowerCaseHeadings = commaDelimitedHeading.toLowerCase();
         return PageUtils.isSpecificTableHeadingCorrect(lowerCaseHeadings, listOfTableHeadings);
     }

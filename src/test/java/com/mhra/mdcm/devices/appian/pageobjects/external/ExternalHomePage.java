@@ -66,9 +66,8 @@ public class ExternalHomePage extends _Page {
 
     public ManufacturerList gotoListOfManufacturerPage() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, linkManufacturerRegistration, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, linkManufacturerRegistration, TIMEOUT_10_SECOND, false);
         linkManufacturerRegistration.click();
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         return new ManufacturerList(driver);
     }
 
@@ -137,11 +136,11 @@ public class ExternalHomePage extends _Page {
 
 
     public ExternalHomePage provideIndicationOfDevicesMade(int index) {
-        WaitUtils.waitForElementToBePartOfDOM(driver, By.xpath(".//*[contains(text(),'ype of device')]//following::input[1]"), TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//*[contains(text(),'ype of device')]//following::input[1]"), TIMEOUT_10_SECOND, false);
         WaitUtils.waitForElementToBeVisible(driver, generalMedicalDevice, TIMEOUT_10_SECOND, false);
 
         //Find element
-        WaitUtils.waitForElementToBePartOfDOM(driver, By.cssSelector(".GFWJSJ4DPV.GFWJSJ4DCAD input"), TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".GFWJSJ4DPV.GFWJSJ4DCAD input"), TIMEOUT_10_SECOND, false);
         List<WebElement> elements = driver.findElements(By.cssSelector(".GFWJSJ4DPV.GFWJSJ4DCAD input"));
         WebElement e = elements.get(index);
         WaitUtils.waitForElementToBeClickable(driver, e, TIMEOUT_10_SECOND, false);

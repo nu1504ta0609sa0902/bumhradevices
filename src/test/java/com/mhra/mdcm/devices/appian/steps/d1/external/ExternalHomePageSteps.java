@@ -123,9 +123,9 @@ public class ExternalHomePageSteps extends CommonSteps {
     @Then("^I should see the registered manufacturers list$")
     public void iShouldSeeTheManufacturersList() throws Throwable {
         String name = (String) scenarioSession.getData(SessionKey.organisationName);
-        externalHomePage = mainNavigationBar.clickExternalHOME();
-        manufacturerList = externalHomePage.gotoListOfManufacturerPage();
-        boolean isCorrect = manufacturerList.isSpecificTableHeadingCorrect("Organisation country");
+        //externalHomePage = mainNavigationBar.clickExternalHOME();
+        //manufacturerList = externalHomePage.gotoListOfManufacturerPage();
+        boolean isCorrect = manufacturerList.isSpecificTableHeadingCorrect("Manufacturer name");
         Assert.assertThat("Expected To See Manufacturer List : " + name, isCorrect, Matchers.is(true));
     }
 
@@ -192,7 +192,7 @@ public class ExternalHomePageSteps extends CommonSteps {
     public void proceedToPaymentAndConfirmSubmitDeviceDetails() throws Throwable {
         addDevices = addDevices.proceedToPayment();
         addDevices = addDevices.submitRegistration();
-        externalHomePage = addDevices.finish();
+        manufacturerList = addDevices.finish();
     }
 
 
@@ -204,6 +204,8 @@ public class ExternalHomePageSteps extends CommonSteps {
         try {
             if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
                 addDevices = manufacturerDetails.clickAddDeviceBtn();
+            else
+                addDevices = manufacturerDetails.clickDeclareDeviceBtn();
         }catch (Exception e){
             addDevices = new AddDevices(driver);
         }

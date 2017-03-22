@@ -42,7 +42,7 @@ public class RecordsTabPage extends _Page {
     }
 
     public Accounts clickOnAccounts() {
-        WaitUtils.waitForElementToBePartOfDOM(driver, By.linkText("Accounts"), 10, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.linkText("Accounts"), 10, false);
         WaitUtils.waitForElementToBeClickable(driver, linkAccounts, 10, false);
         //linkAccounts.click();
         PageUtils.singleClick(driver, linkAccounts);
@@ -50,21 +50,21 @@ public class RecordsTabPage extends _Page {
     }
 
     public Devices clickOnDevices() {
-        WaitUtils.waitForElementToBePartOfDOM(driver, By.linkText("Devices"), 10, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.linkText("Devices"), 10, false);
         WaitUtils.waitForElementToBeClickable(driver, linkDevices, 10, false);
         linkDevices.click();
         return new Devices(driver);
     }
 
     public Products clickOnProducts() {
-        WaitUtils.waitForElementToBePartOfDOM(driver, By.linkText("Products"), 20, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.linkText("Products"), 20, false);
         WaitUtils.waitForElementToBeClickable(driver, linkProducts, 10, false);
         linkProducts.click();
         return new Products(driver);
     }
 
     public AllOrganisations clickOnAllOrganisations() {
-        WaitUtils.waitForElementToBePartOfDOM(driver, By.partialLinkText("All Organisations"), 10, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText("All Organisations"), 10, false);
         WaitUtils.waitForElementToBeClickable(driver, linkAllOrganisations, 10, false);
         linkAllOrganisations.click();
         return new AllOrganisations(driver);
@@ -79,14 +79,14 @@ public class RecordsTabPage extends _Page {
         }
     }
     public Devices clickOnAllDevices() {
-        WaitUtils.waitForElementToBePartOfDOM(driver, By.linkText("All Devices"), 10, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.linkText("All Devices"), 10, false);
         WaitUtils.waitForElementToBeClickable(driver, linkAllDevices, 10, false);
         linkAllDevices.click();
         return new Devices(driver);
     }
 
     public Products clickOnAllProducts() {
-        WaitUtils.waitForElementToBePartOfDOM(driver, By.linkText("All Products"), 20, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.linkText("All Products"), 20, false);
         WaitUtils.waitForElementToBeClickable(driver, linkAllProducts, 10, false);
         linkAllProducts.click();
         return new Products(driver);

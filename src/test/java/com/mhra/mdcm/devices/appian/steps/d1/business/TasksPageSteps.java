@@ -61,7 +61,7 @@ public class TasksPageSteps extends CommonSteps {
 
         //If its still not found than try the first 1 again
         if (!contains) {
-            taskSection = tasksPage.clickOnTaskNumber(0, taskType);
+            taskSection = tasksPage.clickOnLinkWithText(orgName);
             isCorrectTask = taskSection.isCorrectTask(orgName);
         }
         scenarioSession.putData(SessionKey.taskType, taskType);

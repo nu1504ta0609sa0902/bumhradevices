@@ -23,8 +23,10 @@ public class ManufacturerDetails extends _Page {
     @FindBy(css = ".component_error")
     List <WebElement> errorMessages;
 
-    @FindBy(css = "a.GFWJSJ4DGR[aria-label='Add a device']")
+    @FindBy(xpath = ".//button[contains(text(),'Add a device')]")
     WebElement addADevice;
+    @FindBy(xpath = ".//button[contains(text(),'Declare devices')]")
+    WebElement declareADevice;
     @FindBy(xpath = ".//a[contains(text(),'Amend Represented')]")
     WebElement amendRepresentativeParty;
     @FindBy(xpath = ".//a[contains(text(),'Edit Account Information')]")
@@ -105,67 +107,7 @@ public class ManufacturerDetails extends _Page {
         addADevice.click();
         return new AddDevices(driver);
     }
-//
-//    /**
-//     * Manufacturer details are correct and valid
-//     * @param manufacaturerData
-//     * @param deviceData
-//     * @return
-//     */
-//    public boolean isDisplayedDeviceDataCorrect(AccountManufacturerRequest manufacaturerData, DeviceData deviceData) {
-//        //Check displayed devices are correct
-//        String device = deviceData.gmdnTermOrDefinition;
-//        boolean allHeadingValid = isDeviceTableHeadingCorrect(deviceData);
-//        boolean allValid = isDevicesGMDNDisplayedCorrect(device);
-//        return allValid && allHeadingValid;
-//    }
-//
-//    private boolean isDeviceTableHeadingCorrect(DeviceData dd) {
-//        boolean isCorrect = false;
-//        String headings = "";
-//        if (dd.deviceType.toLowerCase().contains("general medical device")) {
-//            headings = "GMDN code,GMDN definition,Risk classification";
-//            isCorrect = PageUtils.isTableHeadingCorrect(headings, listOfGeneralMedicalDeviceTableHeadings);
-//        } else if (dd.deviceType.toLowerCase().contains("vitro diagnostic")) {
-//            isCorrect = PageUtils.isTableHeadingCorrect(headings, listOfVitroDiagnosticsDeviceTableHeadings);
-//        } else if (dd.deviceType.toLowerCase().contains("active implantable")) {
-//            isCorrect = PageUtils.isTableHeadingCorrect(headings, listOfActiveImplantableDeviceTableHeadings);
-//        } else if (dd.deviceType.toLowerCase().contains("procedure pack")) {
-//            isCorrect = PageUtils.isTableHeadingCorrect(headings, listOfSystemProcedurePackDeviceTableHeadings);
-//        }
-//        return isCorrect;
-//    }
-//
-//    public boolean isDevicesGMDNDisplayedCorrect(String deviceList) {
-//        String[] data = deviceList.split(",");
-//        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//a[.='Risk classification']//following::td[2]"), TIMEOUT_10_SECOND, false);
-//
-//        //Displayed list of gmdns
-//        List<String> gmdns = new ArrayList<>();
-//        for(WebElement el: listOfGMDNDefinitions){
-//            gmdns.add(el.getText().toLowerCase());
-//        }
-//
-//        //Verify it matches with my expected data set
-//        boolean allFound = true;
-//        for(String d: data){
-//            boolean foundOne = false;
-//            for(String gmdn: gmdns){
-//                if(gmdn.contains(d.toLowerCase())){
-//                    foundOne = true;
-//                    break;
-//                }
-//            }
-//
-//            //All of them must exists, therefore foundOne should be true
-//            if(!foundOne){
-//                allFound = false;
-//                break;
-//            }
-//        }
-//
-//        return allFound;
-//    }
+
 
     public EditManufacturer amendRepresentedParty() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
@@ -300,5 +242,13 @@ public class ManufacturerDetails extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, devicesAndProductDetails, TIMEOUT_3_SECOND, false);
         devicesAndProductDetails.click();
         return new DeviceDetails(driver);
+    }
+
+    public AddDevices clickDeclareDeviceBtn() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeVisible(driver, declareADevice, TIMEOUT_15_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, declareADevice, TIMEOUT_15_SECOND, false);
+        declareADevice.click();
+        return new AddDevices(driver);
     }
 }

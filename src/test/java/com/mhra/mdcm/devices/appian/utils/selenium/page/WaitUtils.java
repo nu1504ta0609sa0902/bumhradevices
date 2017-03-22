@@ -125,27 +125,27 @@ public class WaitUtils {
     }
 
 
-    public static void isElementPartOfDom(WebDriver driver, By by, int maxTimeToWait, boolean overrideTimeSpecified) {
-        if (overrideTimeSpecified)
-            maxTimeToWait = resetMaxTime(maxTimeToWait);
-        new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.presenceOfElementLocated(by));
-    }
+//    public static void isElementPartOfDom(WebDriver driver, By by, int maxTimeToWait, boolean overrideTimeSpecified) {
+//        if (overrideTimeSpecified)
+//            maxTimeToWait = resetMaxTime(maxTimeToWait);
+//        new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.presenceOfElementLocated(by));
+//    }
 
 
-    public static void isElementPartOfDomAdvanced(WebDriver driver, final WebElement element, int maxTimeToWait, boolean overrideTimeSpecified) {
-        if (overrideTimeSpecified)
-            maxTimeToWait = resetMaxTime(maxTimeToWait);
-
-        new WebDriverWait(driver, maxTimeToWait)
-                .ignoring(StaleElementReferenceException.class)
-                .until(new Predicate<WebDriver>() {
-                    @Override
-                    public boolean apply(WebDriver driver) {
-                        boolean displayed = element.isDisplayed();
-                        return displayed;
-                    }
-                });
-    }
+//    public static void isElementPartOfDomAdvanced(WebDriver driver, final WebElement element, int maxTimeToWait, boolean overrideTimeSpecified) {
+//        if (overrideTimeSpecified)
+//            maxTimeToWait = resetMaxTime(maxTimeToWait);
+//
+//        new WebDriverWait(driver, maxTimeToWait)
+//                .ignoring(StaleElementReferenceException.class)
+//                .until(new Predicate<WebDriver>() {
+//                    @Override
+//                    public boolean apply(WebDriver driver) {
+//                        boolean displayed = element.isDisplayed();
+//                        return displayed;
+//                    }
+//                });
+//    }
 
 
     /**
@@ -156,21 +156,21 @@ public class WaitUtils {
      * @param maxTimeToWait
      * @param overrideTimeSpecified
      */
-    public static void waitForElementToBePartOfDOM(WebDriver driver, final By by, int maxTimeToWait, boolean overrideTimeSpecified) {
-        if (overrideTimeSpecified)
-            maxTimeToWait = resetMaxTime(maxTimeToWait);
-
-        new WebDriverWait(driver, maxTimeToWait)
-                .ignoring(StaleElementReferenceException.class)
-                .until(new Predicate<WebDriver>() {
-                    @Override
-                    public boolean apply(WebDriver driver) {
-                        WebElement element = driver.findElement(by);
-                        boolean clickAble = element.isDisplayed() && element.isEnabled();
-                        return clickAble;
-                    }
-                });
-    }
+//    public static void waitForElementToBePartOfDOM(WebDriver driver, final By by, int maxTimeToWait, boolean overrideTimeSpecified) {
+//        if (overrideTimeSpecified)
+//            maxTimeToWait = resetMaxTime(maxTimeToWait);
+//
+//        new WebDriverWait(driver, maxTimeToWait)
+//                .ignoring(StaleElementReferenceException.class)
+//                .until(new Predicate<WebDriver>() {
+//                    @Override
+//                    public boolean apply(WebDriver driver) {
+//                        WebElement element = driver.findElement(by);
+//                        boolean clickAble = element.isDisplayed() && element.isEnabled();
+//                        return clickAble;
+//                    }
+//                });
+//    }
 
     public static void waitForPageToLoad(WebDriver driver, By by, int maxTimeToWait, boolean overrideTimeSpecified) {
         try {
@@ -217,7 +217,7 @@ public class WaitUtils {
      * @return
      */
     public static boolean isPageLoadingComplete(WebDriver driver, int timeout){
-        nativeWaitInSeconds(1);
+        //nativeWaitInSeconds(1);
         boolean isLoadedFully = false;
         long start = System.currentTimeMillis();
         try {

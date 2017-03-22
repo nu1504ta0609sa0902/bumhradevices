@@ -170,7 +170,7 @@ public class CreateTestsData extends _Page {
         //Contact Person Details
         try {
             PageUtils.singleClick(driver, title);
-            WaitUtils.isPageLoadingComplete(driver, 1);
+            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
             WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//div[contains(text(), '"+ ar.title + "')]"), TIMEOUT_3_SECOND, false);
             WebElement titleToSelect = driver.findElement(By.xpath(".//div[contains(text(), '"+ ar.title + "')]"));
             PageUtils.singleClick(driver, titleToSelect);

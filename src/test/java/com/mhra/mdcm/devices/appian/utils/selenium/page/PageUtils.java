@@ -344,7 +344,7 @@ public class PageUtils {
         //Get list of headings
         String headings = "";
         for(WebElement el: listOfTableHeadings){
-            String heading = el.getText().toLowerCase();
+            String heading = getText(el).toLowerCase();
             headings = headings + "," + heading;
         }
 

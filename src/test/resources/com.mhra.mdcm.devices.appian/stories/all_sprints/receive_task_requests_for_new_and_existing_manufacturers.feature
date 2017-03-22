@@ -47,9 +47,6 @@ Feature: As a business user, I want a task to be created each time a customer su
     Then I should see a new task for the new account
     When I assign the task to me and "<approveReject>" the generated task
     Then The task with link "<link>" should be removed from tasks list
-#    And The completed task status of new account should update to "Completed"
-#    When I search accounts for the stored organisation name
-#    Then I should see at least <count> account matches
     When I logout of the application
     And I am logged into appian as "<logBackInAs>" user
     And I goto list of manufacturers page again
@@ -57,7 +54,7 @@ Feature: As a business user, I want a task to be created each time a customer su
     Examples:
       | user         | accountType  | logBackInAs      | approveReject | count | countryName    | link                |
       | businessNoor | manufacturer | manufacturerNoor | approve       | 1     | United Kingdom | New Account Request |
-#      | businessNoor | authorisedRep | authorisedRepNoor |approve       | 1     | Netherland     | New Account Request |
+      | businessNoor | authorisedRep | authorisedRepNoor |approve       | 1     | Netherland     | New Account Request |
 
 
   @regression @mdcm-15 @mdcm-21 @mdcm-39 @mdcm-186 @mdcm-240 @sprint4 @sprint2 @sprint3 @sprint5 @bug
@@ -84,7 +81,7 @@ Feature: As a business user, I want a task to be created each time a customer su
     Then The completed task status should update to "Completed"
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition      | customMade | listOfProductNames |
-      #| manufacturerAuto  | businessAuto | manufacturer  | Brazil  | Active Implantable Medical Devices | Desiccating chamber          | true       | setmeup1           |
+      | manufacturerAuto  | businessAuto | manufacturer  | Brazil  | Active Implantable Medical Devices | Desiccating chamber          | true       | setmeup1           |
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Desiccating chamber | true       | setmeup2           |
 
 
@@ -109,7 +106,7 @@ Feature: As a business user, I want a task to be created each time a customer su
     And The gmdn code or term is "displayed" in summary section
     And Proceed to payment and confirm submit device details
     #Then I should see stored manufacturer appear in the manufacturers list
-    Then I should see the registered manufacturers list
+#    Then I should see the registered manufacturers list
     When I logout of the application
     And I am logged into appian as "<logBackInAas>" user
     Then I view new task with link "New Manufacturer Registration Request" for the new account
