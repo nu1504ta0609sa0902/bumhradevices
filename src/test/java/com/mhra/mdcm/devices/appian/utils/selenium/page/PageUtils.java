@@ -188,82 +188,27 @@ public class PageUtils {
         return driver.getTitle().contains(ecid);
     }
 
-    public static void selectFromAutosuggests(WebDriver driver, WebElement element, String selectOption) {
-        //You will need to wait for auto suggested element to appear and than select accordingly
-        new Actions(driver).moveToElement(element).perform();
-        boolean completed = true;
-        int count = 0;
-        do {
-            try {
-                count++;
-                element.getText();
-                element.sendKeys(selectOption);
-                new WebDriverWait(driver, 2).until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".item")));
-                element.getText();
-                element.sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
-                completed = true;
-            }catch (Exception e){
-                completed = false;
-                WaitUtils.nativeWaitInSeconds(1);
-            }
-        }while (!completed && count <= 3);
-    }
+//    public static void selectFromAutosuggests(WebDriver driver, WebElement element, String selectOption) {
+//        //You will need to wait for auto suggested element to appear and than select accordingly
+//        new Actions(driver).moveToElement(element).perform();
+//        boolean completed = true;
+//        int count = 0;
+//        do {
+//            try {
+//                count++;
+//                element.getText();
+//                element.sendKeys(selectOption);
+//                new WebDriverWait(driver, 2).until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".item")));
+//                element.getText();
+//                element.sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
+//                completed = true;
+//            }catch (Exception e){
+//                completed = false;
+//                WaitUtils.nativeWaitInSeconds(1);
+//            }
+//        }while (!completed && count <= 3);
+//    }
 
-
-    public static void selectFromAutoSuggests(WebDriver driver, By elementPath, String text )   {
-        boolean completed = true;
-        int count = 0;
-        do {
-            try {
-
-                count++;    //It will go forever without this
-                WebElement country = driver.findElements(elementPath).get(0);
-                new Actions(driver).moveToElement(country).perform();
-
-                //Enter the country I am interested in
-                country.sendKeys("\n");
-                country.clear();
-                country.sendKeys(text, Keys.ENTER);
-                new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(By.cssSelector(".item")));
-                country.sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
-
-                completed = true;
-            } catch (Exception e) {
-                completed = false;
-                WaitUtils.nativeWaitInSeconds(1);
-                //PageFactory.initElements(driver, this);
-            }
-        } while (!completed && count < 1);
-    }
-
-
-    public static List<String> getListOfMatchesFromAutoSuggests(WebDriver driver, By elementPath, String text )   {
-        List<String> listOfCountries = new ArrayList<>();
-
-        try {
-            //Some browsers need the Actions api to interact with it
-            WebElement country = driver.findElements(elementPath).get(0);
-            new Actions(driver).moveToElement(country).perform();
-
-            //Enter the country I am interested in
-            country.sendKeys("\n");
-            country.clear();
-            country.sendKeys(text, Keys.ENTER);
-            new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(By.cssSelector(".item")));
-
-            //Generate list of items
-            WaitUtils.isPageLoadingComplete(driver, _Page.TIMEOUT_PAGE_LOAD);
-            List<WebElement> listOfItems = driver.findElements(By.cssSelector(".item"));
-            for (WebElement el : listOfItems) {
-                String countryName = (el.getText());
-                listOfCountries.add(countryName);
-            }
-        }catch (Exception e){
-            listOfCountries.add("No results found");
-        }
-
-        return listOfCountries;
-    }
 
 
     public static void updateElementValue(WebDriver driver, WebElement element, String value, int timeOut) {
@@ -551,4 +496,56 @@ public class PageUtils {
             throw new Exception("Country name not selected");
         }
     }
+
+
+//    public static void selectFromAutoSuggests(WebDriver driver, By elementPath, String text )   {
+//        boolean completed = true;
+//        int count = 0;
+//        do {
+//            try {
+//
+//                count++;    //It will go forever without this
+//                WebElement country = driver.findElements(elementPath).get(0);
+//                new Actions(driver).moveToElement(country).perform();
+//
+//                //Enter the country I am interested in
+//                country.sendKeys("\n");
+//                country.clear();
+//                country.sendKeys(text, Keys.ENTER);
+//                new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(By.cssSelector(".item")));
+//                country.sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
+//
+//                completed = true;
+//            } catch (Exception e) {
+//                completed = false;
+//                WaitUtils.nativeWaitInSeconds(1);
+//                //PageFactory.initElements(driver, this);
+//            }
+//        } while (!completed && count < 1);
+//    }
+
+
+    public static List<String> getListOfMatchesFromAutoSuggests(WebDriver driver, By elementPath, String text )   {
+        List<String> listOfCountries = new ArrayList<>();
+
+        try {
+            WebElement country = driver.findElements((elementPath)).get(0);
+            country.sendKeys(text);
+            WaitUtils.isPageLoadingComplete(driver, 1);
+            new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(By.cssSelector("li[role='option']")));
+
+            //Generate list of items
+            WaitUtils.isPageLoadingComplete(driver, 1);
+            List<WebElement> listOfItems = driver.findElements(By.cssSelector("li[role='option']"));
+            for (WebElement el : listOfItems) {
+                String countryName = (el.getText());
+                listOfCountries.add(countryName);
+            }
+        }catch (Exception e){
+            listOfCountries.add("No results found");
+        }
+
+        return listOfCountries;
+    }
+
 }

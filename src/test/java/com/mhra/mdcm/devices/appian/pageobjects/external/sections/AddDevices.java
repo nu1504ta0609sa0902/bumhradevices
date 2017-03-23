@@ -30,9 +30,10 @@ public class AddDevices extends _Page {
 
     @FindBy(css = ".GFWJSJ4DCW label")
     List<WebElement> listOfDeviceTypes;
-    //@FindBy(xpath = ".//*[.='Term']//following::td/div/a[string-length(text()) > 0]")
     @FindBy(xpath = ".//div[contains(text(),'Term')]//following::a[string-length(text()) > 0]")
     List<WebElement> listOfTermsOrCodeMatches;
+    @FindBy(css = ".ParagraphText---richtext_paragraph .StrongText---richtext_strong")
+    WebElement labelValidGMDN;
 
     //Product details verification
     @FindBy(xpath = ".//a[contains(text(), 'Product code')]//following::tr/td[1]")
@@ -211,7 +212,7 @@ public class AddDevices extends _Page {
     WebElement linkChangeNotifiedBody;
 
     //All GMDN table
-    @FindBy(xpath = ".//*[.='Term definition']//following::tr/td[2]")
+    @FindBy(xpath = ".//*[contains(text(),'Term definition')]//following::tr/td[2]")
     List<WebElement> listOfAllGmdnTermDefinitions;
 
     //Links
@@ -614,7 +615,7 @@ public class AddDevices extends _Page {
     }
 
     private void selectDeviceType(DeviceData dd) {
-        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_10_SECOND, false);
         String lcDeviceType = dd.deviceType.toLowerCase();
         if (lcDeviceType.contains("general medical device")) {
             PageUtils.clickIfVisible(driver, generalMedicalDevice);
@@ -726,18 +727,18 @@ public class AddDevices extends _Page {
         tbxGMDNDefinitionOrTerm.sendKeys(searchTerm);
 
         //Wait for list of items to appear and add it only if its not a duplicate
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//*[.='Term']//following::td[contains(@class, 'GFWJSJ4DCEB')]"), TIMEOUT_DEFAULT, false);
+        //WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//div[contains(text(),'Term')]//following::td"), TIMEOUT_DEFAULT, false);
 
     }
 
-    private void previousGMDNSelection(DeviceData dd) {
-        //Default is search by gmdn term or definition
-        WaitUtils.waitForElementToBeClickable(driver, radioGMDNDefinitionOrTerm, TIMEOUT_5_SECOND, false);
-        radioGMDNDefinitionOrTerm.click();
-        WaitUtils.waitForElementToBeClickable(driver, tbxGMDNDefinitionOrTerm, TIMEOUT_5_SECOND, false);
-        //tbxGMDNDefinitionOrTerm.sendKeys(dd.gmdnTermOrDefinition);
-        PageUtils.selectFromAutoSuggests(driver, By.cssSelector("input.gwt-SuggestBox"), dd.gmdnTermOrDefinition);
-    }
+//    private void previousGMDNSelection(DeviceData dd) {
+//        //Default is search by gmdn term or definition
+//        WaitUtils.waitForElementToBeClickable(driver, radioGMDNDefinitionOrTerm, TIMEOUT_5_SECOND, false);
+//        radioGMDNDefinitionOrTerm.click();
+//        WaitUtils.waitForElementToBeClickable(driver, tbxGMDNDefinitionOrTerm, TIMEOUT_5_SECOND, false);
+//        //tbxGMDNDefinitionOrTerm.sendKeys(dd.gmdnTermOrDefinition);
+//        PageUtils.selectFromAutoSuggests(driver, By.cssSelector(".PickerWidget---picker_value"), dd.gmdnTermOrDefinition);
+//    }
 
     public boolean isOptionToAddAnotherDeviceVisible() {
         try {
@@ -928,10 +929,21 @@ public class AddDevices extends _Page {
 
     public boolean atLeast1MatchFound(String searchTerm) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, listOfTermsOrCodeMatches.get(0), TIMEOUT_3_SECOND, false);
-        int noi = CommonUtils.getNumberOfItemsInList(driver, listOfTermsOrCodeMatches);
-        boolean atLeast1Match = noi >= 1 ? true : false;
-        return atLeast1Match;
+        boolean isNumber = CommonUtils.isNumericValue(searchTerm);
+        if(!isNumber) {
+            try {
+                WaitUtils.waitForElementToBeClickable(driver, listOfTermsOrCodeMatches.get(0), TIMEOUT_3_SECOND, false);
+                int noi = CommonUtils.getNumberOfItemsInList(driver, listOfTermsOrCodeMatches);
+                boolean atLeast1Match = noi >= 1 ? true : false;
+                return atLeast1Match;
+            }catch (Exception e){
+                return false;
+            }
+        }else{
+            //Verify a valid device id is entered
+            boolean isValidGMDN = labelValidGMDN.getText().contains("Valid GMDN");
+            return isValidGMDN;
+        }
     }
 
 
@@ -940,6 +952,12 @@ public class AddDevices extends _Page {
             dd.deviceType = deviceType;
             selectDeviceType(dd);
         }
+        WaitUtils.waitForElementToBeClickable(driver, viewAllGMDNTermDefinition, TIMEOUT_3_SECOND, false);
+        viewAllGMDNTermDefinition.click();
+        return new AddDevices(driver);
+    }
+
+    public AddDevices clickViewAllGmdnTermDefinitions() {
         WaitUtils.waitForElementToBeClickable(driver, viewAllGMDNTermDefinition, TIMEOUT_3_SECOND, false);
         viewAllGMDNTermDefinition.click();
         return new AddDevices(driver);

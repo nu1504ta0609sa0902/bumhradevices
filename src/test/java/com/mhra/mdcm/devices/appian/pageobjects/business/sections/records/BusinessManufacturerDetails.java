@@ -25,7 +25,7 @@ public class BusinessManufacturerDetails extends _Page {
     //Links to other sections like devices, documents
     @FindBy(partialLinkText = "product details")
     WebElement devicesAndProductDetails;
-    @FindBy(linkText = "Edit Account Information")
+    @FindBy(xpath = ".//button[contains(text(),'Edit Account Information')]")
     WebElement editAccountInfoLink;
 
     //PARD message

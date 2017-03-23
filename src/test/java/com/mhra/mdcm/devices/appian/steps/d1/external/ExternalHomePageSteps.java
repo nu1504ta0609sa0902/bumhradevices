@@ -553,7 +553,7 @@ public class ExternalHomePageSteps extends CommonSteps {
     }
 
 
-    @When("^I enter \"([^\"]*)\" in the new country field in manufacturer test harness$")
+    @When("^I get a list of countries matching searchterm \"([^\"]*)\" from manufacturer test harness$")
     public void i_enter_in_the_new_country_field(String searchTerm) throws Throwable {
         if(searchTerm.contains("randomEU")){
             searchTerm = RandomDataUtils.getRandomEUCountryName();
@@ -625,6 +625,7 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     @Then("^I should see all gmdn term and definition table$")
     public void i_should_see_all_gmdn_term_and_definition_table() throws Throwable {
+        addDevices = addDevices.clickViewAllGmdnTermDefinitions();
         boolean allGmdnTableVisible = addDevices.isAllGMDNTableDisplayed();
         Assert.assertThat("Expected to see All GMDN Table", allGmdnTableVisible, is(true));
     }

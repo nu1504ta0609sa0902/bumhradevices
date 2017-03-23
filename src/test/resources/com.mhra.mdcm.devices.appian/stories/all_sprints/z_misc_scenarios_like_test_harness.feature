@@ -5,33 +5,33 @@ Feature: Aa a user I would like to verify features which are not related to devi
   Scenario Outline: Verify the new countries list in business test harness uses autosuggestion
     Given I am logged into appian as "<user>" user
     When I go to test harness page
-    And I enter "<searchTerm>" in the new country field
+    And I get a list of countries matching searchterm "<searchTerm>" in business test harness
     Then I should see following "<matches>" returned by autosuggests
     Examples:
       | user         | searchTerm | matches          |
-      | businessNoor | ZZ         | No results found |
-      | businessNoor | Ba         | Bangladesh       |
-      | businessNoor | Au         | Australia        |
+      | businessNoor | ZZZ         | No results found |
+      | businessNoor | Ban         | Bangladesh       |
+      | businessNoor | Aus         | Australia        |
 
   @2399 @3365 @readonly @sprint7
   Scenario Outline: Verify the new countries list in MANUFACTURER test harness uses autosuggestion
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
-    And I enter "<searchTerm>" in the new country field in manufacturer test harness
+    And I get a list of countries matching searchterm "<searchTerm>" from manufacturer test harness
     Then I should see following "<matches>" returned by manufacturer test harness autosuggests
     Examples:
       | user              | searchTerm | matches          |
-      | manufacturerAuto  | Au         | Australia        |
-      | manufacturerAuto  | ZZ         | No results found |
-      | authorisedRepAuto | Au         | Australia        |
-      | authorisedRepAuto | ZZ         | No results found |
+      | manufacturerAuto  | Aus         | Australia        |
+      | manufacturerAuto  | ZZZ         | No results found |
+      | authorisedRepAuto | Aus         | Australia        |
+      | authorisedRepAuto | ZZZ         | No results found |
 
 
   @mdcm-465 @mdcm-164 @readonly @sprint5 @sprint6
   Scenario Outline: Verify no EU countries are displayed to authorisedReps
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
-    And I enter "<searchTerm>" in the new country field in manufacturer test harness
+    And I get a list of countries matching searchterm "<searchTerm>" from manufacturer test harness
     Then I should see following "<matches>" returned by manufacturer test harness autosuggests
     Examples:
       | user              | searchTerm      | matches          |
@@ -49,11 +49,11 @@ Feature: Aa a user I would like to verify features which are not related to devi
     Examples:
       | user              | deviceType             | gmdn      | count |
       | authorisedRepAuto | General Medical Device | Blood     | 1     |
-      | authorisedRepAuto | General Medical Device | 17500     | 1     |
+      | authorisedRepAuto | General Medical Device | 18148     | 1     |
       | authorisedRepAuto | General Medical Device | HllNBlood | 0     |
-      | authorisedRepAuto | General Medical Device | 175001    | 0     |
+      | authorisedRepAuto | General Medical Device | 181481    | 0     |
       | manufacturerAuto  | General Medical Device | Blood     | 1     |
-      | manufacturerAuto  | General Medical Device | 17500     | 1     |
+      | manufacturerAuto  | General Medical Device | 18148     | 1     |
 
   @regression @1838 @4211 @sprint12 @sprint13 @wip
   Scenario Outline: Users should be able to view all gmdn terms or definitions

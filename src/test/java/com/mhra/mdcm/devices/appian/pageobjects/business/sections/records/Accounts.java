@@ -37,7 +37,7 @@ public class Accounts extends _Page {
     WebElement thOrganisationName;
 
     //Edit information related to an account
-    @FindBy(linkText = "Edit Account Information")
+    @FindBy(xpath = ".//button[contains(text(),'Edit Account Information')]")
     WebElement editAccountInfoLink;
     @FindBy(xpath = ".//h4")
     WebElement orgName;

@@ -29,9 +29,9 @@ public class EditAccounts extends _Page {
     WebElement orgName;
 
     //PARD options
-    @FindBy(xpath = ".//*[contains(text(),'PARD')]//following::input[@type='radio'][1]")
+    @FindBy(xpath = ".//*[contains(text(),'Organisation name')]//following::input[@type='radio'][1]")
     WebElement pardNameOptIn;
-    @FindBy(xpath = ".//*[contains(text(),'PARD')]//following::input[@type='radio'][2]")
+    @FindBy(xpath = ".//*[contains(text(),'Organisation name')]//following::input[@type='radio'][2]")
     WebElement pardNameOptOut;
     @FindBy(xpath = ".//*[contains(text(),'Website')]//following::input[@type='radio'][1]")
     WebElement pardAddressOptIn;
@@ -190,6 +190,8 @@ public class EditAccounts extends _Page {
     }
 
     private void updatePARDOptionFor2(String pardOption, String nameOrAddress) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, pardNameOptIn, TIMEOUT_5_SECOND, false);
         if(nameOrAddress.equals("name") && pardOption.contains("in")){
             pardNameOptIn.click();
         }else if(nameOrAddress.equals("name") && pardOption.contains("out")){

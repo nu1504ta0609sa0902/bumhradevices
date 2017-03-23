@@ -144,10 +144,10 @@ Feature: As an account holder with access to the Device Registration Service
     Then The gmdn code or term is "removed" in summary section
     Examples:
       | user              | deviceType             | gmdnDefinitionD1 | gmdnCodeD1 | gmdnDefinitionD2 | gmdnCodeD2 |
-      | authorisedRepAuto | General Medical Device | Blood            |            |                  | 17500      |
-      | manufacturerAuto  | General Medical Device | Blood            |            |                  | 17500      |
-      | authorisedRepAuto | General Medical Device |                  | 17500      | Dress            |            |
-      | manufacturerAuto  | General Medical Device |                  | 17500      | Dress            |            |
+      | authorisedRepAuto | General Medical Device | Blood            |            |                  | 18148      |
+      | manufacturerAuto  | General Medical Device | Blood            |            |                  | 18148      |
+      | authorisedRepAuto | General Medical Device |                  | 18148      | Dress            |            |
+      | manufacturerAuto  | General Medical Device |                  | 18148      | Dress            |            |
 
   @regression @mdcm-485 @mdcm-374 @3777 @sprint9 @sprint5 @1924 @sprint8 @wip @bug
   Scenario Outline: Users should be able to add devices to existing manufacturers and verify devices are added

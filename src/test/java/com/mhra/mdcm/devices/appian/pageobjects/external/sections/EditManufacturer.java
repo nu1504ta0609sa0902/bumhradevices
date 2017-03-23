@@ -106,9 +106,13 @@ public class EditManufacturer extends _Page {
             }else if (key.equals("org.postcode")) {
                 PageUtils.updateElementValue(driver, orgPostCode, updatedData.postCode, TIMEOUT_5_SECOND);
             }else if (key.equals("org.country")) {
-                driver.findElement(By.cssSelector(".GFWJSJ4DEY.GFWJSJ4DIY a:nth-child(2)")).click();
-                driver.findElement(By.cssSelector(".GFWJSJ4DEY.GFWJSJ4DMX>div input")).clear();
-                PageUtils.selectFromAutoSuggests(driver, By.xpath(".//label[.='Country']//following::input[1]"), updatedData.country);
+//                driver.findElement(By.cssSelector(".GFWJSJ4DEY.GFWJSJ4DIY a:nth-child(2)")).click();
+//                driver.findElement(By.cssSelector(".GFWJSJ4DEY.GFWJSJ4DMX>div input")).clear();
+                try {
+                    PageUtils.selectFromAutoSuggestedListItems(driver, ".PickerWidget---picker_value", updatedData.country, false);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }else if (key.equals("org.telephone")) {
                 PageUtils.updateElementValue(driver, orgTelephone, updatedData.telephone, TIMEOUT_5_SECOND);
             }else if (key.equals("org.website")) {

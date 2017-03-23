@@ -238,7 +238,8 @@ public class CreateTestsData extends _Page {
 
     public List<String> getListOfAutosuggestionsFor(String searchTerm) {
         WaitUtils.isPageLoadingComplete(driver,TIMEOUT_PAGE_LOAD);
-        List<String> matchesFromAutoSuggests = PageUtils.getListOfMatchesFromAutoSuggests(driver, By.cssSelector(".gwt-SuggestBox"), searchTerm);
+        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".PickerWidget---picker_value"), TIMEOUT_5_SECOND, false);
+        List<String> matchesFromAutoSuggests = PageUtils.getListOfMatchesFromAutoSuggests(driver, By.cssSelector(".PickerWidget---picker_value"), searchTerm);
         System.out.println(matchesFromAutoSuggests);
         return matchesFromAutoSuggests;
     }

@@ -36,7 +36,7 @@ public class ActionsPageSteps extends CommonSteps {
         createTestsData = actionsTabPage.gotoTestsHarnessPage();
     }
 
-    @When("^I enter \"([^\"]*)\" in the new country field$")
+    @When("^I get a list of countries matching searchterm \"([^\"]*)\" in business test harness$")
     public void i_enter_in_the_new_country_field(String searchTerm) throws Throwable {
         List<String> listOfCountries = createTestsData.getListOfAutosuggestionsFor(searchTerm);
         scenarioSession.putData(SessionKey.autoSuggestResults, listOfCountries);

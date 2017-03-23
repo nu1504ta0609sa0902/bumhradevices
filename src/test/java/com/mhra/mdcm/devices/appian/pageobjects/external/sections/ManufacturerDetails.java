@@ -29,7 +29,7 @@ public class ManufacturerDetails extends _Page {
     WebElement declareADevice;
     @FindBy(xpath = ".//a[contains(text(),'Amend Represented')]")
     WebElement amendRepresentativeParty;
-    @FindBy(xpath = ".//a[contains(text(),'Edit Account Information')]")
+    @FindBy(xpath = ".//button[contains(text(),'Edit Account Information')]")
     WebElement editAccountInformation;
 
 
