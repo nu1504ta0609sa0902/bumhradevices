@@ -20,7 +20,7 @@ import java.util.List;
 @Component
 public class AllProducts extends _Page {
 
-    @FindBy(xpath = ".//h2[.='Authorised Representative']//following::tr")
+    @FindBy(xpath = ".//th[@abbr='Authorised Representative']//following::tr")
     List<WebElement> listOfAllProducts;
     @FindBy(xpath = ".//td[6]")
     List<WebElement> listOfAllManufacturerNames;
@@ -36,6 +36,10 @@ public class AllProducts extends _Page {
     WebElement searchBox;
     @FindBy(css = ".selected")
     List<WebElement> listOfFilters;
+    @FindBy(xpath = ".//span[@class='DropdownWidget---inline_label']")
+    List<WebElement> listOfDropDownFilters;
+    @FindBy(linkText = "Clear Filters")
+    WebElement clearFilters;
 
     @Autowired
     public AllProducts(WebDriver driver) {
@@ -43,15 +47,15 @@ public class AllProducts extends _Page {
     }
 
     public boolean isHeadingCorrect(String expectedHeadings) {
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='" + expectedHeadings + "']") , 10, false);
-        WebElement heading = driver.findElement(By.xpath(".//h2[.='" + expectedHeadings + "']"));
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h1[.='" + expectedHeadings + "']") , 10, false);
+        WebElement heading = driver.findElement(By.xpath(".//h1[.='" + expectedHeadings + "']"));
         boolean contains = heading.getText().contains(expectedHeadings);
         return contains;
     }
 
     public boolean isItemsDisplayed(String expectedHeadings) {
         boolean itemsDisplayed = false;
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='" + expectedHeadings + "']") , 10, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h1[.='" + expectedHeadings + "']") , 10, false);
 
         if(expectedHeadings.contains("All Products")){
             itemsDisplayed = listOfAllProducts.size() > 0;
@@ -75,7 +79,7 @@ public class AllProducts extends _Page {
     public boolean atLeast1MatchFound(String searchText) {
         boolean atLeast1MatchFound = true;
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".appian-informationPanel b"), TIMEOUT_40_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_40_SECOND, false);
         try{
             //WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(searchText), TIMEOUT_5_SECOND, false);
             int actualCount = (listOfAllProducts.size()-1);
@@ -144,15 +148,13 @@ public class AllProducts extends _Page {
 
     public AllProducts filterByDeviceType(String deviceType) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        By by = By.partialLinkText(deviceType);
-        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_10_SECOND, false);
-        WebElement element = driver.findElement(by);
-        PageUtils.doubleClick(driver, element);
+        PageUtils.selectFromDropDown(driver, listOfDropDownFilters.get(0) , deviceType, false);
         return new AllProducts(driver);
     }
 
     public boolean areAllProductOfType(String value) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND, false);
         boolean allMatched = true;
         for(WebElement el: listOfDeviceTypes){
             String text = el.getText();
@@ -170,20 +172,23 @@ public class AllProducts extends _Page {
 
     public AllProducts clearFilterByStatus() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, listOfFilters.get(0), TIMEOUT_3_SECOND, false);
-        listOfFilters.get(0).click();
+        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_3_SECOND, false);
+        clearFilters.click();
         return new AllProducts(driver);
     }
 
     public boolean areDevicesOfTypeVisible(String value) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND, false);
         boolean aMatchFound = false;
         for(WebElement el: listOfDeviceTypes){
             String text = el.getText();
             log.info(text);
-            aMatchFound = text.contains(value);
-            if (aMatchFound) {
-                break;
+            if(!text.contains("revious") && !text.contains("ext")) {
+                aMatchFound = text.contains(value);
+                if (aMatchFound) {
+                    break;
+                }
             }
         }
         return aMatchFound;

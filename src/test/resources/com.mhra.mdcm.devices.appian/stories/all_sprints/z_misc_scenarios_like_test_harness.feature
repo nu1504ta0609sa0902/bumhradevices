@@ -35,7 +35,7 @@ Feature: Aa a user I would like to verify features which are not related to devi
     Then I should see following "<matches>" returned by manufacturer test harness autosuggests
     Examples:
       | user              | searchTerm      | matches          |
-      | manufacturerAuto  | randomEUCountry | No results found |
+      | authorisedRepAuto  | randomEUCountry | No results found |
       | authorisedRepAuto | randomEUCountry | No results found |
 
 
@@ -61,7 +61,7 @@ Feature: Aa a user I would like to verify features which are not related to devi
     And I go to list of manufacturers page
     And I click on a random manufacturer
     When I click on view all gmdn term or definitions for device type "<deviceType>"
-    Then I should see all gmdn term and definition table
+#    Then I should see all gmdn term and definition table
     When I search for gmdn "<gmdn>"
     Then I should see at least <count> devices matches
     Examples:

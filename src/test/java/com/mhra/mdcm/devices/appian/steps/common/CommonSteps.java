@@ -77,7 +77,9 @@ public class CommonSteps {
     @Autowired
     public TaskSection taskSection;
     @Autowired
-    public EditAccounts editAccounts;
+    public EditAccount editAccounts;
+    @Autowired
+    public ViewAccount viewAccount;
     @Autowired
     public BusinessManufacturerDetails businessManufacturerDetails;
     @Autowired

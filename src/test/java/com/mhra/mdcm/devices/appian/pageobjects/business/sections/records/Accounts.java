@@ -7,14 +7,12 @@ import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,54 +27,22 @@ public class Accounts extends _Page {
     List<WebElement> listOfAccountsNames;
     @FindBy(xpath = ".//table//th")
     List<WebElement> listOfTableColumns;
-    @FindBy(xpath = ".//*[.='Status']//following::tr//td[3]")
+    @FindBy(xpath = ".//td[3]")
     List<WebElement> listOfOrganisationRoles;
 
     //TABLE Heading
-    @FindBy(linkText = "Organisation name")
+    @FindBy(xpath = ".//th[1]")
     WebElement thOrganisationName;
-
-    //Edit information related to an account
-    @FindBy(xpath = ".//button[contains(text(),'Edit Account Information')]")
-    WebElement editAccountInfoLink;
-    @FindBy(xpath = ".//h4")
-    WebElement orgName;
-
-    //ORGANISATION DETAILS
-    @FindBy(xpath = ".//span[.='Address line 1']//following::p[1]")
-    WebElement orgAddressLine1;
-    @FindBy(xpath = ".//span[.='Address line 2']//following::p[1]")
-    WebElement orgAddressLine2;
-    @FindBy(xpath = ".//span[contains(text(),'City')]//following::p[1]")
-    WebElement orgCityTown;
-    @FindBy(xpath = ".//span[.='Postcode']//following::p[1]")
-    WebElement orgPostCode;
-    @FindBy(xpath = ".//span[.='Country']//following::p[1]")
-    WebElement orgCountry;
-    @FindBy(xpath = ".//span[contains(text(),'Address type')]//following::input[1]")
-    WebElement addressType;
-    @FindBy(xpath = ".//span[contains(text(),'Telephone')]//following::p[1]")
-    WebElement orgTelephone;
-    @FindBy(xpath = ".//span[contains(text(),'Fax')]//following::p[1]")
-    WebElement orgFax;
-    @FindBy(xpath = ".//span[contains(text(),'Website')]//following::p[1]")
-    WebElement webSite;
-
-    //CONTACT PERSON DETAILS
-    @FindBy(xpath = ".//span[contains(text(),'Job title')]//following::p[1]")
-    WebElement jobTitle;
-    @FindBy(xpath = ".//span[contains(text(),'Email')]//following::p[1]")
-    WebElement emailAddress;
-    @FindBy(xpath = ".//span[contains(text(),'Full')]//following::p[1]")
-    WebElement fullName;
-    @FindBy(xpath = ".//h3[contains(text(),'Person Details')]//following::span[.='Telephone']/following::p[1]")
-    WebElement telephone;
 
     //Search box and filters
     @FindBy(xpath = ".//*[contains(@class, 'filter')]//following::input[1]")
     WebElement searchBox;
     @FindBy(css = ".selected")
     List<WebElement> listOfFilters;
+    @FindBy(xpath = ".//span[@class='DropdownWidget---inline_label']")
+    List<WebElement> listOfDropDownFilters;
+    @FindBy(linkText = "Clear Filters")
+    WebElement clearFilters;
     @FindBy(linkText = "Follow")
     WebElement followBtn;
 
@@ -89,8 +55,8 @@ public class Accounts extends _Page {
 
     public boolean isHeadingCorrect(String expectedHeadings) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='" + expectedHeadings + "']") , TIMEOUT_DEFAULT, false);
-        WebElement heading = driver.findElement(By.xpath(".//h2[.='" + expectedHeadings + "']"));
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h1[.='" + expectedHeadings + "']") , TIMEOUT_DEFAULT, false);
+        WebElement heading = driver.findElement(By.xpath(".//h1[.='" + expectedHeadings + "']"));
         boolean contains = heading.getText().contains(expectedHeadings);
         return contains;
     }
@@ -98,7 +64,7 @@ public class Accounts extends _Page {
 
     public boolean isItemsDisplayed(String expectedHeadings) {
         boolean itemsDisplayed = false;
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='" + expectedHeadings + "']") , TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h1[.='" + expectedHeadings + "']") , TIMEOUT_DEFAULT, false);
 
         if(expectedHeadings.contains("Accounts")){
             itemsDisplayed = listOfAccounts.size() > 0;
@@ -172,65 +138,13 @@ public class Accounts extends _Page {
         return accountName;
     }
 
-    public Accounts viewSpecifiedAccount(String randomAccountName) {
+    public ViewAccount viewSpecifiedAccount(String randomAccountName) {
         WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(randomAccountName), TIMEOUT_DEFAULT, false);
         WebElement accountLinks = driver.findElement(By.partialLinkText(randomAccountName));
         //accountLinks.click();
         PageUtils.doubleClick(driver, accountLinks);
-        return new Accounts(driver);
+        return new ViewAccount(driver);
     }
-
-    public EditAccounts gotoEditAccountInformation() {
-        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".gwt-Anchor.pull-down-toggle"), TIMEOUT_5_SECOND, false);
-        WaitUtils.waitForElementToBeClickable(driver, editAccountInfoLink, TIMEOUT_DEFAULT, false);
-        PageUtils.doubleClick(driver, editAccountInfoLink);
-        //editAccountInfoLink.click();
-        return new EditAccounts(driver);
-    }
-
-    public boolean verifyUpdatesDisplayedOnPage(String keyValuePairToUpdate, AccountRequest updatedData) {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeVisible(driver, editAccountInfoLink, TIMEOUT_DEFAULT, false);
-        WaitUtils.waitForElementToBeClickable(driver, editAccountInfoLink, TIMEOUT_5_SECOND, false);
-        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".gwt-Anchor.pull-down-toggle"), TIMEOUT_5_SECOND, false);
-        boolean allChangesDisplayed = true;
-
-        //Check for the following
-        String[] dataPairs = keyValuePairToUpdate.split(",");
-
-        for(String pairs: dataPairs){
-            //String[] split = pairs.split("=");
-            String key = pairs;
-
-            if(key.equals("job.title")){
-                allChangesDisplayed = AssertUtils.areChangesDisplayed(jobTitle,  updatedData.jobTitle);
-            }else if(key.equals("org.name")){
-                allChangesDisplayed = AssertUtils.areChangesDisplayed(orgName,  updatedData.organisationName);
-            }else if(key.equals("address.line1")){
-                allChangesDisplayed = AssertUtils.areChangesDisplayed(orgAddressLine1,  updatedData.address1);
-            }else if(key.equals("address.line2")){
-                allChangesDisplayed = AssertUtils.areChangesDisplayed(orgAddressLine2,  updatedData.address2);
-            }else if(key.equals("city.town")){
-                allChangesDisplayed = AssertUtils.areChangesDisplayed(orgCityTown,  updatedData.townCity);
-            }else if(key.equals("country")){
-                allChangesDisplayed = AssertUtils.areChangesDisplayed(orgCountry,  updatedData.country);
-            }else if(key.equals("postcode")){
-                allChangesDisplayed = AssertUtils.areChangesDisplayed(orgPostCode,  updatedData.postCode);
-            }else if(key.equals("org.telephone")){
-                allChangesDisplayed = AssertUtils.areChangesDisplayed(orgTelephone,  updatedData.telephone);
-            }else if(key.equals("org.fax")){
-                allChangesDisplayed = AssertUtils.areChangesDisplayed(orgFax,  updatedData.fax);
-            }
-
-            //Every single changes need to match
-            if(!allChangesDisplayed){
-                break;
-            }
-        }
-
-        return allChangesDisplayed;
-    }
-
 
     public boolean isCorrectPage() {
         try {
@@ -243,19 +157,13 @@ public class Accounts extends _Page {
 
     public Accounts filterByOrganistionRole(String organisationRole) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        By by = By.partialLinkText(organisationRole);
-        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_10_SECOND, false);
-        WebElement element = driver.findElement(by);
-        PageUtils.doubleClick(driver, element);
+        PageUtils.selectFromDropDown(driver, listOfDropDownFilters.get(0) , organisationRole, false);
         return new Accounts(driver);
     }
 
     public Accounts filterByRegisteredStatus(String status) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        By by = By.linkText(status);
-        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_10_SECOND, false);
-        WebElement element = driver.findElement(by);
-        PageUtils.doubleClick(driver, element);
+        PageUtils.selectFromDropDown(driver, listOfDropDownFilters.get(1) , status, false);
         return new Accounts(driver);
     }
 
@@ -275,6 +183,7 @@ public class Accounts extends _Page {
 
     public boolean areAllOrganisationRoleOfType(String organisationType) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND, false);
         boolean allMatched = true;
         for(WebElement el: listOfOrganisationRoles){
             String text = el.getText();
@@ -292,71 +201,30 @@ public class Accounts extends _Page {
 
     public boolean isOrderedAtoZ() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//td[1]"), TIMEOUT_5_SECOND, false);
         boolean isOrderedAToZ = PageUtils.isOrderedAtoZ(listOfAccountsNames, 2);
         return isOrderedAToZ;
     }
 
-    public boolean verifyCorrectFieldsDisplayedOnPage() {
-        boolean isCorrect = isDisplayedOrgFieldsCorrect();
-        if(isCorrect){
-            isCorrect = isDisplayedContactPersonFieldsCorrect();
-        }
-        return isCorrect;
-    }
-
-    public boolean isDisplayedOrgFieldsCorrect() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        boolean fieldsDisplayed = true;
-        try {
-            //WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgAddressLine1, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgAddressLine2, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgCityTown, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgPostCode, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgCountry, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgTelephone, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgFax, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, webSite, TIMEOUT_3_SECOND, false);
-        }catch (Exception e){
-            e.printStackTrace();
-            fieldsDisplayed = false;
-        }
-        return fieldsDisplayed;
-    }
-
-    public boolean isDisplayedContactPersonFieldsCorrect() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        boolean fieldsDisplayed = true;
-        try {
-            //WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, fullName, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, jobTitle, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, emailAddress, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, telephone, TIMEOUT_3_SECOND, false);
-        }catch (Exception e){
-            e.printStackTrace();
-            fieldsDisplayed = false;
-        }
-        return fieldsDisplayed;
-    }
-
     public Accounts clearFilterByOrganisation() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, listOfFilters.get(0), TIMEOUT_3_SECOND, false);
-        listOfFilters.get(0).click();
+        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_3_SECOND, false);
+        clearFilters.click();
         return new Accounts(driver);
     }
 
     public boolean areOrganisationOfRoleVisible(String organisationType) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND, false);
         boolean aMatchFound = false;
         for(WebElement el: listOfOrganisationRoles){
             String text = el.getText();
             log.info(text);
-            aMatchFound = text.contains(organisationType);
-            if (aMatchFound) {
-                break;
+            if(!text.contains("revious") && !text.contains("ext")) {
+                aMatchFound = text.contains(organisationType);
+                if (aMatchFound) {
+                    break;
+                }
             }
         }
         return aMatchFound;

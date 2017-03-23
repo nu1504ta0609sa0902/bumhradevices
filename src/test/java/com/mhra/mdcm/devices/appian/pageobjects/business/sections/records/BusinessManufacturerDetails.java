@@ -3,7 +3,6 @@ package com.mhra.mdcm.devices.appian.pageobjects.business.sections.records;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -17,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class BusinessManufacturerDetails extends _Page {
 
     //Headings
-    @FindBy(xpath = ".//h4")
+    @FindBy(xpath = ".//h1")
     WebElement heading;
     @FindBy(xpath = ".//h2")
     WebElement subHeading;
@@ -55,12 +54,12 @@ public class BusinessManufacturerDetails extends _Page {
     }
 
 
-    public EditAccounts gotoEditAccountInformation() {
+    public EditAccount gotoEditAccountInformation() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, editAccountInfoLink, TIMEOUT_DEFAULT, false);
         PageUtils.doubleClick(driver, editAccountInfoLink);
         //editAccountInfoLink.click();
-        return new EditAccounts(driver);
+        return new EditAccount(driver);
     }
 
     public boolean isPARDMessaageCorrect(String expectedMessage) {

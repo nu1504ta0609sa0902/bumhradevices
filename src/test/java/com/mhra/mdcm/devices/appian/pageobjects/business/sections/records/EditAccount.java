@@ -18,7 +18,7 @@ import java.util.List;
  * Created by TPD_Auto
  */
 @Component
-public class EditAccounts extends _Page {
+public class EditAccount extends _Page {
 
     @FindBy(xpath = ".//h2[.='Status']//following::a")
     List<WebElement> listOfAccounts;
@@ -39,37 +39,37 @@ public class EditAccounts extends _Page {
     WebElement pardAddressOptOut;
 
     //ORGANISATION ROLES
-    @FindBy(xpath = ".//span[contains(text(),'Selected roles')]//following::input[1]")
+    @FindBy(xpath = ".//span[contains(text(),'Selected roles')]//following::label[1]")
     WebElement roleAuthorisedRep;
-    @FindBy(xpath = ".//span[contains(text(),'Selected roles')]//following::input[2]")
+    @FindBy(xpath = ".//span[contains(text(),'Selected roles')]//following::label[2]")
     WebElement roleManufacturer;
 
     //ORGANISATION DETAILS
-    @FindBy(xpath = ".//h3[contains(text(),'Organisation details')]//following::input[1]")
+    @FindBy(xpath = ".//h2[contains(text(),'Organisation details')]//following::input[1]")
     WebElement orgAddressLine1;
-    @FindBy(xpath = ".//h3[contains(text(),'Organisation details')]//following::input[2]")
+    @FindBy(xpath = ".//h2[contains(text(),'Organisation details')]//following::input[2]")
     WebElement orgAddressLine2;
-    @FindBy(xpath = ".//h3[contains(text(),'Organisation details')]//following::input[3]")
+    @FindBy(xpath = ".//h2[contains(text(),'Organisation details')]//following::input[3]")
     WebElement orgCityTown;
-    @FindBy(xpath = ".//h3[contains(text(),'Organisation details')]//following::input[4]")
+    @FindBy(xpath = ".//h2[contains(text(),'Organisation details')]//following::input[4]")
     WebElement orgPostCode;
-    @FindBy(xpath = ".//h3[contains(text(),'Organisation details')]//following::input[5]")
-    WebElement orgCountry;
-    @FindBy(xpath = ".//span[contains(text(),'Address type')]//following::input[1]")
+    @FindBy(xpath = ".//span[contains(text(),'Address type')]//following::label[1]")
     WebElement addressType;
-    @FindBy(xpath = ".//h3[contains(text(),'Organisation details')]//following::input[7]")
+    @FindBy(xpath = ".//label[contains(text(),'Telephone')]//following::input[1]")
     WebElement orgTelephone;
-    @FindBy(xpath = ".//h3[contains(text(),'Organisation details')]//following::input[8]")
+    @FindBy(xpath = ".//label[contains(text(),'Telephone')]//following::input[2]")
     WebElement orgFax;
-    @FindBy(xpath = ".//h3[contains(text(),'Organisation details')]//following::input[9]")
+    @FindBy(xpath = ".//label[contains(text(),'Website')]//following::input[1]")
     WebElement webSite;
+    @FindBy(xpath = ".//h2[contains(text(),'Organisation details')]//following::input[5]")
+    WebElement orgCountry;
 
     //CONTACT PERSON DETAILS
     @FindBy(xpath = ".//label[contains(text(),'Job title')]//following::input[1]")
     WebElement jobTitle;
     @FindBy(xpath = ".//label[.='Email']//following::input[1]")
     WebElement emailAddress;
-    @FindBy(xpath = ".//h3[contains(text(),'Person Details')]//following::input[5]")
+    @FindBy(xpath = ".//label[.='Email']//following::input[2]")
     WebElement phoneNumber;
 
     //Edit information related to an account
@@ -79,13 +79,8 @@ public class EditAccounts extends _Page {
     WebElement cancelBtn;
 
 
-
-    //Search box
-    @FindBy(xpath = ".//*[contains(@class, 'filter')]//following::input[1]")
-    WebElement searchBox;
-
     @Autowired
-    public EditAccounts(WebDriver driver) {
+    public EditAccount(WebDriver driver) {
         super(driver);
     }
 

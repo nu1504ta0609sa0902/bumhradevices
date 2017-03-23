@@ -268,7 +268,7 @@ public class RecordsPageSteps extends CommonSteps {
     @When("^I view a random account from search result$")
     public void i_view_a_randomly_selected_account() throws Throwable {
         String randomAccountName = accounts.getARandomAccount();
-        accounts = accounts.viewSpecifiedAccount(randomAccountName);
+        viewAccount = accounts.viewSpecifiedAccount(randomAccountName);
     }
 
 
@@ -276,13 +276,13 @@ public class RecordsPageSteps extends CommonSteps {
     public void i_view_a_randomly_selected_account(String keyValuePairToUpdate) throws Throwable {
         String searchTerm = (String) scenarioSession.getData(SessionKey.searchTerm);
         String randomAccountName = accounts.getARandomAccountWithText(searchTerm);
-        accounts = accounts.viewSpecifiedAccount(randomAccountName);
+        viewAccount = accounts.viewSpecifiedAccount(randomAccountName);
         log.info("Account to update : " + randomAccountName);
 
         //Edit the data now
         AccountRequest updatedData = new AccountRequest(scenarioSession);
         updatedData.updateName(searchTerm);
-        editAccounts = accounts.gotoEditAccountInformation();
+        editAccounts = viewAccount.gotoEditAccountInformation();
         accounts = editAccounts.editAccountInformation(keyValuePairToUpdate, updatedData);
 
         scenarioSession.putData(SessionKey.organisationName, randomAccountName);
@@ -291,7 +291,7 @@ public class RecordsPageSteps extends CommonSteps {
 
     @Then("^I should see account displaying correct fields$")
     public void i_should_see_account_displaying_correct_fields() throws Throwable {
-        boolean isCorrect = accounts.verifyCorrectFieldsDisplayedOnPage();
+        boolean isCorrect = viewAccount.verifyCorrectFieldsDisplayedOnPage();
         Assert.assertThat("Account, Organisation Details and Contact Details May Not Be Valid", isCorrect, is(true));
     }
 
@@ -300,12 +300,12 @@ public class RecordsPageSteps extends CommonSteps {
     public void i_update_the_following_data_pair_for_randomly_selected_account_data(String keyValuePairToUpdate) throws Throwable {
         //Select a random account
         String randomAccountName = accounts.getARandomAccount();
-        accounts = accounts.viewSpecifiedAccount(randomAccountName);
+        viewAccount = accounts.viewSpecifiedAccount(randomAccountName);
         log.info("Edit the following account : " + randomAccountName);
 
         //Edit the data now
         AccountRequest updatedData = new AccountRequest(scenarioSession);
-        editAccounts = accounts.gotoEditAccountInformation();
+        editAccounts = viewAccount.gotoEditAccountInformation();
         accounts = editAccounts.editAccountInformation(keyValuePairToUpdate, updatedData);
 
         scenarioSession.putData(SessionKey.organisationName, randomAccountName);
@@ -315,7 +315,7 @@ public class RecordsPageSteps extends CommonSteps {
 
     @Then("^I should see the changes \"([^\"]*)\" in the account page$")
     public void i_should_see_the_changes_in_the_account_page(String keyValuePairToUpdate) throws Throwable {
-        boolean isCorrectPage = accounts.isCorrectPage();
+        //boolean isCorrectPage = accounts.isCorrectPage();
         AccountRequest updatedData = (AccountRequest) scenarioSession.getData(SessionKey.updatedData);
         boolean updatesFound = false;
         int numberOfRefresh = 0;
@@ -323,7 +323,7 @@ public class RecordsPageSteps extends CommonSteps {
             numberOfRefresh++;
             //A bug : refresh is required
             driver.navigate().refresh();
-            updatesFound = accounts.verifyUpdatesDisplayedOnPage(keyValuePairToUpdate, updatedData);
+            updatesFound = viewAccount.verifyUpdatesDisplayedOnPage(keyValuePairToUpdate, updatedData);
             if (!updatesFound) {
                 WaitUtils.nativeWaitInSeconds(1);
             }
@@ -376,7 +376,15 @@ public class RecordsPageSteps extends CommonSteps {
 
     @When("^I filter items in \"([^\"]*)\" page by device type \"([^\"]*)\"$")
     public void i_filter_items_in_page_by_device_type(String page, String deviceType) throws Throwable {
-        devices = devices.filterBy(deviceType);
+        if (page.equals("Accounts")) {
+        } else if (page.equals("Devices")) {
+            devices = devices.filterBy(deviceType);
+        } else if (page.equals("Products")) {
+        } else if (page.equals("All Devices")) {
+            allDevices = allDevices.filterByDeviceType(deviceType);
+        } else if (page.equals("All Products")) {
+        } else if (page.equals("All Organisations")) {
+        }
     }
 
     @When("^I sort items in \"([^\"]*)\" page by \"([^\"]*)\"$")
@@ -448,15 +456,24 @@ public class RecordsPageSteps extends CommonSteps {
 
     @Then("^I should see only see device of type \"([^\"]*)\" in \"([^\"]*)\" page$")
     public void i_should_see_only_see_device_of_type_in_page(String deviceType, String page) throws Throwable {
-        boolean allSame = devices.areAllDevicesOfType(deviceType);
+        boolean allSame = true;
+        if (page.equals("Accounts")) {
+        } else if (page.equals("Devices")) {
+            allSame = devices.areAllDevicesOfType(deviceType);
+        } else if (page.equals("Products")) {
+        } else if (page.equals("All Devices")) {
+            allSame = allDevices.areAllDevicesOfType(deviceType);
+        } else if (page.equals("All Products")) {
+        } else if (page.equals("All Organisations")) {
+        }
         Assert.assertThat("Device Type Should Be Of Type : " + deviceType, allSame, is(true));
     }
 
 
     @When("^I clear the filter than I should see device of type \"([^\"]*)\"$")
     public void i_clear_the_filter_than_I_should_see_device_of_type(String deviceType) throws Throwable {
-        devices = devices.clearFilterByDeviceType();
-        boolean deviceTypeVisible = devices.areDevicesOfTypeVisible(deviceType);
+        allDevices = allDevices.clearFilter();
+        boolean deviceTypeVisible = allDevices.areDevicesOfTypeVisible(deviceType);
         Assert.assertThat("Expected To See Device Of Type : " + deviceType, deviceTypeVisible, is(true));
     }
 

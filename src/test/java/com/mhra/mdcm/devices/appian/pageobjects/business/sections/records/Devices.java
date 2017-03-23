@@ -27,6 +27,10 @@ public class Devices extends _Page {
     //Filter values
     @FindBy(partialLinkText = "IVD")
     WebElement filterByDeviceType;
+    @FindBy(xpath = ".//span[@class='DropdownWidget---inline_label']")
+    List<WebElement> listOfDropDownFilters;
+    @FindBy(linkText = "Clear Filters")
+    WebElement clearFilters;
 
     @Autowired
     public Devices(WebDriver driver) {
@@ -35,8 +39,8 @@ public class Devices extends _Page {
 
 
     public boolean isHeadingCorrect(String expectedHeadings) {
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='" + expectedHeadings + "']") , TIMEOUT_DEFAULT, false);
-        WebElement heading = driver.findElement(By.xpath(".//h2[.='" + expectedHeadings + "']"));
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h1[.='" + expectedHeadings + "']") , TIMEOUT_DEFAULT, false);
+        WebElement heading = driver.findElement(By.xpath(".//h1[.='" + expectedHeadings + "']"));
         boolean contains = heading.getText().contains(expectedHeadings);
         return contains;
     }
@@ -44,7 +48,7 @@ public class Devices extends _Page {
 
     public boolean isItemsDisplayed(String expectedHeadings) {
         boolean itemsDisplayed = false;
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='" + expectedHeadings + "']") , TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h1[.='" + expectedHeadings + "']") , TIMEOUT_DEFAULT, false);
 
         if(expectedHeadings.equals("Devices")){
             itemsDisplayed = listOfDevices.size() > 0;
@@ -55,16 +59,14 @@ public class Devices extends _Page {
 
     public Devices filterBy(String deviceType) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        By by = By.partialLinkText(deviceType);
-        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_10_SECOND, false);
-        WebElement element = driver.findElement(by);
-        PageUtils.doubleClick(driver, element);
+        PageUtils.selectFromDropDown(driver, listOfDropDownFilters.get(0) , deviceType, false);
         return new Devices(driver);
     }
 
     public boolean areAllDevicesOfType(String deviceType) {
 
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND, false);
         boolean allMatched = true;
         for(WebElement el: listOfDeviceTypes){
             String text = el.getText();
@@ -81,22 +83,8 @@ public class Devices extends _Page {
 
     public Devices clearFilterByDeviceType() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, filterByDeviceType, TIMEOUT_3_SECOND, false);
-        filterByDeviceType.click();
+        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_3_SECOND, false);
+        clearFilters.click();
         return new Devices(driver);
-    }
-
-    public boolean areDevicesOfTypeVisible(String deviceType) {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        boolean aMatchFound = false;
-        for(WebElement el: listOfDeviceTypes){
-            String text = el.getText();
-            //log.info(text);
-            aMatchFound = text.contains(deviceType);
-            if (aMatchFound) {
-                break;
-            }
-        }
-        return aMatchFound;
     }
 }

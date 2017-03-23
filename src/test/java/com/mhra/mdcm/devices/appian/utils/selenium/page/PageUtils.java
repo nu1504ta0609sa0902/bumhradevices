@@ -498,6 +498,27 @@ public class PageUtils {
     }
 
 
+    public static void selectFromDropDown(WebDriver driver, WebElement element, String text, boolean throwException){
+        boolean completed = true;
+        int count = 0;
+        do {
+            try {
+                count++;    //It will go forever without this
+                PageUtils.singleClick(driver, element);
+                WaitUtils.isPageLoadingComplete(driver, _Page.TIMEOUT_PAGE_LOAD);
+                WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//div[contains(text(), '"+ text + "')]"), _Page.TIMEOUT_3_SECOND, false);
+                WebElement titleToSelect = driver.findElement(By.xpath(".//div[contains(text(), '"+ text + "')]"));
+                PageUtils.singleClick(driver, titleToSelect);
+                completed = true;
+            } catch (Exception e) {
+                completed = false;
+                WaitUtils.nativeWaitInSeconds(1);
+            }
+        } while (!completed && count < 3);
+
+    }
+
+
 //    public static void selectFromAutoSuggests(WebDriver driver, By elementPath, String text )   {
 //        boolean completed = true;
 //        int count = 0;
