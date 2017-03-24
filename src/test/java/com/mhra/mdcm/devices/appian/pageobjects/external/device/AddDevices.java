@@ -30,8 +30,8 @@ public class AddDevices extends _Page {
 
     @FindBy(css = ".RadioButtonGroup---choice_pair>label")
     List<WebElement> listOfDeviceTypes;
-    //@FindBy(xpath = ".//div[contains(text(),'Term')]//following::a[string-length(text()) > 0]")
-    @FindBy(xpath = ".//div[contains(text(),'Term')]//following::tbody[1]/tr/td")
+    @FindBy(xpath = ".//div[contains(text(),'Term')]//following::a[string-length(text()) > 0]")
+    //@FindBy(xpath = ".//div[contains(text(),'Term')]//following::tbody[1]/tr/td")
     List<WebElement> listOfGmdnMatchesReturnedBySearch;
     @FindBy(css = ".ParagraphText---richtext_paragraph .StrongText---richtext_strong")
     WebElement labelValidGMDNCodeMessage;
@@ -190,7 +190,7 @@ public class AddDevices extends _Page {
     //Error message
     @FindBy(css = ".component_error")
     WebElement errMessage;
-    @FindBy(css = ".validationMessage")
+    @FindBy(css = ".MessageLayout---error")
     WebElement validationErrMessage;
 
     //Device Summary
@@ -540,15 +540,17 @@ public class AddDevices extends _Page {
     }
 
     private void notifiedBody(DeviceData dd) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         changeNotifiedBody();
         boolean notifiedBodyOptionsCorrect = isNotifiedBodyListDisplayingCorrectDetails();
-        WaitUtils.nativeWaitInSeconds(2);
+
         WaitUtils.waitForElementToBeVisible(driver, nb0086BSI, TIMEOUT_5_SECOND, false);
         WaitUtils.waitForElementToBeClickable(driver, nb0086BSI, TIMEOUT_5_SECOND, false);
-        WaitUtils.waitForElementToBeClickable(driver, nbOther, TIMEOUT_5_SECOND, false);
+//        WaitUtils.waitForElementToBeClickable(driver, nbOther, TIMEOUT_5_SECOND, false);
+//        WaitUtils.nativeWaitInSeconds(2);
         //Select notified body
         if (notifiedBodyOptionsCorrect && dd.notifiedBody != null && dd.notifiedBody.toLowerCase().contains("0086")) {
-            PageUtils.clickIfVisible(driver, nb0086BSI);
+            PageUtils.singleClick(driver, nb0086BSI);
         }else if (notifiedBodyOptionsCorrect && dd.notifiedBody != null && dd.notifiedBody.toLowerCase().contains("Other")) {
             PageUtils.clickIfVisible(driver, nbOther);
         }else{
@@ -678,7 +680,7 @@ public class AddDevices extends _Page {
                 //Wait for list of items to appear and add it only if its not a duplicate
                 WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//div[contains(text(),'Term')]//following::td"), TIMEOUT_DEFAULT, false);
                 int noi = CommonUtils.getNumberOfItemsInList(driver, listOfGmdnMatchesReturnedBySearch);
-                int randomPosition = RandomDataUtils.getARandomNumberBetween(0, noi);
+                int randomPosition = RandomDataUtils.getARandomNumberBetween(0, noi-1);
 
                 //Click gmdn from search results
                 WebElement element = listOfGmdnMatchesReturnedBySearch.get(randomPosition);

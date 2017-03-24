@@ -39,7 +39,7 @@ public class TaskSection extends _Page {
     WebElement odPostCode;
     @FindBy(xpath = ".//span[contains(text(),'Country')]//following::p[1]")
     WebElement odCountry;
-    @FindBy(xpath = "  .//label[contains(text(),'Organisation type')]//following::div[1]")
+    @FindBy(xpath = ".//span[contains(text(),'Organisation type')]//following::p[1]")
     WebElement odOrganisationType;
     @FindBy(xpath = ".//span[contains(text(),'Telephone')]//following::p[1]")
     WebElement odTelephone;
@@ -49,14 +49,14 @@ public class TaskSection extends _Page {
     WebElement odWebsite;
 
     //Task contact person details
-    @FindBy(xpath = ".//*[contains(text(),'Full name')]//following::div[1]")
+    @FindBy(xpath = ".//span[contains(text(),'Full name')]//following::p[1]")
     WebElement cdFullName;
     @FindBy(xpath = ".//span[contains(text(),'Job title')]//following::p[1]")
     WebElement cdJobTitle;
-    @FindBy(xpath = ".//span[contains(text(),'Email')]//following::p[2]")
-    WebElement cdContactPersonTelephone;
     @FindBy(xpath = ".//span[contains(text(),'Email')]//following::p[1]")
     WebElement cdEmail;
+    @FindBy(xpath = ".//span[contains(text(),'Job title')]//following::p[2]")
+    WebElement cdContactPersonTelephone;
 
 
     @FindBy(xpath = ".//h3")
@@ -352,10 +352,10 @@ public class TaskSection extends _Page {
         PageUtils.isValueCorrect(odCityTown, accountDetails.townCity, listOfInvalidFields);
         PageUtils.isValueCorrect(odPostCode, accountDetails.postCode, listOfInvalidFields);
         PageUtils.isValueCorrect(odCountry, accountDetails.country, listOfInvalidFields);
-        PageUtils.isValueCorrect(odOrganisationType, accountDetails.organisationType, listOfInvalidFields);
         PageUtils.isValueCorrect(odTelephone, accountDetails.telephone, listOfInvalidFields);
         PageUtils.isValueCorrect(odFax, accountDetails.fax, listOfInvalidFields);
         PageUtils.isValueCorrect(odWebsite, accountDetails.website, listOfInvalidFields);
+        PageUtils.isValueCorrect(odOrganisationType, accountDetails.organisationType, listOfInvalidFields);
 
         //Verify contact person details
         String fullName = accountDetails.title + " " + accountDetails.firstName + " " + accountDetails.lastName;

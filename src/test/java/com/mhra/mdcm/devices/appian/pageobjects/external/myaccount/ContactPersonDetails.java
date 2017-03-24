@@ -21,7 +21,7 @@ import java.util.List;
 @Component
 public class ContactPersonDetails extends _Page {
 
-    @FindBy(xpath = ".//span[contains(text(),'Title')]//following::select[1]")
+    @FindBy(xpath = ".//span[contains(text(),'Title')]//following::div[@role='listbox']")
     WebElement title;
     @FindBy(xpath = ".//label[.='First name']//following::input[1]")
     WebElement firstName;
@@ -34,20 +34,23 @@ public class ContactPersonDetails extends _Page {
     @FindBy(xpath = ".//label[.='Telephone']//following::input[1]")
     WebElement telephone;
 
+    //Submit changes to contact person details
     @FindBy(xpath = ".//button[.='Submit']")
     WebElement submitBtn;
     @FindBy(xpath = ".//button[.='Cancel']")
     WebElement cancelBtn;
 
+    //Confirm changes to be submitted
     @FindBy(xpath = ".//button[.='Yes']")
     WebElement confirmYes;
     @FindBy(xpath = ".//button[.='No']")
     WebElement confirmNo;
 
+    //One more chance to cancel the changes
     @FindBy(xpath = ".//button[contains(text(),'Save')]")
-    List<WebElement> saveYes;
+    List<WebElement> btnSave;
     @FindBy(xpath = ".//button[contains(text(),'Cancel')]")
-    WebElement saveNo;
+    WebElement btnCancel;
 
     @FindBy(css = ".component_error")
     List <WebElement> errorMessages;
@@ -68,7 +71,7 @@ public class ContactPersonDetails extends _Page {
             String key = pairs;
 
             if (key.equals("contact.title")) {
-                PageUtils.selectByText(title, updatedData.title);
+                PageUtils.selectFromDropDown(driver, title, updatedData.title, false);
             }else if (key.equals("contact.firstname")) {
                 PageUtils.updateElementValue(driver, firstName, updatedData.firstName, TIMEOUT_5_SECOND);
             } else if (key.equals("contact.lastname")) {
@@ -100,11 +103,11 @@ public class ContactPersonDetails extends _Page {
     }
 
     public MyAccountPage saveChanges(boolean saveChanges) {
-        WaitUtils.waitForElementToBeClickable(driver, saveNo, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, btnCancel, TIMEOUT_DEFAULT, false);
         if(saveChanges){
-            saveYes.get(1).click();
+            btnSave.get(1).click();
         }else{
-            saveNo.click();
+            btnCancel.click();
         }
         return new MyAccountPage(driver);
     }

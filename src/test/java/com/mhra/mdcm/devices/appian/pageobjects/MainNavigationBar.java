@@ -32,10 +32,13 @@ public class MainNavigationBar extends _Page {
     WebElement actions;
 
     //Manufacturers and authorisedRep
-    @FindBy(partialLinkText = "Home")
+    @FindBy(partialLinkText = "HOME")
     WebElement linkHOME;
-    @FindBy(partialLinkText = "My Account")
+    @FindBy(partialLinkText = "MY ACCOUNT")
     WebElement linkMyAccount;
+
+    @FindBy(css = ".appian-menu-item.appian-menu-item-selected")
+    WebElement currentSelection;
 
 
     @Autowired
@@ -79,6 +82,12 @@ public class MainNavigationBar extends _Page {
         reports.click();
         PageUtils.doubleClick(driver, reports);
         return new ReportsTabPage(driver);
+    }
+
+    public String getCurrentSelectedMenu() {
+        WaitUtils.waitForElementToBeClickable(driver, currentSelection, TIMEOUT_DEFAULT, false);
+        String selectedMenu = currentSelection.getText();
+        return selectedMenu;
     }
 
     public ActionsTabPage clickActions() {

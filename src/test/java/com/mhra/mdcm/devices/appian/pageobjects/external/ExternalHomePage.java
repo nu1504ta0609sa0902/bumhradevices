@@ -29,14 +29,14 @@ public class ExternalHomePage extends _Page {
     @FindBy(xpath = ".//*[contains(text(),'ype of device')]//following::label[1]")
     WebElement generalMedicalDevice;
 
-    @FindBy(css = ".GFWJSJ4DFE.GFWJSJ4DNE.GFWJSJ4DPE")
+    @FindBy(xpath = ".//button[.='Back']")
     WebElement btnBackButton;
 
     @FindBy(xpath = ".//h4[contains(text(),'Healthcare Products')]")
     WebElement pageHeading;
 
     //Error messages
-    @FindBy(xpath = ".//*[.='Device Rejected']//following::strong[1]")
+    @FindBy(css = "strong.StrongText---richtext_strong")
     WebElement errorMessage;
 
     @Autowired
@@ -187,6 +187,8 @@ public class ExternalHomePage extends _Page {
     }
 
     public boolean isErrorMessageDsiplayed(String message) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, errorMessage, TIMEOUT_3_SECOND, false);
         boolean contains = errorMessage.getText().contains(message);
         return contains;
     }

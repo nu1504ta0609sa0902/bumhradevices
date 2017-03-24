@@ -42,25 +42,27 @@ public class EditAccount extends _Page {
     //ORGANISATION DETAILS
     @FindBy(xpath = ".//label[contains(text(),'line 1')]//following::input[1]")
     WebElement orgAddressLine1;
-    @FindBy(xpath = ".//label[contains(text(),'line 2')]//following::input[2]")
+    @FindBy(xpath = ".//label[contains(text(),'line 2')]//following::input[1]")
     WebElement orgAddressLine2;
-    @FindBy(xpath = ".//label[contains(text(),'City')]//following::input[3]")
+    @FindBy(xpath = ".//label[contains(text(),'City')]//following::input[1]")
     WebElement orgCityTown;
-    @FindBy(xpath = ".//label[contains(text(),'Postcode')]//following::input[4]")
+    @FindBy(xpath = ".//label[contains(text(),'Postcode')]//following::input[1]")
     WebElement orgPostCode;
     @FindBy(xpath = ".//span[contains(text(),'Address type')]//following::label[1]")
     WebElement addressType;
     @FindBy(xpath = ".//label[contains(text(),'Telephone')]//following::input[1]")
     WebElement orgTelephone;
-    @FindBy(xpath = ".//label[contains(text(),'Telephone')]//following::input[2]")
+    @FindBy(xpath = ".//label[contains(text(),'Fax')]//following::input[1]")
     WebElement orgFax;
     @FindBy(xpath = ".//label[contains(text(),'Website')]//following::input[1]")
     WebElement webSite;
-    @FindBy(xpath = ".//span[contains(text(),'Country')]//following::span[1]")
+    @FindBy(xpath = ".//span[contains(text(),'Country')]//following::a[1]")
+    WebElement orgCountryClear;
+    @FindBy(xpath = ".//label[contains(text(),'Country')]//following::input[1]")
     WebElement orgCountry;
 
     //CONTACT PERSON DETAILS
-    @FindBy(xpath = ".//label[contains(text(),'Job title')]//following::input[1]")
+    @FindBy(xpath = ".//span[contains(text(),'Title')]//following::div[@role='listbox']")
     WebElement jobTitle;
     @FindBy(xpath = ".//label[.='Email']//following::input[1]")
     WebElement emailAddress;
@@ -81,6 +83,7 @@ public class EditAccount extends _Page {
 
 
     public Accounts editAccountInformation(String keyValuePairToUpdate, AccountRequest updatedData) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, submitBtn, TIMEOUT_DEFAULT, false);
 
         String[] dataPairs = keyValuePairToUpdate.split(",");

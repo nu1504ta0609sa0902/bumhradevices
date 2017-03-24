@@ -258,7 +258,7 @@ public class ManufacturerList extends _Page {
     }
 
     public boolean isSpecificTableHeadingCorrect(String commaDelimitedHeading) {
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[contains(text(),'Manufacturer')]//following::tbody[1]/tr/td[1]"), TIMEOUT_15_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, listOfTableHeadings.get(0), TIMEOUT_15_SECOND, false);
         String lowerCaseHeadings = commaDelimitedHeading.toLowerCase();
         return PageUtils.isSpecificTableHeadingCorrect(lowerCaseHeadings, listOfTableHeadings);
     }
