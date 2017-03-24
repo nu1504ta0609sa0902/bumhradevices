@@ -5,14 +5,12 @@ import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,8 +23,6 @@ public class AllOrganisations extends _Page {
     List<WebElement> listOfAllOrganisations;
     @FindBy(xpath = ".//td[1]")
     List<WebElement> listOfAllOrganisationsNames;
-    @FindBy(xpath = ".//table//th")
-    List<WebElement> listOfTableColumns;
     @FindBy(xpath = ".//td[2]")
     List<WebElement> listOfOrganisationRoles;
     @FindBy(xpath = ".//td[6]")
@@ -35,12 +31,12 @@ public class AllOrganisations extends _Page {
     //TABLE Heading
     @FindBy(xpath = ".//th[1]")
     WebElement thOrganisationName;
+    @FindBy(xpath = ".//table//th")
+    List<WebElement> listOfTableHeadings;
 
     //Search box and filters
     @FindBy(xpath = ".//*[contains(@class, 'filter')]//following::input[1]")
     WebElement searchBox;
-    @FindBy(css = ".selected")
-    List<WebElement> listOfFilters;
     @FindBy(xpath = ".//span[@class='DropdownWidget---inline_label']")
     List<WebElement> listOfDropDownFilters;
     @FindBy(linkText = "Clear Filters")
@@ -70,7 +66,7 @@ public class AllOrganisations extends _Page {
 
     public List<String> isTableColumnCorrect(String[] columns) {
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th") , TIMEOUT_DEFAULT, false);
-        List<String> columnsNotFound = PageUtils.areTheColumnsCorrect(columns, listOfTableColumns);
+        List<String> columnsNotFound = PageUtils.areTheColumnsCorrect(columns, listOfTableHeadings);
         return columnsNotFound;
     }
 

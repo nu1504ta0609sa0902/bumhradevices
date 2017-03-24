@@ -11,7 +11,6 @@ import org.openqa.selenium.support.FindBy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,13 +28,11 @@ public class AllProducts extends _Page {
     @FindBy(xpath = ".//td[4]")
     List<WebElement> listOfAllProductNames;
     @FindBy(xpath = ".//table//th")
-    List<WebElement> listOfTableColumns;
+    List<WebElement> listOfTableHeadings;
 
     //Search box and filters
     @FindBy(xpath = ".//*[contains(@class, 'filter')]//following::input[1]")
     WebElement searchBox;
-    @FindBy(css = ".selected")
-    List<WebElement> listOfFilters;
     @FindBy(xpath = ".//span[@class='DropdownWidget---inline_label']")
     List<WebElement> listOfDropDownFilters;
     @FindBy(linkText = "Clear Filters")
@@ -66,7 +63,7 @@ public class AllProducts extends _Page {
 
     public List<String> isTableColumnCorrect(String[] columns) {
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th") , TIMEOUT_DEFAULT, false);
-        List<String> columnsNotFound = PageUtils.areTheColumnsCorrect(columns, listOfTableColumns);
+        List<String> columnsNotFound = PageUtils.areTheColumnsCorrect(columns, listOfTableHeadings);
         return columnsNotFound;
     }
 

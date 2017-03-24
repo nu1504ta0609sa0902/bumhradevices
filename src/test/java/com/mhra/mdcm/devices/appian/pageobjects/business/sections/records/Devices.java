@@ -21,12 +21,10 @@ public class Devices extends _Page {
     //List of all devices and types
     @FindBy(xpath = ".//h2[.='Device Id']//following::a")
     List<WebElement> listOfDevices;
-    @FindBy(xpath = ".//*[.='GMDN term']//following::tr//td[1]")
+    @FindBy(xpath = ".//th[@abbr='Device Id']//following::tr//td[1]")
     List<WebElement> listOfDeviceTypes;
 
     //Filter values
-    @FindBy(partialLinkText = "IVD")
-    WebElement filterByDeviceType;
     @FindBy(xpath = ".//span[@class='DropdownWidget---inline_label']")
     List<WebElement> listOfDropDownFilters;
     @FindBy(linkText = "Clear Filters")

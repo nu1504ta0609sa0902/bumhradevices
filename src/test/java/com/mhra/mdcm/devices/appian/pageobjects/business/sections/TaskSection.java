@@ -12,7 +12,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -29,7 +28,7 @@ import java.util.List;
 @Component
 public class TaskSection extends _Page {
 
-    //Task details
+    //Task organisation details
     @FindBy(xpath = ".//span[contains(text(),'line 1')]//following::p[1]")
     WebElement odAddressLine1;
     @FindBy(xpath = ".//span[contains(text(),'line 2')]//following::p[1]")
@@ -49,11 +48,12 @@ public class TaskSection extends _Page {
     @FindBy(xpath = ".//span[contains(text(),'Website')]//following::p[1]")
     WebElement odWebsite;
 
+    //Task contact person details
     @FindBy(xpath = ".//*[contains(text(),'Full name')]//following::div[1]")
     WebElement cdFullName;
     @FindBy(xpath = ".//span[contains(text(),'Job title')]//following::p[1]")
     WebElement cdJobTitle;
-    @FindBy(xpath = ".//h3[contains(text(),'Contact Person Details')]//following::span[contains(text(),'Telephone')]//following::p[1]")
+    @FindBy(xpath = ".//span[contains(text(),'Email')]//following::p[2]")
     WebElement cdContactPersonTelephone;
     @FindBy(xpath = ".//span[contains(text(),'Email')]//following::p[1]")
     WebElement cdEmail;
@@ -61,24 +61,6 @@ public class TaskSection extends _Page {
 
     @FindBy(xpath = ".//h3")
     WebElement taskHeading;
-
-    //Accept taskSection
-    @FindBy(xpath = ".//button[contains(text(), 'Accept')]")
-    WebElement accept;
-    @FindBy(xpath = ".//button[.='Go Back']")
-    WebElement goBack;
-
-    //Approve reject taskSection
-    @FindBy(xpath = ".//button[contains(text(), 'Approve')]")
-    WebElement approveNewAccount;
-    @FindBy(xpath = ".//button[.='Accept Registration']")
-    WebElement acceptRegistration;
-    @FindBy(xpath = ".//button[.='Accept Registration']//following::button[1]") //Stupid to have 2 buttons called Reject on same page
-    WebElement rejectRegistration;
-    @FindBy(xpath = ".//button[.='Approve']")
-    WebElement approveTask;
-    @FindBy(xpath = ".//button[.='Approve']//following::button[1]")
-    WebElement rejectTask;
 
     //Rejection reason
     @FindBy(xpath = ".//*[.='Reasons']//following::input[1]")
@@ -91,38 +73,52 @@ public class TaskSection extends _Page {
     WebElement reasonNonQualifyingParty;
     @FindBy(xpath = ".//*[.='Reasons']//following::input[5]")
     WebElement other;
+    @FindBy(css = ".aui-TextAreaInput")
+    WebElement commentArea;
 
-    //Letter of designation
+    //Attachments : Letter of designation
     @FindBy(xpath = ".//div[contains(text(),'Uploaded date')]//following::tr/td[6]")
     WebElement letterOfDesignationStatus;
 
-    @FindBy(css = ".aui-TextAreaInput")
-    WebElement commentArea;
+    //List of Table data : GMDN for device types in the task
     @FindBy(xpath = ".//div[contains(text(),'Risk classification')]//following::tr/td[3]")
     List<WebElement> listOfGMDNDefinitions;
     @FindBy(xpath = ".//div[contains(text(),'Intended use')]//following::td[3]")
     List<WebElement> listOfGMDNDefinitionsForSSP;
-    @FindBy(css = "div.aui-DataGrid-Table> table > tbody > tr")
-    List<WebElement> listOfWIPTableRows;
 
+    //WIP tasks rows
+    @FindBy(css = "div > table > tbody > tr")
+    List<WebElement> listOfWIPTableRows;
     @FindBy(xpath = ".//div[contains(text(),'Submitted')]")
-    WebElement submitted;
+    WebElement thSubmitted;
     @FindBy(xpath = ".//button[.='Submit']")
     WebElement submitBtn;
 
     //New filter section introduced in sprint 13
     @FindBy(xpath = ".//*[.='Organisation']/following::input[1]")
     WebElement orgName;
-    @FindBy(xpath = ".//*[.='Task type']//following::select[1]")
+    @FindBy(xpath = ".//*[.='Task type']//following::div[1]")
     WebElement taskTypeDD;
-
-    //Table data generic
-    @FindBy(xpath = ".//th[contains(text(), 'GMDN definition')]//following::tr/td[3]")
-    List<WebElement> listOfGMDNs;
 
     //Active Implantable MD table
     @FindBy(xpath = ".//h3[contains(text(), 'Active Implant')]//following::tr/td[8]")
     List<WebElement> listOfDeviceLabelAIMD;
+
+    //Accept Approve reject taskSection
+    @FindBy(xpath = ".//button[contains(text(), 'Accept')]")
+    WebElement accept;
+    @FindBy(xpath = ".//button[.='Go Back']")
+    WebElement goBack;
+    @FindBy(xpath = ".//button[contains(text(), 'Approve')]")
+    WebElement approveNewAccount;
+    @FindBy(xpath = ".//button[.='Accept Registration']")
+    WebElement acceptRegistration;
+    @FindBy(xpath = ".//button[.='Accept Registration']//following::button[1]") //Stupid to have 2 buttons called Reject on same page
+    WebElement rejectRegistration;
+    @FindBy(xpath = ".//button[.='Approve']")
+    WebElement approveTask;
+    @FindBy(xpath = ".//button[.='Approve']//following::button[1]")
+    WebElement rejectTask;
 
 
     @Autowired
@@ -137,7 +133,7 @@ public class TaskSection extends _Page {
 
         try {
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-            WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//button[contains(text(), 'Reassign')]") , TIMEOUT_5_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//button[contains(text(), 'Reassign')]"), TIMEOUT_5_SECOND, false);
             WaitUtils.waitForElementToBeVisible(driver, taskHeading, TIMEOUT_10_SECOND, false);
             boolean contains = taskHeading.getText().contains(orgName);
             return contains;
@@ -246,10 +242,10 @@ public class TaskSection extends _Page {
 
     public TaskSection sortBy(String sortBy, int numberOfTimesToClick) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, submitted, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, thSubmitted, TIMEOUT_5_SECOND, false);
         if (sortBy.equals("Submitted")) {
             for (int c = 0; c < numberOfTimesToClick; c++) {
-                submitted.click();
+                thSubmitted.click();
                 WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
                 WaitUtils.nativeWaitInSeconds(2);
             }
@@ -407,14 +403,15 @@ public class TaskSection extends _Page {
     }
 
     public TaskSection filterWIPTasksBy(String filterBy, String txtOrgName, String other) {
-        if(filterBy.contains("orgName")){
+        if (filterBy.contains("orgName")) {
             orgName.sendKeys(txtOrgName);
-        }else if(filterBy.contains("taskType")){
+        } else if (filterBy.contains("taskType")) {
             String value = "Update Manufacturer Registration Request";
-            if(value.contains("New Manufacturer")){
+            if (value.contains("New Manufacturer")) {
                 value = "New Manufacturer Registration Request";
             }
-            PageUtils.selectByText(taskTypeDD, value);
+            //PageUtils.selectByText(taskTypeDD, value);
+            PageUtils.selectFromDropDown(driver, taskTypeDD, value, true);
         }
         return new TaskSection(driver);
     }
@@ -423,7 +420,7 @@ public class TaskSection extends _Page {
     List<WebElement> listOfTableColumns;
 
     public List<String> isTableColumnCorrect(String[] columns) {
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th") , TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th"), TIMEOUT_DEFAULT, false);
         List<String> columnsNotFound = PageUtils.areTheColumnsCorrect(columns, listOfTableColumns);
         return columnsNotFound;
     }
@@ -447,16 +444,16 @@ public class TaskSection extends _Page {
 
         String products = "";
 
-        if(deviceType.toLowerCase().contains("active implantable")) {
+        if (deviceType.toLowerCase().contains("active implantable")) {
             for (WebElement el : listOfDeviceLabelAIMD) {
                 products = products + el.getText() + ",";
             }
         }
 
         //Check all products displayed
-        for(String product: listOfProducts){
+        for (String product : listOfProducts) {
             allProductsFound = products.contains(product);
-            if(!allProductsFound){
+            if (!allProductsFound) {
                 break;
             }
         }

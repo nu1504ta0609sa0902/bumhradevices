@@ -20,23 +20,17 @@ import java.util.List;
 public class AllDevices extends _Page {
 
     @FindBy(xpath = ".//table//th")
-    List<WebElement> listOfTableColumns;
+    List<WebElement> listOfTableHeadings;
     @FindBy(xpath = ".//h1[.='All Devices']//following::tr")
     List<WebElement> listOfAllDevices;
     @FindBy(xpath = ".//td[2]")
     List<WebElement> listOfGmdnCode;
-    @FindBy(xpath = ".//td[3]")
-    List<WebElement> listOfGmdnTerms;
     @FindBy(xpath = ".//*[.='GMDN term']//following::tr//td[1]")
     List<WebElement> listOfDeviceTypes;
 
     //List of manufacturers using gmdn code
     @FindBy(xpath = ".//td[3]")
     List<WebElement> listOfOrganisationNames;
-    @FindBy(xpath = ".//td[3]")
-    List<WebElement> listOfAuthorisedReps;
-    @FindBy(xpath = ".//td[3]")
-    List<WebElement> listOfCountries;
 
     //Search box
     @FindBy(xpath = ".//*[contains(@class, 'filter')]//following::input[1]")
@@ -106,7 +100,7 @@ public class AllDevices extends _Page {
 
     public List<String> isTableColumnCorrect(String[] columns) {
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th") , TIMEOUT_DEFAULT, false);
-        List<String> columnsNotFound = PageUtils.areTheColumnsCorrect(columns, listOfTableColumns);
+        List<String> columnsNotFound = PageUtils.areTheColumnsCorrect(columns, listOfTableHeadings);
         return columnsNotFound;
     }
 
@@ -135,7 +129,7 @@ public class AllDevices extends _Page {
 
     public boolean isListOfManufacturersUsingDeviceTableColumnCorrect(String[] columns) {
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th") , TIMEOUT_DEFAULT, false);
-        List<String> columnsNotFound = PageUtils.areTheColumnsCorrect(columns, listOfTableColumns);
+        List<String> columnsNotFound = PageUtils.areTheColumnsCorrect(columns, listOfTableHeadings);
         return columnsNotFound.size() == 0;
     }
 

@@ -20,22 +20,17 @@ import java.util.List;
 @Component
 public class EditAccount extends _Page {
 
-    @FindBy(xpath = ".//h2[.='Status']//following::a")
-    List<WebElement> listOfAccounts;
-    @FindBy(xpath = ".//table//th")
-    List<WebElement> listOfTableColumns;
-
     @FindBy(xpath = ".//label[contains(text(),'Organisation name')]//following::input[1]")
     WebElement orgName;
 
     //PARD options
-    @FindBy(xpath = ".//*[contains(text(),'Organisation name')]//following::input[@type='radio'][1]")
+    @FindBy(xpath = ".//*[contains(text(),'Organisation name')]//following::label[1]")
     WebElement pardNameOptIn;
-    @FindBy(xpath = ".//*[contains(text(),'Organisation name')]//following::input[@type='radio'][2]")
+    @FindBy(xpath = ".//*[contains(text(),'Organisation name')]//following::label[2]")
     WebElement pardNameOptOut;
-    @FindBy(xpath = ".//*[contains(text(),'Website')]//following::input[@type='radio'][1]")
+    @FindBy(xpath = ".//*[contains(text(),'Website')]//following::label[1]")
     WebElement pardAddressOptIn;
-    @FindBy(xpath = ".//*[contains(text(),'Website')]//following::input[@type='radio'][2]")
+    @FindBy(xpath = ".//*[contains(text(),'Website')]//following::label[2]")
     WebElement pardAddressOptOut;
 
     //ORGANISATION ROLES
@@ -45,13 +40,13 @@ public class EditAccount extends _Page {
     WebElement roleManufacturer;
 
     //ORGANISATION DETAILS
-    @FindBy(xpath = ".//h2[contains(text(),'Organisation details')]//following::input[1]")
+    @FindBy(xpath = ".//label[contains(text(),'line 1')]//following::input[1]")
     WebElement orgAddressLine1;
-    @FindBy(xpath = ".//h2[contains(text(),'Organisation details')]//following::input[2]")
+    @FindBy(xpath = ".//label[contains(text(),'line 2')]//following::input[2]")
     WebElement orgAddressLine2;
-    @FindBy(xpath = ".//h2[contains(text(),'Organisation details')]//following::input[3]")
+    @FindBy(xpath = ".//label[contains(text(),'City')]//following::input[3]")
     WebElement orgCityTown;
-    @FindBy(xpath = ".//h2[contains(text(),'Organisation details')]//following::input[4]")
+    @FindBy(xpath = ".//label[contains(text(),'Postcode')]//following::input[4]")
     WebElement orgPostCode;
     @FindBy(xpath = ".//span[contains(text(),'Address type')]//following::label[1]")
     WebElement addressType;
@@ -61,7 +56,7 @@ public class EditAccount extends _Page {
     WebElement orgFax;
     @FindBy(xpath = ".//label[contains(text(),'Website')]//following::input[1]")
     WebElement webSite;
-    @FindBy(xpath = ".//h2[contains(text(),'Organisation details')]//following::input[5]")
+    @FindBy(xpath = ".//span[contains(text(),'Country')]//following::span[1]")
     WebElement orgCountry;
 
     //CONTACT PERSON DETAILS

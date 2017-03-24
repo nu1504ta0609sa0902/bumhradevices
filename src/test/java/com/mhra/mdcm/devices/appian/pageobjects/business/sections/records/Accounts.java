@@ -37,14 +37,10 @@ public class Accounts extends _Page {
     //Search box and filters
     @FindBy(xpath = ".//*[contains(@class, 'filter')]//following::input[1]")
     WebElement searchBox;
-    @FindBy(css = ".selected")
-    List<WebElement> listOfFilters;
     @FindBy(xpath = ".//span[@class='DropdownWidget---inline_label']")
     List<WebElement> listOfDropDownFilters;
     @FindBy(linkText = "Clear Filters")
     WebElement clearFilters;
-    @FindBy(linkText = "Follow")
-    WebElement followBtn;
 
 
     @Autowired
@@ -148,7 +144,7 @@ public class Accounts extends _Page {
 
     public boolean isCorrectPage() {
         try {
-            WaitUtils.waitForElementToBeClickable(driver, followBtn, TIMEOUT_5_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h1[.='Accounts']"), TIMEOUT_5_SECOND, false);
             return true;
         } catch (Exception e) {
             return false;
