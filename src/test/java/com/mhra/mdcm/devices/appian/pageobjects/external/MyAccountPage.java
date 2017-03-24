@@ -2,8 +2,8 @@ package com.mhra.mdcm.devices.appian.pageobjects.external;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
-import com.mhra.mdcm.devices.appian.pageobjects.external.sections.myaccount.OrganisationDetails;
-import com.mhra.mdcm.devices.appian.pageobjects.external.sections.myaccount.ContactPersonDetails;
+import com.mhra.mdcm.devices.appian.pageobjects.external.myaccount.OrganisationDetails;
+import com.mhra.mdcm.devices.appian.pageobjects.external.myaccount.ContactPersonDetails;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.WebDriver;

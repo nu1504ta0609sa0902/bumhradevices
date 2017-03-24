@@ -1,4 +1,4 @@
-package com.mhra.mdcm.devices.appian.pageobjects.external.sections.manufacturer;
+package com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer;
 
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.external.sections.CreateManufacturerTestsData;

@@ -4,7 +4,7 @@ import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerOrganisation
 
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.business.ActionsTabPage;
-import com.mhra.mdcm.devices.appian.pageobjects.external.sections.device.AddDevices;
+import com.mhra.mdcm.devices.appian.pageobjects.external.device.AddDevices;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;

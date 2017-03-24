@@ -1,11 +1,11 @@
-package com.mhra.mdcm.devices.appian.pageobjects.external.sections.manufacturer;
+package com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
-import com.mhra.mdcm.devices.appian.pageobjects.external.sections.device.AddDevices;
-import com.mhra.mdcm.devices.appian.pageobjects.external.sections.device.DeviceDetails;
-import com.mhra.mdcm.devices.appian.pageobjects.external.sections.device.ProductDetails;
+import com.mhra.mdcm.devices.appian.pageobjects.external.device.AddDevices;
+import com.mhra.mdcm.devices.appian.pageobjects.external.device.DeviceDetails;
+import com.mhra.mdcm.devices.appian.pageobjects.external.device.ProductDetails;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;

@@ -1,4 +1,4 @@
-package com.mhra.mdcm.devices.appian.pageobjects.external.sections.manufacturer;
+package com.mhra.mdcm.devices.appian.pageobjects.external.myaccount;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
@@ -18,8 +18,7 @@ import java.util.List;
  * Created by TPD_Auto
  */
 @Component
-public class ManufacturerEditDetails extends _Page {
-
+public class OrganisationDetails extends _Page {
 
     //ORGANISATION DETAILS
     @FindBy(xpath = ".//label[.='Organisation name']//following::input[1]")
@@ -32,53 +31,43 @@ public class ManufacturerEditDetails extends _Page {
     WebElement orgCityTown;
     @FindBy(xpath = ".//label[.='Postcode']//following::input[1]")
     WebElement orgPostCode;
+    @FindBy(css = ".GFWJSJ4DEY.GFWJSJ4DIY>div")
+    WebElement orgCountry;
     @FindBy(xpath = ".//label[contains(text(),'Telephone')]//following::input[1]")
     WebElement orgTelephone;
     @FindBy(xpath = ".//label[contains(text(),'Website')]//following::input[1]")
     WebElement webSite;
+
     @FindBy(xpath = ".//span[contains(text(),'Address type')]//following::p[1]")
     WebElement addressType;
 
-    //Contact details
-    @FindBy(xpath = ".//span[contains(text(),'Title')]//following::div[@role='listbox']")
-    WebElement title;
-    @FindBy(xpath = ".//label[.='First name']//following::input[1]")
-    WebElement firstName;
-    @FindBy(xpath = ".//label[.='Last name']//following::input[1]")
-    WebElement lastName;
-    @FindBy(xpath = ".//label[contains(text(),'Job title')]//following::input[1]")
-    WebElement jobTitle;
-    @FindBy(xpath = ".//label[.='Email']//following::input[1]")
-    WebElement email;
-    @FindBy(xpath = ".//label[.='Email']//following::input[2]")
-    WebElement telephone;
-
-    //Error message
     @FindBy(css = ".component_error")
     List <WebElement> errorMessages;
 
-    //Submit or cancel button
     @FindBy(xpath = ".//button[.='Yes']")
     WebElement confirmYes;
     @FindBy(xpath = ".//button[.='No']")
     WebElement confirmNo;
-    @FindBy(xpath = ".//button[contains(text(),'Save')]")
-    List<WebElement> save;
-    @FindBy(xpath = ".//button[contains(text(),'Submit')]")
-    WebElement submitBtn;
-    @FindBy(xpath = ".//button[contains(text(),'Cancel')]")
-    WebElement cancel;
 
+    @FindBy(xpath = ".//button[contains(text(),'Save')]")
+    List<WebElement> saveYes;
+    @FindBy(xpath = ".//button[contains(text(),'Cancel')]")
+    WebElement saveNo;
+
+    //Submit or cancel button
+    @FindBy(css = "button.GFWJSJ4DCF")
+    WebElement submitBtn;
+    @FindBy(css = ".GFWJSJ4DFXC.left button.GFWJSJ4DNE")
+    WebElement cancelBtn;
 
     @Autowired
-    public ManufacturerEditDetails(WebDriver driver) {
+    public OrganisationDetails(WebDriver driver) {
         super(driver);
     }
 
+    public OrganisationDetails updateFollowingFields(String keyValuePairToUpdate, AccountRequest updatedData) {
 
-    public ManufacturerEditDetails updateFollowingFields(String keyValuePairToUpdate, AccountRequest updatedData) {
-
-        WaitUtils.waitForElementToBeClickable(driver, submitBtn, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_5_SECOND, false);
         String[] dataPairs = keyValuePairToUpdate.split(",");
 
         for (String pairs : dataPairs) {
@@ -86,7 +75,6 @@ public class ManufacturerEditDetails extends _Page {
             String key = pairs;
             boolean orgNameUpdated = false;
 
-            //Organisation details
             if (key.equals("org.name")) {
                 PageUtils.updateElementValue(driver, orgName, updatedData.organisationName, TIMEOUT_5_SECOND);
                 orgNameUpdated = true;
@@ -110,26 +98,11 @@ public class ManufacturerEditDetails extends _Page {
                 if(orgNameUpdated)
                 PageUtils.updateElementValue(driver, webSite, updatedData.website, TIMEOUT_5_SECOND);
             }
-
-            //Contact details
-            if (key.equals("contact.title")) {
-                PageUtils.selectFromDropDown(driver, title, updatedData.title, false);
-            }else if (key.equals("contact.firstname")) {
-                PageUtils.updateElementValue(driver, firstName, updatedData.firstName, TIMEOUT_5_SECOND);
-            } else if (key.equals("contact.lastname")) {
-                PageUtils.updateElementValue(driver, lastName, updatedData.lastName, TIMEOUT_5_SECOND);
-            } else if (key.equals("contact.job.title")) {
-                PageUtils.updateElementValue(driver, jobTitle, updatedData.jobTitle, TIMEOUT_5_SECOND);
-            } else if (key.equals("contact.email")) {
-                PageUtils.updateElementValue(driver, email, updatedData.email, TIMEOUT_5_SECOND);
-            } else if (key.equals("contact.telephone")) {
-                PageUtils.updateElementValue(driver, telephone, updatedData.telephone, TIMEOUT_5_SECOND);
-            }
         }
 
         PageUtils.doubleClick(driver, submitBtn);
 
-        return new ManufacturerEditDetails(driver);
+        return new OrganisationDetails(driver);
     }
 
 
@@ -143,13 +116,22 @@ public class ManufacturerEditDetails extends _Page {
         }
     }
 
+    public OrganisationDetails confirmChanges(boolean confirm) {
+        WaitUtils.waitForElementToBeClickable(driver, confirmYes, TIMEOUT_DEFAULT, false);
+        if(confirm){
+            confirmYes.click();
+        }else{
+            confirmNo.click();
+        }
+        return new OrganisationDetails(driver);
+    }
 
     public MyAccountPage saveChanges(boolean saveChanges) {
-        WaitUtils.waitForElementToBeClickable(driver, cancel, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, saveNo, TIMEOUT_DEFAULT, false);
         if(saveChanges){
-            save.get(1).click();
+            saveYes.get(1).click();
         }else{
-            cancel.click();
+            saveNo.click();
         }
         return new MyAccountPage(driver);
     }
@@ -166,16 +148,4 @@ public class ManufacturerEditDetails extends _Page {
         }
         return isEditable;
     }
-
-
-    public ManufacturerViewDetails confirmChanges(boolean confirm) {
-        WaitUtils.waitForElementToBeClickable(driver, confirmYes, TIMEOUT_DEFAULT, false);
-        if(confirm){
-            confirmYes.click();
-        }else{
-            confirmNo.click();
-        }
-        return new ManufacturerViewDetails(driver);
-    }
-
 }
