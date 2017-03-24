@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class MainNavigationBar extends _Page {
 
+    //Business
     @FindBy(partialLinkText = "News")
     WebElement news;
     @FindBy(partialLinkText = "Tasks")
@@ -30,14 +31,11 @@ public class MainNavigationBar extends _Page {
     @FindBy(partialLinkText = "Actions")
     WebElement actions;
 
-
-    @FindBy(partialLinkText = "HOME")
+    //Manufacturers and authorisedRep
+    @FindBy(partialLinkText = "Home")
     WebElement linkHOME;
-    @FindBy(partialLinkText = "MY ACCOUNT")
+    @FindBy(partialLinkText = "My Account")
     WebElement linkMyAccount;
-
-    @FindBy(css = ".appian-menu-item.appian-menu-item-selected")
-    WebElement currentSelection;
 
 
     @Autowired
@@ -81,12 +79,6 @@ public class MainNavigationBar extends _Page {
         reports.click();
         PageUtils.doubleClick(driver, reports);
         return new ReportsTabPage(driver);
-    }
-
-    public String getCurrentSelectedMenu() {
-        WaitUtils.waitForElementToBeClickable(driver, currentSelection, TIMEOUT_DEFAULT, false);
-        String selectedMenu = currentSelection.getText();
-        return selectedMenu;
     }
 
     public ActionsTabPage clickActions() {

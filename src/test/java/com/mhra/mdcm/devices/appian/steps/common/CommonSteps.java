@@ -8,6 +8,14 @@ import com.mhra.mdcm.devices.appian.pageobjects.business.sections.records.*;
 import com.mhra.mdcm.devices.appian.pageobjects.external.MyAccountPage;
 import com.mhra.mdcm.devices.appian.pageobjects.external.ExternalHomePage;
 import com.mhra.mdcm.devices.appian.pageobjects.external.sections.*;
+import com.mhra.mdcm.devices.appian.pageobjects.external.sections.device.AddDevices;
+import com.mhra.mdcm.devices.appian.pageobjects.external.sections.device.DeviceDetails;
+import com.mhra.mdcm.devices.appian.pageobjects.external.sections.device.ProductDetails;
+import com.mhra.mdcm.devices.appian.pageobjects.external.sections.manufacturer.ManufacturerEditDetails;
+import com.mhra.mdcm.devices.appian.pageobjects.external.sections.manufacturer.ManufacturerList;
+import com.mhra.mdcm.devices.appian.pageobjects.external.sections.manufacturer.ManufacturerViewDetails;
+import com.mhra.mdcm.devices.appian.pageobjects.external.sections.myaccount.ContactPersonDetails;
+import com.mhra.mdcm.devices.appian.pageobjects.external.sections.myaccount.OrganisationDetails;
 import com.mhra.mdcm.devices.appian.session.ScenarioSession;
 
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
@@ -98,9 +106,9 @@ public class CommonSteps {
 
     //SECTIONS
     @Autowired
-    public PersonDetails amendPersonDetails;
+    public ContactPersonDetails amendPersonDetails;
     @Autowired
-    public ManufacturerDetails manufacturerDetails;
+    public ManufacturerViewDetails manufacturerDetails;
     @Autowired
     public CreateManufacturerTestsData createNewManufacturer;
     @Autowired
@@ -110,7 +118,7 @@ public class CommonSteps {
     @Autowired
     public ManufacturerList manufacturerList;
     @Autowired
-    public EditManufacturer editManufacturer;
+    public ManufacturerEditDetails editManufacturer;
     @Autowired
     public ProductDetails productDetail;
     @Autowired

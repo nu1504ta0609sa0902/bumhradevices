@@ -1,7 +1,6 @@
-package com.mhra.mdcm.devices.appian.pageobjects.external.sections;
+package com.mhra.mdcm.devices.appian.pageobjects.external.sections.myaccount;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
-import com.mhra.mdcm.devices.appian.domains.newaccounts.others.MyAccount;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.external.MyAccountPage;
 
@@ -11,7 +10,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +19,7 @@ import java.util.List;
  * Created by TPD_Auto
  */
 @Component
-public class PersonDetails extends _Page {
+public class ContactPersonDetails extends _Page {
 
     @FindBy(xpath = ".//span[contains(text(),'Title')]//following::select[1]")
     WebElement title;
@@ -55,12 +53,12 @@ public class PersonDetails extends _Page {
     List <WebElement> errorMessages;
 
     @Autowired
-    public PersonDetails(WebDriver driver) {
+    public ContactPersonDetails(WebDriver driver) {
         super(driver);
     }
 
 
-    public PersonDetails updateFollowingFields(String keyValuePairToUpdate, AccountRequest updatedData) {
+    public ContactPersonDetails updateFollowingFields(String keyValuePairToUpdate, AccountRequest updatedData) {
         WaitUtils.waitForElementToBeClickable(driver, submitBtn, TIMEOUT_DEFAULT, false);
 
         String[] dataPairs = keyValuePairToUpdate.split(",");
@@ -87,18 +85,18 @@ public class PersonDetails extends _Page {
 
         PageUtils.doubleClick(driver, submitBtn);
 
-        return new PersonDetails(driver);
+        return new ContactPersonDetails(driver);
     }
 
 
-    public PersonDetails confirmChangesRelateToOrganisation(boolean confirm) {
+    public ContactPersonDetails confirmChangesRelateToOrganisation(boolean confirm) {
         WaitUtils.waitForElementToBeClickable(driver, confirmYes, TIMEOUT_DEFAULT, false);
         if(confirm){
             confirmYes.click();
         }else{
             confirmNo.click();
         }
-        return new PersonDetails(driver);
+        return new ContactPersonDetails(driver);
     }
 
     public MyAccountPage saveChanges(boolean saveChanges) {

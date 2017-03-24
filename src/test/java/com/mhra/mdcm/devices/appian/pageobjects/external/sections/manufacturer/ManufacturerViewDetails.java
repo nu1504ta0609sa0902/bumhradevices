@@ -1,8 +1,11 @@
-package com.mhra.mdcm.devices.appian.pageobjects.external.sections;
+package com.mhra.mdcm.devices.appian.pageobjects.external.sections.manufacturer;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
+import com.mhra.mdcm.devices.appian.pageobjects.external.sections.device.AddDevices;
+import com.mhra.mdcm.devices.appian.pageobjects.external.sections.device.DeviceDetails;
+import com.mhra.mdcm.devices.appian.pageobjects.external.sections.device.ProductDetails;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
@@ -18,11 +21,12 @@ import java.util.List;
  * Created by TPD_Auto
  */
 @Component
-public class ManufacturerDetails extends _Page {
+public class ManufacturerViewDetails extends _Page {
 
     @FindBy(css = ".component_error")
     List <WebElement> errorMessages;
 
+    //Buttons for adding, editing devices
     @FindBy(xpath = ".//button[contains(text(),'Add a device')]")
     WebElement addADevice;
     @FindBy(xpath = ".//button[contains(text(),'Declare devices')]")
@@ -31,7 +35,6 @@ public class ManufacturerDetails extends _Page {
     WebElement amendRepresentativeParty;
     @FindBy(xpath = ".//button[contains(text(),'Edit Account Information')]")
     WebElement editAccountInformation;
-
 
     //Contact details
     @FindBy(xpath = ".//span[contains(text(),'Full')]//following::p[1]")
@@ -72,7 +75,7 @@ public class ManufacturerDetails extends _Page {
     WebElement devicesAndProductDetails;
 
     @Autowired
-    public ManufacturerDetails(WebDriver driver) {
+    public ManufacturerViewDetails(WebDriver driver) {
         super(driver);
     }
 
@@ -109,11 +112,11 @@ public class ManufacturerDetails extends _Page {
     }
 
 
-    public EditManufacturer amendRepresentedParty() {
+    public ManufacturerEditDetails amendRepresentedParty() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, amendRepresentativeParty, TIMEOUT_10_SECOND, false);
         amendRepresentativeParty.click();
-        return new EditManufacturer(driver);
+        return new ManufacturerEditDetails(driver);
     }
 
     public boolean isCorrectPage() {
@@ -186,10 +189,10 @@ public class ManufacturerDetails extends _Page {
         return allChangesDisplayed;
     }
 
-    public EditManufacturer editAccountInformation() {
+    public ManufacturerEditDetails editAccountInformation() {
         WaitUtils.waitForElementToBeClickable(driver, editAccountInformation, TIMEOUT_10_SECOND, false);
         editAccountInformation.click();
-        return new EditManufacturer(driver);
+        return new ManufacturerEditDetails(driver);
     }
 
     public ProductDetails viewProduct(DeviceData deviceData) {

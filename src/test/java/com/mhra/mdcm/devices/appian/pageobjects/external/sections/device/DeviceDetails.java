@@ -1,4 +1,4 @@
-package com.mhra.mdcm.devices.appian.pageobjects.external.sections;
+package com.mhra.mdcm.devices.appian.pageobjects.external.sections.device;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerOrganisationRequest;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
@@ -17,23 +17,25 @@ import java.util.List;
 
 /**
  * Created by TPD_Auto
+ *
+ * When viewing devices added to a specific manufacturer
  */
 @Component
 public class DeviceDetails extends _Page {
 
 
     //All GMDN definition table data
-    @FindBy(xpath = ".//a[.='Risk classification']//following::td[2]")
+    @FindBy(xpath = ".//*[contains(text(),'Risk classification')]//following::tr/td[2]")
     List<WebElement> listOfGMDNDefinitions;
 
-    //Table headers
-    @FindBy(xpath = ".//h6[contains(text(),'General Medical')]//following::th/a")
+    //Table headers for each device types
+    @FindBy(xpath = ".//h5[contains(text(),'General Medical')]//following::thead[1]/tr/th")
     List<WebElement> listOfGeneralMedicalDeviceTableHeadings;
-    @FindBy(xpath = ".//h6[contains(text(),'Vitro')]//following::th/a")
+    @FindBy(xpath = ".//h5[contains(text(),'Vitro')]//following::thead[1]/tr/th")
     List<WebElement> listOfVitroDiagnosticsDeviceTableHeadings;
-    @FindBy(xpath = ".//h6[contains(text(),'Active Implantable')]//following::th/a")
+    @FindBy(xpath = ".//h5[contains(text(),'Active Implantable')]//following::thead[1]/tr/th")
     List<WebElement> listOfActiveImplantableDeviceTableHeadings;
-    @FindBy(xpath = ".//h6[contains(text(),'Procedure Pack')]//following::th/a")
+    @FindBy(xpath = ".//h5[contains(text(),'Procedure Pack')]//following::thead[1]/tr/th")
     List<WebElement> listOfSystemProcedurePackDeviceTableHeadings;
 
     @Autowired

@@ -1,7 +1,7 @@
-package com.mhra.mdcm.devices.appian.pageobjects.external.sections;
+package com.mhra.mdcm.devices.appian.pageobjects.external.sections.manufacturer;
 
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
-import com.mhra.mdcm.devices.appian.pageobjects.external.ExternalHomePage;
+import com.mhra.mdcm.devices.appian.pageobjects.external.sections.CreateManufacturerTestsData;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
@@ -12,7 +12,6 @@ import org.openqa.selenium.support.FindBy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,6 +20,7 @@ import java.util.List;
 @Component
 public class ManufacturerList extends _Page {
 
+    //Register new manufacturer buttons
     @FindBy(xpath = ".//button[contains(text(), 'Register new manufacturer')]")
     WebElement linkRegisterNewManufacturer;
     @FindBy(xpath = ".//button[.='Register My Organisation']")
@@ -32,25 +32,25 @@ public class ManufacturerList extends _Page {
     @FindBy(xpath = ".//h2[contains(text(),'Manufacturer')]//following::tbody[1]/tr/td[4]")
     List<WebElement> listOfManufacturerStatuses;
     @FindBy(xpath = ".//h2[contains(text(),'Manufacturer')]//following::tbody[1]/tr")
-    List<WebElement> listOfTableRows;
-    @FindBy(xpath = ".//*[contains(text(), 'registration status')]")
-    WebElement manufacturerRegistrationStatus;
+    List<WebElement> listOfManufacturerRows;
+    @FindBy(xpath = ".//*[contains(text(), 'egistration status')]")
+    WebElement thManufacturerRegistrationStatus;
 
     //Registration in progress table
     @FindBy(xpath = ".//h2[contains(text(),'Registration')]//following::tbody[1]/tr/td[3]")
     List<WebElement> listOfManufacturerNamesInProgress;
 
-
-    @FindBy(css = ".GFWJSJ4DFDC div")
+    //
+    @FindBy(css = ".GridWidget---count")
     WebElement itemCount;
-    @FindBy(css = ".gwt-Image[aria-label='Next page']")
+    @FindBy(css = "[aria-label='Next page']")
     WebElement nextPage;
-    @FindBy(css = ".gwt-Image[aria-label='Previous page']")
+    @FindBy(css = "[aria-label='Previous page']")
     WebElement prevPage;
-    @FindBy(css = ".gwt-Image[aria-label='Last page']")
+    @FindBy(css = "[aria-label='Last page']")
     WebElement lastPage;
 
-    @FindBy(xpath = ".//th/div")
+    @FindBy(xpath = ".//tr/th")
     List<WebElement> listOfTableHeadings;
 
     @Autowired
@@ -59,7 +59,7 @@ public class ManufacturerList extends _Page {
     }
 
 
-    public ManufacturerDetails viewAManufacturer(String manufacturerName) {
+    public ManufacturerViewDetails viewAManufacturer(String manufacturerName) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         if(manufacturerName == null){
             //Than view a random one
@@ -71,7 +71,7 @@ public class ManufacturerList extends _Page {
             WebElement man = driver.findElement(By.partialLinkText(manufacturerName));
             man.click();
         }
-        return new ManufacturerDetails(driver);
+        return new ManufacturerViewDetails(driver);
     }
 
     public String getARandomManufacturerName() {
@@ -180,7 +180,7 @@ public class ManufacturerList extends _Page {
 
     public String getRegistrationStatus(String name) {
         String registered = "";
-        for(WebElement tr: listOfTableRows){
+        for(WebElement tr: listOfManufacturerRows){
             try {
                 //WebElement link = tr.findElement(By.partialLinkText(name));
                 registered = tr.findElement(By.xpath("td[4]")).getText();
@@ -196,11 +196,11 @@ public class ManufacturerList extends _Page {
 
 
     public ManufacturerList sortBy(String sortBy, int numberOfTimesToClick) {
-        WaitUtils.waitForElementToBeClickable(driver, manufacturerRegistrationStatus, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, thManufacturerRegistrationStatus, TIMEOUT_DEFAULT, false);
         if(sortBy.equals("Registration Status")){
             for(int c = 0; c < numberOfTimesToClick; c++) {
-                manufacturerRegistrationStatus.click();
-                WaitUtils.waitForElementToBeClickable(driver, manufacturerRegistrationStatus, TIMEOUT_DEFAULT, false);
+                thManufacturerRegistrationStatus.click();
+                WaitUtils.waitForElementToBeClickable(driver, thManufacturerRegistrationStatus, TIMEOUT_DEFAULT, false);
             }
         }
 
@@ -209,7 +209,7 @@ public class ManufacturerList extends _Page {
 
     public String getOrganisationCountry(String name) {
         String country = "";
-        for(WebElement tr: listOfTableRows){
+        for(WebElement tr: listOfManufacturerRows){
             try {
                 //WebElement link = tr.findElement(By.partialLinkText(name));
                 country = tr.findElement(By.xpath("td[3]")).getText();

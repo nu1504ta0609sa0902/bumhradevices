@@ -1,4 +1,4 @@
-package com.mhra.mdcm.devices.appian.pageobjects.external.sections;
+package com.mhra.mdcm.devices.appian.pageobjects.external.sections.device;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
@@ -20,6 +20,8 @@ import java.util.List;
 
 /**
  * Created by TPD_Auto
+ *
+ * When viewing products related to added devices
  */
 @Component
 public class ProductDetails extends _Page {

@@ -1,12 +1,7 @@
 package com.mhra.mdcm.devices.appian.pageobjects.external;
 
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
-import com.mhra.mdcm.devices.appian.pageobjects.external.sections.AddDevices;
-import com.mhra.mdcm.devices.appian.pageobjects.external.sections.CreateManufacturerTestsData;
-import com.mhra.mdcm.devices.appian.pageobjects.external.sections.ManufacturerDetails;
-import com.mhra.mdcm.devices.appian.pageobjects.external.sections.ManufacturerList;
-import com.mhra.mdcm.devices.appian.utils.selenium.others.FileUtils;
-import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
+import com.mhra.mdcm.devices.appian.pageobjects.external.sections.manufacturer.ManufacturerList;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.CommonUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
@@ -17,9 +12,7 @@ import org.openqa.selenium.support.FindBy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
 import java.util.List;
-import java.util.Properties;
 
 /**
  * Created by TPD_Auto
@@ -35,9 +28,6 @@ public class ExternalHomePage extends _Page {
 
     @FindBy(xpath = ".//*[contains(text(),'ype of device')]//following::label[1]")
     WebElement generalMedicalDevice;
-
-    @FindBy(css=".CheckboxGroup---choice_pair>label")
-    List<WebElement> listOfDeviceTypes;
 
     @FindBy(css = ".GFWJSJ4DFE.GFWJSJ4DNE.GFWJSJ4DPE")
     WebElement btnBackButton;

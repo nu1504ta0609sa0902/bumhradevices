@@ -3,7 +3,7 @@ package com.mhra.mdcm.devices.appian.steps.d1.external;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerOrganisationRequest;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
-import com.mhra.mdcm.devices.appian.pageobjects.external.sections.AddDevices;
+import com.mhra.mdcm.devices.appian.pageobjects.external.sections.device.AddDevices;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
@@ -412,6 +412,10 @@ public class ExternalHomePageSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.organisationRegistered, actualStatus);
     }
 
+    /**
+     * NO LONGER NEED : WE HAVE DEVICE INJECTION CODE AS PART OF THE SMOKE TESTS DATA CREATION TOOL
+     * @throws Throwable
+     */
     @And("^Provide indication of devices made$")
     public void provideIndicationOfDevicesMade() throws Throwable {
         WaitUtils.nativeWaitInSeconds(7);
@@ -631,6 +635,11 @@ public class ExternalHomePageSteps extends CommonSteps {
     }
 
 
+    /**
+     * WHY IS THIS IN THE HOME PAGE
+     * @param message
+     * @throws Throwable
+     */
     @Then("^I should see error message \"([^\"]*)\" in instead of list of manufacturers$")
     public void i_should_see_error_message_in_instead_of_list_of_manufacturers(String message) throws Throwable {
         boolean isDisplayed = externalHomePage.isErrorMessageDsiplayed(message);

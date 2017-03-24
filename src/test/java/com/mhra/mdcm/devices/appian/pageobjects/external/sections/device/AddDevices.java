@@ -1,8 +1,8 @@
-package com.mhra.mdcm.devices.appian.pageobjects.external.sections;
+package com.mhra.mdcm.devices.appian.pageobjects.external.sections.device;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
-import com.mhra.mdcm.devices.appian.pageobjects.external.ExternalHomePage;
+import com.mhra.mdcm.devices.appian.pageobjects.external.sections.manufacturer.ManufacturerList;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.CommonUtils;
@@ -28,29 +28,31 @@ public class AddDevices extends _Page {
     @FindBy(css = ".component_error")
     List<WebElement> errorMessages;
 
-    @FindBy(css = ".GFWJSJ4DCW label")
+    @FindBy(css = ".RadioButtonGroup---choice_pair>label")
     List<WebElement> listOfDeviceTypes;
-    @FindBy(xpath = ".//div[contains(text(),'Term')]//following::a[string-length(text()) > 0]")
-    List<WebElement> listOfTermsOrCodeMatches;
+    //@FindBy(xpath = ".//div[contains(text(),'Term')]//following::a[string-length(text()) > 0]")
+    @FindBy(xpath = ".//div[contains(text(),'Term')]//following::tbody[1]/tr/td")
+    List<WebElement> listOfGmdnMatchesReturnedBySearch;
     @FindBy(css = ".ParagraphText---richtext_paragraph .StrongText---richtext_strong")
-    WebElement labelValidGMDN;
+    WebElement labelValidGMDNCodeMessage;
 
-    //Product details verification
-    @FindBy(xpath = ".//a[contains(text(), 'Product code')]//following::tr/td[1]")
+    //Product details verification : After adding a product (IVD and AIMD)
+    @FindBy(xpath = ".//div[contains(text(), 'Product code')]//following::tr/td[1]")
     List<WebElement> listOfProductNames;
-    @FindBy(xpath = ".//a[contains(text(), 'Product code')]//following::tr/td[2]")
+    @FindBy(xpath = ".//div[contains(text(), 'Product code')]//following::tr/td[2]")
     List<WebElement> listOfProductMake;
-    @FindBy(xpath = ".//a[contains(text(), 'Product code')]//following::tr/td[3]")
+    @FindBy(xpath = ".//div[contains(text(), 'Product code')]//following::tr/td[3]")
     List<WebElement> listOfProductModel;
 
+    //Product details form inputs
     @FindBy(xpath = ".//label[contains(text(), 'Product name')]//following::input[1]")
     WebElement txtProductName;
-    @FindBy(xpath = ".//label[contains(text(), 'Product Make')]//following::input[1]")
+    @FindBy(xpath = ".//label[contains(text(), 'Product make')]//following::input[1]")
     WebElement txtProductMake;
-    @FindBy(xpath = ".//label[contains(text(), 'Product Model')]//following::input[1]")
+    @FindBy(xpath = ".//label[contains(text(), 'Product model')]//following::input[1]")
     WebElement txtProductModel;
 
-    //Device types
+    //Device types radio buttons
     @FindBy(xpath = ".//label[contains(text(),'General Medical')]")
     WebElement generalMedicalDevice;
     @FindBy(xpath = ".//label[contains(text(),'Vitro Diagnostic Device')]")
@@ -61,59 +63,49 @@ public class AddDevices extends _Page {
     WebElement systemOrProcedurePack;
 
     //GMDN search by selecting a radio button
-    @FindBy(xpath = ".//*[contains(text(),'Search GMDN')]//following::input[1]")
-    WebElement radioByGMDNCode;
-    @FindBy(xpath = ".//*[contains(text(),'Search GMDN')]//following::input[2]")
-    WebElement radioGMDNDefinitionOrTerm;
-    @FindBy(css = "input.gwt-SuggestBox")
-    WebElement tbxGMDNDefinitionOrTermSuggest;
     @FindBy(css = "input[type='text']")
     WebElement tbxGMDNDefinitionOrTerm;
-    @FindBy(xpath = ".//label[.='GMDN term']")
-    WebElement lblGMDNDefinitionOrTerm;
-    @FindBy(css = "input.aui-TextInput.GFWJSJ4DC0")
-    WebElement tbxGMDNCode;
 
     //Custom made, sterile and measuring
-    @FindBy(xpath = ".//*[contains(text(),'custom made')]//following::label[1]")
+    @FindBy(xpath = ".//span[contains(text(),'custom made')]//following::label[1]")
     WebElement radioCustomMadeYes;
-    @FindBy(xpath = ".//*[contains(text(),'custom made')]//following::label[2]")
+    @FindBy(xpath = ".//span[contains(text(),'custom made')]//following::label[2]")
     WebElement radioCustomMadeNo;
-    @FindBy(xpath = ".//*[contains(text(),'device sterile')]//following::label[1]")
+    @FindBy(xpath = ".//span[contains(text(),'device sterile')]//following::label[1]")
     WebElement radioDeviceSterileYes;
-    @FindBy(xpath = ".//*[contains(text(),'device sterile')]//following::label[2]")
+    @FindBy(xpath = ".//span[contains(text(),'device sterile')]//following::label[2]")
     WebElement radioDeviceSterileNo;
-    @FindBy(xpath = ".//*[contains(text(),'device measuring')]//following::label[1]")
+    @FindBy(xpath = ".//span[contains(text(),'device measuring')]//following::label[1]")
     WebElement radioDeviceMeasuringYes;
-    @FindBy(xpath = ".//*[contains(text(),'device measuring')]//following::label[2]")
+    @FindBy(xpath = ".//span[contains(text(),'device measuring')]//following::label[2]")
     WebElement radioDeviceMeasuringNo;
 
     //Custom Made = No, Then enter risk classification
-    @FindBy(xpath = ".//*[contains(text(),'risk class')]//following::label[1]")
+    @FindBy(xpath = ".//span[contains(text(),'risk class')]//following::label[1]")
     WebElement radioRiskClass1;
-    @FindBy(xpath = ".//*[contains(text(),'risk class')]//following::label[2]")
+    @FindBy(xpath = ".//span[contains(text(),'risk class')]//following::label[2]")
     WebElement radioRiskClass2a;
-    @FindBy(xpath = ".//*[contains(text(),'risk class')]//following::label[3]")
+    @FindBy(xpath = ".//span[contains(text(),'risk class')]//following::label[3]")
     WebElement radioRiskClass2b;
-    @FindBy(xpath = ".//*[contains(text(),'risk class')]//following::label[4]")
+    @FindBy(xpath = ".//span[contains(text(),'risk class')]//following::label[4]")
     WebElement radioRiskClass3;
 
     //Notified bodies
-    @FindBy(xpath = ".//*[contains(text(),'Notified Body')]//following::label[1]")
+    @FindBy(xpath = ".//span[contains(text(),'Notified Body')]//following::label[1]")
     WebElement nb0086BSI;
-    @FindBy(xpath = ".//*[contains(text(),'Notified Body')]//following::label[2]")
+    @FindBy(xpath = ".//span[contains(text(),'Notified Body')]//following::label[2]")
     WebElement nb0088BSI;
-    @FindBy(xpath = ".//*[contains(text(),'Notified Body')]//following::label[3]")
+    @FindBy(xpath = ".//span[contains(text(),'Notified Body')]//following::label[3]")
     WebElement nb0120BSI;
-    @FindBy(xpath = ".//*[contains(text(),'Notified Body')]//following::label[4]")
+    @FindBy(xpath = ".//span[contains(text(),'Notified Body')]//following::label[4]")
     WebElement nb0473BSI;
-    @FindBy(xpath = ".//*[contains(text(),'Notified Body')]//following::label[5]")
+    @FindBy(xpath = ".//span[contains(text(),'Notified Body')]//following::label[5]")
     WebElement nb0843BSI;
-    @FindBy(xpath = ".//*[contains(text(),'Notified Body')]//following::label[6]")
+    @FindBy(xpath = ".//span[contains(text(),'Notified Body')]//following::label[6]")
     WebElement nbOther;
 
     //List of notified bodies
-    @FindBy(xpath = ".//*[contains(text(),'Notified Body')]//following::input[@type='radio']//following::label")
+    @FindBy(xpath = ".//span[contains(text(),'Notified Body')]//following::input[@type='radio']//following::label")
     List<WebElement> listOfNotifiedBodies;
 
     //IVD risk classification
@@ -127,13 +119,13 @@ public class AddDevices extends _Page {
     WebElement ivdIVDGeneral;
 
     //Procedure pack
-    @FindBy(xpath = ".//*[contains(text(),'pack incorporate')]//following::label[1]")
+    @FindBy(xpath = ".//span[contains(text(),'pack incorporate')]//following::label[1]")
     WebElement ppIsBearingCEMarkingYes;
-    @FindBy(xpath = ".//*[contains(text(),'pack incorporate')]//following::label[2]")
+    @FindBy(xpath = ".//span[contains(text(),'pack incorporate')]//following::label[2]")
     WebElement ppIsBearingCEMarkingNo;
-    @FindBy(xpath = ".//*[contains(text(),'devices compatible')]//following::label[1]")
+    @FindBy(xpath = ".//span[contains(text(),'devices compatible')]//following::label[1]")
     WebElement ppDevicesCompatibleYes;
-    @FindBy(xpath = ".//*[contains(text(),'devices compatible')]//following::label[2]")
+    @FindBy(xpath = ".//span[contains(text(),'devices compatible')]//following::label[2]")
     WebElement ppDevicesCompatibleNo;
 
     //Add product
@@ -171,9 +163,13 @@ public class AddDevices extends _Page {
     @FindBy(xpath = ".//button[contains(text(),'Add another device')]")
     WebElement btnAddAnotherDevice;
 
+    //File upload buttons
+    @FindBy(css = ".FileUploadWidget---ui-inaccessible")
+    WebElement fileUpload;
+    @FindBy(css = ".FileUploadWidget---ui-inaccessible")
+    List<WebElement> listOfFileUploads;
+
     //Confirm and btnDeclareDevices
-    @FindBy(css = "button.GFWJSJ4DCF")
-    WebElement btnConfirm;
     @FindBy(xpath = ".//button[contains(text(),'Review your order')]")
     WebElement btnReviewYourOrder;
     @FindBy(xpath = ".//button[.='Proceed to payment']")
@@ -182,16 +178,8 @@ public class AddDevices extends _Page {
     WebElement btnFinish;
     @FindBy(xpath = ".//button[.='Remove']")
     WebElement btnRemove;
-    @FindBy(css = ".left .GFWJSJ4DCF")
-    WebElement submit;
     @FindBy(css = ".Button---primary")
     WebElement submitConfirm;
-
-    //File upload buttons
-    @FindBy(css = ".FileUploadWidget---ui-inaccessible")
-    WebElement fileUpload;
-    @FindBy(css = ".FileUploadWidget---ui-inaccessible")
-    List<WebElement> listOfFileUploads;
 
     //Submit and save buttons
     @FindBy(xpath = ".//button[.='Add device']")
@@ -689,11 +677,11 @@ public class AddDevices extends _Page {
 
                 //Wait for list of items to appear and add it only if its not a duplicate
                 WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//div[contains(text(),'Term')]//following::td"), TIMEOUT_DEFAULT, false);
-                int noi = CommonUtils.getNumberOfItemsInList(driver, listOfTermsOrCodeMatches);
+                int noi = CommonUtils.getNumberOfItemsInList(driver, listOfGmdnMatchesReturnedBySearch);
                 int randomPosition = RandomDataUtils.getARandomNumberBetween(0, noi);
 
                 //Click gmdn from search results
-                WebElement element = listOfTermsOrCodeMatches.get(randomPosition);
+                WebElement element = listOfGmdnMatchesReturnedBySearch.get(randomPosition);
                 element.click();
                 //element.findElement(By.tagName("a")).click();
                 //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
@@ -932,8 +920,8 @@ public class AddDevices extends _Page {
         boolean isNumber = CommonUtils.isNumericValue(searchTerm);
         if(!isNumber) {
             try {
-                WaitUtils.waitForElementToBeClickable(driver, listOfTermsOrCodeMatches.get(0), TIMEOUT_3_SECOND, false);
-                int noi = CommonUtils.getNumberOfItemsInList(driver, listOfTermsOrCodeMatches);
+                WaitUtils.waitForElementToBeClickable(driver, listOfGmdnMatchesReturnedBySearch.get(0), TIMEOUT_3_SECOND, false);
+                int noi = CommonUtils.getNumberOfItemsInList(driver, listOfGmdnMatchesReturnedBySearch);
                 boolean atLeast1Match = noi >= 1 ? true : false;
                 return atLeast1Match;
             }catch (Exception e){
@@ -941,7 +929,7 @@ public class AddDevices extends _Page {
             }
         }else{
             //Verify a valid device id is entered
-            boolean isValidGMDN = labelValidGMDN.getText().contains("Valid GMDN");
+            boolean isValidGMDN = labelValidGMDNCodeMessage.getText().contains("Valid GMDN");
             return isValidGMDN;
         }
     }

@@ -1,4 +1,4 @@
-package com.mhra.mdcm.devices.appian.pageobjects.external.sections;
+package com.mhra.mdcm.devices.appian.pageobjects.external.sections.myaccount;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
@@ -87,8 +87,6 @@ public class OrganisationDetails extends _Page {
             }else if (key.equals("org.postcode")) {
                 PageUtils.updateElementValue(driver, orgPostCode, updatedData.postCode, TIMEOUT_5_SECOND);
             }else if (key.equals("org.country")) {
-//                driver.findElement(By.cssSelector(".GFWJSJ4DEY.GFWJSJ4DIY a:nth-child(2)")).click();
-//                driver.findElement(By.cssSelector(".GFWJSJ4DEY.GFWJSJ4DMX>div input")).clear();
                 try {
                     PageUtils.selectFromAutoSuggestedListItems(driver, ".PickerWidget---picker_value", updatedData.country, false);
                 } catch (Exception e) {

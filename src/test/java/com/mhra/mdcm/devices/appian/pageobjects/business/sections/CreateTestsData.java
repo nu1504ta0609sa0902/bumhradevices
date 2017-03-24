@@ -66,7 +66,7 @@ public class CreateTestsData extends _Page {
     WebElement lastName;
     @FindBy(xpath = ".//label[contains(text(),'Job title')]//following::input[1]")
     WebElement jobTitle;
-    @FindBy(xpath = ".//h2[contains(text(),'Person Details')]//following::input[4]")
+    @FindBy(xpath = ".//label[.='Email']//following::input[2]")
     WebElement phoneNumber;
     @FindBy(xpath = ".//label[.='Email']//following::input[1]")
     WebElement emailAddress;

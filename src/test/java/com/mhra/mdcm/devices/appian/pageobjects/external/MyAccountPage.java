@@ -2,8 +2,8 @@ package com.mhra.mdcm.devices.appian.pageobjects.external;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
-import com.mhra.mdcm.devices.appian.pageobjects.external.sections.OrganisationDetails;
-import com.mhra.mdcm.devices.appian.pageobjects.external.sections.PersonDetails;
+import com.mhra.mdcm.devices.appian.pageobjects.external.sections.myaccount.OrganisationDetails;
+import com.mhra.mdcm.devices.appian.pageobjects.external.sections.myaccount.ContactPersonDetails;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.WebDriver;
@@ -37,9 +37,9 @@ public class MyAccountPage extends _Page {
     WebElement jobTitle;
     @FindBy(xpath = ".//span[contains(text(),'Email')]//following::p[1]")
     WebElement email;
-    @FindBy(xpath = ".//h3[contains(text(),'Person Details')]//following::span[.='Telephone']/following::p[1]")
+    @FindBy(xpath = ".//span[contains(text(),'Email')]//following::p[2]")
     WebElement telephone;
-    @FindBy(xpath = ".//span[contains(text(),'Associated date')]//following::p[1]")
+    @FindBy(xpath = ".//span[contains(text(),'Associated')]//following::p[1]")
     WebElement associatedDates;
 
     //Organisation details
@@ -74,11 +74,11 @@ public class MyAccountPage extends _Page {
         super(driver);
     }
 
-    public PersonDetails amendContactPersonDetails() {
+    public ContactPersonDetails amendContactPersonDetails() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, amendContactPersonDetails, TIMEOUT_5_SECOND, false);
         amendContactPersonDetails.click();
-        return new PersonDetails(driver);
+        return new ContactPersonDetails(driver);
     }
 
     public OrganisationDetails amendOrganisationDetails() {
