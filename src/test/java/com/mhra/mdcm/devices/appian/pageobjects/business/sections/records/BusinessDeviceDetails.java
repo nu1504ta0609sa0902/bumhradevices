@@ -18,19 +18,19 @@ import java.util.List;
 public class BusinessDeviceDetails extends _Page {
 
     //Device table
-    @FindBy(xpath = ".//td/a")
+    @FindBy(xpath = ".//tr/th")
     List<WebElement> listOfTableHeadings;
-    @FindBy(xpath = ".//div/h6")
+    @FindBy(xpath = ".//tr/th")
     List<WebElement> listOfDeviceHeadings;
 
     //Device by device types
-    @FindBy(xpath = ".//h6[contains(text(), 'General Medical')]//following::tbody[1]/tr")
+    @FindBy(xpath = ".//h5[contains(text(), 'General Medical')]//following::tbody[1]/tr")
     List<WebElement> listOfGMDDevices;
-    @FindBy(xpath = ".//h6[contains(text(), 'In Vitro')]//following::tbody[1]/tr")
+    @FindBy(xpath = ".//h5[contains(text(), 'In Vitro')]//following::tbody[1]/tr")
     List<WebElement> listOfIVDDevices;
-    @FindBy(xpath = ".//h6[contains(text(), 'Active Implantable')]//following::tbody[1]/tr")
+    @FindBy(xpath = ".//h5[contains(text(), 'Active Implantable')]//following::tbody[1]/tr")
     List<WebElement> listOfAIMDDevices;
-    @FindBy(xpath = ".//h6[contains(text(), 'Procedure')]//following::tbody[1]/tr")
+    @FindBy(xpath = ".//h5[contains(text(), 'Procedure')]//following::tbody[1]/tr")
     List<WebElement> listOfSPPDevices;
 
     //Device information page fields GMD
