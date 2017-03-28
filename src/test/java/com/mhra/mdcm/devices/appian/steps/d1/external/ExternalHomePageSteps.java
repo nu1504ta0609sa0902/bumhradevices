@@ -228,6 +228,8 @@ public class ExternalHomePageSteps extends CommonSteps {
         try {
             if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
                 addDevices = manufacturerDetails.clickAddDeviceBtn();
+            else
+                addDevices = manufacturerDetails.clickDeclareDeviceBtn();
         }catch (Exception e){
             addDevices = addDevices.addDevice();
         }

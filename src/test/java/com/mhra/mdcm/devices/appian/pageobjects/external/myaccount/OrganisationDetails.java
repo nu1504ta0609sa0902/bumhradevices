@@ -55,9 +55,9 @@ public class OrganisationDetails extends _Page {
     WebElement saveNo;
 
     //Submit or cancel button
-    @FindBy(css = "button.GFWJSJ4DCF")
+    @FindBy(xpath = ".//button[contains(text(),'Submit')]")
     WebElement submitBtn;
-    @FindBy(css = ".GFWJSJ4DFXC.left button.GFWJSJ4DNE")
+    @FindBy(css = ".//button[contains(text(),'Cancel')]")
     WebElement cancelBtn;
 
     @Autowired
@@ -70,10 +70,10 @@ public class OrganisationDetails extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_5_SECOND, false);
         String[] dataPairs = keyValuePairToUpdate.split(",");
 
+        boolean orgNameUpdated = false;
         for (String pairs : dataPairs) {
 
             String key = pairs;
-            boolean orgNameUpdated = false;
 
             if (key.equals("org.name")) {
                 PageUtils.updateElementValue(driver, orgName, updatedData.organisationName, TIMEOUT_5_SECOND);
@@ -87,11 +87,7 @@ public class OrganisationDetails extends _Page {
             }else if (key.equals("org.postcode")) {
                 PageUtils.updateElementValue(driver, orgPostCode, updatedData.postCode, TIMEOUT_5_SECOND);
             }else if (key.equals("org.country")) {
-                try {
-                    PageUtils.selectFromAutoSuggestedListItems(driver, ".PickerWidget---picker_value", updatedData.country, false);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                //PageUtils.selectFromDropDown(driver, orgCountry, updatedData.country, false);
             }else if (key.equals("org.telephone")) {
                 PageUtils.updateElementValue(driver, orgTelephone, updatedData.telephone, TIMEOUT_5_SECOND);
             }else if (key.equals("org.website")) {

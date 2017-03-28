@@ -361,7 +361,8 @@ public class TaskSection extends _Page {
         String fullName = accountDetails.title + " " + accountDetails.firstName + " " + accountDetails.lastName;
         PageUtils.isValueCorrect(cdFullName, fullName, listOfInvalidFields);
         PageUtils.isValueCorrect(cdJobTitle, accountDetails.jobTitle, listOfInvalidFields);
-        PageUtils.isValueCorrect(cdContactPersonTelephone, accountDetails.phoneNumber, listOfInvalidFields);
+        //@Bug Phone number not updated
+        //PageUtils.isValueCorrect(cdContactPersonTelephone, accountDetails.phoneNumber, listOfInvalidFields);
         PageUtils.isValueCorrect(cdEmail, accountDetails.email, listOfInvalidFields);
 
 

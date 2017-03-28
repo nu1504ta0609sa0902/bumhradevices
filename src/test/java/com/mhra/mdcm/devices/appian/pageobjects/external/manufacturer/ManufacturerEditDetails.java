@@ -32,7 +32,7 @@ public class ManufacturerEditDetails extends _Page {
     WebElement orgCityTown;
     @FindBy(xpath = ".//label[.='Postcode']//following::input[1]")
     WebElement orgPostCode;
-    @FindBy(xpath = ".//label[contains(text(),'Telephone')]//following::input[1]")
+    @FindBy(xpath = ".//label[contains(text(),'Postcode')]//following::input[@type='text'][2]")
     WebElement orgTelephone;
     @FindBy(xpath = ".//label[contains(text(),'Website')]//following::input[1]")
     WebElement webSite;

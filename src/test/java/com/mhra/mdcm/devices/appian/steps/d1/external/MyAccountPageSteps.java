@@ -2,6 +2,7 @@ package com.mhra.mdcm.devices.appian.steps.d1.external;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
+import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.ManufacturerViewDetails;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import cucumber.api.java.en.And;
@@ -53,6 +54,9 @@ public class MyAccountPageSteps extends CommonSteps {
     public void iShouldSeeTheChangesInMyAccountsPage(String keyValuePairToUpdate) throws Throwable {
         boolean isCorrectPage = myAccountPage.isCorrectPage();
         AccountRequest updatedData = (AccountRequest) scenarioSession.getData(SessionKey.manufacturerData);
+
+        //BUG requires another refresh
+        myAccountPage = myAccountPage.refreshThePage();
         boolean updatesFound = myAccountPage.verifyUpdatesDisplayedOnPage(keyValuePairToUpdate, updatedData);
         Assert.assertThat("Expected to see following updates : " + keyValuePairToUpdate, updatesFound, is(true));
     }
@@ -112,7 +116,8 @@ public class MyAccountPageSteps extends CommonSteps {
         }while (errorMsgDisplayed && count < 2);
 
         //confirm and save
-        manufacturerDetails = editManufacturer.confirmChanges(true);
+        //manufacturerDetails = editManufacturer.confirmChanges(true);
+        manufacturerDetails = new ManufacturerViewDetails(driver);
 
         scenarioSession.putData(SessionKey.manufacturerData, updatedData);
     }
@@ -121,6 +126,7 @@ public class MyAccountPageSteps extends CommonSteps {
     public void iShouldSeeTheChangesInManufacturerDetailsPage(String keyValuePairToUpdate) throws Throwable {
         AccountRequest updatedData = (AccountRequest) scenarioSession.getData(SessionKey.manufacturerData);
         //boolean isCorrectPage = manufacturerDetails.isCorrectPage();
+        manufacturerDetails = manufacturerDetails.refreshThePage();
         boolean updatesFound = manufacturerDetails.verifyManufacturerUpdatesDisplayedOnPage(keyValuePairToUpdate, updatedData);
         Assert.assertThat("Expected to see following updates : " + keyValuePairToUpdate, updatesFound, is(true));
     }

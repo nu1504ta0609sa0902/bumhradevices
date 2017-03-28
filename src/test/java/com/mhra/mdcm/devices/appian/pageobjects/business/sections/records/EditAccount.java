@@ -50,9 +50,9 @@ public class EditAccount extends _Page {
     WebElement orgPostCode;
     @FindBy(xpath = ".//span[contains(text(),'Address type')]//following::label[1]")
     WebElement addressType;
-    @FindBy(xpath = ".//label[contains(text(),'Telephone')]//following::input[1]")
+    @FindBy(xpath = ".//label[contains(text(),'Postcode')]//following::input[@type='text'][2]")
     WebElement orgTelephone;
-    @FindBy(xpath = ".//label[contains(text(),'Fax')]//following::input[1]")
+    @FindBy(xpath = ".//label[contains(text(),'Postcode')]//following::input[@type='text'][3]")
     WebElement orgFax;
     @FindBy(xpath = ".//label[contains(text(),'Website')]//following::input[1]")
     WebElement webSite;
@@ -62,7 +62,7 @@ public class EditAccount extends _Page {
     WebElement orgCountry;
 
     //CONTACT PERSON DETAILS
-    @FindBy(xpath = ".//span[contains(text(),'Title')]//following::div[@role='listbox']")
+    @FindBy(xpath = ".//label[contains(text(),'Job title')]//following::input[1]")
     WebElement jobTitle;
     @FindBy(xpath = ".//label[.='Email']//following::input[1]")
     WebElement emailAddress;
@@ -104,7 +104,7 @@ public class EditAccount extends _Page {
                 PageUtils.updateElementValue(driver, orgCityTown, updatedData.townCity, TIMEOUT_DEFAULT);
             }else if(key.equals("country")){
                 //THIS NEEDS TO SELECT FROM AUTO SUGGESTS NOW
-                //PageUtils.updateElementValue(driver, orgCountry, updatedData.country, TIMEOUT_DEFAULT);
+                //PageUtils.selectFromDropDown(driver, orgCountry, updatedData.country, false);
             }else if(key.equals("postcode")){
                 PageUtils.updateElementValue(driver, orgPostCode, updatedData.postCode, TIMEOUT_DEFAULT);
             }else if(key.equals("org.telephone")){

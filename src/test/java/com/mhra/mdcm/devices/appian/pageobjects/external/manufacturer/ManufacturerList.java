@@ -77,7 +77,7 @@ public class ManufacturerList extends _Page {
     public String getARandomManufacturerName() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".elements---global_p .elements---global_a"), TIMEOUT_5_SECOND, false);
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[contains(text(),'Manufacturer')]//following::tbody[1]/tr/td[1]"), TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[contains(text(),'Manufacturer')]//following::tbody[1]/tr"), TIMEOUT_5_SECOND, false);
         int index = RandomDataUtils.getNumberBetween(0, listOfManufacturerNames.size() - 1);
         WebElement link = listOfManufacturerNames.get(index);
         String name = link.getText();
@@ -88,7 +88,7 @@ public class ManufacturerList extends _Page {
         //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean found = false;
         try {
-            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector("td>div>a"), TIMEOUT_10_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".elements---global_p .elements---global_a"), TIMEOUT_10_SECOND, false);
             WaitUtils.nativeWaitInSeconds(2);
             for (WebElement item : listOfManufacturerNames) {
                 String name = item.getText();
@@ -170,7 +170,7 @@ public class ManufacturerList extends _Page {
     private boolean isPaginationDisplayed() {
         boolean isDisplayed = true;
         try{
-            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector("td>div>a"), TIMEOUT_30_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".elements---global_p .elements---global_a"), TIMEOUT_30_SECOND, false);
             WaitUtils.waitForElementToBeVisible(driver, itemCount, TIMEOUT_10_SECOND, false);
         }catch (Exception e){
             isDisplayed = false;
@@ -244,7 +244,7 @@ public class ManufacturerList extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean found = true;
         try {
-            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector("td>div>a"), TIMEOUT_30_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".elements---global_p .elements---global_a"), TIMEOUT_30_SECOND, false);
             WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(name), TIMEOUT_5_SECOND, false);
         }catch (Exception e){
             found = false;
@@ -258,7 +258,9 @@ public class ManufacturerList extends _Page {
     }
 
     public boolean isSpecificTableHeadingCorrect(String commaDelimitedHeading) {
-        WaitUtils.waitForElementToBeClickable(driver, listOfTableHeadings.get(0), TIMEOUT_15_SECOND, false);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeVisible(driver, linkRegisterNewManufacturer, TIMEOUT_15_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver,By.xpath(".//tr/th"), TIMEOUT_5_SECOND, false);
         String lowerCaseHeadings = commaDelimitedHeading.toLowerCase();
         return PageUtils.isSpecificTableHeadingCorrect(lowerCaseHeadings, listOfTableHeadings);
     }

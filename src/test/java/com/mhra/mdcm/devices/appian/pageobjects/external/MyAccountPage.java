@@ -188,4 +188,11 @@ public class MyAccountPage extends _Page {
         }
         return areDatesVisible;
     }
+
+    public MyAccountPage refreshThePage() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, fullName, TIMEOUT_10_SECOND, false);
+        driver.navigate().refresh();
+        return new MyAccountPage(driver);
+    }
 }
