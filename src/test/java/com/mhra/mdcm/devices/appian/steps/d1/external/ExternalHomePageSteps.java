@@ -123,8 +123,8 @@ public class ExternalHomePageSteps extends CommonSteps {
     @Then("^I should see the registered manufacturers list$")
     public void iShouldSeeTheManufacturersList() throws Throwable {
         String name = (String) scenarioSession.getData(SessionKey.organisationName);
-        //externalHomePage = mainNavigationBar.clickExternalHOME();
-        //manufacturerList = externalHomePage.gotoListOfManufacturerPage();
+        externalHomePage = mainNavigationBar.clickExternalHOME();
+        manufacturerList = externalHomePage.gotoListOfManufacturerPage();
         boolean isCorrect = manufacturerList.isSpecificTableHeadingCorrect("Manufacturer name");
         Assert.assertThat("Expected To See Manufacturer List : " + name, isCorrect, Matchers.is(true));
     }

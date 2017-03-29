@@ -20,6 +20,7 @@ public class MixedPageSteps extends CommonSteps {
     @When("^I click on a random organisation link \"([^\"]*)\" in \"([^\"]*)\" page$")
     public void i_click_on_a_random_organisation_link(String searchTerm, String page) throws Throwable {
         if (page.equals("Accounts")) {
+            businessManufacturerDetails = accounts.viewManufacturerByText(searchTerm);
         } else if (page.equals("Devices")) {
         } else if (page.equals("Products")) {
         } else if (page.equals("All Products")) {

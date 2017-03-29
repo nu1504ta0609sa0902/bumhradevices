@@ -260,7 +260,7 @@ public class ManufacturerList extends _Page {
     public boolean isSpecificTableHeadingCorrect(String commaDelimitedHeading) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeVisible(driver, linkRegisterNewManufacturer, TIMEOUT_15_SECOND, false);
-        WaitUtils.waitForElementToBeClickable(driver,By.xpath(".//tr/th"), TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver,linkRegisterNewManufacturer, TIMEOUT_5_SECOND, false);
         String lowerCaseHeadings = commaDelimitedHeading.toLowerCase();
         return PageUtils.isSpecificTableHeadingCorrect(lowerCaseHeadings, listOfTableHeadings);
     }

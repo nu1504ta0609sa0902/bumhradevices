@@ -142,7 +142,7 @@ public class RecordsPageSteps extends CommonSteps {
 
 
 
-    @When("^I search for stored organisation \"([^\"]*)\" page$")
+    @When("^I search for stored organisation in \"([^\"]*)\" page$")
     public void i_search_for_stored_organisation_in_specified_page(String page) throws Throwable {
         String searchTerm = (String) scenarioSession.getData(SessionKey.organisationName);
         if (page.equals("Accounts")) {
@@ -197,8 +197,6 @@ public class RecordsPageSteps extends CommonSteps {
     @When("^I search accounts for the stored organisation name$")
     public void i_search_accounts_for_stored_organisation() throws Throwable {
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
-        //orgName = "OrganisationTest2610146859";   //Approved
-        //orgName = "OrganisationTest261074026";    //Rejected
         //Go to records page
         mainNavigationBar = new MainNavigationBar(driver);
         recordsPage = mainNavigationBar.clickRecords();

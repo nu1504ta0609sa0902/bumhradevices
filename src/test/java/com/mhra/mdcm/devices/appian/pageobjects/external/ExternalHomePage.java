@@ -32,7 +32,7 @@ public class ExternalHomePage extends _Page {
     @FindBy(xpath = ".//button[.='Back']")
     WebElement btnBackButton;
 
-    @FindBy(xpath = ".//h4[contains(text(),'Healthcare Products')]")
+    @FindBy(xpath = ".//h3[contains(text(),'Healthcare Products')]")
     WebElement pageHeading;
 
     //Error messages

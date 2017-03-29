@@ -103,10 +103,9 @@ public class AllOrganisations extends _Page {
      */
     public int getNumberOfMatches() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        //WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//th[@abbr='Status']//following::tr") , TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//th[@abbr='Status']//following::tr") , TIMEOUT_DEFAULT, false);
         WaitUtils.waitForElementToBeClickable(driver, clearFilters , TIMEOUT_10_SECOND, false);
         int size = listOfAllOrganisations.size();
-        size = (size-1);
         return size;
     }
 

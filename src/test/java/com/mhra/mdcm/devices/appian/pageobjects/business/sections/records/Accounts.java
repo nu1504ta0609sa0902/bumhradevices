@@ -104,8 +104,7 @@ public class Accounts extends _Page {
      */
     public String getARandomAccount() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        //WaitUtils.forceWaitForPageToLoad(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_5_SECOND, 1);
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//th[1]"), TIMEOUT_5_SECOND, false);
 
         int position = RandomDataUtils.getSimpleRandomNumberBetween(1, listOfAccountsNames.size() - 1, false);
         WebElement accountLinks = listOfAccountsNames.get(position);
@@ -115,8 +114,7 @@ public class Accounts extends _Page {
 
     public String getARandomAccountWithText(String name) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        //WaitUtils.forceWaitForPageToLoad(driver, By.xpath(".//h2[.='Status']//following::a[2]"), TIMEOUT_3_SECOND, 1);
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//div[.='Status']//following::tr"), TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//th[1]"), TIMEOUT_5_SECOND, false);
 
         boolean found = false;
         int count = 0;
@@ -225,4 +223,33 @@ public class Accounts extends _Page {
         }
         return aMatchFound;
     }
+
+    public BusinessManufacturerDetails viewManufacturerByText(String searchTerm) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+
+        WebElement manufacturer = null;
+        boolean found = false;
+        do {
+            int randomNumberBetween = RandomDataUtils.getSimpleRandomNumberBetween(0, listOfAccountsNames.size()-1, false);
+            if(listOfAccountsNames.size() == 1)
+                randomNumberBetween = 0;
+            WebElement element = listOfAccountsNames.get(randomNumberBetween);
+            String orgName = element.getText();
+            if(orgName.contains(searchTerm)){
+                manufacturer = element.findElement(By.tagName("a"));
+                found = true;
+            }
+        }while(!found);
+
+        //Click the manufacturer name
+        if(manufacturer!=null) {
+            PageUtils.doubleClick(driver, manufacturer);
+            //manufacturer.click();
+        }else {
+            throw new RuntimeException("No manufacturer found for search term : " + searchTerm);
+        }
+
+        return new BusinessManufacturerDetails(driver);
+    }
+
 }
