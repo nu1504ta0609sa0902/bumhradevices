@@ -5,9 +5,9 @@ import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.pageobjects.business.*;
 import com.mhra.mdcm.devices.appian.pageobjects.business.sections.*;
 import com.mhra.mdcm.devices.appian.pageobjects.business.sections.records.*;
+import com.mhra.mdcm.devices.appian.pageobjects.external._CreateManufacturerTestsData;
 import com.mhra.mdcm.devices.appian.pageobjects.external.MyAccountPage;
 import com.mhra.mdcm.devices.appian.pageobjects.external.ExternalHomePage;
-import com.mhra.mdcm.devices.appian.pageobjects.external.sections.*;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.AddDevices;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.DeviceDetails;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.ProductDetails;
@@ -81,7 +81,7 @@ public class CommonSteps {
     @Autowired
     public AllProducts allProducts;
     @Autowired
-    public CreateTestsData createTestsData;
+    public _CreateAccountTestsData createTestsData;
     @Autowired
     public TaskSection taskSection;
     @Autowired
@@ -110,7 +110,7 @@ public class CommonSteps {
     @Autowired
     public ManufacturerViewDetails manufacturerDetails;
     @Autowired
-    public CreateManufacturerTestsData createNewManufacturer;
+    public _CreateManufacturerTestsData createNewManufacturer;
     @Autowired
     public AddDevices addDevices;
     @Autowired

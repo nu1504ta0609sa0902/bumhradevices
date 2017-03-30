@@ -1,4 +1,4 @@
-package com.mhra.mdcm.devices.appian.pageobjects.external.sections;
+package com.mhra.mdcm.devices.appian.pageobjects.external;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerOrganisationRequest;
 
@@ -24,7 +24,7 @@ import java.util.List;
  * Created by TPD_Auto
  */
 @Component
-public class CreateManufacturerTestsData extends _Page {
+public class _CreateManufacturerTestsData extends _Page {
 
     @FindBy(css = ".component_error")
     List<WebElement> errorMessages;
@@ -77,7 +77,7 @@ public class CreateManufacturerTestsData extends _Page {
 
 
     @Autowired
-    public CreateManufacturerTestsData(WebDriver driver) {
+    public _CreateManufacturerTestsData(WebDriver driver) {
         super(driver);
     }
 

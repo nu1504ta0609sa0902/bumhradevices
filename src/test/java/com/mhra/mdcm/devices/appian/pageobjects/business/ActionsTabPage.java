@@ -2,10 +2,7 @@ package com.mhra.mdcm.devices.appian.pageobjects.business;
 
 
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
-import com.mhra.mdcm.devices.appian.pageobjects.business.sections.CreateTestsData;
-import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -35,7 +32,7 @@ public class ActionsTabPage extends _Page {
         }
     }
 
-    public CreateTestsData gotoTestsHarnessPage() {
+    public _CreateAccountTestsData gotoTestsHarnessPage() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         try {
             WaitUtils.waitForElementToBeClickable(driver, linkCreateTestAccount, TIMEOUT_15_SECOND, false);
@@ -43,6 +40,6 @@ public class ActionsTabPage extends _Page {
         }catch (Exception e) {}
 
         linkCreateTestAccount.click();
-        return new CreateTestsData(driver);
+        return new _CreateAccountTestsData(driver);
     }
 }

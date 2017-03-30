@@ -1,7 +1,7 @@
 package com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer;
 
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
-import com.mhra.mdcm.devices.appian.pageobjects.external.sections.CreateManufacturerTestsData;
+import com.mhra.mdcm.devices.appian.pageobjects.external._CreateManufacturerTestsData;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
@@ -128,17 +128,17 @@ public class ManufacturerList extends _Page {
     }
 
 
-    public CreateManufacturerTestsData registerNewManufacturer() {
+    public _CreateManufacturerTestsData registerNewManufacturer() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, linkRegisterNewManufacturer, TIMEOUT_DEFAULT, false);
         linkRegisterNewManufacturer.click();
-        return new CreateManufacturerTestsData(driver);
+        return new _CreateManufacturerTestsData(driver);
     }
 
-    public CreateManufacturerTestsData registerMyOrganisation() {
+    public _CreateManufacturerTestsData registerMyOrganisation() {
         WaitUtils.waitForElementToBeClickable(driver, linkRegisterMyNewOrganisation, TIMEOUT_DEFAULT, false);
         linkRegisterMyNewOrganisation.click();
-        return new CreateManufacturerTestsData(driver);
+        return new _CreateManufacturerTestsData(driver);
     }
 
     public int getNumberOfPages(int whichPagination) {

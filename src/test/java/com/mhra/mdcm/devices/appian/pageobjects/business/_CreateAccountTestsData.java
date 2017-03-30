@@ -1,4 +1,4 @@
-package com.mhra.mdcm.devices.appian.pageobjects.business.sections;
+package com.mhra.mdcm.devices.appian.pageobjects.business;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
@@ -18,7 +18,7 @@ import java.util.List;
  * Created by TPD_Auto
  */
 @Component
-public class CreateTestsData extends _Page {
+public class _CreateAccountTestsData extends _Page {
 
     //Organisation details
     @FindBy(xpath = ".//label[.='Organisation name']//following::input[1]")
@@ -102,7 +102,7 @@ public class CreateTestsData extends _Page {
 
 
     @Autowired
-    public CreateTestsData(WebDriver driver) {
+    public _CreateAccountTestsData(WebDriver driver) {
         super(driver);
     }
 
