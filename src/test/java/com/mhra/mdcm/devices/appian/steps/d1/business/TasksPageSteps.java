@@ -157,6 +157,7 @@ public class TasksPageSteps extends CommonSteps {
         String taskType = (String) scenarioSession.getData(SessionKey.taskType);
         if(taskType!=null && taskType.contains("New Account")) {
             taskSection = taskSection.rejectTask();
+            reason = null;
         }else if(taskType!=null && taskType.contains("New Manufacturer")){
             taskSection = taskSection.rejectRegistrationTask();
         }else{
@@ -164,12 +165,16 @@ public class TasksPageSteps extends CommonSteps {
             taskSection = taskSection.rejectRegistrationTask();
         }
 
-        //Enter a reason for rejection
-        if(reason.equals("Other")) {
-            //Rejection process is slightly different, you need to enter a rejection reason
-            tasksPage = taskSection.enterRejectionReason("Other", RandomDataUtils.getRandomTestName("Comment Test"));
+        //Enter a reason for rejection @bug : reason for rejection radio buttons no longer appearing
+        if(reason!=null) {
+            if (reason.equals("Other")) {
+                //Rejection process is slightly different, you need to enter a rejection reason
+                tasksPage = taskSection.enterRejectionReason("Other", RandomDataUtils.getRandomTestName("Comment Test"));
+            } else {
+                tasksPage = taskSection.enterRejectionReason(reason, RandomDataUtils.getRandomTestName("Reject task because : " + reason));
+            }
         }else {
-            tasksPage = taskSection.enterRejectionReason(reason, RandomDataUtils.getRandomTestName("Reject task because : " + reason));
+            taskSection.enterRejectionReason(null, RandomDataUtils.getRandomTestName("Reject task because : " + reason));
         }
     }
 

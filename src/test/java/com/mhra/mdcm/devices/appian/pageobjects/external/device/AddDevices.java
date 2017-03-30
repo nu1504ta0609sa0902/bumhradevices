@@ -459,7 +459,7 @@ public class AddDevices extends _Page {
         txtProductNameLabel.sendKeys(labelName);
 
         PageUtils.uploadDocument(fileUpload, "DeviceLabelDoc2.pdf", 1, 3);
-        PageUtils.uploadDocument(listOfFileUploads.get(1), "DeviceInstructionForUse1.pdf", 1, 3);
+        PageUtils.uploadDocument(listOfFileUploads.get(0), "DeviceInstructionForUse1.pdf", 1, 3);
 
         //Save product label details
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//button[.='Save Product']"), TIMEOUT_5_SECOND, false);
@@ -513,7 +513,7 @@ public class AddDevices extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
 
         //Wait for form to be visible
-        WaitUtils.waitForElementToBeClickable(driver, pdProductName, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, pdProductName, TIMEOUT_10_SECOND, false);
         if (dd.productName != null && !dd.productName.equals("")) {
             pdProductName.sendKeys(dd.productName);
         } else if (dd.productMake != null || !dd.productMake.equals("")) {

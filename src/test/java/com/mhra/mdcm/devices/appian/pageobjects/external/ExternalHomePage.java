@@ -62,52 +62,6 @@ public class ExternalHomePage extends _Page {
     }
 
 
-//    public ExternalHomePage registerAnotherManufacturer() {
-//        WaitUtils.waitForElementToBeClickable(driver, linkRegisterAnotherManufacturer, TIMEOUT_DEFAULT, false);
-//        linkRegisterAnotherManufacturer.click();
-//        return new ExternalHomePage(driver);
-//    }
-//
-//    public boolean isNewManufacturerInTheList(String name) {
-//        WaitUtils.waitForElementToBeClickable(driver, manufacturerDropDown, TIMEOUT_10_SECOND, false);
-//        String selectedOption = manufacturerDropDown.getText(); //PageUtils.getCurrentSelectedOption(manufacturerDropDown);
-//        boolean found = selectedOption.contains(name);
-//        return found;
-//    }
-
-//    public boolean isLinkDisplayed(String partialLink) {
-//        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(partialLink), TIMEOUT_5_SECOND, false );
-//        WebElement declareDevicesLink = driver.findElement(By.partialLinkText(partialLink));
-//        boolean displayed = declareDevicesLink.isDisplayed();
-//        return displayed;
-//    }
-//
-//    public ExternalHomePage selectManufacturerFromList(String name) {
-//        WaitUtils.waitForElementToBeClickable(driver, manufacturerDropDown, TIMEOUT_5_SECOND, false);
-//        PageUtils.selectByText(manufacturerDropDown, name);
-//        return new ExternalHomePage(driver);
-//    }
-
-//    public AddDevices gotoAddDevicesPageForManufacturer(String name) {
-//        boolean isDisplayed = PageUtils.isDisplayed(driver, manufacturerDropDown, TIMEOUT_5_SECOND);
-//        if(isDisplayed) {
-//            //WaitUtils.waitForElementToBeClickable(driver, manufacturerDropDown, TIMEOUT_5_SECOND, false);
-//            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(name), TIMEOUT_5_SECOND, false);
-//        }
-//        //linkDeclareDevicesFor.click();
-//        driver.findElement(By.partialLinkText(name)).click();
-//        return new AddDevices(driver);
-//    }
-//
-//    public String getARandomManufacturerNameFromDropDown() {
-//        WaitUtils.waitForElementToBeClickable(driver, manufacturerDropDown, TIMEOUT_5_SECOND, false);
-//        List<String> listOfOptions = PageUtils.getListOfOptions(manufacturerDropDown);
-//        String index = RandomDataUtils.getRandomNumberBetween(0, listOfOptions.size());
-//        String name = listOfOptions.get(Integer.parseInt(index));
-//        return name;
-//    }
-
-
     public ExternalHomePage provideIndicationOfDevicesMade() {
         List<WebElement> elements = driver.findElements(By.cssSelector(".GFWJSJ4DPV.GFWJSJ4DCAD input"));
         for(WebElement e: elements){

@@ -73,7 +73,7 @@ public class TaskSection extends _Page {
     WebElement reasonNonQualifyingParty;
     @FindBy(xpath = ".//*[.='Reasons']//following::input[5]")
     WebElement other;
-    @FindBy(css = ".aui-TextAreaInput")
+    @FindBy(css = "div>textarea")
     WebElement commentArea;
 
     //Attachments : Letter of designation
@@ -113,7 +113,7 @@ public class TaskSection extends _Page {
     WebElement approveNewAccount;
     @FindBy(xpath = ".//button[.='Accept Registration']")
     WebElement acceptRegistration;
-    @FindBy(xpath = ".//button[.='Accept Registration']//following::button[1]") //Stupid to have 2 buttons called Reject on same page
+    @FindBy(xpath = ".//button[.='Reject Registration']") //Stupid to have 2 buttons called Reject on same page
     WebElement rejectRegistration;
     @FindBy(xpath = ".//button[.='Approve']")
     WebElement approveTask;
@@ -188,7 +188,6 @@ public class TaskSection extends _Page {
      */
     public TaskSection rejectRegistrationTask() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        //WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
         WaitUtils.waitForElementToBeClickable(driver, rejectRegistration, TIMEOUT_5_SECOND, false);
         //approve.click();
         PageUtils.doubleClick(driver, rejectRegistration);
@@ -197,7 +196,6 @@ public class TaskSection extends _Page {
 
     public TaskSection rejectTask() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        //WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
         WaitUtils.waitForElementToBeClickable(driver, rejectTask, TIMEOUT_5_SECOND, false);
         //approve.click();
         PageUtils.doubleClick(driver, rejectTask);
@@ -206,29 +204,31 @@ public class TaskSection extends _Page {
 
     public TasksTabPage enterRejectionReason(String reason, String randomTestComment) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        //WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
-        if (reason.contains("Other")) {
-            //Comment is mandatory
-            WaitUtils.waitForElementToBeClickable(driver, other, TIMEOUT_10_SECOND, false);
-            other.click();
-            PageFactory.initElements(driver, this);
-            WaitUtils.nativeWaitInSeconds(1);
-            WaitUtils.waitForElementToBeClickable(driver, commentArea, TIMEOUT_10_SECOND, false);
-        } else if (reason.contains("Account already exists")) {
-            WaitUtils.waitForElementToBeClickable(driver, reasonAccountAlreadyExists, TIMEOUT_10_SECOND, false);
-            PageUtils.clickIfVisible(driver, reasonAccountAlreadyExists);
-        } else if (reason.contains("Not registered in the UK")) {
-            WaitUtils.waitForElementToBeClickable(driver, reasonNotRegisteredInUk, TIMEOUT_10_SECOND, false);
-            PageUtils.clickIfVisible(driver, reasonNotRegisteredInUk);
-        } else if (reason.contains("No authorisation evidence provided")) {
-            WaitUtils.waitForElementToBeClickable(driver, reasonNoAuthorisationEvidenceProvided, TIMEOUT_10_SECOND, false);
-            PageUtils.clickIfVisible(driver, reasonNoAuthorisationEvidenceProvided);
-        } else if (reason.contains("Non-qualifying party")) {
-            WaitUtils.waitForElementToBeClickable(driver, reasonNonQualifyingParty, TIMEOUT_10_SECOND, false);
-            PageUtils.clickIfVisible(driver, reasonNonQualifyingParty);
-        } else {
-            //They have changed rejection process: The options have disappeared
 
+        if(reason != null) {
+            if (reason.contains("Other")) {
+                //Comment is mandatory
+                WaitUtils.waitForElementToBeClickable(driver, other, TIMEOUT_10_SECOND, false);
+                other.click();
+                PageFactory.initElements(driver, this);
+                WaitUtils.nativeWaitInSeconds(1);
+                WaitUtils.waitForElementToBeClickable(driver, commentArea, TIMEOUT_10_SECOND, false);
+            } else if (reason.contains("Account already exists")) {
+                WaitUtils.waitForElementToBeClickable(driver, reasonAccountAlreadyExists, TIMEOUT_10_SECOND, false);
+                PageUtils.clickIfVisible(driver, reasonAccountAlreadyExists);
+            } else if (reason.contains("Not registered in the UK")) {
+                WaitUtils.waitForElementToBeClickable(driver, reasonNotRegisteredInUk, TIMEOUT_10_SECOND, false);
+                PageUtils.clickIfVisible(driver, reasonNotRegisteredInUk);
+            } else if (reason.contains("No authorisation evidence provided")) {
+                WaitUtils.waitForElementToBeClickable(driver, reasonNoAuthorisationEvidenceProvided, TIMEOUT_10_SECOND, false);
+                PageUtils.clickIfVisible(driver, reasonNoAuthorisationEvidenceProvided);
+            } else if (reason.contains("Non-qualifying party")) {
+                WaitUtils.waitForElementToBeClickable(driver, reasonNonQualifyingParty, TIMEOUT_10_SECOND, false);
+                PageUtils.clickIfVisible(driver, reasonNonQualifyingParty);
+            } else {
+                //They have changed rejection process: The options have disappeared
+
+            }
         }
 
         //Enter comment

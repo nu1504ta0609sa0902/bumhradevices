@@ -43,6 +43,8 @@ public class ManufacturerList extends _Page {
     //
     @FindBy(css = ".GridWidget---count")
     WebElement itemCount;
+    @FindBy(css = ".GridWidget---count")
+    List<WebElement> itemCounts;
     @FindBy(css = "[aria-label='Next page']")
     WebElement nextPage;
     @FindBy(css = "[aria-label='Previous page']")
@@ -77,7 +79,7 @@ public class ManufacturerList extends _Page {
     public String getARandomManufacturerName() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".elements---global_p .elements---global_a"), TIMEOUT_5_SECOND, false);
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[contains(text(),'Manufacturer')]//following::tbody[1]/tr"), TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[contains(text(),'Manufacturer')]//following::tbody[1]/tr"), TIMEOUT_15_SECOND, false);
         int index = RandomDataUtils.getNumberBetween(0, listOfManufacturerNames.size() - 1);
         WebElement link = listOfManufacturerNames.get(index);
         String name = link.getText();
@@ -139,10 +141,13 @@ public class ManufacturerList extends _Page {
         return new CreateManufacturerTestsData(driver);
     }
 
-    public int getNumberOfPages() {
-        boolean isPaginationDisplayed = isPaginationDisplayed();
+    public int getNumberOfPages(int whichPagination) {
+        int index = whichPagination - 1;
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        boolean isPaginationDisplayed = isPaginationDisplayed(index);
 
         if(isPaginationDisplayed) {
+            itemCount = itemCounts.get(index);
             WaitUtils.waitForElementToBeClickable(driver, itemCount, TIMEOUT_5_SECOND, false);
             try {
                 String text = itemCount.getText();
@@ -167,9 +172,10 @@ public class ManufacturerList extends _Page {
         }
     }
 
-    private boolean isPaginationDisplayed() {
+    private boolean isPaginationDisplayed(int index) {
         boolean isDisplayed = true;
         try{
+            itemCount = itemCounts.get(index);
             WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".elements---global_p .elements---global_a"), TIMEOUT_30_SECOND, false);
             WaitUtils.waitForElementToBeVisible(driver, itemCount, TIMEOUT_10_SECOND, false);
         }catch (Exception e){
@@ -266,6 +272,7 @@ public class ManufacturerList extends _Page {
     }
 
     public boolean isManufacturerLinkDisplayedOnInProgressTable(String name) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean found = false;
         for(WebElement manufacturer: listOfManufacturerNamesInProgress){
             String manName = manufacturer.getText();
@@ -275,6 +282,28 @@ public class ManufacturerList extends _Page {
             }
         }
 
+        return found;
+    }
+
+    public boolean isRegistraionInProgressDisplayingManufacturer(String manufacturerName) {
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        boolean found = false;
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".elements---global_p .elements---global_a"), TIMEOUT_10_SECOND, false);
+            WaitUtils.nativeWaitInSeconds(2);
+            for (WebElement item : listOfManufacturerNamesInProgress) {
+                String name = item.getText();
+                if (name.contains(manufacturerName)) {
+                    found = true;
+                    break;
+                }
+            }
+        }catch (Exception e){
+            //If no manufacturers in the list than return true
+            if(listOfManufacturerNamesInProgress.size() == 0){
+                found = true;
+            }
+        }
         return found;
     }
 }

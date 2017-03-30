@@ -20,12 +20,13 @@ Feature: As a user, I want to view devices and product details associated with a
 #    Then I should see associated organisations related to this account
     When I assign the task to me and "<approveReject>" the generated task
     Then The task should be removed from tasks list
-    And I search accounts for the stored organisation name
-    And I view a random account from search result
+    When I go to records page and click on "<page>"
+    And I search for stored organisation in "<page>" page
+    Then All organisation search result should return <count> matches
     Examples:
-      | user             | logBackInAs  | accountType  | approveReject | count | countryName | link     | pageHeading |
-      | manufacturerAuto | businessAuto | manufacturer | approve       | 1     | Brazil      | Accounts | Accounts    |
-#      | authorisedRepAuto | businessAuto | authorisedRep | approve       | 0     | Belarus     |Accounts | Accounts    |
+      | user              | logBackInAs  | accountType   | approveReject | count | countryName | link              | page              |
+      | manufacturerAuto  | businessAuto | manufacturer  | approve       | 1     | Brazil      | All Organisations | All Organisations |
+      | authorisedRepAuto | businessAuto | authorisedRep | approve       | 1     | Belarus     | Accounts          | All Organisations |
 
   @mdcm-126 @readonly @sprint1 @mdcm-125 @sprint6 @wip
   Scenario Outline: As a business user I should be able to view specific account in all accounts page
@@ -60,7 +61,7 @@ Feature: As a user, I want to view devices and product details associated with a
     When I assign the task to me and "<approveReject>" the generated task
     Then The task should be removed from tasks list
     When I go to records page and click on "<page>"
-    And I search for stored organisation "<page>" page
+    And I search for stored organisation in "<page>" page
 #    And I perform a search for "<searchTerm>" in "<page>" page
     And I click on a random organisation link "<searchTerm>" in "<page>" page
     Then I should see business manufacturer details page for the manufacturer
@@ -86,5 +87,5 @@ Feature: As a user, I want to view devices and product details associated with a
     Then I should see correct information for device type "<deviceType>"
     Examples:
       | user         | page              | searchTerm                     | deviceType             |
-#      | businessAuto | Accounts          | _AT        | General Medical Device |
-      | businessAuto | All Organisations | AuthorisedRepST_5_3_590885__NU | General Medical Device |
+      | businessAuto | Accounts          | _AT        | General Medical Device |
+      | businessAuto | All Organisations | AuthorisedRepRT | General Medical Device |

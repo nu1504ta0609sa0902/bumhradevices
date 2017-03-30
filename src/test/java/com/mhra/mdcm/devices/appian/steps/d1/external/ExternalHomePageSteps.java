@@ -145,10 +145,11 @@ public class ExternalHomePageSteps extends CommonSteps {
         manufacturerList = externalHomePage.gotoListOfManufacturerPage();
 
         String name = (String) scenarioSession.getData(SessionKey.organisationName);
-        int nop = manufacturerList.getNumberOfPages();
+        int nop = manufacturerList.getNumberOfPages(1);
         boolean isFoundInManufacturerList = false;
         int count = 0;
 
+        //Check in Manufacturers list
         do{
             count++;
             isFoundInManufacturerList = manufacturerList.isManufacturerDisplayedInList(name);
@@ -158,15 +159,18 @@ public class ExternalHomePageSteps extends CommonSteps {
         }while(!isFoundInManufacturerList && count <= nop);
 
         if(!isFoundInManufacturerList){
-            //Try first page again
+            //Check in registration in progress list
             externalHomePage = mainNavigationBar.clickExternalHOME();
             manufacturerList = externalHomePage.gotoListOfManufacturerPage();
+            nop = manufacturerList.getNumberOfPages(2);
             count = 0;
             do{
                 count++;
-                isFoundInManufacturerList = manufacturerList.isManufacturerLinkDisplayed(name);
+                isFoundInManufacturerList = manufacturerList.isRegistraionInProgressDisplayingManufacturer(name);
                 if(!isFoundInManufacturerList && nop > 0){
                     manufacturerList = manufacturerList.clickNext();
+                }else{
+                    manufacturerDetails = manufacturerList.viewAManufacturer(name);
                 }
             }while(!isFoundInManufacturerList && count <= nop);
         }
@@ -260,8 +264,14 @@ public class ExternalHomePageSteps extends CommonSteps {
     public void i_add_multiple_devices_to_selected_manufactuerer_of_type_with_following_data(Map<String, String> dataSets) throws Throwable {
         //If registered we need to click on a button, else devices page is displayed
         String registeredStatus = (String) scenarioSession.getData(SessionKey.organisationRegistered);
-        if(registeredStatus!=null && registeredStatus.toLowerCase().equals("registered"))
-            addDevices = manufacturerDetails.clickAddDeviceBtn();
+        try {
+            if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
+                addDevices = manufacturerDetails.clickAddDeviceBtn();
+            else
+                addDevices = manufacturerDetails.clickDeclareDeviceBtn();
+        }catch (Exception e){
+            addDevices = new AddDevices(driver);
+        }
 
         DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
         addDevices = addDevices.addFollowingDevice(dd);
@@ -347,7 +357,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         manufacturerList = externalHomePage.gotoListOfManufacturerPage();
 
         String name = (String) scenarioSession.getData(SessionKey.organisationName);
-        int nop = manufacturerList.getNumberOfPages();
+        int nop = manufacturerList.getNumberOfPages(1);
         boolean isFoundInManufacturerList = false;
         int count = 0;
 
@@ -361,6 +371,24 @@ public class ExternalHomePageSteps extends CommonSteps {
             }
         }while(!isFoundInManufacturerList && count <= nop);
 
+
+        if(!isFoundInManufacturerList){
+            //Check in registration in progress list
+            externalHomePage = mainNavigationBar.clickExternalHOME();
+            manufacturerList = externalHomePage.gotoListOfManufacturerPage();
+            nop = manufacturerList.getNumberOfPages(2);
+            count = 0;
+            do{
+                count++;
+                isFoundInManufacturerList = manufacturerList.isRegistraionInProgressDisplayingManufacturer(name);
+                if(!isFoundInManufacturerList && nop > 0){
+                    manufacturerList = manufacturerList.clickNext();
+                }else{
+                    manufacturerDetails = manufacturerList.viewAManufacturer(name);
+                }
+            }while(!isFoundInManufacturerList && count <= nop);
+        }
+
         Assert.assertThat("Organisation Name Expected In Manufacturer List : " + name, isFoundInManufacturerList, Matchers.is(true));
     }
 
@@ -373,7 +401,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         String registered = manufacturerList.getRegistrationStatus(name);
         String country = manufacturerList.getOrganisationCountry(name);
 
-        int nop = manufacturerList.getNumberOfPages();
+        int nop = manufacturerList.getNumberOfPages(1);
         int count = 0;
         while(registered!=null && !registered.toLowerCase().equals(status.toLowerCase())){
             count++;

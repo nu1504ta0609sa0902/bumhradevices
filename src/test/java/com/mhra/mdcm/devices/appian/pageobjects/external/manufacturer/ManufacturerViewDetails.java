@@ -51,7 +51,7 @@ public class ManufacturerViewDetails extends _Page {
     WebElement role;
 
     //ORGANISATION DETAILS
-    @FindBy(css = "div>h4")
+    @FindBy(css = "div>h1")
     WebElement orgName;
     @FindBy(xpath = ".//span[.='Address line 1']//following::p[1]")
     WebElement orgAddressLine1;
@@ -84,7 +84,7 @@ public class ManufacturerViewDetails extends _Page {
         boolean contains = false;
         if(isManufacturer){
             WaitUtils.waitForElementToBeClickable(driver, By.cssSelector("div>h2"), TIMEOUT_10_SECOND, false);
-            contains = driver.findElement(By.cssSelector("div>h2")).getText().contains(name);
+            contains = driver.findElement(By.cssSelector("div>h1")).getText().contains(name);
         }else{
             WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_10_SECOND, false);
             contains = orgName.getText().contains(name);
