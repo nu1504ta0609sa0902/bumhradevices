@@ -37,8 +37,8 @@ public class ActionsTabPage extends _Page {
 
     public CreateTestsData gotoTestsHarnessPage() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, linkCreateTestAccount, TIMEOUT_15_SECOND, false);
         try {
+            WaitUtils.waitForElementToBeClickable(driver, linkCreateTestAccount, TIMEOUT_15_SECOND, false);
             WaitUtils.waitForAlert(driver, 2, false);
         }catch (Exception e) {}
 
