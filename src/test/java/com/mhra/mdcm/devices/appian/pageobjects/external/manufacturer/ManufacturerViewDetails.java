@@ -261,4 +261,15 @@ public class ManufacturerViewDetails extends _Page {
         driver.navigate().refresh();
         return new ManufacturerViewDetails(driver);
     }
+
+    public AddDevices gotoAddDevicesPage(String registeredStatus) {
+        try {
+            if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
+                return clickAddDeviceBtn();
+            else
+                return clickDeclareDeviceBtn();
+        }catch (Exception e){
+            return new AddDevices(driver);
+        }
+    }
 }

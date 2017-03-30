@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ActionsTabPage extends _Page {
 
-    @FindBy(partialLinkText = "Create Test Account")
+    @FindBy(css = ".aui-ActionLink.GFWJSJ4DDQ")
     WebElement linkCreateTestAccount;
 
     @Autowired
@@ -36,12 +36,13 @@ public class ActionsTabPage extends _Page {
     }
 
     public CreateTestsData gotoTestsHarnessPage() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, linkCreateTestAccount, TIMEOUT_15_SECOND, false);
         try {
             WaitUtils.waitForAlert(driver, 2, false);
         }catch (Exception e) {}
 
-        PageUtils.singleClick(driver, linkCreateTestAccount);
+        linkCreateTestAccount.click();
         return new CreateTestsData(driver);
     }
 }

@@ -105,7 +105,7 @@ public class TasksTabPage extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean isVisible = true;
         try{
-            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(link), 5, false);
+            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(link), TIMEOUT_5_SECOND, false);
         }catch (Exception e){
             isVisible = false;
         }
