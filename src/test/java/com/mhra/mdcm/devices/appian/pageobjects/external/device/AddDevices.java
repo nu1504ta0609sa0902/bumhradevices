@@ -25,7 +25,7 @@ public class AddDevices extends _Page {
 
     public static String gmdnSelected = null;
 
-    @FindBy(css = ".component_error")
+    @FindBy(css = ".FieldLayout---field_error")
     List<WebElement> errorMessages;
 
     @FindBy(css = ".RadioButtonGroup---choice_pair>label")
@@ -242,8 +242,8 @@ public class AddDevices extends _Page {
         //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         try {
             WaitUtils.nativeWaitInSeconds(1);
-            WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".component_error"), 3, false);
-            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".component_error"), 3, false);
+            WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".FieldLayout---field_error"), 3, false);
+            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".FieldLayout---field_error"), 3, false);
             boolean isDisplayed = false;
             for (WebElement msg : errorMessages) {
                 String txt = msg.getText();
