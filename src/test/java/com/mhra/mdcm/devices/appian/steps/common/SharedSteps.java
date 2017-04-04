@@ -2,10 +2,14 @@ package com.mhra.mdcm.devices.appian.steps.common;
 
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.utils.reporter.CreatePrettyReport;
+import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
+import org.junit.Rule;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriverException;
@@ -33,6 +37,9 @@ public class SharedSteps extends CommonSteps {
             try {  
             	byte[] bytes = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
             	scenario.embed(bytes, "image/png");
+
+            	//Write to a separate folder
+				TestHarnessUtils.takeScreenShot(driver, scenario.getName());
             } catch (WebDriverException wde) {  
                 System.err.println(wde.getMessage());  
             } catch (ClassCastException cce) {  
@@ -46,7 +53,6 @@ public class SharedSteps extends CommonSteps {
         	
         }
     }
-
 
 	@Before
 	public void logScenarioNames(Scenario scenario) {

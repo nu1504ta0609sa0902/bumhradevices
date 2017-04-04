@@ -3,9 +3,12 @@ package com.mhra.mdcm.devices.appian.steps.d1;
 import com.mhra.mdcm.devices.appian.pageobjects.LoginPage;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
+import com.mhra.mdcm.devices.appian.utils.email.GmailEmail;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
+import cucumber.api.PendingException;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.hamcrest.Matchers;
@@ -113,4 +116,9 @@ public class LoginPageSteps extends CommonSteps {
         }
     }
 
+    @When("^I logout and log back into appian as \"([^\"]*)\" user$")
+    public void iLogoutAndLogBackIntoAppianAsUser(String username) throws Throwable {
+        iLogoutOfTheApplication();
+        i_am_logged_into_appian_as_user(username);
+    }
 }

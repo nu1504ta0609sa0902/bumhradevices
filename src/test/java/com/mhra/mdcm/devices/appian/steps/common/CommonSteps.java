@@ -3,11 +3,11 @@ package com.mhra.mdcm.devices.appian.steps.common;
 import com.mhra.mdcm.devices.appian.pageobjects.LoginPage;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.pageobjects.business.*;
-import com.mhra.mdcm.devices.appian.pageobjects.business.sections.*;
+import com.mhra.mdcm.devices.appian.pageobjects.business.sections.TaskSection;
 import com.mhra.mdcm.devices.appian.pageobjects.business.sections.records.*;
-import com.mhra.mdcm.devices.appian.pageobjects.external._CreateManufacturerTestsData;
-import com.mhra.mdcm.devices.appian.pageobjects.external.MyAccountPage;
 import com.mhra.mdcm.devices.appian.pageobjects.external.ExternalHomePage;
+import com.mhra.mdcm.devices.appian.pageobjects.external.MyAccountPage;
+import com.mhra.mdcm.devices.appian.pageobjects.external._CreateManufacturerTestsData;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.AddDevices;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.DeviceDetails;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.ProductDetails;
@@ -17,8 +17,12 @@ import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.Manufactur
 import com.mhra.mdcm.devices.appian.pageobjects.external.myaccount.ContactPersonDetails;
 import com.mhra.mdcm.devices.appian.pageobjects.external.myaccount.OrganisationDetails;
 import com.mhra.mdcm.devices.appian.session.ScenarioSession;
-
+import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
+import cucumber.api.java.After;
+import org.junit.Rule;
+import org.junit.rules.TestWatcher;
+import org.junit.runner.Description;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +30,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 
-import java.util.*;
+import java.util.Map;
 
 
 @ContextConfiguration(locations = {"/cucumber.mhra.devices.xml"})
@@ -134,27 +138,8 @@ public class CommonSteps {
             baseUrl = baseUrl.replace("mhra.", "www.");
         }
 
-        //Make sure network connection is available
-//        String testUrl = NetworkUtils.getTestUrl(baseUrl);
-//        boolean connected = NetworkUtils.verifyConnectedToNetwork(testUrl, 10);
-//        if(!connected){
-//            NetworkUtils.shutdownIfRequired(connected, testUrl, log);
-//        }else {
-//            //loadMapOfExcelData();
-//            addShutdownHooks();
-//        }
         addShutdownHooks();
     }
-
-//    private void loadMapOfExcelData() {
-//        if(mapOfExcelDataAsMap == null && driver == null){
-//            //Load excel test data
-//            ExcelUtils excelUtils = new ExcelUtils();
-//            //mapOfExcelDataAsMap = excelUtils.getAllData("configs/data/xmlTestData1.xlsx");
-//            mapOfExcelDataAsMap = excelUtils.getAllDataAsMap("configs/data/xmlTestData2.xlsx");
-//            log.info("TEST DATA LOADED FROM : configs/data/xmlTestData2.xlsx");
-//        }
-//    }
 
     private void addShutdownHooks() {
         if(driver==null){

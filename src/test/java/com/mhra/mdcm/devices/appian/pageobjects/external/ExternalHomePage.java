@@ -20,7 +20,7 @@ import java.util.List;
 @Component
 public class ExternalHomePage extends _Page {
 
-    @FindBy(css = ".DocumentImage---image.DocumentImage---small")
+    @FindBy(css = ".Button---btn.Button---default_direction.Button---primary")
     WebElement linkManufacturerRegistration;
 
     @FindBy(xpath = ".//button[contains(text(),'Register new manufacturer')]")
@@ -120,7 +120,8 @@ public class ExternalHomePage extends _Page {
 
     public boolean isTitleCorrect() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        boolean titleCorrect = pageHeading.getText().contains("Healthcare Products Regulatory Agency Services");
+        String actualTitle = pageHeading.getText();
+        boolean titleCorrect = actualTitle.contains("Regulatory Agency Services");
         return titleCorrect;
     }
 

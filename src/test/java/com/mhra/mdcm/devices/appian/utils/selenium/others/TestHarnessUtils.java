@@ -5,18 +5,15 @@ import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
 import com.mhra.mdcm.devices.appian.session.ScenarioSession;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by TPD_Auto on 14/07/2016.
@@ -229,5 +226,18 @@ public class TestHarnessUtils {
     public static List<String> getListOfSearchTermsForGMDN() {
         List<String> listOfGmdnsSearchTerms = new ArrayList<>(Arrays.asList("cat", "res", "tis", "sco", "con", "pro"));
         return listOfGmdnsSearchTerms;
+    }
+
+    public static void takeScreenShot(WebDriver driver, String name) {
+        File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        String currentDir = FileUtils.getFileFullPath("tmp", "screenshots");
+        //String currentDir = System.getProperty("user.dir");
+        String timeStamp = new SimpleDateFormat("HHmm").format(Calendar.getInstance().getTime());
+        String subDir = "SS_" + new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
+        try {
+            org.apache.commons.io.FileUtils.copyFile(scrFile, new File(currentDir + File.separator + subDir + File.separator + timeStamp + "_" + name + ".png"));
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
     }
 }

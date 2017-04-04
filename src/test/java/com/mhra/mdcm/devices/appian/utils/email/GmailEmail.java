@@ -1,11 +1,13 @@
 package com.mhra.mdcm.devices.appian.utils.email;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.sort.SortByMessageNumber;
+import org.apache.poi.ss.usermodel.DateUtil;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMultipart;
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -19,14 +21,16 @@ public class GmailEmail {
     public static void main(String[] args) {
 
         GmailEmail gmail = new GmailEmail();
-        String body = readMessageForSpecifiedOrganisations(5, 10, "Manufacturer registration", "AuthorisedRepRT");
+        String body = readMessageForSpecifiedOrganisations(5, 10, "Manufacturer registration service", "AuthorisedRepRT");
         System.out.println(body);
     }
 
 
     /**
-     * Read message received in the last few minutes
+     *
+     * Read message received in the last few minutes for the specified organisation
      * @param min
+     * @param numberOfMessgesToCheck
      * @param subjectHeading
      * @param organisationName
      * @return
@@ -71,7 +75,7 @@ public class GmailEmail {
 
                 for (Address from : froms) {
                     String emailAddress = froms == null ? null : ((InternetAddress) from).getAddress();
-                    if (emailAddress != null && emailAddress.contains("appian")) {
+                    if (emailAddress != null && (emailAddress.contains("appian") || emailAddress.contains("incessant"))) {
 
                         boolean isMessageReceivedToday = isMessageReceivedToday(subject, subjectHeading, sentDate);
                         //isMessageReceivedToday = true;
@@ -98,7 +102,7 @@ public class GmailEmail {
                     }
                 }
 
-                if(i > numberOfMessgesToCheck){
+                if(i > numberOfMessgesToCheck || bodyText!=null){
                     //Most likely no emails received yet
                     break;
                 }
@@ -137,15 +141,19 @@ public class GmailEmail {
         if (subjectHeading == null || subjectHeading.equals("") || subjectHeading.contains("Annual Notification Invoices")) {
             return true;
         } else {
+            String date = sentDate.toString();
+
+            //Verify it was received today
             Calendar calendar = Calendar.getInstance();
             int dom = calendar.get(Calendar.DAY_OF_MONTH);
-            int month = calendar.get(Calendar.MONTH) + 1;
-            int year = calendar.get(Calendar.YEAR);
+            String monthStr = new SimpleDateFormat("MMM").format(sentDate);
+            String dayStr = new SimpleDateFormat("EEE").format(sentDate);
+            String dayNumberStr = String.valueOf(dom);
+            if(dom < 10){
+                dayNumberStr = "0" + dayNumberStr;
+            }
 
-            String f1 = dom + "/" + month + "/" + year;
-            String f2 = dom + "/0" + month + "/" + year;
-
-            if (subject.contains(f1) || subject.contains(f2))
+            if (date.contains(dayNumberStr) && date.contains(dayStr) && date.contains(monthStr))
                 return true;
             else
                 return false;
