@@ -171,13 +171,15 @@ Automated Issues:
 
 
     Sprint 10: @sprint10
-        - @2191 -   @todo Email related
+        - @2191 -   Added tests to verify new Account email received
+                -   @todo Email related
         - @1937 -   3/6     DONE
                 -   @Todo cant filter by Registered
         - @3559 -   3/6     DONE
         - @3560 -   3/4     DONE
         - @2143 -   4/5     DONE
-        - @2190 -   @todo Email and notifications
+        - @2190 -   Added tests to verify new Manufacturer/AuthorisedRep email received
+                -   @todo Email and notifications
         - @3837 -   5/5     DONE
         - @2192 -   @todo Email
         - @3894 -   3/3     DONE
