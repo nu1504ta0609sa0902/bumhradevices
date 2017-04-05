@@ -29,7 +29,7 @@ Feature: Reset all the information related to a manufacturer and authorisedRep
     Then I should see the changes "<keyValuePairs>" in my accounts page
     Examples:
       | user              | keyValuePairs |
-      | manufacturerNoor | org.country   |
+      | manufacturerNoor  | org.country   |
       | authorisedRepNoor | org.country   |
 
 
@@ -43,8 +43,8 @@ Feature: Reset all the information related to a manufacturer and authorisedRep
     Then I view new task with link "New Service Request" for the new account
     When I assign the task to me and "approve" the generated task
     Examples:
-      | user              | logBackInAas |
-      | manufacturerNoor  | businessNoor |
+      | user             | logBackInAas |
+      | manufacturerNoor | businessNoor |
 #      | authorisedRepNoor | businessNoor |
 
 
@@ -81,8 +81,8 @@ Feature: Reset all the information related to a manufacturer and authorisedRep
     And I assign the task to me and "approve" the generated task
     Then The task should be removed from tasks list
     Examples:
-      | user              | logBackInAas | accountType   | countryName |
-      | manufacturerNoor  | businessNoor | manufacturer  | Bangladesh  |
+      | user             | logBackInAas | accountType  | countryName |
+      | manufacturerNoor | businessNoor | manufacturer | Bangladesh  |
 
 
   @setup
@@ -109,8 +109,8 @@ Feature: Reset all the information related to a manufacturer and authorisedRep
     When I search accounts for the stored organisation name
     Then I should see at least 0 account matches
     Examples:
-      | user             | logBackInAas | accountType  | countryName | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
-      | manufacturerAuto | businessAuto | manufacturer | United Kingdom       | Active Implantable Medical Devices | Desiccating chamber          | true       | setmeup            |
+      | user             | logBackInAas | accountType  | countryName    | deviceType                         | gmdnDefinition      | customMade | listOfProductNames |
+      | manufacturerAuto | businessAuto | manufacturer | United Kingdom | Active Implantable Medical Devices | Desiccating chamber | true       | setmeup            |
 
 
   @setup
@@ -137,8 +137,8 @@ Feature: Reset all the information related to a manufacturer and authorisedRep
     When I search accounts for the stored organisation name
     Then I should see at least 0 account matches
     Examples:
-      | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition | customMade | listOfProductNames |
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Desiccating chamber          | true       | ford,hyundai       |
+      | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition      | customMade | listOfProductNames |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Desiccating chamber | true       | ford,hyundai       |
 
 
   @setup

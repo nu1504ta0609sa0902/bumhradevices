@@ -97,7 +97,7 @@ Feature: As an account holder with access to the Device Registration Service
       #| manufacturerAuto | General Medical Device | Blood weighing scale | Autopsy measure |
 
 
-  @regression @mdcm-489 @sprint5 @mdcm-148 @sprint7 @3755 @sprint11
+  @regression @mdcm-489 @sprint5 @mdcm-148 @sprint7 @3755 @sprint11 @2910 @sprint7
   Scenario Outline: Verify product details after adding IVD products
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page

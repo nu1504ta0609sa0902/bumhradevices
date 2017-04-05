@@ -117,10 +117,8 @@ Automated Issues:
         - @mdcm-345 -   @Todo Business has moved this outside of this sprints, all 3 TC
         - @3365     -   4/4         DONE ish
                     -   Once approved users can register more manufacturer
-        - @2910     -   @TODO cant see add a product button
-                    -   Add a product button not visible
+        - @2910     -   @TODO Add more product to an already existing device
         - @2399     -   7/7         DONE ish
-                    -   Add more tests
         - @mdcm-490 -   @Todo add tests when deployment finishes
                     -   Business manufacturer details page
         - @mdcm-626 -   10/13       DONE ish
@@ -141,7 +139,7 @@ Automated Issues:
         - @3158 -   @todo LOTS OF TCS
                 -   View devices as part of manufacturers
                 -   Time consuming
-        - @1836 -   EMAIL
+        - @1836 -   @todo EMAIL
                 -   Registration message and EMAIL
         - @2097 -   8/10    DONE ish
                 -   @todo PARD default selection

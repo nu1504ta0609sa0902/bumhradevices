@@ -22,8 +22,8 @@ Feature: As an account holder with access to the Device Registration Service I w
       | user              | deviceType                 | gmdnDefinition        | riskClassification | productName | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
       | authorisedRepAuto | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
       | authorisedRepAuto | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | false         |
-      #| manufacturerAuto | In Vitro Diagnostic Device | Androgen receptor IVD | list b             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
-      #| manufacturerAuto | In Vitro Diagnostic Device | Androgen receptor IVD | self-test          | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      | manufacturerAuto | In Vitro Diagnostic Device | Androgen receptor IVD | list b             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      | manufacturerAuto | In Vitro Diagnostic Device | Androgen receptor IVD | self-test          | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
 
   @regression @mdcm-183 @sprint3 @mdcm-148 @sprint7
@@ -120,11 +120,11 @@ Feature: As an account holder with access to the Device Registration Service I w
       | user              | deviceType                 | gmdnDefinition        | gmdnDefinition2 | riskClassification | listOfProductNames | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
       | authorisedRepAuto | In Vitro Diagnostic Device | Androgen receptor IVD | Cat             | list a             | ford,hyundai       | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
       | authorisedRepAuto | In Vitro Diagnostic Device | Androgen receptor IVD | Cat             | list a             | ford,honda         | ford        | focus        | NB 0086 BSI  | true              | true       | false         |
-      #| manufacturerAuto | In Vitro Diagnostic Device | Androgen receptor IVD | Cat             | list b             | honda,ferrari      | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
-      #| manufacturerAuto | In Vitro Diagnostic Device | Androgen receptor IVD | Cat             | self-test          | ferrari,peugeot    | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      | manufacturerAuto | In Vitro Diagnostic Device | Androgen receptor IVD | Cat             | list b             | honda,ferrari      | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      | manufacturerAuto | In Vitro Diagnostic Device | Androgen receptor IVD | Cat             | self-test          | ferrari,peugeot    | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
 
-  @regression @mdcm-183 @mdcm-240 @sprint3 @sprint4 @3777 @2184 @sprint9 @mdcm-148 @sprint7 @wip
+  @regression @mdcm-183 @mdcm-240 @sprint3 @sprint4 @3777 @2184 @sprint9 @mdcm-148 @2910 @sprint7
   Scenario Outline: Register a device with MULTIPLE product and devices for active implantable medical devices type
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page

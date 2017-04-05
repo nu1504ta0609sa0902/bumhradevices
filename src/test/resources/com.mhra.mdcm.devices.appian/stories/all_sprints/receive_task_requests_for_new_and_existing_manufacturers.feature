@@ -51,12 +51,12 @@ Feature: As a business user, I want a task to be created each time a customer su
     And I am logged into appian as "<logBackInAs>" user
     Then I should see stored manufacturer appear in the manufacturers list
     Examples:
-      | user         | accountType  | logBackInAs      | approveReject | count | countryName    | link                |
-      | businessNoor | manufacturer | manufacturerNoor | approve       | 1     | United Kingdom | New Account Request |
-      | businessNoor | authorisedRep | authorisedRepNoor |approve       | 1     | Netherland     | New Account Request |
+      | user         | accountType   | logBackInAs       | approveReject | count | countryName    | link                |
+      | businessNoor | manufacturer  | manufacturerNoor  | approve       | 1     | United Kingdom | New Account Request |
+      | businessNoor | authorisedRep | authorisedRepNoor | approve       | 1     | Netherland     | New Account Request |
 
 
-  @regression @mdcm-15 @mdcm-21 @mdcm-39 @mdcm-186 @mdcm-240 @sprint4 @sprint2 @sprint3 @sprint5 @bug
+  @regression @mdcm-15 @mdcm-21 @mdcm-39 @mdcm-186 @mdcm-240 @sprint4 @sprint2 @sprint3 @sprint5 @2910 @sprint7 @bug
   Scenario Outline: Business users should be able to review and process manufacturer and device registration tasks
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -80,11 +80,11 @@ Feature: As a business user, I want a task to be created each time a customer su
     Then The completed task status should update to "Completed"
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition      | customMade | listOfProductNames |
-      | manufacturerAuto  | businessAuto | manufacturer  | Brazil  | Active Implantable Medical Devices | Desiccating chamber          | true       | setmeup1           |
+      | manufacturerAuto  | businessAuto | manufacturer  | Brazil      | Active Implantable Medical Devices | Desiccating chamber | true       | setmeup1           |
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Desiccating chamber | true       | setmeup2           |
 
 
-  @regression @mdcm-15 @mdcm-21 @mdcm-39 @mdcm-186 @sprint2 @sprint3 @sprint5 @3755 @sprint11 @bug
+  @regression @mdcm-15 @mdcm-21 @mdcm-39 @mdcm-186 @sprint2 @sprint3 @sprint5 @3755 @sprint11 @2910 @sprint7
   Scenario Outline: Business users to review and process manufacturer and device registration task for IVD List A
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -238,5 +238,5 @@ Feature: As a business user, I want a task to be created each time a customer su
     Then The completed task status should update to "Completed"
     Examples:
       | user              | logBackInAs  | gmdn                 | filterBy | taskType |
-      | manufacturerAuto | businessAuto | Blood weighing scale | orgName       | taskType |
+      | manufacturerAuto  | businessAuto | Blood weighing scale | orgName  | taskType |
       | authorisedRepAuto | businessAuto | Blood weighing scale | orgName  | taskType |
