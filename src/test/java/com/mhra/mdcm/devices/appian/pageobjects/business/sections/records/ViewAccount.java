@@ -66,8 +66,9 @@ public class ViewAccount extends _Page {
 
     public boolean isHeadingCorrect(String expectedHeadings) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h1[.='" + expectedHeadings + "']") , TIMEOUT_DEFAULT, false);
-        WebElement heading = driver.findElement(By.xpath(".//h1[.='" + expectedHeadings + "']"));
+        By by = By.xpath(".//h1[.='" + expectedHeadings + "']");
+        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_DEFAULT, false);
+        WebElement heading = driver.findElement(by);
         boolean contains = heading.getText().contains(expectedHeadings);
         return contains;
     }

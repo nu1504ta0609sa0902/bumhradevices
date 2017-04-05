@@ -255,8 +255,9 @@ public class TaskSection extends _Page {
     }
 
     public TaskSection clickOnTaskName(String orgName) {
-        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(orgName), TIMEOUT_10_SECOND, false);
-        WebElement name = driver.findElement(By.partialLinkText(orgName));
+        By by = By.partialLinkText(orgName);
+        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_10_SECOND, false);
+        WebElement name = driver.findElement(by);
         PageUtils.doubleClick(driver, name);
         return new TaskSection(driver);
     }
@@ -429,6 +430,7 @@ public class TaskSection extends _Page {
 
     public boolean isPaperClipDisplayed(String orgName) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+
         By by = By.xpath(".//td[.='" + orgName + "']//following::td[5]");
         WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_10_SECOND, false);
         WebElement tdWithDocuments = driver.findElement(by);

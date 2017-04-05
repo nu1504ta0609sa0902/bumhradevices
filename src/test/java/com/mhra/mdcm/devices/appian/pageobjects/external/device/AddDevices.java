@@ -51,6 +51,8 @@ public class AddDevices extends _Page {
     WebElement txtProductMake;
     @FindBy(xpath = ".//label[contains(text(), 'Product model')]//following::input[1]")
     WebElement txtProductModel;
+    @FindBy(xpath = ".//*[.='Product details']//following::th/a")
+    List<WebElement> listOfProductDetailsTable;
 
     //Device types radio buttons
     @FindBy(xpath = ".//label[contains(text(),'General Medical')]")
@@ -131,6 +133,10 @@ public class AddDevices extends _Page {
     //Add product
     @FindBy(xpath = ".//button[.='Add product']")
     WebElement addProduct;
+    @FindBy(xpath = ".//button[.='Save Product']")
+    WebElement saveProduct;
+    @FindBy(xpath = ".//button[.='Save product']")
+    WebElement saveProduct2;
     @FindBy(xpath = ".//*[contains(text(),'Product name')]//following::input[1]")
     WebElement pdProductName;
     @FindBy(xpath = ".//*[contains(text(),'Product make')]//following::input[1]")
@@ -403,7 +409,6 @@ public class AddDevices extends _Page {
     private boolean verifyProductDetailsHeading() {
         String expectedHeadings = "name,make,model,product code";
         boolean allHeadingCorrect = true;
-        List<WebElement> listOfProductDetailsTable = driver.findElements(By.xpath(".//*[.='Product details']//following::th/a"));
 
         for(WebElement el: listOfProductDetailsTable){
             String text = el.getText().toLowerCase();
@@ -434,8 +439,8 @@ public class AddDevices extends _Page {
     }
 
     private void productLabelName(DeviceData dd) {
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//button[.='Add Product']"), TIMEOUT_5_SECOND, false);
-        driver.findElement(By.xpath(".//button[.='Add Product']")).click();
+        WaitUtils.waitForElementToBeClickable(driver, addProduct, TIMEOUT_5_SECOND, false);
+        addProduct.click();
         WaitUtils.waitForElementToBeClickable(driver, txtProductNameLabel, TIMEOUT_5_SECOND, false);
         txtProductNameLabel.sendKeys(RandomDataUtils.getRandomTestName("Label"));
 
@@ -443,15 +448,15 @@ public class AddDevices extends _Page {
         PageUtils.uploadDocument(listOfFileUploads.get(0), "DeviceInstructionForUse1.pdf", 1, 3);
 
         //Save product label details
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//button[.='Save Product']"), TIMEOUT_5_SECOND, false);
-        driver.findElement(By.xpath(".//button[.='Save Product']")).click();
+        WaitUtils.waitForElementToBeClickable(driver, saveProduct, TIMEOUT_5_SECOND, false);
+        saveProduct.click();
 
     }
 
 
     private void productLabelName(String labelName) {
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//button[.='Add Product']"), TIMEOUT_10_SECOND, false);
-        driver.findElement(By.xpath(".//button[.='Add Product']")).click();
+        WaitUtils.waitForElementToBeClickable(driver, addProduct, TIMEOUT_10_SECOND, false);
+        addProduct.click();
 
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.nativeWaitInSeconds(1);
@@ -462,8 +467,8 @@ public class AddDevices extends _Page {
         PageUtils.uploadDocument(listOfFileUploads.get(0), "DeviceInstructionForUse1.pdf", 1, 3);
 
         //Save product label details
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//button[.='Save Product']"), TIMEOUT_5_SECOND, false);
-        driver.findElement(By.xpath(".//button[.='Save Product']")).click();
+        WaitUtils.waitForElementToBeClickable(driver, saveProduct, TIMEOUT_5_SECOND, false);
+        saveProduct.click();
     }
 
     private void conformToCTS(DeviceData dd) {
@@ -481,8 +486,8 @@ public class AddDevices extends _Page {
     }
 
     private void saveProduct(DeviceData dd) {
-        WebElement saveProduct = driver.findElement(By.xpath(".//button[.='Save product']"));
-        saveProduct.click();
+        WaitUtils.waitForElementToBeClickable(driver, saveProduct2, TIMEOUT_5_SECOND, false);
+        saveProduct2.click();
     }
 
     private void productNewToMarket(DeviceData dd) {
@@ -854,7 +859,6 @@ public class AddDevices extends _Page {
         }
 
         //WaitUtils.waitForElementToBeClickable(driver, link, TIMEOUT_5_SECOND, false);
-        //PageUtils.doubleClick(driver, link);
         driver.findElement(By.linkText(link.getText())).click();
         return new AddDevices(driver);
     }

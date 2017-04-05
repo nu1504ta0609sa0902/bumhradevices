@@ -62,21 +62,21 @@ public class ExternalHomePage extends _Page {
     }
 
 
-    public ExternalHomePage provideIndicationOfDevicesMade() {
-        List<WebElement> elements = driver.findElements(By.cssSelector(".GFWJSJ4DPV.GFWJSJ4DCAD input"));
-        for(WebElement e: elements){
-            WaitUtils.waitForElementToBeClickable(driver, e, TIMEOUT_3_SECOND, false);
-            PageUtils.clickIfVisible(driver, e);
-        }
-
-        List<WebElement> elements2 = driver.findElements(By.cssSelector(".GFWJSJ4DPV.GFWJSJ4DCAD input"));
-        for(WebElement e: elements2){
-            WaitUtils.waitForElementToBeClickable(driver, e, TIMEOUT_3_SECOND, false);
-            PageUtils.clickIfVisible(driver, e);
-        }
-
-        return new ExternalHomePage(driver);
-    }
+//    public ExternalHomePage provideIndicationOfDevicesMade() {
+//        List<WebElement> elements = driver.findElements(By.cssSelector(".GFWJSJ4DPV.GFWJSJ4DCAD input"));
+//        for(WebElement e: elements){
+//            WaitUtils.waitForElementToBeClickable(driver, e, TIMEOUT_3_SECOND, false);
+//            PageUtils.clickIfVisible(driver, e);
+//        }
+//
+//        List<WebElement> elements2 = driver.findElements(By.cssSelector(".GFWJSJ4DPV.GFWJSJ4DCAD input"));
+//        for(WebElement e: elements2){
+//            WaitUtils.waitForElementToBeClickable(driver, e, TIMEOUT_3_SECOND, false);
+//            PageUtils.clickIfVisible(driver, e);
+//        }
+//
+//        return new ExternalHomePage(driver);
+//    }
 
 
     public ExternalHomePage provideIndicationOfDevicesMade(int index) {

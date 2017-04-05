@@ -26,8 +26,9 @@ public class Products extends _Page {
     }
 
     public boolean isHeadingCorrect(String expectedHeadings) {
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='" + expectedHeadings + "']") , 10, false);
-        WebElement heading = driver.findElement(By.xpath(".//h2[.='" + expectedHeadings + "']"));
+        By by = By.xpath(".//h2[.='" + expectedHeadings + "']");
+        WaitUtils.waitForElementToBeClickable(driver, by, 10, false);
+        WebElement heading = driver.findElement(by);
         boolean contains = heading.getText().contains(expectedHeadings);
         return contains;
     }

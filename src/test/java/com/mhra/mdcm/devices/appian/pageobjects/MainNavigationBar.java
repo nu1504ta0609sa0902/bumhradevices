@@ -117,27 +117,16 @@ public class MainNavigationBar extends _Page {
 
     public ExternalHomePage clickExternalHOME() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        try {
-            WaitUtils.waitForElementToBeClickable(driver, linkHOME, TIMEOUT_DEFAULT, false);
-            PageUtils.doubleClick(driver, linkHOME);
-        }catch (Exception e){
-            By xp = By.partialLinkText("home");
-            WaitUtils.waitForElementToBeClickable(driver, xp, TIMEOUT_DEFAULT, false);
-            PageUtils.doubleClick(driver, driver.findElement(xp));
-        }
+        WaitUtils.waitForElementToBeClickable(driver, linkHOME, TIMEOUT_DEFAULT, false);
+        PageUtils.doubleClick(driver, linkHOME);
         PageUtils.acceptAlert(driver, "accept", 1);
         return new ExternalHomePage(driver);
     }
 
     public MyAccountPage clickMyAccount() {
-        try {
-            WaitUtils.waitForElementToBeClickable(driver, linkMyAccount, TIMEOUT_DEFAULT,  false);
-            PageUtils.doubleClick(driver, linkMyAccount);
-        }catch (Exception e){
-            By xp = By.partialLinkText("my account");
-            WaitUtils.waitForElementToBeClickable(driver, xp, TIMEOUT_DEFAULT, false);
-            PageUtils.doubleClick(driver, driver.findElement(xp));
-        }
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, linkMyAccount, TIMEOUT_DEFAULT,  false);
+        PageUtils.doubleClick(driver, linkMyAccount);
         return new MyAccountPage(driver);
     }
 }

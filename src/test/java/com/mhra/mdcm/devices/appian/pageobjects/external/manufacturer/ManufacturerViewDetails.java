@@ -83,8 +83,8 @@ public class ManufacturerViewDetails extends _Page {
         WaitUtils.isPageLoadingComplete(driver, 1);
         boolean contains = false;
         if(isManufacturer){
-            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector("div>h2"), TIMEOUT_10_SECOND, false);
-            contains = driver.findElement(By.cssSelector("div>h1")).getText().contains(name);
+            WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_10_SECOND, false);
+            contains = orgName.getText().contains(name);
         }else{
             WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_10_SECOND, false);
             contains = orgName.getText().contains(name);

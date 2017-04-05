@@ -88,7 +88,7 @@ public class _CreateManufacturerTestsData extends _Page {
      */
     public AddDevices createTestOrganisation(ManufacturerOrganisationRequest ar) throws Exception {
         WaitUtils.nativeWaitInSeconds(3);
-        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".PickerWidget---picker_value"), TIMEOUT_3_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".PickerWidget---picker_value"), TIMEOUT_10_SECOND, false);
         WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND, false);
         orgName.sendKeys(ar.organisationName);
         //PageUtils.selectCountryFromAutoSuggests(driver, ".gwt-SuggestBox", ar.country, false);
@@ -148,41 +148,41 @@ public class _CreateManufacturerTestsData extends _Page {
         return new AddDevices(driver);
     }
 
-    private void selectCountryFromAutoSuggests(WebDriver driver, String elementPath, String countryName, boolean throwException) throws Exception {
-        boolean completed = true;
-        int count = 0;
-        do {
-            try {
+//    private void selectCountryFromAutoSuggests(WebDriver driver, String elementPath, String countryName, boolean throwException) throws Exception {
+//        boolean completed = true;
+//        int count = 0;
+//        do {
+//            try {
+//
+//                count++;    //It will go forever without this
+//                WebElement country = driver.findElements(By.cssSelector(elementPath)).get(0);
+//                new Actions(driver).moveToElement(country).perform();
+//
+//                //Enter the country I am interested in
+//                country.sendKeys("\n");
+//                country.clear();
+//                country.sendKeys(countryName, Keys.ENTER);
+//                new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(By.cssSelector(".item")));
+//                country.sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
+//
+//                completed = true;
+//            } catch (Exception e) {
+//                completed = false;
+//                WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+//                //WaitUtils.nativeWaitInSeconds(1);
+//                //PageFactory.initElements(driver, this);
+//            }
+//        } while (!completed && count < 1);
+//
+//        if(!completed && throwException){
+//            throw new Exception("Country name not selected");
+//        }
+//    }
 
-                count++;    //It will go forever without this
-                WebElement country = driver.findElements(By.cssSelector(elementPath)).get(0);
-                new Actions(driver).moveToElement(country).perform();
-
-                //Enter the country I am interested in
-                country.sendKeys("\n");
-                country.clear();
-                country.sendKeys(countryName, Keys.ENTER);
-                new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(By.cssSelector(".item")));
-                country.sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
-
-                completed = true;
-            } catch (Exception e) {
-                completed = false;
-                WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-                //WaitUtils.nativeWaitInSeconds(1);
-                //PageFactory.initElements(driver, this);
-            }
-        } while (!completed && count < 1);
-
-        if(!completed && throwException){
-            throw new Exception("Country name not selected");
-        }
-    }
-
-    public ActionsTabPage clickCancel() {
-        PageUtils.doubleClick(driver, cancel);
-        return new ActionsTabPage(driver);
-    }
+//    public ActionsTabPage clickCancel() {
+//        PageUtils.doubleClick(driver, cancel);
+//        return new ActionsTabPage(driver);
+//    }
 
     public boolean isErrorMessageDisplayed() {
         try {

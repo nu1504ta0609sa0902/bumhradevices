@@ -193,35 +193,35 @@ public class TestHarnessUtils {
         return dd;
     }
 
-    public static void selectCountryFromAutoSuggests(WebDriver driver, String elementPath, String countryName, boolean throwException) throws Exception {
-            boolean completed = true;
-            int count = 0;
-            do {
-                try {
-
-                    count++;    //It will go forever without this
-                    WebElement country = driver.findElements(By.cssSelector(elementPath)).get(0);
-                    new Actions(driver).moveToElement(country).perform();
-
-                    //Enter the country I am interested in
-                    country.sendKeys("\n");
-                    country.clear();
-                    country.sendKeys(countryName, Keys.ENTER);
-                    new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(By.cssSelector(".item")));
-                    country.sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
-
-                    completed = true;
-                } catch (Exception e) {
-                    completed = false;
-                    WaitUtils.nativeWaitInSeconds(1);
-                    //PageFactory.initElements(driver, this);
-                }
-            } while (!completed && count < 1);
-
-            if(!completed && throwException){
-                throw new Exception("Country name not selected");
-            }
-        }
+//    public static void selectCountryFromAutoSuggests(WebDriver driver, String elementPath, String countryName, boolean throwException) throws Exception {
+//            boolean completed = true;
+//            int count = 0;
+//            do {
+//                try {
+//
+//                    count++;    //It will go forever without this
+//                    WebElement country = driver.findElements(By.cssSelector(elementPath)).get(0);
+//                    new Actions(driver).moveToElement(country).perform();
+//
+//                    //Enter the country I am interested in
+//                    country.sendKeys("\n");
+//                    country.clear();
+//                    country.sendKeys(countryName, Keys.ENTER);
+//                    new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(By.cssSelector(".item")));
+//                    country.sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
+//
+//                    completed = true;
+//                } catch (Exception e) {
+//                    completed = false;
+//                    WaitUtils.nativeWaitInSeconds(1);
+//                    //PageFactory.initElements(driver, this);
+//                }
+//            } while (!completed && count < 1);
+//
+//            if(!completed && throwException){
+//                throw new Exception("Country name not selected");
+//            }
+//        }
 
     public static List<String> getListOfSearchTermsForGMDN() {
         List<String> listOfGmdnsSearchTerms = new ArrayList<>(Arrays.asList("cat", "res", "tis", "sco", "con", "pro"));
