@@ -3,7 +3,7 @@ Feature: As a customer I want to register new manufacturers with devices
   so that I am granted access to that and can then register overseas manufacturers on their behalf
 
 
-  @regression @mdcm-14 @mdcm-39 @mdcm-496 @sprint3 @sprint5 @2185 @sprint8
+  @regression @mdcm-14 @mdcm-39 @mdcm-496 @sprint3 @sprint5 @2185 @sprint8 @1956 @sprint9
   Scenario Outline: Users should be able to register new manufacturers with devices
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -62,7 +62,7 @@ Feature: As a customer I want to register new manufacturers with devices
       | manufacturerAuto  | businessAuto | authorisedRep | Brazil      | General Medical Device | true       |               |                 | Registered | Blood weighing scale |                    |              |
 
 
-  @regression @readonly @mdcm-39 @sprint5
+  @regression @readonly @mdcm-39 @sprint5 @1840 @sprint9
   Scenario Outline: Verify manufacturers landing page contents
     Given I am logged into appian as "<user>" user
     When I go to portal page
@@ -73,7 +73,7 @@ Feature: As a customer I want to register new manufacturers with devices
       | authorisedRepAuto |
 
 
-  @regression @mdcm-374 @mdcm-134 @sprint5 @3762 @sprint9 @mdcm-164 @sprint6 @bug
+  @regression @mdcm-374 @mdcm-134 @sprint5 @3762 @sprint9 @mdcm-164 @sprint6 @1956 @sprint9 @bug
   Scenario Outline: Users should be able to add and remove devices from a newly created manufacturers and submit for approval
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page

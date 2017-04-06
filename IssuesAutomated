@@ -129,10 +129,9 @@ Automated Issues:
 
     Spring 8: @sprint8
         - @1924 -   4/4     DONE
-        - @2049 -
+        - @2049 -   DONE ISH
                 -   @todo IVD device and notified body related
-        - @2185 -
-                -   @todo Notified body of type others
+        - @2185 -   DONE ISH
         - @3271 -   @todo LOTS OF TCS
                 -   View devices as part of manufacturers
                 -   time consuming
@@ -150,16 +149,15 @@ Automated Issues:
 
     Spring 9: @sprint9
         - @3777 -   7/7     DONE
-                -   @todo Device summary and payments page
-        - @3762 -   4/6
+        - @3762 -   4/6     DONEish
                 -   @todo verify cancel button is visible in add devices page
         - @3761 -   4/4     DONE
                 -   @TODO register my organisation tests
         - @1996 -   3/4     DONE
                 -   @todo "Assigned to me" link in WIP page takes me back to the old tasks page
-        - @1840 -
+        - @1840 -   2/6     DONEish
                 -   @TODO Verify logos and page elements
-        - @1956 -
+        - @1956 -   @Todo Proceed to payment page doesn't have much (Still to be implemented)
                 -   Proceed to payment page
                 -   @TODO this depends on "Register My Organisation"
         - @2184 -

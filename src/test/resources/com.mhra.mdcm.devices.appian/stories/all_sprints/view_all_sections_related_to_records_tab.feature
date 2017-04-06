@@ -57,18 +57,18 @@ Feature: As a business user, I want to access a list of organisations with an ac
     Then I should see items and heading "<pageHeading>" for link "<link>"
     When I perform a search for "<searchTerm>" in "<link>" page
     And I filter by "<filterBy>" for the value "<filterValue>" in "<pageHeading>" page
-    And I sort items in "<pageHeading>" page by "<tableHeading>"
     Then I should see table column "<column>" displaying only "<filterValue>" in "<pageHeading>" page
     When I clear the filter by "<filterBy>" in "<pageHeading>" page
+    And I sort items in "<pageHeading>" page by "<tableHeading>"
     Then I should see table column "<column>" also displaying "<unFilteredData>" in "<pageHeading>" page
     Examples:
-      | user         | link              | pageHeading       | filterBy          | filterValue        | unFilteredData     | tableHeading      | searchTerm | column      |
-      | businessAuto | Accounts          | Accounts          | Organisation Role | Authorised         | Manufacturer       | Organisation name | RT01       | Role        |
-      | businessAuto | Accounts          | Accounts          | Organisation Role | Manufacturer       | Authorised         | Organisation name | RT01       | Role        |
-      | businessAuto | All Organisations | All Organisations | Organisation Role | Manufacturer       | Authorised         | Name              | RT01       | Role        |
-      | businessAuto | All Organisations | All Organisations | Registered status | REGISTERED         | NOT REGISTERED     | Name              | RT01       | Status      |
-      | businessAuto | All Products      | All Products      | Device type       | Active Implantable | In Vitro           | Device Type       | RT01       | Device type |
-      | businessAuto | All Products      | All Products      | Device type       | In Vitro           | Active Implantable | Device Type       | RT01       | Device type |
+      | user         | link     | pageHeading | filterBy          | filterValue  | unFilteredData | tableHeading      | searchTerm | column |
+#      | businessAuto | Accounts | Accounts    | Organisation Role | Authorised  | Manufacturer   | Organisation name | RT01       | Role   |
+#      | businessAuto | Accounts | Accounts    | Organisation Role | Manufacturer | Authorised     | Organisation name | RT01       | Role   |
+#      | businessAuto | All Organisations | All Organisations | Organisation Role | Manufacturer       | Authorised         | Name              | RT01       | Role        |
+      | businessAuto | All Organisations | All Organisations | Registered status | Registered         | Not Registered     | Name              | RT01       | Status      |
+#      | businessAuto | All Products      | All Products      | Device type       | Active Implantable | In Vitro           | Device Type       | RT01       | Device type |
+#      | businessAuto | All Products      | All Products      | Device type       | In Vitro           | Active Implantable | Device Type       | RT01       | Device type |
 
 
   @mdcm-23 @readonly @sprint6 @3837 @sprint10

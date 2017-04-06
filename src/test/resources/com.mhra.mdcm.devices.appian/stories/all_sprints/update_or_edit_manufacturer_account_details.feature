@@ -141,6 +141,6 @@ Feature: As a business and account holder, I want to be able to update party det
       | user              | logBackInAs  | status         | gmdn1                | gmdn2           | approveReject | taskType                                 | deviceType             |
       | authorisedRepAuto | businessAuto | Registered     | Blood weighing scale | Autopsy measure | approve       | Update Manufacturer Registration Request | General Medical Device |
       | authorisedRepAuto | businessAuto | Not Registered | Blood weighing scale | Autopsy measure | reject        | Update Manufacturer Registration Request | General Medical Device |
-#      | manufacturerAuto | businessAuto | Registered     | Blood weighing scale | Autopsy measure | approve       | Update Manufacturer Registration Request    |General Medical Device|
-#      | manufacturerAuto | businessAuto | Not Registered | Blood weighing scale | Autopsy measure | reject       | Update Manufacturer Registration Request |General Medical Device|
+      | manufacturerAuto | businessAuto | Registered     | Blood weighing scale | Autopsy measure | approve       | Update Manufacturer Registration Request    |General Medical Device|
+      | manufacturerAuto | businessAuto | Not Registered | Blood weighing scale | Autopsy measure | reject       | Update Manufacturer Registration Request |General Medical Device|
 
