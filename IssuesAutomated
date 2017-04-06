@@ -13,13 +13,13 @@ Automated Issues:
     - @mdcm-
 
     STORIES:
-    Sprint 1: @sprint1
+    Sprint 1: @_sprint1
         - @mdcm-10  -   6/7       DONE
         - @mdcm-126 -   7/9       DONE
         - @mdcm-143 -   20/21     DONE
                 Total   33/37
 
-    Sprint 2: @sprint2
+    Sprint 2: @_sprint2
         - @mdcm-41  -   8/9       DONE
         - @mdcm-175 -   11/14     DONE
         - @mdcm-178 -   30/35     DONE
@@ -30,7 +30,7 @@ Automated Issues:
         - @mdcm-182 -   no tests for regression
                 Total   51/71
 
-    Sprint 3: @sprint3
+    Sprint 3: @_sprint3
         - @mdcm-149 -   6/6       DONE
         - @mdcm-14  -   15/15     DONE
         - @mdcm-183 -   7/7       DONE
@@ -40,7 +40,7 @@ Automated Issues:
         - @mdcm-238 -   no tests for regression
                 Total   42/52
 
-    Spring 4: @sprint4
+    Spring 4: @_sprint4
         - @mdcm-13  -   3/8       DONE
         - @mdcm-240 -   11/17     DONE
         - @mdcm-161 -   7/10      DONE
@@ -51,7 +51,7 @@ Automated Issues:
         - @mdcm-362 -   no tests for regression
                 Total   30/49
 
-    Spring 5: @sprint5
+    Spring 5: @_sprint5
         - @mdcm-39  -   8/12        DONE
         - @mdcm-489 -   10/14       DONE
                     -   Add more tests for CTS and AIMD
@@ -81,7 +81,7 @@ Automated Issues:
         - @mdcm-345 -   TODO: Moved to sprint 7
                 Total   76/99
 
-    Spring 6: @sprint6
+    Spring 6: @_sprint6
         - @mdcm-23  -   13/16
                     -   Test for search + view full organisation details
                     -   Creating manufacturer without device doesn't generate a task, AT THE MOMENT
@@ -107,7 +107,7 @@ Automated Issues:
         - @mdcm-268 - no tests for regression
                 Total   40/74
 
-    Spring 7: @sprint7
+    Spring 7: @_sprint7
         - @2797     -   15/16       DONE ish
                     -   1 or 2 stories have bugs associated with them
         - @mdcm-148 -   8/9         DONE ish
@@ -127,7 +127,7 @@ Automated Issues:
         - @2339     -   no tests for regression
                 Total   49/69
 
-    Spring 8: @sprint8
+    Spring 8: @_sprint8
         - @1924 -   4/4     DONE
         - @2049 -   DONE ISH
                 -   @todo IVD device and notified body related
@@ -147,7 +147,7 @@ Automated Issues:
                 Total
 
 
-    Spring 9: @sprint9
+    Spring 9: @_sprint9
         - @3777 -   7/7     DONE
         - @3762 -   4/6     DONEish
                 -   @todo verify cancel button is visible in add devices page
@@ -166,7 +166,7 @@ Automated Issues:
                 Total
 
 
-    Sprint 10: @sprint10
+    Sprint 10: @_sprint10
         - @2191 -   Added tests to verify new Account email received
                 -   @todo Email contents need to be verified
         - @1937 -   6/6     DONE
@@ -188,7 +188,7 @@ Automated Issues:
         - @3756 -   no tests for regression
                 Total
 
-    Sprint 11: @sprint11
+    Sprint 11: @_sprint11
         - @4088 -   3/3     DONE
         - @3755 -   1/2
                 -   @todo All organisation test still remaining
@@ -204,7 +204,7 @@ Automated Issues:
         - @3358 -   no tests for regression
         - @2577 -   no tests for regression
 
-    Sprint 12: @sprint12
+    Sprint 12: @_sprint12
         - @4211 -   DONE
         - @4214 -   no tests for regression
         - @4215 -   no tests for regression
@@ -213,7 +213,7 @@ Automated Issues:
         - @4220 -   no tests for regression
         - @4221 -   no tests for regression
 
-    Sprint 13: @sprint13
+    Sprint 13: @_sprint13
         - @1838 -   6/8     DONE ish
                 -   Create manufacturer and add devices by searching gmdn code
         - @4090 -   3/7     DONE ish
@@ -237,7 +237,7 @@ Automated Issues:
         - @4340 -   no tests for regression
         - @4361 -   no tests for regression
 
-    Sprint 14: @sprint14
+    Sprint 14: @_sprint14
         - @2833 -   no tests for regression
         - @3298 -   no tests for regression
         - @3264 -   no tests for regression

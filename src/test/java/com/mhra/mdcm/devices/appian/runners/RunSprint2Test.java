@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
         features = "classpath:com.mhra.mdcm.devices.appian/stories/all_sprints",
         glue = {"classpath:com.mhra.mdcm.devices.appian.steps","classpath:com.mhra.mdcm.devices.appian.steps.common"},
         plugin = {"pretty", "html:target/cucumber-html-report", "json:target/sprint2_tests.json", "rerun:target/failedScenarios.txt"}
-        , monochrome = true, tags = {"@sprint2,~@ignore"}
+        , monochrome = true, tags = {"@_sprint2,~@ignore"}
 )
 public class RunSprint2Test {
 }

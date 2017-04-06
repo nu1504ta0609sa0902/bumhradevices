@@ -1,7 +1,7 @@
 Feature: As a user, I want to view devices and product details associated with an account
   so that I can quickly verify correct device and related product information is correct
 
-  @regression @mdcm-125 @sprint6 @wip
+  @regression @mdcm-125 @_sprint6 @wip
   Scenario Outline: Business users should be able to view all the associated organisations related with an account
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -28,7 +28,7 @@ Feature: As a user, I want to view devices and product details associated with a
       | manufacturerAuto  | businessAuto | manufacturer  | approve       | 1     | Brazil      | All Organisations | All Organisations |
       | authorisedRepAuto | businessAuto | authorisedRep | approve       | 1     | Belarus     | Accounts          | All Organisations |
 
-  @mdcm-126 @readonly @sprint1 @mdcm-125 @sprint6 @wip
+  @mdcm-126 @readonly @_sprint1 @mdcm-125 @_sprint6 @wip
   Scenario Outline: As a business user I should be able to view specific account in all accounts page
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
@@ -42,7 +42,7 @@ Feature: As a user, I want to view devices and product details associated with a
       | user         | accountInitials | link     | pageHeading | columns                                                                                                          |
       | businessAuto | _AT             | Accounts | Accounts    | Organisation name,Account number,Organisation role,Contact name,Organisation address,Organisation country,Status |
 
-  @regression @1924 @3271 @sprint8 @wip
+  @regression @1924 @3271 @_sprint8 @wip
   Scenario Outline: As a business user I should be able to create new manufacturers and verify device and product details related to a manufacturer
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -74,7 +74,7 @@ Feature: As a user, I want to view devices and product details associated with a
       | manufacturerAuto  | businessAuto | manufacturer  | approve       | Brazil      | All Organisations | ManufacturerRT01  | General Medical Device |
       | authorisedRepAuto | businessAuto | authorisedRep | approve       | Belarus     | All Organisations | AuthorisedRepRT01 | General Medical Device |
 
-  @regression @1924 @3271 @sprint8 @wip
+  @regression @1924 @3271 @_sprint8 @wip
   Scenario Outline: As a business user I should be able to verify device and product details related to a manufacturer
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<page>"

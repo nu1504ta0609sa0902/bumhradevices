@@ -1,5 +1,5 @@
-@sprint1 @mdcm-10
+@_sprint1 @mdcm-10
 Feature: Write something
 
-  @sprint7
+  @_sprint7
   Scenario: do something

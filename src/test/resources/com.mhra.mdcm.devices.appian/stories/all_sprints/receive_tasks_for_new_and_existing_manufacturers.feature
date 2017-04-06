@@ -2,7 +2,7 @@ Feature: As a business user, I want a task to be created each time a customer su
   So that I know an action to review the request is required by myself or another team member
 
 
-  @regression @mdcm-15 @mdcm-21 @mdcm-39 @mdcm-186 @mdcm-240 @sprint4 @sprint2 @sprint3 @sprint5 @2910 @sprint7 @bug
+  @regression @mdcm-15 @mdcm-21 @mdcm-39 @mdcm-186 @mdcm-240 @_sprint4 @_sprint2 @_sprint3 @_sprint5 @2910 @_sprint7 @bug
   Scenario Outline: Business users should be able to review and process manufacturer and device registration tasks
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -30,7 +30,7 @@ Feature: As a business user, I want a task to be created each time a customer su
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Desiccating chamber | true       | setmeup2           |
 
 
-  @regression @mdcm-15 @mdcm-21 @mdcm-39 @mdcm-186 @sprint2 @sprint3 @sprint5 @3755 @sprint11 @2910 @sprint7 @2049 @sprint8
+  @regression @mdcm-15 @mdcm-21 @mdcm-39 @mdcm-186 @_sprint2 @_sprint3 @_sprint5 @3755 @_sprint11 @2910 @_sprint7 @2049 @_sprint8
   Scenario Outline: Business users to review and process manufacturer and device registration task for IVD List A
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -65,7 +65,7 @@ Feature: As a business user, I want a task to be created each time a customer su
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | ford,honda         | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
 
-  @regression @mdcm-161 @mdcm-232 @mdcm-164 @mdcm-240 @sprint4 @sprint6 @wip
+  @regression @mdcm-161 @mdcm-232 @mdcm-164 @mdcm-240 @_sprint4 @_sprint6 @wip
   Scenario Outline: Register manufacturer as authorisedRep and verify status of letter of designation is correct
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -88,7 +88,7 @@ Feature: As a business user, I want a task to be created each time a customer su
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Blood vessel sizer | false      | fiesta             | New Manufacturer Registration Request |
 
 
-  @regression @mdcm-263 @sprint6  @4088 @sprint11 @2185 @sprint8 @wip
+  @regression @mdcm-263 @_sprint6  @4088 @_sprint11 @2185 @_sprint8 @wip
   Scenario Outline: Verify only 1 task is created when we create NEW manufacturer with multiple devices
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -128,7 +128,7 @@ Feature: As a business user, I want a task to be created each time a customer su
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Blood weighing scale | Autopsy measure | approve       | General Medical Device |
 
 
-  @regression @4090 @sprint13
+  @regression @4090 @_sprint13
   Scenario Outline: Users should be able to search and filter tasks
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page

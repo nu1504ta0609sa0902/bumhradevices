@@ -2,7 +2,7 @@ Feature: As an account holder with access to the Device Registration Service
   I want to register a manufacturer and declare devices being manufacturer
   so that they can place the device for sale on the EU market
 
-  @regression @readonly @mdcm-14 @mdcm-21 @sprint3 @sprint5
+  @regression @readonly @mdcm-14 @mdcm-21 @_sprint3 @_sprint5
   Scenario Outline: Users should be able to view already registered manufacturers
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -13,7 +13,7 @@ Feature: As an account holder with access to the Device Registration Service
       | manufacturerAuto  | Registered |
       | authorisedRepAuto | Registered |
 
-  @regression @readonly @mdcm-14 @mdcm-21 @sprint3 @sprint5
+  @regression @readonly @mdcm-14 @mdcm-21 @_sprint3 @_sprint5
   Scenario Outline: Verify correct device type options are displayed on add devices page
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -25,7 +25,7 @@ Feature: As an account holder with access to the Device Registration Service
       | authorisedRepAuto |
 
 
-  @regression @mdcm-14 @mdcm-467 @mdcm-21 @sprint3 @sprint5 @2185 @sprint8
+  @regression @mdcm-14 @mdcm-467 @mdcm-21 @_sprint3 @_sprint5 @2185 @_sprint8
   Scenario Outline: Verify correct options are displayed on add devices page
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -56,7 +56,7 @@ Feature: As an account holder with access to the Device Registration Service
       | manufacturerAuto | Registered | System or Procedure Pack   | Desiccating chamber                      |            | true          | true            | class1             | NB 0086 BSI  | false            | true              |
 
 
-  @regression @mdcm-14 @mdcm-489 @sprint3 @sprint5 @mdcm-134 @sprint6
+  @regression @mdcm-14 @mdcm-489 @_sprint3 @_sprint5 @mdcm-134 @_sprint6
   Scenario Outline: Users should be able to add devices to existing manufacturers
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -73,7 +73,7 @@ Feature: As an account holder with access to the Device Registration Service
       #| manufacturerAuto | General Medical Device |
 
 
-  @regression @mdcm-134 @sprint6 @bug
+  @regression @mdcm-134 @_sprint6 @bug
   Scenario Outline: Users should be able to remove devices from manufacturers
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -97,7 +97,7 @@ Feature: As an account holder with access to the Device Registration Service
       #| manufacturerAuto | General Medical Device | Blood weighing scale | Autopsy measure |
 
 
-  @regression @mdcm-489 @sprint5 @mdcm-148 @sprint7 @3755 @sprint11 @2910 @sprint7
+  @regression @mdcm-489 @_sprint5 @mdcm-148 @_sprint7 @3755 @_sprint11 @2910 @_sprint7
   Scenario Outline: Verify product details after adding IVD products
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -123,7 +123,7 @@ Feature: As an account holder with access to the Device Registration Service
       | authorisedRepAuto | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | General Motors     | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
 
-  @regression @mdcm-489 @sprint5 @mdcm-134 @sprint6 @mdcm-148 @sprint7 @3762 @sprint9
+  @regression @mdcm-489 @_sprint5 @mdcm-134 @_sprint6 @mdcm-148 @_sprint7 @3762 @_sprint9
   Scenario Outline: Users should be able to add and remove devices using GMDN code from existing manufacturers
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -149,7 +149,7 @@ Feature: As an account holder with access to the Device Registration Service
       | authorisedRepAuto | General Medical Device |                  | 18148      | Dress            |            |
       | manufacturerAuto  | General Medical Device |                  | 18148      | Dress            |            |
 
-  @regression @mdcm-485 @mdcm-374 @3777 @sprint9 @sprint5 @1924 @sprint8 @wip @bug
+  @regression @mdcm-485 @mdcm-374 @3777 @_sprint9 @_sprint5 @1924 @_sprint8 @wip @bug
   Scenario Outline: Users should be able to add devices to existing manufacturers and verify devices are added
     Given I am logged into appian as "<user>" user
     When I go to list of manufacturers page
@@ -183,7 +183,7 @@ Feature: As an account holder with access to the Device Registration Service
       | manufacturerAuto  | businessAuto | General Medical Device             | true       |               |                 | Registered | Blood weighing scale |                    |              |
 
 
-  @regression @readonly @mdcm-485 @sprint5 @wip
+  @regression @readonly @mdcm-485 @_sprint5 @wip
   Scenario Outline: Users should be able to VIEW additional info related to registered manufacturers
     Given I am logged into appian as "<user>" user
     When I go to list of manufacturers page

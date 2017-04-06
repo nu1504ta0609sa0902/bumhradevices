@@ -62,7 +62,7 @@ json:target/cucumber.json
         features = "classpath:com.mhra.mdcm.devices.appian/stories/all_sprints",
         glue = {"classpath:com.mhra.mdcm.devices.appian.steps","classpath:com.mhra.mdcm.devices.appian.steps.common"},
         plugin = {"pretty", "html:target/cucumber-html-report", "json:target/sprint1_tests.json"}
-        , monochrome = true, tags = {"@sprint1,~@ignore"}
+        , monochrome = true, tags = {"@_sprint1,~@ignore"}
 )
 
 ADD VM OPTIONS: -ea -Dspring.profiles.active=mhratest -Dcurrent.browser=gc -Dgenerate.report=true

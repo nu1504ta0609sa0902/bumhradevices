@@ -180,7 +180,7 @@ public class TasksPageSteps extends CommonSteps {
     @Then("^The task should be removed from tasks list$")
     public void theTaskShouldBeRemovedFromTaskList() {
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
-        boolean linkVisible = tasksPage.isLinkVisible(orgName, 5);
+        boolean linkVisible = tasksPage.isLinkVisible(orgName, 10);
         assertThat("Task should be removed for organisation : " + orgName, linkVisible, is(equalTo(false)));
     }
 

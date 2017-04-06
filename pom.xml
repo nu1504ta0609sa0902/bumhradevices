@@ -37,7 +37,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.19.1</version>
                 <configuration>
-                    <!--<argLine>-Dcurrent.browser=gc -Dcucumber.options="&#45;&#45;tags @sprint1"</argLine>-->
+                    <!--<argLine>-Dcurrent.browser=gc -Dcucumber.options="&#45;&#45;tags @_sprint1"</argLine>-->
                     <includes>
                         <include>**/*AllTest.java</include>
                         <include>src/test/resources/log4j.xml</include>

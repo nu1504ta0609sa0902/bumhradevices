@@ -1,7 +1,7 @@
 Feature: Aa a user I would like to verify features which are not related to devices and manufacturers
   So that I can be reassured my tests will not fail due to unexpected circumstances
 
-  @2399 @readonly @sprint7
+  @2399 @readonly @_sprint7
   Scenario Outline: Verify the new countries list in business test harness uses autosuggestion
     Given I am logged into appian as "<user>" user
     When I go to test harness page
@@ -13,7 +13,7 @@ Feature: Aa a user I would like to verify features which are not related to devi
       | businessNoor | Ban         | Bangladesh       |
       | businessNoor | Aus         | Australia        |
 
-  @2399 @3365 @readonly @sprint7
+  @2399 @3365 @readonly @_sprint7
   Scenario Outline: Verify the new countries list in MANUFACTURER test harness uses autosuggestion
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -27,7 +27,7 @@ Feature: Aa a user I would like to verify features which are not related to devi
       | authorisedRepAuto | ZZZ         | No results found |
 
 
-  @mdcm-465 @mdcm-164 @readonly @sprint5 @sprint6
+  @mdcm-465 @mdcm-164 @readonly @_sprint5 @_sprint6
   Scenario Outline: Verify no EU countries are displayed to authorisedReps
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -39,7 +39,7 @@ Feature: Aa a user I would like to verify features which are not related to devi
       | authorisedRepAuto | randomEUCountry | No results found |
 
 
-  @regression @1838 @sprint13 @wip
+  @regression @1838 @_sprint13 @wip
   Scenario Outline: Users should be able to search using  GMDN code or term
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -55,7 +55,7 @@ Feature: Aa a user I would like to verify features which are not related to devi
       | manufacturerAuto  | General Medical Device | Blood     | 1     |
       | manufacturerAuto  | General Medical Device | 18148     | 1     |
 
-  @regression @1838 @4211 @sprint12 @sprint13 @wip
+  @regression @1838 @4211 @_sprint12 @_sprint13 @wip
   Scenario Outline: Users should be able to view all gmdn terms or definitions
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -76,7 +76,7 @@ Feature: Aa a user I would like to verify features which are not related to devi
       | manufacturerAuto  | System or Procedure Pack          | Blood | 1     |
 
 
-  @regression @2097 @sprint8
+  @regression @2097 @_sprint8
   Scenario Outline: Override PARD preferences when reviewing a manufacturer registration
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<page>"
@@ -99,7 +99,7 @@ Feature: Aa a user I would like to verify features which are not related to devi
       | businessAuto | All Organisations | AuthorisedRepRT | name=Optout,address=Optin  | name                 | Publish address only           |
       | businessAuto | All Organisations | ManufacturerRT  | name=Optout,address=Optout | address                 | Do not publish name or address |
 
-#  @regression @2049 @sprint8
+#  @regression @2049 @_sprint8
 #  Scenario Outline: Check correct options shown to users when adding devices
 #    Given I am logged into appian as "<user>" user
 #    And I go to list of manufacturers page

@@ -1,7 +1,7 @@
 Feature: As an account holder with access to the Device Registration Service I want to register a manufacturer and declare higher risk devices and declare the specific products being manufactured
   so that they can place the device for sale on the EU market
 
-  @regression @mdcm-183 @mdcm-21 @sprint3 @sprint5 @2049 @sprint8
+  @regression @mdcm-183 @mdcm-21 @_sprint3 @_sprint5 @2049 @_sprint8
   Scenario Outline: Register device with SINGLE product for IVD devices
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -26,7 +26,7 @@ Feature: As an account holder with access to the Device Registration Service I w
       | manufacturerAuto | In Vitro Diagnostic Device | Androgen receptor IVD | self-test          | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
 
-  @regression @mdcm-183 @sprint3 @mdcm-148 @sprint7
+  @regression @mdcm-183 @_sprint3 @mdcm-148 @_sprint7
   Scenario Outline: Register device with SINGLE product for active implantable medical devices
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -44,7 +44,7 @@ Feature: As an account holder with access to the Device Registration Service I w
 #      | manufacturerAuto | Active Implantable Medical Devices | Blood          | false      | ford focus  | can't register if custom made is false
 
 
-  @regression @3559 @2143 @sprint10 @2185 @sprint8
+  @regression @3559 @2143 @_sprint10 @2185 @_sprint8
   Scenario Outline: Error message is displayed for devices with certain risk classification
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -70,7 +70,7 @@ Feature: As an account holder with access to the Device Registration Service I w
       | manufacturerAuto  | System or Procedure Pack | Desiccating chamber |               |                    | NB 0086 BSI  | false              | false             | This System/procedure pack cannot be registered with us                                          |
 
 
-  @regression @3560 @2143 @sprint10
+  @regression @3560 @2143 @_sprint10
   Scenario Outline: Error message is displayed for AIMD devices with certain risk classification
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -88,7 +88,7 @@ Feature: As an account holder with access to the Device Registration Service I w
       | manufacturerAuto  | Active Implantable Medical Devices | Desiccating chamber | false      | NB 0086 BSI  | You cannot register non custom made active implantable medical devices with the MHRA |
 
 
-  @regression @mdcm-183 @sprint3 @mdcm-148 @sprint7 @2049 @sprint8
+  @regression @mdcm-183 @_sprint3 @mdcm-148 @_sprint7 @2049 @_sprint8
   Scenario Outline: Register device with MULTIPLE products and devices for IVD devices type
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -124,7 +124,7 @@ Feature: As an account holder with access to the Device Registration Service I w
       | manufacturerAuto | In Vitro Diagnostic Device | Androgen receptor IVD | Cat             | self-test          | ferrari,peugeot    | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
 
-  @regression @mdcm-183 @mdcm-240 @sprint3 @sprint4 @3777 @2184 @sprint9 @mdcm-148 @2910 @sprint7
+  @regression @mdcm-183 @mdcm-240 @_sprint3 @_sprint4 @3777 @2184 @_sprint9 @mdcm-148 @2910 @_sprint7
   Scenario Outline: Register a device with MULTIPLE product and devices for active implantable medical devices type
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
