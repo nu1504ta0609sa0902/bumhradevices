@@ -17,6 +17,7 @@ import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.Manufactur
 import com.mhra.mdcm.devices.appian.pageobjects.external.myaccount.ContactPersonDetails;
 import com.mhra.mdcm.devices.appian.pageobjects.external.myaccount.OrganisationDetails;
 import com.mhra.mdcm.devices.appian.session.ScenarioSession;
+import com.mhra.mdcm.devices.appian.utils.reporter.CreatePrettyReport;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import cucumber.api.java.After;
@@ -166,8 +167,8 @@ public class CommonSteps {
                         log.info("If -Dgenerate.report=true than it generate the pretty report");
 
                         //This looks slightly better than other cucumber report, less intrusive and better memory managements
-//                        CreatePrettyReportManual cpr = new CreatePrettyReportManual();
-//                        cpr.createReport("PrettyReport2", false);
+                        CreatePrettyReport cpr = new CreatePrettyReport();
+                        cpr.monitorFolder("PrettyReport2", false);
                         String generateReport = System.getProperty("generate.report");
                         if(generateReport != null && ( generateReport.trim().equals("true") || generateReport.trim().equals("yes"))){
                             log.info("Generating report may take upto 20 seconds");

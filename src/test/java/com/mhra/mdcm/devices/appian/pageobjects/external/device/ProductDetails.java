@@ -1,6 +1,6 @@
 package com.mhra.mdcm.devices.appian.pageobjects.external.device;
 
-import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
@@ -40,7 +40,7 @@ public class ProductDetails extends _Page {
         super(driver);
     }
 
-    public boolean isProductOrDeviceDetailValid(DeviceData deviceData) {
+    public boolean isProductOrDeviceDetailValid(DeviceDO deviceData) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean allValid = true;
         String deviceType = deviceData.deviceType;
@@ -57,7 +57,7 @@ public class ProductDetails extends _Page {
         return allValid;
     }
 
-    private boolean isGeneralMedicalDeviceValid(DeviceData deviceData) {
+    private boolean isGeneralMedicalDeviceValid(DeviceDO deviceData) {
         boolean allValid = true;
         String fields[] = new String[]{
                 "gmdn", "risk classification", "custom made", "sterile", "measuring", "notified body"

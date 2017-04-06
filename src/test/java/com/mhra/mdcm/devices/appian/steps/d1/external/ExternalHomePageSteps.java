@@ -1,7 +1,7 @@
 package com.mhra.mdcm.devices.appian.steps.d1.external;
 
-import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerOrganisationRequest;
-import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.AddDevices;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
@@ -86,16 +86,16 @@ public class ExternalHomePageSteps extends CommonSteps {
         createNewManufacturer = manufacturerList.registerNewManufacturer();
     }
 
-    @And("^I go to register a new authorisedRep page$")
+    @And("^I click on register new manufacturer$")
     public void iGoToRegisterANewAuthorisedRepPage() throws Throwable {
-        manufacturerList = externalHomePage.gotoListOfManufacturerPage();
+        createNewManufacturer = manufacturerList.registerNewManufacturer();
     }
 
 
     @When("^I create a new manufacturer using manufacturer test harness page with following data$")
     public void i_create_a_new_manufacturer_using_test_harness_page_with_following_data(Map<String, String> dataSets) throws Throwable {
 
-        ManufacturerOrganisationRequest newAccount = TestHarnessUtils.updateManufacturerDefaultsWithData(dataSets, scenarioSession);
+        ManufacturerRequestDO newAccount = TestHarnessUtils.updateManufacturerDefaultsWithData(dataSets, scenarioSession);
         log.info("New Manufacturer Account Requested With Following Data : \n" + newAccount);
 
         //Create new manufacturer data
@@ -185,7 +185,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         addDevices = new AddDevices(driver);
 
         //Assumes we are in add device page
-        DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
+        DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
         addDevices = addDevices.addFollowingDevice(dd);
 
         scenarioSession.putData(SessionKey.deviceData, dd);
@@ -208,7 +208,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         addDevices = manufacturerDetails.gotoAddDevicesPage(registeredStatus);
 
         //Assumes we are in add device page
-        DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
+        DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
         addDevices = addDevices.addFollowingDevice(dd);
 
         StepsUtils.addToListOfStrings(scenarioSession, SessionKey.listOfGmndsAdded, AddDevices.gmdnSelected);
@@ -225,7 +225,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         addDevices = manufacturerDetails.gotoAddDevicesPage(registeredStatus);
 
         //Assumes we are in add device page
-        DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
+        DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
         addDevices = addDevices.addInvalidFollowingDevice(dd);
 
         StepsUtils.addToListOfStrings(scenarioSession, SessionKey.listOfGmndsAdded, AddDevices.gmdnSelected);
@@ -252,7 +252,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         String registeredStatus = (String) scenarioSession.getData(SessionKey.organisationRegistered);
         addDevices = manufacturerDetails.gotoAddDevicesPage(registeredStatus);
 
-        DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
+        DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
         addDevices = addDevices.addFollowingDevice(dd);
 
         StepsUtils.addToListOfStrings(scenarioSession, SessionKey.listOfGmndsAdded, AddDevices.gmdnSelected);
@@ -267,7 +267,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         addDevices = addDevices.addAnotherDevice();
 
         //Assumes we are in add device page
-        DeviceData dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
+        DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
         addDevices = addDevices.addFollowingDevice(dd);
 
         StepsUtils.addToListOfStrings(scenarioSession, SessionKey.listOfGmndsAdded, AddDevices.gmdnSelected);
@@ -298,12 +298,6 @@ public class ExternalHomePageSteps extends CommonSteps {
         Assert.assertThat("Expected 4 different device types " , isCorrect, Matchers.is(true));
     }
 
-//    @When("^I select a random manufacturer from list$")
-//    public void iSelectARandomManufacturerFromList() throws Throwable {
-//        String name = externalHomePage.getARandomManufacturerNameFromDropDown();
-//        externalHomePage = externalHomePage.selectManufacturerFromList(name);
-//        scenarioSession.putData(SessionKey.organisationName, name);
-//    }
 
     @When("^I click on a random manufacturer$")
     public void i_click_on_a_random_manufacturer() throws Throwable {
@@ -426,21 +420,23 @@ public class ExternalHomePageSteps extends CommonSteps {
      */
     @And("^Provide indication of devices made$")
     public void provideIndicationOfDevicesMade() throws Throwable {
-        WaitUtils.nativeWaitInSeconds(7);
-        for(int x = 0; x < 9; x++) {
-            externalHomePage = externalHomePage.provideIndicationOfDevicesMade(x);
+
+        WaitUtils.nativeWaitInSeconds(3);
+        for (int x = 0; x < 9; x++) {
+            try {
+                externalHomePage = externalHomePage.provideIndicationOfDevicesMade(x);
+            }catch (Exception e){}
         }
 
         //custom made
         externalHomePage.selectCustomMade(true);
 
-        //Submit devices made
-        externalHomePage = externalHomePage.submitIndicationOfDevicesMade(true);
-        externalHomePage = externalHomePage.submitIndicationOfDevicesMade(false);
+        //Submit devices made : They changed the work flow on 03/02/2017
+        //createNewManufacturer = externalHomePage.submitIndicationOfDevicesMade(true);
+        //createNewManufacturer = externalHomePage.submitIndicationOfDevicesMade(false);
 
+        createNewManufacturer = externalHomePage.submitIndicationOfDevicesMade(false);
         WaitUtils.nativeWaitInSeconds(5);
-
-        System.out.println("DONE");
     }
 
 
@@ -458,7 +454,7 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     @And("^The gmdn code or term is \"([^\"]*)\" in summary section$")
     public void theGmdnCodeOrTermIsCorrect(String displayed) throws Throwable {
-        DeviceData data = (DeviceData) scenarioSession.getData(SessionKey.deviceData);
+        DeviceDO data = (DeviceDO) scenarioSession.getData(SessionKey.deviceData);
         //addDevices.isOptionToAddAnotherDeviceVisible();
         boolean isGMDNCorrect = addDevices.isGMDNValueDisplayed(data);
 
@@ -483,7 +479,7 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     @Then("^Verify name make model and other details are correct$")
     public void product_name_make_and_model_detals_are_correct() throws Throwable {
-        DeviceData data = (DeviceData) scenarioSession.getData(SessionKey.deviceData);
+        DeviceDO data = (DeviceDO) scenarioSession.getData(SessionKey.deviceData);
         addDevices = addDevices.viewDeviceWithGMDNValue(data.getGMDN());
         boolean isProductDetailCorrect = addDevices.isProductDetailsCorrect(data);
 
@@ -500,7 +496,7 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     @When("^I remove the stored device with gmdn code or definition$")
     public void iRemoveTheDeviceWithGmdnCode() throws Throwable {
-        DeviceData data = (DeviceData) scenarioSession.getData(SessionKey.deviceData);
+        DeviceDO data = (DeviceDO) scenarioSession.getData(SessionKey.deviceData);
         String gmdnCode = data.getGMDN();
         addDevices = addDevices.viewDeviceWithGMDNValue(gmdnCode);
         addDevices = addDevices.removeSelectedDevice();
@@ -508,14 +504,14 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     @When("^I remove ALL the stored device with gmdn code or definition$")
     public void iRemoveAllTheDeviceWithGmdnCode() throws Throwable {
-        List<DeviceData> listOfDeviceData = (List<DeviceData>) scenarioSession.getData(SessionKey.deviceDataList);
+        List<DeviceDO> listOfDeviceData = (List<DeviceDO>) scenarioSession.getData(SessionKey.deviceDataList);
         addDevices = addDevices.removeAllDevices(listOfDeviceData);
     }
 
     @Then("^Verify devices displayed and GMDN details are correct$")
     public void verifyDevicesDisplayedAndOtherDetailsAreCorrect() throws Throwable {
-        ManufacturerOrganisationRequest manufacaturerData = (ManufacturerOrganisationRequest) scenarioSession.getData(SessionKey.manufacturerData);
-        DeviceData deviceData = (DeviceData) scenarioSession.getData(SessionKey.deviceData);
+        ManufacturerRequestDO manufacaturerData = (ManufacturerRequestDO) scenarioSession.getData(SessionKey.manufacturerData);
+        DeviceDO deviceData = (DeviceDO) scenarioSession.getData(SessionKey.deviceData);
 
         //Go to devices page by clicking on the "Devices and product details" link
         deviceDetails = manufacturerDetails.clickOnDevicesLink("product details");
@@ -527,7 +523,7 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     @Then("^I should be able to view products related to stored devices$")
     public void i_should_be_able_to_view_products_related_to_stored_devices() throws Throwable {
-        DeviceData deviceData = (DeviceData) scenarioSession.getData(SessionKey.deviceData);
+        DeviceDO deviceData = (DeviceDO) scenarioSession.getData(SessionKey.deviceData);
         productDetail = manufacturerDetails.viewProduct(deviceData);
         boolean isDetailValid = productDetail.isProductOrDeviceDetailValid(deviceData);
         Assert.assertThat("Expected to see device : \n" + deviceData , isDetailValid, Matchers.is(true));
@@ -589,7 +585,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         addDevices = manufacturerDetails.gotoAddDevicesPage(registeredStatus);
 
         //Search for specific device of a specific type
-        DeviceData dd = TestHarnessUtils.updateDeviceData(null, scenarioSession);
+        DeviceDO dd = TestHarnessUtils.updateDeviceData(null, scenarioSession);
         addDevices = addDevices.searchForDevice(dd, deviceType, gmdnTermCodeOrDefinition);
         scenarioSession.putData(SessionKey.searchTerm, gmdnTermCodeOrDefinition);
     }
@@ -597,7 +593,7 @@ public class ExternalHomePageSteps extends CommonSteps {
     @When("^I search for gmdn \"([^\"]*)\"$")
     public void i_search_for_gmdn_gmdnCode(String gmdnTermCodeOrDefinition) throws Throwable {
         //Search for specific device of a specific type
-        DeviceData dd = TestHarnessUtils.updateDeviceData(null, scenarioSession);
+        DeviceDO dd = TestHarnessUtils.updateDeviceData(null, scenarioSession);
         addDevices = addDevices.searchForDevice(dd, null, gmdnTermCodeOrDefinition);
         scenarioSession.putData(SessionKey.searchTerm, gmdnTermCodeOrDefinition);
     }
@@ -621,7 +617,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         addDevices = manufacturerDetails.gotoAddDevicesPage(registeredStatus);
 
         //View all gmdn
-        DeviceData dd = TestHarnessUtils.updateDeviceData(null, scenarioSession);
+        DeviceDO dd = TestHarnessUtils.updateDeviceData(null, scenarioSession);
         addDevices = addDevices.viewAllGmdnTermDefinitions(dd, deviceType);
     }
 

@@ -1,17 +1,12 @@
 package com.mhra.mdcm.devices.appian.steps.d1.email;
 
-import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
-import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerOrganisationRequest;
-import com.mhra.mdcm.devices.appian.pageobjects.LoginPage;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequestDO;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.email.GmailEmail;
-import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
-import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import cucumber.api.java.en.And;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.springframework.context.annotation.Scope;
@@ -26,7 +21,7 @@ public class EmailSteps extends CommonSteps {
     @And("^I should received an email for stored manufacturer with heading \"([^\"]*)\"$")
     public void iShouldReceivedAnEmailForStoredManufacturerWithHeading(String emailHeading) throws Throwable {
         String org = (String) scenarioSession.getData(SessionKey.organisationName);
-        ManufacturerOrganisationRequest organisationData = (ManufacturerOrganisationRequest) scenarioSession.getData(SessionKey.manufacturerData);
+        ManufacturerRequestDO organisationData = (ManufacturerRequestDO) scenarioSession.getData(SessionKey.manufacturerData);
 
         boolean foundMessage = false;
         String messageBody = null;
@@ -54,7 +49,7 @@ public class EmailSteps extends CommonSteps {
     public void iShouldReceivedAnEmailForStoredAccountWithHeading(String emailHeading) throws Throwable {
 
         String org = (String) scenarioSession.getData(SessionKey.organisationName);
-        AccountRequest newAccount = (AccountRequest) scenarioSession.getData(SessionKey.manufacturerData);
+        AccountRequestDO newAccount = (AccountRequestDO) scenarioSession.getData(SessionKey.manufacturerData);
 
         boolean foundMessage = false;
         String messageBody = null;

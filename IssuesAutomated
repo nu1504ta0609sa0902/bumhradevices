@@ -170,19 +170,20 @@ Automated Issues:
 
     Sprint 10: @sprint10
         - @2191 -   Added tests to verify new Account email received
-                -   @todo Email related
-        - @1937 -   3/6     DONE
-                -   @Todo cant filter by Registered
+                -   @todo Email contents need to be verified
+        - @1937 -   6/6     DONE
         - @3559 -   3/6     DONE
         - @3560 -   3/4     DONE
         - @2143 -   4/5     DONE
         - @2190 -   Added tests to verify new Manufacturer/AuthorisedRep email received
-                -   @todo Email and notifications
+                -   @todo Email contents need to be verified
         - @3837 -   5/5     DONE
-        - @2192 -   @todo Email
+        - @2192 -   Email for rejected manufactures and accounts
+                -   @todo Email contents need to be verified
         - @3894 -   3/3     DONE
         - @3895 -   3/3     DONE
-        - @2193 -   @todo Email
+        - @2193 -   Email for verify new Manufacturer/AuthorisedRep email received
+                -   @todo Email contents need to be verified
         - @3296 -   no tests for regression
         - @3972 -   no tests for regression
         - @3294 -   no tests for regression

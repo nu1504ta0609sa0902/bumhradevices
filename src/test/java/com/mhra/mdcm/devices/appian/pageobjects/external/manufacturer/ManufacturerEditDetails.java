@@ -1,6 +1,6 @@
 package com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer;
 
-import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequestDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.external.MyAccountPage;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
@@ -76,7 +76,7 @@ public class ManufacturerEditDetails extends _Page {
     }
 
 
-    public ManufacturerEditDetails updateFollowingFields(String keyValuePairToUpdate, AccountRequest updatedData) {
+    public ManufacturerEditDetails updateFollowingFields(String keyValuePairToUpdate, AccountRequestDO updatedData) {
 
         WaitUtils.waitForElementToBeClickable(driver, submitBtn, TIMEOUT_5_SECOND, false);
         String[] dataPairs = keyValuePairToUpdate.split(",");

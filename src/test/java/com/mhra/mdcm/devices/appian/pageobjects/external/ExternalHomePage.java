@@ -62,40 +62,26 @@ public class ExternalHomePage extends _Page {
     }
 
 
-//    public ExternalHomePage provideIndicationOfDevicesMade() {
-//        List<WebElement> elements = driver.findElements(By.cssSelector(".GFWJSJ4DPV.GFWJSJ4DCAD input"));
-//        for(WebElement e: elements){
-//            WaitUtils.waitForElementToBeClickable(driver, e, TIMEOUT_3_SECOND, false);
-//            PageUtils.clickIfVisible(driver, e);
-//        }
-//
-//        List<WebElement> elements2 = driver.findElements(By.cssSelector(".GFWJSJ4DPV.GFWJSJ4DCAD input"));
-//        for(WebElement e: elements2){
-//            WaitUtils.waitForElementToBeClickable(driver, e, TIMEOUT_3_SECOND, false);
-//            PageUtils.clickIfVisible(driver, e);
-//        }
-//
-//        return new ExternalHomePage(driver);
-//    }
-
-
     public ExternalHomePage provideIndicationOfDevicesMade(int index) {
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//*[contains(text(),'ype of device')]//following::input[1]"), TIMEOUT_10_SECOND, false);
-        WaitUtils.waitForElementToBeVisible(driver, generalMedicalDevice, TIMEOUT_10_SECOND, false);
+
+        //WaitUtils.isPageLoadingComplete(driver, 2);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//*[contains(text(),'ype of device')]//following::label[1]"), TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_10_SECOND, false);
 
         //Find element
-        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".GFWJSJ4DPV.GFWJSJ4DCAD input"), TIMEOUT_10_SECOND, false);
-        List<WebElement> elements = driver.findElements(By.cssSelector(".GFWJSJ4DPV.GFWJSJ4DCAD input"));
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//*[contains(text(),'ype of device')]//following::label"), TIMEOUT_10_SECOND, false);
+        //WaitUtils.nativeWaitInSeconds(1);
+        List<WebElement> elements = driver.findElements(By.xpath(".//*[contains(text(),'ype of device')]//following::label"));
         WebElement e = elements.get(index);
         WaitUtils.waitForElementToBeClickable(driver, e, TIMEOUT_10_SECOND, false);
 
-        PageUtils.clickIfVisible(driver, e);
-        WaitUtils.nativeWaitInSeconds(3);
+        PageUtils.singleClick(driver, e);
+        //WaitUtils.nativeWaitInSeconds(2);
 
         return new ExternalHomePage(driver);
     }
 
-    public ExternalHomePage submitIndicationOfDevicesMade(boolean clickNext) {
+    public _CreateManufacturerTestsData submitIndicationOfDevicesMade(boolean clickNext) {
         if(clickNext) {
             driver.findElements(By.cssSelector(".gwt-RadioButton.GFWJSJ4DGAD.GFWJSJ4DCW>label")).get(0).click();
             driver.findElement(By.xpath(".//button[.='Next']")).click();
@@ -103,19 +89,49 @@ public class ExternalHomePage extends _Page {
             WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//button[.='Submit']"), TIMEOUT_10_SECOND, false);
             driver.findElement(By.xpath(".//button[.='Submit']")).click();
         }
-        return new ExternalHomePage(driver);
+        return new _CreateManufacturerTestsData(driver);
     }
 
     public void selectCustomMade(boolean isCustomMade) {
-        By customMadeYes = By.xpath(".//*[contains(text(),'custom made')]//following::input[1]");
-        By customMadeNo = By.xpath(".//*[contains(text(),'custom made)]//following::input[2]");
-        if(isCustomMade) {
-            WaitUtils.waitForElementToBeClickable(driver,customMadeYes , TIMEOUT_10_SECOND, false);
-            driver.findElement(customMadeYes).click();
-        }else{
-            WaitUtils.waitForElementToBeClickable(driver, customMadeNo, TIMEOUT_10_SECOND, false);
-            driver.findElement(customMadeNo).click();
+
+        By customMadeYes = By.xpath(".//*[contains(text(),'type of device')]//following::label[2]");
+        By customMadeNo = By.xpath(".//*[contains(text(),'type of device')]//following::label[3]");
+        By aimdCustomMadeYes = By.xpath(".//*[contains(text(),'type of device')]//following::label[6]");
+        By aimdCustomMadeNo = By.xpath(".//*[contains(text(),'type of device')]//following::label[7]");
+        By sppCustomMadeYes = By.xpath(".//*[contains(text(),'type of device')]//following::label[9]");
+
+        try {
+
+            //General medical devices
+            if (isCustomMade) {
+                WaitUtils.waitForElementToBeClickable(driver, customMadeYes, TIMEOUT_10_SECOND, false);
+                driver.findElement(customMadeYes).click();
+            } else {
+                WaitUtils.waitForElementToBeClickable(driver, customMadeNo, TIMEOUT_10_SECOND, false);
+                driver.findElement(customMadeNo).click();
+            }
+
+            //AIMD
+            if (isCustomMade) {
+                WaitUtils.waitForElementToBeClickable(driver, aimdCustomMadeYes, TIMEOUT_10_SECOND, false);
+                WaitUtils.nativeWaitInSeconds(1);
+                driver.findElement(aimdCustomMadeYes).click();
+            } else {
+                WaitUtils.waitForElementToBeClickable(driver, aimdCustomMadeNo, TIMEOUT_10_SECOND, false);
+                driver.findElement(aimdCustomMadeNo).click();
+            }
+
+            //Others related to SSP
+            WaitUtils.waitForElementToBeClickable(driver, sppCustomMadeYes, TIMEOUT_10_SECOND, false);
+            driver.findElement(sppCustomMadeYes).click();
+        }catch (Exception e){
+            //Keeps failing
         }
+
+        //Must be YES
+        driver.findElement(aimdCustomMadeYes).click();
+        driver.findElement(customMadeYes).click();
+        //driver.findElement(sppCustomMadeYes).click();
     }
 
     public boolean isTitleCorrect() {

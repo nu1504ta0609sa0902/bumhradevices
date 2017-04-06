@@ -51,7 +51,7 @@ Feature: Reset all the information related to a manufacturer and authorisedRep
   @setup
   Scenario Outline: Able to register and Provide Indication of Devices Made By AuthorisedRep
     Given I am logged into appian as "<user>" user
-    And I go to register a new authorisedRep page
+    And I go to register a new manufacturer page
     When I create a new manufacturer using manufacturer test harness page with following data
       | accountType | <accountType> |
       | countryName | <countryName> |
@@ -69,7 +69,7 @@ Feature: Reset all the information related to a manufacturer and authorisedRep
   @setup
   Scenario Outline: Able to register and Provide Indication of Devices Made By Manufacturers
     Given I am logged into appian as "<user>" user
-    And I go to register a new authorisedRep page
+    And I go to register a new manufacturer page
     When I create a new manufacturer using manufacturer test harness page with following data
       | accountType | <accountType> |
       | countryName | <countryName> |
@@ -116,7 +116,7 @@ Feature: Reset all the information related to a manufacturer and authorisedRep
   @setup
   Scenario Outline: Business users should be able to review authorisedRep registration 1
     Given I am logged into appian as "<user>" user
-    And I go to register a new authorisedRep page
+    And I go to register a new manufacturer page
     When I create a new manufacturer using manufacturer test harness page with following data
       | accountType | <accountType> |
       | countryName | <countryName> |

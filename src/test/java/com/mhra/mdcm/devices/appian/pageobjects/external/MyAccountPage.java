@@ -1,6 +1,6 @@
 package com.mhra.mdcm.devices.appian.pageobjects.external;
 
-import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequestDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.external.myaccount.OrganisationDetails;
 import com.mhra.mdcm.devices.appian.pageobjects.external.myaccount.ContactPersonDetails;
@@ -96,7 +96,7 @@ public class MyAccountPage extends _Page {
         }
     }
 
-    public boolean verifyUpdatesDisplayedOnPage(String keyValuePairToUpdate, AccountRequest updatedData) {
+    public boolean verifyUpdatesDisplayedOnPage(String keyValuePairToUpdate, AccountRequestDO updatedData) {
         WaitUtils.waitForElementToBeVisible(driver, email, TIMEOUT_DEFAULT, false);
         WaitUtils.waitForElementToBeVisible(driver, fullName, TIMEOUT_5_SECOND, false);
 
@@ -178,7 +178,7 @@ public class MyAccountPage extends _Page {
         return contains;
     }
 
-    public boolean verifyDatesDisplayedOnPage(AccountRequest updatedData) {
+    public boolean verifyDatesDisplayedOnPage(AccountRequestDO updatedData) {
         boolean areDatesVisible = true;
         try {
             WaitUtils.waitForElementToBeVisible(driver, associatedDates, TIMEOUT_5_SECOND, false);

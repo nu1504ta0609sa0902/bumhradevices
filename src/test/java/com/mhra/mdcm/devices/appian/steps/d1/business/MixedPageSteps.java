@@ -1,9 +1,8 @@
 package com.mhra.mdcm.devices.appian.steps.d1.business;
 
-import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
@@ -64,7 +63,7 @@ public class MixedPageSteps extends CommonSteps {
 
     @When("^I click on a device for device type \"([^\"]*)\"$")
     public void iClickOnADeviceForDeviceType(String deviceType) throws Throwable {
-        DeviceData dd = (DeviceData) scenarioSession.getData(SessionKey.deviceData);
+        DeviceDO dd = (DeviceDO) scenarioSession.getData(SessionKey.deviceData);
         deviceType = deviceType.toLowerCase();
         businessDevicesDetails = businessDevicesDetails.viewDeviceOfType(deviceType, dd.gmdnTermOrDefinition);
     }

@@ -1,6 +1,6 @@
 package com.mhra.mdcm.devices.appian.pageobjects.external.myaccount;
 
-import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequestDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.external.MyAccountPage;
 
@@ -61,7 +61,7 @@ public class ContactPersonDetails extends _Page {
     }
 
 
-    public ContactPersonDetails updateFollowingFields(String keyValuePairToUpdate, AccountRequest updatedData) {
+    public ContactPersonDetails updateFollowingFields(String keyValuePairToUpdate, AccountRequestDO updatedData) {
         WaitUtils.waitForElementToBeClickable(driver, submitBtn, TIMEOUT_DEFAULT, false);
 
         String[] dataPairs = keyValuePairToUpdate.split(",");

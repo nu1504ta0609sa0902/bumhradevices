@@ -1,7 +1,7 @@
 package com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer;
 
-import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
-import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequestDO;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.AddDevices;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.DeviceDetails;
@@ -129,7 +129,7 @@ public class ManufacturerViewDetails extends _Page {
         }
     }
 
-    public boolean verifyManufacturerUpdatesDisplayedOnPage(String keyValuePairToUpdate, AccountRequest updatedData) {
+    public boolean verifyManufacturerUpdatesDisplayedOnPage(String keyValuePairToUpdate, AccountRequestDO updatedData) {
 
         WaitUtils.waitForElementToBeVisible(driver, email, TIMEOUT_DEFAULT, false);
         WaitUtils.waitForElementToBeVisible(driver, fullName, TIMEOUT_5_SECOND, false);
@@ -195,7 +195,7 @@ public class ManufacturerViewDetails extends _Page {
         return new ManufacturerEditDetails(driver);
     }
 
-    public ProductDetails viewProduct(DeviceData deviceData) {
+    public ProductDetails viewProduct(DeviceDO deviceData) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         if(deviceData.gmdnTermOrDefinition!=null) {
             WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(deviceData.gmdnTermOrDefinition), TIMEOUT_10_SECOND, false);

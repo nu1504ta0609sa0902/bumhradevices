@@ -14,7 +14,7 @@ import java.util.List;
  *
  * OVERRIDE THE DEFAULTS
  */
-public class DeviceData {
+public class DeviceDO {
 
     public static final String MANUFACTURER_RT_TEST = "ManufacturerRT01Test";
     public static final String AUTHORISED_REP_RT_TEST = "AuthorisedRepRT01Test";
@@ -46,7 +46,7 @@ public class DeviceData {
     public boolean isNewProduct;
     public boolean isConformsToCTS;
 
-    public DeviceData(ScenarioSession scenarioSession) {
+    public DeviceDO(ScenarioSession scenarioSession) {
         createDefaultRandom();
     }
 

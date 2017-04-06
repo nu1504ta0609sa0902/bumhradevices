@@ -1,11 +1,10 @@
 package com.mhra.mdcm.devices.appian.steps.d1.business;
 
-import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequestDO;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -278,7 +277,7 @@ public class RecordsPageSteps extends CommonSteps {
         log.info("Account to update : " + randomAccountName);
 
         //Edit the data now
-        AccountRequest updatedData = new AccountRequest(scenarioSession);
+        AccountRequestDO updatedData = new AccountRequestDO(scenarioSession);
         updatedData.updateName(searchTerm);
         editAccounts = viewAccount.gotoEditAccountInformation();
         accounts = editAccounts.editAccountInformation(keyValuePairToUpdate, updatedData);
@@ -302,7 +301,7 @@ public class RecordsPageSteps extends CommonSteps {
         log.info("Edit the following account : " + randomAccountName);
 
         //Edit the data now
-        AccountRequest updatedData = new AccountRequest(scenarioSession);
+        AccountRequestDO updatedData = new AccountRequestDO(scenarioSession);
         editAccounts = viewAccount.gotoEditAccountInformation();
         accounts = editAccounts.editAccountInformation(keyValuePairToUpdate, updatedData);
 
@@ -314,7 +313,7 @@ public class RecordsPageSteps extends CommonSteps {
     @Then("^I should see the changes \"([^\"]*)\" in the account page$")
     public void i_should_see_the_changes_in_the_account_page(String keyValuePairToUpdate) throws Throwable {
         //boolean isCorrectPage = accounts.isCorrectPage();
-        AccountRequest updatedData = (AccountRequest) scenarioSession.getData(SessionKey.updatedData);
+        AccountRequestDO updatedData = (AccountRequestDO) scenarioSession.getData(SessionKey.updatedData);
         boolean updatesFound = false;
         int numberOfRefresh = 0;
         do {
@@ -342,16 +341,6 @@ public class RecordsPageSteps extends CommonSteps {
         Assert.assertThat("Default ordering of organisation name should be A to Z", isOrderAtoZ, is(true));
 
     }
-
-
-//    @When("^I filter items in \"([^\"]*)\" page by organisation role \"([^\"]*)\"$")
-//    public void filter_by_organisation_role(String page, String organisationRole) throws Throwable {
-//        if (page.equals("Accounts")) {
-//            accounts = accounts.filterByOrganistionRole(organisationRole);
-//        } else if (page.equals("All Organisations")) {
-//            allOrganisations = allOrganisations.filterByOrganistionRole(organisationRole);
-//        }
-//    }
 
     @When("^I filter by \"([^\"]*)\" for the value \"([^\"]*)\" in \"([^\"]*)\" page$")
     public void i_filter_by_for_the_value_in_page(String filterBy, String value, String page) throws Throwable {
@@ -393,17 +382,6 @@ public class RecordsPageSteps extends CommonSteps {
             allOrganisations = allOrganisations.sortBy(tableHeading, 2);
         }
     }
-
-//    @Then("^I should see only see organisation of type \"([^\"]*)\" in \"([^\"]*)\" page$")
-//    public void i_should_see_only_see_organisation_of_type(String organisationType, String page) throws Throwable {
-//        boolean isOrganisationTypeAllSame = false;
-//        if (page.equals("Accounts")) {
-//            isOrganisationTypeAllSame = accounts.areAllOrganisationRoleOfType(organisationType);
-//        } else if (page.equals("All Organisations")) {
-//            isOrganisationTypeAllSame = allOrganisations.areAllOrganisationRoleOfType(organisationType);
-//        }
-//        Assert.assertThat("Organisation Roles Should Be Of Type : " + organisationType, isOrganisationTypeAllSame, is(true));
-//    }
 
     @Then("^I should see table column \"([^\"]*)\" displaying only \"([^\"]*)\" in \"([^\"]*)\" page$")
     public void i_should_see_table_column_only_displaying_in_page(String tableColumnName, String value, String page) throws Throwable {

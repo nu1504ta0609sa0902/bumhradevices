@@ -1,6 +1,6 @@
 package com.mhra.mdcm.devices.appian.pageobjects.external.device;
 
-import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.ManufacturerList;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
@@ -271,7 +271,7 @@ public class AddDevices extends _Page {
         return contains;
     }
 
-    public AddDevices addFollowingDevice(DeviceData dd) {
+    public AddDevices addFollowingDevice(DeviceDO dd) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         //WaitUtils.nativeWaitInSeconds(1);
         WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_DEFAULT, false);
@@ -301,7 +301,7 @@ public class AddDevices extends _Page {
 
 
 
-    public AddDevices addInvalidFollowingDevice(DeviceData dd) {
+    public AddDevices addInvalidFollowingDevice(DeviceDO dd) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_DEFAULT, false);
         WaitUtils.waitForElementToBeClickable(driver, systemOrProcedurePack, TIMEOUT_3_SECOND, false);
@@ -323,7 +323,7 @@ public class AddDevices extends _Page {
         return new AddDevices(driver);
     }
 
-    private void addActiveImplantableDevice(DeviceData dd) {
+    private void addActiveImplantableDevice(DeviceDO dd) {
         searchByGMDN(dd);
         customMade(dd);
         int numberOfProductName = dd.listOfProductName.size();
@@ -343,7 +343,7 @@ public class AddDevices extends _Page {
         //saveProduct(dd);
     }
 
-    private void addProcedurePackDevice(DeviceData dd) {
+    private void addProcedurePackDevice(DeviceDO dd) {
         searchByGMDN(dd);
 //        customMade(dd); removed since 04/01/2017
 //        deviceMeasuring(dd); removed since 04/01/2017
@@ -357,7 +357,7 @@ public class AddDevices extends _Page {
         //saveProduct(dd);
     }
 
-    private void addVitroDiagnosticDevice(DeviceData dd) {
+    private void addVitroDiagnosticDevice(DeviceDO dd) {
         searchByGMDN(dd);
         riskClassificationIVD(dd);
 
@@ -423,7 +423,7 @@ public class AddDevices extends _Page {
     }
 
 
-    private void addGeneralMedicalDevice(DeviceData dd) {
+    private void addGeneralMedicalDevice(DeviceDO dd) {
         searchByGMDN(dd);
         customMade(dd);
 
@@ -438,7 +438,7 @@ public class AddDevices extends _Page {
         //saveProduct(dd);
     }
 
-    private void productLabelName(DeviceData dd) {
+    private void productLabelName(DeviceDO dd) {
         WaitUtils.waitForElementToBeClickable(driver, addProduct, TIMEOUT_5_SECOND, false);
         addProduct.click();
         WaitUtils.waitForElementToBeClickable(driver, txtProductNameLabel, TIMEOUT_5_SECOND, false);
@@ -471,7 +471,7 @@ public class AddDevices extends _Page {
         saveProduct.click();
     }
 
-    private void conformToCTS(DeviceData dd) {
+    private void conformToCTS(DeviceDO dd) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         if (dd.isConformsToCTS) {
             PageUtils.clickIfVisible(driver, radioConformsToCTSYes);
@@ -485,12 +485,12 @@ public class AddDevices extends _Page {
         }
     }
 
-    private void saveProduct(DeviceData dd) {
+    private void saveProduct(DeviceDO dd) {
         WaitUtils.waitForElementToBeClickable(driver, saveProduct2, TIMEOUT_5_SECOND, false);
         saveProduct2.click();
     }
 
-    private void productNewToMarket(DeviceData dd) {
+    private void productNewToMarket(DeviceDO dd) {
         if (dd.isNewProduct) {
             PageUtils.clickIfVisible(driver, radioProductNewYes);
         } else {
@@ -498,7 +498,7 @@ public class AddDevices extends _Page {
         }
     }
 
-    private void subjectToPerformanceEval(DeviceData dd) {
+    private void subjectToPerformanceEval(DeviceDO dd) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.nativeWaitInSeconds(1);
         WaitUtils.waitForElementToBeClickable(driver, radioSubjectToPerformanceEvalYes, TIMEOUT_DEFAULT, false);
@@ -510,7 +510,7 @@ public class AddDevices extends _Page {
         }
     }
 
-    private void addProduct(DeviceData dd) {
+    private void addProduct(DeviceDO dd) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, addProduct, TIMEOUT_10_SECOND, false);
         //WaitUtils.nativeWaitInSeconds(2);
@@ -528,7 +528,7 @@ public class AddDevices extends _Page {
 
     }
 
-    private void devicesCompatible(DeviceData dd) {
+    private void devicesCompatible(DeviceDO dd) {
         if (dd.isDeviceCompatible) {
             PageUtils.clickIfVisible(driver, ppDevicesCompatibleYes);
         } else {
@@ -536,7 +536,7 @@ public class AddDevices extends _Page {
         }
     }
 
-    private void isBearingCEMarking(DeviceData dd) {
+    private void isBearingCEMarking(DeviceDO dd) {
         if (dd.isBearingCEMarking) {
             PageUtils.clickIfVisible(driver, ppIsBearingCEMarkingYes);
         } else {
@@ -544,15 +544,14 @@ public class AddDevices extends _Page {
         }
     }
 
-    private void notifiedBody(DeviceData dd) {
+    private void notifiedBody(DeviceDO dd) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         changeNotifiedBody();
         boolean notifiedBodyOptionsCorrect = isNotifiedBodyListDisplayingCorrectDetails();
 
         WaitUtils.waitForElementToBeVisible(driver, nb0086BSI, TIMEOUT_5_SECOND, false);
         WaitUtils.waitForElementToBeClickable(driver, nb0086BSI, TIMEOUT_5_SECOND, false);
-//        WaitUtils.waitForElementToBeClickable(driver, nbOther, TIMEOUT_5_SECOND, false);
-//        WaitUtils.nativeWaitInSeconds(2);
+
         //Select notified body
         if (notifiedBodyOptionsCorrect && dd.notifiedBody != null && dd.notifiedBody.toLowerCase().contains("0086")) {
             PageUtils.singleClick(driver, nb0086BSI);
@@ -583,7 +582,7 @@ public class AddDevices extends _Page {
         return numberOfNB && otherDisplayed;
     }
 
-    private void riskClassificationIVD(DeviceData dd) {
+    private void riskClassificationIVD(DeviceDO dd) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, ivdIVDGeneral, TIMEOUT_10_SECOND, false);
         //WaitUtils.nativeWaitInSeconds(1);
@@ -609,7 +608,7 @@ public class AddDevices extends _Page {
         }
     }
 
-    private void selectDeviceType(DeviceData dd) {
+    private void selectDeviceType(DeviceDO dd) {
         WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_10_SECOND, false);
         String lcDeviceType = dd.deviceType.toLowerCase();
         if (lcDeviceType.contains("general medical device")) {
@@ -623,7 +622,7 @@ public class AddDevices extends _Page {
         }
     }
 
-    private void deviceMeasuring(DeviceData dd) {
+    private void deviceMeasuring(DeviceDO dd) {
         WaitUtils.waitForElementToBeClickable(driver, radioDeviceMeasuringYes, TIMEOUT_5_SECOND, false);
         if (dd.isDeviceMeasuring) {
             PageUtils.clickIfVisible(driver, radioDeviceMeasuringYes);
@@ -632,7 +631,7 @@ public class AddDevices extends _Page {
         }
     }
 
-    private void deviceSterile(DeviceData dd) {
+    private void deviceSterile(DeviceDO dd) {
         WaitUtils.waitForElementToBeClickable(driver, radioDeviceSterileYes, TIMEOUT_5_SECOND, false);
         if (dd.isDeviceSterile) {
             PageUtils.clickIfVisible(driver, radioDeviceSterileYes);
@@ -641,7 +640,7 @@ public class AddDevices extends _Page {
         }
     }
 
-    private void customMade(DeviceData dd) {
+    private void customMade(DeviceDO dd) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, radioCustomMadeYes, TIMEOUT_10_SECOND, false);
         if (dd.isCustomMade) {
@@ -652,7 +651,7 @@ public class AddDevices extends _Page {
         }
     }
 
-    private void riskClassification(DeviceData dd) {
+    private void riskClassification(DeviceDO dd) {
         WaitUtils.waitForElementToBeClickable(driver, radioRiskClass1, TIMEOUT_5_SECOND, false);
         WaitUtils.waitForElementToBeClickable(driver, nb0086BSI, TIMEOUT_5_SECOND, false);
         String lcRiskClassiffication = dd.riskClassification.toLowerCase();
@@ -669,7 +668,7 @@ public class AddDevices extends _Page {
         }
     }
 
-    private void searchByGMDN(DeviceData dd) {
+    private void searchByGMDN(DeviceDO dd) {
         if (dd.gmdnTermOrDefinition != null) {
 
             List<String> arrayOfDeviceBecauseTheyKeepBloodyChanging = TestHarnessUtils.getListOfSearchTermsForGMDN();
@@ -726,15 +725,6 @@ public class AddDevices extends _Page {
 
     }
 
-//    private void previousGMDNSelection(DeviceData dd) {
-//        //Default is search by gmdn term or definition
-//        WaitUtils.waitForElementToBeClickable(driver, radioGMDNDefinitionOrTerm, TIMEOUT_5_SECOND, false);
-//        radioGMDNDefinitionOrTerm.click();
-//        WaitUtils.waitForElementToBeClickable(driver, tbxGMDNDefinitionOrTerm, TIMEOUT_5_SECOND, false);
-//        //tbxGMDNDefinitionOrTerm.sendKeys(dd.gmdnTermOrDefinition);
-//        PageUtils.selectFromAutoSuggests(driver, By.cssSelector(".PickerWidget---picker_value"), dd.gmdnTermOrDefinition);
-//    }
-
     public boolean isOptionToAddAnotherDeviceVisible() {
         try {
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
@@ -769,7 +759,7 @@ public class AddDevices extends _Page {
         return new ManufacturerList(driver);
     }
 
-    public boolean isGMDNValueDisplayed(DeviceData data) {
+    public boolean isGMDNValueDisplayed(DeviceDO data) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnAddAnotherDevice, TIMEOUT_15_SECOND, false);
         WaitUtils.waitForElementToBeClickable(driver, btnProceedToPayment, TIMEOUT_15_SECOND, false);
@@ -831,7 +821,7 @@ public class AddDevices extends _Page {
         return new AddDevices(driver);
     }
 
-    public boolean isProductDetailsCorrect(DeviceData data) {
+    public boolean isProductDetailsCorrect(DeviceDO data) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean allCorrect = true;
 
@@ -848,7 +838,7 @@ public class AddDevices extends _Page {
         return allCorrect;
     }
 
-    public AddDevices viewAProduct(DeviceData data) {
+    public AddDevices viewAProduct(DeviceDO data) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WebElement link;
         if (data.productName != null && !data.productName.equals("")) {
@@ -864,7 +854,7 @@ public class AddDevices extends _Page {
     }
 
 
-    public boolean isCTSAndOthereDetailsCorrect(DeviceData data) {
+    public boolean isCTSAndOthereDetailsCorrect(DeviceDO data) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean allCorrect = true;
         String txt;
@@ -888,8 +878,8 @@ public class AddDevices extends _Page {
         return allCorrect;
     }
 
-    public AddDevices removeAllDevices(List<DeviceData> listOfDeviceData) {
-        for (DeviceData data : listOfDeviceData) {
+    public AddDevices removeAllDevices(List<DeviceDO> listOfDeviceData) {
+        for (DeviceDO data : listOfDeviceData) {
             String gmdnCode = data.getGMDN();
             viewDeviceWithGMDNValue(gmdnCode);
             removeSelectedDevice();
@@ -910,7 +900,7 @@ public class AddDevices extends _Page {
         return allDisplayed;
     }
 
-    public AddDevices searchForDevice(DeviceData dd, String deviceType, String gmdnTermCodeOrDefinition) {
+    public AddDevices searchForDevice(DeviceDO dd, String deviceType, String gmdnTermCodeOrDefinition) {
 
         dd.gmdnTermOrDefinition = gmdnTermCodeOrDefinition;
         if(deviceType != null){
@@ -941,7 +931,7 @@ public class AddDevices extends _Page {
     }
 
 
-    public AddDevices viewAllGmdnTermDefinitions(DeviceData dd, String deviceType) {
+    public AddDevices viewAllGmdnTermDefinitions(DeviceDO dd, String deviceType) {
         if(deviceType!=null) {
             dd.deviceType = deviceType;
             selectDeviceType(dd);

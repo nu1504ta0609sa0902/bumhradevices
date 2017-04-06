@@ -1,14 +1,10 @@
 package com.mhra.mdcm.devices.appian.utils.selenium.others;
 
-import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerOrganisationRequest;
-import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
-import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequestDO;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
 import com.mhra.mdcm.devices.appian.session.ScenarioSession;
-import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,8 +24,8 @@ public class TestHarnessUtils {
      * @param dataSets
      * @return
      */
-    public static AccountRequest updateBusinessDefaultsWithData(Map<String, String> dataSets, ScenarioSession scenarioSession) {
-        AccountRequest defaultAccount = new AccountRequest(scenarioSession);
+    public static AccountRequestDO updateBusinessDefaultsWithData(Map<String, String> dataSets, ScenarioSession scenarioSession) {
+        AccountRequestDO defaultAccount = new AccountRequestDO(scenarioSession);
 
         if(dataSets!=null){
             String accountType = dataSets.get("accountType");
@@ -74,8 +70,8 @@ public class TestHarnessUtils {
         return isValid;
     }
 
-    public static ManufacturerOrganisationRequest updateManufacturerDefaultsWithData(Map<String, String> dataSets, ScenarioSession scenarioSession) {
-        ManufacturerOrganisationRequest defaultAccount = new ManufacturerOrganisationRequest(scenarioSession);
+    public static ManufacturerRequestDO updateManufacturerDefaultsWithData(Map<String, String> dataSets, ScenarioSession scenarioSession) {
+        ManufacturerRequestDO defaultAccount = new ManufacturerRequestDO(scenarioSession);
 
         if(dataSets!=null){
             String accountType = dataSets.get("accountType");
@@ -102,8 +98,8 @@ public class TestHarnessUtils {
     }
 
 
-    public static DeviceData updateDeviceData(Map<String, String> dataSets, ScenarioSession scenarioSession) {
-        DeviceData dd = new DeviceData(scenarioSession);
+    public static DeviceDO updateDeviceData(Map<String, String> dataSets, ScenarioSession scenarioSession) {
+        DeviceDO dd = new DeviceDO(scenarioSession);
 
         if(dataSets!=null){
 
@@ -192,36 +188,6 @@ public class TestHarnessUtils {
         }
         return dd;
     }
-
-//    public static void selectCountryFromAutoSuggests(WebDriver driver, String elementPath, String countryName, boolean throwException) throws Exception {
-//            boolean completed = true;
-//            int count = 0;
-//            do {
-//                try {
-//
-//                    count++;    //It will go forever without this
-//                    WebElement country = driver.findElements(By.cssSelector(elementPath)).get(0);
-//                    new Actions(driver).moveToElement(country).perform();
-//
-//                    //Enter the country I am interested in
-//                    country.sendKeys("\n");
-//                    country.clear();
-//                    country.sendKeys(countryName, Keys.ENTER);
-//                    new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(By.cssSelector(".item")));
-//                    country.sendKeys(Keys.ARROW_DOWN, Keys.ENTER);
-//
-//                    completed = true;
-//                } catch (Exception e) {
-//                    completed = false;
-//                    WaitUtils.nativeWaitInSeconds(1);
-//                    //PageFactory.initElements(driver, this);
-//                }
-//            } while (!completed && count < 1);
-//
-//            if(!completed && throwException){
-//                throw new Exception("Country name not selected");
-//            }
-//        }
 
     public static List<String> getListOfSearchTermsForGMDN() {
         List<String> listOfGmdnsSearchTerms = new ArrayList<>(Arrays.asList("cat", "res", "tis", "sco", "con", "pro"));

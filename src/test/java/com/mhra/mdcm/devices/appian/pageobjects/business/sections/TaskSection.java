@@ -1,7 +1,7 @@
 package com.mhra.mdcm.devices.appian.pageobjects.business.sections;
 
-import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerOrganisationRequest;
-import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequestDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.business.TasksTabPage;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.CommonUtils;
@@ -133,7 +133,7 @@ public class TaskSection extends _Page {
 
         try {
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-            WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//button[contains(text(), 'Reassign')]"), TIMEOUT_5_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//button[contains(text(), 'Reassign')]"), TIMEOUT_10_SECOND, false);
             WaitUtils.waitForElementToBeVisible(driver, taskHeading, TIMEOUT_10_SECOND, false);
             boolean contains = taskHeading.getText().contains(orgName);
             return contains;
@@ -344,7 +344,7 @@ public class TaskSection extends _Page {
         }
     }
 
-    public List<String> verifyDetailsAreCorrect(AccountRequest accountDetails) {
+    public List<String> verifyDetailsAreCorrect(AccountRequestDO accountDetails) {
         List<String> listOfInvalidFields = new ArrayList<>();
 
         //Verify organisation details
@@ -370,7 +370,7 @@ public class TaskSection extends _Page {
         return listOfInvalidFields;
     }
 
-    public boolean isWIPTaskDetailsCorrectForAccount(String orgName, ManufacturerOrganisationRequest organisationData, String taskType) {
+    public boolean isWIPTaskDetailsCorrectForAccount(String orgName, ManufacturerRequestDO organisationData, String taskType) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, listOfWIPTableRows.get(0), TIMEOUT_3_SECOND, false);
         WebElement tr = PageUtils.getTableRow(listOfWIPTableRows, orgName);

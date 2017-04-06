@@ -1,6 +1,6 @@
 package com.mhra.mdcm.devices.appian.steps.d1.external;
 
-import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequestDO;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.ManufacturerViewDetails;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
@@ -32,7 +32,7 @@ public class MyAccountPageSteps extends CommonSteps {
         amendPersonDetails = myAccountPage.amendContactPersonDetails();
 
         //Update details, firstName and lastName
-        AccountRequest updatedData = new AccountRequest(scenarioSession);
+        AccountRequestDO updatedData = new AccountRequestDO(scenarioSession);
         updatedData.updateName(scenarioSession);
 
         boolean errorMsgDisplayed = false;
@@ -53,7 +53,7 @@ public class MyAccountPageSteps extends CommonSteps {
     @Then("^I should see the changes \"([^\"]*)\" in my accounts page$")
     public void iShouldSeeTheChangesInMyAccountsPage(String keyValuePairToUpdate) throws Throwable {
         boolean isCorrectPage = myAccountPage.isCorrectPage();
-        AccountRequest updatedData = (AccountRequest) scenarioSession.getData(SessionKey.manufacturerData);
+        AccountRequestDO updatedData = (AccountRequestDO) scenarioSession.getData(SessionKey.manufacturerData);
 
         //BUG requires another refresh
         myAccountPage = myAccountPage.refreshThePage();
@@ -64,7 +64,7 @@ public class MyAccountPageSteps extends CommonSteps {
 
     @Then("^I should see creation and association dates$")
     public void i_should_see_creation_and_association_dates() throws Throwable {
-        AccountRequest updatedData = (AccountRequest) scenarioSession.getData(SessionKey.manufacturerData);
+        AccountRequestDO updatedData = (AccountRequestDO) scenarioSession.getData(SessionKey.manufacturerData);
         boolean updatesFound = myAccountPage.verifyDatesDisplayedOnPage(updatedData);
         Assert.assertThat("Expected to see created and association dates", updatesFound, is(true));
     }
@@ -75,7 +75,7 @@ public class MyAccountPageSteps extends CommonSteps {
         amendOrganisationDetails = myAccountPage.amendOrganisationDetails();
 
         //Update details, firstName and lastName
-        AccountRequest updatedData = new AccountRequest(scenarioSession);
+        AccountRequestDO updatedData = new AccountRequestDO(scenarioSession);
         updatedData.updateName(scenarioSession);
 
         boolean errorMsgDisplayed = false;
@@ -104,7 +104,7 @@ public class MyAccountPageSteps extends CommonSteps {
         }
 
         //Update details, firstName and lastName
-        AccountRequest updatedData = new AccountRequest(scenarioSession);
+        AccountRequestDO updatedData = new AccountRequestDO(scenarioSession);
         updatedData.updateName(scenarioSession);
 
         boolean errorMsgDisplayed = false;
@@ -124,7 +124,7 @@ public class MyAccountPageSteps extends CommonSteps {
 
     @Then("^I should see the changes \"([^\"]*)\" in my manufacturer details page$")
     public void iShouldSeeTheChangesInManufacturerDetailsPage(String keyValuePairToUpdate) throws Throwable {
-        AccountRequest updatedData = (AccountRequest) scenarioSession.getData(SessionKey.manufacturerData);
+        AccountRequestDO updatedData = (AccountRequestDO) scenarioSession.getData(SessionKey.manufacturerData);
         //boolean isCorrectPage = manufacturerDetails.isCorrectPage();
         manufacturerDetails = manufacturerDetails.refreshThePage();
         boolean updatesFound = manufacturerDetails.verifyManufacturerUpdatesDisplayedOnPage(keyValuePairToUpdate, updatedData);

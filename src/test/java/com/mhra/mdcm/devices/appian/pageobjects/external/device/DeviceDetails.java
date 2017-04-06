@@ -1,7 +1,7 @@
 package com.mhra.mdcm.devices.appian.pageobjects.external.device;
 
-import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerOrganisationRequest;
-import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
@@ -50,7 +50,7 @@ public class DeviceDetails extends _Page {
      * @param deviceData
      * @return
      */
-    public boolean isDisplayedDeviceDataCorrect(ManufacturerOrganisationRequest manufacaturerData, DeviceData deviceData) {
+    public boolean isDisplayedDeviceDataCorrect(ManufacturerRequestDO manufacaturerData, DeviceDO deviceData) {
         //Check displayed devices are correct
         String device = deviceData.gmdnTermOrDefinition;
         boolean allHeadingValid = isDeviceTableHeadingCorrect(deviceData);
@@ -58,7 +58,7 @@ public class DeviceDetails extends _Page {
         return allValid && allHeadingValid;
     }
 
-    private boolean isDeviceTableHeadingCorrect(DeviceData dd) {
+    private boolean isDeviceTableHeadingCorrect(DeviceDO dd) {
         boolean isCorrect = false;
         String headings = "";
         if (dd.deviceType.toLowerCase().contains("general medical device")) {

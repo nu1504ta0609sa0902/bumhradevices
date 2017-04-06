@@ -125,53 +125,6 @@ public class WaitUtils {
     }
 
 
-//    public static void isElementPartOfDom(WebDriver driver, By by, int maxTimeToWait, boolean overrideTimeSpecified) {
-//        if (overrideTimeSpecified)
-//            maxTimeToWait = resetMaxTime(maxTimeToWait);
-//        new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.presenceOfElementLocated(by));
-//    }
-
-
-//    public static void isElementPartOfDomAdvanced(WebDriver driver, final WebElement element, int maxTimeToWait, boolean overrideTimeSpecified) {
-//        if (overrideTimeSpecified)
-//            maxTimeToWait = resetMaxTime(maxTimeToWait);
-//
-//        new WebDriverWait(driver, maxTimeToWait)
-//                .ignoring(StaleElementReferenceException.class)
-//                .until(new Predicate<WebDriver>() {
-//                    @Override
-//                    public boolean apply(WebDriver driver) {
-//                        boolean displayed = element.isDisplayed();
-//                        return displayed;
-//                    }
-//                });
-//    }
-
-
-    /**
-     * PREVENT StaleElementReference issue
-     *
-     * @param driver
-     * @param by
-     * @param maxTimeToWait
-     * @param overrideTimeSpecified
-     */
-//    public static void waitForElementToBePartOfDOM(WebDriver driver, final By by, int maxTimeToWait, boolean overrideTimeSpecified) {
-//        if (overrideTimeSpecified)
-//            maxTimeToWait = resetMaxTime(maxTimeToWait);
-//
-//        new WebDriverWait(driver, maxTimeToWait)
-//                .ignoring(StaleElementReferenceException.class)
-//                .until(new Predicate<WebDriver>() {
-//                    @Override
-//                    public boolean apply(WebDriver driver) {
-//                        WebElement element = driver.findElement(by);
-//                        boolean clickAble = element.isDisplayed() && element.isEnabled();
-//                        return clickAble;
-//                    }
-//                });
-//    }
-
     public static void waitForPageToLoad(WebDriver driver, By by, int maxTimeToWait, boolean overrideTimeSpecified) {
         try {
             new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.presenceOfElementLocated(by));
@@ -179,33 +132,6 @@ public class WaitUtils {
             //Aim is to pause the page for sometimes
         }
     }
-
-
-    /**
-     * This is no different from a native wait call
-     *
-     * @param driver
-     * @param by
-     * @param maxTimeToWait
-     * @param numberOfTimes
-     * @return
-     */
-//    public static boolean forceWaitForPageToLoad(WebDriver driver, By by, int maxTimeToWait, int numberOfTimes) {
-//        boolean loadingCompleted = false;
-//        int attempt = 0;
-//        do{
-//            try {
-//                new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.presenceOfElementLocated(by));
-//                loadingCompleted = true;
-//                break;
-//            }catch (Exception e){
-//                //
-//            }
-//            attempt++;
-//        }while(!loadingCompleted && attempt < numberOfTimes);
-//
-//        return loadingCompleted;
-//    }
 
 
     /**

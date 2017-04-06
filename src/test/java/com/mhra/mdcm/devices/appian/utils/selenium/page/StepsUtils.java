@@ -1,6 +1,6 @@
 package com.mhra.mdcm.devices.appian.utils.selenium.page;
 
-import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceData;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
 import com.mhra.mdcm.devices.appian.session.ScenarioSession;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 
@@ -12,8 +12,8 @@ import java.util.List;
  */
 public class StepsUtils {
 
-    public static void addToDeviceDataList(ScenarioSession scenarioSession, DeviceData dd) {
-        List<DeviceData> listOfDeviceData = (List<DeviceData>) scenarioSession.getData(SessionKey.deviceDataList);
+    public static void addToDeviceDataList(ScenarioSession scenarioSession, DeviceDO dd) {
+        List<DeviceDO> listOfDeviceData = (List<DeviceDO>) scenarioSession.getData(SessionKey.deviceDataList);
         if(listOfDeviceData == null){
             listOfDeviceData = new ArrayList<>();
         }

@@ -1,7 +1,7 @@
 package com.mhra.mdcm.devices.appian.steps.d1.business;
 
-import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerOrganisationRequest;
-import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequestDO;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
@@ -63,6 +63,9 @@ public class TasksPageSteps extends CommonSteps {
         if (!contains) {
             taskSection = tasksPage.clickOnLinkWithText(orgName);
             isCorrectTask = taskSection.isCorrectTask(orgName);
+            if (isCorrectTask) {
+                contains = true;
+            }
         }
         scenarioSession.putData(SessionKey.taskType, taskType);
         assertThat("Task not found for organisation : " + orgName, contains, is(equalTo(true)));
@@ -105,17 +108,12 @@ public class TasksPageSteps extends CommonSteps {
             }
         } while (!contains && count <= 5);
 
-        if(!contains) {
-            //If its still not found than try the first 1 again, because it may have taken few seconds longer than usual
-            if (!contains) {
-                //mainNavigationBar = new MainNavigationBar(driver);
-                tasksPage = mainNavigationBar.clickTasks();
-                taskSection = tasksPage.clickOnTaskNumber(0, link);
-                isCorrectTask = taskSection.isCorrectTask(orgName);
-                if (isCorrectTask) {
-                    scenarioSession.putData(SessionKey.position, count);
-                    contains = true;
-                }
+        //If its still not found than try the first 1 again
+        if (!contains) {
+            taskSection = tasksPage.clickOnLinkWithText(orgName);
+            isCorrectTask = taskSection.isCorrectTask(orgName);
+            if (isCorrectTask) {
+                contains = true;
             }
         }
 
@@ -319,7 +317,7 @@ public class TasksPageSteps extends CommonSteps {
     @Then("^Verify the WIP entry details for the new account is correct$")
     public void verify_the_WIP_entry_details_for_the_new_account_is_correct() throws Throwable {
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
-        ManufacturerOrganisationRequest organisationData = (ManufacturerOrganisationRequest) scenarioSession.getData(SessionKey.manufacturerData);
+        ManufacturerRequestDO organisationData = (ManufacturerRequestDO) scenarioSession.getData(SessionKey.manufacturerData);
         boolean isWIPDataCorrect = taskSection.isWIPTaskDetailsCorrectForAccount(orgName, organisationData, "New Manufacturer Registration Request");
         assertThat("WIP page not showing correct data for : " + orgName, isWIPDataCorrect, is(equalTo(true)));
     }
@@ -332,9 +330,9 @@ public class TasksPageSteps extends CommonSteps {
     @Then("^Check the WIP entry details for the \"([^\"]*)\" task is correct$")
     public void verify_the_WIP_entry_details_for_the_task_is_correct(String taskType) throws Throwable {
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
-        ManufacturerOrganisationRequest organisationData = null;
+        ManufacturerRequestDO organisationData = null;
         if(taskType.contains("New Manufacturer")){
-            organisationData = (ManufacturerOrganisationRequest) scenarioSession.getData(SessionKey.manufacturerData);
+            organisationData = (ManufacturerRequestDO) scenarioSession.getData(SessionKey.manufacturerData);
         }
         boolean isWIPDataCorrect = taskSection.isWIPTaskDetailsCorrectForAccount(orgName, organisationData, taskType);
         assertThat("WIP page not showing correct data for : " + orgName, isWIPDataCorrect, is(equalTo(true)));
@@ -434,7 +432,7 @@ public class TasksPageSteps extends CommonSteps {
 
     @Then("^validate task is displaying correct new account details$")
     public void validate_new_account_details() throws Throwable {
-        AccountRequest newAccount = (AccountRequest) scenarioSession.getData(SessionKey.manufacturerData);
+        AccountRequestDO newAccount = (AccountRequestDO) scenarioSession.getData(SessionKey.manufacturerData);
         log.info(newAccount.toString());
         List<String> listOfDetailsWhichAreIncorrect = taskSection.verifyDetailsAreCorrect(newAccount);
 

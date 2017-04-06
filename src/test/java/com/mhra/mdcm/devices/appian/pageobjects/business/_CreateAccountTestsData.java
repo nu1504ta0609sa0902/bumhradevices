@@ -1,9 +1,7 @@
 package com.mhra.mdcm.devices.appian.pageobjects.business;
 
-import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequestDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
-import com.mhra.mdcm.devices.appian.pageobjects.business.ActionsTabPage;
-import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.*;
@@ -66,7 +64,7 @@ public class _CreateAccountTestsData extends _Page {
     WebElement lastName;
     @FindBy(xpath = ".//label[contains(text(),'Job title')]//following::input[1]")
     WebElement jobTitle;
-    @FindBy(xpath = ".//label[.='Email']//following::input[2]")
+    @FindBy(xpath = ".//label[contains(text(),'Job title')]//following::input[2]")
     WebElement phoneNumber;
     @FindBy(xpath = ".//label[.='Email']//following::input[1]")
     WebElement emailAddress;
@@ -111,7 +109,7 @@ public class _CreateAccountTestsData extends _Page {
      * @param ar
      * @return
      */
-    public ActionsTabPage createTestOrganisation(AccountRequest ar) throws Exception {
+    public ActionsTabPage createTestOrganisation(AccountRequestDO ar) throws Exception {
         WaitUtils.waitForPageToLoad(driver, By.xpath(".//label[.='Organisation name']//following::input[1]"), 5, false); ;
         WaitUtils.waitForElementToBeClickable(driver, orgName, 5, false);
         orgName.sendKeys(ar.organisationName);

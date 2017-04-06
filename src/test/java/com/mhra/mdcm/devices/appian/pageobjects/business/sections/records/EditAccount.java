@@ -1,6 +1,6 @@
 package com.mhra.mdcm.devices.appian.pageobjects.business.sections.records;
 
-import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequest;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequestDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 
@@ -11,8 +11,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 /**
  * Created by TPD_Auto
@@ -82,7 +80,7 @@ public class EditAccount extends _Page {
     }
 
 
-    public Accounts editAccountInformation(String keyValuePairToUpdate, AccountRequest updatedData) {
+    public Accounts editAccountInformation(String keyValuePairToUpdate, AccountRequestDO updatedData) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, submitBtn, TIMEOUT_DEFAULT, false);
 

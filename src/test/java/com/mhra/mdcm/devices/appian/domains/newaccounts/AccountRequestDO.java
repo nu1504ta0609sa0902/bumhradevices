@@ -5,7 +5,6 @@ import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.FileUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +13,7 @@ import java.util.List;
  *
  * OVERRIDE THE DEFAULTS
  */
-public class AccountRequest {
+public class AccountRequestDO {
 
     public static final String MANUFACTURER_RT_TEST = "ManufacturerRT01Test";
     public static final String AUTHORISED_REP_RT_TEST = "AuthorisedRepRT01Test";
@@ -59,7 +58,7 @@ public class AccountRequest {
     public boolean aitsAdverseIncidentTrackingSystem;
 
 
-    public AccountRequest(ScenarioSession scenarioSession) {
+    public AccountRequestDO(ScenarioSession scenarioSession) {
         createDefaultRandom();
         //Update as required
         if(scenarioSession!=null){
@@ -165,7 +164,7 @@ public class AccountRequest {
     }
 
     public static void main(String[] args){
-        AccountRequest ar = new AccountRequest(null);
+        AccountRequestDO ar = new AccountRequestDO(null);
     }
 
     public void updateName(ScenarioSession scenarioSession) {
