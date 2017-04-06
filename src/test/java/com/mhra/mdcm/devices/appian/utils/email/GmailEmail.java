@@ -19,9 +19,7 @@ public class GmailEmail {
     public static final String ANNUAL_INVOICED_NOTIFICATIONS = "Annual Notification Invoices";
 
     public static void main(String[] args) {
-
-        GmailEmail gmail = new GmailEmail();
-        String body = readMessageForSpecifiedOrganisations(5, 10, "Manufacturer registration service", "AuthorisedRepRT");
+        String body = GmailEmail.readMessageForSpecifiedOrganisations(5, 10, "Manufacturer registration service", "AuthorisedRepRT");
         System.out.println(body);
     }
 
