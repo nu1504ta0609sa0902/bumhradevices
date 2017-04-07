@@ -416,7 +416,7 @@ public class PageUtils {
                 WebElement country = driver.findElements(By.cssSelector(elementPath)).get(0);
                 country.sendKeys(countryName);
                 WaitUtils.nativeWaitInSeconds(1);
-                new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(By.cssSelector("li[role='option']")));
+                WaitUtils.waitForElementToBeClickable(driver,By.cssSelector("li[role='option']") , _Page.TIMEOUT_5_SECOND, false);
 
                 //Get list of options displayed
                 WaitUtils.nativeWaitInSeconds(1);
@@ -451,7 +451,7 @@ public class PageUtils {
                 WebElement country = driver.findElements(By.cssSelector(elementPath)).get(0);
                 country.sendKeys(countryName);
                 WaitUtils.nativeWaitInSeconds(1);
-                new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(By.cssSelector("li[role='option']")));
+                WaitUtils.waitForElementToBeClickable(driver,By.cssSelector("li[role='option']") , _Page.TIMEOUT_5_SECOND, false);
 
                 //Get list of options displayed
                 WaitUtils.isPageLoadingComplete(driver, 1);
@@ -504,7 +504,7 @@ public class PageUtils {
             WebElement country = driver.findElements((elementPath)).get(0);
             country.sendKeys(text);
             WaitUtils.isPageLoadingComplete(driver, 1);
-            new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(By.cssSelector("li[role='option']")));
+            WaitUtils.waitForElementToBeClickable(driver,By.cssSelector("li[role='option']") , _Page.TIMEOUT_5_SECOND, false);
 
             //Generate list of items
             WaitUtils.isPageLoadingComplete(driver, 1);

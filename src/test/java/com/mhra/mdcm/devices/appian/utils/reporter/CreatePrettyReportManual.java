@@ -34,7 +34,7 @@ public class CreatePrettyReportManual {
         CucumberResultsOverview results = new CucumberResultsOverview();
         results.setOutputDirectory("target");
         results.setOutputName("cucumber-results");
-        results.setSourceFile("./target/cucumber.json");
+        results.setSourceFile("./target/currentWipStoryIAmWorkingOn.json");
         try {
             results.execute();
         } catch (Exception e) {
