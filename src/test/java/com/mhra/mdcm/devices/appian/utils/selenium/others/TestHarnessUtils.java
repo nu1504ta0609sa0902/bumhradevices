@@ -197,7 +197,7 @@ public class TestHarnessUtils {
     public static void takeScreenShot(WebDriver driver, String name) {
         File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
         String currentDir = FileUtils.getFileFullPath("tmp", "screenshots");
-        //String currentDir = System.getProperty("user.dir");
+
         String timeStamp = new SimpleDateFormat("HHmm").format(Calendar.getInstance().getTime());
         String subDir = "SS_" + new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
         try {

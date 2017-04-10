@@ -16,6 +16,7 @@ public class FileUtils {
     public final static String userFileName = "data" + File.separator + "users.properties";
 
     private final static String resourceFolder = "src" + File.separator + "test" + File.separator + "resources" + File.separator;
+    private final static String targetFolder = "target";
     private final static String userFileLocation = "configs" + File.separator ;
     private final static Map<String, Properties> mapOfProperties = new HashMap<String, Properties>();
 
@@ -81,6 +82,13 @@ public class FileUtils {
         File file = new File("");
         String rootFolder = file.getAbsolutePath();
         String data = (rootFolder + File.separator + resourceFolder + tmpFolderName + File.separator + fileName);
+        return data;
+    }
+
+    public static String getTargetFileFullPath(String folderName, String fileName) {
+        File file = new File("");
+        String rootFolder = file.getAbsolutePath();
+        String data = (rootFolder + File.separator + targetFolder + File.separator + folderName + File.separator + fileName);
         return data;
     }
 }
