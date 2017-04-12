@@ -1,6 +1,7 @@
 package com.mhra.mdcm.devices.appian.pageobjects;
 
 import com.mhra.mdcm.devices.appian.utils.selenium.others.FileUtils;
+import com.mhra.mdcm.devices.appian.utils.selenium.page.AuthenticationUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
@@ -20,6 +21,7 @@ import java.util.Properties;
 public class LoginPage extends _Page {
 
     private static String baseUrl;
+    public static boolean isAutorised = false;
 
     @FindBy(id = "un")
     WebElement username;
@@ -53,6 +55,10 @@ public class LoginPage extends _Page {
     }
 
     public LoginPage loadPage(String url) {
+        if(driver!=null && !isAutorised){
+            isAutorised = true;
+            AuthenticationUtils.performBasicAuthentication(driver, url);
+        }
         //WaitUtils.nativeWaitInSeconds(2);
         PageUtils.acceptAlert(driver, true, 1);
         driver.get(url);
