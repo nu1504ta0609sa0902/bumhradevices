@@ -1,6 +1,7 @@
 package com.mhra.mdcm.devices.appian.utils.selenium.page;
 
 import com.mhra.mdcm.devices.appian.utils.jenkins.ProxyAuthentication;
+import com.mhra.mdcm.devices.appian.utils.jenkins.ProxyAuthenticationSikuli;
 import org.openqa.selenium.WebDriver;
 
 /**
@@ -14,7 +15,12 @@ public class AuthenticationUtils {
             //Only required if behind a proxy : works for Chrome
             //driver.manage().window().maximize();
             driver.get(baseUrl);
-            (new Thread(new ProxyAuthentication(driver, baseUrl))).start();
+            //(new Thread(new ProxyAuthentication(driver, baseUrl))).start();
+            try {
+                new ProxyAuthenticationSikuli(driver, baseUrl).login();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }
