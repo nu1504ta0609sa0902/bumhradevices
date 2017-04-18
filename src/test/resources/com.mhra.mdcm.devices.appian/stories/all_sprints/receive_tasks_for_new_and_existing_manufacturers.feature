@@ -83,9 +83,9 @@ Feature: As a business user, I want a task to be created each time a customer su
     Then I view new task with link "<link>" for the new account
     And The status of designation letter should be "Awaiting Review"
     Examples:
-      | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition      | customMade | listOfProductNames | link                                  |
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Desiccating chamber | true       | ford               | New Manufacturer Registration Request |
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Blood vessel sizer | false      | fiesta             | New Manufacturer Registration Request |
+      | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition       | customMade | listOfProductNames | link                                  |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Desiccating chamber  | true       | ford               | New Manufacturer Registration Request |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Blood weighing scale | false      | fiesta             | New Manufacturer Registration Request |
 
 
   @regression @mdcm-263 @_sprint6  @4088 @_sprint11 @2185 @_sprint8 @wip
