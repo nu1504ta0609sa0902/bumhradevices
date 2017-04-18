@@ -22,7 +22,7 @@ public class ProxyAuthenticationSikuli {
         this.url = baseUrl;
     }
 
-    public void login() throws Exception {
+    public void login(boolean useRobotApiToTab) throws Exception {
 
         //Now try to enter some value
         System.out.println("Trying to enter proxy login details via ROBOT API");
@@ -33,17 +33,7 @@ public class ProxyAuthenticationSikuli {
         Robot rb = new Robot();
 
         //Tab to a different window
-        String inJenkinsWindowLoosesFocusOnLauch = System.getProperty("using.ci");
-        System.out.println("Using CI : " + inJenkinsWindowLoosesFocusOnLauch);
-        if(inJenkinsWindowLoosesFocusOnLauch!=null) {
-            System.out.println("In Jenkins : Using CI ");
-            rb.keyPress(KeyEvent.VK_WINDOWS);
-            rb.keyPress(KeyEvent.VK_DOWN);
-            rb.keyRelease(KeyEvent.VK_WINDOWS);
-            rb.keyRelease(KeyEvent.VK_DOWN);
-        }else{
-            System.out.println("Running with CMD or IDE");
-        }
+        enterProxyAuthentication(rb, useRobotApiToTab);
 
         //Find fields and enter values
         Screen screen = new Screen();
@@ -71,5 +61,27 @@ public class ProxyAuthenticationSikuli {
 
         //maximise
         driver.manage().window().maximize();
+    }
+
+    private void enterProxyAuthentication(Robot rb, boolean useRobotApiToTab) {
+
+        String inJenkinsWindowLoosesFocusOnLauch = System.getProperty("using.ci");
+        System.out.println("Using CI : " + inJenkinsWindowLoosesFocusOnLauch);
+        if(inJenkinsWindowLoosesFocusOnLauch!=null) {
+            System.out.println("In Jenkins : Using CI ");
+            if(useRobotApiToTab) {
+                rb.keyPress(KeyEvent.VK_ALT);
+                rb.keyPress(KeyEvent.VK_TAB);
+                rb.keyRelease(KeyEvent.VK_ALT);
+                rb.keyRelease(KeyEvent.VK_TAB);
+            }else {
+                rb.keyPress(KeyEvent.VK_WINDOWS);
+                rb.keyPress(KeyEvent.VK_DOWN);
+                rb.keyRelease(KeyEvent.VK_WINDOWS);
+                rb.keyRelease(KeyEvent.VK_DOWN);
+            }
+        }else{
+            System.out.println("Running with CMD or IDE");
+        }
     }
 }

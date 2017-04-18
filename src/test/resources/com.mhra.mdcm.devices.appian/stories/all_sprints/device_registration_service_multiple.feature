@@ -52,5 +52,6 @@ Feature: As an account holder with access to the device registration service
     Then The completed task status should update to "Completed"
     Examples:
       | user              | logBackInAas | device1              | device2             | device3                   | device4               |
+      | manufacturerAuto  | businessAuto | Blood weighing scale | Desiccating chamber | Sinus irrigation catheter | Androgen receptor IVD |
       | authorisedRepAuto | businessAuto | Blood weighing scale | Desiccating chamber | Sinus irrigation catheter | Androgen receptor IVD |
 

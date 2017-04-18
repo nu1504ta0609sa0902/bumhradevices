@@ -133,6 +133,8 @@ public class AddDevices extends _Page {
     //Add product
     @FindBy(xpath = ".//button[.='Add product']")
     WebElement addProduct;
+    @FindBy(xpath = ".//button[contains(text(),'Add Product')]")
+    WebElement addProduct2;
     @FindBy(xpath = ".//button[.='Save Product']")
     WebElement saveProduct;
     @FindBy(xpath = ".//button[.='Save product']")
@@ -439,8 +441,8 @@ public class AddDevices extends _Page {
     }
 
     private void productLabelName(DeviceDO dd) {
-        WaitUtils.waitForElementToBeClickable(driver, addProduct, TIMEOUT_5_SECOND, false);
-        addProduct.click();
+        WaitUtils.waitForElementToBeClickable(driver, addProduct2, TIMEOUT_5_SECOND, false);
+        addProduct2.click();
         WaitUtils.waitForElementToBeClickable(driver, txtProductNameLabel, TIMEOUT_5_SECOND, false);
         txtProductNameLabel.sendKeys(RandomDataUtils.getRandomTestName("Label"));
 
@@ -455,8 +457,8 @@ public class AddDevices extends _Page {
 
 
     private void productLabelName(String labelName) {
-        WaitUtils.waitForElementToBeClickable(driver, addProduct, TIMEOUT_10_SECOND, false);
-        addProduct.click();
+        WaitUtils.waitForElementToBeClickable(driver, addProduct2, TIMEOUT_10_SECOND, false);
+        addProduct2.click();
 
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.nativeWaitInSeconds(1);

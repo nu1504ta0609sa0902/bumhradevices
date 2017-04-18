@@ -52,7 +52,6 @@ public class CommonSteps {
 
     public static final Logger log = LoggerFactory.getLogger(CommonSteps.class);
     public static final String PRETTY_REPORT = "PrettyReport";
-    public static Map<String, Map> mapOfExcelDataAsMap;
 
     /**
      * PageObjects: Main _Page objects, These page objects should create section objects

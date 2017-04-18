@@ -17,9 +17,14 @@ public class AuthenticationUtils {
             driver.get(baseUrl);
             //(new Thread(new ProxyAuthentication(driver, baseUrl))).start();
             try {
-                new ProxyAuthenticationSikuli(driver, baseUrl).login();
+                new ProxyAuthenticationSikuli(driver, baseUrl).login(false);
             } catch (Exception e) {
-                e.printStackTrace();
+                try {
+                    //Try again
+                    new ProxyAuthenticationSikuli(driver, baseUrl).login(false);
+                } catch (Exception e2) {
+                    e2.printStackTrace();
+                }
             }
         }
     }
