@@ -278,7 +278,7 @@ public class RecordsPageSteps extends CommonSteps {
 
         //Edit the data now
         AccountRequestDO updatedData = new AccountRequestDO(scenarioSession);
-        updatedData.updateName(searchTerm);
+        updatedData.updateName(randomAccountName);
         editAccounts = viewAccount.gotoEditAccountInformation();
         accounts = editAccounts.editAccountInformation(keyValuePairToUpdate, updatedData);
 

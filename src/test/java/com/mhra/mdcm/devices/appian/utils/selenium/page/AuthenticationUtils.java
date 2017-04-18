@@ -11,7 +11,8 @@ public class AuthenticationUtils {
 
     public static void performBasicAuthentication(WebDriver driver, String baseUrl) {
         String browser = System.getProperty("current.browser");
-        if(browser!=null && browser.toLowerCase().equals("gc")) {
+        String iSremote = System.getProperty("is.remote");
+        if(iSremote != null && browser!=null && browser.toLowerCase().equals("gc")) {
             //Only required if behind a proxy : works for Chrome
             //driver.manage().window().maximize();
             driver.get(baseUrl);
