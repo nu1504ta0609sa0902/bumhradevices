@@ -144,6 +144,7 @@ public class ManufacturerList extends _Page {
     public int getNumberOfPages(int whichPagination) {
         int index = whichPagination - 1;
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, linkRegisterNewManufacturer, TIMEOUT_10_SECOND, false);
         boolean isPaginationDisplayed = isPaginationDisplayed(index);
 
         if(isPaginationDisplayed) {

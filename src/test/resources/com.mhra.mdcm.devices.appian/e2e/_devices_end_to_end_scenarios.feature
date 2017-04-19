@@ -1,7 +1,7 @@
 Feature: End 2 End Scenarios to verify system is behaving correctly from a high level view
 
   @ignore
-  Scenario: S1 Manufacturer account registration
+  Scenario Outline: S1 Manufacturer account registration
     Given I am logged into appian as "<user>" user
     When I create a new account using business test harness page with following data
       | accountType | <accountType> |
@@ -9,13 +9,13 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     Then I should see a new task for the new account
     When I assign the task to me and "<approveReject>" the generated task
     Then I should received an email for stored account with heading "<emailHeader>"
-  Examples:
-  | user         | accountType   | approveReject | countryName    | link                | emailHeader             |
-  | businessNoor | manufacturer  | approve       | United Kingdom | New Account Request | New Account Request for |
+    Examples:
+      | user         | accountType  | approveReject | countryName    | emailHeader             |
+      | businessNoor | manufacturer | approve       | United Kingdom | New Account Request for |
 
 
   @ignore
-  Scenario: S2 AuthorisedRep account registration for non uk manufacturers
+  Scenario Outline: S2 AuthorisedRep account registration for non uk manufacturers
     Given I am logged into appian as "<user>" user
     When I create a new account using business test harness page with following data
       | accountType | <accountType> |
@@ -23,9 +23,9 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     Then I should see a new task for the new account
     When I assign the task to me and "<approveReject>" the generated task
     Then I should received an email for stored account with heading "<emailHeader>"
-  Examples:
-  | user         | accountType   | approveReject | countryName    | link                | emailHeader             |
-  | businessNoor | authorisedRep | approve       | Netherland     | New Account Request | New Account Request for |
+    Examples:
+      | user         | accountType   | approveReject | countryName | emailHeader             |
+      | businessNoor | authorisedRep | approve       | Netherland  | New Account Request for |
 
 
   @ignore
