@@ -153,9 +153,9 @@ public class ManufacturerList extends _Page {
             try {
                 String text = itemCount.getText();
                 String total = text.substring(text.indexOf("of") + 3);
-                String itemPerPage = text.substring(text.indexOf("-") + 1, text.indexOf(" of "));
+                String itemPerPage = text.substring(text.indexOf("\n") + 3, text.indexOf(" of "));
 
-                int tt = Integer.parseInt(total.trim());
+                int tt = Integer.parseInt(total.trim().replace(",",""));
                 int noi = Integer.parseInt(itemPerPage.trim());
 
                 int reminder = tt % noi;

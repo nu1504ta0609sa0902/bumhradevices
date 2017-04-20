@@ -123,7 +123,6 @@ Feature: As a business and account holder, I want to be able to update party det
       | riskClassification     | class1       |
       | notifiedBody           | NB 0086 BSI  |
     And Proceed to payment and confirm submit device details
-#    Then I should see stored manufacturer appear in the manufacturers list
     Then I should see the registered manufacturers list
     When I logout of the application
     And I am logged into appian as "<logBackInAs>" user
@@ -141,6 +140,6 @@ Feature: As a business and account holder, I want to be able to update party det
       | user              | logBackInAs  | status         | gmdn1                | gmdn2           | approveReject | taskType                                 | deviceType             |
       | authorisedRepAuto | businessAuto | Registered     | Blood weighing scale | Autopsy measure | approve       | Update Manufacturer Registration Request | General Medical Device |
       | authorisedRepAuto | businessAuto | Not Registered | Blood weighing scale | Autopsy measure | reject        | Update Manufacturer Registration Request | General Medical Device |
-      | manufacturerAuto | businessAuto | Registered     | Blood weighing scale | Autopsy measure | approve       | Update Manufacturer Registration Request    |General Medical Device|
-      | manufacturerAuto | businessAuto | Not Registered | Blood weighing scale | Autopsy measure | reject       | Update Manufacturer Registration Request |General Medical Device|
+      | manufacturerAuto  | businessAuto | Registered     | Blood weighing scale | Autopsy measure | approve       | Update Manufacturer Registration Request | General Medical Device |
+      | manufacturerAuto  | businessAuto | Not Registered | Blood weighing scale | Autopsy measure | reject        | Update Manufacturer Registration Request | General Medical Device |
 

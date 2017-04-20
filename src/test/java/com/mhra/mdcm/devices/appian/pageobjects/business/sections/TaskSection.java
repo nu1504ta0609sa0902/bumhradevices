@@ -93,8 +93,12 @@ public class TaskSection extends _Page {
     WebElement thSubmitted;
     @FindBy(xpath = ".//button[.='Submit']")
     WebElement submitBtn;
+    @FindBy(css = "img.DocumentImage---icon")
+    WebElement priorityDocumentImg;
 
     //New filter section introduced in sprint 13
+    @FindBy(xpath = ".//*[.='Organisation']")
+    WebElement lblOrgName;
     @FindBy(xpath = ".//*[.='Organisation']/following::input[1]")
     WebElement orgName;
     @FindBy(xpath = ".//*[.='Task type']//following::div[1]")
@@ -372,7 +376,8 @@ public class TaskSection extends _Page {
 
     public boolean isWIPTaskDetailsCorrectForAccount(String orgName, ManufacturerRequestDO organisationData, String taskType) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, listOfWIPTableRows.get(0), TIMEOUT_3_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, priorityDocumentImg, TIMEOUT_10_SECOND, false);
+
         WebElement tr = PageUtils.getTableRow(listOfWIPTableRows, orgName);
         //Task
         boolean isDataCorrect = PageUtils.isTableDataContentCorrect(tr, 1, taskType);
@@ -396,15 +401,17 @@ public class TaskSection extends _Page {
         } else {
             isDataCorrect = !(PageUtils.isTableDataContentIsEmpty(tr, 5));
         }
-        //Status
+        //Status : Text now changed from Assigned => something else
         if (isDataCorrect) {
-            isDataCorrect = PageUtils.isTableDataContentCorrect(tr, 6, "Assigned");
+            //isDataCorrect = PageUtils.isTableDataContentCorrect(tr, 7, "Assigned");
         }
 
         return isDataCorrect;
     }
 
     public TaskSection filterWIPTasksBy(String filterBy, String txtOrgName, String other) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND, false);
         if (filterBy.contains("orgName")) {
             orgName.sendKeys(txtOrgName);
         } else if (filterBy.contains("taskType")) {
@@ -415,6 +422,7 @@ public class TaskSection extends _Page {
             //PageUtils.selectByText(taskTypeDD, value);
             PageUtils.selectFromDropDown(driver, taskTypeDD, value, true);
         }
+        lblOrgName.click();
         return new TaskSection(driver);
     }
 

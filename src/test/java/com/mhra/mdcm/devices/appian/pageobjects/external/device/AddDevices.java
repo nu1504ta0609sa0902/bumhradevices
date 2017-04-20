@@ -747,7 +747,6 @@ public class AddDevices extends _Page {
 
     public AddDevices submitRegistration() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.nativeWaitInSeconds(1);
         WaitUtils.waitForElementToBeClickable(driver, submitConfirm, TIMEOUT_5_SECOND, false);
         submitConfirm.click();
         return new AddDevices(driver);
@@ -755,7 +754,6 @@ public class AddDevices extends _Page {
 
     public ManufacturerList finish() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.nativeWaitInSeconds(1);
         WaitUtils.waitForElementToBeClickable(driver, btnFinish, TIMEOUT_15_SECOND, false);
         btnFinish.click();
         return new ManufacturerList(driver);

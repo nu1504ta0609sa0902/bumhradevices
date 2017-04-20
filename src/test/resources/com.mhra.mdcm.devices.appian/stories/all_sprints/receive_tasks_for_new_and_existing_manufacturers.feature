@@ -15,7 +15,6 @@ Feature: As a business user, I want a task to be created each time a customer su
       | customMade         | <customMade>         |
       | listOfProductNames | <listOfProductNames> |
     And Proceed to payment and confirm submit device details
-    #Then I should see stored manufacturer appear in the manufacturers list
     Then I should see the registered manufacturers list
     When I logout of the application
     And I am logged into appian as "<logBackInAas>" user
@@ -50,7 +49,6 @@ Feature: As a business user, I want a task to be created each time a customer su
       | listOfProductNames | <listOfProductNames> |
     And The gmdn code or term is "displayed" in summary section
     And Proceed to payment and confirm submit device details
-    #Then I should see stored manufacturer appear in the manufacturers list
 #    Then I should see the registered manufacturers list
     When I logout of the application
     And I am logged into appian as "<logBackInAas>" user
@@ -78,6 +76,7 @@ Feature: As a business user, I want a task to be created each time a customer su
       | customMade         | <customMade>         |
       | listOfProductNames | <listOfProductNames> |
     And Proceed to payment and confirm submit device details
+    #Then I should see the registered manufacturers list
     When I logout of the application
     And I login to appian as "<logBackInAas>" user
     Then I view new task with link "<link>" for the new account
@@ -108,7 +107,6 @@ Feature: As a business user, I want a task to be created each time a customer su
       | riskClassification     | class1       |
       | notifiedBody           | NB 0086 BSI  |
     And Proceed to payment and confirm submit device details
-    #Then I should see stored manufacturer appear in the manufacturers list
     Then I should see the registered manufacturers list
     When I logout of the application
     And I am logged into appian as "<logBackInAs>" user
@@ -138,18 +136,17 @@ Feature: As a business user, I want a task to be created each time a customer su
       | gmdnDefinition | <gmdn>                 |
       | customMade     | true                   |
     And Proceed to payment and confirm submit device details
-    Then I should see stored manufacturer appear in the manufacturers list
-    #Then I should see the registered manufacturers list
+#    Then I should see the registered manufacturers list
     When I logout of the application
     And I am logged into appian as "<logBackInAs>" user
     And I go to WIP tasks page
     And I filter WIP tasks by "<filterBy>"
-    And I filter WIP tasks by "<taskType>"
+    And I filter WIP tasks by "<filterBy2>"
     Then Check the WIP entry details for the "<taskType>" task is correct
     When I view task for the new account in WIP page
     And I assign the task to me and "approve" the generated task
     Then The completed task status should update to "Completed"
     Examples:
-      | user              | logBackInAs  | gmdn                 | filterBy | taskType |
-      | manufacturerAuto  | businessAuto | Blood weighing scale | orgName  | taskType |
-      | authorisedRepAuto | businessAuto | Blood weighing scale | orgName  | taskType |
+      | user              | logBackInAs  | gmdn                 | filterBy | filterBy2 | taskType                                 |
+      | manufacturerAuto  | businessAuto | Blood weighing scale | orgName  | taskType  | Update Manufacturer Registration Request |
+      | authorisedRepAuto | businessAuto | Blood weighing scale | orgName  | taskType  | Update Manufacturer Registration Request |

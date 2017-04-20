@@ -209,6 +209,16 @@ public class TasksPageSteps extends CommonSteps {
         taskSection = taskSection.sortBy("Submitted", 2);
     }
 
+    @When("^I go to WIP page and sort by submitted date (\\d+) times$")
+    public void iGoToWIPTaksPageAndSortXNumberOfTimes(int numberOfTimesToSort) throws Throwable {
+        mainNavigationBar = new MainNavigationBar(driver);
+        tasksPage = mainNavigationBar.clickTasks();
+        taskSection = tasksPage.gotoWIPTasksPage();
+
+        //Sort by submitted, at the moment sorting by default not working as expected
+        taskSection = taskSection.sortBy("Submitted", numberOfTimesToSort);
+    }
+
 
     @When("^I wait for task to appear for stored manufacturer in WIP page$")
     public void iWaitForTaskToAppearForStoredManufacturerInWIPPage() throws Throwable {
