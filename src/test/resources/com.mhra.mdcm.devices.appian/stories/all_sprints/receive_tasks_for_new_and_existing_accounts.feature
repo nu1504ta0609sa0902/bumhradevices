@@ -49,6 +49,7 @@ Feature: As a business user, I want a task to be created each time a customer su
     Then The task with link "<link>" should be removed from tasks list
     When I logout of the application
     And I am logged into appian as "<logBackInAs>" user
+    And Provide indication of devices made
     Then I should see stored manufacturer appear in the manufacturers list
     Examples:
       | user         | accountType   | logBackInAs       | approveReject | count | countryName    | link                |

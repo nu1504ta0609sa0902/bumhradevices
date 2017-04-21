@@ -56,6 +56,8 @@ public class TasksPageSteps extends CommonSteps {
                 } else {
                     count2++;
                 }
+            }else{
+                count2++;
             }
         } while (!contains && count2 <= 5);
 
@@ -105,6 +107,8 @@ public class TasksPageSteps extends CommonSteps {
                 } else {
                     count++;
                 }
+            }else{
+                count++;
             }
         } while (!contains && count <= 5);
 

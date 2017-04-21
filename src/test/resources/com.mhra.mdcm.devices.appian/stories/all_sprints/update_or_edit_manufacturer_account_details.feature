@@ -99,10 +99,10 @@ Feature: As a business and account holder, I want to be able to update party det
     And Verify task information matches users changes
     Examples:
       | user              | logBackInAs  | keyValuePairs                                                                                      | status     |
-#      | manufacturerAuto | businessAuto | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website | Registered |
-#      | manufacturerAuto | businessAuto |contact.title,contact.firstname,contact.lastname,contact.job.title,contact.email,contact.telephone | Registered |
-      | authorisedRepAuto | businessAuto | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website                          | Registered |
-      | authorisedRepAuto | businessAuto | contact.title,contact.firstname,contact.lastname,contact.job.title,contact.email,contact.telephone | Registered |
+      | manufacturerAuto  | businessAuto | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website                          | Registered |
+#      | manufacturerAuto  | businessAuto | contact.title,contact.firstname,contact.lastname,contact.job.title,contact.email,contact.telephone | Registered |
+#      | authorisedRepAuto | businessAuto | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website                          | Registered |
+#      | authorisedRepAuto | businessAuto | contact.title,contact.firstname,contact.lastname,contact.job.title,contact.email,contact.telephone | Registered |
 
 
   @regression @mdcm-263 @_sprint6 @mdcm-275 @_sprint7 @4088 @_sprint11 @2185 @_sprint8 @wip

@@ -45,7 +45,7 @@ Feature: Reset all the information related to a manufacturer and authorisedRep
     Examples:
       | user             | logBackInAas |
       | manufacturerNoor | businessNoor |
-#      | authorisedRepNoor | businessNoor |
+      | authorisedRepNoor | businessNoor |
 
 
   @setup
