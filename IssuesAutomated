@@ -260,30 +260,8 @@ Automated Issues:
         - @4704 -
         - @4707 -
 
-    Sprint 16: @_sprint16       BUGS AND CHANGES
-        - @5441 -   2/2     DONE ISH   covered
-        - @5368 -   2/2     DONE ISH   covered
-        - @5450 -   Document row removed so no paper clip image
-        - @5440 -   2/2     DONE ISH    covered
-        - @4550 -   @todo
-        - @4559 -
-        - @4908 -
-        - @5220 -
-        - @4679 -
-        - @4720 -
-        - @5218 -
-        - @4699 -
-        - @4257 -
-        - @4324 -
-        - @4830 -
-        - @4356 -
-        - @4743 -
-        - @4711 -
-        - @4628 -
-        - @4715 -
-        - @4560 -
-        - @4961 -
-        - @1872 -
+
+    Sprint 16: @_sprint16       CFS RELATED
         - @4330 -
         - @5141 -
         - @3979 -
@@ -291,8 +269,34 @@ Automated Issues:
         - @1989 -
         - @5207 -
         - @5463 -
+        -       -   @TODO : below are all bugs related to sprint16
 
-    Sprint 17: @_sprint17
+    Sprint 16: @_sprint16       BUGS AND CHANGES : should be covered by existing scenarios
+        - @5441 -   2/2     DONE ISH   covered
+        - @5368 -   2/2     DONE ISH   covered
+        - @5450 -   Document row removed so no paper clip image
+        - @5440 -   2/2     DONE ISH    covered
+        - @4550 -   @todo   bug
+        - @4559 -   2/2     DONE ISH    covered
+        - @4908 -           DONE ISH    covered
+        - @5220 -           DONE ISH    covered
+        - @4679 -   @todo   bug
+        - @4720 -   @todo   bug
+        - @5218 -           DONE ISH    covered
+        - @4699 -   @todo   bug
+        - @4257 -   @todo   bug
+        - @4324 -   @todo   bug
+        - @4830 -           DONE ISH    covered
+        - @4356 -   @todo   bug error messages and validations
+        - @4743 -           DONE ISH    covered
+        - @4711 -   @todo   filter by due date
+        - @4628 -           DONE ISH    covered
+        - @4715 -           DONE ISH    covered
+        - @4560 -           DONE ISH    covered
+        - @4961 -   @todo   resume saved application
+        - @1872 -   @todo   task status
+
+    Sprint 17: @_sprint17       CFS RELATED
         - @1944 -
         - @1988 -
         - @5125 -

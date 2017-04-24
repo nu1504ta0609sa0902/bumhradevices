@@ -97,7 +97,7 @@ public class MyAccountPageSteps extends CommonSteps {
     public void i_update_the_manufacturer_details_with_following_data(String keyValuePair) throws Throwable {
         String country = (String) scenarioSession.getData(SessionKey.organisationCountry);
 
-        if(country !=null && country.equals("United Kingdon")){
+        if(country !=null && country.equals("United Kingdom")){
             editManufacturer = manufacturerDetails.editAccountInformation();
         }else {
             editManufacturer = manufacturerDetails.amendRepresentedParty();

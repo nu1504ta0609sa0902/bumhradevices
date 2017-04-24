@@ -86,40 +86,9 @@ Feature: Aa a user I would like to verify features which are not related to devi
     And I update PARD options to "<pardOptions>" for both name and address
     Then I should see following PARD "<PARDUpdateMessage>" message
 #    Then I should see PARD option "<pardOption>" to be selected for "<updateNameOrAddressPard>"
-#    And I should see PARD option "<pardOption>" to be selected for "<updateNameOrAddressPard>"
-#    Then I should see business manufacturer details page for the manufacturer
-#    When I click on link "product details" and go to "devices" page
-#    Then I should see device table with devices
-#    When I click on a device with link "heart" for device type "<deviceType>"
-#    Then I should see correct information for device type "<deviceType>"
     Examples:
       | user         | page              | searchTerm      | pardOptions                | updateNameOrAddressPard | PARDUpdateMessage              |
       | businessAuto | All Organisations | AuthorisedRepRT | name=Optin,address=Optin   | name                    | Publish name & address         |
       | businessAuto | All Organisations | ManufacturerRT  | name=Optin,address=Optout  | address                 | Publish name only              |
       | businessAuto | All Organisations | AuthorisedRepRT | name=Optout,address=Optin  | name                 | Publish address only           |
       | businessAuto | All Organisations | ManufacturerRT  | name=Optout,address=Optout | address                 | Do not publish name or address |
-
-#  @regression @2049 @_sprint8
-#  Scenario Outline: Check correct options shown to users when adding devices
-#    Given I am logged into appian as "<user>" user
-#    And I go to list of manufacturers page
-#    And I click on a random manufacturer
-#    When I try to add an incomplete device to SELECTED manufacturer with following data
-#      | deviceType         | <deviceType>         |
-#      | gmdnDefinition     | <gmdnDefinition>     |
-#      | customMade         | false                |
-#      | riskClassification | <riskClassification> |
-#      | notifiedBody       | <notifiedBody>       |
-#      | isBearingCEMarking | <isBearingCEMarking> |
-#      | devicesCompatible  | <devicesCompatible>  |
-#    Then I should see validation error message in devices page with text "<errorMsg>"
-#    And I should be prevented from adding the devices
-#    Examples:
-#      | user              | deviceType               | gmdnDefinition      | riskClassification | notifiedBody | isBearingCEMarking | devicesCompatible | errorMsg                                                                                         |
-#      | authorisedRepAuto | General Medical Device   | Blood               | class2a            | NB 0086 BSI  |                    |                   | You cannot register class IIa devices with the MHRA                                              |
-#      | manufacturerAuto  | General Medical Device   | Blood               | class2b            | NB 0086 BSI  |                    |                   | You cannot register class IIb devices with the MHRA                                              |
-#      | manufacturerAuto  | General Medical Device   | Blood               | class3             | NB 0086 BSI  |                    |                   | You cannot register class III devices with the MHRA                                              |
-#      | authorisedRepAuto | System or Procedure Pack | Desiccating chamber |                    | NB 0086 BSI  | true               |                   | You cannot register this as a System/procedure pack because all the components must be CE marked |
-#      | authorisedRepAuto | System or Procedure Pack | Desiccating chamber |                    | NB 0086 BSI  |                    | false             | You cannot register this as a System/procedure pack because all the components must be CE marked |
-#      | manufacturerAuto  | System or Procedure Pack | Desiccating chamber |                    | NB 0086 BSI  | false              | false             | This System/procedure pack cannot be registered with us                                          |
-
