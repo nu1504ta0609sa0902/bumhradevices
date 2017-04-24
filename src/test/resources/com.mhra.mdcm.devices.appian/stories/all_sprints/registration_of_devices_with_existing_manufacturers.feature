@@ -50,10 +50,10 @@ Feature: As an account holder with access to the Device Registration Service
       | authorisedRepAuto | Registered | In Vitro Diagnostic Device | Androgen receptor IVD, calibrator |            |               |                 | ivd general        |              |                    |                   |
       | authorisedRepAuto | Registered | System or Procedure Pack   | Desiccating chamber               |            | true          | true            | class1             | NB 0086 BSI  | false              | true              |
       | manufacturerAuto  | Registered | System or Procedure Pack   | Desiccating chamber               |            | false         | true            |                    |              | false              | true              |
-      | manufacturerAuto | Registered | General Medical Device     | Blood weighing scale              | false      | true          | true            | class1             | NB 0086 BSI  |                  |                   |
-      | manufacturerAuto | Registered | General Medical Device     | Blood                             | true       | true          | true            |                    |              |                  |                   |
-      | manufacturerAuto | Registered | In Vitro Diagnostic Device | Androgen receptor IVD, calibrator |            |               |                 | ivd general        |              |                  |                   |
-      | manufacturerAuto | Registered | System or Procedure Pack   | Desiccating chamber                      |            | true          | true            | class1             | NB 0086 BSI  | false            | true              |
+      | manufacturerAuto  | Registered | General Medical Device     | Blood weighing scale              | false      | true          | true            | class1             | NB 0086 BSI  |                    |                   |
+      | manufacturerAuto  | Registered | General Medical Device     | Blood                             | true       | true          | true            |                    |              |                    |                   |
+      | manufacturerAuto  | Registered | In Vitro Diagnostic Device | Androgen receptor IVD, calibrator |            |               |                 | ivd general        |              |                    |                   |
+      | manufacturerAuto  | Registered | System or Procedure Pack   | Desiccating chamber               |            | true          | true            | class1             | NB 0086 BSI  | false              | true              |
 
 
   @regression @mdcm-14 @mdcm-489 @_sprint3 @_sprint5 @mdcm-134 @_sprint6
@@ -149,7 +149,7 @@ Feature: As an account holder with access to the Device Registration Service
       | authorisedRepAuto | General Medical Device |                  | 18148      | Dress            |            |
       | manufacturerAuto  | General Medical Device |                  | 18148      | Dress            |            |
 
-  @regression @mdcm-485 @mdcm-374 @3777 @_sprint9 @_sprint5 @1924 @_sprint8 @wip @bug
+  @regression @mdcm-485 @mdcm-374 @3777 @_sprint9 @_sprint5 @1924 @_sprint8 @4337 @_sprint14 @wip @bug
   Scenario Outline: Users should be able to add devices to existing manufacturers and verify devices are added
     Given I am logged into appian as "<user>" user
     When I go to list of manufacturers page
@@ -180,6 +180,7 @@ Feature: As an account holder with access to the Device Registration Service
       | authorisedRepAuto | businessAuto | General Medical Device             | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
       | authorisedRepAuto | businessAuto | Active Implantable Medical Devices | true       |               |                 | Registered | Desiccating chamber  |                    |              |
       | manufacturerAuto  | businessAuto | General Medical Device             | true       |               |                 | Registered | Blood weighing scale |                    |              |
+      | manufacturerAuto  | businessAuto | System or Procedure Pack           |            |               | true            | Registered | Desiccating chanber  | class1             | NB 0086 BSI  |
 
 
   @regression @readonly @mdcm-485 @_sprint5 @wip

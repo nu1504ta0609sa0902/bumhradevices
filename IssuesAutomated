@@ -239,11 +239,11 @@ Automated Issues:
 
     Sprint 14: @_sprint14
         - @2833 -   1/1     DONE
-        - @3264 -   no tests for regression
-        - @3298 -   no tests for regression
-        - @4337 -   no tests for regression
-        - @4374 -   no tests for regression
-        - @4331 -   no tests for regression
+        - @3298 -   @TODO BUG
+        - @3264 -   @TODO BUG
+        - @4337 -   1/1     DONE ISH
+        - @4374 -   @TODO BUG
+        - @4331 -   @TODO BUG
         - @2170 -   MOVED
         - @2141 -   MOVED
         - @1957 -   MOVED
