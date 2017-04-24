@@ -3,7 +3,7 @@ Feature: As a customer I want to register new manufacturers with devices
   so that I am granted access to that and can then register overseas manufacturers on their behalf
 
 
-  @regression @mdcm-14 @mdcm-39 @mdcm-496 @_sprint3 @_sprint5 @2185 @_sprint8 @1956 @_sprint9
+  @regression @mdcm-14 @mdcm-39 @mdcm-496 @_sprint3 @_sprint5 @2185 @_sprint8 @1956 @_sprint9 @5441 @5368 @_sprint16 @wip
   Scenario Outline: Users should be able to register new manufacturers with devices
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -21,9 +21,11 @@ Feature: As a customer I want to register new manufacturers with devices
     And Proceed to payment and confirm submit device details
     Then I should see the registered manufacturers list
     Examples:
-      | user              | accountType   | countryName | deviceType             | deviceType             | customMade | deviceSterile | deviceMeasuring | riskClassification | notifiedBody |
-      | manufacturerAuto  | manufacturer  | Brazil      | General Medical Device | General Medical Device | true       |               |                 |                    |              |
-      | authorisedRepAuto | authorisedRep | Bangladesh  | General Medical Device | General Medical Device | false      | true          | true            | class1             | NB 0086 BSI  |
+      | user              | accountType   | countryName | deviceType             | deviceType               | customMade | deviceSterile | deviceMeasuring | riskClassification | notifiedBody |
+      | manufacturerAuto  | manufacturer  | Brazil      | General Medical Device | General Medical Device   | true       |               |                 |                    |              |
+      | authorisedRepAuto | authorisedRep | Bangladesh  | General Medical Device | General Medical Device   | false      | true          | true            | class1             | NB 0086 BSI  |
+      | manufacturerAuto  | businessAuto  | Brazil      | Desiccating chanber    | System or Procedure Pack |            | true          |                 | class1             | NB 0086 BSI  |
+      | manufacturerAuto  | businessAuto  | Bangladesh  | Desiccating chanber    | System or Procedure Pack |            | false         |                 | class1             | NB 0086 BSI  |
 
 
   @regression @mdcm-485 @mdcm-374 @mdcm-186 @_sprint2 @1838 @3777 @1924 @_sprint8 @_sprint9 @_sprint13 @_sprint5 @wip @bug
