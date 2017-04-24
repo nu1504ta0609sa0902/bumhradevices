@@ -57,7 +57,7 @@ Feature: As a business user, I want a task to be created each time a customer su
       | businessNoor | authorisedRep | authorisedRepNoor | approve       | 1     | Netherland     | New Account Request |
 
 
-  @regression @mdcm-41 @_sprint2
+  @regression @mdcm-41 @_sprint2 @2833 @_sprint14
   Scenario Outline: Verify WIP section shows newly created tasks and users can approve reject tasks
     Given I am logged into appian as "<user>" user
     When I create a new account using business test harness page with following data

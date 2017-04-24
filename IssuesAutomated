@@ -238,15 +238,15 @@ Automated Issues:
         - @4361 -   no tests for regression
 
     Sprint 14: @_sprint14
-        - @2833 -   no tests for regression
-        - @3298 -   no tests for regression
+        - @2833 -   1/1     DONE
         - @3264 -   no tests for regression
+        - @3298 -   no tests for regression
         - @4337 -   no tests for regression
-        - @4331 -   no tests for regression
         - @4374 -   no tests for regression
-        - @2170 -   no tests for regression
-        - @2141 -   no tests for regression
-        - @1957 -   no tests for regression
+        - @4331 -   no tests for regression
+        - @2170 -   MOVED
+        - @2141 -   MOVED
+        - @1957 -   MOVED
 
     Sprint MIXED: @sprintMixed
         - @mdcm-159 - no tests for regression
