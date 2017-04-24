@@ -8,10 +8,26 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | countryName | <countryName> |
     Then I should see a new task for the new account
     When I assign the task to me and "<approveReject>" the generated task
-    Then I should received an email for stored account with heading "<emailHeader>"
+    Then I should received an email for stored account with heading "<newAccountEmail>"
+    And I logout and log back into appian as "<logBackInAas>" user
+    And I go to register a new manufacturer page
+    And I create a new manufacturer using manufacturer test harness page with following data
+      | accountType | <accountType>      |
+      | countryName | <countryNameNonEU> |
+    And I add devices to NEWLY created manufacturer with following data
+      | deviceType     | General Medical Device |
+      | gmdnDefinition | Blood weighing scale   |
+      | customMade     | true                   |
+    And Proceed to payment and confirm submit device details
+    Then I should see the registered manufacturers list
+    And I logout and log back into appian as "<user>" user
+    Then I view new task with link "New Service Request" for the new account
+    And I assign the task to me and "approve" the generated task
+    And The completed task status should update to "Completed"
+    And I should received an email for stored manufacturer with heading "<newOrganisationEmail>"
     Examples:
-      | user         | accountType  | approveReject | countryName    | emailHeader             |
-      | businessNoor | manufacturer | approve       | United Kingdom | New Account Request for |
+      | user         | logBackInAas     | accountType  | approveReject | countryName    | countryNameNonEU | newAccountEmail         | newOrganisationEmail              |
+      | businessNoor | manufacturerNoor | manufacturer | approve       | United Kingdom | Bangladesh       | New Account Request for | Manufacturer registration service |
 
 
   @ignore
@@ -22,10 +38,26 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | countryName | <countryName> |
     Then I should see a new task for the new account
     When I assign the task to me and "<approveReject>" the generated task
-    Then I should received an email for stored account with heading "<emailHeader>"
+    Then I should received an email for stored account with heading "<newAccountEmail>"
+    And I logout and log back into appian as "<logBackInAas>" user
+    And I go to register a new manufacturer page
+    And I create a new manufacturer using manufacturer test harness page with following data
+      | accountType | <accountType>      |
+      | countryName | <countryNameNonEU> |
+    And I add devices to NEWLY created manufacturer with following data
+      | deviceType     | General Medical Device |
+      | gmdnDefinition | Blood weighing scale   |
+      | customMade     | true                   |
+    And Proceed to payment and confirm submit device details
+    Then I should see the registered manufacturers list
+    And I logout and log back into appian as "<user>" user
+    Then I view new task with link "New Service Request" for the new account
+    And I assign the task to me and "approve" the generated task
+    And The completed task status should update to "Completed"
+    And I should received an email for stored manufacturer with heading "<newOrganisationEmail>"
     Examples:
-      | user         | accountType   | approveReject | countryName | emailHeader             |
-      | businessNoor | authorisedRep | approve       | Netherland  | New Account Request for |
+      | user         | logBackInAas     | accountType   | approveReject | countryName    | countryNameNonEU | newAccountEmail         | newOrganisationEmail              |
+      | businessNoor | manufacturerNoor | authorisedRep | approve       | United Kingdom | Netherland       | New Account Request for | Manufacturer registration service |
 
 
   @ignore
@@ -48,8 +80,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | relatedDeviceSterile   | <deviceSterile>      |
       | relatedDeviceMeasuring | <deviceMeasuring>    |
     And Proceed to payment and confirm submit device details
-    Then I should see stored manufacturer appear in the manufacturers list
-#    Then I should see the registered manufacturers list
+    Then I should see the registered manufacturers list
     When I logout of the application
     And I am logged into appian as "<logBackInAas>" user
     And I view new task with link "Update Manufacturer Registration Request" for the new account
@@ -80,8 +111,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | relatedDeviceSterile   | <deviceSterile>      |
       | relatedDeviceMeasuring | <deviceMeasuring>    |
     And Proceed to payment and confirm submit device details
-    Then I should see stored manufacturer appear in the manufacturers list
-#    Then I should see the registered manufacturers list
+    Then I should see the registered manufacturers list
     When I logout of the application
     And I am logged into appian as "<logBackInAas>" user
     And I view new task with link "Update Manufacturer Registration Request" for the new account
