@@ -260,13 +260,12 @@ Automated Issues:
         - @4704 -
         - @4707 -
 
-    Sprint 16: @_sprint16
-        - @5441 -   2/2     DONE ISH
-                -   @TODO
-        - @5368 -   2/2     DONE ISH
-        - @5450 -
-        - @5440 -
-        - @4550 -
+    Sprint 16: @_sprint16       BUGS AND CHANGES
+        - @5441 -   2/2     DONE ISH   covered
+        - @5368 -   2/2     DONE ISH   covered
+        - @5450 -   Document row removed so no paper clip image
+        - @5440 -   2/2     DONE ISH    covered
+        - @4550 -   @todo
         - @4559 -
         - @4908 -
         - @5220 -

@@ -95,8 +95,8 @@ Feature: As a business and account holder, I want to be able to update party det
     When I logout of the application
     And I am logged into appian as "<logBackInAs>" user
     And I go to WIP tasks page
-    Then Verify the WIP entry details for the "New Manufacturer Registration Request" task is correct
-    And Verify task information matches users changes
+    Then Check the WIP entry details for the "Update Manufacturer Registration Request" task is correct
+    When I view task for the new account in WIP page
     Examples:
       | user              | logBackInAs  | keyValuePairs                                                                                      | status     |
       | manufacturerAuto  | businessAuto | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website                          | Registered |

@@ -352,6 +352,10 @@ public class TasksPageSteps extends CommonSteps {
         assertThat("WIP page not showing correct data for : " + orgName, isWIPDataCorrect, is(equalTo(true)));
     }
 
+    /**
+     * DOCUMENTS COLUMN NOW REMOVED @_sprint16 5450
+     * @throws Throwable
+     */
     @And("^The WIP task for stored manufacturer should contain a paper click image$")
     public void theWIPTaskForStoredManufacturerShouldContainAPaperClickImage() throws Throwable {
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);

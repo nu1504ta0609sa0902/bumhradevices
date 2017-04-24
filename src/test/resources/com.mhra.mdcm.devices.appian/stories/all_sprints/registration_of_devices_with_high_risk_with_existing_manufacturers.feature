@@ -146,7 +146,7 @@ Feature: As an account holder with access to the Device Registration Service I w
     And I login to appian as "<logBackInAas>" user
     When I go to WIP tasks page
     And I wait for task to appear for stored manufacturer in WIP page
-    Then The WIP task for stored manufacturer should contain a paper click image
+    #Then The WIP task for stored manufacturer should contain a paper click image
     When I view task for the stored account in WIP page
     Then Task contains correct devices and products and other details for "<deviceType>"
     And Task shows devices which are arranged by device types

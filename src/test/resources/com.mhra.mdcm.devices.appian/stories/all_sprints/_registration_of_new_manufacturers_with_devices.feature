@@ -3,7 +3,7 @@ Feature: As a customer I want to register new manufacturers with devices
   so that I am granted access to that and can then register overseas manufacturers on their behalf
 
 
-  @regression @mdcm-14 @mdcm-39 @mdcm-496 @_sprint3 @_sprint5 @2185 @_sprint8 @1956 @_sprint9 @5441 @5368 @_sprint16 @wip
+  @regression @mdcm-14 @mdcm-39 @mdcm-496 @_sprint3 @_sprint5 @2185 @_sprint8 @1956 @_sprint9 @wip
   Scenario Outline: Users should be able to register new manufacturers with devices
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page

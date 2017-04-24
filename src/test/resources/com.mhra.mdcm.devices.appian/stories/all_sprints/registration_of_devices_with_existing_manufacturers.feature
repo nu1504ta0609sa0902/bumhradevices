@@ -149,7 +149,7 @@ Feature: As an account holder with access to the Device Registration Service
       | authorisedRepAuto | General Medical Device |                  | 18148      | Dress            |            |
       | manufacturerAuto  | General Medical Device |                  | 18148      | Dress            |            |
 
-  @regression @mdcm-485 @mdcm-374 @3777 @_sprint9 @_sprint5 @1924 @_sprint8 @4337 @_sprint14 @5441 @_sprint16 @wip @bug
+  @regression @mdcm-485 @mdcm-374 @3777 @_sprint9 @_sprint5 @1924 @_sprint8 @4337 @_sprint14 @wip @bug
   Scenario Outline: Users should be able to add devices to existing manufacturers and verify devices are added
     Given I am logged into appian as "<user>" user
     When I go to list of manufacturers page
