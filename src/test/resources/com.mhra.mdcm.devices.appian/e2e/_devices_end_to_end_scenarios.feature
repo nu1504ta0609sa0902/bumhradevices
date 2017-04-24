@@ -2,13 +2,15 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
 
   @ignore
   Scenario Outline: S1 Manufacturer account registration
-    Given I am logged into appian as "<user>" user
+#Create a new manufacturer account, approve the task and check MHRA approval email is received
+    Given I am logged into appian as "<businessUser>" user
     When I create a new account using business test harness page with following data
       | accountType | <accountType> |
       | countryName | <countryName> |
     Then I should see a new task for the new account
     When I assign the task to me and "<approveReject>" the generated task
     Then I should received an email for stored account with heading "<newAccountEmail>"
+#Log back in as a manufacturer and register a new organisation with devices
     And I logout and log back into appian as "<logBackInAas>" user
     And I go to register a new manufacturer page
     And I create a new manufacturer using manufacturer test harness page with following data
@@ -20,19 +22,19 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | customMade     | true                   |
     And Proceed to payment and confirm submit device details
     Then I should see the registered manufacturers list
-    And I logout and log back into appian as "<user>" user
+    And I logout and log back into appian as "<businessUser>" user
     Then I view new task with link "New Service Request" for the new account
     And I assign the task to me and "approve" the generated task
     And The completed task status should update to "Completed"
     And I should received an email for stored manufacturer with heading "<newOrganisationEmail>"
     Examples:
-      | user         | logBackInAas     | accountType  | approveReject | countryName    | countryNameNonEU | newAccountEmail         | newOrganisationEmail              |
+      | businessUser | logBackInAas     | accountType  | approveReject | countryName    | countryNameNonEU | newAccountEmail         | newOrganisationEmail              |
       | businessNoor | manufacturerNoor | manufacturer | approve       | United Kingdom | Bangladesh       | New Account Request for | Manufacturer registration service |
 
 
   @ignore
   Scenario Outline: S2 AuthorisedRep account registration for non uk manufacturers
-    Given I am logged into appian as "<user>" user
+    Given I am logged into appian as "<businessUser>" user
     When I create a new account using business test harness page with following data
       | accountType | <accountType> |
       | countryName | <countryName> |
@@ -50,13 +52,13 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | customMade     | true                   |
     And Proceed to payment and confirm submit device details
     Then I should see the registered manufacturers list
-    And I logout and log back into appian as "<user>" user
+    And I logout and log back into appian as "<businessUser>" user
     Then I view new task with link "New Service Request" for the new account
     And I assign the task to me and "approve" the generated task
     And The completed task status should update to "Completed"
     And I should received an email for stored manufacturer with heading "<newOrganisationEmail>"
     Examples:
-      | user         | logBackInAas     | accountType   | approveReject | countryName    | countryNameNonEU | newAccountEmail         | newOrganisationEmail              |
+      | businessUser | logBackInAas     | accountType   | approveReject | countryName    | countryNameNonEU | newAccountEmail         | newOrganisationEmail              |
       | businessNoor | manufacturerNoor | authorisedRep | approve       | United Kingdom | Netherland       | New Account Request for | Manufacturer registration service |
 
 
@@ -82,19 +84,48 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And Proceed to payment and confirm submit device details
     Then I should see the registered manufacturers list
     When I logout of the application
-    And I am logged into appian as "<logBackInAas>" user
+    And I am logged into appian as "<businessUser>" user
     And I view new task with link "Update Manufacturer Registration Request" for the new account
     Then Check task contains correct devices "<gmdn>" and other details
     And I assign the task to me and "approve" the generated task
     And The completed task status should update to "Completed"
     And I should received an email for stored account with heading "<emailHeader>"
     Examples:
-      | user              | logBackInAas | deviceType             | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
+      | user              | businessUser | deviceType             | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
       | authorisedRepAuto | businessAuto | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
 
 
   @ignore
-  Scenario: S5b Update already registered manufacturers by removing and than adding new devices
+  Scenario Outline: S5b Update already registered manufacturers by removing and than adding new devices
+    Given I am logged into appian as "<user>" user
+    And I go to register a new manufacturer page
+    And I click on random manufacturer with status "Registered"
+    When I add a device to SELECTED manufacturer with following data
+      | deviceType     | <deviceType> |
+      | gmdnDefinition | <gmdn1>      |
+      | customMade     | true         |
+    And I add another device to SELECTED manufacturer with following data
+      | deviceType             | <deviceType> |
+      | gmdnDefinition         | <gmdn2>      |
+      | customMade             | false        |
+      | relatedDeviceSterile   | true         |
+      | relatedDeviceMeasuring | true         |
+      | riskClassification     | class1       |
+      | notifiedBody           | NB 0086 BSI  |
+    And I remove the device with gmdn "<gmdn1>" code
+    And Proceed to payment and confirm submit device details
+    Then I should see the registered manufacturers list
+    When I logout and log back into appian as "<logBackInAs>" user
+    And I go to WIP tasks page
+    And I view task for the new account in WIP page
+    And I assign the task to me and "<approveReject>" the generated task
+    Then The completed task status should update to "Completed"
+    When I search accounts for the stored organisation name
+    Then I should see at least 0 account matches
+    Examples:
+      | user              | logBackInAs  | gmdn1                | gmdn2           | approveReject | deviceType             |
+      | manufacturerAuto  | businessAuto | Blood weighing scale | Autopsy measure | approve       | General Medical Device |
+      | authorisedRepAuto | businessAuto | Blood weighing scale | Autopsy measure | approve       | General Medical Device |
 
 
   @ignore
@@ -113,14 +144,14 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And Proceed to payment and confirm submit device details
     Then I should see the registered manufacturers list
     When I logout of the application
-    And I am logged into appian as "<logBackInAas>" user
+    And I am logged into appian as "<businessUser>" user
     And I view new task with link "Update Manufacturer Registration Request" for the new account
     Then Check task contains correct devices "<gmdn>" and other details
     And I assign the task to me and "approve" the generated task
     And The completed task status should update to "Completed"
     And I should received an email for stored account with heading "<emailHeader>"
     Examples:
-      | user              | logBackInAas | deviceType             | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
+      | user              | businessUser | deviceType             | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
       | authorisedRepAuto | businessAuto | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
 
 
@@ -133,12 +164,12 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
 
   @ignore
   Scenario Outline: S7abc Search for organisation products devices
-    Given I am logged into appian as "<user>" user
+    Given I am logged into appian as "<businessUser>" user
     When I go to records page and click on "<page>"
     And I perform a search for "<searchTerm>" in "<page>" page
     Then I should see at least <count> matches in "<page>" page search results
     Examples:
-      | user         | page              | searchTerm      | count |
+      | businessUser | page              | searchTerm      | count |
       | businessAuto | All Devices       | AuthorisedRepRT | 1     |
       | businessAuto | All Devices       | ManufacturerRT  | 1     |
       | businessAuto | All Products      | AuthorisedRepRT | 1     |
