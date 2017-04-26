@@ -55,7 +55,7 @@ public class EmailSteps extends CommonSteps {
         String messageBody = null;
         int attempt = 0;
         do {
-            messageBody = GmailEmail.readMessageForSpecifiedOrganisations(5, 10, "Manufacturer registration service", org);
+            messageBody = GmailEmail.readMessageForSpecifiedOrganisations(5, 10, emailHeading, org);
 
             //Break from loop if invoices read from the email server
             if (messageBody!=null) {

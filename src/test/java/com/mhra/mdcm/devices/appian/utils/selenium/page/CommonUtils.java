@@ -92,12 +92,12 @@ public class CommonUtils {
             try {
                 //String text = element.findElement(By.tagName("a")).getText();
                 String text = element.getText();
-                if (!text.trim().equals("")) {
+                if (!text.trim().equals("") && !text.contains("View all GMDN")) {
                     numberOfItems++;
                 }
             }catch (Exception e){}
         }
-        return numberOfItems - 1;
+        return numberOfItems;
     }
 
     public static List<String> getListOfGMDNS(List<WebElement> listOfGMDNDefinitions, List<WebElement> listOfGMDNDefinitionsForSSP) {

@@ -15,8 +15,8 @@ import java.util.List;
  */
 public class AccountRequestDO {
 
-    public static final String MANUFACTURER_RT_TEST = "ManufacturerRT01Test";
-    public static final String AUTHORISED_REP_RT_TEST = "AuthorisedRepRT01Test";
+    public static final String MANUFACTURER_RT_TEST = "ManufacturerAccountRT01Test";
+    public static final String AUTHORISED_REP_RT_TEST = "AuthorisedRepAccountRT01Test";
     public static final String DISTRIBUTOR_RT_TEST = "DistributorRT01Test";
     public static final String NOTIFIED_BODY_RT_TEST = "NotifiedBodyRT01Test";
     public String organisationName;

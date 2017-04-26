@@ -206,7 +206,7 @@ public class ExternalHomePageSteps extends CommonSteps {
 
         //If registered we need to click on a button, else devices page is displayed
         String registeredStatus = (String) scenarioSession.getData(SessionKey.organisationRegistered);
-        addDevices = manufacturerDetails.gotoAddDevicesPage(registeredStatus);
+        //addDevices = manufacturerDetails.gotoAddDevicesPage(registeredStatus);
 
         //Assumes we are in add device page
         DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
@@ -306,6 +306,18 @@ public class ExternalHomePageSteps extends CommonSteps {
         String registered = manufacturerList.getRegistrationStatus(name);
         log.info("Manufacturer selected : " + name + ", is " + registered);
         manufacturerDetails = manufacturerList.viewAManufacturer(name);
+        scenarioSession.putData(SessionKey.organisationName, name);
+        scenarioSession.putData(SessionKey.organisationRegistered, registered);
+        scenarioSession.putData(SessionKey.taskType, "Update Manufacturer");
+    }
+
+    @When("^I click on a random manufacturer to add devices$")
+    public void i_click_on_a_random_manufacturer_to_add_devices() throws Throwable {
+        String name = manufacturerList.getARandomManufacturerName();
+        String registered = manufacturerList.getRegistrationStatus(name);
+        log.info("Manufacturer selected : " + name + ", is " + registered);
+        manufacturerDetails = manufacturerList.viewAManufacturer(name);
+        addDevices = manufacturerDetails.clickContinueToAddDevices();
         scenarioSession.putData(SessionKey.organisationName, name);
         scenarioSession.putData(SessionKey.organisationRegistered, registered);
         scenarioSession.putData(SessionKey.taskType, "Update Manufacturer");

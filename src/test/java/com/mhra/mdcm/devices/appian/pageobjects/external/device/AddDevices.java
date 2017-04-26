@@ -30,8 +30,9 @@ public class AddDevices extends _Page {
 
     @FindBy(css = ".RadioButtonGroup---choice_pair>label")
     List<WebElement> listOfDeviceTypes;
-    @FindBy(xpath = ".//div[contains(text(),'Term')]//following::a[string-length(text()) > 0]")
-    //@FindBy(xpath = ".//div[contains(text(),'Term')]//following::tbody[1]/tr/td")
+    @FindBy(xpath = ".//label[contains(text(),'GMDN Code')]//following::a[string-length(text()) > 0]")
+    WebElement aGmdnMatchesReturnedBySearch;
+    @FindBy(xpath = ".//label[contains(text(),'GMDN Code')]//following::a[string-length(text()) > 0]")
     List<WebElement> listOfGmdnMatchesReturnedBySearch;
     @FindBy(css = ".ParagraphText---richtext_paragraph .StrongText---richtext_strong")
     WebElement labelValidGMDNCodeMessage;
@@ -139,11 +140,15 @@ public class AddDevices extends _Page {
     WebElement saveProduct;
     @FindBy(xpath = ".//button[.='Save product']")
     WebElement saveProduct2;
-    @FindBy(xpath = ".//*[contains(text(),'Product name')]//following::input[1]")
+    @FindBy(xpath = ".//label[.='Enter name']")
+    WebElement cbxProductName;
+    @FindBy(xpath = ".//*[contains(text(),'Enter name')]//following::input[1]")
     WebElement pdProductName;
-    @FindBy(xpath = ".//*[contains(text(),'Product make')]//following::input[1]")
+    @FindBy(xpath = ".//label[contains(text(),'and model')]")
+    WebElement cbxMakeAndModel;
+    @FindBy(xpath = ".//*[contains(text(),'and model')]//following::input[1]")
     WebElement pdProductMake;
-    @FindBy(xpath = ".//*[contains(text(),'Product model')]//following::input[1]")
+    @FindBy(xpath = ".//*[contains(text(),'and model')]//following::input[2]")
     WebElement pdProductModel;
 
     @FindBy(xpath = ".//*[contains(text(),'performance eval')]//following::label[1]")
@@ -355,8 +360,6 @@ public class AddDevices extends _Page {
 
     private void addProcedurePackDevice(DeviceDO dd) {
         searchByGMDN(dd);
-//        customMade(dd); removed since 04/01/2017
-//        deviceMeasuring(dd); removed since 04/01/2017
         deviceSterile(dd);
 
         if (dd.isDeviceSterile) {
@@ -449,8 +452,8 @@ public class AddDevices extends _Page {
     }
 
     private void productLabelName(DeviceDO dd) {
-        WaitUtils.waitForElementToBeClickable(driver, addProduct2, TIMEOUT_5_SECOND, false);
-        addProduct2.click();
+//        WaitUtils.waitForElementToBeClickable(driver, saveProduct2, TIMEOUT_5_SECOND, false);
+//        saveProduct2.click();
         WaitUtils.waitForElementToBeClickable(driver, txtProductNameLabel, TIMEOUT_5_SECOND, false);
         txtProductNameLabel.sendKeys(RandomDataUtils.getRandomTestName("Label"));
 
@@ -458,8 +461,8 @@ public class AddDevices extends _Page {
         PageUtils.uploadDocument(listOfFileUploads.get(0), "DeviceInstructionForUse1.pdf", 1, 3);
 
         //Save product label details
-        WaitUtils.waitForElementToBeClickable(driver, saveProduct, TIMEOUT_5_SECOND, false);
-        saveProduct.click();
+        WaitUtils.waitForElementToBeClickable(driver, saveProduct2, TIMEOUT_5_SECOND, false);
+        saveProduct2.click();
 
     }
 
@@ -522,16 +525,20 @@ public class AddDevices extends _Page {
 
     private void addProduct(DeviceDO dd) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, addProduct, TIMEOUT_10_SECOND, false);
+        //WaitUtils.waitForElementToBeClickable(driver, addProduct, TIMEOUT_10_SECOND, false);
         //WaitUtils.nativeWaitInSeconds(2);
-        addProduct.click();
+        //addProduct.click();
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
 
         //Wait for form to be visible
-        WaitUtils.waitForElementToBeClickable(driver, pdProductName, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, cbxProductName, TIMEOUT_10_SECOND, false);
         if (dd.productName != null && !dd.productName.equals("")) {
+            cbxProductName.click();
+            WaitUtils.waitForElementToBeClickable(driver, pdProductName, TIMEOUT_10_SECOND, false);
             pdProductName.sendKeys(dd.productName);
         } else if (dd.productMake != null || !dd.productMake.equals("")) {
+            cbxMakeAndModel.click();
+            WaitUtils.waitForElementToBeClickable(driver, pdProductModel, TIMEOUT_10_SECOND, false);
             pdProductMake.sendKeys(dd.productMake);
             pdProductModel.sendKeys(dd.productModel);
         }
@@ -563,7 +570,7 @@ public class AddDevices extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, nb0086BSI, TIMEOUT_5_SECOND, false);
 
         //Select notified body
-        if (notifiedBodyOptionsCorrect && dd.notifiedBody != null && dd.notifiedBody.toLowerCase().contains("0086")) {
+        if (notifiedBodyOptionsCorrect && dd.notifiedBody != null && dd.notifiedBody.toLowerCase().contains("bsi")) {
             PageUtils.singleClick(driver, nb0086BSI);
         }else if (notifiedBodyOptionsCorrect && dd.notifiedBody != null && dd.notifiedBody.toLowerCase().contains("Other")) {
             PageUtils.clickIfVisible(driver, nbOther);
@@ -620,6 +627,7 @@ public class AddDevices extends _Page {
 
     private void selectDeviceType(DeviceDO dd) {
         WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, systemOrProcedurePack, TIMEOUT_10_SECOND, false);
         String lcDeviceType = dd.deviceType.toLowerCase();
         if (lcDeviceType.contains("general medical device")) {
             PageUtils.clickIfVisible(driver, generalMedicalDevice);
@@ -689,10 +697,10 @@ public class AddDevices extends _Page {
                 WaitUtils.waitForElementToBeClickable(driver, tbxGMDNDefinitionOrTerm, TIMEOUT_5_SECOND, false);
                 tbxGMDNDefinitionOrTerm.clear();
                 tbxGMDNDefinitionOrTerm.sendKeys(searchFor);
-                //WaitUtils.isPageLoadingComplete(driver, 2);
+                WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
 
                 //Wait for list of items to appear and add it only if its not a duplicate
-                WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//div[contains(text(),'Term')]//following::td"), TIMEOUT_DEFAULT, false);
+                WaitUtils.waitForElementToBeClickable(driver, aGmdnMatchesReturnedBySearch, TIMEOUT_DEFAULT, false);
                 int noi = CommonUtils.getNumberOfItemsInList(driver, listOfGmdnMatchesReturnedBySearch);
                 int randomPosition = RandomDataUtils.getARandomNumberBetween(0, noi-1);
 

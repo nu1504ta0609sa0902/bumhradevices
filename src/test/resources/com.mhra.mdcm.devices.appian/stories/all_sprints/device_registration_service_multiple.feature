@@ -6,14 +6,14 @@ Feature: As an account holder with access to the device registration service
   Scenario Outline: Users should be able to add all 4 device type
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on a random manufacturer
+    And I click on a random manufacturer to add devices
     When I add a device to SELECTED manufacturer with following data
       | deviceType     | General Medical Device |
       | gmdnDefinition | <device1>              |
       | customMade     | true                   |
     When I add another device to SELECTED manufacturer with following data
       | deviceType         | In Vitro Diagnostic Device |
-      | gmdnDefinition     | <device4>                  |
+      | gmdnDefinition     | <device2>                  |
       | riskClassification | list a                     |
       | notifiedBody       | NB 0086 BSI                |
       | productName        | premierLeague              |
@@ -23,8 +23,13 @@ Feature: As an account holder with access to the device registration service
       | newProduct         | true                       |
       | conformsToCTS      | true                       |
     When I add another device to SELECTED manufacturer with following data
+      | deviceType     | Active Implantable Medical Devices |
+      | gmdnDefinition | <device3>                          |
+      | customMade     | true                               |
+      | productName    | lordhelpme                         |
+    When I add another device to SELECTED manufacturer with following data
       | deviceType             | System or Procedure Pack |
-      | gmdnDefinition         | <device2>                |
+      | gmdnDefinition         | <device4>                |
       | riskClassification     | class1                   |
       | notifiedBody           | NB 0086 BSI              |
       | customMade             | true                     |
@@ -32,14 +37,9 @@ Feature: As an account holder with access to the device registration service
       | relatedDeviceMeasuring | true                     |
       | isBearingCEMarking     | false                    |
       | devicesCompatible      | true                     |
-    When I add another device to SELECTED manufacturer with following data
-      | deviceType     | Active Implantable Medical Devices |
-      | gmdnDefinition | <device3>                          |
-      | customMade     | true                               |
-      | productName    | lordhelpme                         |
     Then I should see option to add another device
 #    And The gmdn code or term is "displayed" in summary section
-    And All the gmdn codes or terms are "displayed" in summary section
+#    And All the gmdn codes or terms are "displayed" in summary section
     When Proceed to payment and confirm submit device details
     Then I should see the registered manufacturers list
     When I logout of the application
@@ -50,7 +50,7 @@ Feature: As an account holder with access to the device registration service
     And I assign the task to me and "approve" the generated task
     Then The completed task status should update to "Completed"
     Examples:
-      | user              | logBackInAas | device1              | device2             | device3                   | device4               |
-      | manufacturerAuto  | businessAuto | Blood weighing scale | Desiccating chamber | Sinus irrigation catheter | Androgen receptor IVD |
-      | authorisedRepAuto | businessAuto | Blood weighing scale | Desiccating chamber | Sinus irrigation catheter | Androgen receptor IVD |
+      | user              | logBackInAas | device1              | device2             | device3 | device4  |
+      | manufacturerAuto  | businessAuto | Blood weighing scale | Desiccating chamber | Sinus   | Receptor |
+      | authorisedRepAuto | businessAuto | Blood weighing scale | Desiccating chamber | Sinus   | Receptor |
 
