@@ -131,7 +131,7 @@ public class ExternalHomePage extends _Page {
         //Must be YES
         driver.findElement(aimdCustomMadeYes).click();
         driver.findElement(customMadeYes).click();
-        //driver.findElement(sppCustomMadeYes).click();
+        driver.findElement(sppCustomMadeYes).click();
     }
 
     public boolean isTitleCorrect() {

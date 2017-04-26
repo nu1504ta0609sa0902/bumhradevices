@@ -194,9 +194,10 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     @And("^Proceed to payment and confirm submit device details$")
     public void proceedToPaymentAndConfirmSubmitDeviceDetails() throws Throwable {
+        addDevices = addDevices.proceedToReview();
         addDevices = addDevices.proceedToPayment();
-        addDevices = addDevices.submitRegistration();
-        manufacturerList = addDevices.finish();
+        addDevices = addDevices.confirmPayment();
+        manufacturerList = addDevices.backToService();
     }
 
 

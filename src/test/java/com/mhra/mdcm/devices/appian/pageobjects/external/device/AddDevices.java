@@ -180,14 +180,20 @@ public class AddDevices extends _Page {
     //Confirm and btnDeclareDevices
     @FindBy(xpath = ".//button[contains(text(),'Review your order')]")
     WebElement btnReviewYourOrder;
-    @FindBy(xpath = ".//button[.='Proceed to payment']")
+    @FindBy(xpath = ".//button[.='Continue']")
     WebElement btnProceedToPayment;
+    @FindBy(xpath = ".//button[.='Continue']")
+    WebElement btnProceedToReview;
     @FindBy(xpath = ".//button[contains(text(),'Finish')]")
     WebElement btnFinish;
     @FindBy(xpath = ".//button[.='Remove']")
     WebElement btnRemove;
     @FindBy(css = ".Button---primary")
     WebElement submitConfirm;
+    @FindBy(css = ".Button---primary")
+    WebElement bthSubmitConfirm;
+    @FindBy(css = ".CheckboxGroup---choice_pair>label")
+    WebElement cbxConfirmInformation;
 
     //Submit and save buttons
     @FindBy(xpath = ".//button[.='Add device']")
@@ -214,6 +220,8 @@ public class AddDevices extends _Page {
     //Links
     @FindBy(partialLinkText = "View all GMDN terms")
     WebElement viewAllGMDNTermDefinition;
+    @FindBy(partialLinkText = "Back to service")
+    WebElement linkBackToService;
 
 
     @Autowired
@@ -295,8 +303,8 @@ public class AddDevices extends _Page {
 
         //Business doing testing so don't do any write only tests
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, btnReviewYourOrder, TIMEOUT_10_SECOND, false);
-        PageUtils.doubleClick(driver, btnReviewYourOrder);
+        WaitUtils.waitForElementToBeClickable(driver, btnSaveProgress, TIMEOUT_10_SECOND, false);
+        PageUtils.doubleClick(driver, btnSaveProgress);
 
         return new AddDevices(driver);
     }
@@ -740,8 +748,11 @@ public class AddDevices extends _Page {
 
     public AddDevices proceedToPayment() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, btnProceedToPayment, TIMEOUT_20_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, cbxConfirmInformation, TIMEOUT_10_SECOND, false);
+        cbxConfirmInformation.click();
+        WaitUtils.waitForElementToBeClickable(driver, btnProceedToPayment, TIMEOUT_10_SECOND, false);
         btnProceedToPayment.click();
+        log.info("Proceed to payment");
         return new AddDevices(driver);
     }
 
@@ -986,4 +997,34 @@ public class AddDevices extends _Page {
         return new AddDevices(driver);
     }
 
+
+    public AddDevices proceedToReview() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.nativeWaitInSeconds(2);
+        WaitUtils.waitForElementToBeClickable(driver, btnProceedToReview, TIMEOUT_10_SECOND, false);
+        btnProceedToReview.click();
+        log.info("Proceed to review before payment");
+        return new AddDevices(driver);
+    }
+
+    public AddDevices saveDevice() {
+        WaitUtils.waitForElementToBeClickable(driver, btnSaveProgress, TIMEOUT_10_SECOND, false);
+        PageUtils.doubleClick(driver, btnSaveProgress);
+        return new AddDevices(driver);
+    }
+    
+    public AddDevices confirmPayment() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, bthSubmitConfirm, TIMEOUT_10_SECOND, false);
+        bthSubmitConfirm.click();
+        log.info("Submit for registration");
+        return new AddDevices(driver);
+    }
+
+    public ManufacturerList backToService() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, linkBackToService, TIMEOUT_10_SECOND, false);
+        linkBackToService.click();
+        return new ManufacturerList(driver);
+    }
 }
