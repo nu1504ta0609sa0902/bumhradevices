@@ -59,7 +59,7 @@ public class TaskSection extends _Page {
     WebElement cdContactPersonTelephone;
 
 
-    @FindBy(xpath = ".//h3")
+    @FindBy(xpath = ".//a[contains(text(),'Organisation Details')]//following::p[1]")
     WebElement taskHeading;
 
     //Rejection reason
@@ -81,7 +81,7 @@ public class TaskSection extends _Page {
     WebElement letterOfDesignationStatus;
 
     //List of Table data : GMDN for device types in the task
-    @FindBy(xpath = ".//div[contains(text(),'Risk classification')]//following::tr/td[3]")
+    @FindBy(xpath = ".//div[contains(text(),'Custom made')]//following::tr/td[1]")
     List<WebElement> listOfGMDNDefinitions;
     @FindBy(xpath = ".//div[contains(text(),'Intended use')]//following::td[3]")
     List<WebElement> listOfGMDNDefinitionsForSSP;
@@ -137,7 +137,7 @@ public class TaskSection extends _Page {
 
         try {
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-            WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//button[contains(text(), 'Reassign')]"), TIMEOUT_10_SECOND, false);
+            //WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//button[contains(text(), 'Reassign')]"), TIMEOUT_10_SECOND, false);
             WaitUtils.waitForElementToBeVisible(driver, taskHeading, TIMEOUT_10_SECOND, false);
             boolean contains = taskHeading.getText().contains(orgName);
             return contains;
