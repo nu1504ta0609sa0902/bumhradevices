@@ -130,7 +130,7 @@ Feature: As a business user, I want a task to be created each time a customer su
   Scenario Outline: Users should be able to search and filter tasks
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on a random manufacturer
+    And I click on a random manufacturer to add devices
     When I add a device to SELECTED manufacturer with following data
       | deviceType     | General Medical Device |
       | gmdnDefinition | <gmdn>                 |

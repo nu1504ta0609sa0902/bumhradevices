@@ -17,7 +17,7 @@ Feature: As an account holder with access to the Device Registration Service
   Scenario Outline: Verify correct device type options are displayed on add devices page
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on a random manufacturer
+    And I click on a random manufacturer to add devices
     Then I should see correct device types
     Examples:
       | user              |
@@ -29,7 +29,7 @@ Feature: As an account holder with access to the Device Registration Service
   Scenario Outline: Verify correct options are displayed on add devices page
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on a random manufacturer
+    And I click on a random manufacturer to add devices
 #    And I click on random manufacturer with status "<status>"
     When I add a device to SELECTED manufacturer with following data
       | deviceType             | <deviceType>         |
@@ -60,7 +60,7 @@ Feature: As an account holder with access to the Device Registration Service
   Scenario Outline: Users should be able to add devices to existing manufacturers
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on a random manufacturer
+    And I click on a random manufacturer to add devices
     When I add a device to SELECTED manufacturer with following data
       | deviceType     | <deviceType> |
       | gmdnDefinition | Blood        |
@@ -77,7 +77,7 @@ Feature: As an account holder with access to the Device Registration Service
   Scenario Outline: Users should be able to remove devices from manufacturers
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on a random manufacturer
+    And I click on a random manufacturer to add devices
     When I add a device to SELECTED manufacturer with following data
       | deviceType     | <deviceType> |
       | gmdnDefinition | <gmdn1>      |
@@ -101,7 +101,7 @@ Feature: As an account holder with access to the Device Registration Service
   Scenario Outline: Verify product details after adding IVD products
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on a random manufacturer
+    And I click on a random manufacturer to add devices
     When I add a device to SELECTED manufacturer with following data
       | deviceType         | <deviceType>         |
       | gmdnDefinition     | <gmdnDefinition>     |
@@ -127,7 +127,7 @@ Feature: As an account holder with access to the Device Registration Service
   Scenario Outline: Users should be able to add and remove devices using GMDN code from existing manufacturers
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on a random manufacturer
+    And I click on a random manufacturer to add devices
     When I add a device to SELECTED manufacturer with following data
       | deviceType     | <deviceType>       |
       | gmdnDefinition | <gmdnDefinitionD1> |
