@@ -106,6 +106,7 @@ public class GmailEmail {
                 }
             }
 
+            System.out.println("Waiting for message to arrive ..... ");
             System.out.println("Total Messages : " + messageCount);
             inbox.close(true);
             store.close();

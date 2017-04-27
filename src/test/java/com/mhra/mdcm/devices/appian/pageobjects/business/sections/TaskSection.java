@@ -59,8 +59,10 @@ public class TaskSection extends _Page {
     WebElement cdContactPersonTelephone;
 
 
-    @FindBy(xpath = ".//a[contains(text(),'Organisation Details')]//following::p[1]")
+    @FindBy(xpath = ".//h3")
     WebElement taskHeading;
+    @FindBy(xpath = ".//a[contains(text(),'Organisation Details')]//following::p[1]")
+    WebElement taskHeading2;
 
     //Rejection reason
     @FindBy(xpath = ".//*[.='Reasons']//following::input[1]")
@@ -136,10 +138,34 @@ public class TaskSection extends _Page {
         }
 
         try {
+            //For new account
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
             //WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//button[contains(text(), 'Reassign')]"), TIMEOUT_10_SECOND, false);
-            WaitUtils.waitForElementToBeVisible(driver, taskHeading, TIMEOUT_10_SECOND, false);
-            boolean contains = taskHeading.getText().contains(orgName);
+            WaitUtils.waitForElementToBeVisible(driver, taskHeading2, TIMEOUT_3_SECOND, false);
+            boolean contains = taskHeading2.getText().contains(orgName);
+            return contains;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+
+    public boolean isCorrectTask(String orgName, String taskType) {
+
+//        if (orgName == null) {
+//            return true;
+//        }
+
+        WebElement header = taskHeading2;
+        if(taskType!=null && taskType.contains("New Account Request")){
+            header = taskHeading;
+        }
+
+        try {
+            //For new account
+            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+            WaitUtils.waitForElementToBeVisible(driver, header, TIMEOUT_3_SECOND, false);
+            boolean contains = header.getText().contains(orgName);
             return contains;
         } catch (Exception e) {
             return false;
@@ -325,7 +351,7 @@ public class TaskSection extends _Page {
 
     public boolean isCompletedTaskStatusCorrect2(String orgName, String expectedStatus) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        By by = By.xpath(".//td[.='" + orgName + "']//following::td[3]");
+        By by = By.xpath(".//td[2]/p[contains(text(),'" + orgName + "')]//following::td[3]");
         WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_10_SECOND, false);
         boolean contains = driver.findElement(by).getText().contains(expectedStatus);
         return contains;

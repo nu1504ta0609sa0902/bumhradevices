@@ -50,7 +50,7 @@ public class TasksPageSteps extends CommonSteps {
             boolean isLinkVisible = tasksPage.isLinkVisible(orgName);
             if (isLinkVisible) {
                 taskSection = tasksPage.clickOnLinkWithText(orgName);
-                isCorrectTask = taskSection.isCorrectTask(orgName);
+                isCorrectTask = taskSection.isCorrectTask(orgName, taskType);
                 if (isCorrectTask) {
                     contains = true;
                 } else {
@@ -64,7 +64,7 @@ public class TasksPageSteps extends CommonSteps {
         //If its still not found than try the first 1 again
         if (!contains) {
             taskSection = tasksPage.clickOnLinkWithText(orgName);
-            isCorrectTask = taskSection.isCorrectTask(orgName);
+            isCorrectTask = taskSection.isCorrectTask(orgName, taskType);
             if (isCorrectTask) {
                 contains = true;
             }

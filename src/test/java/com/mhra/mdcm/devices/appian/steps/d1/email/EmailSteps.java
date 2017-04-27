@@ -22,12 +22,13 @@ public class EmailSteps extends CommonSteps {
     public void iShouldReceivedAnEmailForStoredManufacturerWithHeading(String emailHeading) throws Throwable {
         String org = (String) scenarioSession.getData(SessionKey.organisationName);
         ManufacturerRequestDO organisationData = (ManufacturerRequestDO) scenarioSession.getData(SessionKey.manufacturerData);
+        emailHeading = emailHeading + org;
 
         boolean foundMessage = false;
         String messageBody = null;
         int attempt = 0;
         do {
-            messageBody = GmailEmail.readMessageForSpecifiedOrganisations(5, 10, "Manufacturer registration service", org);
+            messageBody = GmailEmail.readMessageForSpecifiedOrganisations(5, 10, emailHeading, org);
 
             //Break from loop if invoices read from the email server
             if (messageBody!=null) {
@@ -63,7 +64,7 @@ public class EmailSteps extends CommonSteps {
                 break;
             } else {
                 //Wait for 10 seconds and try again, Thread.sleep required because this is checking email
-                WaitUtils.nativeWaitInSeconds(8);
+                WaitUtils.nativeWaitInSeconds(10);
             }
             attempt++;
         } while (!foundMessage && attempt < 12);

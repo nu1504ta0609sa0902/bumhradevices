@@ -196,7 +196,7 @@ public class AddDevices extends _Page {
     @FindBy(css = ".Button---primary")
     WebElement submitConfirm;
     @FindBy(css = ".Button---primary")
-    WebElement bthSubmitConfirm;
+    WebElement btnSubmitConfirm;
     @FindBy(css = ".CheckboxGroup---choice_pair>label")
     WebElement cbxConfirmInformation;
 
@@ -1023,16 +1023,18 @@ public class AddDevices extends _Page {
     
     public AddDevices confirmPayment() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, bthSubmitConfirm, TIMEOUT_10_SECOND, false);
-        bthSubmitConfirm.click();
+        WaitUtils.waitForElementToBeClickable(driver, btnSubmitConfirm, TIMEOUT_10_SECOND, false);
+        PageUtils.doubleClick(driver, btnSubmitConfirm);
         log.info("Submit for registration");
         return new AddDevices(driver);
     }
 
     public ManufacturerList backToService() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, linkBackToService, TIMEOUT_10_SECOND, false);
-        linkBackToService.click();
+        try {
+            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+            WaitUtils.waitForElementToBeClickable(driver, linkBackToService, TIMEOUT_10_SECOND, false);
+            linkBackToService.click();
+        }catch (Exception e){}
         return new ManufacturerList(driver);
     }
 }
