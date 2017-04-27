@@ -40,7 +40,7 @@ Feature: As an account holder with access to the Device Registration Service I w
     Examples:
       | user              | deviceType                         | gmdnDefinition      | customMade | productName |
       | authorisedRepAuto | Active Implantable Medical Devices | Desiccating chamber | true       | ford focus  |
-      #| manufacturerAuto | Active Implantable Medical Devices | Desiccating chamber | true       | ford focus  |
+      | manufacturerAuto | Active Implantable Medical Devices | Desiccating chamber | true       | ford focus  |
 #      | manufacturerAuto | Active Implantable Medical Devices | Blood          | false      | ford focus  | can't register if custom made is false
 
 
@@ -62,9 +62,9 @@ Feature: As an account holder with access to the Device Registration Service I w
     And I should be prevented from adding the devices
     Examples:
       | user              | deviceType               | gmdnDefinition      | deviceSterile | riskClassification | notifiedBody | isBearingCEMarking | devicesCompatible | errorMsg                                                                                         |
-#      | authorisedRepAuto | General Medical Device   | Blood               |               | class2a            | NB 0086 BSI  |                    |                   | You cannot register class IIa devices with the MHRA                                              |
-#      | manufacturerAuto  | General Medical Device   | Blood               |               | class2b            | NB 0086 BSI  |                    |                   | You cannot register class IIb devices with the MHRA                                              |
-#      | manufacturerAuto  | General Medical Device   | Blood               |               | class3             | NB 0086 BSI  |                    |                   | You cannot register class III devices with the MHRA                                              |
+      | authorisedRepAuto | General Medical Device   | Blood               |               | class2a            | NB 0086 BSI  |                    |                   | You cannot register class IIa devices with the MHRA                                              |
+      | manufacturerAuto  | General Medical Device   | Blood               |               | class2b            | NB 0086 BSI  |                    |                   | You cannot register class IIb devices with the MHRA                                              |
+      | manufacturerAuto  | General Medical Device   | Blood               |               | class3             | NB 0086 BSI  |                    |                   | You cannot register class III devices with the MHRA                                              |
       | authorisedRepAuto | System or Procedure Pack | Desiccating chamber | false         |                    |              | true               |                   | You cannot register this as a System/procedure pack because all the components must be CE marked |
       | authorisedRepAuto | System or Procedure Pack | Desiccating chamber | true          |                    | NB 0086 BSI  |                    | false             | You cannot register this as a System/procedure pack because all the components must be CE marked |
       | manufacturerAuto  | System or Procedure Pack | Desiccating chamber |               |                    | NB 0086 BSI  | false              | false             | This System/procedure pack cannot be registered with us                                          |
