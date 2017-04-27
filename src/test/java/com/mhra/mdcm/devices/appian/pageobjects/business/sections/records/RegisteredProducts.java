@@ -1,5 +1,6 @@
 package com.mhra.mdcm.devices.appian.pageobjects.business.sections.records;
 
+import com.mhra.mdcm.devices.appian.enums.PageHeaders;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
@@ -17,7 +18,7 @@ import java.util.List;
  * Created by TPD_Auto 
  */
 @Component
-public class AllProducts extends _Page {
+public class RegisteredProducts extends _Page {
 
     @FindBy(xpath = ".//th[@abbr='Authorised Representative']//following::tr")
     List<WebElement> listOfAllProducts;
@@ -39,7 +40,7 @@ public class AllProducts extends _Page {
     WebElement clearFilters;
 
     @Autowired
-    public AllProducts(WebDriver driver) {
+    public RegisteredProducts(WebDriver driver) {
         super(driver);
     }
 
@@ -55,7 +56,7 @@ public class AllProducts extends _Page {
         boolean itemsDisplayed = false;
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h1[.='" + expectedHeadings + "']") , 10, false);
 
-        if(expectedHeadings.contains("All Products")){
+        if(expectedHeadings.contains(PageHeaders.PAGE_HEADERS_REGISTERED_PRODUCTS.header)){
             itemsDisplayed = listOfAllProducts.size() > 0;
         }
 
@@ -68,10 +69,10 @@ public class AllProducts extends _Page {
         return columnsNotFound;
     }
 
-    public AllProducts searchForAllProducts(String searchTerm) {
+    public RegisteredProducts searchForAllProducts(String searchTerm) {
         WaitUtils.waitForElementToBeClickable(driver, searchBox, TIMEOUT_DEFAULT, false);
         PageUtils.searchPageFor(searchTerm, searchBox);
-        return new AllProducts(driver);
+        return new RegisteredProducts(driver);
     }
 
     public boolean atLeast1MatchFound(String searchText) {
@@ -144,10 +145,10 @@ public class AllProducts extends _Page {
         return null;
     }
 
-    public AllProducts filterByDeviceType(String deviceType) {
+    public RegisteredProducts filterByDeviceType(String deviceType) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         PageUtils.selectFromDropDown(driver, listOfDropDownFilters.get(0) , deviceType, false);
-        return new AllProducts(driver);
+        return new RegisteredProducts(driver);
     }
 
     public boolean areAllProductOfType(String value) {
@@ -168,11 +169,11 @@ public class AllProducts extends _Page {
         return allMatched;
     }
 
-    public AllProducts clearFilterByStatus() {
+    public RegisteredProducts clearFilterByStatus() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_3_SECOND, false);
         clearFilters.click();
-        return new AllProducts(driver);
+        return new RegisteredProducts(driver);
     }
 
     public boolean areDevicesOfTypeVisible(String value) {

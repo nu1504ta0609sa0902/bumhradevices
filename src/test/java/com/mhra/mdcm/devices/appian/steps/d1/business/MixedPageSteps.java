@@ -1,6 +1,7 @@
 package com.mhra.mdcm.devices.appian.steps.d1.business;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
+import com.mhra.mdcm.devices.appian.enums.LinksRecordPage;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import cucumber.api.java.en.Then;
@@ -18,14 +19,13 @@ public class MixedPageSteps extends CommonSteps {
 
     @When("^I click on a random organisation link \"([^\"]*)\" in \"([^\"]*)\" page$")
     public void i_click_on_a_random_organisation_link(String searchTerm, String page) throws Throwable {
-        if (page.equals("Accounts")) {
+        if (page.equals(LinksRecordPage.LINK_ACCOUNTS.link)) {
             businessManufacturerDetails = accounts.viewManufacturerByText(searchTerm);
-        } else if (page.equals("Devices")) {
-        } else if (page.equals("Products")) {
-        } else if (page.equals("All Products")) {
-            businessManufacturerDetails = allProducts.viewManufacturerByText(searchTerm);
-        } else if (page.equals("All Organisations")) {
-            businessManufacturerDetails = allOrganisations.viewManufacturerByText(searchTerm);
+        } else if (page.equals(LinksRecordPage.LINK_REGISTERED_DEVICES.link)) {
+        } else if (page.equals(LinksRecordPage.LINK_REGISTERED_PRODUCTS.link)) {
+            businessManufacturerDetails = registeredProducts.viewManufacturerByText(searchTerm);
+        } else if (page.equals(LinksRecordPage.LINK_ORGANISATIONS.link)) {
+            businessManufacturerDetails = organisations.viewManufacturerByText(searchTerm);
         }
         scenarioSession.putData(SessionKey.searchTerm, searchTerm);
     }

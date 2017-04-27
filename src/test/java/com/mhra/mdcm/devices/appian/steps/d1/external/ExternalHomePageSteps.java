@@ -595,7 +595,7 @@ public class ExternalHomePageSteps extends CommonSteps {
     public void i_search_for_device_type_General_Medical_Device_with_gmdn_gmdnCode(String deviceType, String gmdnTermCodeOrDefinition) throws Throwable {
         //If registered we need to click on a button, else devices page is displayed
         String registeredStatus = (String) scenarioSession.getData(SessionKey.organisationRegistered);
-        addDevices = manufacturerDetails.gotoAddDevicesPage(registeredStatus);
+        //addDevices = manufacturerDetails.gotoAddDevicesPage(registeredStatus);
 
         //Search for specific device of a specific type
         DeviceDO dd = TestHarnessUtils.updateDeviceData(null, scenarioSession);

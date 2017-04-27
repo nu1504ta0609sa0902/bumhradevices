@@ -23,7 +23,6 @@ Feature: As a customer I want to register other types of organisations such as D
       | businessNoor | distributor | 1     | Turkey      | New Account Request | manufacturerNoor | Unfortunately, you are not eligible for registering the devices. Only manufacturers based in the UK |
 
 
-
   @regression @1996 @_sprint9 @2833 @_sprint14 @wip
   Scenario Outline: Check new role added to create distributor account as business user and approve the tasks
     Given I am logged into appian as "<user>" user
@@ -37,8 +36,8 @@ Feature: As a customer I want to register other types of organisations such as D
     And The completed task status of new account should update to "Completed"
     When I go to records page and click on "<pageHeading>"
     And I perform a search for "<searchFor>" in "<pageHeading>" page
-    Then I should see at least <count> matches in "All Organisations" page search results
+    Then I should see at least <count> matches in "<pageHeading>" page search results
     Examples:
-      | user         | accountType | count | countryName | link                | pageHeading       | searchFor   |
-      | businessNoor | distributor | 1     | Turkey      | New Account Request | All Organisations | Distributor |
+      | user         | accountType | count | countryName | link                | pageHeading   | searchFor   |
+      | businessNoor | distributor | 1     | Turkey      | New Account Request | Organisations | Distributor |
 

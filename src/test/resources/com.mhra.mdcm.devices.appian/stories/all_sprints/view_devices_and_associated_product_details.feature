@@ -25,8 +25,8 @@ Feature: As a user, I want to view devices and product details associated with a
     Then All organisation search result should return <count> matches
     Examples:
       | user              | logBackInAs  | accountType   | approveReject | count | countryName | link              | page              |
-      | manufacturerAuto  | businessAuto | manufacturer  | approve       | 1     | Brazil      | All Organisations | All Organisations |
-      | authorisedRepAuto | businessAuto | authorisedRep | approve       | 1     | Belarus     | Accounts          | All Organisations |
+      | manufacturerAuto  | businessAuto | manufacturer  | approve       | 1     | Brazil      | Organisations | Organisations |
+      | authorisedRepAuto | businessAuto | authorisedRep | approve       | 1     | Belarus     | Accounts          | Organisations |
 
   @mdcm-126 @readonly @_sprint1 @mdcm-125 @_sprint6 @wip
   Scenario Outline: As a business user I should be able to view specific account in all accounts page
@@ -71,8 +71,8 @@ Feature: As a user, I want to view devices and product details associated with a
     Then I should see correct information for device type "<deviceType>"
     Examples:
       | user              | logBackInAs  | accountType   | approveReject | countryName | page              | searchTerm        | deviceType             |
-      | manufacturerAuto  | businessAuto | manufacturer  | approve       | Brazil      | All Organisations | ManufacturerRT01  | General Medical Device |
-      | authorisedRepAuto | businessAuto | authorisedRep | approve       | Belarus     | All Organisations | AuthorisedRepRT01 | General Medical Device |
+      | manufacturerAuto  | businessAuto | manufacturer  | approve       | Brazil      | Organisations | ManufacturerRT01  | General Medical Device |
+      | authorisedRepAuto | businessAuto | authorisedRep | approve       | Belarus     | Organisations | AuthorisedRepRT01 | General Medical Device |
 
   @regression @1924 @3271 @_sprint8 @wip
   Scenario Outline: As a business user I should be able to verify device and product details related to a manufacturer
@@ -88,4 +88,4 @@ Feature: As a user, I want to view devices and product details associated with a
     Examples:
       | user         | page              | searchTerm                     | deviceType             |
       | businessAuto | Accounts          | _AT        | General Medical Device |
-      | businessAuto | All Organisations | AuthorisedRepRT | General Medical Device |
+      | businessAuto | Organisations | AuthorisedRepRT | General Medical Device |

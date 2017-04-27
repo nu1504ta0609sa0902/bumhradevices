@@ -12,7 +12,7 @@ Feature: As a business user, I want to access a list of organisations with an ac
       | user         | link              | pageHeading       | columns                                                                                                          |
       | businessAuto | All Devices       | All Devices       | Device type,GMDN code,GMDN term                                                                                  |
       | businessAuto | All Products      | All Products      | Device Type,Product Make,Product Model,Product Name,Device Label,Manufacturer,Country,Authorised Representative  |
-      | businessAuto | All Organisations | All Organisations | Name,Role,Contact name,Address,Country,Status                                                                    |
+      | businessAuto | Organisations | Organisations | Name,Role,Contact name,Address,Country,Status                                                                    |
       | businessAuto | Accounts          | Accounts          | Organisation name,Account number,Organisation role,Contact name,Organisation address,Organisation country,Status |
 
   @regression @4006 @_sprint11
@@ -35,7 +35,7 @@ Feature: As a business user, I want to access a list of organisations with an ac
       | columns | <columns> |
     Examples:
       | user         | link              | pageHeading       | columns                                       |
-      | businessAuto | All Organisations | All Organisations | Name,Role,Contact name,Address,Country,Status |
+      | businessAuto | Organisations | Organisations | Name,Role,Contact name,Address,Country,Status |
 
 
   @mdcm-126 @mdcm-23 @readonly @_sprint1 @_sprint6 @bug
@@ -46,7 +46,7 @@ Feature: As a business user, I want to access a list of organisations with an ac
     And The items in "<pageHeading>" page are displayed in alphabetical order
     Examples:
       | user         | link              | pageHeading       |
-      | businessAuto | All Organisations | All Organisations |
+      | businessAuto | Organisations | Organisations |
       | businessAuto | Accounts          | Accounts          |
 
 
@@ -65,8 +65,8 @@ Feature: As a business user, I want to access a list of organisations with an ac
       | user         | link     | pageHeading | filterBy          | filterValue  | unFilteredData | tableHeading      | searchTerm | column |
 #      | businessAuto | Accounts | Accounts    | Organisation Role | Authorised  | Manufacturer   | Organisation name | RT01       | Role   |
 #      | businessAuto | Accounts | Accounts    | Organisation Role | Manufacturer | Authorised     | Organisation name | RT01       | Role   |
-#      | businessAuto | All Organisations | All Organisations | Organisation Role | Manufacturer       | Authorised         | Name              | RT01       | Role        |
-      | businessAuto | All Organisations | All Organisations | Registered status | Registered         | Not Registered     | Name              | RT01       | Status      |
+#      | businessAuto | Organisations | Organisations | Organisation Role | Manufacturer       | Authorised         | Name              | RT01       | Role        |
+      | businessAuto | Organisations | Organisations | Registered status | Registered         | Not Registered     | Name              | RT01       | Status      |
 #      | businessAuto | All Products      | All Products      | Device type       | Active Implantable | In Vitro           | Device Type       | RT01       | Device type |
 #      | businessAuto | All Products      | All Products      | Device type       | In Vitro           | Active Implantable | Device Type       | RT01       | Device type |
 
@@ -79,8 +79,8 @@ Feature: As a business user, I want to access a list of organisations with an ac
     Then All organisation search result should return <count> matches
     Examples:
       | user         | link              | existing     | count |
-      | businessAuto | All Organisations | existing     | 1     |
-      | businessAuto | All Organisations | non existing | 0     |
+      | businessAuto | Organisations | existing     | 1     |
+      | businessAuto | Organisations | non existing | 0     |
 
 
   @mdcm-2797 @readonly @mdcm-626 @3895 @_sprint7 @_sprint10
@@ -104,7 +104,7 @@ Feature: As a business user, I want to access a list of organisations with an ac
     Then I should see at least <count> matches in "<page>" page search results
     Examples:
       | user         | page              | count |
-      | businessAuto | All Organisations | 1     |
+      | businessAuto | Organisations | 1     |
       | businessAuto | All Devices       | 1     |
       | businessAuto | All Products      | 1     |
 
@@ -123,7 +123,7 @@ Feature: As a business user, I want to access a list of organisations with an ac
       | businessAuto | All Products      | 56797                | 1     |
       | businessAuto | All Products      | AuthorisedRepRT      | 1     |
       | businessAuto | All Products      | ManufacturerRT       | 1     |
-      | businessAuto | All Organisations | AuthorisedRepRT      | 1     |
+      | businessAuto | Organisations | AuthorisedRepRT      | 1     |
 
 
   @2797 @readonly @_sprint7

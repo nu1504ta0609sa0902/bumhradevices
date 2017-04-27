@@ -1,5 +1,6 @@
 package com.mhra.mdcm.devices.appian.pageobjects.business.sections.records;
 
+import com.mhra.mdcm.devices.appian.enums.PageHeaders;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
@@ -16,7 +17,7 @@ import java.util.List;
  * Created by TPD_Auto 
  */
 @Component
-public class Devices extends _Page {
+public class RegisteredDevices extends _Page {
 
     //List of all devices and types
     @FindBy(xpath = ".//h2[.='Device Id']//following::a")
@@ -31,7 +32,7 @@ public class Devices extends _Page {
     WebElement clearFilters;
 
     @Autowired
-    public Devices(WebDriver driver) {
+    public RegisteredDevices(WebDriver driver) {
         super(driver);
     }
 
@@ -49,17 +50,17 @@ public class Devices extends _Page {
         boolean itemsDisplayed = false;
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h1[.='" + expectedHeadings + "']") , TIMEOUT_DEFAULT, false);
 
-        if(expectedHeadings.equals("Devices")){
+        if(expectedHeadings.equals(PageHeaders.PAGE_HEADERS_REGISTERED_DEVICES.header)){
             itemsDisplayed = listOfDevices.size() > 0;
         }
 
         return itemsDisplayed;
     }
 
-    public Devices filterBy(String deviceType) {
+    public RegisteredDevices filterBy(String deviceType) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         PageUtils.selectFromDropDown(driver, listOfDropDownFilters.get(0) , deviceType, false);
-        return new Devices(driver);
+        return new RegisteredDevices(driver);
     }
 
     public boolean areAllDevicesOfType(String deviceType) {
@@ -80,10 +81,10 @@ public class Devices extends _Page {
         return allMatched;
     }
 
-    public Devices clearFilterByDeviceType() {
+    public RegisteredDevices clearFilterByDeviceType() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_3_SECOND, false);
         clearFilters.click();
-        return new Devices(driver);
+        return new RegisteredDevices(driver);
     }
 }

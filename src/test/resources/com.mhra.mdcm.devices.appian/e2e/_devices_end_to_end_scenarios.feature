@@ -2,7 +2,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
 
   @ignore
   Scenario Outline: S1 Manufacturer account registration
-#Create a new manufacturer account, approve the task and check MHRA approval email is received
+#Register new manufacturer account, approve the task and check MHRA approval email is received
     Given I am logged into appian as "<businessUser>" user
     When I create a new account using business test harness page with following data
       | accountType | <accountType> |
@@ -10,7 +10,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     Then I should see a new task for the new account
     When I assign the task to me and "<approveReject>" the generated task
     Then I should received an email for stored account with heading "<newAccountEmail>"
-#Log back in as a manufacturer and register a new organisation with devices
+#Log back in as newly created manufacturer account user and register a new organisation with devices
     And I logout and log back into appian as "<logBackInAas>" user
     And I go to register a new manufacturer page
     And I create a new manufacturer using manufacturer test harness page with following data
@@ -21,15 +21,15 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | gmdnDefinition | Blood weighing scale   |
       | customMade     | true                   |
     And Proceed to payment and confirm submit device details
-    Then I should see the registered manufacturers list
+#Log back and verify task created for newly created manufacturer
     And I logout and log back into appian as "<businessUser>" user
-    Then I view new task with link "New Service Request" for the new account
+    Then I view new task with link "New Manufacturer Registration Request" for the new account
     And I assign the task to me and "approve" the generated task
     And The completed task status should update to "Completed"
     And I should received an email for stored manufacturer with heading "<newOrganisationEmail>"
     Examples:
       | businessUser | logBackInAas     | accountType  | approveReject | countryName    | countryNameNonEU | newAccountEmail         | newOrganisationEmail              |
-      | businessNoor | manufacturerNoor | manufacturer | approve       | United Kingdom | Bangladesh       | New Account Request for | Manufacturer registration service |
+      | businessNoor | manufacturerNoor | manufacturer | approve       | United Kingdom | Bangladesh       | New Account Request for | Manufacturer Registration Request |
 
 
   @ignore
@@ -51,7 +51,6 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | gmdnDefinition | Blood weighing scale   |
       | customMade     | true                   |
     And Proceed to payment and confirm submit device details
-    Then I should see the registered manufacturers list
     And I logout and log back into appian as "<businessUser>" user
     Then I view new task with link "New Service Request" for the new account
     And I assign the task to me and "approve" the generated task
@@ -174,8 +173,8 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | businessAuto | All Devices       | ManufacturerRT  | 1     |
       | businessAuto | All Products      | AuthorisedRepRT | 1     |
       | businessAuto | All Products      | ManufacturerRT  | 1     |
-      | businessAuto | All Organisations | AuthorisedRepRT | 1     |
-      | businessAuto | All Organisations | ManufacturerRT  | 1     |
+      | businessAuto |  Organisations | AuthorisedRepRT | 1     |
+      | businessAuto |  Organisations | ManufacturerRT  | 1     |
 
   @ignore
   Scenario: S7d Verify RAG Status

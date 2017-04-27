@@ -1,5 +1,6 @@
 package com.mhra.mdcm.devices.appian.pageobjects.business.sections.records;
 
+import com.mhra.mdcm.devices.appian.enums.PageHeaders;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
@@ -17,7 +18,7 @@ import java.util.List;
  * Created by TPD_Auto 
  */
 @Component
-public class AllDevices extends _Page {
+public class GMDNDevices extends _Page {
 
     @FindBy(xpath = ".//table//th")
     List<WebElement> listOfTableHeadings;
@@ -41,7 +42,7 @@ public class AllDevices extends _Page {
     WebElement clearFilters;
 
     @Autowired
-    public AllDevices(WebDriver driver) {
+    public GMDNDevices(WebDriver driver) {
         super(driver);
     }
 
@@ -59,17 +60,17 @@ public class AllDevices extends _Page {
         boolean itemsDisplayed = false;
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h1[.='" + expectedHeadings + "']") , TIMEOUT_DEFAULT, false);
 
-        if(expectedHeadings.contains("All Devices")){
+        if(expectedHeadings.contains(PageHeaders.PAGE_HEADERS_GMDN_DEVICES.header)){
             itemsDisplayed = listOfAllDevices.size() > 0;
         }
 
         return itemsDisplayed;
     }
 
-    public AllDevices searchForAllDevices(String searchTerm) {
+    public GMDNDevices searchForAllDevices(String searchTerm) {
         WaitUtils.waitForElementToBeClickable(driver, searchBox, TIMEOUT_DEFAULT, false);
         PageUtils.searchPageFor(searchTerm, searchBox);
-        return new AllDevices(driver);
+        return new GMDNDevices(driver);
     }
 
     public String getARandomGMDNCode() {
@@ -105,14 +106,14 @@ public class AllDevices extends _Page {
         return columnsNotFound;
     }
 
-    public AllDevices clickOnARandomGMDNCode() {
+    public GMDNDevices clickOnARandomGMDNCode() {
         //String gmdnCode = getARandomGMDNCode();
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         int position = RandomDataUtils.getSimpleRandomNumberBetween(1, listOfGmdnCode.size() - 1, false);
         WebElement gmdnCode = listOfGmdnCode.get(position);
         gmdnCode = gmdnCode.findElement(By.tagName("a"));
         PageUtils.doubleClick(driver, gmdnCode);
-        return new AllDevices(driver);
+        return new GMDNDevices(driver);
 
     }
 
@@ -134,10 +135,10 @@ public class AllDevices extends _Page {
         return columnsNotFound.size() == 0;
     }
 
-    public AllDevices filterByDeviceType(String deviceType) {
+    public GMDNDevices filterByDeviceType(String deviceType) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         PageUtils.selectFromDropDown(driver, listOfDropDownFilters.get(0) , deviceType, false);
-        return new AllDevices(driver);
+        return new GMDNDevices(driver);
     }
 
 
@@ -159,11 +160,11 @@ public class AllDevices extends _Page {
         return allMatched;
     }
 
-    public AllDevices clearFilter() {
+    public GMDNDevices clearFilter() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_3_SECOND, false);
         clearFilters.click();
-        return new AllDevices(driver);
+        return new GMDNDevices(driver);
     }
 
 

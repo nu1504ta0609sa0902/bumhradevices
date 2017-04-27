@@ -259,8 +259,8 @@ public class ManufacturerViewDetails extends _Page {
 
     public AddDevices clickDeclareDeviceBtn() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeVisible(driver, declareADevice, TIMEOUT_15_SECOND, false);
-        WaitUtils.waitForElementToBeClickable(driver, declareADevice, TIMEOUT_15_SECOND, false);
+        WaitUtils.waitForElementToBeVisible(driver, declareADevice, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, declareADevice, TIMEOUT_5_SECOND, false);
         declareADevice.click();
         return new AddDevices(driver);
     }

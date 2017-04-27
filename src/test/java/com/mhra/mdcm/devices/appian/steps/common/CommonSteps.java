@@ -17,21 +17,13 @@ import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.Manufactur
 import com.mhra.mdcm.devices.appian.pageobjects.external.myaccount.ContactPersonDetails;
 import com.mhra.mdcm.devices.appian.pageobjects.external.myaccount.OrganisationDetails;
 import com.mhra.mdcm.devices.appian.session.ScenarioSession;
-import com.mhra.mdcm.devices.appian.utils.reporter.CreatePrettyReport;
-import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
-import cucumber.api.java.After;
-import org.junit.Rule;
-import org.junit.rules.TestWatcher;
-import org.junit.runner.Description;
 import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
-
-import java.util.Map;
 
 
 @ContextConfiguration(locations = {"/cucumber.mhra.devices.xml"})
@@ -75,15 +67,13 @@ public class CommonSteps {
     @Autowired
     public Accounts accounts;
     @Autowired
-    public Devices devices;
+    public RegisteredDevices registeredDevices;
     @Autowired
-    public Products products;
+    public Organisations organisations;
     @Autowired
-    public AllOrganisations allOrganisations;
+    public GMDNDevices devicesGMDN;
     @Autowired
-    public AllDevices allDevices;
-    @Autowired
-    public AllProducts allProducts;
+    public RegisteredProducts registeredProducts;
     @Autowired
     public _CreateAccountTestsData createTestsData;
     @Autowired
