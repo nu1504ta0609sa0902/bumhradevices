@@ -22,7 +22,7 @@ public class GMDNDevices extends _Page {
 
     @FindBy(xpath = ".//table//th")
     List<WebElement> listOfTableHeadings;
-    @FindBy(xpath = ".//h1[.='All Devices']//following::tr")
+    @FindBy(xpath = ".//h1[.='GMDN Devices']//following::tr")
     List<WebElement> listOfAllDevices;
     @FindBy(xpath = ".//td[2]")
     List<WebElement> listOfGmdnCode;

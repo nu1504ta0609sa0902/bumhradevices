@@ -9,11 +9,11 @@ Feature: As a business user, I want to access a list of organisations with an ac
     And I should see the following columns for "<link>" page
       | columns | <columns> |
     Examples:
-      | user         | link              | pageHeading       | columns                                                                                                          |
-      | businessAuto | All Devices       | All Devices       | Device type,GMDN code,GMDN term                                                                                  |
-      | businessAuto | All Products      | All Products      | Device Type,Product Make,Product Model,Product Name,Device Label,Manufacturer,Country,Authorised Representative  |
-      | businessAuto | Organisations | Organisations | Name,Role,Contact name,Address,Country,Status                                                                    |
-      | businessAuto | Accounts          | Accounts          | Organisation name,Account number,Organisation role,Contact name,Organisation address,Organisation country,Status |
+      | user         | link                | pageHeading         | columns                                                                                                          |
+      | businessAuto | GMDN Devices        | GMDN Devices        | Device type,GMDN code,GMDN term                                                                                  |
+      | businessAuto | Registered Products | Registered Products | Device Type,Product Make,Product Model,Product Name,Device Label,Manufacturer,Country,Authorised Representative  |
+      | businessAuto | Organisations       | Organisations       | Name,Role,Contact name,Address,Country,Status                                                                    |
+      | businessAuto | Accounts            | Accounts            | Organisation name,Account number,Organisation role,Contact name,Organisation address,Organisation country,Status |
 
   @regression @4006 @_sprint11
   Scenario Outline: Completed tasks page should show correct data
@@ -34,7 +34,7 @@ Feature: As a business user, I want to access a list of organisations with an ac
     And I should see the following columns for "<link>" page
       | columns | <columns> |
     Examples:
-      | user         | link              | pageHeading       | columns                                       |
+      | user         | link          | pageHeading   | columns                                       |
       | businessAuto | Organisations | Organisations | Name,Role,Contact name,Address,Country,Status |
 
 
@@ -45,9 +45,9 @@ Feature: As a business user, I want to access a list of organisations with an ac
     Then I should see items and heading "<pageHeading>" for link "<link>"
     And The items in "<pageHeading>" page are displayed in alphabetical order
     Examples:
-      | user         | link              | pageHeading       |
+      | user         | link          | pageHeading   |
       | businessAuto | Organisations | Organisations |
-      | businessAuto | Accounts          | Accounts          |
+      | businessAuto | Accounts      | Accounts      |
 
 
   @regression @mdcm-126 @mdcm-23 @1937 @3837 @3895 @_sprint10 @readonly @_sprint1 @_sprint6
@@ -62,13 +62,13 @@ Feature: As a business user, I want to access a list of organisations with an ac
     And I sort items in "<pageHeading>" page by "<tableHeading>"
     Then I should see table column "<column>" also displaying "<unFilteredData>" in "<pageHeading>" page
     Examples:
-      | user         | link     | pageHeading | filterBy          | filterValue  | unFilteredData | tableHeading      | searchTerm | column |
-#      | businessAuto | Accounts | Accounts    | Organisation Role | Authorised  | Manufacturer   | Organisation name | RT01       | Role   |
-#      | businessAuto | Accounts | Accounts    | Organisation Role | Manufacturer | Authorised     | Organisation name | RT01       | Role   |
-#      | businessAuto | Organisations | Organisations | Organisation Role | Manufacturer       | Authorised         | Name              | RT01       | Role        |
-      | businessAuto | Organisations | Organisations | Registered status | Registered         | Not Registered     | Name              | RT01       | Status      |
-#      | businessAuto | All Products      | All Products      | Device type       | Active Implantable | In Vitro           | Device Type       | RT01       | Device type |
-#      | businessAuto | All Products      | All Products      | Device type       | In Vitro           | Active Implantable | Device Type       | RT01       | Device type |
+      | user         | link                | pageHeading         | filterBy          | filterValue        | unFilteredData     | tableHeading      | searchTerm | column      |
+      | businessAuto | Accounts            | Accounts            | Organisation Role | Authorised         | Manufacturer       | Organisation name | RT01       | Role        |
+      | businessAuto | Accounts            | Accounts            | Organisation Role | Manufacturer       | Authorised         | Organisation name | RT01       | Role        |
+      | businessAuto | Organisations       | Organisations       | Organisation Role | Manufacturer       | Authorised         | Name              | RT01       | Role        |
+      | businessAuto | Organisations       | Organisations       | Registered status | Registered         | Not Registered     | Name              | RT01       | Status      |
+      | businessAuto | Registered Products | Registered Products | Device type       | Active Implantable | In Vitro           | Device Type       | RT01       | Device type |
+      | businessAuto | Registered Products | Registered Products | Device type       | In Vitro           | Active Implantable | Device Type       | RT01       | Device type |
 
 
   @mdcm-23 @readonly @_sprint6 @3837 @_sprint10
@@ -78,7 +78,7 @@ Feature: As a business user, I want to access a list of organisations with an ac
     And I search for a "<existing>" organisation
     Then All organisation search result should return <count> matches
     Examples:
-      | user         | link              | existing     | count |
+      | user         | link          | existing     | count |
       | businessAuto | Organisations | existing     | 1     |
       | businessAuto | Organisations | non existing | 0     |
 
@@ -89,11 +89,11 @@ Feature: As a business user, I want to access a list of organisations with an ac
     When I go to records page and click on "<link>"
     Then I should see items and heading "<pageHeading>" for link "<link>"
     Examples:
-      | user         | pageHeading  | link         |
-      | businessAuto | All Products | All Products |
-      | businessAuto | Devices      | Devices      |
-      | businessAuto | Accounts     | Accounts     |
-      | businessAuto | All Devices  | All Devices  |
+      | user         | pageHeading         | link                |
+      | businessAuto | Registered Products | Registered Products |
+      | businessAuto | Registered Devices  | Registered Devices  |
+      | businessAuto | Accounts            | Accounts            |
+      | businessAuto | GMDN Devices        | GMDN Devices        |
 
 
   @mdcm-23 @2797 @mdcm-626 @readonly @3895 @_sprint6 @_sprint7 @_sprint10
@@ -103,10 +103,10 @@ Feature: As a business user, I want to access a list of organisations with an ac
     And I perform a search for random account organisation or product in "<page>" page
     Then I should see at least <count> matches in "<page>" page search results
     Examples:
-      | user         | page              | count |
-      | businessAuto | Organisations | 1     |
-      | businessAuto | All Devices       | 1     |
-      | businessAuto | All Products      | 1     |
+      | user         | page                | count |
+      | businessAuto | Organisations       | 1     |
+      | businessAuto | GMDN Devices        | 1     |
+      | businessAuto | Registered Products | 1     |
 
   @2797 @mdcm-626 @readonly @_sprint7
   Scenario Outline: As a business user I should be able to perform SPECIFIC search for an existing organisation products devices and accounts
@@ -115,15 +115,15 @@ Feature: As a business user, I want to access a list of organisations with an ac
     And I perform a search for "<searchTerm>" in "<page>" page
     Then I should see at least <count> matches in "<page>" page search results
     Examples:
-      | user         | page              | searchTerm           | count |
-      | businessAuto | All Devices       | AuthorisedRepRT      | 1     |
-      | businessAuto | All Devices       | ManufacturerRT       | 1     |
-      | businessAuto | All Devices       | 13459                | 1     |
-      | businessAuto | All Devices       | Blood weighing scale | 1     |
-      | businessAuto | All Products      | 56797                | 1     |
-      | businessAuto | All Products      | AuthorisedRepRT      | 1     |
-      | businessAuto | All Products      | ManufacturerRT       | 1     |
-      | businessAuto | Organisations | AuthorisedRepRT      | 1     |
+      | user         | page                | searchTerm           | count |
+      | businessAuto | GMDN Devices        | AuthorisedRepRT      | 1     |
+      | businessAuto | GMDN Devices        | ManufacturerRT       | 1     |
+      | businessAuto | GMDN Devices        | 13459                | 1     |
+      | businessAuto | GMDN Devices        | Blood weighing scale | 1     |
+      | businessAuto | Registered Products | 56797                | 1     |
+      | businessAuto | Registered Products | AuthorisedRepRT      | 1     |
+      | businessAuto | Registered Products | ManufacturerRT       | 1     |
+      | businessAuto | Organisations       | AuthorisedRepRT      | 1     |
 
 
   @2797 @readonly @_sprint7
@@ -135,10 +135,10 @@ Feature: As a business user, I want to access a list of organisations with an ac
     When I view a random product by "<fieldName>"
     Then I should see all the correct product details
     Examples:
-      | user         | page         | searchTerm      | count | fieldName    |
-      | businessAuto | All Products | 56797           | 1     | Product Name |
-      | businessAuto | All Products | AuthorisedRepRT | 1     | Product Name |
-      | businessAuto | All Products | ManufacturerRT  | 1     | Product Name |
+      | user         | page                | searchTerm      | count | fieldName    |
+      | businessAuto | Registered Products | 56797           | 1     | Product Name |
+      | businessAuto | Registered Products | AuthorisedRepRT | 1     | Product Name |
+      | businessAuto | Registered Products | ManufacturerRT  | 1     | Product Name |
 
 
   @2797 @readonly @_sprint7
@@ -149,9 +149,9 @@ Feature: As a business user, I want to access a list of organisations with an ac
     And I click on a random organisation link "<searchTerm>" in "<page>" page
     Then I should see business manufacturer details page for the manufacturer
     Examples:
-      | user         | page         | searchTerm      | count |
-      | businessAuto | All Products | AuthorisedRepRT | 1     |
-      | businessAuto | All Products | ManufacturerRT  | 1     |
+      | user         | page                | searchTerm      | count |
+      | businessAuto | Registered Products | AuthorisedRepRT | 1     |
+      | businessAuto | Registered Products | ManufacturerRT  | 1     |
 
 
   @2797 @mdcm-626 @readonly @3894 @_sprint10 @_sprint7
@@ -167,6 +167,6 @@ Feature: As a business user, I want to access a list of organisations with an ac
     Then I should see a list of manufacturers using this gmdn product
     And I should see the following columns "<columns>" for all devices list of manufacturer table
     Examples:
-      | user         | pageHeading | searchTerm      | count | deviceType | deviceType2 | columns                                                          |
-      | businessAuto | All Devices | AuthorisedRepRT | 1     | IVD        | Non-IVD     | Organisation name,Country,Authorised Representative              |
-      | businessAuto | All Devices | ManufacturerRT  | 1     | Non-IVD    | IVD         | Organisation name,Organisation country,Authorised Representative |
+      | user         | pageHeading  | searchTerm      | count | deviceType | deviceType2 | columns                                                          |
+      | businessAuto | GMDN Devices | AuthorisedRepRT | 1     | IVD        | Non-IVD     | Organisation name,Country,Authorised Representative              |
+      | businessAuto | GMDN Devices | ManufacturerRT  | 1     | Non-IVD    | IVD         | Organisation name,Organisation country,Authorised Representative |
