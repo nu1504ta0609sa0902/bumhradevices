@@ -41,7 +41,6 @@ Feature: As an account holder with access to the device registration service
 #    And The gmdn code or term is "displayed" in summary section
 #    And All the gmdn codes or terms are "displayed" in summary section
     When Proceed to payment and confirm submit device details
-#    Then I should see the registered manufacturers list
     When I logout of the application
     And I am logged into appian as "<logBackInAas>" user
     And I view new task with link "Update Manufacturer Registration Request" for the new account

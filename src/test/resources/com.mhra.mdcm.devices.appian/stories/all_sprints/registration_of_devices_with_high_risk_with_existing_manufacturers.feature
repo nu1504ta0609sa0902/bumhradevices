@@ -141,7 +141,6 @@ Feature: As an account holder with access to the Device Registration Service I w
       | listOfProductNames | <listOfProductNames> |
     Then I should see option to add another device
     And Proceed to payment and confirm submit device details
-    #Then I should see the registered manufacturers list
     When I logout of the application
     And I login to appian as "<logBackInAas>" user
     When I go to WIP tasks page

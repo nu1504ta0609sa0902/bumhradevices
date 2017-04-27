@@ -82,8 +82,6 @@ Feature: As an account holder with access to the Device Registration Service
       | deviceType     | <deviceType> |
       | gmdnDefinition | <gmdn1>      |
       | customMade     | true         |
-#      | relatedDeviceSterile   | true         |
-#      | relatedDeviceMeasuring | true         |
     And I add another device to SELECTED manufacturer with following data
       | deviceType     | <deviceType> |
       | gmdnDefinition | <gmdn2>      |
@@ -94,7 +92,7 @@ Feature: As an account holder with access to the Device Registration Service
     Examples:
       | user              | deviceType             | gmdn1                | gmdn2           |
       | authorisedRepAuto | General Medical Device | Blood weighing scale | Autopsy measure |
-      #| manufacturerAuto | General Medical Device | Blood weighing scale | Autopsy measure |
+      | manufacturerAuto  | General Medical Device | Blood weighing scale | Autopsy measure |
 
 
   @regression @mdcm-489 @_sprint5 @mdcm-148 @_sprint7 @3755 @_sprint11 @2910 @_sprint7
@@ -163,7 +161,6 @@ Feature: As an account holder with access to the Device Registration Service
       | relatedDeviceSterile   | <deviceSterile>      |
       | relatedDeviceMeasuring | <deviceMeasuring>    |
     And Proceed to payment and confirm submit device details
-#    Then I should see the registered manufacturers list
     When I logout of the application
     And I am logged into appian as "<logBackInAas>" user
     And I view new task with link "Update Manufacturer Registration Request" for the new account
@@ -176,12 +173,12 @@ Feature: As an account holder with access to the Device Registration Service
     Then Verify devices displayed and GMDN details are correct
     And I should be able to view products related to stored devices
     Examples:
-      | user             | logBackInAas | deviceType               | customMade | deviceSterile | deviceMeasuring | status     | gmdn                | riskClassification | notifiedBody |
-#      | authorisedRepAuto | businessAuto | General Medical Device             | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
-#      | authorisedRepAuto | businessAuto | Active Implantable Medical Devices | true       |               |                 | Registered | Desiccating chamber  |                    |              |
-#      | manufacturerAuto  | businessAuto | General Medical Device             | true       |               |                 | Registered | Blood weighing scale |                    |              |
-      | manufacturerAuto | businessAuto | System or Procedure Pack |            | true          | true            | Registered | Desiccating chanber | class1             | NB 0086 BSI  |
-      | manufacturerAuto | businessAuto | System or Procedure Pack |            | false         | true            | Registered | Desiccating chanber | class1             | NB 0086 BSI  |
+      | user              | logBackInAas | deviceType                         | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
+      | authorisedRepAuto | businessAuto | General Medical Device             | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
+      | authorisedRepAuto | businessAuto | Active Implantable Medical Devices | true       |               |                 | Registered | Desiccating chamber  |                    |              |
+      | manufacturerAuto  | businessAuto | General Medical Device             | true       |               |                 | Registered | Blood weighing scale |                    |              |
+      | manufacturerAuto  | businessAuto | System or Procedure Pack           |            | true          | true            | Registered | Desiccating chanber  | class1             | NB 0086 BSI  |
+      | manufacturerAuto  | businessAuto | System or Procedure Pack           |            | false         | true            | Registered | Desiccating chanber  | class1             | NB 0086 BSI  |
 
 
   @regression @readonly @mdcm-485 @_sprint5 @wip

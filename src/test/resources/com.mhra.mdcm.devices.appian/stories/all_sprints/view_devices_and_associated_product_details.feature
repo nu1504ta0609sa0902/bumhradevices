@@ -13,7 +13,6 @@ Feature: As a user, I want to view devices and product details associated with a
       | gmdnDefinition | Blood weighing scale   |
       | customMade     | true                   |
     And Proceed to payment and confirm submit device details
-    #Then I should see the registered manufacturers list
     When I logout of the application
     And I am logged into appian as "<logBackInAs>" user
     And I view new task with link "New Manufacturer Registration Request" for the new account
@@ -54,7 +53,6 @@ Feature: As a user, I want to view devices and product details associated with a
       | gmdnDefinition | Blood weighing scale |
       | customMade     | true                 |
     And Proceed to payment and confirm submit device details
-    #Then I should see the registered manufacturers list
     When I logout of the application
     And I am logged into appian as "<logBackInAs>" user
     And I view new task with link "New Manufacturer Registration Request" for the new account
