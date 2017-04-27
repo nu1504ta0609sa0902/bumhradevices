@@ -31,8 +31,6 @@ public class RecordsPageSteps extends CommonSteps {
             accounts = recordsPage.clickOnAccounts();
         } else if (page.equals(LinksRecordPage.LINK_REGISTERED_DEVICES.link)) {
             registeredDevices = recordsPage.clickOnRegisteredDevices();
-//        } else if (page.equals("Products")) {
-//            products = recordsPage.clickOnProducts();
         } else if (page.equals(LinksRecordPage.LINK_ORGANISATIONS.link)) {
             organisations = recordsPage.clickOnOrganisations();
         } else if (page.equals(LinksRecordPage.LINK_GMDN_DEVICES.link)) {
@@ -59,9 +57,6 @@ public class RecordsPageSteps extends CommonSteps {
         } else if (page.equals(LinksRecordPage.LINK_REGISTERED_DEVICES.link)) {
             isHeadingVisibleAndCorrect = registeredDevices.isHeadingCorrect(expectedHeadings);
             isItemsDisplayedAndCorrect = registeredDevices.isItemsDisplayed(expectedHeadings);
-//        } else if (page.equals("Products")) {
-//            isHeadingVisibleAndCorrect = products.isHeadingCorrect(expectedHeadings);
-//            isItemsDisplayedAndCorrect = products.isItemsDisplayed(expectedHeadings);
         } else if (page.equals(LinksRecordPage.LINK_ORGANISATIONS.link)) {
             isHeadingVisibleAndCorrect = organisations.isHeadingCorrect(expectedHeadings);
             isItemsDisplayedAndCorrect = organisations.isItemsDisplayed(expectedHeadings);
