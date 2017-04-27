@@ -48,7 +48,7 @@ Feature: As a customer I want to receive email notifications when ever a account
       | gmdnDefinition | Blood weighing scale   |
       | customMade     | true                   |
     And Proceed to payment and confirm submit device details
-    Then I should see the registered manufacturers list
+    #Then I should see the registered manufacturers list
     When I logout and log back into appian as "<logBackInAs>" user
     And I view new task with link "New Manufacturer Registration Request" for the new account
     When I assign the task to me and "<approveReject>" the generated task
@@ -72,7 +72,7 @@ Feature: As a customer I want to receive email notifications when ever a account
       | gmdnDefinition | Blood weighing scale   |
       | customMade     | true                   |
     And Proceed to payment and confirm submit device details
-    Then I should see the registered manufacturers list
+    #Then I should see the registered manufacturers list
     When I logout and log back into appian as "<logBackInAs>" user
     And I view new task with link "New Manufacturer Registration Request" for the new account
     When I assign the task to me and reject the task for following reason "<reason>"
@@ -109,7 +109,7 @@ Feature: As a customer I want to receive email notifications when ever a account
       | gmdnDefinition | Blood weighing scale   |
       | customMade     | true                   |
     And Proceed to payment and confirm submit device details
-    Then I should see the registered manufacturers list
+    #Then I should see the registered manufacturers list
 #    Log back in as business and verify email is received
     When I logout and log back into appian as "<user>" user
     Then I view new task with link "New Service Request" for the new account

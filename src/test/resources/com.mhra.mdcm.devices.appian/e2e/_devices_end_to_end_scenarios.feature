@@ -81,7 +81,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | relatedDeviceSterile   | <deviceSterile>      |
       | relatedDeviceMeasuring | <deviceMeasuring>    |
     And Proceed to payment and confirm submit device details
-    Then I should see the registered manufacturers list
+    #Then I should see the registered manufacturers list
     When I logout of the application
     And I am logged into appian as "<businessUser>" user
     And I view new task with link "Update Manufacturer Registration Request" for the new account
@@ -113,7 +113,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | notifiedBody           | NB 0086 BSI  |
     And I remove the device with gmdn "<gmdn1>" code
     And Proceed to payment and confirm submit device details
-    Then I should see the registered manufacturers list
+    #Then I should see the registered manufacturers list
     When I logout and log back into appian as "<logBackInAs>" user
     And I go to WIP tasks page
     And I view task for the new account in WIP page
@@ -141,7 +141,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | relatedDeviceSterile   | <deviceSterile>      |
       | relatedDeviceMeasuring | <deviceMeasuring>    |
     And Proceed to payment and confirm submit device details
-    Then I should see the registered manufacturers list
+    #Then I should see the registered manufacturers list
     When I logout of the application
     And I am logged into appian as "<businessUser>" user
     And I view new task with link "Update Manufacturer Registration Request" for the new account

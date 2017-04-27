@@ -123,7 +123,7 @@ Feature: As a business and account holder, I want to be able to update party det
       | riskClassification     | class1       |
       | notifiedBody           | NB 0086 BSI  |
     And Proceed to payment and confirm submit device details
-    Then I should see the registered manufacturers list
+    #Then I should see the registered manufacturers list
     When I logout of the application
     And I am logged into appian as "<logBackInAs>" user
     And I go to WIP tasks page

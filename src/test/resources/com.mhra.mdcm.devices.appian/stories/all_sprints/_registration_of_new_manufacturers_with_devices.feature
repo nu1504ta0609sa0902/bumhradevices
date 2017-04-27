@@ -44,7 +44,7 @@ Feature: As a customer I want to register new manufacturers with devices
       | relatedDeviceSterile   | <deviceSterile>      |
       | relatedDeviceMeasuring | <deviceMeasuring>    |
     And Proceed to payment and confirm submit device details
-    Then I should see the registered manufacturers list
+    #Then I should see the registered manufacturers list
     When I logout of the application
     And I am logged into appian as "<logBackInAas>" user
     And I view new task with link "New Manufacturer Registration Request" for the new account
