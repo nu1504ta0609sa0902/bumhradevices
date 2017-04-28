@@ -66,12 +66,14 @@ public class ExternalHomePageSteps extends CommonSteps {
     @Then("^I should see the correct manufacturer details$")
     public void i_should_see_the_correct_manufacturer_details() throws Throwable {
         String name = (String) scenarioSession.getData(SessionKey.organisationName);
-        boolean isManufacturer = true;
-        if(name.contains("thorised")){
-            isManufacturer = false;
+        if(name==null) {
+            boolean isManufacturer = true;
+            if (name.contains("thorised")) {
+                isManufacturer = false;
+            }
+            boolean isCorrectOrgLoaded = manufacturerDetails.isOrganisationNameCorrect(name, isManufacturer);
+            Assert.assertThat("Organisation Name Expected : " + name, isCorrectOrgLoaded, Matchers.is(true));
         }
-        boolean isCorrectOrgLoaded = manufacturerDetails.isOrganisationNameCorrect(name, isManufacturer);
-        Assert.assertThat("Organisation Name Expected : " + name, isCorrectOrgLoaded, Matchers.is(true));
     }
 
     @And("^I go to register my organisations page$")

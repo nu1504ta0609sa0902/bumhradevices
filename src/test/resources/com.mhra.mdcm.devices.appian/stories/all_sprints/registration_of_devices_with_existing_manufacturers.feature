@@ -2,7 +2,7 @@ Feature: As an account holder with access to the Device Registration Service
   I want to register a manufacturer and declare devices being manufacturer
   so that they can place the device for sale on the EU market
 
-  @regression @readonly @mdcm-14 @mdcm-21 @_sprint3 @_sprint5
+  @readonly @mdcm-14 @mdcm-21 @_sprint3 @_sprint5
   Scenario Outline: Users should be able to view already registered manufacturers
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -30,7 +30,6 @@ Feature: As an account holder with access to the Device Registration Service
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
     And I click on a random manufacturer to add devices
-#    And I click on random manufacturer with status "<status>"
     When I add a device to SELECTED manufacturer with following data
       | deviceType             | <deviceType>         |
       | gmdnDefinition         | <gmdnDefinition>     |

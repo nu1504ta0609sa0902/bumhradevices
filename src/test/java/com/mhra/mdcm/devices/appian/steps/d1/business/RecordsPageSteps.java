@@ -329,7 +329,7 @@ public class RecordsPageSteps extends CommonSteps {
             isOrderAtoZ = organisations.isOrderedAtoZ();
         }
 
-        Assert.assertThat("Default ordering of organisation name should be A to Z", isOrderAtoZ, is(true));
+        Assert.assertThat("Either list is not ordered A to Z OR there are duplicates", isOrderAtoZ, is(true));
 
     }
 

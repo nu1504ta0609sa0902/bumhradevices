@@ -10,7 +10,7 @@ Feature: As a business and account holder, I want to be able to update party det
     When I view a randomly searched account and update the following data "<keyValuePairs>"
     Then I should see the changes "<keyValuePairs>" in the account page
     Examples:
-      | user         | link     | searchTerm       | keyValuePairs                                          |
+      | user         | link     | searchTerm              | keyValuePairs                                          |
       | businessAuto | Accounts | ManufacturerAccountRT01 | address.line1,address.line2,city.town,country,postcode |
       | businessAuto | Accounts | ManufacturerAccountRT01 | org.telephone,org.fax,job.title                        |
       | businessAuto | Accounts | ManufacturerAccountRT00 | org.name                                               |
@@ -25,7 +25,7 @@ Feature: As a business and account holder, I want to be able to update party det
     When I view a randomly searched account and update the following data "<keyValuePairs>"
     Then I should see the changes "<keyValuePairs>" in the account page
     Examples:
-      | user         | link     | searchTerm        | keyValuePairs                                  |
+      | user         | link     | searchTerm               | keyValuePairs                                  |
       | businessAuto | Accounts | AuthorisedRepAccountRT01 | address.line1,address.line2,city.town,postcode |
       | businessAuto | Accounts | AuthorisedRepAccountRT01 | org.telephone,org.fax,job.title                |
       | businessAuto | Accounts | AuthorisedRepAccountRT00 | org.name                                       |
@@ -77,11 +77,11 @@ Feature: As a business and account holder, I want to be able to update party det
     Given I am logged into appian as "<user>" user
     When I go to list of manufacturers page
     Then I should see the following columns for "<expectedHeadings>" list of manufacturer table
-    And I click on random manufacturer with status "REGISTERED"
+    And I click on random manufacturer with status "<status>"
     Examples:
-      | user              | expectedHeadings                                                                             |
-      | manufacturerAuto  | Organisation name,Organisation address,Organisation country,Manufacturer registration status |
-      | authorisedRepAuto | Organisation name,Organisation address,Organisation country,Manufacturer registration status |
+      | user              | expectedHeadings                                                                             | status     |
+      | manufacturerAuto  | Organisation name,Organisation address,Organisation country,Manufacturer registration status | Registered |
+      | authorisedRepAuto | Organisation name,Organisation address,Organisation country,Manufacturer registration status | Registered |
 
 
   @regression @mdcm-21 @mdcm-162 @mdcm-171 @mdcm-485 @_sprint5 @wip @ignore

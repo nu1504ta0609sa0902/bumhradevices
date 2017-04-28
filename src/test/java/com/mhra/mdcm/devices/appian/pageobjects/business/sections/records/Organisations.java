@@ -141,11 +141,13 @@ public class Organisations extends _Page {
 
 
     public boolean areAllOrganisationRoleOfType(String organisationType) {
+        organisationType = organisationType.toLowerCase();
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, listOfOrganisationRoles.get(0), TIMEOUT_10_SECOND, false);
         boolean allMatched = true;
         for(WebElement el: listOfOrganisationRoles){
-            String text = el.getText();
+            String text = el.getText().toLowerCase();
             log.info(text);
             if(!text.contains("revious") && !text.contains("ext")) {
                 allMatched = text.contains(organisationType);
@@ -201,6 +203,7 @@ public class Organisations extends _Page {
         value = value.toLowerCase();
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, listOfAllStatus.get(0), TIMEOUT_10_SECOND, false);
         boolean allMatched = true;
         for(WebElement el: listOfAllStatus){
             String text = el.getText().toLowerCase();
