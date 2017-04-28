@@ -15,7 +15,7 @@ Feature: As a business user, I want to access a list of organisations with an ac
       | businessAuto | Organisations       | Organisations       | Name,Role,Contact name,Address,Country,Status                                                                    |
       | businessAuto | Accounts            | Accounts            | Organisation name,Account number,Organisation role,Contact name,Organisation address,Organisation country,Status |
 
-  @regression @4006 @_sprint11
+  @regression @4006 @_sprint11 @readonly
   Scenario Outline: Completed tasks page should show correct data
     Given I am logged into appian as "<user>" user
     When I go to completed task page

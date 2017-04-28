@@ -452,8 +452,7 @@ public class AddDevices extends _Page {
     }
 
     private void productLabelName(DeviceDO dd) {
-//        WaitUtils.waitForElementToBeClickable(driver, saveProduct2, TIMEOUT_5_SECOND, false);
-//        saveProduct2.click();
+
         WaitUtils.waitForElementToBeClickable(driver, txtProductNameLabel, TIMEOUT_5_SECOND, false);
         txtProductNameLabel.sendKeys(RandomDataUtils.getRandomTestName("Label"));
 
@@ -528,7 +527,7 @@ public class AddDevices extends _Page {
         //WaitUtils.waitForElementToBeClickable(driver, addProduct, TIMEOUT_10_SECOND, false);
         //WaitUtils.nativeWaitInSeconds(2);
         //addProduct.click();
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
 
         //Wait for form to be visible
         WaitUtils.waitForElementToBeClickable(driver, cbxProductName, TIMEOUT_10_SECOND, false);
@@ -707,8 +706,6 @@ public class AddDevices extends _Page {
                 //Click gmdn from search results
                 WebElement element = listOfGmdnMatchesReturnedBySearch.get(randomPosition);
                 element.click();
-                //element.findElement(By.tagName("a")).click();
-                //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
 
                 //If its a duplicate Try again
                 isErrorMessageDisplayed = isErrorMessageDisplayed("Duplicate");

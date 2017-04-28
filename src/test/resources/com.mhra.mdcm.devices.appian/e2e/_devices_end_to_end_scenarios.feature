@@ -9,11 +9,11 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | countryName | <countryName> |
     Then I should see a new task for the new account
     When I assign the task to me and "<approveReject>" the generated task
-    Then I should received an email for stored account with heading "<newAccountEmail>"
+    #Then I should received an email for stored account with heading "<newAccountEmail>"
 #Log back in as newly created manufacturer account user and register a new organisation with devices
     And I logout and log back into appian as "<logBackInAas>" user
     And I go to register a new manufacturer page
-    And I create a new manufacturer using manufacturer test harness page with following data
+    When I create a new manufacturer using manufacturer test harness page with following data
       | accountType | <accountType>      |
       | countryName | <countryNameNonEU> |
     And I add devices to NEWLY created manufacturer with following data
@@ -22,14 +22,14 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | customMade     | true                   |
     And Proceed to payment and confirm submit device details
 #Log back and verify task created for newly created manufacturer
-    And I logout and log back into appian as "<businessUser>" user
-    Then I view new task with link "New Manufacturer Registration Request" for the new account
+    When I logout and log back into appian as "<businessUser>" user
+    And I view new task with link "New Manufacturer Registration Request" for the new account
     And I assign the task to me and "approve" the generated task
-    And The completed task status should update to "Completed"
+    Then The completed task status should update to "Completed"
     And I should received an email for stored manufacturer with heading "<newOrganisationEmail>"
     Examples:
       | businessUser | logBackInAas     | accountType  | approveReject | countryName    | countryNameNonEU | newAccountEmail         | newOrganisationEmail              |
-      | businessNoor | manufacturerNoor | manufacturer | approve       | United Kingdom | Bangladesh       | New Account Request for | Manufacturer Registration Request |
+      | businessNoor | manufacturerNoor | manufacturer | approve       | United Kingdom | Bangladesh       | New Account Request for | Manufacturer Registration Request for |
 
 
   @ignore
@@ -81,7 +81,6 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | relatedDeviceSterile   | <deviceSterile>      |
       | relatedDeviceMeasuring | <deviceMeasuring>    |
     And Proceed to payment and confirm submit device details
-    #Then I should see the registered manufacturers list
     When I logout of the application
     And I am logged into appian as "<businessUser>" user
     And I view new task with link "Update Manufacturer Registration Request" for the new account
@@ -113,7 +112,6 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | notifiedBody           | NB 0086 BSI  |
     And I remove the device with gmdn "<gmdn1>" code
     And Proceed to payment and confirm submit device details
-    #Then I should see the registered manufacturers list
     When I logout and log back into appian as "<logBackInAs>" user
     And I go to WIP tasks page
     And I view task for the new account in WIP page
@@ -141,7 +139,6 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | relatedDeviceSterile   | <deviceSterile>      |
       | relatedDeviceMeasuring | <deviceMeasuring>    |
     And Proceed to payment and confirm submit device details
-    #Then I should see the registered manufacturers list
     When I logout of the application
     And I am logged into appian as "<businessUser>" user
     And I view new task with link "Update Manufacturer Registration Request" for the new account
@@ -169,10 +166,10 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     Then I should see at least <count> matches in "<page>" page search results
     Examples:
       | businessUser | page              | searchTerm      | count |
-      | businessAuto | All Devices       | AuthorisedRepRT | 1     |
-      | businessAuto | All Devices       | ManufacturerRT  | 1     |
-      | businessAuto | All Products      | AuthorisedRepRT | 1     |
-      | businessAuto | All Products      | ManufacturerRT  | 1     |
+      | businessAuto | GMDN Devices       | AuthorisedRepRT | 1     |
+      | businessAuto | GMDN Devices       | ManufacturerRT  | 1     |
+      | businessAuto | Registered Products      | AuthorisedRepRT | 1     |
+      | businessAuto | Registered Products      | ManufacturerRT  | 1     |
       | businessAuto |  Organisations | AuthorisedRepRT | 1     |
       | businessAuto |  Organisations | ManufacturerRT  | 1     |
 

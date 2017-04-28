@@ -70,7 +70,7 @@ Feature: As an account holder with access to the Device Registration Service
     Examples:
       | user              | deviceType             |
       | authorisedRepAuto | General Medical Device |
-      #| manufacturerAuto | General Medical Device |
+      | manufacturerAuto | General Medical Device |
 
 
   @regression @mdcm-134 @_sprint6 @bug

@@ -11,7 +11,7 @@ Feature: As a customer I want to receive email notifications when ever a account
     Then I should see a new task for the new account
     When I assign the task to me and "<approveReject>" the generated task
     Then The task with link "<link>" should be removed from tasks list
-    And The completed task status of new account should update to "Completed"
+#    And The completed task status of new account should update to "Completed"
     And I should received an email for stored account with heading "<emailHeader>"
     Examples:
       | user         | accountType   | approveReject | countryName    | link                | emailHeader             |
@@ -28,7 +28,7 @@ Feature: As a customer I want to receive email notifications when ever a account
     Then I should see a new task for the new account
     When I assign the task to me and reject the task for following reason "<reason>"
     Then The task with link "<link>" should be removed from tasks list
-    And The completed task status of new account should update to "Completed"
+#    And The completed task status of new account should update to "Completed"
     And I should received an email for stored account with heading "New Account Rejected"
     Examples:
       | user         | accountType   | countryName | reason                             | link                |
@@ -52,7 +52,7 @@ Feature: As a customer I want to receive email notifications when ever a account
     And I view new task with link "New Manufacturer Registration Request" for the new account
     When I assign the task to me and "<approveReject>" the generated task
     Then The task should be removed from tasks list
-    And The completed task status should update to "Completed"
+#    And The completed task status should update to "Completed"
     And I should received an email for stored manufacturer with heading "Manufacturer registration service"
     Examples:
       | user              | logBackInAs  | accountType   | approveReject | countryName |
@@ -75,7 +75,7 @@ Feature: As a customer I want to receive email notifications when ever a account
     And I view new task with link "New Manufacturer Registration Request" for the new account
     When I assign the task to me and reject the task for following reason "<reason>"
     Then The task should be removed from tasks list
-    And The completed task status should update to "Completed"
+#    And The completed task status should update to "Completed"
     And I should received an email for stored manufacturer with heading "Manufacturer registration service"
     Examples:
       | user              | logBackInAs  | accountType   | reason                 | countryName |
@@ -111,7 +111,7 @@ Feature: As a customer I want to receive email notifications when ever a account
     When I logout and log back into appian as "<user>" user
     Then I view new task with link "New Service Request" for the new account
     And I assign the task to me and "approve" the generated task
-    And The completed task status should update to "Completed"
+#    And The completed task status should update to "Completed"
     And I should received an email for stored manufacturer with heading "Manufacturer registration service"
     Examples:
       | user         | accountType   | approveReject | logBackInAas      | countryName | link                | accountNameBeginsWith |
