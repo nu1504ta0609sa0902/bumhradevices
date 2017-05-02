@@ -2,7 +2,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
 
   @automation_demo
   Scenario Outline: S1 Manufacturer account registration
-#Register new manufacturer account, approve the task and check MHRA approval email is received
+#Register new manufacturer account, approve the task and check MHRA approval email received
     Given I am logged into appian as "<businessUser>" user
     When I create a new account using business test harness page with following data
       | accountType | <accountType> |
