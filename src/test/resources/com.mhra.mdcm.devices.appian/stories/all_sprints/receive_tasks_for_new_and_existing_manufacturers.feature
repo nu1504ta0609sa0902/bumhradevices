@@ -21,7 +21,8 @@ Feature: As a business user, I want a task to be created each time a customer su
 #    When I download the letter of designation
     And Check task contains correct devices "<gmdnDefinition>" and other details
     And I assign the task to me and "approve" the generated task
-    Then The completed task status should update to "Completed"
+    #Then The completed task status should update to "Completed"
+    Then The task should be removed from tasks list
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition      | customMade | listOfProductNames |
       | manufacturerAuto  | businessAuto | manufacturer  | Brazil      | Active Implantable Medical Devices | Desiccating chamber | true       | setmeup1           |
@@ -54,7 +55,8 @@ Feature: As a business user, I want a task to be created each time a customer su
     #When I download the letter of designation
     And Check task contains correct devices "<gmdnDefinition>" and other details
     And I assign the task to me and "approve" the generated task
-    And The completed task status should update to "Completed"
+    Then The task should be removed from tasks list
+    #And The completed task status should update to "Completed"
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType                 | gmdnDefinition        | riskClassification | listOfProductNames | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
       | manufacturerAuto  | businessAuto | manufacturer  | Brazil      | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | ford,hyundai       | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
@@ -112,8 +114,8 @@ Feature: As a business user, I want a task to be created each time a customer su
     Then Task contains correct devices and products and other details for "<deviceType>"
     And Task shows devices which are arranged by device types
     And I assign the task to me and "<approveReject>" the generated task
-#    Then The task should be removed from WIP tasks list
-    Then The completed task status should update to "Completed"
+    Then The task should be removed from WIP tasks list
+    #Then The completed task status should update to "Completed"
     When I search accounts for the stored organisation name
     Then I should see at least 0 account matches
     Examples:
@@ -140,7 +142,8 @@ Feature: As a business user, I want a task to be created each time a customer su
     Then Check the WIP entry details for the "<taskType>" task is correct
     When I view task for the new account in WIP page
     And I assign the task to me and "approve" the generated task
-    Then The completed task status should update to "Completed"
+    #Then The completed task status should update to "Completed"
+    Then The task should be removed from tasks list
     Examples:
       | user              | logBackInAs  | gmdn                 | filterBy | filterBy2 | taskType                                 |
       | manufacturerAuto  | businessAuto | Blood weighing scale | orgName  | taskType  | Update Manufacturer Registration Request |

@@ -35,7 +35,7 @@ public class ViewAccount extends _Page {
     WebElement orgPostCode;
     @FindBy(xpath = ".//span[contains(text(),'Country')]//following::p[1]")
     WebElement orgCountry;
-    @FindBy(xpath = ".//span[contains(text(),'Address type')]//following::input[1]")
+    @FindBy(xpath = ".//span[contains(text(),'Type')]//following::input[1]")
     WebElement addressType;
     @FindBy(xpath = ".//span[contains(text(),'Telephone')]//following::p[1]")
     WebElement orgTelephone;
@@ -122,6 +122,7 @@ public class ViewAccount extends _Page {
     }
 
     public boolean verifyCorrectFieldsDisplayedOnPage() {
+        WaitUtils.waitForElementToBeClickable(driver, orgAddressLine1, TIMEOUT_10_SECOND, false);
         boolean isCorrect = isDisplayedOrgFieldsCorrect();
         if(isCorrect){
             isCorrect = isDisplayedContactPersonFieldsCorrect();

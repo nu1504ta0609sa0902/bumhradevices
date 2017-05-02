@@ -279,6 +279,7 @@ public class ManufacturerViewDetails extends _Page {
             else
                 return clickDeclareDeviceBtn();
         }catch (Exception e){
+            btnContinue.click();
             return new AddDevices(driver);
         }
     }

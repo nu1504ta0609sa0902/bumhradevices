@@ -12,7 +12,7 @@ Feature: Reset all the information related to a manufacturer and authorisedRep
     Then I should see a new task for the new account
     When I assign the task to me and "<approveReject>" the generated task
     Then The task with link "<link>" should be removed from tasks list
-    And The completed task status should update to "Completed"
+    #And The completed task status should update to "Completed"
     When I search accounts for the stored organisation name
     Then I should see at least <count> account matches
     Examples:

@@ -131,8 +131,8 @@ Feature: As a business and account holder, I want to be able to update party det
     Then Task contains correct devices and products and other details for "<deviceType>"
     And Task shows devices which are arranged by device types
     And I assign the task to me and "<approveReject>" the generated task
-#    Then The task should be removed from WIP tasks list
-    Then The completed task status should update to "Completed"
+    Then The task should be removed from WIP tasks list
+    #Then The completed task status should update to "Completed"
     When I search accounts for the stored organisation name
     Then I should see at least 0 account matches
     Examples:

@@ -208,7 +208,7 @@ public class ExternalHomePageSteps extends CommonSteps {
 
         //If registered we need to click on a button, else devices page is displayed
         String registeredStatus = (String) scenarioSession.getData(SessionKey.organisationRegistered);
-        //addDevices = manufacturerDetails.gotoAddDevicesPage(registeredStatus);
+        addDevices = manufacturerDetails.gotoAddDevicesPage(registeredStatus);
 
         //Assumes we are in add device page
         DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);

@@ -6,7 +6,7 @@ Feature: As an account holder with access to the device registration service
   Scenario Outline: Users should be able to add all 4 device type
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on a random manufacturer to add devices
+    And I click on a random manufacturer
     When I add a device to SELECTED manufacturer with following data
       | deviceType     | General Medical Device |
       | gmdnDefinition | <device1>              |
@@ -44,12 +44,12 @@ Feature: As an account holder with access to the device registration service
     When I logout of the application
     And I am logged into appian as "<logBackInAas>" user
     And I view new task with link "Update Manufacturer Registration Request" for the new account
-#    Then Check task contains correct devices "<device1>,<device2>,<device3>,<device4>" and other details
     Then Check task contains correct stored devices and other details
     And I assign the task to me and "approve" the generated task
-    Then The completed task status should update to "Completed"
+    #Then The completed task status should update to "Completed"
+    Then The task should be removed from tasks list
     Examples:
       | user              | logBackInAas | device1              | device2 | device3 | device4 |
-      | manufacturerAuto  | businessAuto | Blood weighing scale | Chamber | Sinus   | Recept  |
-      | authorisedRepAuto | businessAuto | Blood weighing scale | Chamber | Sinus   | Recept  |
+      | manufacturerAuto  | businessAuto | Blood weighing scale | Blood   | Sinus   | Recept  |
+      | authorisedRepAuto | businessAuto | Blood weighing scale | Blood   | Sinus   | Recept  |
 

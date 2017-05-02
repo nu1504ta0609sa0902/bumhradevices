@@ -22,7 +22,7 @@ Feature: As a customer I want to register new manufacturers
 #    When I download the letter of designation
     And I assign the task to me and "approve" the generated task
     Then The task should be removed from tasks list
-    And The completed task status should update to "Completed"
+    #And The completed task status should update to "Completed"
     When I search accounts for the stored organisation name
     Then I should see at least 0 account matches
     Examples:
@@ -49,7 +49,7 @@ Feature: As a customer I want to register new manufacturers
     And I view new task with link "New Manufacturer Registration Request" for the new account
     When I assign the task to me and "<approveReject>" the generated task
     Then The task should be removed from tasks list
-    And The completed task status should update to "Completed"
+    #And The completed task status should update to "Completed"
     When I search accounts for the stored organisation name
     Then I should see at least <count> account matches
     Examples:

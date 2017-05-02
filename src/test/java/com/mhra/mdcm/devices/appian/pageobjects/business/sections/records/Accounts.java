@@ -254,4 +254,13 @@ public class Accounts extends _Page {
         return new BusinessManufacturerDetails(driver);
     }
 
+    public boolean isSearchingCompleted() {
+        boolean seachingCompleted = false;
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_30_SECOND, false);
+            seachingCompleted = true;
+        }catch (Exception e){}
+        return seachingCompleted;
+    }
 }

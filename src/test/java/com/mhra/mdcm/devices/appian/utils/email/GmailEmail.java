@@ -1,7 +1,10 @@
 package com.mhra.mdcm.devices.appian.utils.email;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.sort.SortByMessageNumber;
+import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import org.apache.poi.ss.usermodel.DateUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -15,12 +18,15 @@ import java.util.*;
  */
 public class GmailEmail {
 
+    public static final Logger log = LoggerFactory.getLogger(GmailEmail.class);
+
     public static final String UNINVOICED_NOTIFICATIONS = "Uninvoiced Notifications";
     public static final String ANNUAL_INVOICED_NOTIFICATIONS = "Annual Notification Invoices";
 
     public static void main(String[] args) {
-        String body = GmailEmail.readMessageForSpecifiedOrganisations(5, 10, "Manufacturer registration service", "AuthorisedRepRT");
-        System.out.println(body);
+        String name = "ManufacturerRT01Test_2_5_196583";
+        String body = GmailEmail.readMessageForSpecifiedOrganisations(15, 10, "Manufacturer Registration Request for " + name , name);
+        log.warn(body);
     }
 
 
@@ -35,6 +41,7 @@ public class GmailEmail {
      */
     public static String readMessageForSpecifiedOrganisations(double min, int numberOfMessgesToCheck, String subjectHeading, String organisationName) {
 
+        log.info("Waiting for email with heading : " + subjectHeading);
         String bodyText = null;
         Properties props = getEmailServerConfiguration();
 
@@ -61,14 +68,14 @@ public class GmailEmail {
             List<Message> lom = Arrays.asList(messages);
             Collections.sort(lom, new SortByMessageNumber());
             messages = lom.toArray(new Message[lom.size()]);
-            //System.out.println("Number of messages : " + messages.length);
+            //log.warn("Number of messages : " + messages.length);
 
 
             for (int i = 0; i < messages.length; i++) {
                 Message message = messages[i];
                 Date sentDate = message.getSentDate();
                 String subject = message.getSubject();
-                //System.out.println(subject);
+                //log.warn(subject);
                 Address[] froms = message.getFrom();
 
                 for (Address from : froms) {
@@ -82,20 +89,21 @@ public class GmailEmail {
                             //If recent
                             boolean isRecent = receivedInLast(min, sentDate);
                             //isRecent = true;
-                            if (isRecent && subject.contains("Manufacturer registration")) {
-                                System.out.println("---------------------------------");
-                                System.out.println("Recent email received");
-                                System.out.println("---------------------------------");
+                            if (isRecent && subject.toLowerCase().contains("manufacturer registration")) {
+                                log.warn("---------------------------------");
+                                log.warn("Recent email received");
+                                log.warn("---------------------------------");
                                 String body = getTextFromMessage(message);
-                                //System.out.println("Body Text : " + body);
+                                //log.warn("Body Text : " + body);
 
                                 if(body.contains(organisationName)){
+                                    log.info("Message RECEIVED");
                                     bodyText = body;
                                     break;
                                 }
                             }
                         } else {
-                            //System.out.println("Message is old or not relevant" );
+                            //log.warn("Message is old or not relevant" );
                         }
                     }
                 }
@@ -106,8 +114,8 @@ public class GmailEmail {
                 }
             }
 
-            System.out.println("Waiting for message to arrive ..... ");
-            System.out.println("Total Messages : " + messageCount);
+            //log.warn("Waiting for message to arrive ..... ");
+            //log.warn("Total Messages : " + messageCount);
             inbox.close(true);
             store.close();
 
@@ -191,10 +199,10 @@ public class GmailEmail {
 //        writeEnvelope((Message) p);
 //
 //        if (p.isMimeType("multipart/*")) {
-//            System.out.println("----------------------------");
-//            System.out.println("CONTENT-TYPE: " + p.getContentType());
-//            System.out.println("This is a Multipart");
-//            System.out.println("---------------------------");
+//            log.warn("----------------------------");
+//            log.warn("CONTENT-TYPE: " + p.getContentType());
+//            log.warn("This is a Multipart");
+//            log.warn("---------------------------");
 //            Multipart mp = (Multipart) p.getContent();
 //            int count = mp.getCount();
 //            for (int i = 0; i < count; i++)
@@ -204,8 +212,8 @@ public class GmailEmail {
 //
 //            Object o = p.getContent();
 //            if (o instanceof InputStream) {
-//                System.out.println("This is just an input stream");
-//                System.out.println("---------------------------");
+//                log.warn("This is just an input stream");
+//                log.warn("---------------------------");
 //                InputStream is = (InputStream) o;
 //
 //                BufferedReader br = null;
@@ -235,7 +243,7 @@ public class GmailEmail {
 //                        }
 //                    }
 //                }
-//                System.out.println(sb.toString());
+//                log.warn(sb.toString());
 //            }
 //        }
 //    }
@@ -247,10 +255,10 @@ public class GmailEmail {
 //        if (p.isMimeType("multipart/*")) {
 //
 //            refusalForEmailContent = new StringBuilder();
-//            System.out.println("----------------------------");
-//            System.out.println("CONTENT-TYPE: " + p.getContentType());
-//            System.out.println("This is a Multipart");
-//            System.out.println("---------------------------");
+//            log.warn("----------------------------");
+//            log.warn("CONTENT-TYPE: " + p.getContentType());
+//            log.warn("This is a Multipart");
+//            log.warn("---------------------------");
 //            Multipart mp = (Multipart) p.getContent();
 //            int count = mp.getCount();
 //            for (int i = 0; i < count; i++) {
@@ -265,7 +273,7 @@ public class GmailEmail {
 //                        stripper.setSortByPosition(true);
 //                        PDFTextStripper Tstripper = new PDFTextStripper();
 //                        String st = Tstripper.getText(document);
-//                        //System.out.println("Text:" + st);
+//                        //log.warn("Text:" + st);
 //                        refusalForEmailContent.append(st);
 //                    }
 //                } catch (Exception e) {
@@ -276,8 +284,8 @@ public class GmailEmail {
 //
 //            Object o = p.getContent();
 //            if (o instanceof InputStream) {
-//                System.out.println("This is just an input stream");
-//                System.out.println("---------------------------");
+//                log.warn("This is just an input stream");
+//                log.warn("---------------------------");
 //                InputStream is = (InputStream) o;
 //
 //                BufferedReader br = null;
@@ -307,7 +315,7 @@ public class GmailEmail {
 //                        }
 //                    }
 //                }
-//                System.out.println(sb.toString());
+//                log.warn(sb.toString());
 //            }
 //        }
 //    }
@@ -319,31 +327,31 @@ public class GmailEmail {
 //    */
 //
 //    public static void writeEnvelope(Message m) throws Exception {
-//        System.out.println("This is the message envelope");
-//        System.out.println("---------------------------");
+//        log.warn("This is the message envelope");
+//        log.warn("---------------------------");
 //        Address[] a;
 //        // FROM
 //        if ((a = m.getFrom()) != null) {
 //            for (int j = 0; j < a.length; j++)
-//                System.out.println("FROM: " + a[j].toString());
+//                log.warn("FROM: " + a[j].toString());
 //        }
 //
 //        // TO
 //        if ((a = m.getRecipients(Message.RecipientType.TO)) != null) {
 //            for (int j = 0; j < a.length; j++)
-//                System.out.println("TO: " + a[j].toString());
+//                log.warn("TO: " + a[j].toString());
 //        }
 //
 //        // SUBJECT
 //        if (m.getSubject() != null)
-//            System.out.println("SUBJECT: " + m.getSubject());
+//            log.warn("SUBJECT: " + m.getSubject());
 //
 //
 //        //Content
 //
-//        System.out.println("Text: " + m.getContent().toString());
+//        log.warn("Text: " + m.getContent().toString());
 //        String message = getTextFromMessage(m);
-//        System.out.println(message);
+//        log.warn(message);
 //    }
 
 

@@ -199,6 +199,7 @@ public class RecordsPageSteps extends CommonSteps {
     @When("^I search for account with following text \"([^\"]*)\"$")
     public void i_search_for(String searchTerm) throws Throwable {
         accounts = accounts.searchForAccount(searchTerm);
+        accounts.isSearchingCompleted();
         scenarioSession.putData(SessionKey.searchTerm, searchTerm);
         scenarioSession.putData(SessionKey.organisationName, searchTerm);
     }
