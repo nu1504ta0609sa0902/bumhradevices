@@ -24,8 +24,8 @@ public class GmailEmail {
     public static final String ANNUAL_INVOICED_NOTIFICATIONS = "Annual Notification Invoices";
 
     public static void main(String[] args) {
-        String name = "ManufacturerRT01Test_2_5_196583";
-        String body = GmailEmail.readMessageForSpecifiedOrganisations(15, 10, "Manufacturer Registration Request for " + name , name);
+        String name = "ManufacturerRT01Test_2_5_";
+        String body = GmailEmail.readMessageForSpecifiedOrganisations(15, 10, "Manufacturer Registration Request for " , name);
         log.warn(body);
     }
 
