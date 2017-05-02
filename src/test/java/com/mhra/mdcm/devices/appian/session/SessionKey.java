@@ -26,4 +26,5 @@ public class SessionKey {
     public static String autoSuggestResults = "List of items returned by autosuggest fields";
     public static String listOfGmndsAdded = "List of GMDNs added by the current scenario";
     public static String listOfProductsAdded = "List of products added";
+    public static String newAccountName = "New Account Name";
 }

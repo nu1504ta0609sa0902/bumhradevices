@@ -1,6 +1,6 @@
 Feature: End 2 End Scenarios to verify system is behaving correctly from a high level view
 
-  @ignore
+  @automation_demo
   Scenario Outline: S1 Manufacturer account registration
 #Register new manufacturer account, approve the task and check MHRA approval email is received
     Given I am logged into appian as "<businessUser>" user
@@ -9,7 +9,6 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | countryName | <countryName> |
     Then I should see a new task for the new account
     When I assign the task to me and "<approveReject>" the generated task
-    #Then I should received an email for stored account with heading "<newAccountEmail>"
 #Log back in as newly created manufacturer account user and register a new organisation with devices
     And I logout and log back into appian as "<logBackInAas>" user
     And I go to register a new manufacturer page
@@ -25,7 +24,8 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     When I logout and log back into appian as "<businessUser>" user
     And I view new task with link "New Manufacturer Registration Request" for the new account
     And I assign the task to me and "approve" the generated task
-    Then The completed task status should update to "Completed"
+    Then The task should be removed from tasks list
+    And I should received an email for stored account with heading "<newAccountEmail>"
     And I should received an email for stored manufacturer with heading "<newOrganisationEmail>"
     Examples:
       | businessUser | logBackInAas     | accountType  | approveReject | countryName    | countryNameNonEU | newAccountEmail         | newOrganisationEmail              |
@@ -54,7 +54,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And I logout and log back into appian as "<businessUser>" user
     Then I view new task with link "New Service Request" for the new account
     And I assign the task to me and "approve" the generated task
-    And The completed task status should update to "Completed"
+    #And The completed task status should update to "Completed"
     And I should received an email for stored manufacturer with heading "<newOrganisationEmail>"
     Examples:
       | businessUser | logBackInAas     | accountType   | approveReject | countryName    | countryNameNonEU | newAccountEmail         | newOrganisationEmail              |
@@ -86,7 +86,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And I view new task with link "Update Manufacturer Registration Request" for the new account
     Then Check task contains correct devices "<gmdn>" and other details
     And I assign the task to me and "approve" the generated task
-    And The completed task status should update to "Completed"
+    #And The completed task status should update to "Completed"
     And I should received an email for stored account with heading "<emailHeader>"
     Examples:
       | user              | businessUser | deviceType             | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
@@ -116,7 +116,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And I go to WIP tasks page
     And I view task for the new account in WIP page
     And I assign the task to me and "<approveReject>" the generated task
-    Then The completed task status should update to "Completed"
+    #Then The completed task status should update to "Completed"
     When I search accounts for the stored organisation name
     Then I should see at least 0 account matches
     Examples:
@@ -144,7 +144,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And I view new task with link "Update Manufacturer Registration Request" for the new account
     Then Check task contains correct devices "<gmdn>" and other details
     And I assign the task to me and "approve" the generated task
-    And The completed task status should update to "Completed"
+    #And The completed task status should update to "Completed"
     And I should received an email for stored account with heading "<emailHeader>"
     Examples:
       | user              | businessUser | deviceType             | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |

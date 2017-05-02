@@ -41,6 +41,7 @@ public class GmailEmail {
      */
     public static String readMessageForSpecifiedOrganisations(double min, int numberOfMessgesToCheck, String subjectHeading, String organisationName) {
 
+        subjectHeading = subjectHeading + " " + organisationName;
         log.info("Waiting for email with heading : " + subjectHeading);
         String bodyText = null;
         Properties props = getEmailServerConfiguration();
@@ -91,7 +92,19 @@ public class GmailEmail {
                             //isRecent = true;
                             if (isRecent && subject.toLowerCase().contains("manufacturer registration")) {
                                 log.warn("---------------------------------");
-                                log.warn("Recent email received");
+                                log.warn("Recent email received : " + subject);
+                                log.warn("---------------------------------");
+                                String body = getTextFromMessage(message);
+                                //log.warn("Body Text : " + body);
+
+                                if(body.contains(organisationName)){
+                                    log.info("Message RECEIVED");
+                                    bodyText = body;
+                                    break;
+                                }
+                            } else if (isRecent && subject.toLowerCase().contains("new account request")) {
+                                log.warn("---------------------------------");
+                                log.warn("Recent email received : " + subject);
                                 log.warn("---------------------------------");
                                 String body = getTextFromMessage(message);
                                 //log.warn("Body Text : " + body);

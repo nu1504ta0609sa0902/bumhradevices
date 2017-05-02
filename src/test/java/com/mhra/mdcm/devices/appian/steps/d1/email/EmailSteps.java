@@ -22,7 +22,6 @@ public class EmailSteps extends CommonSteps {
     public void iShouldReceivedAnEmailForStoredManufacturerWithHeading(String emailHeading) throws Throwable {
         String org = (String) scenarioSession.getData(SessionKey.organisationName);
         ManufacturerRequestDO organisationData = (ManufacturerRequestDO) scenarioSession.getData(SessionKey.manufacturerData);
-        emailHeading = emailHeading + " " + org;
 
         boolean foundMessage = false;
         String messageBody = null;
@@ -49,14 +48,17 @@ public class EmailSteps extends CommonSteps {
     @And("^I should received an email for stored account with heading \"([^\"]*)\"$")
     public void iShouldReceivedAnEmailForStoredAccountWithHeading(String emailHeading) throws Throwable {
 
-        String org = (String) scenarioSession.getData(SessionKey.organisationName);
-        AccountRequestDO newAccount = (AccountRequestDO) scenarioSession.getData(SessionKey.manufacturerData);
+        String org = (String) scenarioSession.getData(SessionKey.newAccountName);
+//        AccountRequestDO newAccount = (AccountRequestDO) scenarioSession.getData(SessionKey.manufacturerData);
+//        if(emailHeading.contains("New Account")){
+//            org = newAccount.organisationName;
+//        }
 
         boolean foundMessage = false;
         String messageBody = null;
         int attempt = 0;
         do {
-            messageBody = GmailEmail.readMessageForSpecifiedOrganisations(5, 10, emailHeading, org);
+            messageBody = GmailEmail.readMessageForSpecifiedOrganisations(7, 10, emailHeading, org);
 
             //Break from loop if invoices read from the email server
             if (messageBody!=null) {
@@ -67,7 +69,7 @@ public class EmailSteps extends CommonSteps {
                 WaitUtils.nativeWaitInSeconds(10);
             }
             attempt++;
-        } while (!foundMessage && attempt < 12);
+        } while (!foundMessage && attempt < 30);
 
         Assert.assertThat("Message should not be empty : " + messageBody, messageBody!=null, Matchers.is(true));
         Assert.assertThat("Organisation Name Expected : " + org, messageBody.contains(org), Matchers.is(true));
