@@ -113,7 +113,20 @@ public class ManufacturerViewDetails extends _Page {
         return new AddDevices(driver);
     }
 
-    public AddDevices clickContinueToAddDevices() {
+    public AddDevices clickContinueToAddDevices(String registeredStatus) {
+
+        try {
+            if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
+                return clickAddDeviceBtn();
+            else
+                return clickContinueBtn();
+        }catch (Exception e){
+            btnContinue.click();
+            return new AddDevices(driver);
+        }
+    }
+
+    public AddDevices clickContinueBtn(){
         try {
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
             WaitUtils.waitForElementToBeVisible(driver, btnContinue, TIMEOUT_5_SECOND, false);
