@@ -32,8 +32,8 @@ Feature: As a customer I want to receive email notifications when ever a account
     And I should received an email for stored account with heading "New Account Rejected"
     Examples:
       | user         | accountType   | countryName | reason                             | link                |
-      | businessNoor | manufacturer  | Turkey      | Account already exists             | New Account Request |
-      | businessNoor | authorisedRep | Estonia     | No authorisation evidence provided | New Account Request |
+      | businessNoor | manufacturer  | Turkey      | Account already exists             | New Account Request for |
+      | businessNoor | authorisedRep | Estonia     | No authorisation evidence provided | New Account Request for |
 
 
   @regression @2191 @2193 @_sprint10
@@ -53,7 +53,7 @@ Feature: As a customer I want to receive email notifications when ever a account
     When I assign the task to me and "<approveReject>" the generated task
     Then The task should be removed from tasks list
 #    And The completed task status should update to "Completed"
-    And I should received an email for stored manufacturer with heading "Manufacturer registration service"
+    And I should received an email for stored manufacturer with heading "Manufacturer Registration Request for"
     Examples:
       | user              | logBackInAs  | accountType   | approveReject | countryName |
       | manufacturerAuto  | businessAuto | manufacturer  | approve       | Brazil      |
@@ -76,7 +76,7 @@ Feature: As a customer I want to receive email notifications when ever a account
     When I assign the task to me and reject the task for following reason "<reason>"
     Then The task should be removed from tasks list
 #    And The completed task status should update to "Completed"
-    And I should received an email for stored manufacturer with heading "Manufacturer registration service"
+    And I should received an email for stored manufacturer with heading "Manufacturer Registration Request for"
     Examples:
       | user              | logBackInAs  | accountType   | reason                 | countryName |
       | manufacturerAuto  | businessAuto | manufacturer  | Rejected because I can | Brazil      |
@@ -112,7 +112,7 @@ Feature: As a customer I want to receive email notifications when ever a account
     Then I view new task with link "New Service Request" for the new account
     And I assign the task to me and "approve" the generated task
 #    And The completed task status should update to "Completed"
-    And I should received an email for stored manufacturer with heading "Manufacturer registration service"
+    And I should received an email for stored manufacturer with heading "Manufacturer Registration Request for"
     Examples:
       | user         | accountType   | approveReject | logBackInAas      | countryName | link                | accountNameBeginsWith |
       | businessNoor | manufacturer  | approve       | manufacturerNoor  | Bangladesh  | New Account Request | ManufacturerRT00      |
