@@ -114,10 +114,12 @@ public class ManufacturerViewDetails extends _Page {
     }
 
     public AddDevices clickContinueToAddDevices() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeVisible(driver, btnContinue, TIMEOUT_15_SECOND, false);
-        WaitUtils.waitForElementToBeClickable(driver, btnContinue, TIMEOUT_15_SECOND, false);
-        btnContinue.click();
+        try {
+            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+            WaitUtils.waitForElementToBeVisible(driver, btnContinue, TIMEOUT_5_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, btnContinue, TIMEOUT_5_SECOND, false);
+            btnContinue.click();
+        }catch (Exception e){}
         return new AddDevices(driver);
     }
 
