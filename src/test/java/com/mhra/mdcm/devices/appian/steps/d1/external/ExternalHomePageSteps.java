@@ -183,12 +183,16 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     @When("^I add devices to NEWLY created manufacturer with following data$")
     public void iAddDevicesToNewlyCreatedManufacturerWithFollowingData(Map<String, String> dataSets) throws Throwable {
+        String registeredStatus = (String) scenarioSession.getData(SessionKey.organisationRegistered);
         //Its not registered
         addDevices = new AddDevices(driver);
 
         //Assumes we are in add device page
         DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
-        addDevices = addDevices.addFollowingDevice(dd);
+        if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
+            addDevices = addDevices.addFollowingDevice(dd, true);
+        else
+            addDevices = addDevices.addFollowingDevice(dd, false);
 
         scenarioSession.putData(SessionKey.deviceData, dd);
     }
@@ -212,7 +216,10 @@ public class ExternalHomePageSteps extends CommonSteps {
 
         //Assumes we are in add device page
         DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
-        addDevices = addDevices.addFollowingDevice(dd);
+        if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
+            addDevices = addDevices.addFollowingDevice(dd, true);
+        else
+            addDevices = addDevices.addFollowingDevice(dd, false);
 
         StepsUtils.addToListOfStrings(scenarioSession, SessionKey.listOfGmndsAdded, AddDevices.gmdnSelected);
         scenarioSession.putData(SessionKey.deviceData, dd);
@@ -256,7 +263,10 @@ public class ExternalHomePageSteps extends CommonSteps {
         //addDevices = manufacturerDetails.gotoAddDevicesPage(registeredStatus);
 
         DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
-        addDevices = addDevices.addFollowingDevice(dd);
+        if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
+            addDevices = addDevices.addFollowingDevice(dd, true);
+        else
+            addDevices = addDevices.addFollowingDevice(dd, false);
 
         StepsUtils.addToListOfStrings(scenarioSession, SessionKey.listOfGmndsAdded, AddDevices.gmdnSelected);
         StepsUtils.addToListOfStrings(scenarioSession, SessionKey.listOfProductsAdded, dd.listOfProductName);
@@ -266,12 +276,17 @@ public class ExternalHomePageSteps extends CommonSteps {
     @When("^I add another device to SELECTED manufacturer with following data$")
     public void i_add_another_device_to_selected_manufactuerer_of_type_with_following_data(Map<String, String> dataSets) throws Throwable {
 
+        String registeredStatus = (String) scenarioSession.getData(SessionKey.organisationRegistered);
+
         //Go and add another device
         addDevices = addDevices.addAnotherDevice();
 
         //Assumes we are in add device page
         DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
-        addDevices = addDevices.addFollowingDevice(dd);
+        if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
+            addDevices = addDevices.addFollowingDevice(dd, true);
+        else
+            addDevices = addDevices.addFollowingDevice(dd, false);
 
         StepsUtils.addToListOfStrings(scenarioSession, SessionKey.listOfGmndsAdded, AddDevices.gmdnSelected);
         StepsUtils.addToListOfStrings(scenarioSession, SessionKey.listOfProductsAdded, dd.listOfProductName);
@@ -409,6 +424,42 @@ public class ExternalHomePageSteps extends CommonSteps {
 
         log.info("Manufacturer selected : " + name + ", is " + registered);
         manufacturerDetails = manufacturerList.viewAManufacturer(name);
+        scenarioSession.putData(SessionKey.organisationName, name);
+        scenarioSession.putData(SessionKey.organisationCountry, country);
+        scenarioSession.putData(SessionKey.organisationRegistered, registered);
+        scenarioSession.putData(SessionKey.taskType, "Update Manufacturer");
+    }
+
+
+    @When("^I click on random manufacturer with status \"([^\"]*)\" to add device$")
+    public void i_click_on_random_manufacturer_with_status_to_add_device(String status) throws Throwable {
+
+        String name = manufacturerList.getARandomManufacturerNameWithStatus(status);
+        String registered = manufacturerList.getRegistrationStatus(name);
+        String country = manufacturerList.getOrganisationCountry(name);
+
+        int nop = manufacturerList.getNumberOfPages(1);
+        int count = 0;
+        while(registered!=null && !registered.toLowerCase().equals(status.toLowerCase())){
+            count++;
+            if(count > nop){
+                break;
+            }else{
+                //Go to next page and try again
+                manufacturerList = manufacturerList.clickNext();
+
+                //Try again
+                name = manufacturerList.getARandomManufacturerNameWithStatus(status);
+                registered = manufacturerList.getRegistrationStatus(name);
+                country = manufacturerList.getOrganisationCountry(name);
+            }
+        }
+
+        Assert.assertThat("Status of organisation should be : " + status , status.toLowerCase().equals(registered.toLowerCase()), Matchers.is(true));
+
+        log.info("Manufacturer selected : " + name + ", is " + registered);
+        manufacturerDetails = manufacturerList.viewAManufacturer(name);
+        addDevices = manufacturerDetails.clickContinueToAddDevices(registered);
         scenarioSession.putData(SessionKey.organisationName, name);
         scenarioSession.putData(SessionKey.organisationCountry, country);
         scenarioSession.putData(SessionKey.organisationRegistered, registered);

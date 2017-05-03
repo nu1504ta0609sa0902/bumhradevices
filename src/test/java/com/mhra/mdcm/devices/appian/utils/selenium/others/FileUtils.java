@@ -60,7 +60,12 @@ public class FileUtils {
      *  one of : business+uname, manufacturer+uname, authorisedrep+uname
      */
     public static String getOverriddenUsername(String overrideUsername, String uname) {
+
+        //Override if necessary set Noor => businessNoor, which is than used to read the properties file to get correct data
         if(overrideUsername!=null && !overrideUsername.equals("")){
+            System.out.println("-------------------------------------------");
+            System.out.println("OVERRIDDEN WITH USER : " + overrideUsername);
+            System.out.println("-------------------------------------------");
             if(uname.contains("business")){
                 uname = "business" + overrideUsername;
             }else if(uname.contains("manufacturer")){

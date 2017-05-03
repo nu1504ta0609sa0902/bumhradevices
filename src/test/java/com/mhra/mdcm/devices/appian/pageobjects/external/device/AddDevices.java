@@ -213,7 +213,7 @@ public class AddDevices extends _Page {
     WebElement validationErrMessage;
 
     //Device Summary
-    @FindBy(xpath = ".//div[contains(text(),'GMDN code')]//following::a")
+    @FindBy(xpath = ".//div[contains(text(),'Term name')]//following::a")
     List<WebElement> listOfGMDNLinksInSummary;
     @FindBy(partialLinkText = "Change Notified Body")
     WebElement linkChangeNotifiedBody;
@@ -286,7 +286,7 @@ public class AddDevices extends _Page {
         return contains;
     }
 
-    public AddDevices addFollowingDevice(DeviceDO dd) {
+    public AddDevices addFollowingDevice(DeviceDO dd, boolean isRegistered) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         //WaitUtils.nativeWaitInSeconds(1);
         WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_DEFAULT, false);
@@ -308,8 +308,14 @@ public class AddDevices extends _Page {
 
         //Business doing testing so don't do any write only tests
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, btnSaveProgress, TIMEOUT_10_SECOND, false);
-        PageUtils.doubleClick(driver, btnSaveProgress);
+
+        if(isRegistered){
+            WaitUtils.waitForElementToBeClickable(driver, btnReviewYourOrder, TIMEOUT_10_SECOND, false);
+            PageUtils.doubleClick(driver, btnReviewYourOrder);
+        }else {
+            WaitUtils.waitForElementToBeClickable(driver, btnSaveProgress, TIMEOUT_10_SECOND, false);
+            PageUtils.doubleClick(driver, btnSaveProgress);
+        }
 
         return new AddDevices(driver);
     }
@@ -778,7 +784,7 @@ public class AddDevices extends _Page {
     public boolean isGMDNValueDisplayed(DeviceDO data) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnAddAnotherDevice, TIMEOUT_15_SECOND, false);
-        WaitUtils.waitForElementToBeClickable(driver, btnProceedToPayment, TIMEOUT_15_SECOND, false);
+        //WaitUtils.waitForElementToBeClickable(driver, btnProceedToPayment, TIMEOUT_15_SECOND, false);
         boolean isDisplayed = false;
         String valueToCheck = "";
 

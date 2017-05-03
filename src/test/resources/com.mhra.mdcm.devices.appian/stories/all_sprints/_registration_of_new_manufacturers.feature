@@ -3,7 +3,7 @@ Feature: As a customer I want to register new manufacturers
   so that I am granted access to that and can then register overseas manufacturers on their behalf
 
 
-  @regression @mdcm-161 @mdcm-21 @mdcm-232 @mdcm-496 @_sprint4 @_sprint5 @wip @bug
+  @regression @mdcm-161 @mdcm-21 @mdcm-232 @mdcm-496 @_sprint4 @_sprint5
   Scenario Outline: Users should be able to upload proof they are authorised reps
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -23,15 +23,16 @@ Feature: As a customer I want to register new manufacturers
     And I assign the task to me and "approve" the generated task
     Then The task should be removed from tasks list
     #And The completed task status should update to "Completed"
-    When I search accounts for the stored organisation name
-    Then I should see at least 0 account matches
+    When I go to records page and click on "Organisations"
+    And I search for stored organisation in "Organisations" page
+    Then All organisation search result should return 1 matches
     Examples:
       | user              | logBackInAs  | accountType   | countryName |
-      | manufacturerAuto  | businessAuto | manufacturer  | Brazil      |
+#      | manufacturerAuto  | businessAuto | manufacturer  | Brazil      |
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  |
 
 
-  @regression @mdcm-292 @mdcm-496 @mdcm-21 @_sprint3 @_sprint5 @mdcm-134 @mdcm-164 @_sprint6 @wip @bug
+  @mdcm-292 @mdcm-496 @mdcm-21 @_sprint3 @_sprint5 @mdcm-134 @mdcm-164 @_sprint6 @wip @bug
   Scenario Outline: Verify new product id is generated for each product submitted by manufacturer
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -50,8 +51,9 @@ Feature: As a customer I want to register new manufacturers
     When I assign the task to me and "<approveReject>" the generated task
     Then The task should be removed from tasks list
     #And The completed task status should update to "Completed"
-    When I search accounts for the stored organisation name
-    Then I should see at least <count> account matches
+    When I go to records page and click on "Organisations"
+    And I search for stored organisation in "Organisations" page
+    Then All organisation search result should return 1 matches
     Examples:
       | user              | logBackInAs  | accountType   | approveReject | count | countryName |
       | manufacturerAuto  | businessAuto | manufacturer  | approve       | 0     | Brazil      |
