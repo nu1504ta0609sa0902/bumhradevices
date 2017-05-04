@@ -201,7 +201,7 @@ public class _CreateAccountTestsData extends _Page {
             PageUtils.singleClick(driver, deviceReg);
         }
         if(ar.cfsCertificateOfFreeSale){
-            WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//span[.='Selected Services']//following::input[2]"), TIMEOUT_DEFAULT, false);
+            WaitUtils.waitForElementToBeClickable(driver, cfsCertification, TIMEOUT_DEFAULT, false);
             PageUtils.singleClick(driver, cfsCertification);
         }
         if(ar.clinicalInvestigation){

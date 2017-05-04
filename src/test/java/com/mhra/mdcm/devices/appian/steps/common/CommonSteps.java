@@ -7,7 +7,9 @@ import com.mhra.mdcm.devices.appian.pageobjects.business.sections.TaskSection;
 import com.mhra.mdcm.devices.appian.pageobjects.business.sections.records.*;
 import com.mhra.mdcm.devices.appian.pageobjects.external.ExternalHomePage;
 import com.mhra.mdcm.devices.appian.pageobjects.external.MyAccountPage;
+import com.mhra.mdcm.devices.appian.pageobjects.external._CreateCFSManufacturerTestsData;
 import com.mhra.mdcm.devices.appian.pageobjects.external._CreateManufacturerTestsData;
+import com.mhra.mdcm.devices.appian.pageobjects.external.cfs.CFSManufacturerList;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.AddDevices;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.DeviceDetails;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.ProductDetails;
@@ -106,6 +108,8 @@ public class CommonSteps {
     @Autowired
     public _CreateManufacturerTestsData createNewManufacturer;
     @Autowired
+    public _CreateCFSManufacturerTestsData createNewCFSManufacturer;
+    @Autowired
     public AddDevices addDevices;
     @Autowired
     public OrganisationDetails amendOrganisationDetails;
@@ -117,6 +121,8 @@ public class CommonSteps {
     public ProductDetails productDetail;
     @Autowired
     public DeviceDetails deviceDetails;
+    @Autowired
+    public CFSManufacturerList cfsManufacturerList;
 
 
 

@@ -38,6 +38,32 @@ public class DeviceDetails extends _Page {
     @FindBy(xpath = ".//h5[contains(text(),'Procedure Pack')]//following::thead[1]/tr/th")
     List<WebElement> listOfSystemProcedurePackDeviceTableHeadings;
 
+
+    /**--------------------------------------------
+     * CFS RELATED
+     *---------------------------------------------*/
+
+    @FindBy(css = ".GridWidget---checkbox")
+    List<WebElement> listOfDeviceCheckbox;
+
+    @FindBy(xpath = ".//*[contains(text(),'Number of')]//following::input")
+    WebElement txtNumberOfCFS;
+    @FindBy(xpath = ".//label")
+    WebElement cbxSelectAllDevices;
+
+    //Buttons
+    @FindBy(xpath = ".//button[contains(text(), 'Order CFS')]")
+    WebElement btnOrderCFS;
+    @FindBy(xpath = ".//button[contains(text(), 'Continue')]")
+    WebElement btnContinue;
+    @FindBy(xpath = ".//button[contains(text(), './/button[text()='Continue to Payment']')]")
+    WebElement btnContinueToPayment;
+    @FindBy(xpath = ".//button[contains(text(), 'Submit')]")
+    WebElement btnSubmitPayment;
+    @FindBy(xpath = ".//button[contains(text(), 'Finish')]")
+    WebElement btnFinish;
+
+
     @Autowired
     public DeviceDetails(WebDriver driver) {
         super(driver);
@@ -105,4 +131,59 @@ public class DeviceDetails extends _Page {
         return allFound;
     }
 
+    public DeviceDetails orderCFS() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, btnOrderCFS, TIMEOUT_5_SECOND, false);
+        btnOrderCFS.click();
+        return new DeviceDetails(driver);
+    }
+
+    public DeviceDetails selectDevices() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD*2);
+        WaitUtils.waitForElementToBeClickable(driver, cbxSelectAllDevices, TIMEOUT_5_SECOND, false);
+        WebElement cbx = PageUtils.getRandomElementFromList(listOfDeviceCheckbox);
+        PageUtils.singleClick(driver, cbx);
+        //Wait for continue button to be clickable
+        WaitUtils.waitForElementToBeClickable(driver, btnContinue, TIMEOUT_5_SECOND, false);
+        //btnContinue.click();
+        PageUtils.singleClick(driver, btnContinue);
+        return new DeviceDetails(driver);
+    }
+
+    public DeviceDetails enterACertificateDetails(String countryName, String noOfCFS) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        try {
+            PageUtils.selectFromAutoSuggestedListItemsManufacturers(driver, ".PickerWidget---picker_value", countryName, true);
+        }catch (Exception e){
+        }
+        //Enter number of certificates
+        WaitUtils.waitForElementToBeClickable(driver, txtNumberOfCFS, TIMEOUT_5_SECOND, false);
+        txtNumberOfCFS.sendKeys(noOfCFS);
+
+        //Submit
+        btnContinue.click();
+        return new DeviceDetails(driver);
+
+    }
+
+    public DeviceDetails reviewCFSDetails() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, btnContinueToPayment, TIMEOUT_5_SECOND, false);
+        btnContinueToPayment.click();
+        return new DeviceDetails(driver);
+    }
+
+    public DeviceDetails submitPayment() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, btnSubmitPayment, TIMEOUT_5_SECOND, false);
+        btnSubmitPayment.click();
+        return new DeviceDetails(driver);
+    }
+
+    public DeviceDetails finishPayment() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, btnFinish, TIMEOUT_5_SECOND, false);
+        btnFinish.click();
+        return new DeviceDetails(driver);
+    }
 }

@@ -129,7 +129,7 @@ public class PageUtils {
         WaitUtils.nativeWaitInSeconds(timeWaitForDocumentUploadToFinish);
     }
 
-    public static WebElement getRandomNotification(List<WebElement> listOfECIDLinks) {
+    public static WebElement getRandomElementFromList(List<WebElement> listOfECIDLinks) {
         String index = RandomDataUtils.getSimpleRandomNumberBetween(0, listOfECIDLinks.size() - 1);
         WebElement element = listOfECIDLinks.get(Integer.parseInt(index));
         return element;
@@ -520,4 +520,13 @@ public class PageUtils {
         return listOfCountries;
     }
 
+    public static boolean isVisible(WebDriver driver, WebElement element, int timeout) {
+        boolean isVisible = true;
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, element, timeout, false);
+        }catch (Exception e){
+            isVisible = false;
+        }
+        return isVisible;
+    }
 }

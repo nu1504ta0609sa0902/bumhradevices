@@ -56,6 +56,10 @@ public class ExternalHomePageSteps extends CommonSteps {
         manufacturerList = externalHomePage.gotoListOfManufacturerPage();
     }
 
+    @And("^I go to device certificate of free sale page$")
+    public void i_go_to_device_certificate_of_free_sale_page() throws Throwable {
+        cfsManufacturerList = externalHomePage.gotoCFSPage();
+    }
 
     @Then("^I goto list of manufacturers page again$")
     public void iGotoListOfManufacturersPage() throws Throwable {
@@ -112,6 +116,29 @@ public class ExternalHomePageSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.manufacturerData, newAccount);
         scenarioSession.putData(SessionKey.taskType, "New Manufacturer");
     }
+
+
+    @When("^I create a new manufacturer using CFS manufacturer test harness page with following data$")
+    public void i_create_a_new_manufacturer_using_CFS_test_harness_page_with_following_data(Map<String, String> dataSets) throws Throwable {
+
+        createNewCFSManufacturer = cfsManufacturerList.addNewManufacturer();
+        ManufacturerRequestDO newAccount = TestHarnessUtils.updateManufacturerDefaultsWithData(dataSets, scenarioSession);
+        log.info("New Manufacturer Account Requested With Following Data : \n" + newAccount);
+
+        //Create new manufacturer data
+        addDevices = createNewCFSManufacturer.createTestOrganisation(newAccount);
+        if(createNewCFSManufacturer.isErrorMessageDisplayed()){
+            externalHomePage = mainNavigationBar.clickExternalHOME();
+            cfsManufacturerList = externalHomePage.gotoCFSPage();
+            cfsManufacturerList = cfsManufacturerList.tellUsAboutYourOrganisation();
+            createNewCFSManufacturer = cfsManufacturerList.addNewManufacturer();
+            addDevices = createNewCFSManufacturer.createTestOrganisation(newAccount);
+        }
+        scenarioSession.putData(SessionKey.organisationName, newAccount.organisationName);
+        scenarioSession.putData(SessionKey.manufacturerData, newAccount);
+        scenarioSession.putData(SessionKey.taskType, "New Manufacturer");
+    }
+
 
 
     @When("^I save progress without adding a new device$")
@@ -717,4 +744,32 @@ public class ExternalHomePageSteps extends CommonSteps {
         Assert.assertThat("Expected to be in portal home page", correctPage, is(true));
     }
 
+
+    @Then("^I should see a list of manufacturers available for CFS$")
+    public void i_should_see_a_list_of_manufacturers_available_for_CFS() throws Throwable {
+        cfsManufacturerList = cfsManufacturerList.tellUsAboutYourOrganisation();
+        boolean isListVisible = cfsManufacturerList.isManufacturerListDisplayed();
+        Assert.assertThat("Expected to see a list of manufacturers", isListVisible, is(true));
+    }
+
+    @When("^I click on a random organisation which needs cfs$")
+    public void i_click_on_a_random_organisation_which_needs_cfs() throws Throwable {
+        String name = cfsManufacturerList.getARandomOrganisationName();
+        deviceDetails = cfsManufacturerList.viewManufacturer(name);
+    }
+
+    @When("^I order cfs for a random device with following data$")
+    public void i_order_cfs_for_a_random_device_with_following_data(Map<String, String> dataSets) throws Throwable {
+        //Data
+        String countryName = dataSets.get("countryName");
+        String noOfCFS = dataSets.get("noOfCFS");
+
+        //Order CFS for a random device
+        deviceDetails = deviceDetails.orderCFS();
+        deviceDetails = deviceDetails.selectDevices();
+        deviceDetails = deviceDetails.enterACertificateDetails(countryName, noOfCFS);
+        deviceDetails = deviceDetails.reviewCFSDetails();
+        deviceDetails = deviceDetails.submitPayment();
+        deviceDetails = deviceDetails.finishPayment();
+    }
 }

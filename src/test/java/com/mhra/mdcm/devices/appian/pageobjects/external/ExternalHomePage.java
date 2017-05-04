@@ -1,6 +1,7 @@
 package com.mhra.mdcm.devices.appian.pageobjects.external;
 
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
+import com.mhra.mdcm.devices.appian.pageobjects.external.cfs.CFSManufacturerList;
 import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.ManufacturerList;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.CommonUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
@@ -23,8 +24,8 @@ public class ExternalHomePage extends _Page {
     @FindBy(css = ".Button---btn.Button---default_direction.Button---primary")
     WebElement linkManufacturerRegistration;
 
-    @FindBy(xpath = ".//button[contains(text(),'Register new manufacturer')]")
-    WebElement registerANewManufacturer;
+    @FindBy(xpath = ".//h4[contains(text(), 'free sale')]//following::button[1]")
+    WebElement linkRegisterCFSForDevice;
 
     @FindBy(xpath = ".//*[contains(text(),'ype of device')]//following::label[1]")
     WebElement generalMedicalDevice;
@@ -168,5 +169,12 @@ public class ExternalHomePage extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, btnBackButton, TIMEOUT_3_SECOND, false);
         btnBackButton.click();
         return new ExternalHomePage(driver);
+    }
+
+    public CFSManufacturerList gotoCFSPage() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, linkRegisterCFSForDevice, TIMEOUT_10_SECOND, false);
+        linkRegisterCFSForDevice.click();
+        return new CFSManufacturerList(driver);
     }
 }
