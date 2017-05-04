@@ -38,7 +38,7 @@ Feature: As a business user, I want a task to be created each time a customer su
       | businessNoor | manufacturer  | 0     | Turkey      | Account already exists             | New Account Request |
       | businessNoor | authorisedRep | 0     | Estonia     | No authorisation evidence provided | New Account Request |
 
-  @regression @3761 @_sprint9 @ignore @wip
+  @3761 @_sprint9 @ignore @wip
   Scenario Outline: Register my organisation button is displayed to UK Manufacturers who are not registered yet
     Given I am logged into appian as "<user>" user
     When I create a new account using business test harness page with following data

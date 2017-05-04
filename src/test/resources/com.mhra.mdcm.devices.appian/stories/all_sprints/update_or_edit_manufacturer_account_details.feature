@@ -84,7 +84,7 @@ Feature: As a business and account holder, I want to be able to update party det
       | authorisedRepAuto | Organisation name,Organisation address,Organisation country,Manufacturer registration status | Registered |
 
 
-  @regression @mdcm-21 @mdcm-162 @mdcm-171 @mdcm-485 @_sprint5 @wip @ignore
+  @mdcm-21 @mdcm-162 @mdcm-171 @mdcm-485 @_sprint5 @wip @ignore
   Scenario Outline: Manufacturer and authorisedRep user should be able to update manufacturer details
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page

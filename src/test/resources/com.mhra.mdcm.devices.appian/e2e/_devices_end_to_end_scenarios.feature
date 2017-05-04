@@ -1,3 +1,4 @@
+@e2e
 Feature: End 2 End Scenarios to verify system is behaving correctly from a high level view
 
   @automation_demo
