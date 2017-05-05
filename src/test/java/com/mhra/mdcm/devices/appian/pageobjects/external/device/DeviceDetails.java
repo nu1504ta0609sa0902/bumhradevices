@@ -48,6 +48,8 @@ public class DeviceDetails extends _Page {
      */
 
     @FindBy(css = ".GridWidget---checkbox")
+    List<WebElement> listOfAllCheckbox;
+    @FindBy(css = "td.GridWidget---checkbox")
     List<WebElement> listOfDeviceCheckbox;
     @FindBy(css = ".PickerWidget---picker_value")
     List<WebElement> listOfCountryPickers;
@@ -60,6 +62,8 @@ public class DeviceDetails extends _Page {
 
     @FindBy(xpath = ".//h4")
     WebElement txtManufacturerName;
+    @FindBy(xpath = ".//*[contains(text(),'Total number of certificates')]")
+    WebElement txtTotalNumberOfCertificates;
     @FindBy(xpath = ".//*[contains(text(),'Number of')]//following::input")
     WebElement tbxNumberOfCFS;
     @FindBy(xpath = ".//label")
@@ -68,6 +72,8 @@ public class DeviceDetails extends _Page {
     WebElement txtNumberOfCertificates;
     @FindBy(partialLinkText = "Add country")
     WebElement linkAddCountry;
+    @FindBy(partialLinkText = "Edit devices")
+    WebElement linkEditDevices;
 
     //Buttons
     @FindBy(xpath = ".//button[contains(text(), 'Order CFS')]")
@@ -164,7 +170,6 @@ public class DeviceDetails extends _Page {
         PageUtils.singleClick(driver, cbx);
         //Wait for continue button to be clickable
         WaitUtils.waitForElementToBeClickable(driver, btnContinue, TIMEOUT_5_SECOND, false);
-        //btnContinue.click();
         PageUtils.singleClick(driver, btnContinue);
         return new DeviceDetails(driver);
     }
@@ -218,7 +223,7 @@ public class DeviceDetails extends _Page {
         return new DeviceDetails(driver);
     }
 
-    public DeviceDetails continueToPayment() {
+    public DeviceDetails continueToPaymentAfterReviewFinished() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnContinueToPayment, TIMEOUT_10_SECOND, false);
         btnContinueToPayment.click();
@@ -272,26 +277,10 @@ public class DeviceDetails extends _Page {
     }
 
     public boolean areTheCertificateCountCorrect(String[] data) {
-        List<String> countries = CommonUtils.getListOfCountries(data);
         List<String> listOfData = CommonUtils.getListOfData(data);
-        List<String> listOfCountryDisplayed = CommonUtils.getListOfText(listOfCountryNames);
-        List<String> listOfCertificateCountDisplayed = CommonUtils.getListOfText(listOfNumberOfCertificates);
 
         int count = 0;
         boolean isDataCorrect = true;
-//        for(String line: data){
-//            //This is assuming countries are displayed in the same order as inserted (This may not be true)
-//            String countryAtPositionX = listOfCountryNames.get(count).getText();
-//            String numberOfCertAtPositionX = listOfNumberOfCertificates.get(count).getText();
-//
-//            //Verify country and data is valid
-//            if(!line.contains(countryAtPositionX) || !line.contains(numberOfCertAtPositionX)){
-//                isDataCorrect = false;
-//                break;
-//            }
-//
-//            count++;
-//        }
 
         for(WebElement el: listOfCountryNames){
             String countryAtPositionX = listOfCountryNames.get(count).getText();
@@ -306,5 +295,26 @@ public class DeviceDetails extends _Page {
         }
 
         return isDataCorrect;
+    }
+
+    public DeviceDetails clickEditDevicesLink() {
+        linkEditDevices.click();
+        return new DeviceDetails(driver);
+    }
+
+    public boolean isTotalNumberOfCertificatesCorrect(String numberOfCFS) {
+        boolean valid = txtTotalNumberOfCertificates.getText().contains(numberOfCFS);
+        return valid;
+    }
+
+
+    public boolean isTotalNumberOfCertificatesCorrect(String[] data) {
+        List<String> counts = CommonUtils.getListOfCertificateCounts(data);
+        int total = 0;
+        for(String c: counts){
+            total = total + Integer.parseInt(c);
+        }
+        boolean valid = txtTotalNumberOfCertificates.getText().contains(Integer.toString(total));
+        return valid;
     }
 }

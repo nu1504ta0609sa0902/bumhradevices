@@ -131,7 +131,11 @@ public class PageUtils {
 
     public static WebElement getRandomElementFromList(List<WebElement> listOfECIDLinks) {
         String index = RandomDataUtils.getSimpleRandomNumberBetween(0, listOfECIDLinks.size() - 1);
-        WebElement element = listOfECIDLinks.get(Integer.parseInt(index));
+        int i = Integer.parseInt(index);
+        if(i < 0){
+            i = 0;
+        }
+        WebElement element = listOfECIDLinks.get(i);
         return element;
     }
 

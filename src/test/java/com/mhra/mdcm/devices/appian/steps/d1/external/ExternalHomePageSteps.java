@@ -834,7 +834,9 @@ public class ExternalHomePageSteps extends CommonSteps {
         //Verify data number of cfs and country and name
         boolean isNumberOfCertificatesCorrect = deviceDetails.isNumberOfCertificatesCorrect(numberOfCFS);
         boolean isManufacturerNameCorrect = deviceDetails.isManufacturerNameCorrect(name);
+        boolean isTotalNumberOfCertificateCorrect = deviceDetails.isTotalNumberOfCertificatesCorrect(numberOfCFS);
         Assert.assertThat("Expected number of certifictes : " + numberOfCFS, isNumberOfCertificatesCorrect, is(true));
+        Assert.assertThat("Expected manufacturer name to be : " + name, isManufacturerNameCorrect, is(true));
         Assert.assertThat("Expected manufacturer name to be : " + name, isManufacturerNameCorrect, is(true));
 
     }
@@ -848,14 +850,27 @@ public class ExternalHomePageSteps extends CommonSteps {
         boolean isManufacturerNameCorrect = deviceDetails.isManufacturerNameCorrect(name);
         //boolean isListOfCountriesCorrect = deviceDetails.areTheCountriesDisplayedCorrect(data);
         boolean isListOfCertificateCountCorrect = deviceDetails.areTheCertificateCountCorrect(data);
+        boolean isTotalNumberOfCertCorrect = deviceDetails.isTotalNumberOfCertificatesCorrect(data);
         Assert.assertThat("Expected to see following countries and asssoficated CFS count : " + data, isListOfCertificateCountCorrect, is(true));
         Assert.assertThat("Expected manufacturer name to be : " + name, isManufacturerNameCorrect, is(true));
+        Assert.assertThat("Total number of certificates may not be correct : " + data, isTotalNumberOfCertCorrect, is(true));
 
+    }
+
+
+    @Then("^I edit the list of devices added for CFS$")
+    public void i_edit_the_list_of_devices_added_for_CFS() throws Throwable {
+        deviceDetails = deviceDetails.clickEditDevicesLink();
+
+        //Complete editing of devices, at the moment I only have 1 device
+        //deviceDetails = deviceDetails.editDevicesAddedForCFS();
+        deviceDetails.clickContinueButton();
+        deviceDetails.clickContinueButton();
     }
 
     @When("^I submit payment for the CFS$")
     public void i_submit_payment_for_the_CFS() throws Throwable {
-        deviceDetails = deviceDetails.continueToPayment();
+        deviceDetails = deviceDetails.continueToPaymentAfterReviewFinished();
         deviceDetails = deviceDetails.submitPayment();
         deviceDetails = deviceDetails.finishPayment();
     }

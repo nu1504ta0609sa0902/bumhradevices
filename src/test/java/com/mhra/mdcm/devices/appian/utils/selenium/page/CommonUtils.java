@@ -122,6 +122,14 @@ public class CommonUtils {
         }
         return countries;
     }
+    public static List<String> getListOfCertificateCounts(String[] data) {
+        List<String> certCounts = new ArrayList<>();
+        for(String d: data){
+            String country = d.split("=")[1];
+            certCounts.add(country);
+        }
+        return certCounts;
+    }
 
     public static List<String> getListOfText(List<WebElement> listOfElements) {
         List<String> list = new ArrayList<>();

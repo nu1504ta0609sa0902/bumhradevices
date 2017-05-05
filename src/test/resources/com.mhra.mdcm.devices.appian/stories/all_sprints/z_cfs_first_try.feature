@@ -35,9 +35,23 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
     Then I should see the correct details in cfs review page
     When I submit payment for the CFS
 
+
+  @1974 @_sprint15 @wip
+  Scenario: Users should be able to go to edit list of devices added for initial CFS process
+    Given I am logged into appian as "manufacturerNoor" user
+    And I go to device certificate of free sale page
+    Then I should see a list of manufacturers available for CFS
+    When I click on a random organisation which needs cfs
+    And I order cfs for a country with following data
+      | countryName | Brazil |
+      | noOfCFS     | 10     |
+    Then I should see the correct details in cfs review page
+    When I edit the list of devices added for CFS
+    Then I should see the correct details in cfs review page
+
   @1974 @_sprint15 @wip
   Scenario: Users should be able to order CFS for multiple countries
-    Given I am logged into appian as "manufacturerNoor" user
+    Given I am logged into appian as "authorisedRepNoor" user
     And I go to device certificate of free sale page
     Then I should see a list of manufacturers available for CFS
     When I click on a random organisation which needs cfs
