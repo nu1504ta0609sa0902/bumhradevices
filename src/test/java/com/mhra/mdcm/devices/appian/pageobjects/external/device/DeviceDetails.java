@@ -3,6 +3,8 @@ package com.mhra.mdcm.devices.appian.pageobjects.external.device;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
+import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
+import com.mhra.mdcm.devices.appian.utils.selenium.page.CommonUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
@@ -17,7 +19,7 @@ import java.util.List;
 
 /**
  * Created by TPD_Auto
- *
+ * <p>
  * When viewing devices added to a specific manufacturer
  */
 @Component
@@ -39,24 +41,40 @@ public class DeviceDetails extends _Page {
     List<WebElement> listOfSystemProcedurePackDeviceTableHeadings;
 
 
-    /**--------------------------------------------
+    /**
+     * --------------------------------------------
      * CFS RELATED
-     *---------------------------------------------*/
+     * ---------------------------------------------
+     */
 
     @FindBy(css = ".GridWidget---checkbox")
     List<WebElement> listOfDeviceCheckbox;
-
+    @FindBy(css = ".PickerWidget---picker_value")
+    List<WebElement> listOfCountryPickers;
     @FindBy(xpath = ".//*[contains(text(),'Number of')]//following::input")
-    WebElement txtNumberOfCFS;
+    List<WebElement> listOfTbxNumberOfCFS;
+    @FindBy(xpath = ".//div[contains(text(),'Number of certificates')]/following::tr/td[1]")
+    List<WebElement> listOfCountryNames;
+    @FindBy(xpath = ".//div[contains(text(),'Number of certificates')]/following::tr/td[2]")
+    List<WebElement> listOfNumberOfCertificates;
+
+    @FindBy(xpath = ".//h4")
+    WebElement txtManufacturerName;
+    @FindBy(xpath = ".//*[contains(text(),'Number of')]//following::input")
+    WebElement tbxNumberOfCFS;
     @FindBy(xpath = ".//label")
     WebElement cbxSelectAllDevices;
+    @FindBy(xpath = ".//div[contains(text(),'Number of certificates')]//following::p[2]")
+    WebElement txtNumberOfCertificates;
+    @FindBy(partialLinkText = "Add country")
+    WebElement linkAddCountry;
 
     //Buttons
     @FindBy(xpath = ".//button[contains(text(), 'Order CFS')]")
     WebElement btnOrderCFS;
     @FindBy(xpath = ".//button[contains(text(), 'Continue')]")
     WebElement btnContinue;
-    @FindBy(xpath = ".//button[contains(text(), './/button[text()='Continue to Payment']')]")
+    @FindBy(xpath = ".//button[contains(text(), 'Continue to Payment')]")
     WebElement btnContinueToPayment;
     @FindBy(xpath = ".//button[contains(text(), 'Submit')]")
     WebElement btnSubmitPayment;
@@ -72,6 +90,7 @@ public class DeviceDetails extends _Page {
 
     /**
      * Manufacturer details are correct and valid
+     *
      * @param manufacaturerData
      * @param deviceData
      * @return
@@ -106,23 +125,23 @@ public class DeviceDetails extends _Page {
 
         //Displayed list of gmdns
         List<String> gmdns = new ArrayList<>();
-        for(WebElement el: listOfGMDNDefinitions){
+        for (WebElement el : listOfGMDNDefinitions) {
             gmdns.add(el.getText().toLowerCase());
         }
 
         //Verify it matches with my expected data set
         boolean allFound = true;
-        for(String d: data){
+        for (String d : data) {
             boolean foundOne = false;
-            for(String gmdn: gmdns){
-                if(gmdn.contains(d.toLowerCase())){
+            for (String gmdn : gmdns) {
+                if (gmdn.contains(d.toLowerCase())) {
                     foundOne = true;
                     break;
                 }
             }
 
             //All of them must exists, therefore foundOne should be true
-            if(!foundOne){
+            if (!foundOne) {
                 allFound = false;
                 break;
             }
@@ -139,7 +158,7 @@ public class DeviceDetails extends _Page {
     }
 
     public DeviceDetails selectDevices() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD*2);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD * 2);
         WaitUtils.waitForElementToBeClickable(driver, cbxSelectAllDevices, TIMEOUT_5_SECOND, false);
         WebElement cbx = PageUtils.getRandomElementFromList(listOfDeviceCheckbox);
         PageUtils.singleClick(driver, cbx);
@@ -154,11 +173,11 @@ public class DeviceDetails extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         try {
             PageUtils.selectFromAutoSuggestedListItemsManufacturers(driver, ".PickerWidget---picker_value", countryName, true);
-        }catch (Exception e){
+        } catch (Exception e) {
         }
         //Enter number of certificates
-        WaitUtils.waitForElementToBeClickable(driver, txtNumberOfCFS, TIMEOUT_5_SECOND, false);
-        txtNumberOfCFS.sendKeys(noOfCFS);
+        WaitUtils.waitForElementToBeClickable(driver, tbxNumberOfCFS, TIMEOUT_5_SECOND, false);
+        tbxNumberOfCFS.sendKeys(noOfCFS);
 
         //Submit
         btnContinue.click();
@@ -166,24 +185,126 @@ public class DeviceDetails extends _Page {
 
     }
 
-    public DeviceDetails reviewCFSDetails() {
+    public DeviceDetails enterMultipleCertificateDetails(String data, boolean clickAddCountryLink, int whichPicker) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, btnContinueToPayment, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, tbxNumberOfCFS, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, linkAddCountry, TIMEOUT_5_SECOND, false);
+
+        String[] values = data.split("=");
+        if (values.length == 2) {
+            String countryName = values[0];
+            String noOfCFS = values[1];
+            try {
+                //PageUtils.selectFromAutoSuggestedListItemsManufacturers(driver, ".PickerWidget---picker_value", countryName, true);
+                PageUtils.selectFromAutoSuggestedListItemsManufacturers(driver, listOfCountryPickers.get(whichPicker-1), countryName);
+            } catch (Exception e) {
+            }
+            //Enter number of certificates
+            listOfTbxNumberOfCFS.get(whichPicker-1).sendKeys(noOfCFS);
+
+            if (clickAddCountryLink)
+                linkAddCountry.click();
+        } else {
+            log.info("Invalid CFS Country pair data : " + data);
+        }
+
+        return new DeviceDetails(driver);
+    }
+
+    public DeviceDetails clickContinueButton() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, btnContinue, TIMEOUT_10_SECOND, false);
+        btnContinue.click();
+        return new DeviceDetails(driver);
+    }
+
+    public DeviceDetails continueToPayment() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, btnContinueToPayment, TIMEOUT_10_SECOND, false);
         btnContinueToPayment.click();
         return new DeviceDetails(driver);
     }
 
     public DeviceDetails submitPayment() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, btnSubmitPayment, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, btnSubmitPayment, TIMEOUT_10_SECOND, false);
         btnSubmitPayment.click();
         return new DeviceDetails(driver);
     }
 
     public DeviceDetails finishPayment() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, btnFinish, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, btnFinish, TIMEOUT_10_SECOND, false);
         btnFinish.click();
         return new DeviceDetails(driver);
+    }
+
+    public boolean isNumberOfCertificatesCorrect(String number) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, btnContinueToPayment, TIMEOUT_10_SECOND, false);
+        String txt = txtNumberOfCertificates.getText().trim();
+        return number.equals(txt);
+    }
+
+    public boolean isManufacturerNameCorrect(String name) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, btnContinueToPayment, TIMEOUT_10_SECOND, false);
+        String txt = txtManufacturerName.getText().trim();
+        return txt.contains(name);
+    }
+
+    public boolean areTheCountriesDisplayedCorrect(String[] data) {
+        List<String> countries = CommonUtils.getListOfCountries(data);
+        List<String> listOfTexts = CommonUtils.getListOfText(listOfCountryNames);
+        System.out.println("List of countries expected : " + countries);
+        System.out.println("List of countries displayed : " + listOfTexts);
+
+        boolean isCorrect = true;
+        for(String country: countries){
+            if(!listOfTexts.contains(country.trim())){
+                log.error("Country name not found : " + country);
+                isCorrect = false;
+                break;
+            }
+        }
+
+        return isCorrect;
+    }
+
+    public boolean areTheCertificateCountCorrect(String[] data) {
+        List<String> countries = CommonUtils.getListOfCountries(data);
+        List<String> listOfData = CommonUtils.getListOfData(data);
+        List<String> listOfCountryDisplayed = CommonUtils.getListOfText(listOfCountryNames);
+        List<String> listOfCertificateCountDisplayed = CommonUtils.getListOfText(listOfNumberOfCertificates);
+
+        int count = 0;
+        boolean isDataCorrect = true;
+//        for(String line: data){
+//            //This is assuming countries are displayed in the same order as inserted (This may not be true)
+//            String countryAtPositionX = listOfCountryNames.get(count).getText();
+//            String numberOfCertAtPositionX = listOfNumberOfCertificates.get(count).getText();
+//
+//            //Verify country and data is valid
+//            if(!line.contains(countryAtPositionX) || !line.contains(numberOfCertAtPositionX)){
+//                isDataCorrect = false;
+//                break;
+//            }
+//
+//            count++;
+//        }
+
+        for(WebElement el: listOfCountryNames){
+            String countryAtPositionX = listOfCountryNames.get(count).getText();
+            String numberOfCertAtPositionX = listOfNumberOfCertificates.get(count).getText();
+            String toCheck = countryAtPositionX + "=" + numberOfCertAtPositionX;
+
+            if(!listOfData.contains(toCheck)){
+                isDataCorrect = false;
+                break;
+            }
+            count++;
+        }
+
+        return isDataCorrect;
     }
 }

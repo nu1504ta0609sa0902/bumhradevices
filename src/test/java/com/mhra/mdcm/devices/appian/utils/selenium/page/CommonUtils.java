@@ -113,4 +113,29 @@ public class CommonUtils {
         }
         return gmdns;
     }
+
+    public static List<String> getListOfCountries(String[] data) {
+        List<String> countries = new ArrayList<>();
+        for(String d: data){
+            String country = d.split("=")[0];
+            countries.add(country);
+        }
+        return countries;
+    }
+
+    public static List<String> getListOfText(List<WebElement> listOfElements) {
+        List<String> list = new ArrayList<>();
+        for(WebElement e: listOfElements){
+            list.add(e.getText());
+        }
+        return list;
+    }
+
+    public static List<String> getListOfData(String[] data) {
+        List<String> list = new ArrayList<>();
+        for(String d: data){
+            list.add(d);
+        }
+        return list;
+    }
 }

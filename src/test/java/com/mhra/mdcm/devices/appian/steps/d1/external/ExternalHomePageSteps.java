@@ -32,7 +32,7 @@ public class ExternalHomePageSteps extends CommonSteps {
 
 
     @When("^I go to portal page$")
-    public void gotoPortalPage(){
+    public void gotoPortalPage() {
         mainNavigationBar = new MainNavigationBar(driver);
         externalHomePage = mainNavigationBar.clickExternalHOME();
     }
@@ -70,7 +70,7 @@ public class ExternalHomePageSteps extends CommonSteps {
     @Then("^I should see the correct manufacturer details$")
     public void i_should_see_the_correct_manufacturer_details() throws Throwable {
         String name = (String) scenarioSession.getData(SessionKey.organisationName);
-        if(name==null) {
+        if (name == null) {
             boolean isManufacturer = true;
             if (name.contains("thorised")) {
                 isManufacturer = false;
@@ -106,7 +106,7 @@ public class ExternalHomePageSteps extends CommonSteps {
 
         //Create new manufacturer data
         addDevices = createNewManufacturer.createTestOrganisation(newAccount);
-        if(createNewManufacturer.isErrorMessageDisplayed()){
+        if (createNewManufacturer.isErrorMessageDisplayed()) {
             externalHomePage = mainNavigationBar.clickExternalHOME();
             manufacturerList = externalHomePage.gotoListOfManufacturerPage();
             createNewManufacturer = manufacturerList.registerNewManufacturer();
@@ -127,7 +127,7 @@ public class ExternalHomePageSteps extends CommonSteps {
 
         //Create new manufacturer data
         addDevices = createNewCFSManufacturer.createTestOrganisation(newAccount);
-        if(createNewCFSManufacturer.isErrorMessageDisplayed()){
+        if (createNewCFSManufacturer.isErrorMessageDisplayed()) {
             externalHomePage = mainNavigationBar.clickExternalHOME();
             cfsManufacturerList = externalHomePage.gotoCFSPage();
             cfsManufacturerList = cfsManufacturerList.tellUsAboutYourOrganisation();
@@ -138,7 +138,6 @@ public class ExternalHomePageSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.manufacturerData, newAccount);
         scenarioSession.putData(SessionKey.taskType, "New Manufacturer");
     }
-
 
 
     @When("^I save progress without adding a new device$")
@@ -179,29 +178,29 @@ public class ExternalHomePageSteps extends CommonSteps {
         int count = 0;
 
         //Check in Manufacturers list
-        do{
+        do {
             count++;
             isFoundInManufacturerList = manufacturerList.isManufacturerDisplayedInList(name);
-            if(!isFoundInManufacturerList && nop > 0){
+            if (!isFoundInManufacturerList && nop > 0) {
                 manufacturerList = manufacturerList.clickNext();
             }
-        }while(!isFoundInManufacturerList && count <= nop);
+        } while (!isFoundInManufacturerList && count <= nop);
 
-        if(!isFoundInManufacturerList){
+        if (!isFoundInManufacturerList) {
             //Check in registration in progress list
             externalHomePage = mainNavigationBar.clickExternalHOME();
             manufacturerList = externalHomePage.gotoListOfManufacturerPage();
             nop = manufacturerList.getNumberOfPages(2);
             count = 0;
-            do{
+            do {
                 count++;
                 isFoundInManufacturerList = manufacturerList.isRegistraionInProgressDisplayingManufacturer(name);
-                if(!isFoundInManufacturerList && nop > 0){
+                if (!isFoundInManufacturerList && nop > 0) {
                     manufacturerList = manufacturerList.clickNext();
-                }else{
+                } else {
                     manufacturerDetails = manufacturerList.viewAManufacturer(name);
                 }
-            }while(!isFoundInManufacturerList && count <= nop);
+            } while (!isFoundInManufacturerList && count <= nop);
         }
 
         Assert.assertThat("Organisation Name Expected In Manufacturer List : " + name, isFoundInManufacturerList, Matchers.is(true));
@@ -210,6 +209,23 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     @When("^I add devices to NEWLY created manufacturer with following data$")
     public void iAddDevicesToNewlyCreatedManufacturerWithFollowingData(Map<String, String> dataSets) throws Throwable {
+        String registeredStatus = (String) scenarioSession.getData(SessionKey.organisationRegistered);
+        //Its not registered
+        addDevices = new AddDevices(driver);
+
+        //Assumes we are in add device page
+        DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
+        if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
+            addDevices = addDevices.addFollowingDevice(dd, true);
+        else
+            addDevices = addDevices.addFollowingDevice(dd, false);
+
+        scenarioSession.putData(SessionKey.deviceData, dd);
+    }
+
+
+    @When("^I add devices to NEWLY created CFS manufacturer with following data$")
+    public void iAddDevicesToNewlyCreatedCFSManufacturerWithFollowingData(Map<String, String> dataSets) throws Throwable {
         String registeredStatus = (String) scenarioSession.getData(SessionKey.organisationRegistered);
         //Its not registered
         addDevices = new AddDevices(driver);
@@ -274,13 +290,13 @@ public class ExternalHomePageSteps extends CommonSteps {
     public void i_should_be_prevented_from_adding_the_devices() throws Throwable {
         addDevices = addDevices.addAnotherDevice();
         boolean isErrorMessageDisplayed = addDevices.isValidationErrorMessageVisible();
-        Assert.assertThat("Error message should still be displayed and user should be prevented going forward" , isErrorMessageDisplayed, Matchers.is(true));
+        Assert.assertThat("Error message should still be displayed and user should be prevented going forward", isErrorMessageDisplayed, Matchers.is(true));
     }
 
     @Then("^I should be prevented from adding the high risk devices$")
     public void i_should_be_prevented_from_adding_the_aimd_devices() throws Throwable {
         boolean isAbleToSubmitForReview = addDevices.isAbleToSubmitForReview();
-        Assert.assertThat("User should be prevented from proceeding to the next step" , isAbleToSubmitForReview, Matchers.is(false));
+        Assert.assertThat("User should be prevented from proceeding to the next step", isAbleToSubmitForReview, Matchers.is(false));
     }
 
     @When("^I add multiple devices to SELECTED manufacturer with following data$")
@@ -324,13 +340,13 @@ public class ExternalHomePageSteps extends CommonSteps {
     @Then("^I should see error message in devices page with text \"([^\"]*)\"$")
     public void i_should_see_error_message_in_devices_page_with_text(String message) throws Throwable {
         boolean errorMessageDisplayed = addDevices.isErrorMessageCorrect(message);
-        Assert.assertThat("Expected error message to contain : " + message , errorMessageDisplayed, Matchers.is(true));
+        Assert.assertThat("Expected error message to contain : " + message, errorMessageDisplayed, Matchers.is(true));
     }
 
     @Then("^I should see validation error message in devices page with text \"([^\"]*)\"$")
     public void i_should_see_validation_error_message_in_devices_page_with_text(String message) throws Throwable {
         boolean errorMessageDisplayed = addDevices.isValidationErrorMessageCorrect(message);
-        Assert.assertThat("Expected to see validation error message to contain : " + message , errorMessageDisplayed, Matchers.is(true));
+        Assert.assertThat("Expected to see validation error message to contain : " + message, errorMessageDisplayed, Matchers.is(true));
     }
 
     @Then("^I should see correct device types$")
@@ -340,7 +356,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         //addDevices = manufacturerDetails.gotoAddDevicesPage(registeredStatus);
 
         boolean isCorrect = addDevices.isDeviceTypeCorrect();
-        Assert.assertThat("Expected 4 different device types " , isCorrect, Matchers.is(true));
+        Assert.assertThat("Expected 4 different device types ", isCorrect, Matchers.is(true));
     }
 
 
@@ -379,7 +395,6 @@ public class ExternalHomePageSteps extends CommonSteps {
     }
 
 
-
     @Then("^I go to list of manufacturers page and click on stored manufacturer$")
     public void i_go_to_list_of_manufacturer_and_click_on_stored_manufacturer() throws Throwable {
         //externalHomePage = mainNavigationBar.clickExternalHOME();
@@ -390,37 +405,36 @@ public class ExternalHomePageSteps extends CommonSteps {
         boolean isFoundInManufacturerList = false;
         int count = 0;
 
-        do{
+        do {
             count++;
             isFoundInManufacturerList = manufacturerList.isManufacturerDisplayedInList(name);
-            if(!isFoundInManufacturerList){
+            if (!isFoundInManufacturerList) {
                 manufacturerList = manufacturerList.clickNext();
-            }else{
+            } else {
                 manufacturerDetails = manufacturerList.viewAManufacturer(name);
             }
-        }while(!isFoundInManufacturerList && count <= nop);
+        } while (!isFoundInManufacturerList && count <= nop);
 
 
-        if(!isFoundInManufacturerList){
+        if (!isFoundInManufacturerList) {
             //Check in registration in progress list
             externalHomePage = mainNavigationBar.clickExternalHOME();
             manufacturerList = externalHomePage.gotoListOfManufacturerPage();
             nop = manufacturerList.getNumberOfPages(2);
             count = 0;
-            do{
+            do {
                 count++;
                 isFoundInManufacturerList = manufacturerList.isRegistraionInProgressDisplayingManufacturer(name);
-                if(!isFoundInManufacturerList && nop > 0){
+                if (!isFoundInManufacturerList && nop > 0) {
                     manufacturerList = manufacturerList.clickNext();
-                }else{
+                } else {
                     manufacturerDetails = manufacturerList.viewAManufacturer(name);
                 }
-            }while(!isFoundInManufacturerList && count <= nop);
+            } while (!isFoundInManufacturerList && count <= nop);
         }
 
         Assert.assertThat("Organisation Name Expected In Manufacturer List : " + name, isFoundInManufacturerList, Matchers.is(true));
     }
-
 
 
     @When("^I click on random manufacturer with status \"([^\"]*)\"$")
@@ -432,11 +446,11 @@ public class ExternalHomePageSteps extends CommonSteps {
 
         int nop = manufacturerList.getNumberOfPages(1);
         int count = 0;
-        while(registered!=null && !registered.toLowerCase().equals(status.toLowerCase())){
+        while (registered != null && !registered.toLowerCase().equals(status.toLowerCase())) {
             count++;
-            if(count > nop){
+            if (count > nop) {
                 break;
-            }else{
+            } else {
                 //Go to next page and try again
                 manufacturerList = manufacturerList.clickNext();
 
@@ -447,7 +461,7 @@ public class ExternalHomePageSteps extends CommonSteps {
             }
         }
 
-        Assert.assertThat("Status of organisation should be : " + status , status.toLowerCase().equals(registered.toLowerCase()), Matchers.is(true));
+        Assert.assertThat("Status of organisation should be : " + status, status.toLowerCase().equals(registered.toLowerCase()), Matchers.is(true));
 
         log.info("Manufacturer selected : " + name + ", is " + registered);
         manufacturerDetails = manufacturerList.viewAManufacturer(name);
@@ -467,11 +481,11 @@ public class ExternalHomePageSteps extends CommonSteps {
 
         int nop = manufacturerList.getNumberOfPages(1);
         int count = 0;
-        while(registered!=null && !registered.toLowerCase().equals(status.toLowerCase())){
+        while (registered != null && !registered.toLowerCase().equals(status.toLowerCase())) {
             count++;
-            if(count > nop){
+            if (count > nop) {
                 break;
-            }else{
+            } else {
                 //Go to next page and try again
                 manufacturerList = manufacturerList.clickNext();
 
@@ -482,7 +496,7 @@ public class ExternalHomePageSteps extends CommonSteps {
             }
         }
 
-        Assert.assertThat("Status of organisation should be : " + status , status.toLowerCase().equals(registered.toLowerCase()), Matchers.is(true));
+        Assert.assertThat("Status of organisation should be : " + status, status.toLowerCase().equals(registered.toLowerCase()), Matchers.is(true));
 
         log.info("Manufacturer selected : " + name + ", is " + registered);
         manufacturerDetails = manufacturerList.viewAManufacturer(name);
@@ -509,6 +523,7 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     /**
      * NO LONGER NEED : WE HAVE DEVICE INJECTION CODE AS PART OF THE SMOKE TESTS DATA CREATION TOOL
+     *
      * @throws Throwable
      */
     @And("^Provide indication of devices made$")
@@ -518,7 +533,8 @@ public class ExternalHomePageSteps extends CommonSteps {
         for (int x = 0; x < 9; x++) {
             try {
                 externalHomePage = externalHomePage.provideIndicationOfDevicesMade(x);
-            }catch (Exception e){}
+            } catch (Exception e) {
+            }
         }
 
         //custom made
@@ -536,13 +552,13 @@ public class ExternalHomePageSteps extends CommonSteps {
     @Then("^I should see option to add another device$")
     public void iShouldSeeOptionToAddAnotherDevice() throws Throwable {
         boolean isVisible = addDevices.isOptionToAddAnotherDeviceVisible();
-        Assert.assertThat("Expected to see option to : Add another device" , isVisible, Matchers.is(true));
+        Assert.assertThat("Expected to see option to : Add another device", isVisible, Matchers.is(true));
     }
 
     @Then("^I should not see option to add another device$")
     public void iShouldNotSeeOptionToAddAnotherDevice() throws Throwable {
         boolean isVisible = addDevices.isOptionToAddAnotherDeviceVisible();
-        Assert.assertThat("Expected to see option to : Add another device" , isVisible, Matchers.is(false));
+        Assert.assertThat("Expected to see option to : Add another device", isVisible, Matchers.is(false));
     }
 
     @And("^The gmdn code or term is \"([^\"]*)\" in summary section$")
@@ -551,10 +567,10 @@ public class ExternalHomePageSteps extends CommonSteps {
         //addDevices.isOptionToAddAnotherDeviceVisible();
         boolean isGMDNCorrect = addDevices.isGMDNValueDisplayed(data);
 
-        if(displayed!=null && displayed.equals("displayed"))
-            Assert.assertThat("Expected gmdn code/definition : " + data.getGMDN() , isGMDNCorrect, Matchers.is(true));
+        if (displayed != null && displayed.equals("displayed"))
+            Assert.assertThat("Expected gmdn code/definition : " + data.getGMDN(), isGMDNCorrect, Matchers.is(true));
         else
-            Assert.assertThat("Expected not to see product with gmdn code/definition : " + data.getGMDN() , isGMDNCorrect, Matchers.is(false));
+            Assert.assertThat("Expected not to see product with gmdn code/definition : " + data.getGMDN(), isGMDNCorrect, Matchers.is(false));
     }
 
     @And("^All the gmdn codes or terms are \"([^\"]*)\" in summary section$")
@@ -562,12 +578,11 @@ public class ExternalHomePageSteps extends CommonSteps {
         List<String> listOfGmdns = (List<String>) scenarioSession.getData(SessionKey.listOfGmndsAdded);
         boolean isGMDNCorrect = addDevices.isAllTheGMDNValueDisplayed(listOfGmdns);
 
-        if(displayed!=null && displayed.equals("displayed"))
-            Assert.assertThat("Expected gmdn code/definition : " + listOfGmdns , isGMDNCorrect, Matchers.is(true));
+        if (displayed != null && displayed.equals("displayed"))
+            Assert.assertThat("Expected gmdn code/definition : " + listOfGmdns, isGMDNCorrect, Matchers.is(true));
         else
-            Assert.assertThat("Expected not to see product with gmdn code/definition : " + listOfGmdns , isGMDNCorrect, Matchers.is(false));
+            Assert.assertThat("Expected not to see product with gmdn code/definition : " + listOfGmdns, isGMDNCorrect, Matchers.is(false));
     }
-
 
 
     @Then("^Verify name make model and other details are correct$")
@@ -611,7 +626,7 @@ public class ExternalHomePageSteps extends CommonSteps {
 
         //Verify manufacturer details showing correct data
         boolean isAllDataCorrect = deviceDetails.isDisplayedDeviceDataCorrect(manufacaturerData, deviceData);
-        Assert.assertThat("Expected to see device : " + deviceData.gmdnTermOrDefinition , isAllDataCorrect, Matchers.is(true));
+        Assert.assertThat("Expected to see device : " + deviceData.gmdnTermOrDefinition, isAllDataCorrect, Matchers.is(true));
     }
 
     @Then("^I should be able to view products related to stored devices$")
@@ -619,7 +634,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         DeviceDO deviceData = (DeviceDO) scenarioSession.getData(SessionKey.deviceData);
         productDetail = manufacturerDetails.viewProduct(deviceData);
         boolean isDetailValid = productDetail.isProductOrDeviceDetailValid(deviceData);
-        Assert.assertThat("Expected to see device : \n" + deviceData , isDetailValid, Matchers.is(true));
+        Assert.assertThat("Expected to see device : \n" + deviceData, isDetailValid, Matchers.is(true));
     }
 
 
@@ -628,15 +643,15 @@ public class ExternalHomePageSteps extends CommonSteps {
         boolean titleCorrect = externalHomePage.isTitleCorrect();
         String loggedInUser = (String) scenarioSession.getData(SessionKey.loggedInUser);
         boolean userNameIsCorrect = externalHomePage.isCorrectUsernameDisplayed(loggedInUser);
-        Assert.assertThat("Page heading is incorrect" , titleCorrect, Matchers.is(true));
-        Assert.assertThat("Logged in user name should be displayed" , userNameIsCorrect, Matchers.is(true));
+        Assert.assertThat("Page heading is incorrect", titleCorrect, Matchers.is(true));
+        Assert.assertThat("Logged in user name should be displayed", userNameIsCorrect, Matchers.is(true));
     }
 
 
     @Then("^I should see the following columns for \"([^\"]*)\" list of manufacturer table$")
     public void i_should_see_the_following_columns_for_list_of_manufacturer_table(String commaDelimitedHeading) throws Throwable {
         boolean isHeadingCorrect = manufacturerList.isTableHeadingCorrect(commaDelimitedHeading);
-        Assert.assertThat("Expected to see the following headings : " + commaDelimitedHeading , isHeadingCorrect, Matchers.is(true));
+        Assert.assertThat("Expected to see the following headings : " + commaDelimitedHeading, isHeadingCorrect, Matchers.is(true));
     }
 
     @Then("^I should see organisation details$")
@@ -656,7 +671,7 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     @When("^I get a list of countries matching searchterm \"([^\"]*)\" from manufacturer test harness$")
     public void i_enter_in_the_new_country_field(String searchTerm) throws Throwable {
-        if(searchTerm.contains("randomEU")){
+        if (searchTerm.contains("randomEU")) {
             searchTerm = RandomDataUtils.getRandomEUCountryName();
         }
         List<String> listOfCountries = createNewManufacturer.getListOfAutosuggestionsFor(searchTerm);
@@ -724,6 +739,7 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     /**
      * WHY IS THIS IN THE HOME PAGE
+     *
      * @param message
      * @throws Throwable
      */
@@ -756,10 +772,12 @@ public class ExternalHomePageSteps extends CommonSteps {
     public void i_click_on_a_random_organisation_which_needs_cfs() throws Throwable {
         String name = cfsManufacturerList.getARandomOrganisationName();
         deviceDetails = cfsManufacturerList.viewManufacturer(name);
+
+        scenarioSession.putData(SessionKey.organisationName, name);
     }
 
-    @When("^I order cfs for a random device with following data$")
-    public void i_order_cfs_for_a_random_device_with_following_data(Map<String, String> dataSets) throws Throwable {
+    @When("^I order cfs for a country with following data$")
+    public void i_order_cfs_for_a_country_with_following_data(Map<String, String> dataSets) throws Throwable {
         //Data
         String countryName = dataSets.get("countryName");
         String noOfCFS = dataSets.get("noOfCFS");
@@ -768,7 +786,76 @@ public class ExternalHomePageSteps extends CommonSteps {
         deviceDetails = deviceDetails.orderCFS();
         deviceDetails = deviceDetails.selectDevices();
         deviceDetails = deviceDetails.enterACertificateDetails(countryName, noOfCFS);
-        deviceDetails = deviceDetails.reviewCFSDetails();
+
+        //Store data to be verified later
+        scenarioSession.putData(SessionKey.organisationCountry, countryName);
+        scenarioSession.putData(SessionKey.numberOfCertificates, noOfCFS);
+    }
+
+    @When("^I order cfs for multiple countries with following data$")
+    public void i_order_cfs_for_multiple_countries_with_following_data(Map<String, String> dataSets) throws Throwable {
+        //Data pair of cfs and country, Bangladesh=10,Brazi=2,India=5 etc
+        String cfsAndCountryPairs = dataSets.get("listOfCFSCountryPair");
+        String[] data = cfsAndCountryPairs.split(",");
+
+        //Enter CFS data, Only click "Continue" after adding all the countries
+        deviceDetails = deviceDetails.orderCFS();
+        deviceDetails = deviceDetails.selectDevices();
+
+        int count = 1;
+        boolean clickAddCountryLink = true;
+        for (String d : data) {
+            if (count == data.length) {
+                clickAddCountryLink = false;
+            }
+            deviceDetails = deviceDetails.enterMultipleCertificateDetails(d, clickAddCountryLink, count);
+            count++;
+        }
+        deviceDetails = deviceDetails.clickContinueButton();
+
+        //Store for future varification
+        scenarioSession.putData(SessionKey.listOfCFSCountryPairs, data);
+    }
+
+
+    @Then("^I should see the correct number of certificates \"([^\"]*)\" in review page$")
+    public void i_should_see_the_correct_number_of_certificates_in_review_page(String number) throws Throwable {
+        boolean isNumberOfCertificatesCorrect = deviceDetails.isNumberOfCertificatesCorrect(number);
+        Assert.assertThat("Expected number of certifictes : " + number, isNumberOfCertificatesCorrect, is(true));
+    }
+
+
+    @Then("^I should see the correct details in cfs review page$")
+    public void i_should_see_the_correct_details_in_cfs_review_page() throws Throwable {
+        String country = (String) scenarioSession.getData(SessionKey.organisationCountry);
+        String numberOfCFS = (String) scenarioSession.getData(SessionKey.numberOfCertificates);
+        String name = (String) scenarioSession.getData(SessionKey.organisationName);
+
+        //Verify data number of cfs and country and name
+        boolean isNumberOfCertificatesCorrect = deviceDetails.isNumberOfCertificatesCorrect(numberOfCFS);
+        boolean isManufacturerNameCorrect = deviceDetails.isManufacturerNameCorrect(name);
+        Assert.assertThat("Expected number of certifictes : " + numberOfCFS, isNumberOfCertificatesCorrect, is(true));
+        Assert.assertThat("Expected manufacturer name to be : " + name, isManufacturerNameCorrect, is(true));
+
+    }
+
+    @Then("^I should see multiple country details in cfs review page$")
+    public void i_should_multiple_country_details_in_cfs_review_page() throws Throwable {
+        String[] data = (String[] )scenarioSession.getData(SessionKey.listOfCFSCountryPairs);
+        String name = (String) scenarioSession.getData(SessionKey.organisationName);
+
+        //Verify data number of cfs and country and name
+        boolean isManufacturerNameCorrect = deviceDetails.isManufacturerNameCorrect(name);
+        //boolean isListOfCountriesCorrect = deviceDetails.areTheCountriesDisplayedCorrect(data);
+        boolean isListOfCertificateCountCorrect = deviceDetails.areTheCertificateCountCorrect(data);
+        Assert.assertThat("Expected to see following countries and asssoficated CFS count : " + data, isListOfCertificateCountCorrect, is(true));
+        Assert.assertThat("Expected manufacturer name to be : " + name, isManufacturerNameCorrect, is(true));
+
+    }
+
+    @When("^I submit payment for the CFS$")
+    public void i_submit_payment_for_the_CFS() throws Throwable {
+        deviceDetails = deviceDetails.continueToPayment();
         deviceDetails = deviceDetails.submitPayment();
         deviceDetails = deviceDetails.finishPayment();
     }

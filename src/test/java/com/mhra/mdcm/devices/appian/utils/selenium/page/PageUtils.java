@@ -441,6 +441,37 @@ public class PageUtils {
     }
 
 
+    public static void selectFromAutoSuggestedListItemsManufacturers(WebDriver driver, WebElement element, String countryName ) {
+        boolean completed = true;
+        int count = 0;
+        do {
+            try {
+
+                count++;    //It will go forever without this
+                WebElement country = element;
+                country.sendKeys(countryName);
+                WaitUtils.nativeWaitInSeconds(1);
+                WaitUtils.waitForElementToBeClickable(driver,By.cssSelector("li[role='option']") , _Page.TIMEOUT_5_SECOND, false);
+
+                //Get list of options displayed
+                WaitUtils.nativeWaitInSeconds(1);
+                List<WebElement> countryOptions = driver.findElements(By.cssSelector("li[role='option']"));
+                WebElement item = countryOptions.get(0);
+                String text = item.getText();
+                //System.out.println("country : " + text);
+
+                if(text!=null && !text.contains("Searching")) {
+                    PageUtils.singleClick(driver, item);
+                    completed = true;
+                }
+            } catch (Exception e) {
+                completed = false;
+                WaitUtils.nativeWaitInSeconds(1);
+            }
+        } while (!completed && count < 3);
+    }
+
+
     public static void selectFromAutoSuggestedListItems(WebDriver driver, String elementPath, String countryName, boolean throwException) throws Exception {
         boolean completed = true;
         int count = 0;
