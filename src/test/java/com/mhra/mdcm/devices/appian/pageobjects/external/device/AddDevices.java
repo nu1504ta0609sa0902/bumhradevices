@@ -473,8 +473,7 @@ public class AddDevices extends _Page {
 
 
     private void productLabelName(String labelName) {
-        WaitUtils.waitForElementToBeClickable(driver, addProduct2, TIMEOUT_10_SECOND, false);
-        addProduct2.click();
+        PageUtils.clickOneOfTheFollowing(driver, addProduct, addProduct2, TIMEOUT_5_SECOND);
 
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.nativeWaitInSeconds(1);
@@ -485,8 +484,7 @@ public class AddDevices extends _Page {
         PageUtils.uploadDocument(listOfFileUploads.get(0), "DeviceInstructionForUse1.pdf", 1, 3);
 
         //Save product label details
-        WaitUtils.waitForElementToBeClickable(driver, saveProduct, TIMEOUT_5_SECOND, false);
-        saveProduct.click();
+        PageUtils.clickOneOfTheFollowing(driver, saveProduct, saveProduct2, TIMEOUT_5_SECOND);
     }
 
     private void conformToCTS(DeviceDO dd) {

@@ -564,4 +564,27 @@ public class PageUtils {
         }
         return isVisible;
     }
+
+    public static boolean clickOneOfTheFollowing(WebDriver driver, WebElement btn, WebElement btn2, int timeout) {
+        boolean clicked = clickElement(driver, btn, timeout, true);
+        if(!clicked){
+            clicked = clickElement(driver, btn2,timeout,true);
+        }
+        return clicked;
+    }
+
+    private static boolean clickElement(WebDriver driver, WebElement btn, int timeout, boolean singleClick) {
+        boolean clicked = true;
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, btn, timeout, false);
+            if(singleClick) {
+                singleClick(driver, btn);
+            }else{
+                doubleClick(driver, btn);
+            }
+        }catch (Exception e){
+            clicked = false;
+        }
+        return clicked;
+    }
 }
