@@ -6,7 +6,7 @@ Feature: As an account holder with access to the device registration service
   Scenario Outline: Users should be able to add all 4 device type
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on a random manufacturer
+    And I click on a random manufacturer to add devices
     When I add a device to SELECTED manufacturer with following data
       | deviceType     | General Medical Device |
       | gmdnDefinition | <device1>              |
