@@ -528,10 +528,7 @@ public class AddDevices extends _Page {
 
     private void addProduct(DeviceDO dd) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        //WaitUtils.waitForElementToBeClickable(driver, addProduct, TIMEOUT_10_SECOND, false);
-        //WaitUtils.nativeWaitInSeconds(2);
-        //addProduct.click();
-        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        PageUtils.clickOneOfTheFollowing(driver, addProduct, addProduct2, TIMEOUT_3_SECOND);
 
         //Wait for form to be visible
         WaitUtils.waitForElementToBeClickable(driver, cbxProductName, TIMEOUT_10_SECOND, false);

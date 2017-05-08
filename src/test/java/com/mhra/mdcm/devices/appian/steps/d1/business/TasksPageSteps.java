@@ -441,10 +441,12 @@ public class TasksPageSteps extends CommonSteps {
         assertThat("Expected to see following devices : " + deviceList, isDevicesCorrect, is(equalTo(true)));
     }
 
-    @And("^The status of designation letter should be \"([^\"]*)\"$")
+    @And("^The designation letter should be attached and the status should be \"([^\"]*)\"$")
     public void theStatusShouldBe(String expectedStatus) throws Throwable {
-        boolean isStatusCorrect = taskSection.isDesignationLetterStatusCorrect(expectedStatus);
-        assertThat("Expected to see letter of designation status : " + expectedStatus, isStatusCorrect, is(equalTo(true)));
+        boolean isAttached = taskSection.isDesignationLetterAttached();
+        assertThat("Expected to see letter of designation link", isAttached, is(equalTo(true)));
+        //boolean isStatusCorrect = taskSection.isDesignationLetterStatusCorrect(expectedStatus);
+        //assertThat("Expected to see letter of designation status : " + expectedStatus, isStatusCorrect, is(equalTo(true)));
     }
 
 

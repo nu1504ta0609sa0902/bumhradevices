@@ -81,6 +81,8 @@ public class TaskSection extends _Page {
     //Attachments : Letter of designation
     @FindBy(xpath = ".//div[contains(text(),'Uploaded date')]//following::tr/td[6]")
     WebElement letterOfDesignationStatus;
+    @FindBy(xpath = ".//h4[contains(text(),'Designation')]//following::a")
+    WebElement linkLetterOfDesignation;
 
     //List of Table data : GMDN for device types in the task
     @FindBy(xpath = ".//div[contains(text(),'Custom made')]//following::tr/td[1]")
@@ -528,5 +530,10 @@ public class TaskSection extends _Page {
 
         //This is harder than expected because you may only have IDV or AIMD or GMD or SPP or any combinations
         return isOrdered;
+    }
+
+    public boolean isDesignationLetterAttached() {
+        boolean clickable = PageUtils.isElementClickable(driver, linkLetterOfDesignation, TIMEOUT_5_SECOND);
+        return clickable;
     }
 }

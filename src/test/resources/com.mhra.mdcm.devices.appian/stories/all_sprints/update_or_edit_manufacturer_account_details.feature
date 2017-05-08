@@ -13,7 +13,7 @@ Feature: As a business and account holder, I want to be able to update party det
       | user         | link     | searchTerm              | keyValuePairs                                          |
       | businessAuto | Accounts | ManufacturerAccountRT01 | address.line1,address.line2,city.town,country,postcode |
       | businessAuto | Accounts | ManufacturerAccountRT01 | org.telephone,org.fax,job.title                        |
-      | businessAuto | Accounts | ManufacturerAccountRT00 | org.name                                               |
+      #| businessAuto | Accounts | ManufacturerAccountRT00 | org.name                                               |
 
 
   @regression @mdcm-175 @_sprint2
@@ -28,7 +28,7 @@ Feature: As a business and account holder, I want to be able to update party det
       | user         | link     | searchTerm               | keyValuePairs                                  |
       | businessAuto | Accounts | AuthorisedRepAccountRT01 | address.line1,address.line2,city.town,postcode |
       | businessAuto | Accounts | AuthorisedRepAccountRT01 | org.telephone,org.fax,job.title                |
-      | businessAuto | Accounts | AuthorisedRepAccountRT00 | org.name                                       |
+      #| businessAuto | Accounts | AuthorisedRepAccountRT00 | org.name                                       |
 
 
   @regression @mdcm-149 @mdcm-171 @mdcm-162 @mdcm-164 @_sprint3 @_sprint5 @_sprint6

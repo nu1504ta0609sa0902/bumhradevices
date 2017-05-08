@@ -79,7 +79,7 @@ Feature: As a business user, I want a task to be created each time a customer su
     When I logout of the application
     And I login to appian as "<logBackInAas>" user
     Then I view new task with link "<link>" for the new account
-    And The status of designation letter should be "Awaiting Review"
+    And The designation letter should be attached and the status should be "Awaiting Review"
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition       | customMade | listOfProductNames | link                                  |
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Desiccating chamber  | true       | ford               | New Manufacturer Registration Request |

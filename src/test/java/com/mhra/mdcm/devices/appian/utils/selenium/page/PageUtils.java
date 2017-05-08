@@ -587,4 +587,14 @@ public class PageUtils {
         }
         return clicked;
     }
+
+    public static boolean isElementClickable(WebDriver driver, WebElement element, int timeout5Second) {
+        boolean clickable = true;
+        try{
+            WaitUtils.waitForElementToBeClickable(driver, element, timeout5Second, false);
+        }catch (Exception e){
+            //Its not clickable
+        }
+        return clickable;
+    }
 }
