@@ -145,10 +145,12 @@ public class Organisations extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND, false);
         WaitUtils.waitForElementToBeClickable(driver, listOfOrganisationRoles.get(0), TIMEOUT_10_SECOND, false);
+        WaitUtils.nativeWaitInSeconds(3);
+
         boolean allMatched = true;
         for(WebElement el: listOfOrganisationRoles){
             String text = el.getText().toLowerCase();
-            log.info(text);
+            //log.info(text);
             if(!text.contains("revious") && !text.contains("ext")) {
                 allMatched = text.contains(organisationType);
                 if (!allMatched) {
@@ -204,10 +206,12 @@ public class Organisations extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND, false);
         WaitUtils.waitForElementToBeClickable(driver, listOfAllStatus.get(0), TIMEOUT_10_SECOND, false);
+        //WaitUtils.nativeWaitInSeconds(3);
+
         boolean allMatched = true;
         for(WebElement el: listOfAllStatus){
             String text = el.getText().toLowerCase();
-            log.info(text);
+            //log.info(text);
             if(!text.contains("revious") && !text.contains("ext")) {
                 allMatched = text.equals(value);
                 if (!allMatched) {
@@ -269,5 +273,15 @@ public class Organisations extends _Page {
         }
 
         return new BusinessManufacturerDetails(driver);
+    }
+
+    public boolean isSearchingCompleted() {
+        boolean seachingCompleted = false;
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_30_SECOND, false);
+            seachingCompleted = true;
+        }catch (Exception e){}
+        return seachingCompleted;
     }
 }

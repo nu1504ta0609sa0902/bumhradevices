@@ -336,19 +336,25 @@ public class RecordsPageSteps extends CommonSteps {
 
     @When("^I filter by \"([^\"]*)\" for the value \"([^\"]*)\" in \"([^\"]*)\" page$")
     public void i_filter_by_for_the_value_in_page(String filterBy, String value, String page) throws Throwable {
+
+        String searchTerm = (String) scenarioSession.getData(SessionKey.searchTerm);
+
         //Filter by organisation role
         if (page.equals(LinksRecordPage.LINK_ACCOUNTS.link) && filterBy.contains("Organisation")) {
+            accounts.isSearchingCompleted();
+            //Filter accounts by organisation role
             accounts = accounts.filterByOrganistionRole(value);
         } else if (page.equals(LinksRecordPage.LINK_ORGANISATIONS.link) && filterBy.contains("Organisation")) {
+            organisations.isSearchingCompleted();
+            //Filter organisation by
             organisations = organisations.filterBy(value);
-        }
-        //Filter by registered status
-        if (page.equals(LinksRecordPage.LINK_ORGANISATIONS.link) && filterBy.contains("Registered")) {
+        }else if (page.equals(LinksRecordPage.LINK_ORGANISATIONS.link) && filterBy.contains("Registered")) {
+            accounts.isSearchingCompleted();
+            //Filter by registered status
             accounts = accounts.filterByRegisteredStatus(value);
-        }
-
-        //Filter by device type
-        if (page.equals(LinksRecordPage.LINK_REGISTERED_PRODUCTS.link) && filterBy.contains("Device type")) {
+        }else if (page.equals(LinksRecordPage.LINK_REGISTERED_PRODUCTS.link) && filterBy.contains("Device type")) {
+            registeredProducts.isSearchingCompleted();
+            //Filter by device type
             registeredProducts = registeredProducts.filterByDeviceType(value);
         }
     }
@@ -377,21 +383,23 @@ public class RecordsPageSteps extends CommonSteps {
     @Then("^I should see table column \"([^\"]*)\" displaying only \"([^\"]*)\" in \"([^\"]*)\" page$")
     public void i_should_see_table_column_only_displaying_in_page(String tableColumnName, String value, String page) throws Throwable {
         boolean isDataAsExpected = false;
+        String searchTerm = (String) scenarioSession.getData(SessionKey.searchTerm);
 
-        //Filtered by organisation role
         if (page.equals(LinksRecordPage.LINK_ACCOUNTS.link) && tableColumnName.toLowerCase().contains("role")) {
+            accounts.isSearchingCompleted();
+            //Filtered accounts by organisation role
             isDataAsExpected = accounts.areAllOrganisationRoleOfType(value);
         } else if (page.equals(LinksRecordPage.LINK_ORGANISATIONS.link) && tableColumnName.toLowerCase().contains("role")) {
+            organisations.isSearchingCompleted();
+            //Filter organisations by
             isDataAsExpected = organisations.areAllOrganisationRoleOfType(value);
-        }
-
-        //Filtered by registered status
-        if (page.equals(LinksRecordPage.LINK_ORGANISATIONS.link) && tableColumnName.toLowerCase().contains("status")) {
+        }else if (page.equals(LinksRecordPage.LINK_ORGANISATIONS.link) && tableColumnName.toLowerCase().contains("status")) {
+            organisations.isSearchingCompleted();
+            //Filtered by registered status
             isDataAsExpected = organisations.areAllStatusOfType(value);
-        }
-
-        //Filter by device type
-        if (page.equals(LinksRecordPage.LINK_REGISTERED_PRODUCTS.link) && tableColumnName.toLowerCase().contains("device type")) {
+        }else if (page.equals(LinksRecordPage.LINK_REGISTERED_PRODUCTS.link) && tableColumnName.toLowerCase().contains("device type")) {
+            registeredProducts.isSearchingCompleted();
+            //Filter by device type
             isDataAsExpected = registeredProducts.areAllProductOfType(value);
         }
         Assert.assertThat("Data may not be correct after filtering ", isDataAsExpected, is(true));
@@ -402,19 +410,21 @@ public class RecordsPageSteps extends CommonSteps {
     public void i_should_see_table_column_also_displaying_in_page(String tableColumnName, String value, String page) throws Throwable {
         boolean isDataAsExpected = false;
 
-        //If filtered by organisation roles
+
         if (page.equals(LinksRecordPage.LINK_ACCOUNTS.link) && tableColumnName.toLowerCase().contains("role")) {
+            //If filtered by organisation roles
+            accounts.isSearchingCompleted();
             isDataAsExpected = accounts.areOrganisationOfRoleVisible(value);
         } else if (page.equals(LinksRecordPage.LINK_ORGANISATIONS.link) && tableColumnName.toLowerCase().contains("role")) {
+            organisations.isSearchingCompleted();
             isDataAsExpected = organisations.areOrganisationOfRoleVisible(value);
-        }
-
-        //If filtered by status
-        if (page.equals(LinksRecordPage.LINK_ORGANISATIONS.link) && tableColumnName.toLowerCase().contains("status")) {
+        }else if (page.equals(LinksRecordPage.LINK_ORGANISATIONS.link) && tableColumnName.toLowerCase().contains("status")) {
+            organisations.isSearchingCompleted();
+            //If filtered by status
             isDataAsExpected = organisations.areStatusOfTypeVisible(value);
-        }
-        //If filtered by device types
-        if (page.equals(LinksRecordPage.LINK_REGISTERED_PRODUCTS.link) && tableColumnName.toLowerCase().contains("evice type")) {
+        }else if (page.equals(LinksRecordPage.LINK_REGISTERED_PRODUCTS.link) && tableColumnName.toLowerCase().contains("evice type")) {
+            registeredProducts.isSearchingCompleted();
+            //If filtered by device types
             isDataAsExpected = registeredProducts.areDevicesOfTypeVisible(value);
         }
 

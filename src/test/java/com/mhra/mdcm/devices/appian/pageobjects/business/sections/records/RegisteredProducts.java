@@ -154,10 +154,13 @@ public class RegisteredProducts extends _Page {
     public boolean areAllProductOfType(String value) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, listOfDropDownFilters.get(0) , TIMEOUT_10_SECOND, false);
+        //WaitUtils.nativeWaitInSeconds(3);
+
         boolean allMatched = true;
         for(WebElement el: listOfDeviceTypes){
             String text = el.getText();
-            log.info(text);
+            //log.info(text);
             if(!text.contains("revious") && !text.contains("ext")) {
                 allMatched = text.contains(value);
                 if (!allMatched) {
@@ -191,5 +194,15 @@ public class RegisteredProducts extends _Page {
             }
         }
         return aMatchFound;
+    }
+
+    public boolean isSearchingCompleted() {
+        boolean seachingCompleted = false;
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_30_SECOND, false);
+            seachingCompleted = true;
+        }catch (Exception e){}
+        return seachingCompleted;
     }
 }

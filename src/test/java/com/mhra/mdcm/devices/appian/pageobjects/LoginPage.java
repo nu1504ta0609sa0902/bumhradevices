@@ -33,15 +33,17 @@ public class LoginPage extends _Page {
     WebElement rememberLabel;
     @FindBy(css = ".gwt-Anchor.pull-down-toggle")
     WebElement settings;
-    @FindBy(css = ".settings-pull-down .gwt-Anchor.pull-down-toggle")
-    WebElement loggedInUsername;
+    @FindBy(css = ".gwt-Anchor.pull-down-toggle span")
+    WebElement loggedInUserBusiness;
+    @FindBy(css = ".UserProfileLayout---current_user_menu_wrapper")
+    WebElement loggedInUserManufacturer;
 
     @FindBy(xpath = ".//label[@for='remember']//following::input[1]")
     WebElement loginBtn;
 
     @FindBy(xpath = ".//span[contains(@style, 'personalization')]")
     WebElement photoIcon;
-    @FindBy(xpath = "//*[contains(text(),'Sign Out')]")
+    @FindBy(xpath = ".//*[contains(text(),'Sign Out')]")
     WebElement signOutLink;
 
 
@@ -147,7 +149,7 @@ public class LoginPage extends _Page {
      */
     public LoginPage logoutIfLoggedIn() {
         try {
-            WaitUtils.waitForElementToBeClickable(driver, settings, 10, false);
+            WaitUtils.waitForElementToBeClickable(driver, settings, TIMEOUT_10_SECOND, false);
             if (settings.isDisplayed()) {
                 //settings.click();
                 PageUtils.doubleClick(driver, settings);
@@ -157,7 +159,7 @@ public class LoginPage extends _Page {
                 WaitUtils.nativeWaitInSeconds(2);
                 driver.get(baseUrl);
 
-                WaitUtils.waitForElementToBeClickable(driver, remember, 10, false);
+                WaitUtils.waitForElementToBeClickable(driver, remember, TIMEOUT_10_SECOND, false);
                 //WaitUtils.nativeWaitInSeconds(2);
             }
         } catch (Exception e) {
@@ -174,7 +176,7 @@ public class LoginPage extends _Page {
      */
     public LoginPage logoutIfLoggedInOthers() {
         try {
-            WaitUtils.waitForElementToBeClickable(driver, photoIcon, 10, false);
+            WaitUtils.waitForElementToBeClickable(driver, photoIcon, TIMEOUT_10_SECOND, false);
             if (photoIcon.isDisplayed()) {
                 //settings.click();
                 PageUtils.doubleClick(driver, photoIcon);
@@ -184,8 +186,8 @@ public class LoginPage extends _Page {
                 WaitUtils.nativeWaitInSeconds(2);
                 driver.get(baseUrl);
 
-                WaitUtils.waitForElementToBeClickable(driver, remember, 10, false);
-                //WaitUtils.waitForElementToBeClickable(driver, remember, 10, false);
+                WaitUtils.waitForElementToBeClickable(driver, remember, TIMEOUT_10_SECOND, false);
+                //WaitUtils.waitForElementToBeClickable(driver, remember, TIMEOUT_10_SECOND, false);
                 //If logout and login is too fast, appian system shows 404 in some instance of automation
                 //WaitUtils.nativeWaitInSeconds(2);
             }
@@ -195,31 +197,57 @@ public class LoginPage extends _Page {
         return new LoginPage(driver);
     }
 
-    public String getLoggedInUserName() {
-        WaitUtils.waitForElementToBeClickable(driver, loggedInUsername, 10, false);
-        return loggedInUsername.getText();
+    public String getLoggedInUserName(String usernameKey) {
+        if(usernameKey.contains("business")) {
+            WaitUtils.waitForElementToBeClickable(driver, loggedInUserBusiness, TIMEOUT_1_SECOND, false);
+            return loggedInUserBusiness.getAttribute("aria-label");
+        }else{
+            //Manufacturer or authorised reps
+            WaitUtils.waitForElementToBeClickable(driver, loggedInUserManufacturer, 2, false);
+            loggedInUserManufacturer.click();
+            return driver.findElement(By.cssSelector(".UserProfileLayout---current_userid strong")).getText();
+        }
     }
 
     public boolean isErrorMessageCorrect(String expectedErrorMsg) {
-        WaitUtils.waitForElementToBeVisible(driver, errorMsg, 10, false);
+        WaitUtils.waitForElementToBeVisible(driver, errorMsg, TIMEOUT_10_SECOND, false);
         boolean contains = errorMsg.getText().contains(expectedErrorMsg);
         return contains;
     }
 
-    public boolean isAlreadyLoggedInAsUser(String username) {
+    public boolean isAlreadyLoggedInAsUser(String usernameKey) {
+        boolean alreadyLoggedInAsUser = false;
         try {
-            //Login button should not be visible if logged in
-            WaitUtils.waitForElementToBeClickable(driver, loginBtn, 10, false);
-            return loginBtn.isDisplayed() && loginBtn.isEnabled();
+            //Check if we are already logged in as the username
+            Properties props = FileUtils.loadPropertiesFile(FileUtils.userFileName);
+            String selectedProfile = System.getProperty("spring.profiles.active");
+            String usernameExpected = props.getProperty(selectedProfile + ".username." + usernameKey).replaceAll("\\.", " ");;
+
+            String loggedInUserName = getLoggedInUserName(usernameKey);
+            if(loggedInUserName!=null && loggedInUserName.contains(usernameExpected)){
+                alreadyLoggedInAsUser = true;
+            }
         } catch (Exception e) {
             //Not logged in
-            return false;
+            e.printStackTrace();
         }
+        return alreadyLoggedInAsUser;
     }
 
     public boolean isInLoginPage() {
-        //WaitUtils.waitForElementToBeClickable(driver, loginBtn, 10, false);
         boolean isLoginPage = loginBtn.isDisplayed() && loginBtn.isEnabled();
         return isLoginPage;
     }
+
+//    private boolean isAlreadyLoggedInAsSpecifiedUser(String usernameTxt) {
+//        boolean isAreadyLoggedInAaUser = false;
+//        try {
+//            String loggedInAs = loggedInUsername.getText();
+//            String checkIfThisUserIsAlreadyLoggedIn = usernameTxt.replaceAll("\\.", " ");
+//            isAreadyLoggedInAaUser = loggedInAs.contains(checkIfThisUserIsAlreadyLoggedIn);
+//        } catch (Exception e) {
+//            isAreadyLoggedInAaUser = false;
+//        }
+//        return isAreadyLoggedInAaUser;
+//    }
 }
