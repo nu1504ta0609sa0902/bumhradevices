@@ -62,15 +62,16 @@ Feature: As an account holder with access to the Device Registration Service I w
     And I should be prevented from adding the devices
     Examples:
       | user              | deviceType               | gmdnDefinition      | deviceSterile | riskClassification | notifiedBody | isBearingCEMarking | devicesCompatible | errorMsg                                                                                         |
-      | authorisedRepAuto | General Medical Device   | Blood               |               | class2a            | NB 0086 BSI  |                    |                   | You cannot register class IIa devices with the MHRA                                              |
-      | manufacturerAuto  | General Medical Device   | Blood               |               | class2b            | NB 0086 BSI  |                    |                   | You cannot register class IIb devices with the MHRA                                              |
-      | manufacturerAuto  | General Medical Device   | Blood               |               | class3             | NB 0086 BSI  |                    |                   | You cannot register class III devices with the MHRA                                              |
+# GMD can only have risk classification of class1 therefore error messages will not be displayed
+#      | authorisedRepAuto | General Medical Device   | Blood               |               | class1            | NB 0086 BSI  |                    |                   | You cannot register class IIa devices with the MHRA                                              |
+#      | manufacturerAuto  | General Medical Device   | Blood               |               | class1            | NB 0086 BSI  |                    |                   | You cannot register class IIb devices with the MHRA                                              |
+#      | manufacturerAuto  | General Medical Device   | Blood               |               | class1             | NB 0086 BSI  |                    |                   | You cannot register class III devices with the MHRA                                              |
       | authorisedRepAuto | System or Procedure Pack | Desiccating chamber | false         |                    |              | true               |                   | You cannot register this as a System/procedure pack because all the components must be CE marked |
       | authorisedRepAuto | System or Procedure Pack | Desiccating chamber | true          |                    | NB 0086 BSI  |                    | false             | You cannot register this as a System/procedure pack because all the components must be CE marked |
       | manufacturerAuto  | System or Procedure Pack | Desiccating chamber |               |                    | NB 0086 BSI  | false              | false             | This System/procedure pack cannot be registered with us                                          |
 
 
-  @regression @3560 @2143 @_sprint10
+  @3560 @2143 @_sprint10 @ignore
   Scenario Outline: Error message is displayed for AIMD devices with certain risk classification
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page

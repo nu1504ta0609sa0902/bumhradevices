@@ -288,7 +288,10 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     @Then("^I should be prevented from adding the devices$")
     public void i_should_be_prevented_from_adding_the_devices() throws Throwable {
-        addDevices = addDevices.addAnotherDevice();
+        //        addDevices = addDevices.addAnotherDevice();
+        String registeredStatus = (String) scenarioSession.getData(SessionKey.organisationRegistered);
+        addDevices = manufacturerDetails.gotoAddDevicesPage(registeredStatus);
+
         boolean isErrorMessageDisplayed = addDevices.isValidationErrorMessageVisible();
         Assert.assertThat("Error message should still be displayed and user should be prevented going forward", isErrorMessageDisplayed, Matchers.is(true));
     }

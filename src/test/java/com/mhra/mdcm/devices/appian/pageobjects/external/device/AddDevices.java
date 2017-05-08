@@ -209,7 +209,7 @@ public class AddDevices extends _Page {
     //Error message
     @FindBy(css = ".component_error")
     WebElement errMessage;
-    @FindBy(css = ".MessageLayout---error")
+    @FindBy(css = ".FieldLayout---field_error")
     WebElement validationErrMessage;
 
     //Device Summary
