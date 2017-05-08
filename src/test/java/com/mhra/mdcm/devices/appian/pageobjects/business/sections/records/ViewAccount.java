@@ -80,7 +80,7 @@ public class ViewAccount extends _Page {
 
     public boolean verifyUpdatesDisplayedOnPage(String keyValuePairToUpdate, AccountRequestDO updatedData) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeVisible(driver, editAccountInfoLink, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeVisible(driver, editAccountInfoLink, TIMEOUT_30_SECOND, false);
         WaitUtils.waitForElementToBeClickable(driver, editAccountInfoLink, TIMEOUT_5_SECOND, false);
         WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".gwt-Anchor.pull-down-toggle"), TIMEOUT_5_SECOND, false);
         boolean allChangesDisplayed = true;

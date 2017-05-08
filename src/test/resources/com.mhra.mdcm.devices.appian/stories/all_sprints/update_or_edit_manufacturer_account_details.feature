@@ -109,7 +109,8 @@ Feature: As a business and account holder, I want to be able to update party det
   Scenario Outline: Verify only 1 task is created when update EXISTING manufacturer with multiple devices
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on random manufacturer with status "<status>"
+    And I click on a random manufacturer to add devices
+    #And I click on random manufacturer with status "<status>" to add device
     When I add a device to SELECTED manufacturer with following data
       | deviceType     | <deviceType> |
       | gmdnDefinition | <gmdn1>      |

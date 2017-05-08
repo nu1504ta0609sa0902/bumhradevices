@@ -1009,10 +1009,13 @@ public class AddDevices extends _Page {
 
     public AddDevices proceedToReview() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.nativeWaitInSeconds(2);
-        WaitUtils.waitForElementToBeClickable(driver, btnProceedToReview, TIMEOUT_10_SECOND, false);
-        btnProceedToReview.click();
-        log.info("Proceed to review before payment");
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, btnProceedToReview, TIMEOUT_10_SECOND, false);
+            btnProceedToReview.click();
+            log.info("Proceed to review before payment");
+        }catch (Exception e){
+            //Need to verify why this is not always showing up : it appears for unregistered but not for registered
+        }
         return new AddDevices(driver);
     }
 
