@@ -25,11 +25,10 @@ Feature: Reset all the information related to a manufacturer and authorisedRep
   Scenario Outline: AuthorisedRep update country to UK
     Given I am logged into appian as "<user>" user
     When I go to my accounts page
-#    And I update the organisation details with following data "<keyValuePairs>"
-#    Then I should see the changes "<keyValuePairs>" in my accounts page
+    And I update the organisation details with following data "<keyValuePairs>"
+    Then I should see the changes "<keyValuePairs>" in my accounts page
     Examples:
       | user              | keyValuePairs |
-      | manufacturerAuto  | org.country   |
       | manufacturerAuto  | org.country   |
       | authorisedRepNoor | org.country   |
 
@@ -146,11 +145,21 @@ Feature: Reset all the information related to a manufacturer and authorisedRep
   Scenario Outline: Setup an account so we can modifiy the organisation name
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
-#    When I search for account with following text "<searchTerm>"
-#    Then I should see at least 1 account matches
-#    When I view a randomly searched account and update the following data "<keyValuePairs>"
-#    Then I should see the changes "<keyValuePairs>" in the account page
+    When I search for account with following text "<searchTerm>"
+    Then I should see at least 1 account matches
+    When I view a randomly searched account and update the following data "<keyValuePairs>"
+    Then I should see the changes "<keyValuePairs>" in the account page
     Examples:
       | user         | link     | searchTerm        | keyValuePairs |
       | businessAuto | Accounts | ManufacturerRT00  | org.name      |
       | businessAuto | Accounts | AuthorisedRepRT00 | org.name      |
+
+
+    Scenario Outline: Clear up task residue
+      Given I am logged into appian as "<user>" user
+      When I go to tasks page
+      And I clear up any old taks with name "<searchTerm1>"
+      And I clear up any old taks with name "<searchTerm2>"
+      Examples:
+        | user         | link     | searchTerm        | searchTerm2 |
+        | businessAuto | Accounts | ManufacturerRT01  | AuthorisedRepRT01      |

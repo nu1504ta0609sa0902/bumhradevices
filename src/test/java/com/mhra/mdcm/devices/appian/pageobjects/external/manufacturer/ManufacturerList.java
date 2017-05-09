@@ -204,7 +204,7 @@ public class ManufacturerList extends _Page {
 
     public ManufacturerList sortBy(String sortBy, int numberOfTimesToClick) {
         WaitUtils.waitForElementToBeClickable(driver, thManufacturerRegistrationStatus, TIMEOUT_DEFAULT, false);
-        if(sortBy.equals("Registration Status")){
+        if(sortBy.equals("Registration status")){
             for(int c = 0; c < numberOfTimesToClick; c++) {
                 thManufacturerRegistrationStatus.click();
                 WaitUtils.waitForElementToBeClickable(driver, thManufacturerRegistrationStatus, TIMEOUT_DEFAULT, false);

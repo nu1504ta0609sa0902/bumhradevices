@@ -108,7 +108,9 @@ public class TasksTabPage extends _Page {
             if(timeout == 0){
                 timeout = TIMEOUT_10_SECOND;
             }
+
             WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(link), timeout, false);
+            String txt = driver.findElement(By.partialLinkText(link)).findElement(By.xpath("following::div")).getText();
         }catch (Exception e){
             isVisible = false;
         }
