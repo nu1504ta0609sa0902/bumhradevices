@@ -52,7 +52,6 @@ Feature: As a customer I want to register new manufacturers with devices
     Then The task should be removed from tasks list
     When I logout of the application
     And I am logged into appian as "<user>" user
-#    And I go to list of manufacturers page
     When I go to list of manufacturers page and click on stored manufacturer
     Then Verify devices displayed and GMDN details are correct
     And I should be able to view products related to stored devices

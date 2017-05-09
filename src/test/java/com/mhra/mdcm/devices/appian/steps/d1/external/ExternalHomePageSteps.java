@@ -404,6 +404,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         manufacturerList = externalHomePage.gotoListOfManufacturerPage();
 
         String name = (String) scenarioSession.getData(SessionKey.organisationName);
+        manufacturerList = manufacturerList.sortBy("Registration status", 2);
         int nop = manufacturerList.getNumberOfPages(1);
         boolean isFoundInManufacturerList = false;
         int count = 0;
@@ -625,7 +626,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         DeviceDO deviceData = (DeviceDO) scenarioSession.getData(SessionKey.deviceData);
 
         //Go to devices page by clicking on the "Devices and product details" link
-        deviceDetails = manufacturerDetails.clickOnDevicesLink("product details");
+        deviceDetails = manufacturerDetails.clickOnDevicesAndProductDetailsLink();
 
         //Verify manufacturer details showing correct data
         boolean isAllDataCorrect = deviceDetails.isDisplayedDeviceDataCorrect(manufacaturerData, deviceData);

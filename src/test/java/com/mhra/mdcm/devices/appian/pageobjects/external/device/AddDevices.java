@@ -1027,7 +1027,7 @@ public class AddDevices extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnSubmitConfirm, TIMEOUT_10_SECOND, false);
         PageUtils.doubleClick(driver, btnSubmitConfirm);
-        log.info("Submit for registration");
+        log.info("Confirm Payment : Submit for registration");
         return new AddDevices(driver);
     }
 
@@ -1036,6 +1036,7 @@ public class AddDevices extends _Page {
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
             WaitUtils.waitForElementToBeClickable(driver, linkBackToService, TIMEOUT_10_SECOND, false);
             linkBackToService.click();
+            log.info("Link: Back to serivces");
         }catch (Exception e){}
         return new ManufacturerList(driver);
     }

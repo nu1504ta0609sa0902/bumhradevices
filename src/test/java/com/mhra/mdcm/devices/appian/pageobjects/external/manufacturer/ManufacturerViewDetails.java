@@ -266,8 +266,9 @@ public class ManufacturerViewDetails extends _Page {
         return fieldsDisplayed;
     }
 
-    public DeviceDetails clickOnDevicesLink(String link) {
-        WaitUtils.waitForElementToBeClickable(driver, devicesAndProductDetails, TIMEOUT_3_SECOND, false);
+    public DeviceDetails clickOnDevicesAndProductDetailsLink() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, devicesAndProductDetails, TIMEOUT_10_SECOND, false);
         devicesAndProductDetails.click();
         return new DeviceDetails(driver);
     }

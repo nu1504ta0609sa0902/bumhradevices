@@ -112,13 +112,13 @@ public class ProductDetails extends _Page {
                     }
                 }
             } else if (field.equals("notified body")) {
-                //Only relevant if its not custom made
-                if (!deviceData.isCustomMade) {
-                    String notifiedBodyTxt = deviceData.notifiedBody;
-                    if (notifiedBodyTxt != null) {
-                        allValid = AssertUtils.areChangesDisplayed(notifiedBody, notifiedBodyTxt);
-                    }
-                }
+                //Only relevant if its not custom made : No longer required verified by Hasan 09/05/2017 email
+//                if (!deviceData.isCustomMade) {
+//                    String notifiedBodyTxt = deviceData.notifiedBody;
+//                    if (notifiedBodyTxt != null) {
+//                        allValid = AssertUtils.areChangesDisplayed(notifiedBody, notifiedBodyTxt);
+//                    }
+//                }
             }
 
             if (!allValid) {

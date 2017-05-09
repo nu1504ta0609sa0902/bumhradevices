@@ -29,6 +29,8 @@ public class DeviceDetails extends _Page {
     //All GMDN definition table data
     @FindBy(xpath = ".//*[contains(text(),'Risk classification')]//following::tr/td[2]")
     List<WebElement> listOfGMDNDefinitions;
+    @FindBy(xpath = ".//*[text()='Risk classification']//following::tr/td[2]")
+    WebElement firstGMDNDefinition;
 
     //Table headers for each device types
     @FindBy(xpath = ".//h5[contains(text(),'General Medical')]//following::thead[1]/tr/th")
@@ -127,7 +129,7 @@ public class DeviceDetails extends _Page {
 
     public boolean isDevicesGMDNDisplayedCorrect(String deviceList) {
         String[] data = deviceList.split(",");
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//a[.='Risk classification']//following::td[2]"), TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, firstGMDNDefinition, TIMEOUT_10_SECOND, false);
 
         //Displayed list of gmdns
         List<String> gmdns = new ArrayList<>();
