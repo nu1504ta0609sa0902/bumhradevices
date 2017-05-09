@@ -87,7 +87,7 @@ public class GMDNDevices extends _Page {
     public boolean atLeast1MatchFound(String searchText) {
         boolean atLeast1MatchFound = true;
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_40_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_DEFAULT, false);
         try{
             //They have a hidden "a" tag in the page
             int actualCount = listOfAllDevices.size() - 1;

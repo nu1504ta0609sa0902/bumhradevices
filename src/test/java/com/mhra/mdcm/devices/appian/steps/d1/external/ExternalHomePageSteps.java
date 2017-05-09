@@ -514,6 +514,7 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     @When("^I view a random manufacturer with status \"([^\"]*)\"$")
     public void i_view_a_random_manufacturer(String status) throws Throwable {
+        manufacturerList = manufacturerList.sortBy("Registered status", 2);
         String name = manufacturerList.getARandomManufacturerNameWithStatus(status);
         String actualStatus = manufacturerList.getRegistrationStatus(name);
         String country = manufacturerList.getOrganisationCountry(name);

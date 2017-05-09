@@ -111,6 +111,7 @@ public class TasksTabPage extends _Page {
 
             WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(link), timeout, false);
             String txt = driver.findElement(By.partialLinkText(link)).findElement(By.xpath("following::div")).getText();
+            log.info("Time received : " + txt);
         }catch (Exception e){
             isVisible = false;
         }
