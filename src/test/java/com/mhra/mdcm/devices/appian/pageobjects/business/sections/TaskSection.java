@@ -242,8 +242,7 @@ public class TaskSection extends _Page {
                 //Comment is mandatory
                 WaitUtils.waitForElementToBeClickable(driver, other, TIMEOUT_10_SECOND, false);
                 other.click();
-                PageFactory.initElements(driver, this);
-                WaitUtils.nativeWaitInSeconds(1);
+                WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
                 WaitUtils.waitForElementToBeClickable(driver, commentArea, TIMEOUT_10_SECOND, false);
             } else if (reason.contains("Account already exists")) {
                 WaitUtils.waitForElementToBeClickable(driver, reasonAccountAlreadyExists, TIMEOUT_10_SECOND, false);
@@ -273,13 +272,12 @@ public class TaskSection extends _Page {
 
 
     public TaskSection sortBy(String sortBy, int numberOfTimesToClick) {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, thSubmitted, TIMEOUT_5_SECOND, false);
         if (sortBy.equals("Submitted")) {
             for (int c = 0; c < numberOfTimesToClick; c++) {
-                thSubmitted.click();
                 WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-                WaitUtils.nativeWaitInSeconds(2);
+                WaitUtils.waitForElementToBeClickable(driver, thSubmitted, TIMEOUT_5_SECOND, false);
+                thSubmitted.click();
+                //WaitUtils.nativeWaitInSeconds(2);
             }
         }
 

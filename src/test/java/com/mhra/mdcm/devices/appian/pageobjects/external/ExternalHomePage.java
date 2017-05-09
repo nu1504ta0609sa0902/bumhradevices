@@ -115,7 +115,7 @@ public class ExternalHomePage extends _Page {
             //AIMD
             if (isCustomMade) {
                 WaitUtils.waitForElementToBeClickable(driver, aimdCustomMadeYes, TIMEOUT_10_SECOND, false);
-                WaitUtils.nativeWaitInSeconds(1);
+                WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
                 driver.findElement(aimdCustomMadeYes).click();
             } else {
                 WaitUtils.waitForElementToBeClickable(driver, aimdCustomMadeNo, TIMEOUT_10_SECOND, false);

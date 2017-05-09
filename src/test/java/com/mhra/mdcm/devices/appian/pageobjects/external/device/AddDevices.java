@@ -262,7 +262,8 @@ public class AddDevices extends _Page {
     public boolean isErrorMessageDisplayed(String message) {
         //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         try {
-            WaitUtils.nativeWaitInSeconds(1);
+            //WaitUtils.nativeWaitInSeconds(1);
+            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
             WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".FieldLayout---field_error"), 3, false);
             WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".FieldLayout---field_error"), 3, false);
             boolean isDisplayed = false;
@@ -476,7 +477,7 @@ public class AddDevices extends _Page {
         PageUtils.clickOneOfTheFollowing(driver, addProduct, addProduct2, TIMEOUT_5_SECOND);
 
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.nativeWaitInSeconds(1);
+        //WaitUtils.nativeWaitInSeconds(1);
         WaitUtils.waitForElementToBeClickable(driver, txtProductNameLabel, TIMEOUT_10_SECOND, false);
         txtProductNameLabel.sendKeys(labelName);
 
@@ -516,7 +517,7 @@ public class AddDevices extends _Page {
 
     private void subjectToPerformanceEval(DeviceDO dd) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.nativeWaitInSeconds(1);
+        //WaitUtils.nativeWaitInSeconds(1);
         WaitUtils.waitForElementToBeClickable(driver, radioSubjectToPerformanceEvalYes, TIMEOUT_DEFAULT, false);
         WaitUtils.waitForElementToBeVisible(driver, radioSubjectToPerformanceEvalYes, TIMEOUT_DEFAULT, false);
         if (dd.isSubjectToPerfEval) {
@@ -583,8 +584,8 @@ public class AddDevices extends _Page {
         try{
             WaitUtils.waitForElementToBeClickable(driver, linkChangeNotifiedBody, TIMEOUT_1_SECOND, false);
             linkChangeNotifiedBody.click();
-            WaitUtils.waitForElementToBeClickable(driver, nb0086BSI, TIMEOUT_1_SECOND, false);
-            WaitUtils.nativeWaitInSeconds(1);
+            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+            //WaitUtils.nativeWaitInSeconds(1);
         }catch (Exception e){
             //Bug which maintains previous selection of notified body
         }

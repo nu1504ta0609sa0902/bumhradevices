@@ -143,7 +143,6 @@ public class _CreateAccountTestsData extends _Page {
             PageFactory.initElements(driver, this);
             WaitUtils.waitForElementToBeVisible(driver, companyRegistrationNumber, TIMEOUT_5_SECOND, false);
             WaitUtils.waitForElementToBeClickable(driver, companyRegistrationNumber, TIMEOUT_5_SECOND, false);
-            WaitUtils.nativeWaitInSeconds(1);
             vatRegistrationNumber.sendKeys(ar.vatRegistrationNumber);
             companyRegistrationNumber.sendKeys(ar.companyRegistrationNumber);
 
@@ -152,7 +151,6 @@ public class _CreateAccountTestsData extends _Page {
             PageFactory.initElements(driver, this);
             WaitUtils.waitForElementToBeVisible(driver, vatRegistrationNumber, TIMEOUT_5_SECOND, false);
             WaitUtils.waitForElementToBeClickable(driver, vatRegistrationNumber, TIMEOUT_5_SECOND, false);
-            WaitUtils.nativeWaitInSeconds(1);
             vatRegistrationNumber.sendKeys(ar.vatRegistrationNumber);
 
         }else if(ar.organisationType.equals("Unincorporated Association")){

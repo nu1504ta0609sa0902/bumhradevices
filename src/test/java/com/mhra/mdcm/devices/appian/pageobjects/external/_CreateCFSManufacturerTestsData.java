@@ -83,7 +83,8 @@ public class _CreateCFSManufacturerTestsData extends _Page {
      * @return
      */
     public AddDevices createTestOrganisation(ManufacturerRequestDO ar) throws Exception {
-        WaitUtils.nativeWaitInSeconds(3);
+        //WaitUtils.nativeWaitInSeconds(3);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".PickerWidget---picker_value"), TIMEOUT_10_SECOND, false);
         WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND, false);
         orgName.sendKeys(ar.organisationName);
