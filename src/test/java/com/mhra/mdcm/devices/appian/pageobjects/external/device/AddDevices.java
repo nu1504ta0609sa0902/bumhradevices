@@ -289,7 +289,6 @@ public class AddDevices extends _Page {
 
     public AddDevices addFollowingDevice(DeviceDO dd, boolean isRegistered) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        //WaitUtils.nativeWaitInSeconds(1);
         WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_DEFAULT, false);
         WaitUtils.waitForElementToBeClickable(driver, systemOrProcedurePack, TIMEOUT_3_SECOND, false);
         //Select device type
@@ -529,7 +528,7 @@ public class AddDevices extends _Page {
 
     private void addProduct(DeviceDO dd) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        PageUtils.clickOneOfTheFollowing(driver, addProduct, addProduct2, TIMEOUT_3_SECOND);
+        PageUtils.clickOneOfTheFollowing(driver, addProduct, addProduct2, TIMEOUT_5_SECOND);
 
         //Wait for form to be visible
         WaitUtils.waitForElementToBeClickable(driver, cbxProductName, TIMEOUT_10_SECOND, false);

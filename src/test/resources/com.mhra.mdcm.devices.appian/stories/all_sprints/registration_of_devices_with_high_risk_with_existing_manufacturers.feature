@@ -151,7 +151,6 @@ Feature: As an account holder with access to the Device Registration Service I w
     Then Task contains correct devices and products and other details for "<deviceType>"
     And Task shows devices which are arranged by device types
     And I assign the task to me and "approve" the generated task
-    #Then The completed task status should update to "Completed"
     Then The task should be removed from tasks list
     Examples:
       | user              | logBackInAas | deviceType                         | gmdnDefinition      | gmdnDefinition2 | customMade | listOfProductNames  | link                                     |
