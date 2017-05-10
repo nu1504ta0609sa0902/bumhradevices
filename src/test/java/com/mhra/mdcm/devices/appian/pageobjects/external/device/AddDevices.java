@@ -46,11 +46,11 @@ public class AddDevices extends _Page {
     List<WebElement> listOfProductModel;
 
     //Product details form inputs
-    @FindBy(xpath = ".//label[contains(text(), 'Product name')]//following::input[1]")
+    @FindBy(xpath = ".//*[contains(text(),'Enter name')]//following::input[1]")
     WebElement txtProductName;
-    @FindBy(xpath = ".//label[contains(text(), 'Product make')]//following::input[1]")
+    @FindBy(xpath = ".//*[contains(text(),'and model')]//following::input[1]")
     WebElement txtProductMake;
-    @FindBy(xpath = ".//label[contains(text(), 'Product model')]//following::input[1]")
+    @FindBy(xpath = ".//*[contains(text(),'and model')]//following::input[2]")
     WebElement txtProductModel;
     @FindBy(xpath = ".//*[.='Product details']//following::th/a")
     List<WebElement> listOfProductDetailsTable;
@@ -191,7 +191,7 @@ public class AddDevices extends _Page {
     WebElement btnProceedToReview;
     @FindBy(xpath = ".//button[contains(text(),'Finish')]")
     WebElement btnFinish;
-    @FindBy(xpath = ".//button[.='Remove']")
+    @FindBy(xpath = ".//button[contains(text(),'Remove')]")
     WebElement btnRemove;
     @FindBy(css = ".Button---primary")
     WebElement submitConfirm;
@@ -458,6 +458,7 @@ public class AddDevices extends _Page {
     }
 
     private void productLabelName(DeviceDO dd) {
+        PageUtils.clickOneOfTheFollowing(driver, addProduct, addProduct2, TIMEOUT_1_SECOND);
 
         WaitUtils.waitForElementToBeClickable(driver, txtProductNameLabel, TIMEOUT_5_SECOND, false);
         txtProductNameLabel.sendKeys(RandomDataUtils.getRandomTestName("Label"));
@@ -871,8 +872,14 @@ public class AddDevices extends _Page {
     }
 
 
+    /**
+     * CTS = common technical specification
+     * @param data
+     * @return
+     */
     public boolean isCTSAndOthereDetailsCorrect(DeviceDO data) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, cbxProductName, TIMEOUT_5_SECOND, false);
         boolean allCorrect = true;
         String txt;
 
@@ -889,7 +896,7 @@ public class AddDevices extends _Page {
             }
         }
 
-        //Verify other selection : CTS, product new etc
+        //Verify other selection : CTS, product new etc : This may change
 
 
         return allCorrect;

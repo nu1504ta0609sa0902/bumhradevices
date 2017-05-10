@@ -41,12 +41,18 @@ public class ManufacturerViewDetails extends _Page {
     //Contact details
     @FindBy(xpath = ".//span[contains(text(),'Full')]//following::p[1]")
     WebElement fullName;
+    @FindBy(xpath = ".//span[contains(text(),'First')]//following::p[1]")
+    WebElement firstName;
+    @FindBy(xpath = ".//span[contains(text(),'Last')]//following::p[1]")
+    WebElement lastName;
     @FindBy(xpath = ".//span[contains(text(),'Job')]//following::p[1]")
     WebElement jobTitle;
     @FindBy(xpath = ".//span[contains(text(),'Email')]//following::p[1]")
     WebElement email;
     @FindBy(xpath = ".//h3[contains(text(),'Person Details')]//following::span[.='Telephone']/following::p[1]")
     WebElement telephone;
+    @FindBy(xpath = ".//a[contains(text(),'Person Details')]//following::span[.='Telephone']/following::p[1]")
+    WebElement telephone2;
 
     //Organisation details
     @FindBy(xpath = ".//span[contains(text(),'Role')]//following::p[1]")
@@ -61,7 +67,7 @@ public class ManufacturerViewDetails extends _Page {
     WebElement orgAddressLine2;
     @FindBy(xpath = ".//span[contains(text(),'City')]//following::p[1]")
     WebElement orgCityTown;
-    @FindBy(xpath = ".//span[.='Postcode']//following::p[1]")
+    @FindBy(xpath = ".//span[contains(text(),'Post')]//following::p[1]")
     WebElement orgPostCode;
     @FindBy(xpath = ".//span[contains(text(),'Country')]//following::p[1]")
     WebElement orgCountry;
@@ -235,14 +241,14 @@ public class ManufacturerViewDetails extends _Page {
         boolean fieldsDisplayed = true;
         try {
             WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgAddressLine1, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgAddressLine2, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgCityTown, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgPostCode, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgCountry, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgTelephone, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgFax, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, webSite, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, orgAddressLine1, TIMEOUT_1_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, orgAddressLine2, TIMEOUT_1_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, orgCityTown, TIMEOUT_1_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, orgPostCode, TIMEOUT_1_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, orgCountry, TIMEOUT_1_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, orgTelephone, TIMEOUT_1_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, orgFax, TIMEOUT_1_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, webSite, TIMEOUT_1_SECOND, false);
         }catch (Exception e){
             e.printStackTrace();
             fieldsDisplayed = false;
@@ -255,10 +261,10 @@ public class ManufacturerViewDetails extends _Page {
         boolean fieldsDisplayed = true;
         try {
             WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, fullName, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, jobTitle, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, email, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, telephone, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, fullName, TIMEOUT_1_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, jobTitle, TIMEOUT_1_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, email, TIMEOUT_1_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, telephone, TIMEOUT_1_SECOND, false);
         }catch (Exception e){
             e.printStackTrace();
             fieldsDisplayed = false;
@@ -298,5 +304,22 @@ public class ManufacturerViewDetails extends _Page {
             btnContinue.click();
             return new AddDevices(driver);
         }
+    }
+
+    public boolean isDisplayedContactPersonFieldsCorrectForNonRegisteredManufacturer(String org) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        boolean fieldsDisplayed = true;
+        try {
+            //WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, firstName, TIMEOUT_1_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, lastName, TIMEOUT_1_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, jobTitle, TIMEOUT_1_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, email, TIMEOUT_1_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, telephone2, TIMEOUT_1_SECOND, false);
+        }catch (Exception e){
+            e.printStackTrace();
+            fieldsDisplayed = false;
+        }
+        return fieldsDisplayed;
     }
 }

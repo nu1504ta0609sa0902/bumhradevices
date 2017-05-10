@@ -18,7 +18,6 @@ Feature: As a customer I want to register new manufacturers
     When I logout of the application
     And I am logged into appian as "<logBackInAs>" user
     And I view new task with link "New Manufacturer Registration Request" for the new account
-    #Then I should see a new task for the new account
 #    When I download the letter of designation
     And I assign the task to me and "approve" the generated task
     Then The task should be removed from tasks list
@@ -28,7 +27,7 @@ Feature: As a customer I want to register new manufacturers
     Then All organisation search result should return 1 matches
     Examples:
       | user              | logBackInAs  | accountType   | countryName |
-#      | manufacturerAuto  | businessAuto | manufacturer  | Brazil      |
+      | manufacturerAuto  | businessAuto | manufacturer  | Brazil      |
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  |
 
 
@@ -53,9 +52,9 @@ Feature: As a customer I want to register new manufacturers
     #And The completed task status should update to "Completed"
     When I go to records page and click on "Organisations"
     And I search for stored organisation in "Organisations" page
-    Then All organisation search result should return 1 matches
+    Then All organisation search result should return <count> matches
     Examples:
       | user              | logBackInAs  | accountType   | approveReject | count | countryName |
-      | manufacturerAuto  | businessAuto | manufacturer  | approve       | 0     | Brazil      |
-      | authorisedRepAuto | businessAuto | authorisedRep | approve       | 0     | Belarus     |
+      | manufacturerAuto  | businessAuto | manufacturer  | approve       | 1     | Brazil      |
+      | authorisedRepAuto | businessAuto | authorisedRep | approve       | 1     | Belarus     |
 

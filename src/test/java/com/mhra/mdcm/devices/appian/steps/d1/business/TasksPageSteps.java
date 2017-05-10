@@ -77,7 +77,7 @@ public class TasksPageSteps extends CommonSteps {
 
     @Then("^I view new task with link \"([^\"]*)\" for the new account$")
     public void i_view_new_task_for_the_new_account(String link) throws Throwable {
-        String registeredStatus = (String) scenarioSession.getData(SessionKey.organisationRegistered);
+        String registeredStatus = (String) scenarioSession.getData(SessionKey.registeredStatus);
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
 
         if(registeredStatus!=null && registeredStatus.toLowerCase().equals("not registered")){
@@ -190,7 +190,7 @@ public class TasksPageSteps extends CommonSteps {
 
     @Then("^The task with link \"([^\"]*)\" should be removed from tasks list$")
     public void theTaskWithLinkShouldBeRemovedFromTaskList(String link) {
-        String registeredStatus = (String) scenarioSession.getData(SessionKey.organisationRegistered);
+        String registeredStatus = (String) scenarioSession.getData(SessionKey.registeredStatus);
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
 
         if(registeredStatus!=null && registeredStatus.toLowerCase().equals("not registered")){
