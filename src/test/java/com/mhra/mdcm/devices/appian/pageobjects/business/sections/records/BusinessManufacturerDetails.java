@@ -40,8 +40,10 @@ public class BusinessManufacturerDetails extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean contains = true;
         try {
+            WaitUtils.waitForElementToBeClickable(driver, heading, TIMEOUT_10_SECOND, false);
             contains = heading.getText().contains(searchTerm);
         }catch (Exception e){
+            WaitUtils.waitForElementToBeClickable(driver, devicesAndProductDetails, TIMEOUT_3_SECOND, false);
             contains = subHeading.getText().contains(searchTerm);
         }
         return contains;

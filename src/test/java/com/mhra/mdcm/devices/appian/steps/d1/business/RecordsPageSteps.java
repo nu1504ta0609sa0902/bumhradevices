@@ -285,6 +285,13 @@ public class RecordsPageSteps extends CommonSteps {
     }
 
 
+    @Then("^I should see associated organisations related to this account$")
+    public void i_should_see_associated_organisations_related_to_this_account() throws Throwable {
+        boolean isDisplayed = viewAccount.isDisplayingAssociatedOrganisations();
+        Assert.assertThat("Expected to see list of associated orgs", isDisplayed, is(true));
+    }
+
+
     @When("^I select a random account and update the following data \"([^\"]*)\"$")
     public void i_update_the_following_data_pair_for_randomly_selected_account_data(String keyValuePairToUpdate) throws Throwable {
         //Select a random account

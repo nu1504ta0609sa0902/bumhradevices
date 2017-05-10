@@ -249,7 +249,7 @@ public class Organisations extends _Page {
 
     public BusinessManufacturerDetails viewManufacturerByText(String searchTerm) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        //WaitUtils.waitForElementToBeClickable(driver, listOfAllOrganisationsNames.get(0), TIMEOUT_3_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_30_SECOND, false);
         WebElement manufacturer = null;
         boolean found = false;
         do {

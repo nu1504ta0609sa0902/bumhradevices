@@ -12,6 +12,8 @@ import org.openqa.selenium.support.FindBy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * Created by TPD_Auto
  */
@@ -54,6 +56,9 @@ public class ViewAccount extends _Page {
     @FindBy(xpath = ".//span[contains(text(),'Email')]//following::p[2]")
     WebElement telephone;
 
+    //Associated organisations
+    @FindBy(xpath = ".//a[contains(text(), 'Open ')]")
+    List<WebElement> listOfAssociatedOrgsWithAccount;
 
     @Autowired
     public ViewAccount(WebDriver driver) {
@@ -166,4 +171,7 @@ public class ViewAccount extends _Page {
         return fieldsDisplayed;
     }
 
+    public boolean isDisplayingAssociatedOrganisations() {
+        return listOfAssociatedOrgsWithAccount.size() > 0;
+    }
 }

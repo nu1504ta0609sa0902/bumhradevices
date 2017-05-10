@@ -3,6 +3,7 @@ package com.mhra.mdcm.devices.appian.pageobjects.business.sections.records;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -66,6 +67,7 @@ public class BusinessDeviceDetails extends _Page {
 
     public boolean isDeviceTableDisplayed() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//tr/th"), TIMEOUT_DEFAULT, false);
         return listOfDeviceHeadings.size() > 0;
     }
 
