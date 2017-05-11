@@ -1,4 +1,4 @@
-Feature: As an account holder with access to the Device Registration Service
+Feature: As an account holder, I should be able to add devices to existing manufacturers
   I want to register a manufacturer and declare devices being manufacturer
   so that they can place the device for sale on the EU market
 

@@ -1,4 +1,4 @@
-Feature: As a business and account holder, I want to be able to update party details associated with an account
+Feature: As a business user, I want to be able to update party details associated with an account
   so that customers unable to use the portal can still provide the latest information on the account, and I can correct minor errors made by the customer
 
   @regression @mdcm-175 @_sprint2

@@ -1,4 +1,5 @@
-Feature: As an account holder with access to the Device Registration Service I want to register a manufacturer and declare higher risk devices and declare the specific products being manufactured
+Feature: As an account holder, I want to register manufacturers and declare higher risk devices
+  and declare the specific products being manufactured
   so that they can place the device for sale on the EU market
 
   @regression @mdcm-183 @mdcm-21 @_sprint3 @_sprint5 @2049 @_sprint8

@@ -1,4 +1,4 @@
-Feature: As a business user, I want a task to be created each time a customer submits a request for a new MANUFACTURERS
+Feature: As a business user, I want a task to be created each time a customer submits or updates a MANUFACTURER
   So that I know an action to review the request is required by myself or another team member
 
 

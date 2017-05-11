@@ -1,5 +1,4 @@
-Feature: As an account holder with access to the device registration service
-  I want to be able to enter more than one device at the point of registration
+Feature: As a customer I want to be able to enter more than one device at the point of registration
   So that I don't have to return to add further devices post-registration
 
   @regression @mdcm-143 @_sprint1 @isReadyForRT @mdcm-134 @_sprint6
