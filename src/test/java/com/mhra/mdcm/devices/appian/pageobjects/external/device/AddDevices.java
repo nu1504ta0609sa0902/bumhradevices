@@ -807,7 +807,7 @@ public class AddDevices extends _Page {
         for (WebElement el : listOfGMDNLinksInSummary) {
             String text = el.getText();
             //System.out.println("GMDN : " + text);
-            if (text.contains(valueToCheck)) {
+            if (text.toLowerCase().contains(valueToCheck.toLowerCase())) {
                 isCorrect = true;
                 break;
             }
@@ -916,16 +916,18 @@ public class AddDevices extends _Page {
         WaitUtils.isPageLoadingComplete(driver, 1);
         boolean allDisplayed = true;
         for (String gmdn : listOfGmdns) {
-            allDisplayed = isGMDNValueDisplayed(gmdn);
-            if (!allDisplayed) {
-                break;
+            if(!gmdn.trim().equals("")) {
+                allDisplayed = isGMDNValueDisplayed(gmdn);
+                if (!allDisplayed) {
+                    break;
+                }
             }
         }
         return allDisplayed;
     }
 
     public AddDevices searchForDevice(DeviceDO dd, String deviceType, String gmdnTermCodeOrDefinition) {
-
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         dd.gmdnTermOrDefinition = gmdnTermCodeOrDefinition;
         if(deviceType != null){
             dd.deviceType = deviceType;
@@ -960,7 +962,7 @@ public class AddDevices extends _Page {
             dd.deviceType = deviceType;
             selectDeviceType(dd);
         }
-        WaitUtils.waitForElementToBeClickable(driver, viewAllGMDNTermDefinition, TIMEOUT_3_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, viewAllGMDNTermDefinition, TIMEOUT_5_SECOND, false);
         viewAllGMDNTermDefinition.click();
         return new AddDevices(driver);
     }

@@ -174,4 +174,10 @@ public class ViewAccount extends _Page {
     public boolean isDisplayingAssociatedOrganisations() {
         return listOfAssociatedOrgsWithAccount.size() > 0;
     }
+
+    public boolean isEditAccountInformationButtonDisplayed() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        boolean isClickable = PageUtils.isElementClickable(driver, editAccountInfoLink, TIMEOUT_10_SECOND);
+        return isClickable;
+    }
 }

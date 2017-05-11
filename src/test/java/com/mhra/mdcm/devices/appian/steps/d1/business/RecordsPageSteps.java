@@ -317,11 +317,14 @@ public class RecordsPageSteps extends CommonSteps {
         int numberOfRefresh = 0;
         do {
             numberOfRefresh++;
-            //A bug : refresh is required
-            driver.navigate().refresh();
-            updatesFound = viewAccount.verifyUpdatesDisplayedOnPage(keyValuePairToUpdate, updatedData);
-            if (!updatesFound) {
-                WaitUtils.nativeWaitInSeconds(1);
+            boolean isCorrectPage = viewAccount.isEditAccountInformationButtonDisplayed();
+            if(isCorrectPage) {
+                //A bug : refresh is required
+                driver.navigate().refresh();
+                updatesFound = viewAccount.verifyUpdatesDisplayedOnPage(keyValuePairToUpdate, updatedData);
+                if (!updatesFound) {
+                    WaitUtils.nativeWaitInSeconds(1);
+                }
             }
         } while (!updatesFound && numberOfRefresh < 3);
 

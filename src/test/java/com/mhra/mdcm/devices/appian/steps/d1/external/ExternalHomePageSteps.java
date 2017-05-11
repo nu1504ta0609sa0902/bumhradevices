@@ -336,8 +336,8 @@ public class ExternalHomePageSteps extends CommonSteps {
 
         StepsUtils.addToListOfStrings(scenarioSession, SessionKey.listOfGmndsAdded, AddDevices.gmdnSelected);
         StepsUtils.addToListOfStrings(scenarioSession, SessionKey.listOfProductsAdded, dd.listOfProductName);
-        scenarioSession.putData(SessionKey.deviceData, dd);
         StepsUtils.addToDeviceDataList(scenarioSession, dd);
+        scenarioSession.putData(SessionKey.deviceData, dd);
     }
 
     @Then("^I should see error message in devices page with text \"([^\"]*)\"$")
@@ -732,7 +732,7 @@ public class ExternalHomePageSteps extends CommonSteps {
     @When("^I click on view all gmdn term or definitions for device type \"([^\"]*)\"$")
     public void i_click_on_view_all_gmdn_term_or_definitions(String deviceType) throws Throwable {
         //If registered we need to click on a button, else devices page is displayed
-        String registeredStatus = (String) scenarioSession.getData(SessionKey.registeredStatus);
+        //String registeredStatus = (String) scenarioSession.getData(SessionKey.registeredStatus);
         //addDevices = manufacturerDetails.gotoAddDevicesPage(registeredStatus);
 
         //View all gmdn

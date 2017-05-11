@@ -68,7 +68,7 @@ public class EditAccount extends _Page {
     WebElement phoneNumber;
 
     //Edit information related to an account
-    @FindBy(xpath = ".//button[.='Submit']")
+    @FindBy(xpath = ".//button[contains(text(),'Submit')]")
     WebElement submitBtn;
     @FindBy(xpath = ".//button[.='Cancel']")
     WebElement cancelBtn;
