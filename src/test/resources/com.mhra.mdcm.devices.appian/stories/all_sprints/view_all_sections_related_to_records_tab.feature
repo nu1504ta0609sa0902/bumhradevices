@@ -1,4 +1,4 @@
-Feature: As a business user, I want to access a list of organisations with an account
+Feature: As a business user, I want to navigate to different sections like Accounts and organisations
   so that I can quickly confirm if they are known to the MHRA and retrieve key contact information
 
   @regression @mdcm-23 @mdcm-126 @2797 @mdcm-626 @readonly @_sprint1 @_sprint6 @_sprint7
@@ -63,12 +63,12 @@ Feature: As a business user, I want to access a list of organisations with an ac
     Then I should see table column "<column>" also displaying "<unFilteredData>" in "<pageHeading>" page
     Examples:
       | user         | link                | pageHeading         | filterBy          | filterValue        | unFilteredData     | tableHeading      | searchTerm | column      |
-      | businessAuto | Accounts            | Accounts            | Organisation Role | Authorised         | Manufacturer       | Organisation name | RT01       | Role        |
-      | businessAuto | Accounts            | Accounts            | Organisation Role | Manufacturer       | Authorised         | Organisation name | RT01       | Role        |
-      | businessAuto | Organisations       | Organisations       | Organisation Role | Manufacturer       | Authorised         | Name              | RT01       | Role        |
-      | businessAuto | Organisations       | Organisations       | Registered status | Registered         | Not Registered     | Name              | RT01       | Status      |
-      | businessAuto | Registered Products | Registered Products | Device Type       | Active Implantable | In Vitro           | Device Type       | RT01       | Device type |
-      | businessAuto | Registered Products | Registered Products | Device Type       | In Vitro           | Active Implantable | Device Type       | RT01       | Device type |
+#      | businessAuto | Accounts            | Accounts            | Organisation Role | Authorised         | Manufacturer       | Organisation name | RT01       | Role        |
+#      | businessAuto | Accounts            | Accounts            | Organisation Role | Manufacturer       | Authorised         | Organisation name | RT01       | Role        |
+#      | businessAuto | Organisations       | Organisations       | Organisation Role | Manufacturer       | Authorised         | Name              | RT01       | Role        |
+#      | businessAuto | Organisations       | Organisations       | Registered status | Registered         | Not Registered     | Name              | RT01       | Status      |
+      | businessAuto | Registered Products | Registered Products | Device type       | Active Implantable | In Vitro           | Device Type       | RT01       | Device Type |
+      | businessAuto | Registered Products | Registered Products | Device type       | In Vitro           | Active Implantable | Device Type       | RT01       | Device Type |
 
 
   @mdcm-23 @readonly @_sprint6 @3837 @_sprint10

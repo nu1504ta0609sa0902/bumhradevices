@@ -1,6 +1,7 @@
 package com.mhra.mdcm.devices.appian.steps.d1;
 
 import com.mhra.mdcm.devices.appian.pageobjects.LoginPage;
+import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
@@ -77,7 +78,6 @@ public class LoginPageSteps extends CommonSteps {
 
     @When("^I logout of the application$")
     public void iLogoutOfTheApplication() throws Throwable {
-        WaitUtils.isPageLoadingComplete(driver, 1);
         String currentLoggedInUser = (String) scenarioSession.getData(SessionKey.loggedInUser);
 
         //Note page displayed to Business user is different from Manufacturer and AuthorisedRep

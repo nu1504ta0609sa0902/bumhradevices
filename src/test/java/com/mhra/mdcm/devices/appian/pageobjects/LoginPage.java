@@ -148,6 +148,7 @@ public class LoginPage extends _Page {
      * @return
      */
     public LoginPage logoutIfLoggedIn() {
+        WaitUtils.isPageLoadingComplete(driver, _Page.TIMEOUT_PAGE_LOAD);
         try {
             WaitUtils.waitForElementToBeClickable(driver, settings, TIMEOUT_10_SECOND, false);
             if (settings.isDisplayed()) {
@@ -175,6 +176,7 @@ public class LoginPage extends _Page {
      * @return
      */
     public LoginPage logoutIfLoggedInOthers() {
+        WaitUtils.isPageLoadingComplete(driver, _Page.TIMEOUT_PAGE_LOAD);
         try {
             WaitUtils.waitForElementToBeClickable(driver, photoIcon, TIMEOUT_10_SECOND, false);
             if (photoIcon.isDisplayed()) {

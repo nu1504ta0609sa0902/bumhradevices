@@ -4,6 +4,7 @@ import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
 import com.mhra.mdcm.devices.appian.enums.LinksRecordPage;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
@@ -28,6 +29,28 @@ public class MixedPageSteps extends CommonSteps {
             businessManufacturerDetails = organisations.viewManufacturerByText(searchTerm);
         }
         scenarioSession.putData(SessionKey.searchTerm, searchTerm);
+    }
+
+    @When("^I click on a link which matches the stored organisations in \"([^\"]*)\" page$")
+    public void i_click_on_stored_organisation_link(String page) throws Throwable {
+        String searchTerm = (String) scenarioSession.getData(SessionKey.organisationName);
+
+        if (page.equals(LinksRecordPage.LINK_ACCOUNTS.link)) {
+            businessManufacturerDetails = accounts.viewManufacturerByText(searchTerm);
+        } else if (page.equals(LinksRecordPage.LINK_REGISTERED_DEVICES.link)) {
+        } else if (page.equals(LinksRecordPage.LINK_REGISTERED_PRODUCTS.link)) {
+            businessManufacturerDetails = registeredProducts.viewManufacturerByText(searchTerm);
+        } else if (page.equals(LinksRecordPage.LINK_ORGANISATIONS.link)) {
+            businessManufacturerDetails = organisations.viewManufacturerByText(searchTerm);
+        }
+        scenarioSession.putData(SessionKey.searchTerm, searchTerm);
+    }
+
+
+    @Then("^I should see new product id generated for my device$")
+    public void i_should_see_new_product_id_generated_for_my_device() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
     }
 
     @Then("^I should see business manufacturer details page for the manufacturer$")

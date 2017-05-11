@@ -160,7 +160,7 @@ public class RegisteredProducts extends _Page {
         boolean allMatched = true;
         for(WebElement el: listOfDeviceTypes){
             String text = el.getText();
-            //log.info(text);
+            log.info(text);
             if(!text.contains("revious") && !text.contains("ext")) {
                 allMatched = text.contains(value);
                 if (!allMatched) {

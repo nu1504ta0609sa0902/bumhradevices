@@ -146,4 +146,19 @@ public class CommonUtils {
         }
         return list;
     }
+
+    public static WebElement getElementFromList(List<WebElement> listOfMatches, int randomPosition) {
+        WebElement element = listOfMatches.get(randomPosition);
+        boolean contains = element.getText().contains("View all GMDN");
+        if(contains && randomPosition == 0){
+            randomPosition++;
+            element = listOfMatches.get(randomPosition);
+        }else if(contains && randomPosition >= 1){
+            randomPosition--;
+            element = listOfMatches.get(randomPosition);
+        }
+
+        System.out.println("Element selected with text : " + element.getText());
+        return element;
+    }
 }

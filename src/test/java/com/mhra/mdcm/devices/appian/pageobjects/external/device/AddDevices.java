@@ -706,7 +706,7 @@ public class AddDevices extends _Page {
                 int randomPosition = RandomDataUtils.getARandomNumberBetween(0, noi-1);
 
                 //Click gmdn from search results
-                WebElement element = listOfGmdnMatchesReturnedBySearch.get(randomPosition);
+                WebElement element = CommonUtils.getElementFromList(listOfGmdnMatchesReturnedBySearch, randomPosition);
                 element.click();
 
                 //If its a duplicate Try again
