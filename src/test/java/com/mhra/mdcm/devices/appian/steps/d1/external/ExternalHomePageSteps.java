@@ -635,7 +635,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         Assert.assertThat("Expected to see device : " + deviceData.gmdnTermOrDefinition, isAllDataCorrect, Matchers.is(true));
     }
 
-    @Then("^I should be able to view products related to stored devices$")
+    @Then("^I should be able to view stored device details$")
     public void i_should_be_able_to_view_products_related_to_stored_devices() throws Throwable {
         DeviceDO deviceData = (DeviceDO) scenarioSession.getData(SessionKey.deviceData);
         productDetail = manufacturerDetails.viewProduct(deviceData);

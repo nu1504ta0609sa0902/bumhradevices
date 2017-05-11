@@ -167,11 +167,10 @@ Feature: As an account holder with access to the Device Registration Service
     And I assign the task to me and "approve" the generated task
     When I logout of the application
     And I am logged into appian as "<user>" user
-#    And I go to list of manufacturers page
     When I go to list of manufacturers page and click on stored manufacturer
     Then Verify devices displayed and GMDN details are correct
     #Then The gmdn code or term is "displayed" in summary section
-    And I should be able to view products related to stored devices
+    And I should be able to view stored device details
     Examples:
       | user              | logBackInAas | deviceType                         | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
       | authorisedRepAuto | businessAuto | General Medical Device             | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |

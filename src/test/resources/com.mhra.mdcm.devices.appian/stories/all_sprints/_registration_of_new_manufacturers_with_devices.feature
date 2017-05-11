@@ -29,7 +29,7 @@ Feature: As a customer I want to register new manufacturers with devices
 
 
   @regression @mdcm-485 @mdcm-374 @mdcm-186 @_sprint2 @1838 @3777 @1924 @_sprint8 @_sprint9 @_sprint13 @_sprint5 @wip @bug
-  Scenario Outline: Users should be able to register new manufacturers with devices  and verify devices are added
+  Scenario Outline: Users should be able to register new manufacturers with devices and verify devices are added
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
     When I create a new manufacturer using manufacturer test harness page with following data
@@ -54,7 +54,7 @@ Feature: As a customer I want to register new manufacturers with devices
     And I am logged into appian as "<user>" user
     When I go to list of manufacturers page and click on stored manufacturer
     Then Verify devices displayed and GMDN details are correct
-    And I should be able to view products related to stored devices
+    And I should be able to view stored device details
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType             | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
       | authorisedRepAuto | businessAuto | manufacturer  | Bangladesh  | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |

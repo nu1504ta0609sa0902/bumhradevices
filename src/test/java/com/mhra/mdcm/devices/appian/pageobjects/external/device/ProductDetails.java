@@ -42,6 +42,7 @@ public class ProductDetails extends _Page {
 
     public boolean isProductOrDeviceDetailValid(DeviceDO deviceData) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, customMade, TIMEOUT_10_SECOND, false);
         boolean allValid = true;
         String deviceType = deviceData.deviceType;
         if (deviceType.equals("General Medical Device")) {
