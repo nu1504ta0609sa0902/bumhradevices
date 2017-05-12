@@ -31,9 +31,15 @@ public class RegisteredProducts extends _Page {
     @FindBy(xpath = ".//table//th")
     List<WebElement> listOfTableHeadings;
 
+    //Table headings
+    @FindBy(xpath = ".//th[1]")
+    WebElement thDeviceType;
+
     //Search box and filters
     @FindBy(xpath = ".//*[contains(@class, 'filter')]//following::input[1]")
     WebElement searchBox;
+    @FindBy(xpath = ".//button[.='Search']")
+    WebElement btnSearch;
     @FindBy(xpath = ".//span[@class='DropdownWidget---inline_label']")
     List<WebElement> listOfDropDownFilters;
     @FindBy(linkText = "Clear Filters")
@@ -46,7 +52,7 @@ public class RegisteredProducts extends _Page {
 
     public boolean isHeadingCorrect(String expectedHeadings) {
         By by = By.xpath(".//h1[.='" + expectedHeadings + "']");
-        WaitUtils.waitForElementToBeClickable(driver, by, 10, false);
+        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_10_SECOND);
         WebElement heading = driver.findElement(by);
         boolean contains = heading.getText().contains(expectedHeadings);
         return contains;
@@ -54,7 +60,7 @@ public class RegisteredProducts extends _Page {
 
     public boolean isItemsDisplayed(String expectedHeadings) {
         boolean itemsDisplayed = false;
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h1[.='" + expectedHeadings + "']") , 10, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h1[.='" + expectedHeadings + "']") , TIMEOUT_10_SECOND);
 
         if(expectedHeadings.contains(PageHeaders.PAGE_HEADERS_REGISTERED_PRODUCTS.header)){
             itemsDisplayed = listOfAllProducts.size() > 0;
@@ -64,13 +70,13 @@ public class RegisteredProducts extends _Page {
     }
 
     public List<String> isTableColumnCorrect(String[] columns) {
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th") , TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th") , TIMEOUT_DEFAULT);
         List<String> columnsNotFound = PageUtils.areTheColumnsCorrect(columns, listOfTableHeadings);
         return columnsNotFound;
     }
 
     public RegisteredProducts searchForAllProducts(String searchTerm) {
-        WaitUtils.waitForElementToBeClickable(driver, searchBox, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, searchBox, TIMEOUT_DEFAULT);
         PageUtils.searchPageFor(searchTerm, searchBox);
         return new RegisteredProducts(driver);
     }
@@ -78,9 +84,9 @@ public class RegisteredProducts extends _Page {
     public boolean atLeast1MatchFound(String searchText) {
         boolean atLeast1MatchFound = true;
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_DEFAULT);
         try{
-            //WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(searchText), TIMEOUT_5_SECOND, false);
+            //WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(searchText), TIMEOUT_5_SECOND);
             int actualCount = (listOfAllProducts.size()-1);
             atLeast1MatchFound = actualCount >= 1;
         }catch (Exception e){
@@ -93,7 +99,7 @@ public class RegisteredProducts extends _Page {
 
     public String getARandomProductEntry() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//td[6]"), TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//td[6]"), TIMEOUT_5_SECOND);
 
         int position = RandomDataUtils.getSimpleRandomNumberBetween(1, listOfAllManufacturerNames.size() - 1, false);
         WebElement manufacaturerNameLink = listOfAllManufacturerNames.get(position);
@@ -103,7 +109,7 @@ public class RegisteredProducts extends _Page {
 
     public BusinessManufacturerDetails viewManufacturerByText(String searchTerm) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//td[6]"), TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//td[6]"), TIMEOUT_5_SECOND);
         int position = RandomDataUtils.getSimpleRandomNumberBetween(1, listOfAllManufacturerNames.size() - 1, false);
         WebElement manufacaturerNameLink = listOfAllManufacturerNames.get(position);
         manufacaturerNameLink = manufacaturerNameLink.findElement(By.tagName("a"));
@@ -113,7 +119,7 @@ public class RegisteredProducts extends _Page {
 
     public BusinessProductDetails viewProductBy(String tableHeading) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//td[4]"), TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//td[4]"), TIMEOUT_5_SECOND);
 
         List<WebElement> listOfElement = getListOfElement(tableHeading);
         WebElement found = null;
@@ -153,9 +159,9 @@ public class RegisteredProducts extends _Page {
 
     public boolean areAllProductOfType(String value) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND, false);
-        WaitUtils.waitForElementToBeClickable(driver, listOfDropDownFilters.get(0) , TIMEOUT_10_SECOND, false);
-        //WaitUtils.nativeWaitInSeconds(3);
+        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, listOfDropDownFilters.get(0) , TIMEOUT_10_SECOND);
+        WaitUtils.nativeWaitInSeconds(5);
 
         boolean allMatched = true;
         for(WebElement el: listOfDeviceTypes){
@@ -174,14 +180,14 @@ public class RegisteredProducts extends _Page {
 
     public RegisteredProducts clearFilterByStatus() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_3_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_3_SECOND);
         clearFilters.click();
         return new RegisteredProducts(driver);
     }
 
     public boolean areDevicesOfTypeVisible(String value) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND);
         boolean aMatchFound = false;
         for(WebElement el: listOfDeviceTypes){
             String text = el.getText();
@@ -200,9 +206,22 @@ public class RegisteredProducts extends _Page {
         boolean seachingCompleted = false;
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         try {
-            WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_30_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_30_SECOND);
             seachingCompleted = true;
         }catch (Exception e){}
         return seachingCompleted;
+    }
+
+
+    public RegisteredProducts sortBy(String tableHeading, int numberOfTimesToClick) {
+        if (tableHeading.equals("Device Type")) {
+            for (int c = 0; c < numberOfTimesToClick; c++) {
+                WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+                WaitUtils.waitForElementToBeClickable(driver, thDeviceType, TIMEOUT_10_SECOND);
+                thDeviceType.click();
+            }
+        }
+
+        return new RegisteredProducts(driver);
     }
 }

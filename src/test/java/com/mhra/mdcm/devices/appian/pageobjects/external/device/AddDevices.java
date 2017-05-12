@@ -235,7 +235,7 @@ public class AddDevices extends _Page {
     }
 
     public AddDevices addDevice() {
-        WaitUtils.waitForElementToBeClickable(driver, btnAddDevice, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, btnAddDevice, TIMEOUT_10_SECOND);
         btnAddDevice.click();
         return new AddDevices(driver);
     }
@@ -243,7 +243,7 @@ public class AddDevices extends _Page {
     public boolean isDeviceTypeCorrect() {
         boolean allCorrect = false;
 
-        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_10_SECOND);
         for (WebElement e : listOfDeviceTypes) {
             String text = e.getText();
             if (text.toLowerCase().contains("general medical") || text.toLowerCase().contains("in vitro diagnostic") ||
@@ -264,8 +264,8 @@ public class AddDevices extends _Page {
         try {
             //WaitUtils.nativeWaitInSeconds(1);
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-            WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".FieldLayout---field_error"), 3, false);
-            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".FieldLayout---field_error"), 3, false);
+            WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".FieldLayout---field_error"), 3);
+            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".FieldLayout---field_error"), 3);
             boolean isDisplayed = false;
             for (WebElement msg : errorMessages) {
                 String txt = msg.getText();
@@ -282,15 +282,15 @@ public class AddDevices extends _Page {
     }
 
     public boolean isErrorMessageCorrect(String expectedErrorMsg) {
-        WaitUtils.waitForElementToBeVisible(driver, errMessage, 10, false);
+        WaitUtils.waitForElementToBeVisible(driver, errMessage, 10);
         boolean contains = errMessage.getText().contains(expectedErrorMsg);
         return contains;
     }
 
     public AddDevices addFollowingDevice(DeviceDO dd, boolean isRegistered) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_DEFAULT, false);
-        WaitUtils.waitForElementToBeClickable(driver, systemOrProcedurePack, TIMEOUT_3_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, systemOrProcedurePack, TIMEOUT_3_SECOND);
         //Select device type
         selectDeviceType(dd);
 
@@ -310,10 +310,10 @@ public class AddDevices extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
 
         if(isRegistered){
-            WaitUtils.waitForElementToBeClickable(driver, btnReviewYourOrder, TIMEOUT_10_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, btnReviewYourOrder, TIMEOUT_10_SECOND);
             PageUtils.doubleClick(driver, btnReviewYourOrder);
         }else {
-            WaitUtils.waitForElementToBeClickable(driver, btnSaveProgress, TIMEOUT_10_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, btnSaveProgress, TIMEOUT_10_SECOND);
             PageUtils.doubleClick(driver, btnSaveProgress);
         }
 
@@ -324,8 +324,8 @@ public class AddDevices extends _Page {
 
     public AddDevices addInvalidFollowingDevice(DeviceDO dd) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_DEFAULT, false);
-        WaitUtils.waitForElementToBeClickable(driver, systemOrProcedurePack, TIMEOUT_3_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, systemOrProcedurePack, TIMEOUT_3_SECOND);
         //Select device type
         selectDeviceType(dd);
 
@@ -460,14 +460,14 @@ public class AddDevices extends _Page {
     private void productLabelName(DeviceDO dd) {
         PageUtils.clickOneOfTheFollowing(driver, addProduct, addProduct2, TIMEOUT_1_SECOND);
 
-        WaitUtils.waitForElementToBeClickable(driver, txtProductNameLabel, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, txtProductNameLabel, TIMEOUT_5_SECOND);
         txtProductNameLabel.sendKeys(RandomDataUtils.getRandomTestName("Label"));
 
         PageUtils.uploadDocument(fileUpload, "DeviceLabelDoc2.pdf", 1, 3);
         PageUtils.uploadDocument(listOfFileUploads.get(0), "DeviceInstructionForUse1.pdf", 1, 3);
 
         //Save product label details
-        WaitUtils.waitForElementToBeClickable(driver, saveProduct2, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, saveProduct2, TIMEOUT_5_SECOND);
         saveProduct2.click();
 
     }
@@ -478,7 +478,7 @@ public class AddDevices extends _Page {
 
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         //WaitUtils.nativeWaitInSeconds(1);
-        WaitUtils.waitForElementToBeClickable(driver, txtProductNameLabel, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, txtProductNameLabel, TIMEOUT_10_SECOND);
         txtProductNameLabel.sendKeys(labelName);
 
         PageUtils.uploadDocument(fileUpload, "DeviceLabelDoc2.pdf", 1, 3);
@@ -492,18 +492,18 @@ public class AddDevices extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         if (dd.isConformsToCTS) {
             PageUtils.clickIfVisible(driver, radioConformsToCTSYes);
-            WaitUtils.waitForElementToBeClickable(driver, txtCTSReference, TIMEOUT_5_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, txtCTSReference, TIMEOUT_5_SECOND);
             txtCTSReference.sendKeys("CTS039458430958");
         } else {
             PageUtils.clickIfVisible(driver, radioConformsToCTSNo);
-            WaitUtils.waitForElementToBeClickable(driver, txtDemonstratedCompliance, TIMEOUT_5_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, txtDemonstratedCompliance, TIMEOUT_5_SECOND);
             txtDemonstratedCompliance.sendKeys("Demonstrated Compliance");
             txtTestingMethod.sendKeys("Manually Tested");
         }
     }
 
     private void saveProduct(DeviceDO dd) {
-        WaitUtils.waitForElementToBeClickable(driver, saveProduct2, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, saveProduct2, TIMEOUT_5_SECOND);
         saveProduct2.click();
     }
 
@@ -518,8 +518,8 @@ public class AddDevices extends _Page {
     private void subjectToPerformanceEval(DeviceDO dd) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         //WaitUtils.nativeWaitInSeconds(1);
-        WaitUtils.waitForElementToBeClickable(driver, radioSubjectToPerformanceEvalYes, TIMEOUT_DEFAULT, false);
-        WaitUtils.waitForElementToBeVisible(driver, radioSubjectToPerformanceEvalYes, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, radioSubjectToPerformanceEvalYes, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeVisible(driver, radioSubjectToPerformanceEvalYes, TIMEOUT_DEFAULT);
         if (dd.isSubjectToPerfEval) {
             PageUtils.clickIfVisible(driver, radioSubjectToPerformanceEvalYes);
         } else {
@@ -532,14 +532,14 @@ public class AddDevices extends _Page {
         PageUtils.clickOneOfTheFollowing(driver, addProduct, addProduct2, TIMEOUT_5_SECOND);
 
         //Wait for form to be visible
-        WaitUtils.waitForElementToBeClickable(driver, cbxProductName, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, cbxProductName, TIMEOUT_10_SECOND);
         if (dd.productName != null && !dd.productName.equals("")) {
             cbxProductName.click();
-            WaitUtils.waitForElementToBeClickable(driver, pdProductName, TIMEOUT_10_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, pdProductName, TIMEOUT_10_SECOND);
             pdProductName.sendKeys(dd.productName);
         } else if (dd.productMake != null || !dd.productMake.equals("")) {
             cbxMakeAndModel.click();
-            WaitUtils.waitForElementToBeClickable(driver, pdProductModel, TIMEOUT_10_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, pdProductModel, TIMEOUT_10_SECOND);
             pdProductMake.sendKeys(dd.productMake);
             pdProductModel.sendKeys(dd.productModel);
         }
@@ -567,8 +567,8 @@ public class AddDevices extends _Page {
         changeNotifiedBody();
         boolean notifiedBodyOptionsCorrect = isNotifiedBodyListDisplayingCorrectDetails();
 
-        WaitUtils.waitForElementToBeVisible(driver, nb0086BSI, TIMEOUT_5_SECOND, false);
-        WaitUtils.waitForElementToBeClickable(driver, nb0086BSI, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeVisible(driver, nb0086BSI, TIMEOUT_5_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, nb0086BSI, TIMEOUT_5_SECOND);
 
         //Select notified body
         if (notifiedBodyOptionsCorrect && dd.notifiedBody != null && dd.notifiedBody.toLowerCase().contains("bsi")) {
@@ -582,7 +582,7 @@ public class AddDevices extends _Page {
 
     private void changeNotifiedBody() {
         try{
-            WaitUtils.waitForElementToBeClickable(driver, linkChangeNotifiedBody, TIMEOUT_1_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, linkChangeNotifiedBody, TIMEOUT_1_SECOND);
             linkChangeNotifiedBody.click();
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
             //WaitUtils.nativeWaitInSeconds(1);
@@ -593,7 +593,7 @@ public class AddDevices extends _Page {
 
     private boolean isNotifiedBodyListDisplayingCorrectDetails() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, nb0086BSI, TIMEOUT_3_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, nb0086BSI, TIMEOUT_3_SECOND);
         boolean numberOfNB = listOfNotifiedBodies.size() >= 6;
         String txt = PageUtils.getText(listOfNotifiedBodies.get(5));
         boolean otherDisplayed = txt.contains("Other");
@@ -602,33 +602,33 @@ public class AddDevices extends _Page {
 
     private void riskClassificationIVD(DeviceDO dd) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, ivdIVDGeneral, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, ivdIVDGeneral, TIMEOUT_10_SECOND);
         //WaitUtils.nativeWaitInSeconds(1);
 
         String lcRiskClassification = dd.riskClassification.toLowerCase();
 
         if (lcRiskClassification.contains("ivd general")) {
-            //WaitUtils.waitForElementToBePartOfDOM(driver, By.xpath(".//label[contains(text(),'IVD General')]"), TIMEOUT_5_SECOND, false);
+            //WaitUtils.waitForElementToBePartOfDOM(driver, By.xpath(".//label[contains(text(),'IVD General')]"), TIMEOUT_5_SECOND);
             //PageUtils.clickIfVisible(driver, ivdIVDGeneral);
             ivdIVDGeneral.click();
         } else if (lcRiskClassification.contains("list a")) {
-            //WaitUtils.waitForElementToBePartOfDOM(driver, By.xpath(".//label[contains(text(),'List A')]"), TIMEOUT_5_SECOND, false);
+            //WaitUtils.waitForElementToBePartOfDOM(driver, By.xpath(".//label[contains(text(),'List A')]"), TIMEOUT_5_SECOND);
             //PageUtils.clickIfVisible(driver, ivdListA);
             ivdListA.click();
         } else if (lcRiskClassification.contains("list b")) {
-            //WaitUtils.waitForElementToBePartOfDOM(driver, By.xpath(".//label[contains(text(),'List B')]"), TIMEOUT_5_SECOND, false);
+            //WaitUtils.waitForElementToBePartOfDOM(driver, By.xpath(".//label[contains(text(),'List B')]"), TIMEOUT_5_SECOND);
             //PageUtils.clickIfVisible(driver, ivdListB);
             ivdListB.click();
         } else if (lcRiskClassification.contains("self-test")) {
-            //WaitUtils.waitForElementToBePartOfDOM(driver, By.xpath(".//label[contains(text(),'Self-Test')]"), TIMEOUT_5_SECOND, false);
+            //WaitUtils.waitForElementToBePartOfDOM(driver, By.xpath(".//label[contains(text(),'Self-Test')]"), TIMEOUT_5_SECOND);
             //PageUtils.clickIfVisible(driver, ivdSelfTest);
             ivdSelfTest.click();
         }
     }
 
     private void selectDeviceType(DeviceDO dd) {
-        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_10_SECOND, false);
-        WaitUtils.waitForElementToBeClickable(driver, systemOrProcedurePack, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, systemOrProcedurePack, TIMEOUT_10_SECOND);
         String lcDeviceType = dd.deviceType.toLowerCase();
         if (lcDeviceType.contains("general medical device")) {
             PageUtils.clickIfVisible(driver, generalMedicalDevice);
@@ -642,7 +642,7 @@ public class AddDevices extends _Page {
     }
 
     private void deviceMeasuring(DeviceDO dd) {
-        WaitUtils.waitForElementToBeClickable(driver, radioDeviceMeasuringYes, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, radioDeviceMeasuringYes, TIMEOUT_5_SECOND);
         if (dd.isDeviceMeasuring) {
             PageUtils.clickIfVisible(driver, radioDeviceMeasuringYes);
         } else {
@@ -651,7 +651,7 @@ public class AddDevices extends _Page {
     }
 
     private void deviceSterile(DeviceDO dd) {
-        WaitUtils.waitForElementToBeClickable(driver, radioDeviceSterileYes, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, radioDeviceSterileYes, TIMEOUT_5_SECOND);
         if (dd.isDeviceSterile) {
             PageUtils.clickIfVisible(driver, radioDeviceSterileYes);
         } else {
@@ -661,7 +661,7 @@ public class AddDevices extends _Page {
 
     private void customMade(DeviceDO dd) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, radioCustomMadeYes, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, radioCustomMadeYes, TIMEOUT_10_SECOND);
         if (dd.isCustomMade) {
             PageUtils.clickIfVisible(driver, radioCustomMadeYes);
         } else {
@@ -671,8 +671,8 @@ public class AddDevices extends _Page {
     }
 
     private void riskClassification(DeviceDO dd) {
-        WaitUtils.waitForElementToBeClickable(driver, radioRiskClass1, TIMEOUT_5_SECOND, false);
-        WaitUtils.waitForElementToBeClickable(driver, nb0086BSI, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, radioRiskClass1, TIMEOUT_5_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, nb0086BSI, TIMEOUT_5_SECOND);
         String lcRiskClassiffication = dd.riskClassification.toLowerCase();
         if (lcRiskClassiffication != null) {
             if (lcRiskClassiffication.contains("class1")) {
@@ -695,13 +695,13 @@ public class AddDevices extends _Page {
             String searchFor = dd.gmdnTermOrDefinition;
             boolean isErrorMessageDisplayed = false;
             do {
-                WaitUtils.waitForElementToBeClickable(driver, tbxGMDNDefinitionOrTerm, TIMEOUT_5_SECOND, false);
+                WaitUtils.waitForElementToBeClickable(driver, tbxGMDNDefinitionOrTerm, TIMEOUT_5_SECOND);
                 tbxGMDNDefinitionOrTerm.clear();
                 tbxGMDNDefinitionOrTerm.sendKeys(searchFor);
                 WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
 
                 //Wait for list of items to appear and add it only if its not a duplicate
-                WaitUtils.waitForElementToBeClickable(driver, aGmdnMatchesReturnedBySearch, TIMEOUT_DEFAULT, false);
+                WaitUtils.waitForElementToBeClickable(driver, aGmdnMatchesReturnedBySearch, TIMEOUT_DEFAULT);
                 int noi = CommonUtils.getNumberOfItemsInList(driver, listOfGmdnMatchesReturnedBySearch);
                 int randomPosition = RandomDataUtils.getARandomNumberBetween(0, noi-1);
 
@@ -726,26 +726,26 @@ public class AddDevices extends _Page {
             //Default is search by gmdn term or definition : This removed 03/02/2017 push
             //previousGMDNSelection(dd);
         } else {
-            WaitUtils.waitForElementToBeClickable(driver, tbxGMDNDefinitionOrTerm, TIMEOUT_5_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, tbxGMDNDefinitionOrTerm, TIMEOUT_5_SECOND);
             tbxGMDNDefinitionOrTerm.clear();
             tbxGMDNDefinitionOrTerm.sendKeys(dd.gmdnCode);
         }
     }
 
     public void searchForGMDN(String searchTerm){
-        WaitUtils.waitForElementToBeClickable(driver, tbxGMDNDefinitionOrTerm, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, tbxGMDNDefinitionOrTerm, TIMEOUT_5_SECOND);
         tbxGMDNDefinitionOrTerm.clear();
         tbxGMDNDefinitionOrTerm.sendKeys(searchTerm);
 
         //Wait for list of items to appear and add it only if its not a duplicate
-        //WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//div[contains(text(),'Term')]//following::td"), TIMEOUT_DEFAULT, false);
+        //WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//div[contains(text(),'Term')]//following::td"), TIMEOUT_DEFAULT);
 
     }
 
     public boolean isOptionToAddAnotherDeviceVisible() {
         try {
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-            WaitUtils.waitForElementToBeClickable(driver, btnAddAnotherDevice, TIMEOUT_10_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, btnAddAnotherDevice, TIMEOUT_10_SECOND);
             boolean isVisible = btnAddAnotherDevice.isDisplayed() && btnAddAnotherDevice.isEnabled();
             return isVisible;
         } catch (Exception e) {
@@ -755,9 +755,9 @@ public class AddDevices extends _Page {
 
     public AddDevices proceedToPayment() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, cbxConfirmInformation, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, cbxConfirmInformation, TIMEOUT_10_SECOND);
         cbxConfirmInformation.click();
-        WaitUtils.waitForElementToBeClickable(driver, btnProceedToPayment, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, btnProceedToPayment, TIMEOUT_10_SECOND);
         btnProceedToPayment.click();
         log.info("Proceed to payment");
         return new AddDevices(driver);
@@ -765,22 +765,22 @@ public class AddDevices extends _Page {
 
     public AddDevices submitRegistration() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, submitConfirm, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, submitConfirm, TIMEOUT_5_SECOND);
         submitConfirm.click();
         return new AddDevices(driver);
     }
 
     public ManufacturerList finish() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, btnFinish, TIMEOUT_15_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, btnFinish, TIMEOUT_15_SECOND);
         btnFinish.click();
         return new ManufacturerList(driver);
     }
 
     public boolean isGMDNValueDisplayed(DeviceDO data) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, btnAddAnotherDevice, TIMEOUT_15_SECOND, false);
-        //WaitUtils.waitForElementToBeClickable(driver, btnProceedToPayment, TIMEOUT_15_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, btnAddAnotherDevice, TIMEOUT_15_SECOND);
+        //WaitUtils.waitForElementToBeClickable(driver, btnProceedToPayment, TIMEOUT_15_SECOND);
         boolean isDisplayed = false;
         String valueToCheck = "";
 
@@ -818,7 +818,7 @@ public class AddDevices extends _Page {
 
     public AddDevices addAnotherDevice() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, btnAddAnotherDevice, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, btnAddAnotherDevice, TIMEOUT_5_SECOND);
         btnAddAnotherDevice.click();
         return new AddDevices(driver);
     }
@@ -827,14 +827,14 @@ public class AddDevices extends _Page {
     public AddDevices viewDeviceWithGMDNValue(String gmdnCode) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WebElement el = CommonUtils.getElementWithLink(listOfGMDNLinksInSummary, gmdnCode);
-        WaitUtils.waitForElementToBeClickable(driver, el, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, el, TIMEOUT_5_SECOND);
         el.click();
         return new AddDevices(driver);
     }
 
     public AddDevices removeSelectedDevice() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, btnRemove, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, btnRemove, TIMEOUT_5_SECOND);
         btnRemove.click();
         return new AddDevices(driver);
     }
@@ -866,7 +866,7 @@ public class AddDevices extends _Page {
             link = PageUtils.findCorrectElement(listOfProductMake, data.productMake);
         }
 
-        //WaitUtils.waitForElementToBeClickable(driver, link, TIMEOUT_5_SECOND, false);
+        //WaitUtils.waitForElementToBeClickable(driver, link, TIMEOUT_5_SECOND);
         driver.findElement(By.linkText(link.getText())).click();
         return new AddDevices(driver);
     }
@@ -879,7 +879,7 @@ public class AddDevices extends _Page {
      */
     public boolean isCTSAndOthereDetailsCorrect(DeviceDO data) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, cbxProductName, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, cbxProductName, TIMEOUT_5_SECOND);
         boolean allCorrect = true;
         String txt;
 
@@ -942,7 +942,7 @@ public class AddDevices extends _Page {
         boolean isNumber = CommonUtils.isNumericValue(searchTerm);
         if(!isNumber) {
             try {
-                WaitUtils.waitForElementToBeClickable(driver, listOfGmdnMatchesReturnedBySearch.get(0), TIMEOUT_3_SECOND, false);
+                WaitUtils.waitForElementToBeClickable(driver, listOfGmdnMatchesReturnedBySearch.get(0), TIMEOUT_3_SECOND);
                 int noi = CommonUtils.getNumberOfItemsInList(driver, listOfGmdnMatchesReturnedBySearch);
                 boolean atLeast1Match = noi >= 1 ? true : false;
                 return atLeast1Match;
@@ -962,13 +962,13 @@ public class AddDevices extends _Page {
             dd.deviceType = deviceType;
             selectDeviceType(dd);
         }
-        WaitUtils.waitForElementToBeClickable(driver, viewAllGMDNTermDefinition, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, viewAllGMDNTermDefinition, TIMEOUT_5_SECOND);
         viewAllGMDNTermDefinition.click();
         return new AddDevices(driver);
     }
 
     public AddDevices clickViewAllGmdnTermDefinitions() {
-        WaitUtils.waitForElementToBeClickable(driver, viewAllGMDNTermDefinition, TIMEOUT_3_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, viewAllGMDNTermDefinition, TIMEOUT_3_SECOND);
         viewAllGMDNTermDefinition.click();
         return new AddDevices(driver);
     }
@@ -980,7 +980,7 @@ public class AddDevices extends _Page {
     }
 
     public boolean isValidationErrorMessageCorrect(String expectedErrorMsg) {
-        WaitUtils.waitForElementToBeVisible(driver, validationErrMessage, 10, false);
+        WaitUtils.waitForElementToBeVisible(driver, validationErrMessage, 10);
         boolean contains = validationErrMessage.getText().contains(expectedErrorMsg);
         return contains;
     }
@@ -988,7 +988,7 @@ public class AddDevices extends _Page {
     public boolean isAbleToSubmitForReview() {
         boolean isAbleToSubmit = true;
         try{
-            WaitUtils.waitForElementToBeClickable(driver, btnReviewYourOrder, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, btnReviewYourOrder, TIMEOUT_3_SECOND);
         }catch (Exception e){
             isAbleToSubmit = false;
         }
@@ -998,7 +998,7 @@ public class AddDevices extends _Page {
     public boolean isValidationErrorMessageVisible() {
         boolean isErrorMessageDisplayed = true;
         try{
-            WaitUtils.waitForElementToBeClickable(driver, validationErrMessage, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, validationErrMessage, TIMEOUT_3_SECOND);
         }catch (Exception e){
             isErrorMessageDisplayed = false;
         }
@@ -1007,7 +1007,7 @@ public class AddDevices extends _Page {
 
     public AddDevices save() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, btnSaveProgress, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, btnSaveProgress, TIMEOUT_5_SECOND);
         PageUtils.doubleClick(driver, btnSaveProgress);
         return new AddDevices(driver);
     }
@@ -1016,7 +1016,7 @@ public class AddDevices extends _Page {
     public AddDevices proceedToReview() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         try {
-            WaitUtils.waitForElementToBeClickable(driver, btnProceedToReview, TIMEOUT_10_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, btnProceedToReview, TIMEOUT_10_SECOND);
             btnProceedToReview.click();
             log.info("Proceed to review before payment");
         }catch (Exception e){
@@ -1026,14 +1026,14 @@ public class AddDevices extends _Page {
     }
 
     public AddDevices saveDevice() {
-        WaitUtils.waitForElementToBeClickable(driver, btnSaveProgress, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, btnSaveProgress, TIMEOUT_10_SECOND);
         PageUtils.doubleClick(driver, btnSaveProgress);
         return new AddDevices(driver);
     }
     
     public AddDevices confirmPayment() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, btnSubmitConfirm, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, btnSubmitConfirm, TIMEOUT_10_SECOND);
         PageUtils.doubleClick(driver, btnSubmitConfirm);
         log.info("Confirm Payment : Submit for registration");
         return new AddDevices(driver);
@@ -1042,7 +1042,7 @@ public class AddDevices extends _Page {
     public ManufacturerList backToService() {
         try {
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-            WaitUtils.waitForElementToBeClickable(driver, linkBackToService, TIMEOUT_10_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, linkBackToService, TIMEOUT_10_SECOND);
             linkBackToService.click();
             log.info("Link: Back to serivces");
         }catch (Exception e){}

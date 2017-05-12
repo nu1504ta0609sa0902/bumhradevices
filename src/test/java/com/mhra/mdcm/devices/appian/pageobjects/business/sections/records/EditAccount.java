@@ -82,7 +82,7 @@ public class EditAccount extends _Page {
 
     public Accounts editAccountInformation(String keyValuePairToUpdate, AccountRequestDO updatedData) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, submitBtn, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, submitBtn, TIMEOUT_DEFAULT);
 
         String[] dataPairs = keyValuePairToUpdate.split(",");
 
@@ -102,7 +102,7 @@ public class EditAccount extends _Page {
                 PageUtils.updateElementValue(driver, orgCityTown, updatedData.townCity, TIMEOUT_DEFAULT);
             }else if(key.equals("country")){
                 //THIS NEEDS TO SELECT FROM AUTO SUGGESTS NOW
-                //PageUtils.selectFromDropDown(driver, orgCountry, updatedData.country, false);
+                //PageUtils.selectFromDropDown(driver, orgCountry, updatedData.country);
             }else if(key.equals("postcode")){
                 PageUtils.updateElementValue(driver, orgPostCode, updatedData.postCode, TIMEOUT_DEFAULT);
             }else if(key.equals("org.telephone")){
@@ -122,18 +122,18 @@ public class EditAccount extends _Page {
     }
 
     public void enterMissingData() {
-        WaitUtils.waitForElementToBeClickable(driver,phoneNumber,TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver,phoneNumber,TIMEOUT_DEFAULT);
         phoneNumber.clear();
         phoneNumber.sendKeys("01351" + (int) RandomDataUtils.getRandomDigits(7));
         PageUtils.singleClick(driver, addressType);
-        WaitUtils.waitForElementToBeClickable(driver,emailAddress,TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver,emailAddress,TIMEOUT_DEFAULT);
         emailAddress.clear();
         emailAddress.sendKeys("mhra.uat@gmail.com");
     }
 
     public boolean isPardOptionSelected(String pardOption, String nameOrAddress) {
         boolean isSelected = false;
-        WaitUtils.waitForElementToBeClickable(driver, pardNameOptIn, TIMEOUT_3_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, pardNameOptIn, TIMEOUT_3_SECOND);
 
         if(nameOrAddress.equals("name") && pardOption.contains("in")){
             isSelected = pardNameOptIn.isSelected();
@@ -148,7 +148,7 @@ public class EditAccount extends _Page {
     }
 
     public BusinessManufacturerDetails updatePARDOptionFor(String pardOption, String nameOrAddress) {
-        WaitUtils.waitForElementToBeClickable(driver, pardNameOptIn, TIMEOUT_3_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, pardNameOptIn, TIMEOUT_3_SECOND);
         if(nameOrAddress.equals("name") && pardOption.contains("in")){
             pardNameOptIn.click();
         }else if(nameOrAddress.equals("name") && pardOption.contains("out")){
@@ -166,7 +166,7 @@ public class EditAccount extends _Page {
 
     public BusinessManufacturerDetails updatePARDOptionsFor(String pardOptions) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, pardAddressOptIn, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, pardAddressOptIn, TIMEOUT_5_SECOND);
         String[] updateNameAndAddress = pardOptions.split(",");
         for(String whichOne: updateNameAndAddress){
             String[] keyValue = whichOne.split("=");
@@ -182,7 +182,7 @@ public class EditAccount extends _Page {
 
     private void updatePARDOptionFor2(String pardOption, String nameOrAddress) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, pardNameOptIn, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, pardNameOptIn, TIMEOUT_5_SECOND);
         if(nameOrAddress.equals("name") && pardOption.contains("in")){
             pardNameOptIn.click();
         }else if(nameOrAddress.equals("name") && pardOption.contains("out")){

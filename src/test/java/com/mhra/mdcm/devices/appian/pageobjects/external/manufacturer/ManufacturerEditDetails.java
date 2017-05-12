@@ -78,7 +78,7 @@ public class ManufacturerEditDetails extends _Page {
 
     public ManufacturerEditDetails updateFollowingFields(String keyValuePairToUpdate, AccountRequestDO updatedData) {
 
-        WaitUtils.waitForElementToBeClickable(driver, submitBtn, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, submitBtn, TIMEOUT_5_SECOND);
         String[] dataPairs = keyValuePairToUpdate.split(",");
 
         for (String pairs : dataPairs) {
@@ -135,7 +135,7 @@ public class ManufacturerEditDetails extends _Page {
 
     public boolean isErrorMessageDisplayed() {
         try {
-            WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".component_error"), 3, false);
+            WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".component_error"), 3);
             boolean isDisplayed = errorMessages.size() > 0;
             return isDisplayed;
         }catch (Exception e){
@@ -145,7 +145,7 @@ public class ManufacturerEditDetails extends _Page {
 
 
     public MyAccountPage saveChanges(boolean saveChanges) {
-        WaitUtils.waitForElementToBeClickable(driver, cancel, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, cancel, TIMEOUT_DEFAULT);
         if(saveChanges){
             save.get(1).click();
         }else{
@@ -157,8 +157,8 @@ public class ManufacturerEditDetails extends _Page {
 
     public boolean isAddressTypeEditable() {
         boolean isEditable = true;
-        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_5_SECOND, false);
-        WaitUtils.waitForElementToBeClickable(driver, addressType, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_5_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, addressType, TIMEOUT_5_SECOND);
         try{
             addressType.sendKeys("not editable");
         }catch (Exception e){
@@ -169,7 +169,7 @@ public class ManufacturerEditDetails extends _Page {
 
 
     public ManufacturerViewDetails confirmChanges(boolean confirm) {
-        WaitUtils.waitForElementToBeClickable(driver, confirmYes, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, confirmYes, TIMEOUT_DEFAULT);
         if(confirm){
             confirmYes.click();
         }else{

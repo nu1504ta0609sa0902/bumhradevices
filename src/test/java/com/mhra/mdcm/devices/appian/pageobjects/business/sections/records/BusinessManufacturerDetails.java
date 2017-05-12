@@ -40,17 +40,17 @@ public class BusinessManufacturerDetails extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean contains = true;
         try {
-            WaitUtils.waitForElementToBeClickable(driver, heading, TIMEOUT_10_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, heading, TIMEOUT_10_SECOND);
             contains = heading.getText().contains(searchTerm);
         }catch (Exception e){
-            WaitUtils.waitForElementToBeClickable(driver, devicesAndProductDetails, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, devicesAndProductDetails, TIMEOUT_3_SECOND);
             contains = subHeading.getText().contains(searchTerm);
         }
         return contains;
     }
 
     public BusinessDeviceDetails clickOnDevicesLink(String link) {
-        WaitUtils.waitForElementToBeClickable(driver, devicesAndProductDetails, TIMEOUT_3_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, devicesAndProductDetails, TIMEOUT_3_SECOND);
         devicesAndProductDetails.click();
         return new BusinessDeviceDetails(driver);
     }
@@ -58,7 +58,7 @@ public class BusinessManufacturerDetails extends _Page {
 
     public EditAccount gotoEditAccountInformation() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, editAccountInfoLink, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, editAccountInfoLink, TIMEOUT_DEFAULT);
         PageUtils.doubleClick(driver, editAccountInfoLink);
         //editAccountInfoLink.click();
         return new EditAccount(driver);
@@ -66,7 +66,7 @@ public class BusinessManufacturerDetails extends _Page {
 
     public boolean isPARDMessaageCorrect(String expectedMessage) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, pardMessage, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, pardMessage, TIMEOUT_DEFAULT);
         String msg = pardMessage.getText();
         log.info("Message : " + msg);
         boolean found = msg.contains(expectedMessage);

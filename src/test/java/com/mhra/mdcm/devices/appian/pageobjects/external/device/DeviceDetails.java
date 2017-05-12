@@ -129,7 +129,7 @@ public class DeviceDetails extends _Page {
 
     public boolean isDevicesGMDNDisplayedCorrect(String deviceList) {
         String[] data = deviceList.split(",");
-        WaitUtils.waitForElementToBeClickable(driver, firstGMDNDefinition, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, firstGMDNDefinition, TIMEOUT_10_SECOND);
 
         //Displayed list of gmdns
         List<String> gmdns = new ArrayList<>();
@@ -160,18 +160,18 @@ public class DeviceDetails extends _Page {
 
     public DeviceDetails orderCFS() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, btnOrderCFS, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, btnOrderCFS, TIMEOUT_5_SECOND);
         btnOrderCFS.click();
         return new DeviceDetails(driver);
     }
 
     public DeviceDetails selectDevices() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD * 2);
-        WaitUtils.waitForElementToBeClickable(driver, cbxSelectAllDevices, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, cbxSelectAllDevices, TIMEOUT_5_SECOND);
         WebElement cbx = PageUtils.getRandomElementFromList(listOfDeviceCheckbox);
         PageUtils.singleClick(driver, cbx);
         //Wait for continue button to be clickable
-        WaitUtils.waitForElementToBeClickable(driver, btnContinue, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, btnContinue, TIMEOUT_5_SECOND);
         PageUtils.singleClick(driver, btnContinue);
         return new DeviceDetails(driver);
     }
@@ -183,7 +183,7 @@ public class DeviceDetails extends _Page {
         } catch (Exception e) {
         }
         //Enter number of certificates
-        WaitUtils.waitForElementToBeClickable(driver, tbxNumberOfCFS, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, tbxNumberOfCFS, TIMEOUT_5_SECOND);
         tbxNumberOfCFS.sendKeys(noOfCFS);
 
         //Submit
@@ -194,8 +194,8 @@ public class DeviceDetails extends _Page {
 
     public DeviceDetails enterMultipleCertificateDetails(String data, boolean clickAddCountryLink, int whichPicker) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, tbxNumberOfCFS, TIMEOUT_5_SECOND, false);
-        WaitUtils.waitForElementToBeClickable(driver, linkAddCountry, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, tbxNumberOfCFS, TIMEOUT_5_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, linkAddCountry, TIMEOUT_5_SECOND);
 
         String[] values = data.split("=");
         if (values.length == 2) {
@@ -220,42 +220,42 @@ public class DeviceDetails extends _Page {
 
     public DeviceDetails clickContinueButton() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, btnContinue, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, btnContinue, TIMEOUT_10_SECOND);
         btnContinue.click();
         return new DeviceDetails(driver);
     }
 
     public DeviceDetails continueToPaymentAfterReviewFinished() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, btnContinueToPayment, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, btnContinueToPayment, TIMEOUT_10_SECOND);
         btnContinueToPayment.click();
         return new DeviceDetails(driver);
     }
 
     public DeviceDetails submitPayment() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, btnSubmitPayment, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, btnSubmitPayment, TIMEOUT_10_SECOND);
         btnSubmitPayment.click();
         return new DeviceDetails(driver);
     }
 
     public DeviceDetails finishPayment() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, btnFinish, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, btnFinish, TIMEOUT_10_SECOND);
         btnFinish.click();
         return new DeviceDetails(driver);
     }
 
     public boolean isNumberOfCertificatesCorrect(String number) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, btnContinueToPayment, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, btnContinueToPayment, TIMEOUT_10_SECOND);
         String txt = txtNumberOfCertificates.getText().trim();
         return number.equals(txt);
     }
 
     public boolean isManufacturerNameCorrect(String name) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, btnContinueToPayment, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, btnContinueToPayment, TIMEOUT_10_SECOND);
         String txt = txtManufacturerName.getText().trim();
         return txt.contains(name);
     }

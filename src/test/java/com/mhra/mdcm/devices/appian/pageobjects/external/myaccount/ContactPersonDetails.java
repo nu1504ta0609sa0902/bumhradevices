@@ -62,7 +62,7 @@ public class ContactPersonDetails extends _Page {
 
 
     public ContactPersonDetails updateFollowingFields(String keyValuePairToUpdate, AccountRequestDO updatedData) {
-        WaitUtils.waitForElementToBeClickable(driver, submitBtn, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, submitBtn, TIMEOUT_DEFAULT);
 
         String[] dataPairs = keyValuePairToUpdate.split(",");
 
@@ -93,7 +93,7 @@ public class ContactPersonDetails extends _Page {
 
 
     public ContactPersonDetails confirmChangesRelateToOrganisation(boolean confirm) {
-        WaitUtils.waitForElementToBeClickable(driver, confirmYes, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, confirmYes, TIMEOUT_DEFAULT);
         if(confirm){
             confirmYes.click();
         }else{
@@ -103,7 +103,7 @@ public class ContactPersonDetails extends _Page {
     }
 
     public MyAccountPage saveChanges(boolean saveChanges) {
-        WaitUtils.waitForElementToBeClickable(driver, btnCancel, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, btnCancel, TIMEOUT_DEFAULT);
         if(saveChanges){
             btnSave.get(1).click();
         }else{
@@ -114,7 +114,7 @@ public class ContactPersonDetails extends _Page {
 
     public boolean isErrorMessageDisplayed() {
         try {
-            WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".component_error"), 3, false);
+            WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".component_error"), 3);
             boolean isDisplayed = errorMessages.size() > 0;
             return isDisplayed;
         }catch (Exception e){

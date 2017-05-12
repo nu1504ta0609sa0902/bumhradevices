@@ -54,14 +54,14 @@ public class MainNavigationBar extends _Page {
 
 
     public NewsTabPage clickNews() {
-        WaitUtils.waitForElementToBeClickable(driver, news, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, news, TIMEOUT_DEFAULT);
         PageUtils.doubleClick(driver, news);
         return new NewsTabPage(driver);
     }
 
     public TasksTabPage clickTasks() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, tasks, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, tasks, TIMEOUT_DEFAULT);
         tasks.click();
         PageUtils.acceptAlert(driver, true, 2);
         //PageUtils.doubleClick(driver, tasks);
@@ -70,29 +70,28 @@ public class MainNavigationBar extends _Page {
 
     public RecordsTabPage clickRecords() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        //WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Records"), TIMEOUT_1_SECOND, 3);
-        WaitUtils.waitForElementToBeClickable(driver, records, TIMEOUT_20_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, records, TIMEOUT_20_SECOND);
         //records.click();
         PageUtils.doubleClick(driver, records);
         return new RecordsTabPage(driver);
     }
 
     public ReportsTabPage clickReports() {
-        WaitUtils.waitForElementToBeClickable(driver, reports, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, reports, TIMEOUT_DEFAULT);
         reports.click();
         PageUtils.doubleClick(driver, reports);
         return new ReportsTabPage(driver);
     }
 
     public String getCurrentSelectedMenu() {
-        WaitUtils.waitForElementToBeClickable(driver, currentSelection, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, currentSelection, TIMEOUT_DEFAULT);
         String selectedMenu = currentSelection.getText();
         return selectedMenu;
     }
 
     public ActionsTabPage clickActions() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, actions, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, actions, TIMEOUT_DEFAULT);
         actions.click();
         PageUtils.doubleClick(driver, actions);
         return new ActionsTabPage(driver);
@@ -117,7 +116,7 @@ public class MainNavigationBar extends _Page {
 
     public ExternalHomePage clickExternalHOME() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, linkHOME, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, linkHOME, TIMEOUT_DEFAULT);
         PageUtils.doubleClick(driver, linkHOME);
         PageUtils.acceptAlert(driver, "accept", 1);
         return new ExternalHomePage(driver);
@@ -125,7 +124,7 @@ public class MainNavigationBar extends _Page {
 
     public MyAccountPage clickMyAccount() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, linkMyAccount, TIMEOUT_DEFAULT,  false);
+        WaitUtils.waitForElementToBeClickable(driver, linkMyAccount, TIMEOUT_DEFAULT);
         PageUtils.doubleClick(driver, linkMyAccount);
         return new MyAccountPage(driver);
     }

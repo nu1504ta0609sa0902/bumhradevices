@@ -27,7 +27,7 @@ public class Products extends _Page {
 
     public boolean isHeadingCorrect(String expectedHeadings) {
         By by = By.xpath(".//h2[.='" + expectedHeadings + "']");
-        WaitUtils.waitForElementToBeClickable(driver, by, 10, false);
+        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_10_SECOND);
         WebElement heading = driver.findElement(by);
         boolean contains = heading.getText().contains(expectedHeadings);
         return contains;
@@ -35,7 +35,7 @@ public class Products extends _Page {
 
     public boolean isItemsDisplayed(String expectedHeadings) {
         boolean itemsDisplayed = false;
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='" + expectedHeadings + "']") , 10, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[.='" + expectedHeadings + "']") , TIMEOUT_10_SECOND);
 
         if(expectedHeadings.contains("Products")){
             itemsDisplayed = listOfProducts.size() > 0;

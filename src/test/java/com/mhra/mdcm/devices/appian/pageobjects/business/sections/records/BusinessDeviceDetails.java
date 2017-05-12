@@ -67,7 +67,7 @@ public class BusinessDeviceDetails extends _Page {
 
     public boolean isDeviceTableDisplayed() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//tr/th"), TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//tr/th"), TIMEOUT_DEFAULT);
         return listOfDeviceHeadings.size() > 0;
     }
 
@@ -116,12 +116,12 @@ public class BusinessDeviceDetails extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean fieldsDisplayed = true;
         try {
-            WaitUtils.waitForElementToBeClickable(driver, fieldGMDNCode, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, fieldGMDNTerm, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, fieldRiskClassification, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, fieldCustomMade, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, fieldSterile, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, fieldMeasuring, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, fieldGMDNCode, TIMEOUT_3_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, fieldGMDNTerm, TIMEOUT_3_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, fieldRiskClassification, TIMEOUT_3_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, fieldCustomMade, TIMEOUT_3_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, fieldSterile, TIMEOUT_3_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, fieldMeasuring, TIMEOUT_3_SECOND);
         }catch (Exception e){
             e.printStackTrace();
             fieldsDisplayed = false;

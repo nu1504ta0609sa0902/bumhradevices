@@ -67,7 +67,7 @@ public class OrganisationDetails extends _Page {
 
     public OrganisationDetails updateFollowingFields(String keyValuePairToUpdate, AccountRequestDO updatedData) {
 
-        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_5_SECOND);
         String[] dataPairs = keyValuePairToUpdate.split(",");
 
         boolean orgNameUpdated = false;
@@ -87,7 +87,7 @@ public class OrganisationDetails extends _Page {
             }else if (key.equals("org.postcode")) {
                 PageUtils.updateElementValue(driver, orgPostCode, updatedData.postCode, TIMEOUT_5_SECOND);
             }else if (key.equals("org.country")) {
-                //PageUtils.selectFromDropDown(driver, orgCountry, updatedData.country, false);
+                //PageUtils.selectFromDropDown(driver, orgCountry, updatedData.country);
             }else if (key.equals("org.telephone")) {
                 PageUtils.updateElementValue(driver, orgTelephone, updatedData.telephone, TIMEOUT_5_SECOND);
             }else if (key.equals("org.website")) {
@@ -104,7 +104,7 @@ public class OrganisationDetails extends _Page {
 
     public boolean isErrorMessageDisplayed() {
         try {
-            WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".component_error"), 3, false);
+            WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".component_error"), 3);
             boolean isDisplayed = errorMessages.size() > 0;
             return isDisplayed;
         }catch (Exception e){
@@ -113,7 +113,7 @@ public class OrganisationDetails extends _Page {
     }
 
     public OrganisationDetails confirmChanges(boolean confirm) {
-        WaitUtils.waitForElementToBeClickable(driver, confirmYes, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, confirmYes, TIMEOUT_DEFAULT);
         if(confirm){
             confirmYes.click();
         }else{
@@ -123,7 +123,7 @@ public class OrganisationDetails extends _Page {
     }
 
     public MyAccountPage saveChanges(boolean saveChanges) {
-        WaitUtils.waitForElementToBeClickable(driver, saveNo, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, saveNo, TIMEOUT_DEFAULT);
         if(saveChanges){
             saveYes.get(1).click();
         }else{
@@ -135,8 +135,8 @@ public class OrganisationDetails extends _Page {
 
     public boolean isAddressTypeEditable() {
         boolean isEditable = true;
-        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_5_SECOND, false);
-        WaitUtils.waitForElementToBeClickable(driver, addressType, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_5_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, addressType, TIMEOUT_5_SECOND);
         try{
             addressType.sendKeys("not editable");
         }catch (Exception e){

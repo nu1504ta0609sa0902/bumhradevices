@@ -38,52 +38,45 @@ public class RecordsTabPage extends _Page {
     }
 
     public Accounts clickOnAccounts() {
-        WaitUtils.waitForElementToBeVisible(driver, linkAccounts, 10, false);
-        WaitUtils.waitForElementToBeClickable(driver, linkAccounts, 10, false);
+        WaitUtils.waitForElementToBeVisible(driver, linkAccounts, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, linkAccounts, TIMEOUT_10_SECOND);
         //linkAccounts.click();
         PageUtils.singleClick(driver, linkAccounts);
         return new Accounts(driver);
     }
 
     public RegisteredDevices clickOnRegisteredDevices() {
-        WaitUtils.waitForElementToBeVisible(driver, linkRegisteredDevices, 10, false);
-        WaitUtils.waitForElementToBeClickable(driver, linkRegisteredDevices, 10, false);
+        WaitUtils.waitForElementToBeVisible(driver, linkRegisteredDevices, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, linkRegisteredDevices, TIMEOUT_10_SECOND);
         linkRegisteredDevices.click();
         return new RegisteredDevices(driver);
     }
 
-//    public Products clickOnProducts() {
-//        WaitUtils.waitForElementToBeVisible(driver, linkProducts, 20, false);
-//        WaitUtils.waitForElementToBeClickable(driver, linkProducts, 10, false);
-//        linkProducts.click();
-//        return new Products(driver);
-//    }
-
     public Organisations clickOnOrganisations() {
-        WaitUtils.waitForElementToBeVisible(driver, linkOrganisations, 10, false);
-        WaitUtils.waitForElementToBeClickable(driver, linkOrganisations, 10, false);
+        WaitUtils.waitForElementToBeVisible(driver, linkOrganisations, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, linkOrganisations, TIMEOUT_10_SECOND);
         linkOrganisations.click();
         return new Organisations(driver);
     }
 
     public boolean isCorrectPage() {
         try {
-            WaitUtils.waitForElementToBeVisible(driver, linkAll , TIMEOUT_5_SECOND, false);
+            WaitUtils.waitForElementToBeVisible(driver, linkAll , TIMEOUT_5_SECOND);
             return true;
         } catch (Exception e) {
             return false;
         }
     }
     public RegisteredDevices clickOnGMDNDevices() {
-        WaitUtils.waitForElementToBeVisible(driver, linkGMDNDevices, 10, false);
-        WaitUtils.waitForElementToBeClickable(driver, linkGMDNDevices, 10, false);
+        WaitUtils.waitForElementToBeVisible(driver, linkGMDNDevices, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, linkGMDNDevices, TIMEOUT_10_SECOND);
         linkGMDNDevices.click();
         return new RegisteredDevices(driver);
     }
 
     public RegisteredProducts clickOnRegisteredProducts() {
-        WaitUtils.waitForElementToBeVisible(driver, linkRegisteredProducts, 20, false);
-        WaitUtils.waitForElementToBeClickable(driver, linkRegisteredProducts, 10, false);
+        WaitUtils.waitForElementToBeVisible(driver, linkRegisteredProducts, TIMEOUT_20_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, linkRegisteredProducts, TIMEOUT_10_SECOND);
         linkRegisteredProducts.click();
         return new RegisteredProducts(driver);
     }

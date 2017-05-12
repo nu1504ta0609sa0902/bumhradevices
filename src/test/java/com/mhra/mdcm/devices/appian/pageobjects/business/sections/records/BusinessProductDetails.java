@@ -46,13 +46,13 @@ public class BusinessProductDetails extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean fieldsDisplayed = true;
         try {
-            WaitUtils.waitForElementToBeClickable(driver, diGmdnCode, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, diGmdnTerm, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, diRiskClassification, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, piProductCode, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, piProductMake, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, piProductModel, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, piProductName, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, diGmdnCode, TIMEOUT_3_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, diGmdnTerm, TIMEOUT_3_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, diRiskClassification, TIMEOUT_3_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, piProductCode, TIMEOUT_3_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, piProductMake, TIMEOUT_3_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, piProductModel, TIMEOUT_3_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, piProductName, TIMEOUT_3_SECOND);
         }catch (Exception e){
             e.printStackTrace();
             fieldsDisplayed = false;

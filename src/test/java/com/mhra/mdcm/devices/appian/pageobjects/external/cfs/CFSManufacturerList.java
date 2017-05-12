@@ -61,19 +61,19 @@ public class CFSManufacturerList extends _Page {
 
 
     public CFSManufacturerList clickNext(){
-        WaitUtils.waitForElementToBeClickable(driver, nextPage, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, nextPage, TIMEOUT_5_SECOND);
         nextPage.click();
         return new CFSManufacturerList(driver);
     }
 
     public CFSManufacturerList clickPrev(){
-        WaitUtils.waitForElementToBeClickable(driver, prevPage, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, prevPage, TIMEOUT_5_SECOND);
         prevPage.click();
         return new CFSManufacturerList(driver);
     }
 
     public CFSManufacturerList clickLastPage(){
-        WaitUtils.waitForElementToBeClickable(driver, lastPage, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, lastPage, TIMEOUT_5_SECOND);
         lastPage.click();
         return new CFSManufacturerList(driver);
     }
@@ -87,7 +87,7 @@ public class CFSManufacturerList extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean isVisble = PageUtils.isVisible(driver, rbtExportsMedicinalProducts, TIMEOUT_3_SECOND);
         if(isVisble) {
-            WaitUtils.waitForElementToBeClickable(driver, rbtExportOutsideOfEUYes, TIMEOUT_5_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, rbtExportOutsideOfEUYes, TIMEOUT_5_SECOND);
             rbtExportOutsideOfEUYes.click();
             rbtExportsMedicinalProducts.click();
             btnSubmit.click();
@@ -103,7 +103,7 @@ public class CFSManufacturerList extends _Page {
 
     public _CreateCFSManufacturerTestsData addNewManufacturer() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, btnAddNewManufacturer, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, btnAddNewManufacturer, TIMEOUT_5_SECOND);
         btnAddNewManufacturer.click();
         return new _CreateCFSManufacturerTestsData(driver);
     }
@@ -115,7 +115,7 @@ public class CFSManufacturerList extends _Page {
     }
 
     public DeviceDetails viewManufacturer(String name) {
-        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(name), TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(name), TIMEOUT_10_SECOND);
         WebElement man = driver.findElement(By.partialLinkText(name));
         man.click();
         return new DeviceDetails(driver);

@@ -15,35 +15,21 @@ import java.util.concurrent.TimeUnit;
  */
 public class WaitUtils {
 
-    //mhratest is very slow, set this to 0 once slow issue is fixed
-    static int timeForTesting = 60;
-
     public static void waitForElementToBeClickable(WebDriver driver, WebElement element, int maxTimeToWait) {
-        maxTimeToWait = resetMaxTime(maxTimeToWait);
         new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.elementToBeClickable(element));
     }
 
     public static void waitForElementToBeClickable(WebDriver driver, By by, int maxTimeToWait) {
-        maxTimeToWait = resetMaxTime(maxTimeToWait);
         new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.elementToBeClickable(by));
     }
 
     public static void waitForElementToBeVisible(WebDriver driver, WebElement element, int maxTimeToWait) {
-        maxTimeToWait = resetMaxTime(maxTimeToWait);
         new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.visibilityOf(element));
     }
 
     public static void waitForElementToBeVisible(WebDriver driver, By by, int maxTimeToWait) {
-        maxTimeToWait = resetMaxTime(maxTimeToWait);
         WebElement element = driver.findElement(by);
         new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.visibilityOf(element));
-    }
-
-    private static int resetMaxTime(int maxTimeToWait) {
-        if (timeForTesting > 0) {
-            maxTimeToWait = timeForTesting;
-        }
-        return maxTimeToWait;
     }
 
     /**
@@ -65,49 +51,7 @@ public class WaitUtils {
         }
     }
 
-    /**
-     * @param driver
-     * @param by
-     * @param maxTimeToWait
-     * @param overrideTimeSpecified
-     */
-    public static void waitForElementToBeClickable(WebDriver driver, By by, int maxTimeToWait, boolean overrideTimeSpecified) {
-        if (overrideTimeSpecified)
-            maxTimeToWait = resetMaxTime(maxTimeToWait);
-        new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.elementToBeClickable(by));
-    }
-
-
-    /**
-     * @param driver
-     * @param element
-     * @param maxTimeToWait
-     * @param overrideTimeSpecified
-     */
-    public static void waitForElementToBeClickable(WebDriver driver, WebElement element, int maxTimeToWait, boolean overrideTimeSpecified) {
-        if (overrideTimeSpecified)
-            maxTimeToWait = resetMaxTime(maxTimeToWait);
-        new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.elementToBeClickable(element));
-    }
-
-
-    public static void waitForElementToBeVisible(WebDriver driver, WebElement element, int maxTimeToWait, boolean overrideTimeSpecified) {
-        if (overrideTimeSpecified)
-            maxTimeToWait = resetMaxTime(maxTimeToWait);
-        new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.visibilityOf(element));
-    }
-
-
-    public static void waitForElementToBeVisible(WebDriver driver, By by, int maxTimeToWait, boolean overrideTimeSpecified) {
-        if (overrideTimeSpecified)
-            maxTimeToWait = resetMaxTime(maxTimeToWait);
-        WebElement element = driver.findElement(by);
-        new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.visibilityOf(element));
-    }
-
-    public static void waitForAlert(WebDriver driver, int maxTimeToWait, boolean overrideTimeSpecified) {
-        if (overrideTimeSpecified)
-            maxTimeToWait = resetMaxTime(maxTimeToWait);
+    public static void waitForAlert(WebDriver driver, int maxTimeToWait) {
         new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.alertIsPresent());
     }
 
@@ -124,16 +68,6 @@ public class WaitUtils {
         }
     }
 
-
-    public static void waitForPageToLoad(WebDriver driver, By by, int maxTimeToWait, boolean overrideTimeSpecified) {
-        try {
-            new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.presenceOfElementLocated(by));
-        }catch (Exception e){
-            //Aim is to pause the page for sometimes
-        }
-    }
-
-
     /**
      * Page is loaded if we cannot see the message "Waiting..."
      *
@@ -143,7 +77,7 @@ public class WaitUtils {
      * @return
      */
     public static boolean isPageLoadingComplete(WebDriver driver, int timeout){
-        //nativeWaitInSeconds(1);
+
         boolean isLoadedFully = false;
         long start = System.currentTimeMillis();
         try {
@@ -180,7 +114,7 @@ public class WaitUtils {
     private static boolean isWaitingMessageDisplayed(WebDriver driver) {
         boolean isDisplayed = true;
         try{
-            waitForElementToBeClickable(driver, By.xpath(".//div[@class='appian-indicator-message' and @style='display: none;']"), _Page.TIMEOUT_1_SECOND, false);
+            waitForElementToBeClickable(driver, By.xpath(".//div[@class='appian-indicator-message' and @style='display: none;']"), _Page.TIMEOUT_1_SECOND);
             System.out.println("Waiting message is displayed");
         }catch (Exception e){
             isDisplayed = false;

@@ -91,10 +91,10 @@ public class ManufacturerViewDetails extends _Page {
         WaitUtils.isPageLoadingComplete(driver, 1);
         boolean contains = false;
         if(isManufacturer){
-            WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_10_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_10_SECOND);
             contains = orgName.getText().contains(name);
         }else{
-            WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_10_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_10_SECOND);
             contains = orgName.getText().contains(name);
         }
         return contains;
@@ -103,7 +103,7 @@ public class ManufacturerViewDetails extends _Page {
 
     public boolean isErrorMessageDisplayed() {
         try {
-            WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".component_error"), 3, false);
+            WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".component_error"), 3);
             boolean isDisplayed = errorMessages.size() > 0;
             return isDisplayed;
         }catch (Exception e){
@@ -113,8 +113,8 @@ public class ManufacturerViewDetails extends _Page {
 
     public AddDevices clickAddDeviceBtn() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeVisible(driver, addADevice, TIMEOUT_15_SECOND, false);
-        WaitUtils.waitForElementToBeClickable(driver, addADevice, TIMEOUT_15_SECOND, false);
+        WaitUtils.waitForElementToBeVisible(driver, addADevice, TIMEOUT_15_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, addADevice, TIMEOUT_15_SECOND);
         addADevice.click();
         return new AddDevices(driver);
     }
@@ -135,8 +135,8 @@ public class ManufacturerViewDetails extends _Page {
     public AddDevices clickContinueBtn(){
         try {
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-            WaitUtils.waitForElementToBeVisible(driver, btnContinue, TIMEOUT_5_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, btnContinue, TIMEOUT_5_SECOND, false);
+            WaitUtils.waitForElementToBeVisible(driver, btnContinue, TIMEOUT_5_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, btnContinue, TIMEOUT_5_SECOND);
             btnContinue.click();
         }catch (Exception e){}
         return new AddDevices(driver);
@@ -145,15 +145,15 @@ public class ManufacturerViewDetails extends _Page {
 
     public ManufacturerEditDetails amendRepresentedParty() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, amendRepresentativeParty, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, amendRepresentativeParty, TIMEOUT_10_SECOND);
         amendRepresentativeParty.click();
         return new ManufacturerEditDetails(driver);
     }
 
     public boolean isCorrectPage() {
         try {
-            WaitUtils.waitForElementToBeClickable(driver, addADevice, TIMEOUT_5_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, amendRepresentativeParty, TIMEOUT_5_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, addADevice, TIMEOUT_5_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, amendRepresentativeParty, TIMEOUT_5_SECOND);
             return true;
         } catch (Exception e) {
             return false;
@@ -162,8 +162,8 @@ public class ManufacturerViewDetails extends _Page {
 
     public boolean verifyManufacturerUpdatesDisplayedOnPage(String keyValuePairToUpdate, AccountRequestDO updatedData) {
 
-        WaitUtils.waitForElementToBeVisible(driver, email, TIMEOUT_DEFAULT, false);
-        WaitUtils.waitForElementToBeVisible(driver, fullName, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeVisible(driver, email, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeVisible(driver, fullName, TIMEOUT_5_SECOND);
 
         boolean allChangesDisplayed = true;
 
@@ -221,7 +221,7 @@ public class ManufacturerViewDetails extends _Page {
     }
 
     public ManufacturerEditDetails editAccountInformation() {
-        WaitUtils.waitForElementToBeClickable(driver, editAccountInformation, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, editAccountInformation, TIMEOUT_10_SECOND);
         editAccountInformation.click();
         return new ManufacturerEditDetails(driver);
     }
@@ -229,7 +229,7 @@ public class ManufacturerViewDetails extends _Page {
     public ProductDetails viewProduct(DeviceDO deviceData) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         if(deviceData.gmdnTermOrDefinition!=null) {
-            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(deviceData.gmdnTermOrDefinition), TIMEOUT_10_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(deviceData.gmdnTermOrDefinition), TIMEOUT_10_SECOND);
             driver.findElement(By.partialLinkText(deviceData.gmdnTermOrDefinition)).click();
         }
         return new ProductDetails(driver);
@@ -240,15 +240,15 @@ public class ManufacturerViewDetails extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean fieldsDisplayed = true;
         try {
-            WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgAddressLine1, TIMEOUT_1_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgAddressLine2, TIMEOUT_1_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgCityTown, TIMEOUT_1_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgPostCode, TIMEOUT_1_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgCountry, TIMEOUT_1_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgTelephone, TIMEOUT_1_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgFax, TIMEOUT_1_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, webSite, TIMEOUT_1_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, orgAddressLine1, TIMEOUT_1_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, orgAddressLine2, TIMEOUT_1_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, orgCityTown, TIMEOUT_1_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, orgPostCode, TIMEOUT_1_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, orgCountry, TIMEOUT_1_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, orgTelephone, TIMEOUT_1_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, orgFax, TIMEOUT_1_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, webSite, TIMEOUT_1_SECOND);
         }catch (Exception e){
             e.printStackTrace();
             fieldsDisplayed = false;
@@ -260,11 +260,11 @@ public class ManufacturerViewDetails extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean fieldsDisplayed = true;
         try {
-            WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, fullName, TIMEOUT_1_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, jobTitle, TIMEOUT_1_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, email, TIMEOUT_1_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, telephone, TIMEOUT_1_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, fullName, TIMEOUT_1_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, jobTitle, TIMEOUT_1_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, email, TIMEOUT_1_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, telephone, TIMEOUT_1_SECOND);
         }catch (Exception e){
             e.printStackTrace();
             fieldsDisplayed = false;
@@ -274,22 +274,22 @@ public class ManufacturerViewDetails extends _Page {
 
     public DeviceDetails clickOnDevicesAndProductDetailsLink() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, devicesAndProductDetails, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, devicesAndProductDetails, TIMEOUT_10_SECOND);
         devicesAndProductDetails.click();
         return new DeviceDetails(driver);
     }
 
     public AddDevices clickDeclareDeviceBtn() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeVisible(driver, declareADevice, TIMEOUT_5_SECOND, false);
-        WaitUtils.waitForElementToBeClickable(driver, declareADevice, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeVisible(driver, declareADevice, TIMEOUT_5_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, declareADevice, TIMEOUT_5_SECOND);
         declareADevice.click();
         return new AddDevices(driver);
     }
 
     public ManufacturerViewDetails refreshThePage() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, fullName, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, fullName, TIMEOUT_10_SECOND);
         driver.navigate().refresh();
         return new ManufacturerViewDetails(driver);
     }
@@ -310,12 +310,12 @@ public class ManufacturerViewDetails extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean fieldsDisplayed = true;
         try {
-            //WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, firstName, TIMEOUT_1_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, lastName, TIMEOUT_1_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, jobTitle, TIMEOUT_1_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, email, TIMEOUT_1_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, telephone2, TIMEOUT_1_SECOND, false);
+            //WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, firstName, TIMEOUT_1_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, lastName, TIMEOUT_1_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, jobTitle, TIMEOUT_1_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, email, TIMEOUT_1_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, telephone2, TIMEOUT_1_SECOND);
         }catch (Exception e){
             e.printStackTrace();
             fieldsDisplayed = false;

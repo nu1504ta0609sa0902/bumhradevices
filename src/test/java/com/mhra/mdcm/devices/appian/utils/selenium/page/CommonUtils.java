@@ -1,5 +1,6 @@
 package com.mhra.mdcm.devices.appian.utils.selenium.page;
 
+import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -20,7 +21,7 @@ public class CommonUtils {
         boolean allLinksVisible = true;
         String[] links = delimitedLinks.split(",");
         for(String aLink: links){
-            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(aLink), 10, false);
+            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(aLink), _Page.TIMEOUT_10_SECOND);
             boolean isDisplayed = driver.findElement(By.partialLinkText(aLink)).isDisplayed();
             if(!isDisplayed){
                 allLinksVisible = false;
@@ -38,7 +39,7 @@ public class CommonUtils {
         String[] links = delimitedLinks.split(",");
         for(String aLink: links){
             try{
-                WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(aLink), 10, false);
+                WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(aLink), _Page.TIMEOUT_10_SECOND);
             }catch (Exception e){
                 allLinksClickable = false;
                 System.out.println("Link not clickable : " + aLink);

@@ -76,20 +76,20 @@ public class MyAccountPage extends _Page {
 
     public ContactPersonDetails amendContactPersonDetails() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, amendContactPersonDetails, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, amendContactPersonDetails, TIMEOUT_5_SECOND);
         amendContactPersonDetails.click();
         return new ContactPersonDetails(driver);
     }
 
     public OrganisationDetails amendOrganisationDetails() {
-        WaitUtils.waitForElementToBeClickable(driver, amendOrganisationDetails, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, amendOrganisationDetails, TIMEOUT_10_SECOND);
         amendOrganisationDetails.click();
         return new OrganisationDetails(driver);
     }
 
     public boolean isCorrectPage() {
         try {
-            WaitUtils.waitForElementToBeClickable(driver, amendContactPersonDetails, TIMEOUT_5_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, amendContactPersonDetails, TIMEOUT_5_SECOND);
             return true;
         } catch (Exception e) {
             return false;
@@ -97,8 +97,8 @@ public class MyAccountPage extends _Page {
     }
 
     public boolean verifyUpdatesDisplayedOnPage(String keyValuePairToUpdate, AccountRequestDO updatedData) {
-        WaitUtils.waitForElementToBeVisible(driver, email, TIMEOUT_DEFAULT, false);
-        WaitUtils.waitForElementToBeVisible(driver, fullName, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeVisible(driver, email, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeVisible(driver, fullName, TIMEOUT_5_SECOND);
 
         boolean allChangesDisplayed = true;
 
@@ -162,7 +162,7 @@ public class MyAccountPage extends _Page {
     }
 
     public boolean isRolesCorrect(String loggedInUser, String expectedRoles) {
-        WaitUtils.waitForElementToBeClickable(driver, role, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, role, TIMEOUT_10_SECOND);
         String[] roles = expectedRoles.split(",");
         String rolesDisplayed = role.getText();
 
@@ -181,8 +181,8 @@ public class MyAccountPage extends _Page {
     public boolean verifyDatesDisplayedOnPage(AccountRequestDO updatedData) {
         boolean areDatesVisible = true;
         try {
-            WaitUtils.waitForElementToBeVisible(driver, associatedDates, TIMEOUT_5_SECOND, false);
-            WaitUtils.waitForElementToBeVisible(driver, createdDates, TIMEOUT_5_SECOND, false);
+            WaitUtils.waitForElementToBeVisible(driver, associatedDates, TIMEOUT_5_SECOND);
+            WaitUtils.waitForElementToBeVisible(driver, createdDates, TIMEOUT_5_SECOND);
         } catch (Exception e) {
             areDatesVisible = false;
         }
@@ -191,7 +191,7 @@ public class MyAccountPage extends _Page {
 
     public MyAccountPage refreshThePage() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, fullName, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, fullName, TIMEOUT_10_SECOND);
         driver.navigate().refresh();
         return new MyAccountPage(driver);
     }

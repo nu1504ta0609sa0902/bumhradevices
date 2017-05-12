@@ -387,6 +387,10 @@ public class RecordsPageSteps extends CommonSteps {
             accounts = accounts.sortBy(tableHeading, 1);
         } else if (page.equals(LinksRecordPage.LINK_ORGANISATIONS.link)) {
             organisations = organisations.sortBy(tableHeading, 2);
+        } else if(page.equals(LinksRecordPage.LINK_REGISTERED_PRODUCTS.link)){
+            registeredProducts = registeredProducts.sortBy(tableHeading, 2);
+        } else if(page.equals(LinksRecordPage.LINK_REGISTERED_DEVICES.link)){
+            //registeredDevices = registeredDevices.sortBy(tableHeading, 2);
         }
     }
 

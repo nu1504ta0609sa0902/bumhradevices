@@ -1,5 +1,6 @@
 package com.mhra.mdcm.devices.appian.steps.common;
 
+import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.utils.reporter.CreatePrettyReport;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
@@ -77,7 +78,7 @@ public class SharedSteps extends CommonSteps {
 	}
 
 	private void isThereAnAlert() {
-		WaitUtils.waitForAlert(driver,2,false);
+		WaitUtils.waitForAlert(driver, _Page.TIMEOUT_3_SECOND);
 		boolean alertFound = WaitUtils.isAlertPresent(driver);
 		if(alertFound){
 			driver.switchTo().alert().accept();

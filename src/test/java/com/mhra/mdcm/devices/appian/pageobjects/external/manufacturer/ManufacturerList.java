@@ -69,7 +69,7 @@ public class ManufacturerList extends _Page {
             WebElement link = listOfManufacturerNames.get(index);
             link.click();
         }else{
-            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(manufacturerName), TIMEOUT_10_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(manufacturerName), TIMEOUT_10_SECOND);
             WebElement man = driver.findElement(By.partialLinkText(manufacturerName));
             man.click();
         }
@@ -78,8 +78,8 @@ public class ManufacturerList extends _Page {
 
     public String getARandomManufacturerName() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".elements---global_p .elements---global_a"), TIMEOUT_5_SECOND, false);
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[contains(text(),'Manufacturer')]//following::tbody[1]/tr"), TIMEOUT_15_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".elements---global_p .elements---global_a"), TIMEOUT_5_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[contains(text(),'Manufacturer')]//following::tbody[1]/tr"), TIMEOUT_15_SECOND);
         int index = RandomDataUtils.getNumberBetween(0, listOfManufacturerNames.size() - 1);
         WebElement link = listOfManufacturerNames.get(index);
         String name = link.getText();
@@ -90,7 +90,7 @@ public class ManufacturerList extends _Page {
         //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean found = false;
         try {
-            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".elements---global_p .elements---global_a"), TIMEOUT_10_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".elements---global_p .elements---global_a"), TIMEOUT_10_SECOND);
             WaitUtils.nativeWaitInSeconds(2);
             for (WebElement item : listOfManufacturerNames) {
                 String name = item.getText();
@@ -110,19 +110,19 @@ public class ManufacturerList extends _Page {
 
 
     public ManufacturerList clickNext(){
-        WaitUtils.waitForElementToBeClickable(driver, nextPage, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, nextPage, TIMEOUT_5_SECOND);
         nextPage.click();
         return new ManufacturerList(driver);
     }
 
     public ManufacturerList clickPrev(){
-        WaitUtils.waitForElementToBeClickable(driver, prevPage, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, prevPage, TIMEOUT_5_SECOND);
         prevPage.click();
         return new ManufacturerList(driver);
     }
 
     public ManufacturerList clickLastPage(){
-        WaitUtils.waitForElementToBeClickable(driver, lastPage, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, lastPage, TIMEOUT_5_SECOND);
         lastPage.click();
         return new ManufacturerList(driver);
     }
@@ -130,13 +130,13 @@ public class ManufacturerList extends _Page {
 
     public _CreateManufacturerTestsData registerNewManufacturer() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, linkRegisterNewManufacturer, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, linkRegisterNewManufacturer, TIMEOUT_DEFAULT);
         linkRegisterNewManufacturer.click();
         return new _CreateManufacturerTestsData(driver);
     }
 
     public _CreateManufacturerTestsData registerMyOrganisation() {
-        WaitUtils.waitForElementToBeClickable(driver, linkRegisterMyNewOrganisation, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, linkRegisterMyNewOrganisation, TIMEOUT_DEFAULT);
         linkRegisterMyNewOrganisation.click();
         return new _CreateManufacturerTestsData(driver);
     }
@@ -144,12 +144,12 @@ public class ManufacturerList extends _Page {
     public int getNumberOfPages(int whichPagination) {
         int index = whichPagination - 1;
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, linkRegisterNewManufacturer, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, linkRegisterNewManufacturer, TIMEOUT_10_SECOND);
         boolean isPaginationDisplayed = isPaginationDisplayed(index);
 
         if(isPaginationDisplayed) {
             itemCount = itemCounts.get(index);
-            WaitUtils.waitForElementToBeClickable(driver, itemCount, TIMEOUT_5_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, itemCount, TIMEOUT_5_SECOND);
             try {
                 String text = itemCount.getText();
                 String total = text.substring(text.indexOf("of") + 3);
@@ -177,8 +177,8 @@ public class ManufacturerList extends _Page {
         boolean isDisplayed = true;
         try{
             itemCount = itemCounts.get(index);
-            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".elements---global_p .elements---global_a"), TIMEOUT_30_SECOND, false);
-            WaitUtils.waitForElementToBeVisible(driver, itemCount, TIMEOUT_10_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".elements---global_p .elements---global_a"), TIMEOUT_30_SECOND);
+            WaitUtils.waitForElementToBeVisible(driver, itemCount, TIMEOUT_10_SECOND);
         }catch (Exception e){
             isDisplayed = false;
         }
@@ -203,11 +203,11 @@ public class ManufacturerList extends _Page {
 
 
     public ManufacturerList sortBy(String sortBy, int numberOfTimesToClick) {
-        WaitUtils.waitForElementToBeClickable(driver, thManufacturerRegistrationStatus, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, thManufacturerRegistrationStatus, TIMEOUT_DEFAULT);
         if(sortBy.equals("Registration status")){
             for(int c = 0; c < numberOfTimesToClick; c++) {
                 thManufacturerRegistrationStatus.click();
-                WaitUtils.waitForElementToBeClickable(driver, thManufacturerRegistrationStatus, TIMEOUT_DEFAULT, false);
+                WaitUtils.waitForElementToBeClickable(driver, thManufacturerRegistrationStatus, TIMEOUT_DEFAULT);
             }
         }
 
@@ -251,8 +251,8 @@ public class ManufacturerList extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean found = true;
         try {
-            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".elements---global_p .elements---global_a"), TIMEOUT_30_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(name), TIMEOUT_5_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".elements---global_p .elements---global_a"), TIMEOUT_30_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(name), TIMEOUT_5_SECOND);
         }catch (Exception e){
             found = false;
         }
@@ -266,15 +266,15 @@ public class ManufacturerList extends _Page {
 
     public boolean isSpecificTableHeadingCorrect(String commaDelimitedHeading) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeVisible(driver, linkRegisterNewManufacturer, TIMEOUT_15_SECOND, false);
-        WaitUtils.waitForElementToBeClickable(driver,linkRegisterNewManufacturer, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeVisible(driver, linkRegisterNewManufacturer, TIMEOUT_15_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver,linkRegisterNewManufacturer, TIMEOUT_5_SECOND);
         String lowerCaseHeadings = commaDelimitedHeading.toLowerCase();
         return PageUtils.isSpecificTableHeadingCorrect(lowerCaseHeadings, listOfTableHeadings);
     }
 
     public boolean isManufacturerLinkDisplayedOnInProgressTable(String name) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeVisible(driver, linkRegisterNewManufacturer, TIMEOUT_15_SECOND, false);
+        WaitUtils.waitForElementToBeVisible(driver, linkRegisterNewManufacturer, TIMEOUT_15_SECOND);
         boolean found = false;
         for(WebElement manufacturer: listOfManufacturerNamesInProgress){
             String manName = manufacturer.getText();
@@ -291,7 +291,7 @@ public class ManufacturerList extends _Page {
         //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean found = false;
         try {
-            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".elements---global_p .elements---global_a"), TIMEOUT_10_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".elements---global_p .elements---global_a"), TIMEOUT_10_SECOND);
             WaitUtils.nativeWaitInSeconds(2);
             for (WebElement item : listOfManufacturerNamesInProgress) {
                 String name = item.getText();

@@ -69,15 +69,15 @@ public class ViewAccount extends _Page {
     public boolean isHeadingCorrect(String expectedHeadings) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         By by = By.xpath(".//h1[.='" + expectedHeadings + "']");
-        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_DEFAULT);
         WebElement heading = driver.findElement(by);
         boolean contains = heading.getText().contains(expectedHeadings);
         return contains;
     }
 
     public EditAccount gotoEditAccountInformation() {
-        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".gwt-Anchor.pull-down-toggle"), TIMEOUT_5_SECOND, false);
-        WaitUtils.waitForElementToBeClickable(driver, editAccountInfoLink, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".gwt-Anchor.pull-down-toggle"), TIMEOUT_5_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, editAccountInfoLink, TIMEOUT_DEFAULT);
         PageUtils.doubleClick(driver, editAccountInfoLink);
         //editAccountInfoLink.click();
         return new EditAccount(driver);
@@ -85,9 +85,9 @@ public class ViewAccount extends _Page {
 
     public boolean verifyUpdatesDisplayedOnPage(String keyValuePairToUpdate, AccountRequestDO updatedData) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeVisible(driver, editAccountInfoLink, TIMEOUT_30_SECOND, false);
-        WaitUtils.waitForElementToBeClickable(driver, editAccountInfoLink, TIMEOUT_5_SECOND, false);
-        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".gwt-Anchor.pull-down-toggle"), TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeVisible(driver, editAccountInfoLink, TIMEOUT_30_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, editAccountInfoLink, TIMEOUT_5_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".gwt-Anchor.pull-down-toggle"), TIMEOUT_5_SECOND);
         boolean allChangesDisplayed = true;
 
         //Check for the following
@@ -127,7 +127,7 @@ public class ViewAccount extends _Page {
     }
 
     public boolean verifyCorrectFieldsDisplayedOnPage() {
-        WaitUtils.waitForElementToBeClickable(driver, orgAddressLine1, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, orgAddressLine1, TIMEOUT_10_SECOND);
         boolean isCorrect = isDisplayedOrgFieldsCorrect();
         if(isCorrect){
             isCorrect = isDisplayedContactPersonFieldsCorrect();
@@ -139,15 +139,15 @@ public class ViewAccount extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean fieldsDisplayed = true;
         try {
-            //WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgAddressLine1, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgAddressLine2, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgCityTown, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgPostCode, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgCountry, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgTelephone, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, orgFax, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, webSite, TIMEOUT_3_SECOND, false);
+            //WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, orgAddressLine1, TIMEOUT_3_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, orgAddressLine2, TIMEOUT_3_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, orgCityTown, TIMEOUT_3_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, orgPostCode, TIMEOUT_3_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, orgCountry, TIMEOUT_3_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, orgTelephone, TIMEOUT_3_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, orgFax, TIMEOUT_3_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, webSite, TIMEOUT_3_SECOND);
         }catch (Exception e){
             e.printStackTrace();
             fieldsDisplayed = false;
@@ -159,11 +159,11 @@ public class ViewAccount extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean fieldsDisplayed = true;
         try {
-            //WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, fullName, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, jobTitle, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, emailAddress, TIMEOUT_3_SECOND, false);
-            WaitUtils.waitForElementToBeClickable(driver, telephone, TIMEOUT_3_SECOND, false);
+            //WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, fullName, TIMEOUT_3_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, jobTitle, TIMEOUT_3_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, emailAddress, TIMEOUT_3_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, telephone, TIMEOUT_3_SECOND);
         }catch (Exception e){
             e.printStackTrace();
             fieldsDisplayed = false;

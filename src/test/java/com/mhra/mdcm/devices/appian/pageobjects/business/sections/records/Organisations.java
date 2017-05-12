@@ -50,7 +50,7 @@ public class Organisations extends _Page {
 
     public boolean isHeadingCorrect(String expectedHeadings) {
         By by = By.xpath(".//h1[.='" + expectedHeadings + "']");
-        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_DEFAULT);
         WebElement heading = driver.findElement(by);
         boolean contains = heading.getText().contains(expectedHeadings);
         return contains;
@@ -58,7 +58,7 @@ public class Organisations extends _Page {
 
     public boolean isItemsDisplayed(String expectedHeadings) {
         boolean itemsDisplayed = false;
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h1[.='" + expectedHeadings + "']") , TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h1[.='" + expectedHeadings + "']") , TIMEOUT_DEFAULT);
 
         if(expectedHeadings.contains(PageHeaders.PAGE_HEADERS_ORGANISATIONS.header)){
             itemsDisplayed = listOfAllOrganisations.size() > 0;
@@ -67,7 +67,7 @@ public class Organisations extends _Page {
     }
 
     public List<String> isTableColumnCorrect(String[] columns) {
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th") , TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th") , TIMEOUT_DEFAULT);
         List<String> columnsNotFound = PageUtils.areTheColumnsCorrect(columns, listOfTableHeadings);
         return columnsNotFound;
     }
@@ -77,7 +77,7 @@ public class Organisations extends _Page {
 
         //Search for an existing name
         if(exists){
-            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText("Manufacturer") , TIMEOUT_DEFAULT, false);
+            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText("Manufacturer") , TIMEOUT_DEFAULT);
             boolean found = false;
             do {
                 int randomNumberBetween = RandomDataUtils.getSimpleRandomNumberBetween(0, listOfAllOrganisationsNames.size()-1, false);
@@ -94,7 +94,7 @@ public class Organisations extends _Page {
     }
 
     public Organisations searchForAllOrganisation(String searchTerm) {
-        WaitUtils.waitForElementToBeClickable(driver, searchBox, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, searchBox, TIMEOUT_DEFAULT);
         PageUtils.searchPageFor(searchTerm, searchBox);
         return new Organisations(driver);
     }
@@ -105,15 +105,15 @@ public class Organisations extends _Page {
      */
     public int getNumberOfMatches() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//th[@abbr='Status']//following::tr") , TIMEOUT_DEFAULT, false);
-        WaitUtils.waitForElementToBeClickable(driver, clearFilters , TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//th[@abbr='Status']//following::tr") , TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, clearFilters , TIMEOUT_10_SECOND);
         int size = listOfAllOrganisations.size();
         return size;
     }
 
     public boolean isOrderedAtoZ() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//td[1]"), TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//td[1]"), TIMEOUT_5_SECOND);
         boolean isOrderedAToZ = PageUtils.isOrderedAtoZ(listOfAllOrganisationsNames, 1);
         return isOrderedAToZ;
     }
@@ -129,7 +129,7 @@ public class Organisations extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         if (tableHeading.equals("Name")) {
             for (int c = 0; c < numberOfTimesToClick; c++) {
-                WaitUtils.waitForElementToBeClickable(driver, thOrganisationName, TIMEOUT_10_SECOND, false);
+                WaitUtils.waitForElementToBeClickable(driver, thOrganisationName, TIMEOUT_10_SECOND);
                 thOrganisationName.click();
                 WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
                 //WaitUtils.nativeWaitInSeconds(2);
@@ -143,9 +143,9 @@ public class Organisations extends _Page {
     public boolean areAllOrganisationRoleOfType(String organisationType) {
         organisationType = organisationType.toLowerCase();
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND, false);
-        WaitUtils.waitForElementToBeClickable(driver, listOfOrganisationRoles.get(0), TIMEOUT_10_SECOND, false);
-        WaitUtils.nativeWaitInSeconds(3);
+        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, listOfOrganisationRoles.get(0), TIMEOUT_10_SECOND);
+        WaitUtils.nativeWaitInSeconds(5);
 
         boolean allMatched = true;
         for(WebElement el: listOfOrganisationRoles){
@@ -166,9 +166,9 @@ public class Organisations extends _Page {
     public boolean atLeast1MatchFound(String searchText) {
         boolean atLeast1MatchFound = true;
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND);
         try{
-            //WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(searchText), TIMEOUT_5_SECOND, false);
+            //WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(searchText), TIMEOUT_5_SECOND);
             int actualCount = (listOfAllOrganisations.size()-1);
             atLeast1MatchFound = actualCount >= 1;
         }catch (Exception e){
@@ -181,7 +181,7 @@ public class Organisations extends _Page {
 
     public Organisations clearFilterByOrganisation() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_3_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_3_SECOND);
         clearFilters.click();
         return new Organisations(driver);
     }
@@ -204,9 +204,9 @@ public class Organisations extends _Page {
     public boolean areAllStatusOfType(String value) {
         value = value.toLowerCase();
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND, false);
-        WaitUtils.waitForElementToBeClickable(driver, listOfAllStatus.get(0), TIMEOUT_10_SECOND, false);
-        //WaitUtils.nativeWaitInSeconds(3);
+        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, listOfAllStatus.get(0), TIMEOUT_10_SECOND);
+        WaitUtils.nativeWaitInSeconds(5);
 
         boolean allMatched = true;
         for(WebElement el: listOfAllStatus){
@@ -225,7 +225,7 @@ public class Organisations extends _Page {
 
     public boolean areStatusOfTypeVisible(String status) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND);
         boolean aMatchFound = false;
         for(WebElement el: listOfAllStatus){
             String text = el.getText();
@@ -242,14 +242,14 @@ public class Organisations extends _Page {
 
     public Organisations clearFilterByStatus() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_3_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_3_SECOND);
         clearFilters.click();
         return new Organisations(driver);
     }
 
     public BusinessManufacturerDetails viewManufacturerByText(String searchTerm) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_30_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_30_SECOND);
         WebElement manufacturer = null;
         boolean found = false;
         do {
@@ -279,7 +279,7 @@ public class Organisations extends _Page {
         boolean seachingCompleted = false;
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         try {
-            WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_30_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_30_SECOND);
             seachingCompleted = true;
         }catch (Exception e){}
         return seachingCompleted;

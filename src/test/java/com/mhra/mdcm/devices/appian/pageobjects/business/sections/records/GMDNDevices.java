@@ -49,7 +49,7 @@ public class GMDNDevices extends _Page {
 
     public boolean isHeadingCorrect(String expectedHeadings) {
         By by = By.xpath(".//h1[.='" + expectedHeadings + "']");
-        WaitUtils.waitForElementToBeClickable(driver, by , TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, by , TIMEOUT_DEFAULT);
         WebElement heading = driver.findElement(by);
         boolean contains = heading.getText().contains(expectedHeadings);
         return contains;
@@ -58,7 +58,7 @@ public class GMDNDevices extends _Page {
 
     public boolean isItemsDisplayed(String expectedHeadings) {
         boolean itemsDisplayed = false;
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h1[.='" + expectedHeadings + "']") , TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h1[.='" + expectedHeadings + "']") , TIMEOUT_DEFAULT);
 
         if(expectedHeadings.contains(PageHeaders.PAGE_HEADERS_GMDN_DEVICES.header)){
             itemsDisplayed = listOfAllDevices.size() > 0;
@@ -68,14 +68,14 @@ public class GMDNDevices extends _Page {
     }
 
     public GMDNDevices searchForAllDevices(String searchTerm) {
-        WaitUtils.waitForElementToBeClickable(driver, searchBox, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, searchBox, TIMEOUT_DEFAULT);
         PageUtils.searchPageFor(searchTerm, searchBox);
         return new GMDNDevices(driver);
     }
 
     public String getARandomGMDNCode() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//td[2]"), TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//td[2]"), TIMEOUT_5_SECOND);
 
         int position = RandomDataUtils.getSimpleRandomNumberBetween(1, listOfGmdnCode.size() - 1, false);
         WebElement gmdnCode = listOfGmdnCode.get(position);
@@ -87,7 +87,7 @@ public class GMDNDevices extends _Page {
     public boolean atLeast1MatchFound(String searchText) {
         boolean atLeast1MatchFound = true;
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_DEFAULT);
         try{
             //They have a hidden "a" tag in the page
             int actualCount = listOfAllDevices.size() - 1;
@@ -101,7 +101,7 @@ public class GMDNDevices extends _Page {
     }
 
     public List<String> isTableColumnCorrect(String[] columns) {
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th") , TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th") , TIMEOUT_DEFAULT);
         List<String> columnsNotFound = PageUtils.areTheColumnsCorrect(columns, listOfTableHeadings);
         return columnsNotFound;
     }
@@ -122,7 +122,7 @@ public class GMDNDevices extends _Page {
         WebElement element = listOfOrganisationNames.get(0);
         boolean isVisible = true;
         try {
-            WaitUtils.waitForElementToBeClickable(driver, element, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, element, TIMEOUT_3_SECOND);
         }catch (Exception e){
             isVisible = false;
         }
@@ -130,7 +130,7 @@ public class GMDNDevices extends _Page {
     }
 
     public boolean isListOfManufacturersUsingDeviceTableColumnCorrect(String[] columns) {
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th") , TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th") , TIMEOUT_DEFAULT);
         List<String> columnsNotFound = PageUtils.areTheColumnsCorrect(columns, listOfTableHeadings);
         return columnsNotFound.size() == 0;
     }
@@ -145,7 +145,7 @@ public class GMDNDevices extends _Page {
     public boolean areAllDevicesOfType(String deviceType) {
 
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND);
         boolean allMatched = true;
         for(WebElement el: listOfDeviceTypes){
             String text = el.getText();
@@ -162,7 +162,7 @@ public class GMDNDevices extends _Page {
 
     public GMDNDevices clearFilter() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_3_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_3_SECOND);
         clearFilters.click();
         return new GMDNDevices(driver);
     }
@@ -171,7 +171,7 @@ public class GMDNDevices extends _Page {
 
     public boolean areDevicesOfTypeVisible(String deviceType) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND);
         boolean aMatchFound = false;
         for(WebElement el: listOfDeviceTypes){
             String text = el.getText();

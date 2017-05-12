@@ -135,7 +135,7 @@ public class LoginPage extends _Page {
     }
 
     public void dontRemember() {
-        WaitUtils.waitForElementToBeClickable(driver, remember, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, remember, TIMEOUT_DEFAULT);
         if (remember.getAttribute("checked") != null) {
             //remember.click();
             rememberLabel.click();
@@ -150,7 +150,7 @@ public class LoginPage extends _Page {
     public LoginPage logoutIfLoggedIn() {
         WaitUtils.isPageLoadingComplete(driver, _Page.TIMEOUT_PAGE_LOAD);
         try {
-            WaitUtils.waitForElementToBeClickable(driver, settings, TIMEOUT_10_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, settings, TIMEOUT_10_SECOND);
             if (settings.isDisplayed()) {
                 //settings.click();
                 PageUtils.doubleClick(driver, settings);
@@ -160,7 +160,7 @@ public class LoginPage extends _Page {
                 WaitUtils.nativeWaitInSeconds(2);
                 driver.get(baseUrl);
 
-                WaitUtils.waitForElementToBeClickable(driver, remember, TIMEOUT_10_SECOND, false);
+                WaitUtils.waitForElementToBeClickable(driver, remember, TIMEOUT_10_SECOND);
                 //WaitUtils.nativeWaitInSeconds(2);
             }
         } catch (Exception e) {
@@ -178,7 +178,7 @@ public class LoginPage extends _Page {
     public LoginPage logoutIfLoggedInOthers() {
         WaitUtils.isPageLoadingComplete(driver, _Page.TIMEOUT_PAGE_LOAD);
         try {
-            WaitUtils.waitForElementToBeClickable(driver, photoIcon, TIMEOUT_10_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, photoIcon, TIMEOUT_10_SECOND);
             if (photoIcon.isDisplayed()) {
                 //settings.click();
                 PageUtils.doubleClick(driver, photoIcon);
@@ -188,8 +188,7 @@ public class LoginPage extends _Page {
                 WaitUtils.nativeWaitInSeconds(2);
                 driver.get(baseUrl);
 
-                WaitUtils.waitForElementToBeClickable(driver, remember, TIMEOUT_10_SECOND, false);
-                //WaitUtils.waitForElementToBeClickable(driver, remember, TIMEOUT_10_SECOND, false);
+                WaitUtils.waitForElementToBeClickable(driver, remember, TIMEOUT_10_SECOND);
                 //If logout and login is too fast, appian system shows 404 in some instance of automation
                 //WaitUtils.nativeWaitInSeconds(2);
             }
@@ -201,18 +200,18 @@ public class LoginPage extends _Page {
 
     public String getLoggedInUserName(String usernameKey) {
         if(usernameKey.contains("business")) {
-            WaitUtils.waitForElementToBeClickable(driver, loggedInUserBusiness, TIMEOUT_1_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, loggedInUserBusiness, TIMEOUT_1_SECOND);
             return loggedInUserBusiness.getAttribute("aria-label");
         }else{
             //Manufacturer or authorised reps
-            WaitUtils.waitForElementToBeClickable(driver, loggedInUserManufacturer, 2, false);
+            WaitUtils.waitForElementToBeClickable(driver, loggedInUserManufacturer, 2);
             loggedInUserManufacturer.click();
             return driver.findElement(By.cssSelector(".UserProfileLayout---current_userid strong")).getText();
         }
     }
 
     public boolean isErrorMessageCorrect(String expectedErrorMsg) {
-        WaitUtils.waitForElementToBeVisible(driver, errorMsg, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeVisible(driver, errorMsg, TIMEOUT_10_SECOND);
         boolean contains = errorMsg.getText().contains(expectedErrorMsg);
         return contains;
     }

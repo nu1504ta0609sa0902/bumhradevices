@@ -25,7 +25,7 @@ public class ActionsTabPage extends _Page {
 
     public boolean isInActionsPage() {
         try {
-            WaitUtils.waitForElementToBeClickable(driver, linkCreateTestAccount, TIMEOUT_5_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, linkCreateTestAccount, TIMEOUT_5_SECOND);
             return true;
         } catch (Exception e) {
             return false;
@@ -35,8 +35,8 @@ public class ActionsTabPage extends _Page {
     public _CreateAccountTestsData gotoTestsHarnessPage() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         try {
-            WaitUtils.waitForElementToBeClickable(driver, linkCreateTestAccount, TIMEOUT_15_SECOND, false);
-            WaitUtils.waitForAlert(driver, 2, false);
+            WaitUtils.waitForElementToBeClickable(driver, linkCreateTestAccount, TIMEOUT_15_SECOND);
+            WaitUtils.waitForAlert(driver, TIMEOUT_3_SECOND);
         }catch (Exception e) {}
 
         linkCreateTestAccount.click();

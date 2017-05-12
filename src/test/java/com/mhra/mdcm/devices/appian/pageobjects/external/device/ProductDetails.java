@@ -42,7 +42,7 @@ public class ProductDetails extends _Page {
 
     public boolean isProductOrDeviceDetailValid(DeviceDO deviceData) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, customMade, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, customMade, TIMEOUT_10_SECOND);
         boolean allValid = true;
         String deviceType = deviceData.deviceType;
         if (deviceType.equals("General Medical Device")) {
@@ -69,11 +69,11 @@ public class ProductDetails extends _Page {
                 //Check and verify data is correct
                 String termOrDefinition = deviceData.gmdnTermOrDefinition;
                 if (termOrDefinition != null && !termOrDefinition.equals("")) {
-                    WaitUtils.waitForElementToBeClickable(driver, gmdnTermDefinition, TIMEOUT_5_SECOND, false);
+                    WaitUtils.waitForElementToBeClickable(driver, gmdnTermDefinition, TIMEOUT_5_SECOND);
                     allValid = AssertUtils.areChangesDisplayed(gmdnTermDefinition, termOrDefinition);
                 } else {
                     //Gmdn code
-                    WaitUtils.waitForElementToBeClickable(driver, gmdnCode, TIMEOUT_5_SECOND, false);
+                    WaitUtils.waitForElementToBeClickable(driver, gmdnCode, TIMEOUT_5_SECOND);
                     allValid = AssertUtils.areChangesDisplayed(gmdnCode, deviceData.gmdnCode);
                 }
             } else if (field.equals("custom made")) {

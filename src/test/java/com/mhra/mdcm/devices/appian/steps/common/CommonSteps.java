@@ -162,8 +162,6 @@ public class CommonSteps {
                         log.info("If -Dgenerate.report=true than it generate the pretty report");
 
                         //This looks slightly better than other cucumber report, less intrusive and better memory managements
-                        //CreatePrettyReport cpr = new CreatePrettyReport();
-                        //cpr.monitorFolder(PRETTY_REPORT, false);
                         String generateReport = System.getProperty("generate.report");
                         if(generateReport != null && ( generateReport.trim().equals("true") || generateReport.trim().equals("yes"))){
                             log.info("Generating report may take upto 20 seconds");

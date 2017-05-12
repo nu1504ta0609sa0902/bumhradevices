@@ -67,7 +67,7 @@ Feature: As a business user, I want to navigate to different sections like Accou
 #      | businessAuto | Accounts            | Accounts            | Organisation Role | Manufacturer       | Authorised         | Organisation name | RT01       | Role        |
 #      | businessAuto | Organisations       | Organisations       | Organisation Role | Manufacturer       | Authorised         | Name              | RT01       | Role        |
 #      | businessAuto | Organisations       | Organisations       | Registered status | Registered         | Not Registered     | Name              | RT01       | Status      |
-      | businessAuto | Registered Products | Registered Products | Device type       | Active Implantable | In Vitro           | Device Type       | RT01       | Device Type |
+#      | businessAuto | Registered Products | Registered Products | Device type       | Active Implantable | In Vitro           | Device Type       | RT01       | Device Type |
       | businessAuto | Registered Products | Registered Products | Device type       | In Vitro           | Active Implantable | Device Type       | RT01       | Device Type |
 
 

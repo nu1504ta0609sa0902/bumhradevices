@@ -39,7 +39,7 @@ public class RegisteredDevices extends _Page {
 
     public boolean isHeadingCorrect(String expectedHeadings) {
         By by = By.xpath(".//h1[.='" + expectedHeadings + "']");
-        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_DEFAULT);
         WebElement heading = driver.findElement(by);
         boolean contains = heading.getText().contains(expectedHeadings);
         return contains;
@@ -48,7 +48,7 @@ public class RegisteredDevices extends _Page {
 
     public boolean isItemsDisplayed(String expectedHeadings) {
         boolean itemsDisplayed = false;
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h1[.='" + expectedHeadings + "']") , TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h1[.='" + expectedHeadings + "']") , TIMEOUT_DEFAULT);
 
         if(expectedHeadings.equals(PageHeaders.PAGE_HEADERS_REGISTERED_DEVICES.header)){
             itemsDisplayed = listOfDevices.size() > 0;
@@ -66,7 +66,7 @@ public class RegisteredDevices extends _Page {
     public boolean areAllDevicesOfType(String deviceType) {
 
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND);
         boolean allMatched = true;
         for(WebElement el: listOfDeviceTypes){
             String text = el.getText();
@@ -83,8 +83,23 @@ public class RegisteredDevices extends _Page {
 
     public RegisteredDevices clearFilterByDeviceType() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_3_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_3_SECOND);
         clearFilters.click();
+        return new RegisteredDevices(driver);
+    }
+
+
+    public RegisteredDevices sortBy(String tableHeading, int numberOfTimesToClick) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        if (tableHeading.equals("Name")) {
+            for (int c = 0; c < numberOfTimesToClick; c++) {
+//                WaitUtils.waitForElementToBeClickable(driver, thOrganisationName, TIMEOUT_10_SECOND);
+//                thOrganisationName.click();
+//                WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+                //WaitUtils.nativeWaitInSeconds(2);
+            }
+        }
+
         return new RegisteredDevices(driver);
     }
 }

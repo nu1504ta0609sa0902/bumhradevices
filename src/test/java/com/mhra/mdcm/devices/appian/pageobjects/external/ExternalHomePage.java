@@ -57,7 +57,7 @@ public class ExternalHomePage extends _Page {
 
     public ManufacturerList gotoListOfManufacturerPage() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, linkManufacturerRegistration, TIMEOUT_15_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, linkManufacturerRegistration, TIMEOUT_15_SECOND);
         linkManufacturerRegistration.click();
         return new ManufacturerList(driver);
     }
@@ -66,15 +66,15 @@ public class ExternalHomePage extends _Page {
     public ExternalHomePage provideIndicationOfDevicesMade(int index) {
 
         //WaitUtils.isPageLoadingComplete(driver, 2);
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//*[contains(text(),'ype of device')]//following::label[1]"), TIMEOUT_10_SECOND, false);
-        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//*[contains(text(),'ype of device')]//following::label[1]"), TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_10_SECOND);
 
         //Find element
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//*[contains(text(),'ype of device')]//following::label"), TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//*[contains(text(),'ype of device')]//following::label"), TIMEOUT_10_SECOND);
         //WaitUtils.nativeWaitInSeconds(1);
         List<WebElement> elements = driver.findElements(By.xpath(".//*[contains(text(),'ype of device')]//following::label"));
         WebElement e = elements.get(index);
-        WaitUtils.waitForElementToBeClickable(driver, e, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, e, TIMEOUT_10_SECOND);
 
         PageUtils.singleClick(driver, e);
         //WaitUtils.nativeWaitInSeconds(2);
@@ -87,7 +87,7 @@ public class ExternalHomePage extends _Page {
             driver.findElements(By.cssSelector(".gwt-RadioButton.GFWJSJ4DGAD.GFWJSJ4DCW>label")).get(0).click();
             driver.findElement(By.xpath(".//button[.='Next']")).click();
         }else{
-            WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//button[.='Submit']"), TIMEOUT_10_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//button[.='Submit']"), TIMEOUT_10_SECOND);
             driver.findElement(By.xpath(".//button[.='Submit']")).click();
         }
         return new _CreateManufacturerTestsData(driver);
@@ -105,25 +105,25 @@ public class ExternalHomePage extends _Page {
 
             //General medical devices
             if (isCustomMade) {
-                WaitUtils.waitForElementToBeClickable(driver, customMadeYes, TIMEOUT_10_SECOND, false);
+                WaitUtils.waitForElementToBeClickable(driver, customMadeYes, TIMEOUT_10_SECOND);
                 driver.findElement(customMadeYes).click();
             } else {
-                WaitUtils.waitForElementToBeClickable(driver, customMadeNo, TIMEOUT_10_SECOND, false);
+                WaitUtils.waitForElementToBeClickable(driver, customMadeNo, TIMEOUT_10_SECOND);
                 driver.findElement(customMadeNo).click();
             }
 
             //AIMD
             if (isCustomMade) {
-                WaitUtils.waitForElementToBeClickable(driver, aimdCustomMadeYes, TIMEOUT_10_SECOND, false);
+                WaitUtils.waitForElementToBeClickable(driver, aimdCustomMadeYes, TIMEOUT_10_SECOND);
                 WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
                 driver.findElement(aimdCustomMadeYes).click();
             } else {
-                WaitUtils.waitForElementToBeClickable(driver, aimdCustomMadeNo, TIMEOUT_10_SECOND, false);
+                WaitUtils.waitForElementToBeClickable(driver, aimdCustomMadeNo, TIMEOUT_10_SECOND);
                 driver.findElement(aimdCustomMadeNo).click();
             }
 
             //Others related to SSP
-            WaitUtils.waitForElementToBeClickable(driver, sppCustomMadeYes, TIMEOUT_10_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, sppCustomMadeYes, TIMEOUT_10_SECOND);
             driver.findElement(sppCustomMadeYes).click();
         }catch (Exception e){
             //Keeps failing
@@ -146,7 +146,7 @@ public class ExternalHomePage extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean correctPage = true;
         try{
-            WaitUtils.waitForElementToBeClickable(driver, linkManufacturerRegistration, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, linkManufacturerRegistration, TIMEOUT_3_SECOND);
         }catch (Exception e){
             correctPage = false;
         }
@@ -160,20 +160,20 @@ public class ExternalHomePage extends _Page {
 
     public boolean isErrorMessageDsiplayed(String message) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, errorMessage, TIMEOUT_3_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, errorMessage, TIMEOUT_3_SECOND);
         boolean contains = errorMessage.getText().contains(message);
         return contains;
     }
 
     public ExternalHomePage clickBackButton() {
-        WaitUtils.waitForElementToBeClickable(driver, btnBackButton, TIMEOUT_3_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, btnBackButton, TIMEOUT_3_SECOND);
         btnBackButton.click();
         return new ExternalHomePage(driver);
     }
 
     public CFSManufacturerList gotoCFSPage() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, linkRegisterCFSForDevice, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, linkRegisterCFSForDevice, TIMEOUT_10_SECOND);
         linkRegisterCFSForDevice.click();
         return new CFSManufacturerList(driver);
     }

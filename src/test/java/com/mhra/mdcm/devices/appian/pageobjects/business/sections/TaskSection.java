@@ -142,8 +142,7 @@ public class TaskSection extends _Page {
         try {
             //For new account
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-            //WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//button[contains(text(), 'Reassign')]"), TIMEOUT_10_SECOND, false);
-            WaitUtils.waitForElementToBeVisible(driver, taskHeading2, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeVisible(driver, taskHeading2, TIMEOUT_3_SECOND);
             boolean contains = taskHeading2.getText().contains(orgName);
             return contains;
         } catch (Exception e) {
@@ -166,7 +165,7 @@ public class TaskSection extends _Page {
         try {
             //For new account
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-            WaitUtils.waitForElementToBeVisible(driver, header, TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeVisible(driver, header, TIMEOUT_3_SECOND);
             boolean contains = header.getText().contains(orgName);
             return contains;
         } catch (Exception e) {
@@ -176,8 +175,8 @@ public class TaskSection extends _Page {
 
     public TaskSection acceptTask() {
         try {
-            WaitUtils.waitForElementToBeVisible(driver, accept, 5, false);
-            WaitUtils.waitForElementToBeClickable(driver, accept, 5, false);
+            WaitUtils.waitForElementToBeVisible(driver, accept, TIMEOUT_5_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, accept, TIMEOUT_5_SECOND);
             if (accept.isDisplayed()) {
                 PageUtils.doubleClick(driver, accept);
             }
@@ -189,15 +188,14 @@ public class TaskSection extends _Page {
 
     public TasksTabPage approveTask() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        //WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
-        WaitUtils.waitForElementToBeClickable(driver, approveTask, TIMEOUT_15_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, approveTask, TIMEOUT_15_SECOND);
         PageUtils.doubleClick(driver, approveTask);
         return new TasksTabPage(driver);
     }
 
     public TasksTabPage approveTaskNewAccount() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, approveNewAccount, TIMEOUT_3_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, approveNewAccount, TIMEOUT_3_SECOND);
         PageUtils.doubleClick(driver, approveNewAccount);
         log.info("Task should be approved now");
         return new TasksTabPage(driver);
@@ -205,8 +203,7 @@ public class TaskSection extends _Page {
 
     public TasksTabPage acceptRegistrationTask() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        //WaitUtils.forceWaitForPageToLoad(driver, By.partialLinkText("Reassign Task"), TIMEOUT_1_SECOND, 2);
-        WaitUtils.waitForElementToBeClickable(driver, acceptRegistration, TIMEOUT_15_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, acceptRegistration, TIMEOUT_15_SECOND);
         PageUtils.doubleClick(driver, acceptRegistration);
         return new TasksTabPage(driver);
     }
@@ -220,7 +217,7 @@ public class TaskSection extends _Page {
      */
     public TaskSection rejectRegistrationTask() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, rejectRegistration, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, rejectRegistration, TIMEOUT_5_SECOND);
         //approve.click();
         PageUtils.doubleClick(driver, rejectRegistration);
         return new TaskSection(driver);
@@ -228,7 +225,7 @@ public class TaskSection extends _Page {
 
     public TaskSection rejectTask() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, rejectTask, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, rejectTask, TIMEOUT_5_SECOND);
         //approve.click();
         PageUtils.doubleClick(driver, rejectTask);
         return new TaskSection(driver);
@@ -240,21 +237,21 @@ public class TaskSection extends _Page {
         if(reason != null) {
             if (reason.contains("Other")) {
                 //Comment is mandatory
-                WaitUtils.waitForElementToBeClickable(driver, other, TIMEOUT_10_SECOND, false);
+                WaitUtils.waitForElementToBeClickable(driver, other, TIMEOUT_10_SECOND);
                 other.click();
                 WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-                WaitUtils.waitForElementToBeClickable(driver, commentArea, TIMEOUT_10_SECOND, false);
+                WaitUtils.waitForElementToBeClickable(driver, commentArea, TIMEOUT_10_SECOND);
             } else if (reason.contains("Account already exists")) {
-                WaitUtils.waitForElementToBeClickable(driver, reasonAccountAlreadyExists, TIMEOUT_10_SECOND, false);
+                WaitUtils.waitForElementToBeClickable(driver, reasonAccountAlreadyExists, TIMEOUT_10_SECOND);
                 PageUtils.clickIfVisible(driver, reasonAccountAlreadyExists);
             } else if (reason.contains("Not registered in the UK")) {
-                WaitUtils.waitForElementToBeClickable(driver, reasonNotRegisteredInUk, TIMEOUT_10_SECOND, false);
+                WaitUtils.waitForElementToBeClickable(driver, reasonNotRegisteredInUk, TIMEOUT_10_SECOND);
                 PageUtils.clickIfVisible(driver, reasonNotRegisteredInUk);
             } else if (reason.contains("No authorisation evidence provided")) {
-                WaitUtils.waitForElementToBeClickable(driver, reasonNoAuthorisationEvidenceProvided, TIMEOUT_10_SECOND, false);
+                WaitUtils.waitForElementToBeClickable(driver, reasonNoAuthorisationEvidenceProvided, TIMEOUT_10_SECOND);
                 PageUtils.clickIfVisible(driver, reasonNoAuthorisationEvidenceProvided);
             } else if (reason.contains("Non-qualifying party")) {
-                WaitUtils.waitForElementToBeClickable(driver, reasonNonQualifyingParty, TIMEOUT_10_SECOND, false);
+                WaitUtils.waitForElementToBeClickable(driver, reasonNonQualifyingParty, TIMEOUT_10_SECOND);
                 PageUtils.clickIfVisible(driver, reasonNonQualifyingParty);
             } else {
                 //They have changed rejection process: The options have disappeared
@@ -275,7 +272,7 @@ public class TaskSection extends _Page {
         if (sortBy.equals("Submitted")) {
             for (int c = 0; c < numberOfTimesToClick; c++) {
                 WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-                WaitUtils.waitForElementToBeClickable(driver, thSubmitted, TIMEOUT_5_SECOND, false);
+                WaitUtils.waitForElementToBeClickable(driver, thSubmitted, TIMEOUT_5_SECOND);
                 thSubmitted.click();
                 //WaitUtils.nativeWaitInSeconds(2);
             }
@@ -286,7 +283,7 @@ public class TaskSection extends _Page {
 
     public TaskSection clickOnTaskName(String orgName) {
         By by = By.partialLinkText(orgName);
-        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_10_SECOND);
         WebElement name = driver.findElement(by);
         PageUtils.doubleClick(driver, name);
         return new TaskSection(driver);
@@ -295,7 +292,7 @@ public class TaskSection extends _Page {
     public boolean isTaskVisibleWithName(String orgName) {
         boolean isVisible = true;
         try {
-            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(orgName), TIMEOUT_5_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(orgName), TIMEOUT_5_SECOND);
         } catch (Exception e) {
             isVisible = false;
         }
@@ -308,7 +305,7 @@ public class TaskSection extends _Page {
     }
 
     public boolean isDesignationLetterStatusCorrect(String expectedStatus) {
-        WaitUtils.waitForElementToBeVisible(driver, letterOfDesignationStatus, TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeVisible(driver, letterOfDesignationStatus, TIMEOUT_5_SECOND);
         String text = letterOfDesignationStatus.getText();
 
         //Verify status is correct
@@ -352,7 +349,7 @@ public class TaskSection extends _Page {
     public boolean isCompletedTaskStatusCorrect2(String orgName, String expectedStatus) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         By by = By.xpath(".//td[2]/p[contains(text(),'" + orgName + "')]//following::td[3]");
-        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_10_SECOND);
         boolean contains = driver.findElement(by).getText().contains(expectedStatus);
         return contains;
 
@@ -360,7 +357,7 @@ public class TaskSection extends _Page {
 
     public boolean isCompletedTaskStatusCorrect1(String orgName, String expectedStatus) {
         By by = By.xpath(".//td[contains(.,'" + orgName + "')]//following::td[4]");
-        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_10_SECOND);
         boolean contains = driver.findElement(by).getText().contains(expectedStatus);
         return contains;
 
@@ -402,7 +399,7 @@ public class TaskSection extends _Page {
 
     public boolean isWIPTaskDetailsCorrectForAccount(String orgName, ManufacturerRequestDO organisationData, String taskType) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, priorityDocumentImg, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, priorityDocumentImg, TIMEOUT_10_SECOND);
 
         WebElement tr = PageUtils.getTableRow(listOfWIPTableRows, orgName);
         //Task
@@ -437,7 +434,7 @@ public class TaskSection extends _Page {
 
     public TaskSection filterWIPTasksBy(String filterBy, String txtOrgName, String other) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND);
         if (filterBy.contains("orgName")) {
             orgName.sendKeys(txtOrgName);
         } else if (filterBy.contains("taskType")) {
@@ -456,7 +453,7 @@ public class TaskSection extends _Page {
     List<WebElement> listOfTableColumns;
 
     public List<String> isTableColumnCorrect(String[] columns) {
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th"), TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th"), TIMEOUT_DEFAULT);
         List<String> columnsNotFound = PageUtils.areTheColumnsCorrect(columns, listOfTableColumns);
         return columnsNotFound;
     }
@@ -466,7 +463,7 @@ public class TaskSection extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
 
         By by = By.xpath(".//td[.='" + orgName + "']//following::td[5]");
-        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_10_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_10_SECOND);
         WebElement tdWithDocuments = driver.findElement(by);
         WebElement img = tdWithDocuments.findElement(By.tagName("img"));
         String link = img.getAttribute("src");

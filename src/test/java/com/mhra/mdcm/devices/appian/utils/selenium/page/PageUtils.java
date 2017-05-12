@@ -112,7 +112,7 @@ public class PageUtils {
         }
 
         if(!element.isSelected()){
-            WaitUtils.waitForElementToBeClickable(driver, element, 2, false);
+            WaitUtils.waitForElementToBeClickable(driver, element, _Page.TIMEOUT_3_SECOND);
             doubleClick(driver, element);
         }
     }
@@ -162,7 +162,7 @@ public class PageUtils {
 
     public static void acceptAlert(WebDriver driver, String accept, int timeToWait) {
         try {
-            WaitUtils.waitForAlert(driver, timeToWait, false);
+            WaitUtils.waitForAlert(driver, timeToWait);
             boolean present = WaitUtils.isAlertPresent(driver);
             if (present) {
                 if (accept.equals("accept")) {
@@ -176,7 +176,7 @@ public class PageUtils {
 
     public static void acceptAlert(WebDriver driver, boolean accept, int timeToWait) {
         try {
-            WaitUtils.waitForAlert(driver, timeToWait, false);
+            WaitUtils.waitForAlert(driver, timeToWait);
             boolean present = WaitUtils.isAlertPresent(driver);
             if (present) {
                 if (accept) {
@@ -195,7 +195,7 @@ public class PageUtils {
 
     public static void updateElementValue(WebDriver driver, WebElement element, String value, int timeOut) {
         WaitUtils.nativeWaitInSeconds(1);
-        WaitUtils.waitForElementToBeClickable(driver, element, timeOut, false);
+        WaitUtils.waitForElementToBeClickable(driver, element, timeOut);
         element.clear();
         element.sendKeys(RandomDataUtils.generateTestNameStartingWith(value, 0));
     }
@@ -203,7 +203,7 @@ public class PageUtils {
     public static boolean isDisplayed(WebDriver driver, WebElement manufacturerDropDown, int timeOut) {
         boolean isDisplayed = true;
         try{
-            WaitUtils.waitForElementToBeClickable(driver, manufacturerDropDown, timeOut, false);
+            WaitUtils.waitForElementToBeClickable(driver, manufacturerDropDown, timeOut);
         }catch (Exception e){
             isDisplayed = false;
         }
@@ -420,7 +420,7 @@ public class PageUtils {
                 WebElement country = driver.findElements(By.cssSelector(elementPath)).get(0);
                 country.sendKeys(countryName);
                 WaitUtils.nativeWaitInSeconds(1);
-                WaitUtils.waitForElementToBeClickable(driver,By.cssSelector("li[role='option']") , _Page.TIMEOUT_5_SECOND, false);
+                WaitUtils.waitForElementToBeClickable(driver,By.cssSelector("li[role='option']") , _Page.TIMEOUT_5_SECOND);
 
                 //Get list of options displayed
                 WaitUtils.nativeWaitInSeconds(1);
@@ -455,7 +455,7 @@ public class PageUtils {
                 WebElement country = element;
                 country.sendKeys(countryName);
                 WaitUtils.nativeWaitInSeconds(1);
-                WaitUtils.waitForElementToBeClickable(driver,By.cssSelector("li[role='option']") , _Page.TIMEOUT_5_SECOND, false);
+                WaitUtils.waitForElementToBeClickable(driver,By.cssSelector("li[role='option']") , _Page.TIMEOUT_5_SECOND);
 
                 //Get list of options displayed
                 WaitUtils.nativeWaitInSeconds(1);
@@ -486,7 +486,7 @@ public class PageUtils {
                 WebElement country = driver.findElements(By.cssSelector(elementPath)).get(0);
                 country.sendKeys(countryName);
                 WaitUtils.nativeWaitInSeconds(1);
-                WaitUtils.waitForElementToBeClickable(driver,By.cssSelector("li[role='option']") , _Page.TIMEOUT_5_SECOND, false);
+                WaitUtils.waitForElementToBeClickable(driver,By.cssSelector("li[role='option']") , _Page.TIMEOUT_5_SECOND);
 
                 //Get list of options displayed
                 WaitUtils.isPageLoadingComplete(driver, 1);
@@ -519,7 +519,7 @@ public class PageUtils {
                 count++;    //It will go forever without this
                 PageUtils.singleClick(driver, element);
                 WaitUtils.isPageLoadingComplete(driver, _Page.TIMEOUT_PAGE_LOAD);
-                WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//div[contains(text(), '"+ text + "')]"), _Page.TIMEOUT_3_SECOND, false);
+                WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//div[contains(text(), '"+ text + "')]"), _Page.TIMEOUT_3_SECOND);
                 WebElement titleToSelect = driver.findElement(By.xpath(".//div[contains(text(), '"+ text + "')]"));
                 PageUtils.singleClick(driver, titleToSelect);
                 completed = true;
@@ -539,7 +539,7 @@ public class PageUtils {
             WebElement country = driver.findElements((elementPath)).get(0);
             country.sendKeys(text);
             WaitUtils.isPageLoadingComplete(driver, 1);
-            WaitUtils.waitForElementToBeClickable(driver,By.cssSelector("li[role='option']") , _Page.TIMEOUT_5_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver,By.cssSelector("li[role='option']") , _Page.TIMEOUT_5_SECOND);
 
             //Generate list of items
             WaitUtils.isPageLoadingComplete(driver, 1);
@@ -558,7 +558,7 @@ public class PageUtils {
     public static boolean isVisible(WebDriver driver, WebElement element, int timeout) {
         boolean isVisible = true;
         try {
-            WaitUtils.waitForElementToBeClickable(driver, element, timeout, false);
+            WaitUtils.waitForElementToBeClickable(driver, element, timeout);
         }catch (Exception e){
             isVisible = false;
         }
@@ -576,7 +576,7 @@ public class PageUtils {
     private static boolean clickElement(WebDriver driver, WebElement btn, int timeout, boolean singleClick) {
         boolean clicked = true;
         try {
-            WaitUtils.waitForElementToBeClickable(driver, btn, timeout, false);
+            WaitUtils.waitForElementToBeClickable(driver, btn, timeout);
             if(singleClick) {
                 singleClick(driver, btn);
             }else{
@@ -588,10 +588,10 @@ public class PageUtils {
         return clicked;
     }
 
-    public static boolean isElementClickable(WebDriver driver, WebElement element, int timeout5Second) {
+    public static boolean isElementClickable(WebDriver driver, WebElement element, int timeoutSecond) {
         boolean clickable = true;
         try{
-            WaitUtils.waitForElementToBeClickable(driver, element, timeout5Second, false);
+            WaitUtils.waitForElementToBeClickable(driver, element, timeoutSecond);
         }catch (Exception e){
             //Its not clickable
         }

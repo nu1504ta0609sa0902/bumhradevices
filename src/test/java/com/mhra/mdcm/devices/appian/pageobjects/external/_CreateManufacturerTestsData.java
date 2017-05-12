@@ -84,12 +84,11 @@ public class _CreateManufacturerTestsData extends _Page {
      * @return
      */
     public AddDevices createTestOrganisation(ManufacturerRequestDO ar) throws Exception {
-        //WaitUtils.nativeWaitInSeconds(3);
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".PickerWidget---picker_value"), TIMEOUT_10_SECOND, false);
-        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".PickerWidget---picker_value"), TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND);
         orgName.sendKeys(ar.organisationName);
-        //PageUtils.selectCountryFromAutoSuggests(driver, ".gwt-SuggestBox", ar.country, false);
+
         boolean exception = false;
         try {
             PageUtils.selectFromAutoSuggestedListItemsManufacturers(driver, ".PickerWidget---picker_value", ar.country, true);
@@ -98,7 +97,7 @@ public class _CreateManufacturerTestsData extends _Page {
         }
 
         //Organisation details
-        WaitUtils.waitForElementToBeClickable(driver, addressLine1, TIMEOUT_DEFAULT, false);
+        WaitUtils.waitForElementToBeClickable(driver, addressLine1, TIMEOUT_DEFAULT);
         addressLine1.clear();
         addressLine1.sendKeys(ar.address1);
         addressLine2.sendKeys(ar.address2);
@@ -111,7 +110,7 @@ public class _CreateManufacturerTestsData extends _Page {
         //Contact Person Details
         try {
             PageUtils.singleClick(driver, title);
-            WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//div[contains(text(), '"+ ar.title + "')]"), TIMEOUT_3_SECOND, false);
+            WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//div[contains(text(), '"+ ar.title + "')]"), TIMEOUT_3_SECOND);
             WebElement titleToSelect = driver.findElement(By.xpath(".//div[contains(text(), '"+ ar.title + "')]"));
             PageUtils.singleClick(driver, titleToSelect);
         } catch (Exception e) {
@@ -149,7 +148,7 @@ public class _CreateManufacturerTestsData extends _Page {
 
     public boolean isErrorMessageDisplayed() {
         try {
-            WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".component_error"), 3, false);
+            WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".component_error"), 3);
             boolean isDisplayed = errorMessages.size() > 0;
             return isDisplayed;
         }catch (Exception e){
@@ -159,7 +158,7 @@ public class _CreateManufacturerTestsData extends _Page {
 
     public List<String> getListOfAutosuggestionsFor(String searchTerm) {
         WaitUtils.isPageLoadingComplete(driver,TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".PickerWidget---picker_value"), TIMEOUT_5_SECOND, false);
+        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".PickerWidget---picker_value"), TIMEOUT_5_SECOND);
         List<String> matchesFromAutoSuggests = PageUtils.getListOfMatchesFromAutoSuggests(driver, By.cssSelector(".PickerWidget---picker_value"), searchTerm);
         System.out.println(matchesFromAutoSuggests);
         return matchesFromAutoSuggests;
