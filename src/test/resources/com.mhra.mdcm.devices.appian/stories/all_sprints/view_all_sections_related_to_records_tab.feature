@@ -63,11 +63,11 @@ Feature: As a business user, I want to navigate to different sections like Accou
     Then I should see table column "<column>" also displaying "<unFilteredData>" in "<pageHeading>" page
     Examples:
       | user         | link                | pageHeading         | filterBy    | filterValue | unFilteredData     | tableHeading | searchTerm | column      |
-#      | businessAuto | Accounts            | Accounts            | Organisation Role | Authorised         | Manufacturer       | Organisation name | RT01       | Role        |
-#      | businessAuto | Accounts            | Accounts            | Organisation Role | Manufacturer       | Authorised         | Organisation name | RT01       | Role        |
-#      | businessAuto | Organisations       | Organisations       | Organisation Role | Manufacturer       | Authorised         | Name              | RT01       | Role        |
-#      | businessAuto | Organisations       | Organisations       | Registered status | Registered         | Not Registered     | Name              | RT01       | Status      |
-#      | businessAuto | Registered Products | Registered Products | Device type       | Active Implantable | In Vitro           | Authorised Representative       | RT01       | Device Type |
+      | businessAuto | Accounts            | Accounts            | Organisation Role | Authorised         | Manufacturer       | Organisation name | RT01       | Role        |
+      | businessAuto | Accounts            | Accounts            | Organisation Role | Manufacturer       | Authorised         | Organisation name | RT01       | Role        |
+      | businessAuto | Organisations       | Organisations       | Organisation Role | Manufacturer       | Authorised         | Name              | RT01       | Role        |
+      | businessAuto | Organisations       | Organisations       | Registered status | Registered         | Not Registered     | Name              | RT01       | Status      |
+      | businessAuto | Registered Products | Registered Products | Device type       | Active Implantable | In Vitro           | Authorised Representative       | RT01       | Device Type |
       | businessAuto | Registered Products | Registered Products | Device type | In Vitro    | Active Implantable | Manufacturer | RT01       | Device Type |
 
 

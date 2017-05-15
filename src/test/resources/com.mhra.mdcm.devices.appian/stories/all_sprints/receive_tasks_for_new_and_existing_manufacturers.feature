@@ -124,7 +124,7 @@ Feature: As a business user, I want a task to be created each time a customer su
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Blood weighing scale | Autopsy measure | approve       | General Medical Device |
 
 
-  @regression @4090 @_sprint13
+  @regression @4090 @_sprint13 @4088 @_sprint11
   Scenario Outline: Users should be able to search and filter tasks
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
