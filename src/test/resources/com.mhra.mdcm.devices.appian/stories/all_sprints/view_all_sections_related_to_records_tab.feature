@@ -51,7 +51,7 @@ Feature: As a business user, I want to navigate to different sections like Accou
 
 
   @regression @mdcm-126 @mdcm-23 @1937 @3837 @3895 @_sprint10 @readonly @_sprint1 @_sprint6
-  Scenario Outline: Users should be able to filter search and sort by headings
+  Scenario Outline: Business users should be able to filter search and sort by headings
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
     Then I should see items and heading "<pageHeading>" for link "<link>"

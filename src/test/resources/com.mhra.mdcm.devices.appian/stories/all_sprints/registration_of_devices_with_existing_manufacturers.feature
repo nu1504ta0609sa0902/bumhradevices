@@ -26,7 +26,7 @@ Feature: As an account holder, I should be able to add devices to existing manuf
 
 
   @regression @mdcm-14 @mdcm-467 @mdcm-21 @_sprint3 @_sprint5 @2185 @_sprint8
-  Scenario Outline: Verify correct options are displayed on add devices page
+  Scenario Outline: Verify correct options are displayed on add devices page for different combinations
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
     And I click on a random manufacturer to add devices

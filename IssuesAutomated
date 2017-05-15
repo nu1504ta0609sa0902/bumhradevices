@@ -249,11 +249,11 @@ Automated Issues:
         - @1957 -   MOVED
 
     Sprint 15: @_sprint15       CFS RELATED
-        - @1974 -
-        - @1978 -
-        - @1995 -
-        - @3842 -
-        - @3856 -
+        - @1974 -   no tests for regression
+        - @1978 -   no tests for regression
+        - @1995 -   no tests for regression
+        - @3842 -   no tests for regression
+        - @3856 -   no tests for regression
         - @4203 -
         - @4698 -
         - @4703 -

@@ -76,7 +76,7 @@ Feature: Aa a user I would like to verify features which are not related to devi
 
 
   @regression @2097 @_sprint8
-  Scenario Outline: Override PARD preferences when reviewing a manufacturer registration
+  Scenario Outline: Business users can override PARD preferences when reviewing a manufacturer registration
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<page>"
     And I perform a search for "<searchTerm>" in "<page>" page

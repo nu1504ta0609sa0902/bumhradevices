@@ -19,7 +19,7 @@ Feature: As a user, I want to view devices and product details associated with a
 
 
   @regression @1924 @3271 @_sprint8 @wip
-  Scenario Outline: As a business user I should be able to create new manufacturers and verify device and product details related to a manufacturer
+  Scenario Outline: As a user I should be able to create new manufacturers and verify device and product details related to a manufacturer
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
     When I create a new manufacturer using manufacturer test harness page with following data

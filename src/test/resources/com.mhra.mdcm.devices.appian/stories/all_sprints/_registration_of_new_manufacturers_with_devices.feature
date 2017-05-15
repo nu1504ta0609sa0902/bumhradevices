@@ -125,7 +125,7 @@ Feature: As a customer I want to register new manufacturers with devices
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  |
 
 
-  @mdcm-292 @mdcm-496 @mdcm-21 @_sprint3 @_sprint5 @mdcm-134 @mdcm-164 @_sprint6 @wip @bug
+  @mdcm-292 @mdcm-496 @mdcm-21 @_sprint3 @_sprint5 @mdcm-134 @mdcm-164 @_sprint6 @mdcm-490 @_sprint7 @wip @bug
   Scenario Outline: Verify new product id is generated for each product submitted by manufacturer
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page

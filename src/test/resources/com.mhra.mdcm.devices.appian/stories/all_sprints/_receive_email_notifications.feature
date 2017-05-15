@@ -1,9 +1,8 @@
-@ignore
 Feature: As a customer I want to receive email notifications when ever a account or manufacturer is created or updated
   So that I am aware of what is going on
 
   @regression @2191 @_sprint10
-  Scenario Outline: Email should be received for newly created account for business user
+  Scenario Outline: Email should be generated for newly created account for business user
     Given I am logged into appian as "<user>" user
     When I create a new account using business test harness page with following data
       | accountType | <accountType> |
@@ -20,7 +19,7 @@ Feature: As a customer I want to receive email notifications when ever a account
 
 
   @regression @2192 @_sprint10
-  Scenario Outline: Email should be received for new business accounts which are rejected
+  Scenario Outline: Email should be generated for new business accounts which are rejected
     Given I am logged into appian as "<user>" user
     When I create a new account using business test harness page with following data
       | accountType | <accountType> |
@@ -37,7 +36,7 @@ Feature: As a customer I want to receive email notifications when ever a account
 
 
   @regression @2191 @2193 @_sprint10
-  Scenario Outline: Email should be received for newly created manufacturers and authorisedReps
+  Scenario Outline: Email should be generated for newly created manufacturers and authorisedReps
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
     When I create a new manufacturer using manufacturer test harness page with following data
@@ -60,7 +59,7 @@ Feature: As a customer I want to receive email notifications when ever a account
       | authorisedRepAuto | businessAuto | authorisedRep | approve       | Belarus     |
 
   @regression @2192 @_sprint10
-  Scenario Outline: Email should be received for newly created manufacturers and authorisedReps which are rejected
+  Scenario Outline: Email should be generated for newly created manufacturers and authorisedReps which are rejected
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
     When I create a new manufacturer using manufacturer test harness page with following data
@@ -83,8 +82,8 @@ Feature: As a customer I want to receive email notifications when ever a account
       | authorisedRepAuto | businessAuto | authorisedRep | Rejected because I can | Belarus     |
 
 
-  @regression @2193 @_sprint10
-  Scenario Outline: Email notification should be received when organisation is approved for registration service
+  @regression @1836 @_sprint8 @2193 @_sprint10
+  Scenario Outline: Email notification should be generated when organisation is approved for registration service
     Given I am logged into appian as "<user>" user
     When I create a new account using business test harness page with following data
       | accountType           | <accountType>           |
