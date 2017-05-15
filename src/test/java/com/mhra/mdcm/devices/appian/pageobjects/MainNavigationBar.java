@@ -64,14 +64,12 @@ public class MainNavigationBar extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, tasks, TIMEOUT_DEFAULT);
         tasks.click();
         PageUtils.acceptAlert(driver, true, 2);
-        //PageUtils.doubleClick(driver, tasks);
         return new TasksTabPage(driver);
     }
 
     public RecordsTabPage clickRecords() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, records, TIMEOUT_20_SECOND);
-        //records.click();
+        WaitUtils.waitForElementToBeClickable(driver, records, TIMEOUT_DEFAULT);
         PageUtils.doubleClick(driver, records);
         return new RecordsTabPage(driver);
     }

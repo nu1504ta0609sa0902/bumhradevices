@@ -320,7 +320,7 @@ public class RecordsPageSteps extends CommonSteps {
             boolean isCorrectPage = viewAccount.isEditAccountInformationButtonDisplayed();
             if(isCorrectPage) {
                 //A bug : refresh is required
-                driver.navigate().refresh();
+                viewAccount = viewAccount.refreshThePage();
                 updatesFound = viewAccount.verifyUpdatesDisplayedOnPage(keyValuePairToUpdate, updatedData);
                 if (!updatesFound) {
                     WaitUtils.nativeWaitInSeconds(1);
@@ -388,7 +388,7 @@ public class RecordsPageSteps extends CommonSteps {
         } else if (page.equals(LinksRecordPage.LINK_ORGANISATIONS.link)) {
             organisations = organisations.sortBy(tableHeading, 2);
         } else if(page.equals(LinksRecordPage.LINK_REGISTERED_PRODUCTS.link)){
-            registeredProducts = registeredProducts.sortBy(tableHeading, 2);
+            registeredProducts = registeredProducts.sortBy(tableHeading, 1);
         } else if(page.equals(LinksRecordPage.LINK_REGISTERED_DEVICES.link)){
             //registeredDevices = registeredDevices.sortBy(tableHeading, 2);
         }

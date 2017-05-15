@@ -241,7 +241,7 @@ public class ManufacturerViewDetails extends _Page {
         boolean fieldsDisplayed = true;
         try {
             WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND);
-            WaitUtils.waitForElementToBeClickable(driver, orgAddressLine1, TIMEOUT_1_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, orgAddressLine1, TIMEOUT_3_SECOND);
             WaitUtils.waitForElementToBeClickable(driver, orgAddressLine2, TIMEOUT_1_SECOND);
             WaitUtils.waitForElementToBeClickable(driver, orgCityTown, TIMEOUT_1_SECOND);
             WaitUtils.waitForElementToBeClickable(driver, orgPostCode, TIMEOUT_1_SECOND);

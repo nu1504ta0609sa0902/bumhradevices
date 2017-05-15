@@ -95,7 +95,7 @@ public class ActionsPageSteps extends CommonSteps {
                 if(!isInCorrectPage) {
                     actionsTabPage = mainNavigationBar.clickActions();
                 }else{
-                    driver.navigate().refresh();
+                    actionsTabPage = actionsTabPage.refreshThePage();
                     actionsTabPage = new ActionsTabPage(driver);
                 }
 

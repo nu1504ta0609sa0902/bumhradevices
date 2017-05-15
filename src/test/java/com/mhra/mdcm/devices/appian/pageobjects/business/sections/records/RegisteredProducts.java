@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * Created by TPD_Auto 
+ * Created by TPD_Auto
  */
 @Component
 public class RegisteredProducts extends _Page {
@@ -34,6 +34,10 @@ public class RegisteredProducts extends _Page {
     //Table headings
     @FindBy(xpath = ".//th[1]")
     WebElement thDeviceType;
+    @FindBy(xpath = ".//th[6]")
+    WebElement thManufacturer;
+    @FindBy(xpath = ".//th[8]")
+    WebElement thAuthorisedRep;
 
     //Search box and filters
     @FindBy(xpath = ".//*[contains(@class, 'filter')]//following::input[1]")
@@ -60,9 +64,9 @@ public class RegisteredProducts extends _Page {
 
     public boolean isItemsDisplayed(String expectedHeadings) {
         boolean itemsDisplayed = false;
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h1[.='" + expectedHeadings + "']") , TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h1[.='" + expectedHeadings + "']"), TIMEOUT_10_SECOND);
 
-        if(expectedHeadings.contains(PageHeaders.PAGE_HEADERS_REGISTERED_PRODUCTS.header)){
+        if (expectedHeadings.contains(PageHeaders.PAGE_HEADERS_REGISTERED_PRODUCTS.header)) {
             itemsDisplayed = listOfAllProducts.size() > 0;
         }
 
@@ -70,7 +74,7 @@ public class RegisteredProducts extends _Page {
     }
 
     public List<String> isTableColumnCorrect(String[] columns) {
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th") , TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th"), TIMEOUT_DEFAULT);
         List<String> columnsNotFound = PageUtils.areTheColumnsCorrect(columns, listOfTableHeadings);
         return columnsNotFound;
     }
@@ -85,11 +89,11 @@ public class RegisteredProducts extends _Page {
         boolean atLeast1MatchFound = true;
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_DEFAULT);
-        try{
+        try {
             //WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(searchText), TIMEOUT_5_SECOND);
-            int actualCount = (listOfAllProducts.size()-1);
+            int actualCount = (listOfAllProducts.size() - 1);
             atLeast1MatchFound = actualCount >= 1;
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("Timeout : Trying to search");
             atLeast1MatchFound = false;
         }
@@ -129,23 +133,23 @@ public class RegisteredProducts extends _Page {
             WebElement product = listOfElement.get(position);
             product = product.findElement(By.tagName("a"));
             boolean isProductNameEmpty = product.getText().trim().equals("");
-            if(!isProductNameEmpty){
+            if (!isProductNameEmpty) {
                 found = product;
                 break;
             }
             count++;
-        }while(found==null && count < 5);
+        } while (found == null && count < 5);
 
-        if(found!=null){
+        if (found != null) {
             found.click();
         }
         return new BusinessProductDetails(driver);
     }
 
     private List<WebElement> getListOfElement(String tableHeading) {
-        if(tableHeading.equals("Product Name"))
+        if (tableHeading.equals("Product Name"))
             return listOfAllProductNames;
-        else if(tableHeading.equals("Manufacturer")){
+        else if (tableHeading.equals("Manufacturer")) {
             return listOfAllManufacturerNames;
         }
         return null;
@@ -153,21 +157,21 @@ public class RegisteredProducts extends _Page {
 
     public RegisteredProducts filterByDeviceType(String deviceType) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        PageUtils.selectFromDropDown(driver, listOfDropDownFilters.get(0) , deviceType, false);
+        PageUtils.selectFromDropDown(driver, listOfDropDownFilters.get(0), deviceType, false);
         return new RegisteredProducts(driver);
     }
 
     public boolean areAllProductOfType(String value) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND);
-        WaitUtils.waitForElementToBeClickable(driver, listOfDropDownFilters.get(0) , TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, listOfDropDownFilters.get(0), TIMEOUT_10_SECOND);
         WaitUtils.nativeWaitInSeconds(5);
 
         boolean allMatched = true;
-        for(WebElement el: listOfDeviceTypes){
+        for (WebElement el : listOfDeviceTypes) {
             String text = el.getText();
             log.info(text);
-            if(!text.contains("revious") && !text.contains("ext")) {
+            if (!text.contains("revious") && !text.contains("ext")) {
                 allMatched = text.contains(value);
                 if (!allMatched) {
                     break;
@@ -189,10 +193,10 @@ public class RegisteredProducts extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND);
         boolean aMatchFound = false;
-        for(WebElement el: listOfDeviceTypes){
+        for (WebElement el : listOfDeviceTypes) {
             String text = el.getText();
             log.info(text);
-            if(!text.contains("revious") && !text.contains("ext")) {
+            if (!text.contains("revious") && !text.contains("ext")) {
                 aMatchFound = text.contains(value);
                 if (aMatchFound) {
                     break;
@@ -208,17 +212,25 @@ public class RegisteredProducts extends _Page {
         try {
             WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_30_SECOND);
             seachingCompleted = true;
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
         return seachingCompleted;
     }
 
 
     public RegisteredProducts sortBy(String tableHeading, int numberOfTimesToClick) {
-        if (tableHeading.equals("Device Type")) {
-            for (int c = 0; c < numberOfTimesToClick; c++) {
-                WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+
+        for (int c = 0; c < numberOfTimesToClick; c++) {
+            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+            if (tableHeading.equals("Device Type")) {
                 WaitUtils.waitForElementToBeClickable(driver, thDeviceType, TIMEOUT_10_SECOND);
                 thDeviceType.click();
+            } else if (tableHeading.equals("Manufacturer")) {
+                WaitUtils.waitForElementToBeClickable(driver, thManufacturer, TIMEOUT_10_SECOND);
+                thManufacturer.click();
+            } else if (tableHeading.equals("Authorised Representative")) {
+                WaitUtils.waitForElementToBeClickable(driver, thAuthorisedRep, TIMEOUT_10_SECOND);
+                thAuthorisedRep.click();
             }
         }
 
