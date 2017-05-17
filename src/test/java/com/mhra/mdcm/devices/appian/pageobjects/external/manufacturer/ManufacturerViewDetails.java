@@ -33,6 +33,8 @@ public class ManufacturerViewDetails extends _Page {
     WebElement declareADevice;
     @FindBy(xpath = ".//button[contains(text(),'Continue')]")
     WebElement btnContinue;
+    @FindBy(xpath = ".//button[contains(text(),'Register Manufacturer')]")
+    WebElement btnRegisterManufactuerer;
     @FindBy(xpath = ".//button[contains(text(),'Edit Account Information')]")
     WebElement amendRepresentativeParty;
     @FindBy(xpath = ".//button[contains(text(),'Edit Account Information')]")
@@ -125,7 +127,8 @@ public class ManufacturerViewDetails extends _Page {
             if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
                 return clickAddDeviceBtn();
             else
-                return clickContinueBtn();
+                return clickRegisterManufacturerBtn();
+                //return clickContinueBtn();
         }catch (Exception e){
             btnContinue.click();
             return new AddDevices(driver);
@@ -138,6 +141,16 @@ public class ManufacturerViewDetails extends _Page {
             WaitUtils.waitForElementToBeVisible(driver, btnContinue, TIMEOUT_5_SECOND);
             WaitUtils.waitForElementToBeClickable(driver, btnContinue, TIMEOUT_5_SECOND);
             btnContinue.click();
+        }catch (Exception e){}
+        return new AddDevices(driver);
+    }
+
+    public AddDevices clickRegisterManufacturerBtn(){
+        try {
+            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+            WaitUtils.waitForElementToBeVisible(driver, btnRegisterManufactuerer, TIMEOUT_15_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, btnRegisterManufactuerer, TIMEOUT_5_SECOND);
+            btnRegisterManufactuerer.click();
         }catch (Exception e){}
         return new AddDevices(driver);
     }
