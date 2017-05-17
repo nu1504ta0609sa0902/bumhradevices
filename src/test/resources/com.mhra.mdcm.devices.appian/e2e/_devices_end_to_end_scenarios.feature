@@ -88,7 +88,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     Then Check task contains correct devices "<gmdn>" and other details
     And I assign the task to me and "approve" the generated task
     #And The completed task status should update to "Completed"
-    And I should received an email for stored account with heading "<emailHeader>"
+    And I should received an email for stored manufacturer with heading "<newOrganisationEmail>"
     Examples:
       | user              | businessUser | deviceType             | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
       | authorisedRepAuto | businessAuto | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
@@ -96,7 +96,95 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
 
 
   @ignore
-  Scenario Outline: S5b Update already registered manufacturers by removing and than adding new devices
+  Scenario Outline: S5b Update already registered manufacturers by adding and removing devices
+    Given I am logged into appian as "<user>" user
+    And I go to register a new manufacturer page
+    And I click on random manufacturer with status "Registered"
+    When I add a device to SELECTED manufacturer with following data
+      | deviceType     | <deviceType> |
+      | gmdnDefinition | <gmdn1>      |
+      | customMade     | true         |
+    And I add another device to SELECTED manufacturer with following data
+      | deviceType             | <deviceType> |
+      | gmdnDefinition         | <gmdn2>      |
+      | customMade             | false        |
+      | relatedDeviceSterile   | true         |
+      | relatedDeviceMeasuring | true         |
+      | riskClassification     | class1       |
+      | notifiedBody           | NB 0086 BSI  |
+    And I remove the device with gmdn "<gmdn1>" code
+    And Proceed to payment and confirm submit device details
+    When I logout and log back into appian as "<logBackInAs>" user
+    And I go to WIP tasks page
+    And I view task for the new account in WIP page
+    And I assign the task to me and "<approveReject>" the generated task
+    #Then The completed task status should update to "Completed"
+    When I search accounts for the stored organisation name
+    Then I should see at least 0 account matches
+    And I should received an email for stored manufacturer with heading "<newOrganisationEmail>"
+    Examples:
+      | user             | logBackInAs  | gmdn1                | gmdn2           | approveReject | deviceType             |
+      | manufacturerAuto | businessAuto | Blood weighing scale | Autopsy measure | approve       | General Medical Device |
+      | manufacturerAuto | businessAuto | Blood weighing scale | Autopsy measure | reject        | General Medical Device |
+
+
+  @ignore
+  Scenario Outline: S5c Update already registered manufacturers by adding devices with products
+    Given I am logged into appian as "<user>" user
+    And I go to register a new manufacturer page
+    And I click on random manufacturer with status "Registered"
+    When I add a device to SELECTED manufacturer with following data
+      | deviceType     | General Medical Device |
+      | gmdnDefinition | Blood weighing scale   |
+      | customMade     | true                   |
+    When I add a device to SELECTED manufacturer with following data
+      | deviceType     | <deviceType>     |
+      | gmdnDefinition | <gmdnDefinition> |
+      | customMade     | <customMade>     |
+      | productName    | <productName>    |
+    And I remove the device with gmdn "<gmdn1>" code
+    And Proceed to payment and confirm submit device details
+    When I logout and log back into appian as "<logBackInAs>" user
+    And I go to WIP tasks page
+    And I view task for the new account in WIP page
+    And I assign the task to me and "<approveReject>" the generated task
+    #Then The completed task status should update to "Completed"
+    When I search accounts for the stored organisation name
+    Then I should see at least 0 account matches
+    And I should received an email for stored manufacturer with heading "<newOrganisationEmail>"
+    Examples:
+      | user              | deviceType                         | gmdnDefinition      | customMade | productName |
+      | authorisedRepAuto | Active Implantable Medical Devices | Desiccating chamber | true       | ford focus  |
+
+  @ignore
+  Scenario Outline: S6a Update manufacturer for authorised rep which is already registered by adding devices
+    Given I am logged into appian as "<user>" user
+    When I go to list of manufacturers page
+    And I view a random manufacturer with status "<status>"
+    When I add a device to SELECTED manufacturer with following data
+      | deviceType     | General Medical Device |
+      | gmdnDefinition | Blood weighing scale   |
+      | customMade     | true                   |
+    When I add a device to SELECTED manufacturer with following data
+      | deviceType     | <deviceType>     |
+      | gmdnDefinition | <gmdnDefinition> |
+      | customMade     | <customMade>     |
+      | productName    | <productName>    |
+    And Proceed to payment and confirm submit device details
+    When I logout of the application
+    And I am logged into appian as "<businessUser>" user
+    And I view new task with link "Update Manufacturer Registration Request" for the new account
+    Then Check task contains correct devices "<gmdnDefinition>" and other details
+    And I assign the task to me and "approve" the generated task
+    #And The completed task status should update to "Completed"
+    And I should received an email for stored account with heading "<emailHeader>"
+    Examples:
+      | user              | businessUser | deviceType                         | customMade | status     | gmdnDefinition       | productName |
+      | authorisedRepAuto | businessAuto | Active Implantable Medical Devices | false      | Registered | Blood weighing scale | ford focus  |
+
+
+  @ignore
+  Scenario Outline: S6b Update manufacturer for authorised rep which is already registered by adding and removing devices
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
     And I click on random manufacturer with status "Registered"
@@ -123,47 +211,15 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     Then I should see at least 0 account matches
     Examples:
       | user              | logBackInAs  | gmdn1                | gmdn2           | approveReject | deviceType             |
-      | manufacturerAuto  | businessAuto | Blood weighing scale | Autopsy measure | approve       | General Medical Device |
       | authorisedRepAuto | businessAuto | Blood weighing scale | Autopsy measure | approve       | General Medical Device |
-      | manufacturerAuto  | businessAuto | Blood weighing scale | Autopsy measure | reject        | General Medical Device |
       | authorisedRepAuto | businessAuto | Blood weighing scale | Autopsy measure | reject        | General Medical Device |
 
-
   @ignore
-  Scenario Outline: S6a Update manufacturer for authorised rep which is already registered by adding devices
-    Given I am logged into appian as "<user>" user
-    When I go to list of manufacturers page
-    And I view a random manufacturer with status "<status>"
-    And I add a device to SELECTED manufacturer with following data
-      | deviceType             | <deviceType>         |
-      | gmdnDefinition         | <gmdn>               |
-      | riskClassification     | <riskClassification> |
-      | notifiedBody           | <notifiedBody>       |
-      | customMade             | <customMade>         |
-      | relatedDeviceSterile   | <deviceSterile>      |
-      | relatedDeviceMeasuring | <deviceMeasuring>    |
-    And Proceed to payment and confirm submit device details
-    When I logout of the application
-    And I am logged into appian as "<businessUser>" user
-    And I view new task with link "Update Manufacturer Registration Request" for the new account
-    Then Check task contains correct devices "<gmdn>" and other details
-    And I assign the task to me and "approve" the generated task
-    #And The completed task status should update to "Completed"
-    And I should received an email for stored account with heading "<emailHeader>"
-    Examples:
-      | user              | businessUser | deviceType             | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
-      | authorisedRepAuto | businessAuto | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
+  Scenario: S6c Update manufacturer for authorised rep which is already registered by adding devices with products and removing products
 
 
   @ignore
-  Scenario: S6b Update manufacturer for authorised rep which is already registered by adding and removing devices
-
-  @ignore
-  Scenario: S6c Update manufacturer for authorised rep which is already registered by adding products to devices
-
-
-  @ignore
-  Scenario Outline: S7abc Search for organisation products devices
+  Scenario Outline: S7abc Search for organisations, devices and products
     Given I am logged into appian as "<businessUser>" user
     When I go to records page and click on "<page>"
     And I perform a search for "<searchTerm>" in "<page>" page
