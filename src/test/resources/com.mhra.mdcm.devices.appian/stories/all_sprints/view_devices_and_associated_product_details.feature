@@ -14,8 +14,9 @@ Feature: As a user, I want to view devices and product details associated with a
     Then I should see account displaying correct fields
     Then I should see associated organisations related to this account
     Examples:
-      | user         | accountInitials | link     | pageHeading | columns                                                                                                          |
-      | businessAuto | _AT             | Accounts | Accounts    | Organisation name,Account number,Organisation role,Contact name,Organisation address,Organisation country,Status |
+      | user         | accountInitials      | link     | pageHeading | columns                                                                                                          |
+      | businessAuto | ManufacturerAccount  | Accounts | Accounts    | Organisation name,Account number,Organisation role,Contact name,Organisation address,Organisation country,Status |
+      | businessAuto | AuthorisedRepAccount | Accounts | Accounts    | Organisation name,Account number,Organisation role,Contact name,Organisation address,Organisation country,Status |
 
 
   @regression @1924 @3271 @_sprint8 @wip

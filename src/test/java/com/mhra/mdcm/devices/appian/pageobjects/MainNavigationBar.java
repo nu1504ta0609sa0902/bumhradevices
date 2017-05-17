@@ -32,7 +32,7 @@ public class MainNavigationBar extends _Page {
     WebElement actions;
 
     //Manufacturers and authorisedRep
-    @FindBy(partialLinkText = "HOME")
+    @FindBy(partialLinkText = "MHRA home")
     WebElement linkHOME;
     @FindBy(partialLinkText = "MY ACCOUNT")
     WebElement linkMyAccount;

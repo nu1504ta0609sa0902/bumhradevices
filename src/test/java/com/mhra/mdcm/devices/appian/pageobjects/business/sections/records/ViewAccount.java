@@ -60,6 +60,8 @@ public class ViewAccount extends _Page {
     //Associated organisations
     @FindBy(xpath = ".//a[contains(text(), 'Open ')]")
     List<WebElement> listOfAssociatedOrgsWithAccount;
+    @FindBy(xpath = ".//a[contains(text(), 'Associated org')]//following::p[1]")
+    WebElement noAssociatedOrgsWithAccount;
 
     @Autowired
     public ViewAccount(WebDriver driver) {
@@ -173,7 +175,11 @@ public class ViewAccount extends _Page {
     }
 
     public boolean isDisplayingAssociatedOrganisations() {
-        return listOfAssociatedOrgsWithAccount.size() > 0;
+        boolean found = listOfAssociatedOrgsWithAccount.size() > 0;
+        if(!found){
+            found = noAssociatedOrgsWithAccount.getText().contains("No Associated Org");
+        }
+        return found;
     }
 
     public boolean isEditAccountInformationButtonDisplayed() {
