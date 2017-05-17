@@ -1,7 +1,7 @@
 @e2e
 Feature: End 2 End Scenarios to verify system is behaving correctly from a high level view
 
-  @automation_demo
+  @1929 @2327 @2278 @2260 @2193 @2290 @2273 @2324 @2191
   Scenario Outline: S1 Manufacturer account registration
 #Register new manufacturer account, approve the task and check MHRA approval email received
     Given I am logged into appian as "<businessUser>" user
@@ -29,7 +29,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And I should received an email for stored account with heading "<newAccountEmail>"
     And I should received an email for stored manufacturer with heading "<newOrganisationEmail>"
     Examples:
-      | businessUser | logBackInAas     | accountType  | approveReject | countryName    | countryNameNonEU | newAccountEmail         | newOrganisationEmail              |
+      | businessUser | logBackInAas     | accountType  | approveReject | countryName    | countryNameNonEU | newAccountEmail         | newOrganisationEmail                  |
       | businessNoor | manufacturerNoor | manufacturer | approve       | United Kingdom | Bangladesh       | New Account Request for | Manufacturer Registration Request for |
 
 
@@ -45,8 +45,8 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And I logout and log back into appian as "<logBackInAas>" user
     And I go to register a new manufacturer page
     And I create a new manufacturer using manufacturer test harness page with following data
-      | accountType | <accountType>      |
-      | countryName | <countryNameNonEU> |
+      | accountType | <accountType>   |
+      | countryName | <countryNameEU> |
     And I add devices to NEWLY created manufacturer with following data
       | deviceType     | General Medical Device |
       | gmdnDefinition | Blood weighing scale   |
@@ -58,8 +58,8 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     #And The completed task status should update to "Completed"
     And I should received an email for stored manufacturer with heading "<newOrganisationEmail>"
     Examples:
-      | businessUser | logBackInAas     | accountType   | approveReject | countryName    | countryNameNonEU | newAccountEmail         | newOrganisationEmail              |
-      | businessNoor | manufacturerNoor | authorisedRep | approve       | United Kingdom | Netherland       | New Account Request for | Manufacturer registration service |
+      | businessUser | logBackInAas     | accountType   | approveReject | countryName    | countryNameEU | newAccountEmail         | newOrganisationEmail              |
+      | businessNoor | manufacturerNoor | authorisedRep | approve       | United Kingdom | Netherland    | New Account Request for | Manufacturer registration service |
 
 
   @ignore
@@ -92,6 +92,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     Examples:
       | user              | businessUser | deviceType             | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
       | authorisedRepAuto | businessAuto | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
+      | manufacturerAuto  | businessAuto | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
 
 
   @ignore
@@ -124,6 +125,8 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | user              | logBackInAs  | gmdn1                | gmdn2           | approveReject | deviceType             |
       | manufacturerAuto  | businessAuto | Blood weighing scale | Autopsy measure | approve       | General Medical Device |
       | authorisedRepAuto | businessAuto | Blood weighing scale | Autopsy measure | approve       | General Medical Device |
+      | manufacturerAuto  | businessAuto | Blood weighing scale | Autopsy measure | reject        | General Medical Device |
+      | authorisedRepAuto | businessAuto | Blood weighing scale | Autopsy measure | reject        | General Medical Device |
 
 
   @ignore
@@ -166,13 +169,13 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And I perform a search for "<searchTerm>" in "<page>" page
     Then I should see at least <count> matches in "<page>" page search results
     Examples:
-      | businessUser | page              | searchTerm      | count |
-      | businessAuto | GMDN Devices       | AuthorisedRepRT | 1     |
-      | businessAuto | GMDN Devices       | ManufacturerRT  | 1     |
-      | businessAuto | Registered Products      | AuthorisedRepRT | 1     |
-      | businessAuto | Registered Products      | ManufacturerRT  | 1     |
-      | businessAuto |  Organisations | AuthorisedRepRT | 1     |
-      | businessAuto |  Organisations | ManufacturerRT  | 1     |
+      | businessUser | page                | searchTerm      | count |
+      | businessAuto | GMDN Devices        | AuthorisedRepRT | 1     |
+      | businessAuto | GMDN Devices        | ManufacturerRT  | 1     |
+      | businessAuto | Registered Products | AuthorisedRepRT | 1     |
+      | businessAuto | Registered Products | ManufacturerRT  | 1     |
+      | businessAuto | Organisations       | AuthorisedRepRT | 1     |
+      | businessAuto | Organisations       | ManufacturerRT  | 1     |
 
   @ignore
   Scenario: S7d Verify RAG Status

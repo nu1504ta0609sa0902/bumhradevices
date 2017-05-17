@@ -24,7 +24,7 @@ public class ExternalHomePage extends _Page {
     @FindBy(css = ".Button---btn.Button---default_direction.Button---primary")
     WebElement linkManufacturerRegistration;
 
-    @FindBy(xpath = ".//h4[contains(text(), 'free sale')]//following::button[1]")
+    @FindBy(xpath = ".//*[contains(text(), 'free sale')]//following::button[1]")
     WebElement linkRegisterCFSForDevice;
 
     @FindBy(xpath = ".//*[contains(text(),'ype of device')]//following::label[1]")
