@@ -86,7 +86,7 @@ public class ActionsPageSteps extends CommonSteps {
         actionsTabPage = createTestsData.createTestOrganisation(newAccount);
 
         //You may need to do it again, page is not really good
-        boolean isInCorrectPage = actionsTabPage.isInActionsPage();
+        boolean isInCorrectPage = actionsTabPage.isApplicationSubmittedSuccessfully();
         if(!isInCorrectPage){
             int count = 1;
             do {
