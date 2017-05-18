@@ -19,14 +19,28 @@ public class ActionsTabPage extends _Page {
     @FindBy(css = ".aui-ActionLink.GFWJSJ4DDQ")
     WebElement linkCreateTestAccount;
 
+    @FindBy(xpath = ".//h3[contains(text(), 'Application complete')]")
+    WebElement txtApplicationComplete;
+
     @Autowired
     public ActionsTabPage(WebDriver driver) {
         super(driver);
     }
 
     public boolean isInActionsPage() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         try {
-            WaitUtils.waitForElementToBeClickable(driver, linkCreateTestAccount, TIMEOUT_5_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, linkCreateTestAccount, TIMEOUT_15_SECOND);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isApplicationSubmittedSuccessfully() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, txtApplicationComplete, TIMEOUT_15_SECOND);
             return true;
         } catch (Exception e) {
             return false;

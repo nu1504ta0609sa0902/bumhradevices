@@ -27,9 +27,9 @@ public class _CreateAccountTestsData extends _Page {
     WebElement addressLine2;
     @FindBy(xpath = ".//label[contains(text(),'City')]//following::input[1]")
     WebElement townCity;
-    @FindBy(xpath = ".//label[contains(text(),'Postcode')]//following::input[1]")
+    @FindBy(xpath = ".//label[contains(text(),'County')]//following::input[2]")
     WebElement postCode;
-    @FindBy(xpath = ".//label[contains(text(),'Postcode')]//following::input[@type='text'][2]")
+    @FindBy(xpath = ".//*[contains(text(),'Address type')]/following::input[6]")
     WebElement telephone;
     @FindBy(xpath = ".//label[contains(text(),'Fax')]//following::input[1]")
     WebElement fax;
@@ -39,6 +39,8 @@ public class _CreateAccountTestsData extends _Page {
     WebElement addressType;
     @FindBy(xpath = ".//label[contains(text(),'Country')]//following::input[1]")
     WebElement country;
+    @FindBy(xpath = ".//a/u[contains(text(), 'Enter address')]")
+    WebElement linkEnterAddressManually;
 
     //Organisation Type
     @FindBy(xpath = ".//label[contains(text(),'Limited Company')]")
@@ -92,6 +94,10 @@ public class _CreateAccountTestsData extends _Page {
     @FindBy(xpath = ".//label[contains(text(),'Adverse Incident Tracking System')]")
     WebElement aitsAdverseIncidient;
 
+    //Terms and condition checkbox
+    @FindBy(xpath = ".//input[@type='checkbox']/following::label[1]")
+    WebElement cbxTermsAndConditions;
+
     //Submit and cancel
     @FindBy(xpath = ".//button[contains(text(),'Submit')]")
     WebElement submit;
@@ -110,10 +116,13 @@ public class _CreateAccountTestsData extends _Page {
      * @return
      */
     public ActionsTabPage createTestOrganisation(AccountRequestDO ar) throws Exception {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_DEFAULT);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         //WaitUtils.waitForPageToLoad(driver, By.xpath(".//label[.='Organisation name']//following::input[1]"), TIMEOUT_5_SECOND, false); ;
-        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_5_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_10_SECOND);
         orgName.sendKeys(ar.organisationName);
+
+        //Enter address manually if required
+        enterAddressManually();
 
         //Selecting country has changed to auto suggest
         boolean exception = false;
@@ -141,7 +150,7 @@ public class _CreateAccountTestsData extends _Page {
         //Organisation Type
         if(ar.organisationType.equals("Limited Company")){
             PageUtils.clickIfVisible(driver, limitedCompany);
-            PageFactory.initElements(driver, this);
+            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
             WaitUtils.waitForElementToBeVisible(driver, companyRegistrationNumber, TIMEOUT_5_SECOND);
             WaitUtils.waitForElementToBeClickable(driver, companyRegistrationNumber, TIMEOUT_5_SECOND);
             vatRegistrationNumber.sendKeys(ar.vatRegistrationNumber);
@@ -149,18 +158,18 @@ public class _CreateAccountTestsData extends _Page {
 
         }else if(ar.organisationType.equals("Business Partnership")){
             PageUtils.clickIfVisible(driver, businessPartnership);
-            PageFactory.initElements(driver, this);
+            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
             WaitUtils.waitForElementToBeVisible(driver, vatRegistrationNumber, TIMEOUT_5_SECOND);
             WaitUtils.waitForElementToBeClickable(driver, vatRegistrationNumber, TIMEOUT_5_SECOND);
             vatRegistrationNumber.sendKeys(ar.vatRegistrationNumber);
 
         }else if(ar.organisationType.equals("Unincorporated Association")){
             PageUtils.clickIfVisible(driver, unincorporatedAssociation);
-            PageFactory.initElements(driver, this);
+            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
 
         }else if(ar.organisationType.equals("Other")){
             PageUtils.clickIfVisible(driver, other);
-            PageFactory.initElements(driver, this);
+            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
 
         }
 
@@ -195,21 +204,25 @@ public class _CreateAccountTestsData extends _Page {
             }
         }
 
-        //Services of Interests
-        if(ar.deviceRegistration){
-            PageUtils.singleClick(driver, deviceReg);
-        }
-        if(ar.cfsCertificateOfFreeSale){
-            WaitUtils.waitForElementToBeClickable(driver, cfsCertification, TIMEOUT_DEFAULT);
-            PageUtils.singleClick(driver, cfsCertification);
-        }
-        if(ar.clinicalInvestigation){
-            WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//span[.='Selected Services']//following::input[3]"), TIMEOUT_DEFAULT);
-            PageUtils.singleClick(driver, clinicalInvestigation);
-        }
-        if(ar.aitsAdverseIncidentTrackingSystem){
-            WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//span[.='Selected Services']//following::input[4]"), TIMEOUT_DEFAULT);
-            PageUtils.singleClick(driver, aitsAdverseIncidient);
+        try {
+            //Services of Interests
+            if (ar.deviceRegistration) {
+                PageUtils.singleClick(driver, deviceReg);
+            }
+            if (ar.cfsCertificateOfFreeSale) {
+                WaitUtils.waitForElementToBeClickable(driver, cfsCertification, TIMEOUT_DEFAULT);
+                PageUtils.singleClick(driver, cfsCertification);
+            }
+            if (ar.clinicalInvestigation) {
+                WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//span[.='Selected Services']//following::input[3]"), TIMEOUT_DEFAULT);
+                PageUtils.singleClick(driver, clinicalInvestigation);
+            }
+            if (ar.aitsAdverseIncidentTrackingSystem) {
+                WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//span[.='Selected Services']//following::input[4]"), TIMEOUT_DEFAULT);
+                PageUtils.singleClick(driver, aitsAdverseIncidient);
+            }
+        }catch (Exception e){
+            //Service of interest section not displaying since 17/05/2017
         }
 
         //Some weired bug where input boxes looses value on focus
@@ -221,10 +234,24 @@ public class _CreateAccountTestsData extends _Page {
             }
         }
 
+        //Terms and condition checkbox introduced 17/05
+        cbxTermsAndConditions.click();
+
         //Submit form : remember to verify
+        WaitUtils.waitForElementToBeClickable(driver, submit, TIMEOUT_10_SECOND);
         submit.click();
 
         return new ActionsTabPage(driver);
+    }
+
+    private void enterAddressManually() {
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, linkEnterAddressManually, TIMEOUT_10_SECOND);
+            PageUtils.singleClick(driver, linkEnterAddressManually);
+            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        }catch (Exception e){
+            //Introduced suddenly on 17/05 sprint 19 changes
+        }
     }
 
 
@@ -235,7 +262,8 @@ public class _CreateAccountTestsData extends _Page {
 
     public List<String> getListOfAutosuggestionsFor(String searchTerm) {
         WaitUtils.isPageLoadingComplete(driver,TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".PickerWidget---picker_value"), TIMEOUT_5_SECOND);
+        enterAddressManually();
+        WaitUtils.waitForElementToBeClickable(driver, country, TIMEOUT_10_SECOND);
         List<String> matchesFromAutoSuggests = PageUtils.getListOfMatchesFromAutoSuggests(driver, By.cssSelector(".PickerWidget---picker_value"), searchTerm);
         System.out.println(matchesFromAutoSuggests);
         return matchesFromAutoSuggests;

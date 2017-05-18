@@ -158,7 +158,7 @@ Feature: As a customer I want to register new manufacturers with devices
     And I click on a link which matches the stored organisations in "<page>" page
     Then I should see new product id generated for my device
     Examples:
-      | user              | logBackInAs  | accountType   | page                | deviceType                         | gmdnDefinition        | customMade          | riskClassification | productName | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
-      | authorisedRepAuto | businessAuto | manufacturer  | Registered Products | In Vitro Diagnostic Device         | Androgen receptor IVD |                     | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
-      | manufacturerAuto  | businessAuto | authorisedRep | Registered Products | Active Implantable Medical Devices | Desiccating chamber   | true                |                    | ford focus  |             |              |              |                   |            |               |
+      | user              | logBackInAs  | accountType   | countryName | page                | deviceType                         | gmdnDefinition        | customMade          | riskClassification | productName | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
+      | authorisedRepAuto | businessAuto | manufacturer  |  Bangladesh           |Registered Products | In Vitro Diagnostic Device         | Androgen receptor IVD |                     | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      | manufacturerAuto  | businessAuto | authorisedRep |  Turkey           | Registered Products | Active Implantable Medical Devices | Desiccating chamber   | true                |                    | ford focus  |             |              |              |                   |            |               |
 

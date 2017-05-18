@@ -60,7 +60,7 @@ public class ActionsPageSteps extends CommonSteps {
         AccountRequestDO ar = new AccountRequestDO(scenarioSession);
         actionsTabPage = createTestsData.createTestOrganisation(ar);
 
-        boolean createdSuccessfully = actionsTabPage.isInActionsPage();
+        boolean createdSuccessfully = actionsTabPage.isApplicationSubmittedSuccessfully();
         if(createdSuccessfully){
             log.warn("Created a new account : " + ar.organisationName);
             scenarioSession.putData(SessionKey.organisationName, ar.organisationName);
@@ -102,7 +102,7 @@ public class ActionsPageSteps extends CommonSteps {
                 //In actions page try creating agaim
                 createTestsData = actionsTabPage.gotoTestsHarnessPage();
                 actionsTabPage = createTestsData.createTestOrganisation(newAccount);
-                isInCorrectPage = actionsTabPage.isInActionsPage();
+                isInCorrectPage = actionsTabPage.isApplicationSubmittedSuccessfully();
                 count++;
             } while (!isInCorrectPage && count <= 3);
         }
