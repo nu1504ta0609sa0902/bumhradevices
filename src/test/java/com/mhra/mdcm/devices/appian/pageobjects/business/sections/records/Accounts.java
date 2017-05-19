@@ -40,6 +40,8 @@ public class Accounts extends _Page {
     List<WebElement> listOfDropDownFilters;
     @FindBy(linkText = "Clear Filters")
     WebElement clearFilters;
+    @FindBy(xpath = ".//button[contains(text(),'Search')]")
+    WebElement btnSearch;
 
 
     @Autowired
@@ -185,9 +187,9 @@ public class Accounts extends _Page {
         boolean allMatched = true;
         for(WebElement el: listOfOrganisationRoles){
             String text = el.getText().toLowerCase();
-            //log.info(text);
+            log.info(text);
             if(!text.contains("revious") && !text.contains("ext")) {
-                allMatched = text.contains(organisationType);
+                allMatched = text.contains(organisationType) || text.equals("");;
                 if(!allMatched){
                     break;
                 }
@@ -211,15 +213,20 @@ public class Accounts extends _Page {
         return new Accounts(driver);
     }
 
-    public boolean areOrganisationOfRoleVisible(String organisationType) {
+    public boolean areOrganisationOfRoleVisible(String organisationType, String searchTerm) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND);
+        WebElement element = clearFilters;
+        if(searchTerm == null)
+            element = btnSearch;
+        WaitUtils.waitForElementToBeClickable(driver, element, TIMEOUT_10_SECOND);
+        PageUtils.isElementClickable(driver, clearFilters, TIMEOUT_5_SECOND);
+
         boolean aMatchFound = false;
         for(WebElement el: listOfOrganisationRoles){
             String text = el.getText();
             log.info(text);
             if(!text.contains("revious") && !text.contains("ext")) {
-                aMatchFound = text.contains(organisationType);
+                aMatchFound = text.contains(organisationType) || text.equals("");;
                 if (aMatchFound) {
                     break;
                 }
@@ -256,10 +263,11 @@ public class Accounts extends _Page {
         return new BusinessManufacturerDetails(driver);
     }
 
-    public boolean isSearchingCompleted() {
+    public boolean isSearchingCompleted(String searchTerm) {
         boolean seachingCompleted = false;
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         try {
+            if(searchTerm!=null && !searchTerm.equals(""))
             WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_30_SECOND);
             seachingCompleted = true;
         }catch (Exception e){}

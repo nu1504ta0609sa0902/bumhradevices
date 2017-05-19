@@ -44,11 +44,11 @@ public class EditAccount extends _Page {
     WebElement orgAddressLine2;
     @FindBy(xpath = ".//label[contains(text(),'City')]//following::input[1]")
     WebElement orgCityTown;
-    @FindBy(xpath = ".//label[contains(text(),'Postcode')]//following::input[1]")
+    @FindBy(xpath = ".//label[contains(text(),'County')]//following::input[2]")
     WebElement orgPostCode;
     @FindBy(xpath = ".//span[contains(text(),'Address type')]//following::label[1]")
     WebElement addressType;
-    @FindBy(xpath = ".//label[contains(text(),'Postcode')]//following::input[@type='text'][2]")
+    @FindBy(xpath = ".//*[contains(text(),'Address type')]/following::input[6]")
     WebElement orgTelephone;
     @FindBy(xpath = ".//label[contains(text(),'Postcode')]//following::input[@type='text'][3]")
     WebElement orgFax;

@@ -199,7 +199,7 @@ public class RecordsPageSteps extends CommonSteps {
     @When("^I search for account with following text \"([^\"]*)\"$")
     public void i_search_for(String searchTerm) throws Throwable {
         accounts = accounts.searchForAccount(searchTerm);
-        accounts.isSearchingCompleted();
+        accounts.isSearchingCompleted(searchTerm);
         scenarioSession.putData(SessionKey.searchTerm, searchTerm);
         scenarioSession.putData(SessionKey.organisationName, searchTerm);
     }
@@ -352,20 +352,20 @@ public class RecordsPageSteps extends CommonSteps {
 
         //Filter by organisation role
         if (page.equals(LinksRecordPage.LINK_ACCOUNTS.link) && filterBy.contains("Organisation")) {
-            accounts.isSearchingCompleted();
             //Filter accounts by organisation role
+            accounts.isSearchingCompleted(searchTerm);
             accounts = accounts.filterByOrganistionRole(value);
         } else if (page.equals(LinksRecordPage.LINK_ORGANISATIONS.link) && filterBy.contains("Organisation")) {
-            organisations.isSearchingCompleted();
             //Filter organisation by
+            organisations.isSearchingCompleted(searchTerm);
             organisations = organisations.filterBy(value);
         }else if (page.equals(LinksRecordPage.LINK_ORGANISATIONS.link) && filterBy.contains("Registered")) {
-            accounts.isSearchingCompleted();
             //Filter by registered status
+            accounts.isSearchingCompleted(searchTerm);
             accounts = accounts.filterByRegisteredStatus(value);
         }else if (page.equals(LinksRecordPage.LINK_REGISTERED_PRODUCTS.link) && filterBy.contains("Device type")) {
-            registeredProducts.isSearchingCompleted();
             //Filter by device type
+            registeredProducts.isSearchingCompleted(searchTerm);
             registeredProducts = registeredProducts.filterByDeviceType(value);
         }
     }
@@ -401,20 +401,20 @@ public class RecordsPageSteps extends CommonSteps {
         String searchTerm = (String) scenarioSession.getData(SessionKey.searchTerm);
 
         if (page.equals(LinksRecordPage.LINK_ACCOUNTS.link) && tableColumnName.toLowerCase().contains("role")) {
-            accounts.isSearchingCompleted();
             //Filtered accounts by organisation role
+            accounts.isSearchingCompleted(searchTerm);
             isDataAsExpected = accounts.areAllOrganisationRoleOfType(value);
         } else if (page.equals(LinksRecordPage.LINK_ORGANISATIONS.link) && tableColumnName.toLowerCase().contains("role")) {
-            organisations.isSearchingCompleted();
             //Filter organisations by
+            organisations.isSearchingCompleted(searchTerm);
             isDataAsExpected = organisations.areAllOrganisationRoleOfType(value);
         }else if (page.equals(LinksRecordPage.LINK_ORGANISATIONS.link) && tableColumnName.toLowerCase().contains("status")) {
-            organisations.isSearchingCompleted();
             //Filtered by registered status
+            organisations.isSearchingCompleted(searchTerm);
             isDataAsExpected = organisations.areAllStatusOfType(value);
         }else if (page.equals(LinksRecordPage.LINK_REGISTERED_PRODUCTS.link) && tableColumnName.toLowerCase().contains("device type")) {
-            registeredProducts.isSearchingCompleted();
             //Filter by device type
+            registeredProducts.isSearchingCompleted(searchTerm);
             isDataAsExpected = registeredProducts.areAllProductOfType(value);
         }
         Assert.assertThat("Data may not be correct after filtering ", isDataAsExpected, is(true));
@@ -424,23 +424,23 @@ public class RecordsPageSteps extends CommonSteps {
     @Then("^I should see table column \"([^\"]*)\" also displaying \"([^\"]*)\" in \"([^\"]*)\" page$")
     public void i_should_see_table_column_also_displaying_in_page(String tableColumnName, String value, String page) throws Throwable {
         boolean isDataAsExpected = false;
-
+        String searchTerm = (String) scenarioSession.getData(SessionKey.searchTerm);
 
         if (page.equals(LinksRecordPage.LINK_ACCOUNTS.link) && tableColumnName.toLowerCase().contains("role")) {
             //If filtered by organisation roles
-            accounts.isSearchingCompleted();
-            isDataAsExpected = accounts.areOrganisationOfRoleVisible(value);
+            accounts.isSearchingCompleted(searchTerm);
+            isDataAsExpected = accounts.areOrganisationOfRoleVisible(value, searchTerm);
         } else if (page.equals(LinksRecordPage.LINK_ORGANISATIONS.link) && tableColumnName.toLowerCase().contains("role")) {
-            organisations.isSearchingCompleted();
-            isDataAsExpected = organisations.areOrganisationOfRoleVisible(value);
+            organisations.isSearchingCompleted(searchTerm);
+            isDataAsExpected = organisations.areOrganisationOfRoleVisible(value, searchTerm);
         }else if (page.equals(LinksRecordPage.LINK_ORGANISATIONS.link) && tableColumnName.toLowerCase().contains("status")) {
-            organisations.isSearchingCompleted();
             //If filtered by status
-            isDataAsExpected = organisations.areStatusOfTypeVisible(value);
+            organisations.isSearchingCompleted(searchTerm);
+            isDataAsExpected = organisations.areStatusOfTypeVisible(value, searchTerm);
         }else if (page.equals(LinksRecordPage.LINK_REGISTERED_PRODUCTS.link) && tableColumnName.toLowerCase().contains("evice type")) {
-            registeredProducts.isSearchingCompleted();
             //If filtered by device types
-            isDataAsExpected = registeredProducts.areDevicesOfTypeVisible(value);
+            registeredProducts.isSearchingCompleted(searchTerm);
+            isDataAsExpected = registeredProducts.areDevicesOfTypeVisible(value, searchTerm);
         }
 
         Assert.assertThat("Data may not be correct after filtering ", isDataAsExpected, is(true));
@@ -487,6 +487,8 @@ public class RecordsPageSteps extends CommonSteps {
         if (page.equals(LinksRecordPage.LINK_REGISTERED_PRODUCTS.link) && filterBy.contains("evice type")) {
             registeredProducts = registeredProducts.clearFilterByStatus();
         }
+
+        scenarioSession.putData(SessionKey.searchTerm, null);
     }
 
     @When("^I click on a random gmdn in all devices page$")

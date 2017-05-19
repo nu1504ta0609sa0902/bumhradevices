@@ -31,7 +31,7 @@ Feature: As a business user, I want to be able to update party details associate
       #| businessAuto | Accounts | AuthorisedRepAccountRT00 | org.name                                       |
 
 
-  @regression @mdcm-149 @mdcm-171 @mdcm-162 @mdcm-164 @_sprint3 @_sprint5 @_sprint6
+  @regression @mdcm-149 @mdcm-171 @mdcm-162 @mdcm-164 @_sprint3 @_sprint5 @_sprint6 @bug
   Scenario Outline: Manufacturer and authorisedRep user should be able to update account contact details
     Given I am logged into appian as "<user>" user
     When I go to my accounts page
@@ -44,7 +44,7 @@ Feature: As a business user, I want to be able to update party details associate
       | manufacturerAuto  | contact.job.title,contact.email,contact.telephone,contact.firstname,contact.lastname               |
 
 
-  @regression @mdcm-13 @mdcm-171 @mdcm-162  @mdcm-164@_sprint4 @_sprint5 @_sprint6 @wip
+  @regression @mdcm-13 @mdcm-171 @mdcm-162  @mdcm-164@_sprint4 @_sprint5 @_sprint6 @bug
   Scenario Outline: Manufacturer and authorisedRep user should be able to update organisation details
     Given I am logged into appian as "<user>" user
     When I go to my accounts page
@@ -59,7 +59,7 @@ Feature: As a business user, I want to be able to update party details associate
       | manufacturerAuto  | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website |
 
 
-  @regression @readonly @mdcm-171 @mdcm-261 @mdcm-277 @_sprint4 @_sprint5
+  @regression @readonly @mdcm-171 @mdcm-261 @mdcm-277 @_sprint4 @_sprint5 @bug
   Scenario Outline: Verify correct roles are displayed for approved UK account holder
     Given I am logged into appian as "<user>" user
     When I go to my accounts page
@@ -105,7 +105,7 @@ Feature: As a business user, I want to be able to update party details associate
       | authorisedRepAuto | businessAuto | contact.title,contact.firstname,contact.lastname,contact.job.title,contact.email,contact.telephone | Registered |
 
 
-  @regression @mdcm-263 @_sprint6 @mdcm-275 @_sprint7 @4088 @_sprint11 @2185 @3104 @_sprint8 @wip
+  @regression @mdcm-263 @_sprint6 @mdcm-275 @_sprint7 @4088 @_sprint11 @2185 @3104 @_sprint8 @bug
   Scenario Outline: Verify only 1 task is created when update EXISTING manufacturer with multiple devices
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page

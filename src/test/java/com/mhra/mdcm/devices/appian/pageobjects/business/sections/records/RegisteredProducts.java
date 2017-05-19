@@ -172,7 +172,7 @@ public class RegisteredProducts extends _Page {
             String text = el.getText();
             log.info(text);
             if (!text.contains("revious") && !text.contains("ext")) {
-                allMatched = text.contains(value);
+                allMatched = text.contains(value) || text.equals("");;
                 if (!allMatched) {
                     break;
                 }
@@ -189,15 +189,21 @@ public class RegisteredProducts extends _Page {
         return new RegisteredProducts(driver);
     }
 
-    public boolean areDevicesOfTypeVisible(String value) {
+    public boolean areDevicesOfTypeVisible(String value, String searchTerm) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND);
+        WebElement element = clearFilters;
+        if(searchTerm == null)
+            element = btnSearch;
+        WaitUtils.waitForElementToBeClickable(driver, element, TIMEOUT_10_SECOND);
+        PageUtils.isElementClickable(driver, clearFilters, TIMEOUT_15_SECOND);
+        WaitUtils.nativeWaitInSeconds(10);
+
         boolean aMatchFound = false;
         for (WebElement el : listOfDeviceTypes) {
             String text = el.getText();
             log.info(text);
             if (!text.contains("revious") && !text.contains("ext")) {
-                aMatchFound = text.contains(value);
+                aMatchFound = text.contains(value) || text.equals("");
                 if (aMatchFound) {
                     break;
                 }
@@ -206,10 +212,11 @@ public class RegisteredProducts extends _Page {
         return aMatchFound;
     }
 
-    public boolean isSearchingCompleted() {
+    public boolean isSearchingCompleted(String searchTerm) {
         boolean seachingCompleted = false;
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         try {
+            if(searchTerm!=null && !searchTerm.equals(""))
             WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_30_SECOND);
             seachingCompleted = true;
         } catch (Exception e) {
