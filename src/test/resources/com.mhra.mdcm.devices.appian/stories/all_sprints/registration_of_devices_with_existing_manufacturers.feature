@@ -120,7 +120,7 @@ Feature: As an account holder, I should be able to add devices to existing manuf
       | authorisedRepAuto | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | General Motors     | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
 
-  @regression @mdcm-489 @_sprint5 @mdcm-134 @_sprint6 @mdcm-148 @_sprint7 @3762 @_sprint9
+  @regression @mdcm-489 @_sprint5 @mdcm-134 @_sprint6 @mdcm-148 @_sprint7 @3762 @_sprint9 @bug
   Scenario Outline: Users should be able to add and remove devices using GMDN code from existing manufacturers
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page

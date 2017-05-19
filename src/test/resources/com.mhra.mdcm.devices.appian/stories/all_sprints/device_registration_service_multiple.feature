@@ -44,7 +44,7 @@ Feature: As a customer I want to be able to enter more than one device at the po
     And All the gmdn codes or terms are "displayed" in summary section
     When Proceed to payment and confirm submit device details
     When I logout and log back into appian as "<logBackInAas>" user
-    And I view new task with link "Update Manufacturer Registration Request" for the new account
+    And I view new task with link "New Manufacturer Registration Request" for the new account
     Then Check task contains correct stored devices and other details
     And I assign the task to me and "approve" the generated task
     Then The task should be removed from tasks list

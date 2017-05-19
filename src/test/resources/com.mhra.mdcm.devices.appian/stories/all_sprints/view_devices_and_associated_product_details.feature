@@ -60,9 +60,9 @@ Feature: As a user, I want to view devices and product details associated with a
     When I click on a device with link "heart" for device type "<deviceType>"
     Then I should see correct information for device type "<deviceType>"
     Examples:
-      | user         | page          | searchTerm      | deviceType             |
-      | businessAuto | Accounts      | Account         | General Medical Device |
-      | businessAuto | Organisations | AuthorisedRepRT | General Medical Device |
+      | user         | page          | searchTerm      | deviceType                         |
+      | businessAuto | Organisations | ManufacturerRT  | General Medical Device             |
+      | businessAuto | Organisations | AuthorisedRepRT | Active Implantable Medical Devices |
 
 
   @regression @mdcm-125 @_sprint6 @wip
