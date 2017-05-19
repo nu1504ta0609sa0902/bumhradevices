@@ -269,11 +269,12 @@ public class TaskSection extends _Page {
 
 
     public TaskSection sortBy(String sortBy, int numberOfTimesToClick) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         if (sortBy.equals("Submitted")) {
             for (int c = 0; c < numberOfTimesToClick; c++) {
-                WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-                WaitUtils.waitForElementToBeClickable(driver, thSubmitted, TIMEOUT_5_SECOND);
+                WaitUtils.waitForElementToBeClickable(driver, thSubmitted, TIMEOUT_15_SECOND);
                 thSubmitted.click();
+                WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
                 //WaitUtils.nativeWaitInSeconds(2);
             }
         }

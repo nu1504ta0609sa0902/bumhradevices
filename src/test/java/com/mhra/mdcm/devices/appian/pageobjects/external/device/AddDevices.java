@@ -207,7 +207,7 @@ public class AddDevices extends _Page {
     WebElement btnSaveProgress;
 
     //Error message
-    @FindBy(css = ".component_error")
+    @FindBy(css = ".FieldLayout---field_error")
     WebElement errMessage;
     @FindBy(css = ".FieldLayout---field_error")
     WebElement validationErrMessage;
@@ -531,10 +531,10 @@ public class AddDevices extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         PageUtils.clickOneOfTheFollowing(driver, addProduct, addProduct2, TIMEOUT_5_SECOND);
 
-        //Wait for form to be visible
-        WaitUtils.waitForElementToBeClickable(driver, cbxProductName, TIMEOUT_10_SECOND);
         if (dd.productName != null && !dd.productName.equals("")) {
-            cbxProductName.click();
+            //Wait for form to be visible
+            if(PageUtils.isElementClickable(driver, cbxProductName, TIMEOUT_10_SECOND))
+                cbxProductName.click();
             WaitUtils.waitForElementToBeClickable(driver, pdProductName, TIMEOUT_10_SECOND);
             pdProductName.sendKeys(dd.productName);
         } else if (dd.productMake != null || !dd.productMake.equals("")) {
