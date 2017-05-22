@@ -106,7 +106,7 @@ Feature: As a business user, I want to be able to update party details associate
 
 
   @regression @mdcm-263 @_sprint6 @mdcm-275 @_sprint7 @4088 @_sprint11 @2185 @3104 @_sprint8 @bug
-  Scenario Outline: Verify only 1 task is created when update EXISTING manufacturer with multiple devices
+  Scenario Outline: Verify only 1 task is created when user updates EXISTING manufacturer with multiple devices
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
     And I click on a random manufacturer to add devices

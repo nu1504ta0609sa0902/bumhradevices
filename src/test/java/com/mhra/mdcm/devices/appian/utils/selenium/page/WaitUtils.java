@@ -77,7 +77,7 @@ public class WaitUtils {
      * @return
      */
     public static boolean isPageLoadingComplete(WebDriver driver, int timeout){
-
+        timeout = timeout * 100;
         boolean isLoadedFully = false;
         long start = System.currentTimeMillis();
         try {
@@ -85,7 +85,7 @@ public class WaitUtils {
             if(isWaitingMessageDisplayed) {
                 int count = 0;
                 do {
-                    driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
+                    driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.MILLISECONDS);
                     List<WebElement> elements = driver.findElements(By.xpath(".//div[@class='appian-indicator-message' and @style='display: none;']"));
                     if (elements.size() == 1) {
                         isLoadedFully = true;
@@ -94,7 +94,7 @@ public class WaitUtils {
                     }
                     //driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
                     //elements = driver.findElements(By.xpath(".//div[@class='appian-indicator-message' and @style=' ']"));
-                    driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+                    driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
                     count++;
                 } while (!isLoadedFully && count < 50);
             }

@@ -177,6 +177,7 @@ public class ManufacturerViewDetails extends _Page {
 
     public boolean verifyManufacturerUpdatesDisplayedOnPage(String keyValuePairToUpdate, AccountRequestDO updatedData) {
 
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeVisible(driver, email, TIMEOUT_DEFAULT);
         WaitUtils.waitForElementToBeVisible(driver, fullName, TIMEOUT_5_SECOND);
 

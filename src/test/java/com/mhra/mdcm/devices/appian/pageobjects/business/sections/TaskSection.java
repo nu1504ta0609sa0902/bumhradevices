@@ -400,7 +400,7 @@ public class TaskSection extends _Page {
 
     public boolean isWIPTaskDetailsCorrectForAccount(String orgName, ManufacturerRequestDO organisationData, String taskType) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, priorityDocumentImg, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(orgName), TIMEOUT_10_SECOND);
 
         WebElement tr = PageUtils.getTableRow(listOfWIPTableRows, orgName);
         //Task
