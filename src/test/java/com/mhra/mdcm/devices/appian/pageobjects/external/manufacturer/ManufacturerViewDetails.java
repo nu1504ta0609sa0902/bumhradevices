@@ -51,7 +51,7 @@ public class ManufacturerViewDetails extends _Page {
     WebElement jobTitle;
     @FindBy(xpath = ".//span[contains(text(),'Email')]//following::p[1]")
     WebElement email;
-    @FindBy(xpath = ".//h3[contains(text(),'Person Details')]//following::span[.='Telephone']/following::p[1]")
+    @FindBy(xpath = ".//*[contains(text(),'Person Details')]//following::span[.='Telephone']/following::p[1]")
     WebElement telephone;
     @FindBy(xpath = ".//a[contains(text(),'Person Details')]//following::span[.='Telephone']/following::p[1]")
     WebElement telephone2;
@@ -63,6 +63,8 @@ public class ManufacturerViewDetails extends _Page {
     //ORGANISATION DETAILS
     @FindBy(css = "div>h1")
     WebElement orgName;
+    @FindBy(xpath = ".//span[.='Address']//following::p[1]")
+    WebElement orgAddressFull;
     @FindBy(xpath = ".//span[.='Address line 1']//following::p[1]")
     WebElement orgAddressLine1;
     @FindBy(xpath = ".//span[contains(text(),'Address line 2')]//following::p[1]")
@@ -249,16 +251,20 @@ public class ManufacturerViewDetails extends _Page {
     }
 
 
-    public boolean isDisplayedOrgFieldsCorrect(String org) {
+    public boolean isDisplayedOrgFieldsCorrect(String org, String status) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean fieldsDisplayed = true;
         try {
             WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND);
-            WaitUtils.waitForElementToBeClickable(driver, orgAddressLine1, TIMEOUT_3_SECOND);
-            WaitUtils.waitForElementToBeClickable(driver, orgAddressLine2, TIMEOUT_1_SECOND);
-            WaitUtils.waitForElementToBeClickable(driver, orgCityTown, TIMEOUT_1_SECOND);
-            WaitUtils.waitForElementToBeClickable(driver, orgPostCode, TIMEOUT_1_SECOND);
-            WaitUtils.waitForElementToBeClickable(driver, orgCountry, TIMEOUT_1_SECOND);
+            if(status.toLowerCase().contains("not")){
+                WaitUtils.waitForElementToBeClickable(driver, orgAddressFull, TIMEOUT_3_SECOND);
+            }else {
+                WaitUtils.waitForElementToBeClickable(driver, orgAddressLine1, TIMEOUT_3_SECOND);
+                WaitUtils.waitForElementToBeClickable(driver, orgAddressLine2, TIMEOUT_1_SECOND);
+                WaitUtils.waitForElementToBeClickable(driver, orgCityTown, TIMEOUT_1_SECOND);
+                WaitUtils.waitForElementToBeClickable(driver, orgPostCode, TIMEOUT_1_SECOND);
+                WaitUtils.waitForElementToBeClickable(driver, orgCountry, TIMEOUT_1_SECOND);
+            }
             WaitUtils.waitForElementToBeClickable(driver, orgTelephone, TIMEOUT_1_SECOND);
             WaitUtils.waitForElementToBeClickable(driver, orgFax, TIMEOUT_1_SECOND);
             WaitUtils.waitForElementToBeClickable(driver, webSite, TIMEOUT_1_SECOND);

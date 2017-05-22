@@ -663,7 +663,9 @@ public class ExternalHomePageSteps extends CommonSteps {
     @Then("^I should see organisation details$")
     public void i_should_see_organisation_details() throws Throwable {
         String org = (String) scenarioSession.getData(SessionKey.organisationName);
-        boolean isCorrectFieldsDisplayed = manufacturerDetails.isDisplayedOrgFieldsCorrect(org);
+        String status = (String) scenarioSession.getData(SessionKey.registeredStatus);
+
+        boolean isCorrectFieldsDisplayed = manufacturerDetails.isDisplayedOrgFieldsCorrect(org, status);
         Assert.assertThat("Please check organisation fields displayed are correct for : " + org, isCorrectFieldsDisplayed, Matchers.is(true));
     }
 
@@ -671,11 +673,11 @@ public class ExternalHomePageSteps extends CommonSteps {
     public void i_should_see_contact_person_details() throws Throwable {
         String org = (String) scenarioSession.getData(SessionKey.organisationName);
         String registeredStatus = (String) scenarioSession.getData(SessionKey.registeredStatus);
-        boolean isCorrectFieldsDisplayed = false;
-        if(registeredStatus!=null && registeredStatus.toLowerCase().equals("registered"))
-            isCorrectFieldsDisplayed = manufacturerDetails.isDisplayedContactPersonFieldsCorrect(org);
-        else
-            isCorrectFieldsDisplayed = manufacturerDetails.isDisplayedContactPersonFieldsCorrectForNonRegisteredManufacturer(org);
+        boolean isCorrectFieldsDisplayed = manufacturerDetails.isDisplayedContactPersonFieldsCorrect(org);
+//        if(registeredStatus!=null && registeredStatus.toLowerCase().equals("registered"))
+//            isCorrectFieldsDisplayed = manufacturerDetails.isDisplayedContactPersonFieldsCorrect(org);
+//        else
+//            isCorrectFieldsDisplayed = manufacturerDetails.isDisplayedContactPersonFieldsCorrectForNonRegisteredManufacturer(org);
         Assert.assertThat("Please check organisation fields displayed are correct for : " + org, isCorrectFieldsDisplayed, Matchers.is(true));
     }
 

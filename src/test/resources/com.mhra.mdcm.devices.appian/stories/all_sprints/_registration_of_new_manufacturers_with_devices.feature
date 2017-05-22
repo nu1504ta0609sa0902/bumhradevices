@@ -122,7 +122,7 @@ Feature: As a customer I want to register new manufacturers with devices
     Then All organisation search result should return 1 matches
     Examples:
       | user              | logBackInAs  | accountType   | countryName |
-#      | manufacturerAuto  | businessAuto | manufacturer  | Brazil      |
+      | manufacturerAuto  | businessAuto | manufacturer  | Brazil      |
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  |
 
 

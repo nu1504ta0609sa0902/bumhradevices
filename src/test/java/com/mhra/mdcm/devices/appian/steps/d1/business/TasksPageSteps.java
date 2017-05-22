@@ -302,14 +302,16 @@ public class TasksPageSteps extends CommonSteps {
 
     @Then("^Task contains correct devices and products and other details for \"([^\"]*)\"$")
     public void task_contains_correct_devices_and_products_and_other_details_for(String deviceType) throws Throwable {
-        List<String> listOfProducts = (List<String>) scenarioSession.getData(SessionKey.listOfProductsAdded);
-        boolean productsFound = taskSection.isProductsDisplayedForDeviceType(deviceType, listOfProducts);
-        assertThat("Expected to see the following products : " + listOfProducts, productsFound, is(equalTo(true)));
-
         //Check GMDN values are displayed
         List<String> listOfGmdns = (List<String>) scenarioSession.getData(SessionKey.listOfGmndsAdded);
         boolean isGMDNCorrect = taskSection.isAllTheGMDNValueDisplayed(listOfGmdns);
         assertThat("Expected to see the following GMDNs : " + listOfGmdns, isGMDNCorrect, is(equalTo(true)));
+
+        //Check list of products displayed
+        List<String> listOfProducts = (List<String>) scenarioSession.getData(SessionKey.listOfProductsAdded);
+        boolean productsFound = taskSection.isProductsDisplayedForDeviceType(deviceType, listOfProducts);
+        assertThat("Expected to see the following products : " + listOfProducts, productsFound, is(equalTo(true)));
+
     }
 
 

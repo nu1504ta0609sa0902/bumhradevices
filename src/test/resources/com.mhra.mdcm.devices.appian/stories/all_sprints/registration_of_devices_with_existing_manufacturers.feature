@@ -44,12 +44,12 @@ Feature: As an account holder, I should be able to add devices to existing manuf
     And The gmdn code or term is "displayed" in summary section
     Examples:
       | user              | status     | deviceType                 | gmdnDefinition                    | customMade | deviceSterile | deviceMeasuring | riskClassification | notifiedBody | isBearingCEMarking | devicesCompatible |
-      | authorisedRepAuto | Registered | General Medical Device     | Blood weighing scale              | false      | true          | true            | class1             | NB 0086 BSI  |                    |                   |
-      | authorisedRepAuto | Registered | General Medical Device     | Blood                             | true       |               |                 |                    |              |                    |                   |
-      | authorisedRepAuto | Registered | In Vitro Diagnostic Device | Androgen receptor IVD, calibrator |            |               |                 | ivd general        |              |                    |                   |
-      | authorisedRepAuto | Registered | System or Procedure Pack   | Desiccating chamber               |            | true          | true            | class1             | NB 0086 BSI  | false              | true              |
-      | manufacturerAuto  | Registered | System or Procedure Pack   | Desiccating chamber               |            | false         | true            |                    |              | false              | true              |
-      | manufacturerAuto  | Registered | General Medical Device     | Blood weighing scale              | false      | true          | true            | class1             | NB 0086 BSI  |                    |                   |
+#      | authorisedRepAuto | Registered | General Medical Device     | Blood weighing scale              | false      | true          | true            | class1             | NB 0086 BSI  |                    |                   |
+#      | authorisedRepAuto | Registered | General Medical Device     | Blood                             | true       |               |                 |                    |              |                    |                   |
+#      | authorisedRepAuto | Registered | In Vitro Diagnostic Device | Androgen receptor IVD, calibrator |            |               |                 | ivd general        |              |                    |                   |
+#      | authorisedRepAuto | Registered | System or Procedure Pack   | Desiccating chamber               |            | true          | true            | class1             | NB 0086 BSI  | false              | true              |
+#      | manufacturerAuto  | Registered | System or Procedure Pack   | Desiccating chamber               |            | false         | true            |                    |              | false              | true              |
+#      | manufacturerAuto  | Registered | General Medical Device     | Blood weighing scale              | false      | true          | true            | class1             | NB 0086 BSI  |                    |                   |
       | manufacturerAuto  | Registered | General Medical Device     | Blood                             | true       |               |                 |                    |              |                    |                   |
       | manufacturerAuto  | Registered | In Vitro Diagnostic Device | Androgen receptor IVD, calibrator |            |               |                 | ivd general        |              |                    |                   |
       | manufacturerAuto  | Registered | System or Procedure Pack   | Desiccating chamber               |            | true          | true            | class1             | NB 0086 BSI  | false              | true              |
@@ -185,7 +185,7 @@ Feature: As an account holder, I should be able to add devices to existing manuf
     Given I am logged into appian as "<user>" user
     When I go to list of manufacturers page
     And I view a random manufacturer with status "<status>"
-    #And I click on a random manufacturer
+#    And I click on a random manufacturer
     Then I should see organisation details
     And I should see contact person details
     Examples:
