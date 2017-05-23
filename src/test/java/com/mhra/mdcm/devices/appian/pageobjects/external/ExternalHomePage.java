@@ -82,7 +82,7 @@ public class ExternalHomePage extends _Page {
         return new ExternalHomePage(driver);
     }
 
-    public _CreateManufacturerTestsData submitIndicationOfDevicesMade(boolean clickNext) {
+    public _CreateManufacturerTestHarnessPage submitIndicationOfDevicesMade(boolean clickNext) {
         if(clickNext) {
             driver.findElements(By.cssSelector(".gwt-RadioButton.GFWJSJ4DGAD.GFWJSJ4DCW>label")).get(0).click();
             driver.findElement(By.xpath(".//button[.='Next']")).click();
@@ -90,7 +90,7 @@ public class ExternalHomePage extends _Page {
             WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//button[.='Submit']"), TIMEOUT_10_SECOND);
             driver.findElement(By.xpath(".//button[.='Submit']")).click();
         }
-        return new _CreateManufacturerTestsData(driver);
+        return new _CreateManufacturerTestHarnessPage(driver);
     }
 
     public void selectCustomMade(boolean isCustomMade) {
