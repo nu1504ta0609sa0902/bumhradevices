@@ -225,7 +225,7 @@ public class TaskSection extends _Page {
 
     public TaskSection rejectTask() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, rejectTask, TIMEOUT_5_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, rejectTask, TIMEOUT_10_SECOND);
         //approve.click();
         PageUtils.doubleClick(driver, rejectTask);
         return new TaskSection(driver);

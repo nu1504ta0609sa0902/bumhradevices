@@ -37,7 +37,7 @@ public class _CreateAccountTestsData extends _Page {
     WebElement website;
     @FindBy(xpath = ".//label[contains(text(),'Registered Address')]")
     WebElement addressType;
-    @FindBy(xpath = ".//label[contains(text(),'Country')]//following::input[1]")
+    @FindBy(xpath = ".//*[contains(text(),'Country')]//following::input[1]")
     WebElement country;
     @FindBy(xpath = ".//a/u[contains(text(), 'Enter address')]")
     WebElement linkEnterAddressManually;
