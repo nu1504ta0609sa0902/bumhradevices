@@ -304,14 +304,14 @@ Automated Issues:
         - @5127 -
         - @5128 -
         - @5499 -
-        - @5232 -
-        - @5233 -
-        - @5234 -
-        - @5235 -
-        - @5257 -
-        - @5425 -
+        - @5232 -   @todo   bug
+        - @5233 -   @todo   bug
+        - @5234 -   @todo   bug
+        - @5235 -   @todo   bug
+        - @5257 -   @todo   bug
+        - @5425 -   @todo   bug
 
-    Sprint 18: @_sprint18
+    Sprint 18: @_sprint18       CFS RELATED
         - @1845 -
         - @1945 -
         - @2179 -
@@ -319,28 +319,11 @@ Automated Issues:
         - @4368 -
         - @5571 -
         - @5578 -
+        - @3810 -
         - @5583 -
-        - @5667 -
+        - @5541 -   @todo   bug
+        - @5542 -   @todo   bug
+        - @5236 -   @todo   bug
 
 
-    Sprint MIXED: @sprintMixed
-        - @mdcm-159 - no tests for regression
-        - @mdcm-2151- no tests for regression
-        - @mdcm-22  - no tests for regression
-        - @mdcm-3358- no tests for regression
-        - @mdcm-3268- no tests for regression
-        - @mdcm-2184- no tests for regression
-        - @mdcm-2036- no tests for regression
-        - @mdcm-282 - no tests for regression
-        - @mdcm-259 - no tests for regression
-        - @mdcm-2577- no tests for regression
-        - @mdcm-
-        - @mdcm-
-        - @mdcm-
-        - @mdcm-
-        - @mdcm-
-        - @mdcm-
-        - @mdcm-
-        - @mdcm-
-        - @mdcm-
-        - @mdcm-
+    Sprint 19: @_sprint19

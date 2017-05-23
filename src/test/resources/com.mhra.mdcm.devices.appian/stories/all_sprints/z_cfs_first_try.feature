@@ -1,6 +1,5 @@
 Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE to export medical devices to non-EU countries
 
-
   @1974 @_sprint15
   Scenario: Users should be able to go to cfs page
     Given I am logged into appian as "manufacturerNoor" user
@@ -17,6 +16,10 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | accountType | authorisedRep |
       | countryName | Brazil        |
     And I add devices to NEWLY created manufacturer with following data
+      | deviceType     | General Medical Device |
+      | gmdnDefinition | Blood weighing scale   |
+      | customMade     | true                   |
+    And I add another device to SELECTED manufacturer with following data
       | deviceType     | General Medical Device |
       | gmdnDefinition | Blood weighing scale   |
       | customMade     | true                   |
