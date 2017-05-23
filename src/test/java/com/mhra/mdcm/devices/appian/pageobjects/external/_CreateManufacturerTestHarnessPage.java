@@ -19,7 +19,7 @@ import java.util.List;
  * Created by TPD_Auto
  */
 @Component
-public class _CreateManufacturerTestsData extends _Page {
+public class _CreateManufacturerTestHarnessPage extends _Page {
 
     @FindBy(css = ".component_error")
     List<WebElement> errorMessages;
@@ -74,7 +74,7 @@ public class _CreateManufacturerTestsData extends _Page {
 
 
     @Autowired
-    public _CreateManufacturerTestsData(WebDriver driver) {
+    public _CreateManufacturerTestHarnessPage(WebDriver driver) {
         super(driver);
     }
 

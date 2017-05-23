@@ -1,9 +1,8 @@
 package com.mhra.mdcm.devices.appian.pageobjects.external.cfs;
 
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
-import com.mhra.mdcm.devices.appian.pageobjects.external._CreateCFSManufacturerTestsData;
+import com.mhra.mdcm.devices.appian.pageobjects.external._CreateCFSManufacturerTestHarnessPage;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.DeviceDetails;
-import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.ManufacturerViewDetails;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
@@ -101,11 +100,11 @@ public class CFSManufacturerList extends _Page {
         return isVisible;
     }
 
-    public _CreateCFSManufacturerTestsData addNewManufacturer() {
+    public _CreateCFSManufacturerTestHarnessPage addNewManufacturer() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnAddNewManufacturer, TIMEOUT_5_SECOND);
         btnAddNewManufacturer.click();
-        return new _CreateCFSManufacturerTestsData(driver);
+        return new _CreateCFSManufacturerTestHarnessPage(driver);
     }
 
     public String getARandomOrganisationName() {

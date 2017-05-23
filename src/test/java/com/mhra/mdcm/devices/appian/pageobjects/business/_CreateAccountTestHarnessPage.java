@@ -16,7 +16,7 @@ import java.util.List;
  * Created by TPD_Auto
  */
 @Component
-public class _CreateAccountTestsData extends _Page {
+public class _CreateAccountTestHarnessPage extends _Page {
 
     //Organisation details
     @FindBy(xpath = ".//label[.='Organisation name']//following::input[1]")
@@ -106,7 +106,7 @@ public class _CreateAccountTestsData extends _Page {
 
 
     @Autowired
-    public _CreateAccountTestsData(WebDriver driver) {
+    public _CreateAccountTestHarnessPage(WebDriver driver) {
         super(driver);
     }
 

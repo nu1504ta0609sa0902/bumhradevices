@@ -7,8 +7,8 @@ import com.mhra.mdcm.devices.appian.pageobjects.business.sections.TaskSection;
 import com.mhra.mdcm.devices.appian.pageobjects.business.sections.records.*;
 import com.mhra.mdcm.devices.appian.pageobjects.external.ExternalHomePage;
 import com.mhra.mdcm.devices.appian.pageobjects.external.MyAccountPage;
-import com.mhra.mdcm.devices.appian.pageobjects.external._CreateCFSManufacturerTestsData;
-import com.mhra.mdcm.devices.appian.pageobjects.external._CreateManufacturerTestsData;
+import com.mhra.mdcm.devices.appian.pageobjects.external._CreateCFSManufacturerTestHarnessPage;
+import com.mhra.mdcm.devices.appian.pageobjects.external._CreateManufacturerTestHarnessPage;
 import com.mhra.mdcm.devices.appian.pageobjects.external.cfs.CFSManufacturerList;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.AddDevices;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.DeviceDetails;
@@ -77,7 +77,7 @@ public class CommonSteps {
     @Autowired
     public RegisteredProducts registeredProducts;
     @Autowired
-    public _CreateAccountTestsData createTestsData;
+    public _CreateAccountTestHarnessPage createTestsData;
     @Autowired
     public TaskSection taskSection;
     @Autowired
@@ -106,9 +106,9 @@ public class CommonSteps {
     @Autowired
     public ManufacturerViewDetails manufacturerDetails;
     @Autowired
-    public _CreateManufacturerTestsData createNewManufacturer;
+    public _CreateManufacturerTestHarnessPage createNewManufacturer;
     @Autowired
-    public _CreateCFSManufacturerTestsData createNewCFSManufacturer;
+    public _CreateCFSManufacturerTestHarnessPage createNewCFSManufacturer;
     @Autowired
     public AddDevices addDevices;
     @Autowired
