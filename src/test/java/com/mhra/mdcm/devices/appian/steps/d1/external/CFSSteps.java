@@ -51,6 +51,18 @@ public class CFSSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.taskType, "New Manufacturer");
     }
 
+    @When("^I goto add a new cfs manufacturer page$")
+    public void i_goto_add_a_new_cfs_manufacturer_page() throws Throwable {
+        createNewCFSManufacturer = cfsManufacturerList.addNewManufacturer();
+    }
+
+    @When("^I fill out the form called tell us about your organisation$")
+    public void i_fill_form_called_tell_us_about_your_org() throws Throwable {
+        cfsManufacturerList = cfsManufacturerList.tellUsAboutYourOrganisation();
+    }
+
+
+
     @Then("^I should see a list of manufacturers available for CFS$")
     public void i_should_see_a_list_of_manufacturers_available_for_CFS() throws Throwable {
         cfsManufacturerList = cfsManufacturerList.tellUsAboutYourOrganisation();
@@ -180,5 +192,29 @@ public class CFSSteps extends CommonSteps {
             addDevices = addDevices.addFollowingDevice(dd, false);
 
         scenarioSession.putData(SessionKey.deviceData, dd);
+    }
+
+
+    @When("^I click on the back button$")
+    public void i_click_on_the_back_button() throws Throwable {
+        boolean isInCorrectPage = createNewCFSManufacturer.isInProvideManufacturerDetailsPage();
+        createNewCFSManufacturer = createNewCFSManufacturer.clickBackButton();
+    }
+
+    @Then("^I should see an alert box asking for confirmation$")
+    public void i_should_see_an_alert_box_asking_for_confirmation() throws Throwable {
+        //Alert box should appear asking for confirmation
+        boolean isAlertBoxPresent = createNewCFSManufacturer.isAlertBoxPresent();
+        Assert.assertEquals("Expected to see an alert box asking for confirmation", isAlertBoxPresent, true);
+    }
+
+    @When("^I click \"([^\"]*)\" on the alert box$")
+    public void i_click_on_the_alert_box(String clickYes) throws Throwable {
+
+        if(clickYes.toLowerCase().equals("yes")){
+            cfsManufacturerList = createNewCFSManufacturer.clickAlertButtonYes();
+        }else{
+            createNewCFSManufacturer = createNewCFSManufacturer.clickAlertButtonNo();
+        }
     }
 }

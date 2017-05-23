@@ -2,6 +2,7 @@ package com.mhra.mdcm.devices.appian.pageobjects.external;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
+import com.mhra.mdcm.devices.appian.pageobjects.external.cfs.CFSManufacturerList;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.AddDevices;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
@@ -20,7 +21,7 @@ import java.util.List;
 @Component
 public class _CreateCFSManufacturerTestHarnessPage extends _Page {
 
-    @FindBy(css = ".component_error")
+    @FindBy(css = ".FieldLayout---field_error")
     List<WebElement> errorMessages;
 
     //Organisation details
@@ -61,15 +62,23 @@ public class _CreateCFSManufacturerTestHarnessPage extends _Page {
     @FindBy(css = ".FileUploadWidget---ui-inaccessible")
     WebElement fileUpload;
 
-    //Submit and cancel
+    //Buttons : Submit and cancel
     @FindBy(xpath = ".//button[contains(text(),'Save Registration')]")
     WebElement btnSaveRegistration;
     @FindBy(xpath = ".//button[contains(text(),'Continue')]")
     WebElement btnDeclareDevices;
     @FindBy(xpath = ".//button[.='Next']")
-    WebElement next;
+    WebElement btnNext;
+    @FindBy(xpath = ".//button[.='Back']")
+    WebElement btnBack;
     @FindBy(xpath = ".//button[.='Cancel']")
-    WebElement cancel;
+    WebElement btnCancel;
+
+    //HTML Alert box
+    @FindBy(xpath = ".//button[.='Yes']")
+    WebElement btnYes;
+    @FindBy(xpath = ".//button[.='No']")
+    WebElement btnNo;
 
 
     @Autowired
@@ -136,7 +145,7 @@ public class _CreateCFSManufacturerTestHarnessPage extends _Page {
         try{
             btnDeclareDevices.click();
         }catch (Exception e){
-            next.click();
+            btnNext.click();
         }
 
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
@@ -147,7 +156,7 @@ public class _CreateCFSManufacturerTestHarnessPage extends _Page {
 
     public boolean isErrorMessageDisplayed() {
         try {
-            WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".component_error"), 3);
+            WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".FieldLayout---field_error"), TIMEOUT_3_SECOND);
             boolean isDisplayed = errorMessages.size() > 0;
             return isDisplayed;
         }catch (Exception e){
@@ -155,4 +164,32 @@ public class _CreateCFSManufacturerTestHarnessPage extends _Page {
         }
     }
 
+    public _CreateCFSManufacturerTestHarnessPage clickBackButton() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, btnBack, TIMEOUT_15_SECOND);
+        btnBack.click();
+        return new _CreateCFSManufacturerTestHarnessPage(driver);
+    }
+
+    public boolean isAlertBoxPresent() {
+        WaitUtils.waitForElementToBeClickable(driver, btnYes, TIMEOUT_5_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, btnNo, TIMEOUT_3_SECOND);
+        return true;
+    }
+
+    public _CreateCFSManufacturerTestHarnessPage clickAlertButtonNo() {
+        WaitUtils.waitForElementToBeClickable(driver, btnYes, TIMEOUT_5_SECOND);
+        btnYes.click();
+        return new _CreateCFSManufacturerTestHarnessPage(driver);
+    }
+
+    public CFSManufacturerList clickAlertButtonYes() {
+        WaitUtils.waitForElementToBeClickable(driver, btnNo, TIMEOUT_5_SECOND);
+        btnNo.click();
+        return new CFSManufacturerList(driver);
+    }
+
+    public boolean isInProvideManufacturerDetailsPage() {
+        return PageUtils.isElementClickable(driver, orgName, TIMEOUT_5_SECOND);
+    }
 }
