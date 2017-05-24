@@ -59,6 +59,8 @@ public class DeviceDetails extends _Page {
     List<WebElement> listOfTbxNumberOfCFS;
     @FindBy(xpath = ".//div[contains(text(),'Number of certificates')]/following::tr/td[1]")
     List<WebElement> listOfCountryNames;
+    @FindBy(css = "div.PickerTokenWidget---chip > a.PickerTokenWidget---remove > i")
+    List<WebElement> listOfCountryNamesRemoveX;
     @FindBy(xpath = ".//div[contains(text(),'Number of certificates')]/following::tr/td[2]")
     List<WebElement> listOfNumberOfCertificates;
 
@@ -66,6 +68,8 @@ public class DeviceDetails extends _Page {
     WebElement txtManufacturerName;
     @FindBy(xpath = ".//*[contains(text(),'Total number of certificates')]")
     WebElement txtTotalNumberOfCertificates;
+    @FindBy(xpath = ".//*[contains(text(),'Price:')]")
+    WebElement txtTotalPriceOfCertificates;
     @FindBy(xpath = ".//*[contains(text(),'Number of')]//following::input")
     WebElement tbxNumberOfCFS;
     @FindBy(xpath = ".//label")
@@ -76,6 +80,8 @@ public class DeviceDetails extends _Page {
     WebElement linkAddCountry;
     @FindBy(partialLinkText = "Edit devices")
     WebElement linkEditDevices;
+    @FindBy(partialLinkText = "Edit country and")
+    WebElement linkEditCountryAndCertificates;
 
     //Buttons
     @FindBy(xpath = ".//button[contains(text(), 'Order CFS')]")
@@ -202,7 +208,6 @@ public class DeviceDetails extends _Page {
             String countryName = values[0];
             String noOfCFS = values[1];
             try {
-                //PageUtils.selectFromAutoSuggestedListItemsManufacturers(driver, ".PickerWidget---picker_value", countryName, true);
                 PageUtils.selectFromAutoSuggestedListItemsManufacturers(driver, listOfCountryPickers.get(whichPicker-1), countryName);
             } catch (Exception e) {
             }
@@ -304,6 +309,11 @@ public class DeviceDetails extends _Page {
         return new DeviceDetails(driver);
     }
 
+    public DeviceDetails clickEditCountryAndCertificateLink() {
+        linkEditCountryAndCertificates.click();
+        return new DeviceDetails(driver);
+    }
+
     public boolean isTotalNumberOfCertificatesCorrect(String numberOfCFS) {
         boolean valid = txtTotalNumberOfCertificates.getText().contains(numberOfCFS);
         return valid;
@@ -318,5 +328,33 @@ public class DeviceDetails extends _Page {
         }
         boolean valid = txtTotalNumberOfCertificates.getText().contains(Integer.toString(total));
         return valid;
+    }
+
+    public DeviceDetails updateCountryNumber(int pos, String countryName) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WebElement element = listOfCountryNamesRemoveX.get(pos - 1);
+        element.click();
+
+        //Reenter value
+        try {
+            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+            PageUtils.selectFromAutoSuggestedListItemsManufacturers(driver, ".PickerWidget---picker_value", countryName, true);
+        } catch (Exception e) {
+        }
+        return new DeviceDetails(driver);
+    }
+
+    public DeviceDetails updateNumberOfCFS(int pos, String numberOfCFS) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WebElement element = listOfTbxNumberOfCFS.get(pos - 1);
+        element.clear();
+        element.sendKeys(numberOfCFS);
+        return new DeviceDetails(driver);
+    }
+
+    public boolean isTotalCostOfCertificatesCorrect(int totalCost) {
+        //Verify total cost
+        boolean isCorrect = txtTotalPriceOfCertificates.getText().contains(String.valueOf(totalCost));
+        return isCorrect;
     }
 }

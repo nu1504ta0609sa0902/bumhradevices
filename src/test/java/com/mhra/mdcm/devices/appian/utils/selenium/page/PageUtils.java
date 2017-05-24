@@ -434,6 +434,7 @@ public class PageUtils {
                     completed = true;
                 }
             } catch (Exception e) {
+                e.printStackTrace();
                 completed = false;
                 WaitUtils.nativeWaitInSeconds(1);
             }

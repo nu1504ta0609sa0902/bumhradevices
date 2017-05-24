@@ -8,10 +8,8 @@ import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
-import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
-import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
-import com.mhra.mdcm.devices.appian.utils.selenium.page.StepsUtils;
-import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
+import com.mhra.mdcm.devices.appian.utils.selenium.page.*;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -120,6 +118,13 @@ public class CFSSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.listOfCFSCountryPairs, data);
     }
 
+    @Then("^I update cfs for multiple countries with following data$")
+    public void i_update_cfs_for_multiple_countries_with_following_data(Map<String, String> dataSets) throws Throwable {
+        String cfsAndCountryPairs = dataSets.get("listOfCFSCountryPair");
+        String[] data = cfsAndCountryPairs.split(",");
+        deviceDetails = deviceDetails.clickEditCountryAndCertificateLink();
+        new PendingException();
+    }
 
     @Then("^I should see the correct number of certificates \"([^\"]*)\" in review page$")
     public void i_should_see_the_correct_number_of_certificates_in_review_page(String number) throws Throwable {
@@ -138,25 +143,33 @@ public class CFSSteps extends CommonSteps {
         boolean isNumberOfCertificatesCorrect = deviceDetails.isNumberOfCertificatesCorrect(numberOfCFS);
         boolean isManufacturerNameCorrect = deviceDetails.isManufacturerNameCorrect(name);
         boolean isTotalNumberOfCertificateCorrect = deviceDetails.isTotalNumberOfCertificatesCorrect(numberOfCFS);
+
+        int totalCostOfCerts = CommonUtils.calculateTotalCost(numberOfCFS);
+        boolean isTotalCostOfCertificateCorrect = deviceDetails.isTotalCostOfCertificatesCorrect(totalCostOfCerts);
         Assert.assertThat("Expected number of certifictes : " + numberOfCFS, isNumberOfCertificatesCorrect, is(true));
         Assert.assertThat("Expected manufacturer name to be : " + name, isManufacturerNameCorrect, is(true));
-        Assert.assertThat("Expected manufacturer name to be : " + name, isManufacturerNameCorrect, is(true));
+        Assert.assertThat("Expected total number of certificates : " + numberOfCFS, isTotalNumberOfCertificateCorrect, is(true));
+        Assert.assertThat("Expected total cost of certificates : " + totalCostOfCerts, isTotalCostOfCertificateCorrect, is(true));
 
     }
 
-    @Then("^I should see multiple country details in cfs review page$")
+    @Then("^I should see correct details for all the countries and certificate in cfs review page$")
     public void i_should_multiple_country_details_in_cfs_review_page() throws Throwable {
         String[] data = (String[] )scenarioSession.getData(SessionKey.listOfCFSCountryPairs);
         String name = (String) scenarioSession.getData(SessionKey.organisationName);
 
         //Verify data number of cfs and country and name
         boolean isManufacturerNameCorrect = deviceDetails.isManufacturerNameCorrect(name);
-        //boolean isListOfCountriesCorrect = deviceDetails.areTheCountriesDisplayedCorrect(data);
         boolean isListOfCertificateCountCorrect = deviceDetails.areTheCertificateCountCorrect(data);
         boolean isTotalNumberOfCertCorrect = deviceDetails.isTotalNumberOfCertificatesCorrect(data);
+
+        int totalCostOfCerts = CommonUtils.calculateTotalCost(data);
+        boolean isTotalCostOfCertificateCorrect = deviceDetails.isTotalCostOfCertificatesCorrect(totalCostOfCerts);
+
         Assert.assertThat("Expected to see following countries and asssoficated CFS count : " + data, isListOfCertificateCountCorrect, is(true));
         Assert.assertThat("Expected manufacturer name to be : " + name, isManufacturerNameCorrect, is(true));
         Assert.assertThat("Total number of certificates may not be correct : " + data, isTotalNumberOfCertCorrect, is(true));
+        Assert.assertThat("Expected total cost of certificates : " + totalCostOfCerts, isTotalCostOfCertificateCorrect, is(true));
 
     }
 
@@ -169,6 +182,23 @@ public class CFSSteps extends CommonSteps {
         //deviceDetails = deviceDetails.editDevicesAddedForCFS();
         deviceDetails.clickContinueButton();
         deviceDetails.clickContinueButton();
+    }
+
+
+    @When("^I update the country added for CFS to \"([^\"]*)\"$")
+    public void i_edit_the_country_added_for_CFS_to(String countryName) throws Throwable {
+        deviceDetails = deviceDetails.clickEditCountryAndCertificateLink();
+        deviceDetails = deviceDetails.updateCountryNumber(1, countryName);
+        deviceDetails = deviceDetails.clickContinueButton();
+        scenarioSession.putData(SessionKey.organisationCountry, countryName);
+    }
+
+    @When("^I update the no of certificates for CFS to (\\d+)$")
+    public void i_edit_the_country_added_for_CFS_to(int numberOfCFS) throws Throwable {
+        deviceDetails = deviceDetails.clickEditCountryAndCertificateLink();
+        deviceDetails = deviceDetails.updateNumberOfCFS(1, String.valueOf(numberOfCFS));
+        deviceDetails = deviceDetails.clickContinueButton();
+        scenarioSession.putData(SessionKey.numberOfCertificates, String.valueOf(numberOfCFS));
     }
 
     @When("^I submit payment for the CFS$")

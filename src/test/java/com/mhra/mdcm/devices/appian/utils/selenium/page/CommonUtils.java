@@ -162,4 +162,24 @@ public class CommonUtils {
         System.out.println("Element selected with text : " + element.getText());
         return element;
     }
+
+    public static int calculateTotalCost(String numberOfCFS) {
+        int noc = Integer.parseInt(numberOfCFS);
+        int reminder = noc - 10;
+        int totalCost = 75;
+        if(reminder > 0){
+            totalCost = totalCost + (reminder * 10);
+        }
+        return totalCost;
+    }
+
+    public static int calculateTotalCost(String[] data) {
+        List<String> counts = CommonUtils.getListOfCertificateCounts(data);
+        int total = 0;
+        for(String c: counts){
+            total = total + Integer.parseInt(c);
+        }
+
+        return calculateTotalCost(String.valueOf(total));
+    }
 }
