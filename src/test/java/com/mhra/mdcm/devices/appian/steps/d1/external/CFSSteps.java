@@ -3,6 +3,7 @@ package com.mhra.mdcm.devices.appian.steps.d1.external;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
+import com.mhra.mdcm.devices.appian.pageobjects.external.cfs.CFSAddDevices;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.AddDevices;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
@@ -52,6 +53,13 @@ public class CFSSteps extends CommonSteps {
     @When("^I goto add a new cfs manufacturer page$")
     public void i_goto_add_a_new_cfs_manufacturer_page() throws Throwable {
         createNewCFSManufacturer = cfsManufacturerList.addNewManufacturer();
+    }
+
+    @Then("^I should see current stage of indication$")
+    public void i_should_see_current_stage_of_indication() throws Throwable {
+        String indicators = "Manufacturer, Device, CE certificates, Products, Review";
+        boolean isDisplayed = createNewCFSManufacturer.isIndicationStageDisplayed(indicators);
+        Assert.assertEquals("Expected to see following milestone indicators : " + indicators, isDisplayed, true);
     }
 
     @When("^I fill out the form called tell us about your organisation$")
@@ -212,15 +220,56 @@ public class CFSSteps extends CommonSteps {
     public void iAddDevicesToNewlyCreatedCFSManufacturerWithFollowingData(Map<String, String> dataSets) throws Throwable {
         String registeredStatus = (String) scenarioSession.getData(SessionKey.registeredStatus);
         //Its not registered
-        addDevices = new AddDevices(driver);
+        cfsAddDevices = new CFSAddDevices(driver);
 
         //Assumes we are in add device page
         DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
         if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
-            addDevices = addDevices.addFollowingDevice(dd, true);
+            cfsAddDevices = cfsAddDevices.addFollowingDevice(dd, true);
         else
-            addDevices = addDevices.addFollowingDevice(dd, false);
+            cfsAddDevices = cfsAddDevices.addFollowingDevice(dd, false);
 
+        scenarioSession.putData(SessionKey.deviceData, dd);
+    }
+
+    @When("^I add a device to SELECTED CFS manufacturer with following data$")
+    public void i_add_a_device_to_selected_manufactuerer_of_type_with_following_data(Map<String, String> dataSets) throws Throwable {
+
+        //If registered we need to click on a button, else devices page is displayed
+        String registeredStatus = (String) scenarioSession.getData(SessionKey.registeredStatus);
+        //cfsAddDevices = manufacturerDetails.gotoAddDevicesPage(registeredStatus);
+
+        //Assumes we are in add device page
+        DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
+        if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
+            cfsAddDevices = cfsAddDevices.addFollowingDevice(dd, true);
+        else
+            cfsAddDevices = cfsAddDevices.addFollowingDevice(dd, false);
+
+        StepsUtils.addToListOfStrings(scenarioSession, SessionKey.listOfGmndsAdded, AddDevices.gmdnSelected);
+        scenarioSession.putData(SessionKey.deviceData, dd);
+        StepsUtils.addToDeviceDataList(scenarioSession, dd);
+    }
+
+
+    @When("^I add another device to SELECTED CFS manufacturer with following data$")
+    public void i_add_another_device_to_selected_manufactuerer_of_type_with_following_data(Map<String, String> dataSets) throws Throwable {
+
+        String registeredStatus = (String) scenarioSession.getData(SessionKey.registeredStatus);
+
+        //Go and add another device
+        cfsAddDevices = cfsAddDevices.addAnotherDevice();
+
+        //Assumes we are in add device page
+        DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
+        if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
+            cfsAddDevices = cfsAddDevices.addFollowingDevice(dd, true);
+        else
+            cfsAddDevices = cfsAddDevices.addFollowingDevice(dd, false);
+
+        StepsUtils.addToListOfStrings(scenarioSession, SessionKey.listOfGmndsAdded, AddDevices.gmdnSelected);
+        StepsUtils.addToListOfStrings(scenarioSession, SessionKey.listOfProductsAdded, dd.listOfProductName);
+        StepsUtils.addToDeviceDataList(scenarioSession, dd);
         scenarioSession.putData(SessionKey.deviceData, dd);
     }
 

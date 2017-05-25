@@ -50,5 +50,18 @@ public class AssertUtils {
         }
         return allFound;
     }
+
+    public static boolean checkCommaDelimitedTextContainsCorrectData(String indicators, List<WebElement> listOfElements) {
+        boolean indicatorsDisplayed = true;
+        for(WebElement el: listOfElements){
+            String ind = el.getText();
+            indicatorsDisplayed = indicators.contains(ind);
+            if(!indicatorsDisplayed){
+                System.out.println("Following indicator not displayed : " + ind);
+                break;
+            }
+        }
+        return indicatorsDisplayed;
+    }
 }
 

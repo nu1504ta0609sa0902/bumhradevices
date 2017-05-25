@@ -4,6 +4,7 @@ import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.external.cfs.CFSManufacturerList;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.AddDevices;
+import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
@@ -79,6 +80,12 @@ public class _CreateCFSManufacturerTestHarnessPage extends _Page {
     WebElement btnYes;
     @FindBy(xpath = ".//button[.='No']")
     WebElement btnNo;
+
+    //Indicators
+    @FindBy(css = ".MilestoneWidget---milestone a")
+    List<WebElement> listOfIndicators;
+    @FindBy(css = ".MilestoneWidget---current a")
+    WebElement selectedIndicator;
 
 
     @Autowired
@@ -191,5 +198,9 @@ public class _CreateCFSManufacturerTestHarnessPage extends _Page {
 
     public boolean isInProvideManufacturerDetailsPage() {
         return PageUtils.isElementClickable(driver, orgName, TIMEOUT_5_SECOND);
+    }
+
+    public boolean isIndicationStageDisplayed(String indicators) {
+        return AssertUtils.checkCommaDelimitedTextContainsCorrectData(indicators, listOfIndicators);
     }
 }
