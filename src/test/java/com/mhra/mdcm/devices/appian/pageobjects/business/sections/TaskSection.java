@@ -11,7 +11,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -402,7 +401,7 @@ public class TaskSection extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(orgName), TIMEOUT_10_SECOND);
 
-        WebElement tr = PageUtils.getTableRow(listOfWIPTableRows, orgName);
+        WebElement tr = PageUtils.getElementMatchingText(listOfWIPTableRows, orgName);
         //Task
         boolean isDataCorrect = PageUtils.isTableDataContentCorrect(tr, 1, taskType);
         //Name: Organisation name

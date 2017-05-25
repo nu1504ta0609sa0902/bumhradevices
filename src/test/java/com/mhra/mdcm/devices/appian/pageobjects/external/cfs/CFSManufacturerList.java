@@ -52,6 +52,8 @@ public class CFSManufacturerList extends _Page {
     WebElement btnSubmit;
     @FindBy(xpath = ".//button[contains(text(), 'Add new man')]")
     WebElement btnAddNewManufacturer;
+    @FindBy(xpath = ".//button[.='Continue']")
+    WebElement btnContinue;
 
     @Autowired
     public CFSManufacturerList(WebDriver driver) {
@@ -118,5 +120,32 @@ public class CFSManufacturerList extends _Page {
         WebElement man = driver.findElement(By.partialLinkText(name));
         man.click();
         return new DeviceDetails(driver);
+    }
+
+    public String getARandomOrganisationName(String orgName) {
+        String name = "ItDoesNotExists";
+        boolean isFound = isManufacturerDisplayedInList(orgName);
+        if(isFound){
+            name = getManufacturerWithName(orgName);
+        }
+        return name;
+    }
+
+    public String getManufacturerWithName(String orgName) {
+        return PageUtils.getElementMatchingText(listOfOrganisationNames, orgName).getText();
+    }
+
+    public boolean isManufacturerDisplayedInList(String manufacturerName){
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        boolean found = PageUtils.isLinkVisible(driver, manufacturerName);
+        return found;
+    }
+
+    public CFSAddDevices clickContinue() {
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, btnContinue, TIMEOUT_10_SECOND);
+            btnContinue.click();
+        }catch (Exception e){}
+        return new CFSAddDevices(driver);
     }
 }

@@ -203,6 +203,8 @@ public class CFSAddDevices extends _Page {
     WebElement btnContinue;
     @FindBy(xpath = ".//button[.='Upload certificate']")
     WebElement btnUploadCertificate;
+    @FindBy(xpath = ".//button[.='Submit for approval']")
+    WebElement btnSubmitForApproval;
 
     //Error message
     @FindBy(css = ".FieldLayout---field_error")
@@ -313,15 +315,15 @@ public class CFSAddDevices extends _Page {
         }
 
         //Business doing testing so don't do any write only tests
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-
-        if(isRegistered){
-            WaitUtils.waitForElementToBeClickable(driver, btnReviewYourOrder, TIMEOUT_10_SECOND);
-            PageUtils.doubleClick(driver, btnReviewYourOrder);
-        }else {
-            WaitUtils.waitForElementToBeClickable(driver, btnSaveProgress, TIMEOUT_10_SECOND);
-            PageUtils.doubleClick(driver, btnSaveProgress);
-        }
+//        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+//
+//        if(isRegistered){
+//            WaitUtils.waitForElementToBeClickable(driver, btnReviewYourOrder, TIMEOUT_10_SECOND);
+//            PageUtils.doubleClick(driver, btnReviewYourOrder);
+//        }else {
+//            WaitUtils.waitForElementToBeClickable(driver, btnSaveProgress, TIMEOUT_10_SECOND);
+//            PageUtils.doubleClick(driver, btnSaveProgress);
+//        }
 
         return new CFSAddDevices(driver);
     }
@@ -355,23 +357,22 @@ public class CFSAddDevices extends _Page {
         customMade(dd);
         clickContinue();
         uploadCECertificates(dd);
-        clickUploadCertificate();
         clickContinue();
-        addProduct(dd);
-//        int numberOfProductName = dd.listOfProductName.size();
-//        if (numberOfProductName <= 1) {
-//            if (numberOfProductName == 1) {
-//                dd.productName = dd.listOfProductName.get(0);
-//            }
-//            //List of device to add
-//            if (dd.isCustomMade) {
-//                productLabelName(dd);
-//            }
-//        } else {
-//            for (String x : dd.listOfProductName) {
-//                productLabelName(x);
-//            }
-//        }
+
+        //Add more than 1 products
+        if(dd.listOfProductName.size() > 0) {
+            for (String name : dd.listOfProductName) {
+                dd.productName = name;
+                if (dd.productModel == null) {
+                    dd.productModel = RandomDataUtils.getRandomTestName("Model");
+                }
+                addProduct(dd);
+                dd.productModel = null;
+            }
+        }else{
+            addProduct(dd);
+        }
+        clickContinue();
     }
 
     private void clickUploadCertificate() {
@@ -393,6 +394,7 @@ public class CFSAddDevices extends _Page {
 
         //select notified body
         notifiedBody(dd);
+        clickUploadCertificate();
     }
 
     private void clickContinue() {
@@ -479,18 +481,38 @@ public class CFSAddDevices extends _Page {
 
 
     private void addGeneralMedicalDevice(DeviceDO dd) {
+
         searchByGMDN(dd);
         customMade(dd);
-
         if (!dd.isCustomMade) {
+            riskClassification(dd);
             deviceSterile(dd);
-            deviceMeasuring(dd);
-            if (!dd.isCustomMade) {
-                riskClassification(dd);
-                notifiedBody(dd);
-            }
         }
-        //saveProduct(dd);
+        clickContinue();
+        uploadCECertificates(dd);
+        clickContinue();
+
+        //Add more than 1 products : Not sure why we need to add product for GMD
+        if(dd.listOfProductName.size() > 0) {
+            for (String name : dd.listOfProductName) {
+                dd.productName = name;
+                if (dd.productModel == null) {
+                    dd.productModel = RandomDataUtils.getRandomTestName("Model");
+                }
+                addProduct(dd);
+                dd.productModel = null;
+            }
+        }else{
+            if (dd.productName == null) {
+                dd.productName = RandomDataUtils.getRandomTestName("Product");
+            }
+            if (dd.productModel == null) {
+                dd.productModel = RandomDataUtils.getRandomTestName("Model");
+            }
+            addProduct(dd);
+        }
+        clickContinue();
+
     }
 
     private void productLabelName(DeviceDO dd) {
@@ -700,7 +722,6 @@ public class CFSAddDevices extends _Page {
 
     private void riskClassification(DeviceDO dd) {
         WaitUtils.waitForElementToBeClickable(driver, radioRiskClass1, TIMEOUT_5_SECOND);
-        WaitUtils.waitForElementToBeClickable(driver, nb0086BSI, TIMEOUT_5_SECOND);
         String lcRiskClassiffication = dd.riskClassification.toLowerCase();
         if (lcRiskClassiffication != null) {
             if (lcRiskClassiffication.contains("class1")) {

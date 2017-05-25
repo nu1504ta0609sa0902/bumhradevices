@@ -327,18 +327,18 @@ public class PageUtils {
         return true;
     }
 
-    public static WebElement getTableRow(List<WebElement> listOfWIPTableRows, String textToMatch) {
-        WebElement trFound = null;
-        for(WebElement tr: listOfWIPTableRows){
-            String txt = tr.getText();
+    public static WebElement getElementMatchingText(List<WebElement> listOfWebElements, String textToMatch) {
+        WebElement elementFound = null;
+        for(WebElement el: listOfWebElements){
+            String txt = el.getText();
             //System.out.println(txt);
             boolean contains = txt.contains(textToMatch);
             if(contains){
-                trFound = tr;
+                elementFound = el;
                 break;
             }
         }
-        return trFound;
+        return elementFound;
     }
 
     public static boolean isTableDataContentCorrect(WebElement tr, int tableDataPosition, String textToMatch) {
@@ -595,6 +595,16 @@ public class PageUtils {
             WaitUtils.waitForElementToBeClickable(driver, element, timeoutSecond);
         }catch (Exception e){
             //Its not clickable
+        }
+        return clickable;
+    }
+
+    public static boolean isLinkVisible(WebDriver driver, String manufacturerName) {
+        boolean clickable = true;
+        try{
+            driver.findElement(By.partialLinkText(manufacturerName));
+        }catch (Exception e){
+            clickable = false;
         }
         return clickable;
     }

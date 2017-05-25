@@ -84,6 +84,12 @@ public class CFSSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.organisationName, name);
     }
 
+    @When("^I click on a organisation name begins with \"([^\"]*)\" which needs cfs$")
+    public void iClickOnAOrganisationNameBeginsWithWhichNeedsCfs(String orgName) throws Throwable {
+        String name = cfsManufacturerList.getARandomOrganisationName(orgName);
+        deviceDetails = cfsManufacturerList.viewManufacturer(name);
+        scenarioSession.putData(SessionKey.organisationName, name);
+    }
 
     @When("^I order cfs for a country with following data$")
     public void i_order_cfs_for_a_country_with_following_data(Map<String, String> dataSets) throws Throwable {
@@ -243,8 +249,10 @@ public class CFSSteps extends CommonSteps {
         DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
         if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
             cfsAddDevices = cfsAddDevices.addFollowingDevice(dd, true);
-        else
+        else {
+            cfsAddDevices = cfsManufacturerList.clickContinue();
             cfsAddDevices = cfsAddDevices.addFollowingDevice(dd, false);
+        }
 
         StepsUtils.addToListOfStrings(scenarioSession, SessionKey.listOfGmndsAdded, AddDevices.gmdnSelected);
         scenarioSession.putData(SessionKey.deviceData, dd);

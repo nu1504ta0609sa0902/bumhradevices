@@ -41,7 +41,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
     When I goto add a new cfs manufacturer page
     Then I should see current stage of indication
 
-  @1974 @4330 @_sprint15 @wip
+  @1974 @4330 @5141 @3979 @5212 @_sprint15 @wip
   Scenario: Users should be able to go to cfs page and add a new manufacturer
     Given I am logged into appian as "manufacturerNoor" user
     And I go to device certificate of free sale page
@@ -50,41 +50,49 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | accountType | manufacturer |
       | countryName | Brazil       |
     And I add devices to NEWLY created CFS manufacturer with following data
-#    When I add multiple devices to SELECTED manufacturer with following data
-      | deviceType         | Active Implantable Medical Devices |
-      | gmdnDefinition     | Desiccating chamber                |
-      | customMade         | false                              |
-      | listOfProductNames | ford,hyundai                       |
-      | notifiedBody       | NB 0086 BSI                        |
-      | productName        | FordHybrid                         |
-      | productMake        |                                    |
-      | productModel       | FocusYeah                          |
+      | deviceType     | Active Implantable Medical Devices |
+      | gmdnDefinition | Desiccating chamber                |
+      | customMade     | false                              |
+      | notifiedBody   | NB 0086 BSI                        |
+      | productName    | FordHybrid                         |
+      | productModel   | FocusYeah                          |
     And I add another device to SELECTED CFS manufacturer with following data
-      | deviceType     | General Medical Device |
-      | gmdnDefinition | Blood weighing scale   |
-      | customMade     | true                   |
+      | deviceType           | General Medical Device |
+      | gmdnDefinition       | Blood weighing scale   |
+      | customMade           | false                  |
+      | riskClassification   | Class2b                |
+      | relatedDeviceSterile | true                   |
+      | notifiedBody         | NB 0086 BSI            |
     And I add another device to SELECTED CFS manufacturer with following data
-      | deviceType     | General Medical Device |
-      | gmdnDefinition | Res                    |
-      | customMade     | true                   |
+      | deviceType           | General Medical Device |
+      | gmdnDefinition       | Res                    |
+      | customMade           | false                  |
+      | riskClassification   | Class1                 |
+      | relatedDeviceSterile | true                   |
+      | notifiedBody         | NB 0086 BSI            |
     And Proceed to payment and confirm submit device details
 
 
-  @1974 @_sprint15 @wip
+  @1974 @_sprint15 @1989 @wip
   Scenario: Users should be able to go to cfs page and add device to existing manufacturer
     Given I am logged into appian as "manufacturerNoor" user
     And I go to device certificate of free sale page
     Then I should see a list of manufacturers available for CFS
-    When I click on a random organisation which needs cfs
+#    When I click on a random organisation which needs cfs
+    When I click on a organisation name begins with "TestNoor" which needs cfs
     And I add a device to SELECTED CFS manufacturer with following data
+      | deviceType           | General Medical Device |
+      | gmdnDefinition       | Blood weighing scale   |
+      | customMade           | false                  |
+      | riskClassification   | Class2A                |
+      | relatedDeviceSterile | true                   |
+      | notifiedBody         | NB 0086 BSI            |
+    And I add another device to SELECTED CFS manufacturer with following data
       | deviceType         | Active Implantable Medical Devices |
       | gmdnDefinition     | Desiccating chamber                |
       | customMade         | false                              |
+      | notifiedBody       | NB 0086 BSI                        |
       | listOfProductNames | ford,hyundai                       |
-    And I add another device to SELECTED CFS manufacturer with following data
-      | deviceType     | General Medical Device |
-      | gmdnDefinition | Blood weighing scale   |
-      | customMade     | true                   |
     And Proceed to payment and confirm submit device details
 
   @1974 @_sprint15 @wip
