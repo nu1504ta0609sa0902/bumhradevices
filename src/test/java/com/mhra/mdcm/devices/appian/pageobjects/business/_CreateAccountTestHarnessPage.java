@@ -2,6 +2,7 @@ package com.mhra.mdcm.devices.appian.pageobjects.business;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequestDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
+import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.*;
@@ -70,6 +71,8 @@ public class _CreateAccountTestHarnessPage extends _Page {
     WebElement phoneNumber;
     @FindBy(xpath = ".//label[.='Email']//following::input[1]")
     WebElement emailAddress;
+    @FindBy(xpath = ".//label[.='User name']//following::input[1]")
+    WebElement userName;
 
     //Organisational Role
     final String selectedRoles = "Selected roles";
@@ -189,6 +192,8 @@ public class _CreateAccountTestHarnessPage extends _Page {
         jobTitle.sendKeys(ar.jobTitle);
         phoneNumber.sendKeys(ar.phoneNumber);
         emailAddress.sendKeys(ar.email);
+        userName.sendKeys(RandomDataUtils.getRandomTestNameAdvanced("NUddin"));
+
 
         //Organisation Role
         if(ar.organisationRole.equals("distributor")){
