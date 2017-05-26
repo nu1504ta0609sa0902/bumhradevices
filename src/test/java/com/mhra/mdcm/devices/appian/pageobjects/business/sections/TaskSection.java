@@ -319,7 +319,6 @@ public class TaskSection extends _Page {
 
     public boolean isDevicesDisplayedCorrect(String deviceList) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        //WaitUtils.nativeWaitInSeconds(2);
         String[] data = deviceList.toLowerCase().split(",");
 
         //Displayed list of gmdns for AIMD, IVD and GMD

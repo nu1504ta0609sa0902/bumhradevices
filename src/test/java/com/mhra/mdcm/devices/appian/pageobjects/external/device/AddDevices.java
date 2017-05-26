@@ -260,9 +260,7 @@ public class AddDevices extends _Page {
 
 
     public boolean isErrorMessageDisplayed(String message) {
-        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         try {
-            //WaitUtils.nativeWaitInSeconds(1);
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
             WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".FieldLayout---field_error"), 3);
             WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".FieldLayout---field_error"), 3);
@@ -477,7 +475,6 @@ public class AddDevices extends _Page {
         PageUtils.clickOneOfTheFollowing(driver, addProduct, addProduct2, TIMEOUT_5_SECOND);
 
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        //WaitUtils.nativeWaitInSeconds(1);
         WaitUtils.waitForElementToBeClickable(driver, txtProductNameLabel, TIMEOUT_10_SECOND);
         txtProductNameLabel.sendKeys(labelName);
 
@@ -517,7 +514,6 @@ public class AddDevices extends _Page {
 
     private void subjectToPerformanceEval(DeviceDO dd) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        //WaitUtils.nativeWaitInSeconds(1);
         WaitUtils.waitForElementToBeClickable(driver, radioSubjectToPerformanceEvalYes, TIMEOUT_DEFAULT);
         WaitUtils.waitForElementToBeVisible(driver, radioSubjectToPerformanceEvalYes, TIMEOUT_DEFAULT);
         if (dd.isSubjectToPerfEval) {
@@ -585,7 +581,6 @@ public class AddDevices extends _Page {
             WaitUtils.waitForElementToBeClickable(driver, linkChangeNotifiedBody, TIMEOUT_1_SECOND);
             linkChangeNotifiedBody.click();
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-            //WaitUtils.nativeWaitInSeconds(1);
         }catch (Exception e){
             //Bug which maintains previous selection of notified body
         }
@@ -603,7 +598,6 @@ public class AddDevices extends _Page {
     private void riskClassificationIVD(DeviceDO dd) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, ivdIVDGeneral, TIMEOUT_10_SECOND);
-        //WaitUtils.nativeWaitInSeconds(1);
 
         String lcRiskClassification = dd.riskClassification.toLowerCase();
 

@@ -72,6 +72,27 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | notifiedBody         | NB 0086 BSI            |
     And Proceed to payment and confirm submit device details
 
+#    Repeat for AuthorisedRep and Distributor accounts
+  @5207 @_sprint16
+  Scenario Outline: Error messages should be displayed to user for certain combinations
+    Given I am logged into appian as "<user>" user
+    And I go to device certificate of free sale page
+    Then I should see a list of manufacturers available for CFS
+    When I click on a organisation name begins with "<searchTerm>" which needs cfs
+    And I try to add a device to SELECTED CFS manufacturer with following data
+      | deviceType         | <deviceType>         |
+      | gmdnDefinition     | <gmdnDefinition>     |
+      | customMade         | <customMade>         |
+      | riskClassification | <riskClassification> |
+    Then I should see the following "<errorMsg>" error message
+    Examples:
+      | user             | searchTerm | errorMsg                                 | deviceType                         | gmdnDefinition       | customMade | riskClassification |
+      | manufacturerNoor | TestNoor   | This device must be registered with MHRA | General Medical Device | Blood weighing scale | true       |                    |
+      | manufacturerNoor | TestNoor   | This device must be registered with MHRA | General Medical Device | Blood weighing scale | false      | class1             |
+      | manufacturerNoor | TestNoor   | This device must be registered with MHRA | Active Implantable Medical Devices | Blood weighing scale | true       |                    |
+      | manufacturerNoor | TestNoor   | This device must be registered with MHRA | In Vitro Diagnostic Device         |                      |            |                    |
+      | manufacturerNoor | TestNoor   | This device must be registered with MHRA | System or Procedure Pack           |                      |            |                    |
+
 
   @1974 @_sprint15 @1989 @wip
   Scenario: Users should be able to go to cfs page and add device to existing manufacturer

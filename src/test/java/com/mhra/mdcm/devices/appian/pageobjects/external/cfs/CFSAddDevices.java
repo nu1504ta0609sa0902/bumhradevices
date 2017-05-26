@@ -27,7 +27,7 @@ public class CFSAddDevices extends _Page {
 
     public static String gmdnSelected = null;
 
-    @FindBy(css = ".FieldLayout---field_error")
+    @FindBy(css = ".ParagraphText---error")
     List<WebElement> errorMessages;
 
     @FindBy(css = ".RadioButtonGroup---choice_pair>label")
@@ -268,12 +268,10 @@ public class CFSAddDevices extends _Page {
 
 
     public boolean isErrorMessageDisplayed(String message) {
-        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         try {
-            //WaitUtils.nativeWaitInSeconds(1);
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-            WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".FieldLayout---field_error"), 3);
-            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".FieldLayout---field_error"), 3);
+//            WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".FieldLayout---field_error"), 3);
+//            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".FieldLayout---field_error"), 3);
             boolean isDisplayed = false;
             for (WebElement msg : errorMessages) {
                 String txt = msg.getText();
@@ -329,8 +327,7 @@ public class CFSAddDevices extends _Page {
     }
 
 
-
-    public CFSAddDevices addInvalidFollowingDevice(DeviceDO dd) {
+    public CFSAddDevices addPartiallyFilledDevices(DeviceDO dd) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_DEFAULT);
         WaitUtils.waitForElementToBeClickable(driver, systemOrProcedurePack, TIMEOUT_3_SECOND);
@@ -355,24 +352,28 @@ public class CFSAddDevices extends _Page {
     private void addActiveImplantableDevice(DeviceDO dd) {
         searchByGMDN(dd);
         customMade(dd);
-        clickContinue();
-        uploadCECertificates(dd);
-        clickContinue();
 
-        //Add more than 1 products
-        if(dd.listOfProductName.size() > 0) {
-            for (String name : dd.listOfProductName) {
-                dd.productName = name;
-                if (dd.productModel == null) {
-                    dd.productModel = RandomDataUtils.getRandomTestName("Model");
+        //In CFS if custom made = yes, Than it should show an error message @5207
+        if (!dd.isCustomMade) {
+            clickContinue();
+            uploadCECertificates(dd);
+            clickContinue();
+
+            //Add more than 1 products
+            if (dd.listOfProductName.size() > 0) {
+                for (String name : dd.listOfProductName) {
+                    dd.productName = name;
+                    if (dd.productModel == null) {
+                        dd.productModel = RandomDataUtils.getRandomTestName("Model");
+                    }
+                    addProduct(dd);
+                    dd.productModel = null;
                 }
+            } else {
                 addProduct(dd);
-                dd.productModel = null;
             }
-        }else{
-            addProduct(dd);
+            clickContinue();
         }
-        clickContinue();
     }
 
     private void clickUploadCertificate() {
@@ -388,9 +389,9 @@ public class CFSAddDevices extends _Page {
         PageUtils.uploadDocument(fileUpload, "DeviceLabelDoc2.pdf", 1, 3);
 
         //Select certificate type and enter date
-        PageUtils.selectFromDropDown(driver, listOfDropDownFilters.get(0) , "Full Quality Assurance", false);
+        PageUtils.selectFromDropDown(driver, listOfDropDownFilters.get(0), "Full Quality Assurance", false);
         datePicker.sendKeys(RandomDataUtils.getDateInFutureMonths(12), Keys.TAB);
-        tbxCertificateReferenceNumber.sendKeys(RandomDataUtils.getRandomTestName("CTS").replace("_",""));
+        tbxCertificateReferenceNumber.sendKeys(RandomDataUtils.getRandomTestName("CTS").replace("_", ""));
 
         //select notified body
         notifiedBody(dd);
@@ -403,74 +404,21 @@ public class CFSAddDevices extends _Page {
     }
 
     private void addProcedurePackDevice(DeviceDO dd) {
-        searchByGMDN(dd);
-        deviceSterile(dd);
-
-        if (dd.isDeviceSterile) {
-            notifiedBody(dd);
-        }
-        isBearingCEMarking(dd);
-        devicesCompatible(dd);
-        //saveProduct(dd);
+        //In CFS if device type is System or Procedure Pack, Than it should show an error message
     }
 
     private void addVitroDiagnosticDevice(DeviceDO dd) {
-        searchByGMDN(dd);
-        riskClassificationIVD(dd);
-
-        //No product needs to be added when Risk Classification = IVD General
-        if (dd.riskClassification != null && !dd.riskClassification.equals("ivd general")) {
-            //If more than 1 product listed
-            int numberOfProductName = dd.listOfProductName.size();
-            if (numberOfProductName <= 1) {
-                if (numberOfProductName == 1) {
-                    dd.productName = dd.listOfProductName.get(0);
-                }
-                //List of device to add
-                addProduct(dd);
-                notifiedBody(dd);
-                subjectToPerformanceEval(dd);
-                productNewToMarket(dd);
-                if (dd.riskClassification.toLowerCase().contains("list a"))
-                    conformToCTS(dd);
-                saveProduct(dd);
-
-                //Remove this if we find a better solution
-                WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-                WaitUtils.nativeWaitInSeconds(1);
-            } else {
-                for (String x : dd.listOfProductName) {
-                    dd.productName = x;
-                    addProduct(dd);
-                    notifiedBody(dd);
-                    subjectToPerformanceEval(dd);
-                    productNewToMarket(dd);
-                    if (dd.riskClassification.toLowerCase().contains("list a"))
-                        conformToCTS(dd);
-                    saveProduct(dd);
-
-                    //Remove this if we find a better solution
-                    WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-                    WaitUtils.nativeWaitInSeconds(1);
-                }
-            }
-
-            //Product Details Table Heading Check
-            boolean headingCorrect = verifyProductDetailsHeading();
-            if(!headingCorrect){
-                throw new RuntimeException("Product details table not correct. Expected : Name Make Model Product code");
-            }
-        }
+        //In CFS if device type is In Vitro Diagnostic Device, Than it should show an error message
     }
 
     private boolean verifyProductDetailsHeading() {
         String expectedHeadings = "name,make,model,product code";
         boolean allHeadingCorrect = true;
 
-        for(WebElement el: listOfProductDetailsTable){
+        for (WebElement el : listOfProductDetailsTable) {
             String text = el.getText().toLowerCase();
             //System.out.println("Table headings : " + text);
-            if(!expectedHeadings.contains(text)){
+            if (!expectedHeadings.contains(text)) {
                 allHeadingCorrect = false;
                 break;
             }
@@ -484,34 +432,40 @@ public class CFSAddDevices extends _Page {
 
         searchByGMDN(dd);
         customMade(dd);
+
+        //In CFS if custom made = yes, Than it should show an error message @5207
         if (!dd.isCustomMade) {
             riskClassification(dd);
-            deviceSterile(dd);
-        }
-        clickContinue();
-        uploadCECertificates(dd);
-        clickContinue();
 
-        //Add more than 1 products : Not sure why we need to add product for GMD
-        if(dd.listOfProductName.size() > 0) {
-            for (String name : dd.listOfProductName) {
-                dd.productName = name;
-                if (dd.productModel == null) {
-                    dd.productModel = RandomDataUtils.getRandomTestName("Model");
+            //In CFS if risk classification is class1 , Than it should show an error message @5207
+            if(!dd.riskClassification.equals("class1")) {
+                deviceSterile(dd);
+                clickContinue();
+                uploadCECertificates(dd);
+                clickContinue();
+
+                //Add more than 1 products : Not sure why we need to add product for GMD
+                if (dd.listOfProductName.size() > 0) {
+                    for (String name : dd.listOfProductName) {
+                        dd.productName = name;
+                        if (dd.productModel == null) {
+                            dd.productModel = RandomDataUtils.getRandomTestName("Model");
+                        }
+                        addProduct(dd);
+                        dd.productModel = null;
+                    }
+                } else {
+                    if (dd.productName == null) {
+                        dd.productName = RandomDataUtils.getRandomTestName("Product");
+                    }
+                    if (dd.productModel == null) {
+                        dd.productModel = RandomDataUtils.getRandomTestName("Model");
+                    }
+                    addProduct(dd);
                 }
-                addProduct(dd);
-                dd.productModel = null;
+                clickContinue();
             }
-        }else{
-            if (dd.productName == null) {
-                dd.productName = RandomDataUtils.getRandomTestName("Product");
-            }
-            if (dd.productModel == null) {
-                dd.productModel = RandomDataUtils.getRandomTestName("Model");
-            }
-            addProduct(dd);
         }
-        clickContinue();
 
     }
 
@@ -535,7 +489,6 @@ public class CFSAddDevices extends _Page {
         PageUtils.clickOneOfTheFollowing(driver, addProduct, addProduct2, TIMEOUT_5_SECOND);
 
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        //WaitUtils.nativeWaitInSeconds(1);
         WaitUtils.waitForElementToBeClickable(driver, txtProductNameLabel, TIMEOUT_10_SECOND);
         txtProductNameLabel.sendKeys(labelName);
 
@@ -623,20 +576,19 @@ public class CFSAddDevices extends _Page {
         //Select notified body
         if (notifiedBodyOptionsCorrect && dd.notifiedBody != null && dd.notifiedBody.toLowerCase().contains("bsi")) {
             PageUtils.singleClick(driver, nb0086BSI);
-        }else if (notifiedBodyOptionsCorrect && dd.notifiedBody != null && dd.notifiedBody.toLowerCase().contains("Other")) {
+        } else if (notifiedBodyOptionsCorrect && dd.notifiedBody != null && dd.notifiedBody.toLowerCase().contains("Other")) {
             PageUtils.clickIfVisible(driver, nbOther);
-        }else{
+        } else {
             //PageUtils.clickIfVisible(driver, nb0086BSI);
         }
     }
 
     private void changeNotifiedBody() {
-        try{
+        try {
             WaitUtils.waitForElementToBeClickable(driver, linkChangeNotifiedBody, TIMEOUT_1_SECOND);
             linkChangeNotifiedBody.click();
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-            //WaitUtils.nativeWaitInSeconds(1);
-        }catch (Exception e){
+        } catch (Exception e) {
             //Bug which maintains previous selection of notified body
         }
     }
@@ -653,7 +605,6 @@ public class CFSAddDevices extends _Page {
     private void riskClassificationIVD(DeviceDO dd) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, ivdIVDGeneral, TIMEOUT_10_SECOND);
-        //WaitUtils.nativeWaitInSeconds(1);
 
         String lcRiskClassification = dd.riskClassification.toLowerCase();
 
@@ -752,7 +703,7 @@ public class CFSAddDevices extends _Page {
                 //Wait for list of items to appear and add it only if its not a duplicate
                 WaitUtils.waitForElementToBeClickable(driver, aGmdnMatchesReturnedBySearch, TIMEOUT_DEFAULT);
                 int noi = CommonUtils.getNumberOfItemsInList(driver, listOfGmdnMatchesReturnedBySearch);
-                int randomPosition = RandomDataUtils.getARandomNumberBetween(0, noi-1);
+                int randomPosition = RandomDataUtils.getARandomNumberBetween(0, noi - 1);
 
                 //Click gmdn from search results
                 WebElement element = CommonUtils.getElementFromList(listOfGmdnMatchesReturnedBySearch, randomPosition);
@@ -781,7 +732,7 @@ public class CFSAddDevices extends _Page {
         }
     }
 
-    public void searchForGMDN(String searchTerm){
+    public void searchForGMDN(String searchTerm) {
         WaitUtils.waitForElementToBeClickable(driver, tbxGMDNDefinitionOrTerm, TIMEOUT_5_SECOND);
         tbxGMDNDefinitionOrTerm.clear();
         tbxGMDNDefinitionOrTerm.sendKeys(searchTerm);
@@ -923,6 +874,7 @@ public class CFSAddDevices extends _Page {
 
     /**
      * CTS = common technical specification
+     *
      * @param data
      * @return
      */
@@ -965,7 +917,7 @@ public class CFSAddDevices extends _Page {
         WaitUtils.isPageLoadingComplete(driver, 1);
         boolean allDisplayed = true;
         for (String gmdn : listOfGmdns) {
-            if(!gmdn.trim().equals("")) {
+            if (!gmdn.trim().equals("")) {
                 allDisplayed = isGMDNValueDisplayed(gmdn);
                 if (!allDisplayed) {
                     break;
@@ -978,7 +930,7 @@ public class CFSAddDevices extends _Page {
     public CFSAddDevices searchForDevice(DeviceDO dd, String deviceType, String gmdnTermCodeOrDefinition) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         dd.gmdnTermOrDefinition = gmdnTermCodeOrDefinition;
-        if(deviceType != null){
+        if (deviceType != null) {
             dd.deviceType = deviceType;
             selectDeviceType(dd);
         }
@@ -989,16 +941,16 @@ public class CFSAddDevices extends _Page {
     public boolean atLeast1MatchFound(String searchTerm) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean isNumber = CommonUtils.isNumericValue(searchTerm);
-        if(!isNumber) {
+        if (!isNumber) {
             try {
                 WaitUtils.waitForElementToBeClickable(driver, listOfGmdnMatchesReturnedBySearch.get(0), TIMEOUT_3_SECOND);
                 int noi = CommonUtils.getNumberOfItemsInList(driver, listOfGmdnMatchesReturnedBySearch);
                 boolean atLeast1Match = noi >= 1 ? true : false;
                 return atLeast1Match;
-            }catch (Exception e){
+            } catch (Exception e) {
                 return false;
             }
-        }else{
+        } else {
             //Verify a valid device id is entered
             boolean isValidGMDN = labelValidGMDNCodeMessage.getText().contains("Valid GMDN");
             return isValidGMDN;
@@ -1007,7 +959,7 @@ public class CFSAddDevices extends _Page {
 
 
     public CFSAddDevices viewAllGmdnTermDefinitions(DeviceDO dd, String deviceType) {
-        if(deviceType!=null) {
+        if (deviceType != null) {
             dd.deviceType = deviceType;
             selectDeviceType(dd);
         }
@@ -1036,9 +988,9 @@ public class CFSAddDevices extends _Page {
 
     public boolean isAbleToSubmitForReview() {
         boolean isAbleToSubmit = true;
-        try{
+        try {
             WaitUtils.waitForElementToBeClickable(driver, btnReviewYourOrder, TIMEOUT_3_SECOND);
-        }catch (Exception e){
+        } catch (Exception e) {
             isAbleToSubmit = false;
         }
         return isAbleToSubmit;
@@ -1046,9 +998,9 @@ public class CFSAddDevices extends _Page {
 
     public boolean isValidationErrorMessageVisible() {
         boolean isErrorMessageDisplayed = true;
-        try{
+        try {
             WaitUtils.waitForElementToBeClickable(driver, validationErrMessage, TIMEOUT_3_SECOND);
-        }catch (Exception e){
+        } catch (Exception e) {
             isErrorMessageDisplayed = false;
         }
         return isErrorMessageDisplayed;
@@ -1068,7 +1020,7 @@ public class CFSAddDevices extends _Page {
             WaitUtils.waitForElementToBeClickable(driver, btnProceedToReview, TIMEOUT_10_SECOND);
             btnProceedToReview.click();
             log.info("Proceed to review before payment");
-        }catch (Exception e){
+        } catch (Exception e) {
             //Need to verify why this is not always showing up : it appears for unregistered but not for registered
         }
         return new CFSAddDevices(driver);
@@ -1079,7 +1031,7 @@ public class CFSAddDevices extends _Page {
         PageUtils.doubleClick(driver, btnSaveProgress);
         return new CFSAddDevices(driver);
     }
-    
+
     public CFSAddDevices confirmPayment() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnSubmitConfirm, TIMEOUT_10_SECOND);
@@ -1094,7 +1046,8 @@ public class CFSAddDevices extends _Page {
             WaitUtils.waitForElementToBeClickable(driver, linkBackToService, TIMEOUT_10_SECOND);
             linkBackToService.click();
             log.info("Link: Back to serivces");
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
         return new ManufacturerList(driver);
     }
 }
