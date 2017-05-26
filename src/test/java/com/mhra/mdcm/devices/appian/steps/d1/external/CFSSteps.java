@@ -14,6 +14,7 @@ import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.springframework.context.annotation.Scope;
 
+import java.util.List;
 import java.util.Map;
 
 import static org.hamcrest.Matchers.is;
@@ -82,6 +83,7 @@ public class CFSSteps extends CommonSteps {
     @When("^I click on a organisation name begins with \"([^\"]*)\" which needs cfs$")
     public void iClickOnAOrganisationNameBeginsWithWhichNeedsCfs(String orgName) throws Throwable {
         String name = cfsManufacturerList.getARandomOrganisationName(orgName);
+        log.info("Manufacturer selected : " + name);
         deviceDetails = cfsManufacturerList.viewManufacturer(name);
         scenarioSession.putData(SessionKey.organisationName, name);
     }
@@ -279,6 +281,7 @@ public class CFSSteps extends CommonSteps {
 
         //Assumes we are in add device page
         DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
+        dd.setAnotherCertificate(true);
         if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
             cfsAddDevices = cfsAddDevices.addFollowingDevice(dd, true);
         else {
@@ -316,10 +319,22 @@ public class CFSSteps extends CommonSteps {
         }
     }
 
-
     @Then("^I should see the following \"([^\"]*)\" error message$")
     public void i_should_see_the_following_error_message(String errorMessage) throws Throwable {
         boolean errorMessageDisplayed = cfsAddDevices.isErrorMessageDisplayed(errorMessage);
         Assert.assertEquals("Expected error message : " + errorMessage, true, errorMessageDisplayed);
+    }
+
+    @When("^I submit the cfs application for approval$")
+    public void i_submit_the_cfs_application_for_approval() throws Throwable {
+        cfsManufacturerList = cfsAddDevices.submitApplicationForApproval();
+        cfsManufacturerList.isManufacturerListDisplayed();
+    }
+
+    @Then("^Check the application reference number format is valid$")
+    public void checkTheApplicationReferenceNumberFormatIsValid() throws Throwable {
+        String dateFormat = "yyyyDDmm";
+        List<String> invalidReferences = taskSection.isApplicationReferenceFormatCorrect(12,dateFormat);
+        Assert.assertThat("Following references may not be correct : " + invalidReferences, invalidReferences.size() == 0, is(true));
     }
 }

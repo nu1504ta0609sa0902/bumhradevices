@@ -490,4 +490,13 @@ public class TasksPageSteps extends CommonSteps {
         boolean isOrderedCorrectly = taskSection.areDevicesOrderedByDeviceTypes();
         Assert.assertThat("Devices should be ordered by device type", isOrderedCorrectly, is(true));
     }
+
+
+
+    @When("^I go to application WIP page$")
+    public void iGoToApplicationWIPTaksPage() throws Throwable {
+        mainNavigationBar = new MainNavigationBar(driver);
+        tasksPage = mainNavigationBar.clickTasks();
+        taskSection = tasksPage.gotoApplicationWIPPage();
+    }
 }

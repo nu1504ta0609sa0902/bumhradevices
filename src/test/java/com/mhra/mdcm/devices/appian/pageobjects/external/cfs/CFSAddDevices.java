@@ -294,7 +294,7 @@ public class CFSAddDevices extends _Page {
     }
 
     public CFSAddDevices addFollowingDevice(DeviceDO dd, boolean isRegistered) {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.isPageLoadingCompleteInMilliseconds(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_DEFAULT);
         WaitUtils.waitForElementToBeClickable(driver, systemOrProcedurePack, TIMEOUT_3_SECOND);
         //Select device type
@@ -386,7 +386,8 @@ public class CFSAddDevices extends _Page {
         //PageFactory.initElements(driver, this);
 
         WaitUtils.waitForElementToBeClickable(driver, datePicker, TIMEOUT_10_SECOND);
-        PageUtils.uploadDocument(fileUpload, "DeviceLabelDoc2.pdf", 1, 3);
+        String certName = "CECertificate" + dd.deviceCount + ".pdf";
+        PageUtils.uploadDocument(fileUpload, certName, 1, 3);
 
         //Select certificate type and enter date
         PageUtils.selectFromDropDown(driver, listOfDropDownFilters.get(0), "Full Quality Assurance", false);
@@ -1049,5 +1050,11 @@ public class CFSAddDevices extends _Page {
         } catch (Exception e) {
         }
         return new ManufacturerList(driver);
+    }
+
+    public CFSManufacturerList submitApplicationForApproval() {
+        WaitUtils.waitForElementToBeClickable(driver, btnSubmitForApproval, TIMEOUT_10_SECOND);
+        btnSubmitForApproval.click();
+        return new CFSManufacturerList(driver);
     }
 }

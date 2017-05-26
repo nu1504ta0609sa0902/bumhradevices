@@ -16,6 +16,7 @@ import java.util.List;
  */
 public class DeviceDO {
 
+    public static int deviceCount = 1;
     public static final String MANUFACTURER_RT_TEST = "ManufacturerRT01Test";
     public static final String AUTHORISED_REP_RT_TEST = "AuthorisedRepRT01Test";
 
@@ -45,6 +46,7 @@ public class DeviceDO {
     public boolean isSubjectToPerfEval;
     public boolean isNewProduct;
     public boolean isConformsToCTS;
+    public boolean isAnotherDevice;
 
     public DeviceDO(ScenarioSession scenarioSession) {
         createDefaultRandom();
@@ -77,6 +79,11 @@ public class DeviceDO {
         return gmdn;
     }
 
+    public void setAnotherCertificate(boolean anotherCertificate) {
+        this.isAnotherDevice = true;
+        deviceCount++;
+    }
+
     @Override
     public String toString() {
         return "DeviceData{" +
@@ -98,5 +105,4 @@ public class DeviceDO {
                 ", isConformsToCTS=" + isConformsToCTS +
                 '}';
     }
-
 }
