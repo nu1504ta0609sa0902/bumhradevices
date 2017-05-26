@@ -30,15 +30,6 @@ public class ProxyAuthentication implements Runnable {
         }
     }
 
-
-    public void login2() throws Exception {
-        System.out.println("Trying to enter proxy login details via URL");
-        //wait - increase this wait period if required
-        Thread.sleep(5000);
-        driver.get("http://mca\\uddinn:Welcome2023@10.2.22.60:8000");
-        driver.get(url);
-    }
-
     public void login() throws Exception {
 
         //Now try to enter some value
