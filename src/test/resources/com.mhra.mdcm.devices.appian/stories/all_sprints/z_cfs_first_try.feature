@@ -35,7 +35,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
     And I go to application WIP page
 
 
-  @1974 @_sprint15 @1989 @wip
+  @1974 @4698 @_sprint15 @1989 @wip
   Scenario: Users should be able to go to cfs page and add device to existing manufacturer
     Given I am logged into appian as "manufacturerNoor" user
     And I go to device certificate of free sale page
@@ -55,6 +55,55 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | notifiedBody       | NB 0086 BSI                        |
       | listOfProductNames | ford,hyundai                       |
     And I submit the cfs application for approval
+
+  @5583 @_sprint18
+  Scenario Outline: Able to upload certificates with different notified bodies
+    Given I am logged into appian as "<user>" user
+    And I go to device certificate of free sale page
+    Then I should see a list of manufacturers available for CFS
+    When I click on a organisation name begins with "<searchTerm>" which needs cfs
+    And I add a device to SELECTED CFS manufacturer with following data
+      | deviceType           | <deviceType>           |
+      | gmdnDefinition       | <gmdnDefinition>       |
+      | customMade           | <customMade>           |
+      | riskClassification   | <riskClassification>   |
+      | relatedDeviceSterile | <relatedDeviceSterile> |
+      | notifiedBody         | <notifiedBody>         |
+      | listOfProductNames   | <listOfProductNames>   |
+    And I submit the cfs application for approval
+    Examples:
+      | user             | searchTerm | notifiedBody     | deviceType                         | gmdnDefinition       | customMade | riskClassification | relatedDeviceSterile | listOfProductNames |
+      | manufacturerNoor | TestNoor   | BSI              | General Medical Device             | Blood weighing scale | false      | Class2A            | true                 | ford,hyundai       |
+      | manufacturerNoor | TestNoor   | Amtac            | General Medical Device             | Blood weighing scale | false      | Class2B            | true                 | ford,hyundai       |
+      | manufacturerNoor | TestNoor   | Lloyd            | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
+      | manufacturerNoor | TestNoor   | SGS              | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
+      | manufacturerNoor | TestNoor   | UL International | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
+
+
+  @5583 @_sprint18
+  Scenario Outline: Verify certain elements are disable by defaults like Upload Certificate button
+    Given I am logged into appian as "<user>" user
+    And I go to device certificate of free sale page
+    Then I should see a list of manufacturers available for CFS
+    When I click on a organisation name begins with "<searchTerm>" which needs cfs
+    And I add a device to SELECTED CFS manufacturer with following data
+      | addCertificate       | <addCertificate>       |
+      | addProducts          | <addProducts>          |
+      | addDevices           | <addDevices>           |
+      | deviceType           | <deviceType>           |
+      | gmdnDefinition       | <gmdnDefinition>       |
+      | customMade           | <customMade>           |
+      | riskClassification   | <riskClassification>   |
+      | relatedDeviceSterile | <relatedDeviceSterile> |
+      | notifiedBody         | <notifiedBody>         |
+      | listOfProductNames   | <listOfProductNames>   |
+    Then I should not be able to proceed to the next step
+    Examples:
+      | user             | searchTerm | addDevices | addCertificate | addProducts | notifiedBody | deviceType                         | gmdnDefinition       | customMade | riskClassification | relatedDeviceSterile | listOfProductNames |
+      | manufacturerNoor | TestNoor   | false      |                |             | BSI          | General Medical Device             | Blood weighing scale | false      | Class2A            | true                 | ford,hyundai       |
+      | manufacturerNoor | TestNoor   | true       | false          |             | Amtac        | General Medical Device             | Blood weighing scale | false      | Class2B            | true                 | ford,hyundai       |
+      | manufacturerNoor | TestNoor   | true       | true           | false       | SGS          | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
+
 
   @1845 @1945 @_sprint18 @wip
   Scenario: Users should receive task in application WIP page
@@ -113,7 +162,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | manufacturerNoor | Yes         |
       | manufacturerNoor | No          |
 
-  @4330 @_sprint16 @wip
+  @4330 @4203 @_sprint16 @wip
   Scenario: Users should be able to tell what stage of device registration they are in
     Given I am logged into appian as "manufacturerNoor" user
     And I go to device certificate of free sale page
@@ -137,13 +186,14 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
     Then I should see the following "<errorMsg>" error message
     Examples:
       | user             | searchTerm | errorMsg                                 | deviceType                         | gmdnDefinition       | customMade | riskClassification |
-      | manufacturerNoor | TestNoor   | This device must be registered with MHRA | General Medical Device | Blood weighing scale | true       |                    |
-      | manufacturerNoor | TestNoor   | This device must be registered with MHRA | General Medical Device | Blood weighing scale | false      | class1             |
+      | manufacturerNoor | TestNoor   | This device must be registered with MHRA | General Medical Device             | Blood weighing scale | true       |                    |
+      | manufacturerNoor | TestNoor   | This device must be registered with MHRA | General Medical Device             | Blood weighing scale | false      | class1             |
       | manufacturerNoor | TestNoor   | This device must be registered with MHRA | Active Implantable Medical Devices | Blood weighing scale | true       |                    |
       | manufacturerNoor | TestNoor   | This device must be registered with MHRA | In Vitro Diagnostic Device         |                      |            |                    |
       | manufacturerNoor | TestNoor   | This device must be registered with MHRA | System or Procedure Pack           |                      |            |                    |
 
-  @1974 @_sprint15 @wip
+
+  @1974 @1978 @_sprint15 @wip
   Scenario Outline: Users should be able to go to cfs page and add to a random manufacturer from the list
     Given I am logged into appian as "manufacturerNoor" user
     And I go to device certificate of free sale page

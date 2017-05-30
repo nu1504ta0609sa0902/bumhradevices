@@ -19,6 +19,7 @@ public class DeviceDO {
     public static int deviceCount = 1;
     public static final String MANUFACTURER_RT_TEST = "ManufacturerRT01Test";
     public static final String AUTHORISED_REP_RT_TEST = "AuthorisedRepRT01Test";
+    private final ScenarioSession scenarioSession;
 
     //Device type
     public String deviceType;
@@ -47,27 +48,27 @@ public class DeviceDO {
     public boolean isNewProduct;
     public boolean isConformsToCTS;
     public boolean isAnotherDevice;
+    public boolean addCertificate;
+    public boolean addProducts;
+    public boolean addDevices;
 
     public DeviceDO(ScenarioSession scenarioSession) {
+        this.scenarioSession = scenarioSession; 
         createDefaultRandom();
     }
 
     private void createDefaultRandom() {
 
-        //deviceType = "General Medical Device";
-
-        //gmdnTermOrDefinition = "Blood";
-        //gmdnCode = "10001";
-
         isCustomMade = true;
         isDeviceSterile = true;
         isDeviceMeasuring = true;
 
-        //riskClassification = "Class1";  //Class2a, Class2b, Class3
-        //notifiedBody = "NB 0086 BSI";
-
         isDeviceCompatible = true;
         isBearingCEMarking = true;
+
+        addCertificate = true;
+        addProducts = true;
+        addDevices = true;
 
     }
 

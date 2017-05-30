@@ -4,6 +4,7 @@ import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequestDO;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
 import com.mhra.mdcm.devices.appian.session.ScenarioSession;
+import org.apache.xpath.operations.Bool;
 import org.openqa.selenium.*;
 
 import java.io.File;
@@ -123,6 +124,10 @@ public class TestHarnessUtils {
 
             String listOfProductNames = dataSets.get("listOfProductNames");
 
+            String addCertificate = dataSets.get("addCertificate");
+            String addProducts = dataSets.get("addProducts");
+            String addDevices = dataSets.get("addDevices");
+
             if(isNotEmptyOrNull(deviceType)){
                 dd.deviceType = deviceType;
             }
@@ -184,6 +189,17 @@ public class TestHarnessUtils {
                 }else{
                     dd.listOfProductName.add(listOfProductNames);
                 }
+            }
+
+            //Add certificate and product : set to false to test negative scenario
+            if(isNotEmptyOrNull(addCertificate)){
+                dd.addCertificate = Boolean.valueOf(addCertificate);
+            }
+            if(isNotEmptyOrNull(addProducts)){
+                dd.addProducts = Boolean.valueOf(addProducts);
+            }
+            if(isNotEmptyOrNull(addDevices)){
+                dd.addDevices = Boolean.valueOf(addDevices);
             }
         }
         return dd;

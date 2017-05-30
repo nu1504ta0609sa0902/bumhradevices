@@ -337,4 +337,11 @@ public class CFSSteps extends CommonSteps {
         List<String> invalidReferences = taskSection.isApplicationReferenceFormatCorrect(12,dateFormat);
         Assert.assertThat("Following references may not be correct : " + invalidReferences, invalidReferences.size() == 0, is(true));
     }
+
+
+    @Then("^I should not be able to proceed to the next step$")
+    public void i_should_not_be_able_to_proceed_to_the_next_step() throws Throwable {
+        boolean isContinueBtnEnabled = cfsAddDevices.isContinueButtonEnabled();
+        Assert.assertThat("Form not fully completed therefore the continue button should be disabled", isContinueBtnEnabled, is(false));
+    }
 }
