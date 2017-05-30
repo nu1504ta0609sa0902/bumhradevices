@@ -57,7 +57,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
     And I submit the cfs application for approval
 
   @5583 @_sprint18
-  Scenario Outline: Able to upload certificates with different notified bodies
+  Scenario Outline: Able to upload certificates with different notified body
     Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
     Then I should see a list of manufacturers available for CFS
