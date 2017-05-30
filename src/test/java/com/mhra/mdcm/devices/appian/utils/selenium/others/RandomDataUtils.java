@@ -3,15 +3,38 @@ package com.mhra.mdcm.devices.appian.utils.selenium.others;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * @author TPD_Auto
  */
 public class RandomDataUtils {
+
+    public static void main(String[] args){
+        String reference = "20170526011283";
+        reference = reference.substring(0,8);
+        boolean isValid = isDateFormatValid("yyyyMMdd", reference);
+        System.out.println("Is valid : " + isValid);
+
+    }
+
+    public static boolean isDateFormatValid(String format, String dateValue) {
+        boolean isValid = true;
+
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat(format);
+            sdf.setLenient(false);
+            Date date = sdf.parse(dateValue);
+            String format1 = sdf.format(date);
+            if(!format1.equals(dateValue)){
+                isValid = false;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            isValid = false;
+        }
+        return isValid;
+    }
 
     public static double getRandomDigits(int numberOfDigits){
         Random r = new Random( System.currentTimeMillis() );

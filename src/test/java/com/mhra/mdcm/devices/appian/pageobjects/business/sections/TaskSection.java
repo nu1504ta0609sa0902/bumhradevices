@@ -4,6 +4,7 @@ import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequestDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.business.TasksTabPage;
+import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.CommonUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
@@ -57,7 +58,7 @@ public class TaskSection extends _Page {
     @FindBy(xpath = ".//span[contains(text(),'Job title')]//following::p[2]")
     WebElement cdContactPersonTelephone;
 
-
+    //Task page heading
     @FindBy(xpath = ".//h3")
     WebElement taskHeading;
     @FindBy(xpath = ".//a[contains(text(),'Organisation Details')]//following::p[1]")
@@ -98,6 +99,12 @@ public class TaskSection extends _Page {
     WebElement submitBtn;
     @FindBy(css = "img.DocumentImage---icon")
     WebElement priorityDocumentImg;
+
+    //Application WIP page
+    @FindBy(xpath = ".//*[text()='Urgency']/following::tr/td[1]")
+    List<WebElement> listOfApplicationReferences;
+    @FindBy(partialLinkText = "Filter application")
+    WebElement linkFilterApplication;
 
     //New filter section introduced in sprint 13
     @FindBy(xpath = ".//*[.='Organisation']")
@@ -319,7 +326,6 @@ public class TaskSection extends _Page {
 
     public boolean isDevicesDisplayedCorrect(String deviceList) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        //WaitUtils.nativeWaitInSeconds(2);
         String[] data = deviceList.toLowerCase().split(",");
 
         //Displayed list of gmdns for AIMD, IVD and GMD
@@ -530,5 +536,26 @@ public class TaskSection extends _Page {
     public boolean isDesignationLetterAttached() {
         boolean clickable = PageUtils.isElementClickable(driver, linkLetterOfDesignation, TIMEOUT_5_SECOND);
         return clickable;
+    }
+
+    public List<String> isApplicationReferenceFormatCorrect(int lengthOfReference, String dateFormat) {
+        WaitUtils.waitForElementToBeClickable(driver, linkFilterApplication, TIMEOUT_10_SECOND);
+        List<String> listOfInvalidReferences = new ArrayList<>();
+        boolean isValid = true;
+        for(WebElement el: listOfApplicationReferences){
+            String reference = el.getText();
+            if(reference.length() == lengthOfReference) {
+                //First 8 characters are date value
+                reference = reference.substring(0, 8);
+                isValid = RandomDataUtils.isDateFormatValid(dateFormat, reference);
+            }else{
+                isValid = false;
+            }
+            //Add to invalid list
+            if (!isValid) {
+                listOfInvalidReferences.add(reference);
+            }
+        }
+        return listOfInvalidReferences;
     }
 }

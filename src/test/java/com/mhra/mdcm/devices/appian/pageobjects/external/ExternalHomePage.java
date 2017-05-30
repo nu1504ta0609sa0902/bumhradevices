@@ -71,13 +71,11 @@ public class ExternalHomePage extends _Page {
 
         //Find element
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//*[contains(text(),'ype of device')]//following::label"), TIMEOUT_10_SECOND);
-        //WaitUtils.nativeWaitInSeconds(1);
         List<WebElement> elements = driver.findElements(By.xpath(".//*[contains(text(),'ype of device')]//following::label"));
         WebElement e = elements.get(index);
         WaitUtils.waitForElementToBeClickable(driver, e, TIMEOUT_10_SECOND);
 
         PageUtils.singleClick(driver, e);
-        //WaitUtils.nativeWaitInSeconds(2);
 
         return new ExternalHomePage(driver);
     }

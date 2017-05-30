@@ -77,24 +77,18 @@ public class WaitUtils {
      * @return
      */
     public static boolean isPageLoadingComplete(WebDriver driver, int timeout){
-        timeout = timeout * 100;
         boolean isLoadedFully = false;
-        long start = System.currentTimeMillis();
         try {
             boolean isWaitingMessageDisplayed = isWaitingMessageDisplayed(driver);
             if(isWaitingMessageDisplayed) {
                 int count = 0;
                 do {
-                    driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.MILLISECONDS);
+                    driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
                     List<WebElement> elements = driver.findElements(By.xpath(".//div[@class='appian-indicator-message' and @style='display: none;']"));
                     if (elements.size() == 1) {
                         isLoadedFully = true;
-                    } else {
-                        //System.out.println("-----PAGE NOT LOADED YET-----");
                     }
-                    //driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
-                    //elements = driver.findElements(By.xpath(".//div[@class='appian-indicator-message' and @style=' ']"));
-                    driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
+                    driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
                     count++;
                 } while (!isLoadedFully && count < 50);
             }
@@ -104,9 +98,32 @@ public class WaitUtils {
             isLoadedFully = false;
         }
 
-        //long diffMiliseconds = (System.currentTimeMillis() - start);
-        //if(diffMiliseconds > 1000 * 3)
-        //System.out.println("\nPage Took : " + diffMiliseconds + " milliseconds to load");
+        return isLoadedFully;
+    }
+
+
+    public static boolean isPageLoadingCompleteInMilliseconds(WebDriver driver, int timeout){
+        timeout = timeout * 100;
+        boolean isLoadedFully = false;
+        try {
+            boolean isWaitingMessageDisplayed = isWaitingMessageDisplayed(driver);
+            if(isWaitingMessageDisplayed) {
+                int count = 0;
+                do {
+                    driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.MILLISECONDS);
+                    List<WebElement> elements = driver.findElements(By.xpath(".//div[@class='appian-indicator-message' and @style='display: none;']"));
+                    if (elements.size() == 1) {
+                        isLoadedFully = true;
+                    }
+                    driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
+                    count++;
+                } while (!isLoadedFully && count < 50);
+            }
+
+        }catch (Exception e){
+            driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
+            isLoadedFully = false;
+        }
 
         return isLoadedFully;
     }

@@ -170,7 +170,6 @@ public class Accounts extends _Page {
                 WaitUtils.waitForElementToBeClickable(driver, thOrganisationName, TIMEOUT_DEFAULT);
                 thOrganisationName.click();
                 WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-                //WaitUtils.nativeWaitInSeconds(2);
             }
         }
 

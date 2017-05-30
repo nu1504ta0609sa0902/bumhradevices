@@ -2,19 +2,15 @@ package com.mhra.mdcm.devices.appian.steps.d1.external;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
-import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.pageobjects.external.cfs.CFSAddDevices;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.AddDevices;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
-import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.*;
 import cucumber.api.PendingException;
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.springframework.context.annotation.Scope;
 
@@ -87,6 +83,7 @@ public class CFSSteps extends CommonSteps {
     @When("^I click on a organisation name begins with \"([^\"]*)\" which needs cfs$")
     public void iClickOnAOrganisationNameBeginsWithWhichNeedsCfs(String orgName) throws Throwable {
         String name = cfsManufacturerList.getARandomOrganisationName(orgName);
+        log.info("Manufacturer selected : " + name);
         deviceDetails = cfsManufacturerList.viewManufacturer(name);
         scenarioSession.putData(SessionKey.organisationName, name);
     }
@@ -232,8 +229,10 @@ public class CFSSteps extends CommonSteps {
         DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
         if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
             cfsAddDevices = cfsAddDevices.addFollowingDevice(dd, true);
-        else
+        else {
+            cfsAddDevices = cfsManufacturerList.clickContinue();
             cfsAddDevices = cfsAddDevices.addFollowingDevice(dd, false);
+        }
 
         scenarioSession.putData(SessionKey.deviceData, dd);
     }
@@ -259,6 +258,18 @@ public class CFSSteps extends CommonSteps {
         StepsUtils.addToDeviceDataList(scenarioSession, dd);
     }
 
+    @When("^I try to add a device to SELECTED CFS manufacturer with following data$")
+    public void i_try_to_add_a_device_to_SELECTED_CFS_manufacturer_with_following_data(Map<String, String> dataSets) throws Throwable {
+        DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
+        String registeredStatus = (String) scenarioSession.getData(SessionKey.registeredStatus);
+        if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
+            cfsAddDevices = cfsAddDevices.addPartiallyFilledDevices(dd);
+        else {
+            cfsAddDevices = cfsManufacturerList.clickContinue();
+            cfsAddDevices = cfsAddDevices.addPartiallyFilledDevices(dd);
+        }
+    }
+
 
     @When("^I add another device to SELECTED CFS manufacturer with following data$")
     public void i_add_another_device_to_selected_manufactuerer_of_type_with_following_data(Map<String, String> dataSets) throws Throwable {
@@ -270,10 +281,13 @@ public class CFSSteps extends CommonSteps {
 
         //Assumes we are in add device page
         DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
+        dd.setAnotherCertificate(true);
         if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
             cfsAddDevices = cfsAddDevices.addFollowingDevice(dd, true);
-        else
+        else {
+            cfsAddDevices = cfsManufacturerList.clickContinue();
             cfsAddDevices = cfsAddDevices.addFollowingDevice(dd, false);
+        }
 
         StepsUtils.addToListOfStrings(scenarioSession, SessionKey.listOfGmndsAdded, AddDevices.gmdnSelected);
         StepsUtils.addToListOfStrings(scenarioSession, SessionKey.listOfProductsAdded, dd.listOfProductName);
@@ -303,5 +317,24 @@ public class CFSSteps extends CommonSteps {
         }else{
             createNewCFSManufacturer = createNewCFSManufacturer.clickAlertButtonNo();
         }
+    }
+
+    @Then("^I should see the following \"([^\"]*)\" error message$")
+    public void i_should_see_the_following_error_message(String errorMessage) throws Throwable {
+        boolean errorMessageDisplayed = cfsAddDevices.isErrorMessageDisplayed(errorMessage);
+        Assert.assertEquals("Expected error message : " + errorMessage, true, errorMessageDisplayed);
+    }
+
+    @When("^I submit the cfs application for approval$")
+    public void i_submit_the_cfs_application_for_approval() throws Throwable {
+        cfsManufacturerList = cfsAddDevices.submitApplicationForApproval();
+        cfsManufacturerList.isManufacturerListDisplayed();
+    }
+
+    @Then("^Check the application reference number format is valid$")
+    public void checkTheApplicationReferenceNumberFormatIsValid() throws Throwable {
+        String dateFormat = "yyyyDDmm";
+        List<String> invalidReferences = taskSection.isApplicationReferenceFormatCorrect(12,dateFormat);
+        Assert.assertThat("Following references may not be correct : " + invalidReferences, invalidReferences.size() == 0, is(true));
     }
 }

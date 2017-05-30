@@ -96,7 +96,6 @@ public class RegisteredDevices extends _Page {
 //                WaitUtils.waitForElementToBeClickable(driver, thOrganisationName, TIMEOUT_10_SECOND);
 //                thOrganisationName.click();
 //                WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-                //WaitUtils.nativeWaitInSeconds(2);
             }
         }
 
