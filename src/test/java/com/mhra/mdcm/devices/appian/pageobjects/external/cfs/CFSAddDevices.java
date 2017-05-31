@@ -481,7 +481,7 @@ public class CFSAddDevices extends _Page {
         }
 
         //Select certificate type and enter date
-        PageUtils.selectFromDropDown(driver, listOfDropDownFilters.get(0), "Full Quality Assurance", false);
+        PageUtils.selectFromDropDown(driver, listOfDropDownFilters.get(0), dd.certificateType, false);
         datePicker.sendKeys(RandomDataUtils.getDateInFutureMonths(12), Keys.TAB);
         tbxCertificateReferenceNumber.sendKeys(RandomDataUtils.getRandomTestName("CTS").replace("_", ""));
 

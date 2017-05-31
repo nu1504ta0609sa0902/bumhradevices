@@ -242,7 +242,6 @@ public class CFSSteps extends CommonSteps {
 
         //If registered we need to click on a button, else devices page is displayed
         String registeredStatus = (String) scenarioSession.getData(SessionKey.registeredStatus);
-        //cfsAddDevices = manufacturerDetails.gotoAddDevicesPage(registeredStatus);
 
         //Assumes we are in add device page
         DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);

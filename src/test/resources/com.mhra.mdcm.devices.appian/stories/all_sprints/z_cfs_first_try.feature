@@ -56,7 +56,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | listOfProductNames | ford,hyundai                       |
     And I submit the cfs application for approval
 
-  @5583 @_sprint18
+  @1944 @_sprint17 @5583 @_sprint18
   Scenario Outline: Able to upload certificates with different notified body
     Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
@@ -70,14 +70,17 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | relatedDeviceSterile | <relatedDeviceSterile> |
       | notifiedBody         | <notifiedBody>         |
       | listOfProductNames   | <listOfProductNames>   |
+      | certificateType      | <certificateType>      |
     And I submit the cfs application for approval
     Examples:
-      | user             | searchTerm | notifiedBody     | deviceType                         | gmdnDefinition       | customMade | riskClassification | relatedDeviceSterile | listOfProductNames |
-      | manufacturerNoor | TestNoor   | BSI              | General Medical Device             | Blood weighing scale | false      | Class2A            | true                 | ford,hyundai       |
-      | manufacturerNoor | TestNoor   | Amtac            | General Medical Device             | Blood weighing scale | false      | Class2B            | true                 | ford,hyundai       |
-      | manufacturerNoor | TestNoor   | Lloyd            | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
-      | manufacturerNoor | TestNoor   | SGS              | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
-      | manufacturerNoor | TestNoor   | UL International | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
+      | user             | searchTerm | notifiedBody     | certificateType    | deviceType                         | gmdnDefinition       | customMade | riskClassification | relatedDeviceSterile | listOfProductNames |
+      | manufacturerNoor | TestNoor   | BSI              | Inspection Quality | General Medical Device             | Blood weighing scale | false      | Class2A            | true                 | ford,hyundai       |
+      | manufacturerNoor | TestNoor   | Amtac            | Batch Verification | General Medical Device             | Blood weighing scale | false      | Class2B            | true                 | ford,hyundai       |
+      | manufacturerNoor | TestNoor   | Amtac            | Design Exam        | General Medical Device             | Blood weighing scale | false      | Class3             | false                | ford,hyundai       |
+      | manufacturerNoor | TestNoor   | Lloyd            | Production Quality | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
+      | manufacturerNoor | TestNoor   | SGS              | Type Exam          | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
+      | manufacturerNoor | TestNoor   | UL International | Full Quality       | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
+
 
   @1944 @_sprint17
   Scenario Outline: Users can upload different types of CE Certificates

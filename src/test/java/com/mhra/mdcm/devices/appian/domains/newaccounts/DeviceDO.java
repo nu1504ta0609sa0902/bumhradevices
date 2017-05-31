@@ -50,6 +50,7 @@ public class DeviceDO {
     public boolean addProducts;
     public boolean addDevices;
     public String docType;
+    public String certificateType;
 
     public DeviceDO(ScenarioSession scenarioSession) {
         this.scenarioSession = scenarioSession; 
@@ -73,6 +74,7 @@ public class DeviceDO {
         addDevices = true;
 
         docType = "pdf";
+        certificateType = "Full Quality Assurance";
     }
 
     public String getGMDN() {

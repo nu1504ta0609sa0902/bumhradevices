@@ -128,6 +128,7 @@ public class TestHarnessUtils {
             String addProducts = dataSets.get("addProducts");
             String addDevices = dataSets.get("addDevices");
             String docType = dataSets.get("docType");
+            String certificateType = dataSets.get("certificateType");
 
             if(isNotEmptyOrNull(deviceType)){
                 dd.deviceType = deviceType;
@@ -204,6 +205,9 @@ public class TestHarnessUtils {
             }
             if(isNotEmptyOrNull(docType)){
                 dd.docType = docType.replace(" ","");
+            }
+            if(isNotEmptyOrNull(certificateType)){
+                dd.certificateType = certificateType;
             }
         }
         return dd;
