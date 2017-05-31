@@ -79,6 +79,30 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | manufacturerNoor | TestNoor   | SGS              | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
       | manufacturerNoor | TestNoor   | UL International | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
 
+  @1944 @_sprint17
+  Scenario Outline: Users can upload different types of CE Certificates
+    Given I am logged into appian as "<user>" user
+    And I go to device certificate of free sale page
+    Then I should see a list of manufacturers available for CFS
+    When I click on a organisation name begins with "<searchTerm>" which needs cfs
+    And I add a device to SELECTED CFS manufacturer with following data
+      | addDevices           | <addDevices>           |
+      | addCertificate       | <addCertificate>       |
+      | addProducts          | <addProducts>          |
+      | deviceType           | <deviceType>           |
+      | gmdnDefinition       | <gmdnDefinition>       |
+      | customMade           | <customMade>           |
+      | riskClassification   | <riskClassification>   |
+      | relatedDeviceSterile | <relatedDeviceSterile> |
+      | notifiedBody         | <notifiedBody>         |
+      | listOfProductNames   | <listOfProductNames>   |
+      | docType              | <docType>              |
+    Then I should not be able to proceed to the next step
+    Examples:
+      | user             | searchTerm | docType                  | addDevices | addCertificate | addProducts | notifiedBody | deviceType             | gmdnDefinition       | customMade | riskClassification | relatedDeviceSterile | listOfProductNames |
+      | manufacturerNoor | TestNoor   | pdf, jpg,png , tif ,docx | true       | true           | false       | Amtac        | General Medical Device | Blood weighing scale | false      | Class2B            | true                 | ford,hyundai       |
+#      | authorisedRepNoor | TestNoor   |   jpg      |true       | true           | false       | SGS          | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
+
 
   @5583 @_sprint18
   Scenario Outline: Verify certain elements are disable by defaults like Upload Certificate button

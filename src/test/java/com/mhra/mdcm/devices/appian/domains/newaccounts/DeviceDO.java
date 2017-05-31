@@ -1,11 +1,7 @@
 package com.mhra.mdcm.devices.appian.domains.newaccounts;
 
 import com.mhra.mdcm.devices.appian.session.ScenarioSession;
-import com.mhra.mdcm.devices.appian.session.SessionKey;
-import com.mhra.mdcm.devices.appian.utils.selenium.others.FileUtils;
-import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,16 +43,22 @@ public class DeviceDO {
     public boolean isSubjectToPerfEval;
     public boolean isNewProduct;
     public boolean isConformsToCTS;
-    public boolean isAnotherDevice;
+
+    //CFS Certificate Related
+    public boolean isAddingAnotherDevice;
     public boolean addCertificate;
     public boolean addProducts;
     public boolean addDevices;
+    public String docType;
 
     public DeviceDO(ScenarioSession scenarioSession) {
         this.scenarioSession = scenarioSession; 
         createDefaultRandom();
     }
 
+    /**
+     * Some default values assumed
+     */
     private void createDefaultRandom() {
 
         isCustomMade = true;
@@ -70,6 +72,7 @@ public class DeviceDO {
         addProducts = true;
         addDevices = true;
 
+        docType = "pdf";
     }
 
     public String getGMDN() {
@@ -80,9 +83,11 @@ public class DeviceDO {
         return gmdn;
     }
 
-    public void setAnotherCertificate(boolean anotherCertificate) {
-        this.isAnotherDevice = true;
-        deviceCount++;
+    public void setAnotherCertificate(boolean isAddingAnotherDevice) {
+        if(isAddingAnotherDevice) {
+            this.isAddingAnotherDevice = true;
+            deviceCount++;
+        }
     }
 
     @Override

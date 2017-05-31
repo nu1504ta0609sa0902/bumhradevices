@@ -235,6 +235,8 @@ public class CFSAddDevices extends _Page {
     WebElement viewAllGMDNTermDefinition;
     @FindBy(partialLinkText = "Back to service")
     WebElement linkBackToService;
+    @FindBy(xpath = ".//*[contains(@aria-label, 'Clear file')]")
+    WebElement imgClearFileSelected;
 
     //Add CE Certificate details
     @FindBy(css = ".DropdownWidget---dropdown_value")
@@ -465,8 +467,18 @@ public class CFSAddDevices extends _Page {
         //PageFactory.initElements(driver, this);
 
         WaitUtils.waitForElementToBeClickable(driver, datePicker, TIMEOUT_10_SECOND);
-        String certName = "CECertificate" + dd.deviceCount + ".pdf";
-        PageUtils.uploadDocument(fileUpload, certName, 1, 3);
+        String docType = dd.docType;
+        String[] docTypes = docType.split(",");
+
+        int count = 1;
+        for(String dt: docTypes) {
+            if(count>1){
+                PageUtils.singleClick(driver, imgClearFileSelected);
+            }
+            String certName = "CECertificate" + dd.deviceCount + "." + dt;
+            PageUtils.uploadDocument(fileUpload, "certs", certName, 1, 3);
+            count++;
+        }
 
         //Select certificate type and enter date
         PageUtils.selectFromDropDown(driver, listOfDropDownFilters.get(0), "Full Quality Assurance", false);
@@ -630,7 +642,7 @@ public class CFSAddDevices extends _Page {
 
     private void changeNotifiedBody() {
         try {
-            WaitUtils.waitForElementToBeClickable(driver, linkChangeNotifiedBody, TIMEOUT_5_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, linkChangeNotifiedBody, TIMEOUT_1_SECOND);
             linkChangeNotifiedBody.click();
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         } catch (Exception e) {

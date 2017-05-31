@@ -129,6 +129,14 @@ public class PageUtils {
         WaitUtils.nativeWaitInSeconds(timeWaitForDocumentUploadToFinish);
     }
 
+    public static void uploadDocument(WebElement element, String folder, String fileName, int timeWaitForItToBeClickable, int timeWaitForDocumentUploadToFinish){
+        String fullPath = FileUtils.getFileFullPath("tmp" + File.separator + "data" + File.separator + folder, fileName);
+        WaitUtils.nativeWaitInSeconds(timeWaitForItToBeClickable);
+        element.sendKeys(fullPath);
+        //We will have to wait for uploading to finish
+        WaitUtils.nativeWaitInSeconds(timeWaitForDocumentUploadToFinish);
+    }
+
     public static WebElement getRandomElementFromList(List<WebElement> listOfECIDLinks) {
         String index = RandomDataUtils.getSimpleRandomNumberBetween(0, listOfECIDLinks.size() - 1);
         int i = Integer.parseInt(index);
