@@ -51,6 +51,7 @@ public class DeviceDO {
     public boolean addDevices;
     public String docType;
     public String certificateType;
+    public int monthsInFutureOrPast;
 
     public DeviceDO(ScenarioSession scenarioSession) {
         this.scenarioSession = scenarioSession; 
@@ -75,6 +76,7 @@ public class DeviceDO {
 
         docType = "pdf";
         certificateType = "Full Quality Assurance";
+        monthsInFutureOrPast = 0;
     }
 
     public String getGMDN() {

@@ -131,6 +131,28 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | manufacturerNoor | TestNoor   | true       | false          |             | Amtac        | General Medical Device             | Blood weighing scale | false      | Class2B            | true                 | ford,hyundai       |
       | manufacturerNoor | TestNoor   | true       | true           | false       | SGS          | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
 
+  @1944 @_sprint17
+  Scenario Outline: Error messages is displayed for incorrect date values
+    Given I am logged into appian as "<user>" user
+    And I go to device certificate of free sale page
+    Then I should see a list of manufacturers available for CFS
+    When I click on a organisation name begins with "<searchTerm>" which needs cfs
+    And I try to add a device to SELECTED CFS manufacturer with following data
+      | addProducts          | false                  |
+      | deviceType           | <deviceType>           |
+      | gmdnDefinition       | <gmdnDefinition>       |
+      | customMade           | <customMade>           |
+      | riskClassification   | <riskClassification>   |
+      | relatedDeviceSterile | <relatedDeviceSterile> |
+      | notifiedBody         | <notifiedBody>         |
+      | monthsInFutureOrPast | <monthsInFutureOrPast> |
+    Then I should see the following field "<errorMsg>" error message
+    Examples:
+      | user             | searchTerm | errorMsg                                                                                     | monthsInFutureOrPast | deviceType             | notifiedBody | gmdnDefinition       | customMade | riskClassification | relatedDeviceSterile |
+      | manufacturerNoor | TestNoor   | According to this date your certificate has expired. MHRA cannot accept expired certificates. | -1                   | General Medical Device | BSI          | Blood weighing scale | false      | class3             | false                |
+      | manufacturerNoor | TestNoor   | According to this date your certificate has expired. MHRA cannot accept expired certificates. | 0                    | General Medical Device | BSI          | Blood weighing scale | false      | class2b            | false                |
+#      | manufacturerNoor | TestNoor   | This certificate expires within 3 months                                                     | 2                    | General Medical Device | BSI          | Blood weighing scale | false      | class2a            | false                |
+
 
   @1845 @1945 @_sprint18 @wip
   Scenario: Users should receive task in application WIP page

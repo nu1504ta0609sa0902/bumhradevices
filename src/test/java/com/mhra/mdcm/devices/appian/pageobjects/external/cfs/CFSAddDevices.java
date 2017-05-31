@@ -27,9 +27,6 @@ public class CFSAddDevices extends _Page {
 
     public static String gmdnSelected = null;
 
-    @FindBy(css = ".ParagraphText---error")
-    List<WebElement> errorMessages;
-
     @FindBy(css = ".RadioButtonGroup---choice_pair>label")
     List<WebElement> listOfDeviceTypes;
     @FindBy(xpath = ".//label[contains(text(),'GMDN Code')]//following::a[string-length(text()) > 0]")
@@ -214,9 +211,13 @@ public class CFSAddDevices extends _Page {
     @FindBy(xpath = ".//button[.='Submit for approval']")
     WebElement btnSubmitForApproval;
 
-    //Error message
+    //Error messages
+    @FindBy(css = ".ParagraphText---error")
+    List<WebElement> errorMessages;
     @FindBy(css = ".FieldLayout---field_error")
     WebElement errMessage;
+    @FindBy(css = ".FieldLayout---field_error")
+    List<WebElement> fieldErrorMessages;
     @FindBy(css = ".FieldLayout---field_error")
     WebElement validationErrMessage;
 
@@ -282,6 +283,24 @@ public class CFSAddDevices extends _Page {
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
             boolean isDisplayed = false;
             for (WebElement msg : errorMessages) {
+                String txt = msg.getText();
+                System.out.println("Error message : " + txt);
+                isDisplayed = txt.toLowerCase().contains(message.toLowerCase());
+                if (isDisplayed) {
+                    break;
+                }
+            }
+            return isDisplayed;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean isFieldErrorMessageDisplayed(String message) {
+        try {
+            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+            boolean isDisplayed = false;
+            for (WebElement msg : fieldErrorMessages) {
                 String txt = msg.getText();
                 System.out.println("Error message : " + txt);
                 isDisplayed = txt.toLowerCase().contains(message.toLowerCase());
@@ -377,9 +396,9 @@ public class CFSAddDevices extends _Page {
 
                 if(dd.addCertificate) {
                     uploadCECertificates(dd);
-                    clickContinue();
 
                     if(dd.addProducts) {
+                        clickContinue();
                         //Add more than 1 products
                         if (dd.listOfProductName.size() > 0) {
                             for (String name : dd.listOfProductName) {
@@ -418,13 +437,13 @@ public class CFSAddDevices extends _Page {
                 //In CFS if risk classification is class1 , Than it should show an error message @5207
                 if (!dd.riskClassification.equals("class1")) {
                     deviceSterile(dd);
-                    clickContinue();
 
                     if (dd.addCertificate) {
-                        uploadCECertificates(dd);
                         clickContinue();
+                        uploadCECertificates(dd);
 
                         if(dd.addProducts) {
+                            clickContinue();
                             //Add more than 1 products : Not sure why we need to add product for GMD
                             if (dd.listOfProductName.size() > 0) {
                                 for (String name : dd.listOfProductName) {
@@ -446,7 +465,7 @@ public class CFSAddDevices extends _Page {
                             }
                             clickContinue();
                         }else{
-                            WaitUtils.waitForElementToBeClickable(driver, addProduct, TIMEOUT_5_SECOND);
+                            //WaitUtils.waitForElementToBeClickable(driver, addProduct, TIMEOUT_5_SECOND);
                         }
                     }else{
                         WaitUtils.waitForElementToBeClickable(driver, btnUploadCertificate, TIMEOUT_5_SECOND);
@@ -482,12 +501,16 @@ public class CFSAddDevices extends _Page {
 
         //Select certificate type and enter date
         PageUtils.selectFromDropDown(driver, listOfDropDownFilters.get(0), dd.certificateType, false);
-        datePicker.sendKeys(RandomDataUtils.getDateInFutureMonths(12), Keys.TAB);
+        datePicker.sendKeys(RandomDataUtils.getDateInFutureMonths(dd.monthsInFutureOrPast), Keys.TAB);
         tbxCertificateReferenceNumber.sendKeys(RandomDataUtils.getRandomTestName("CTS").replace("_", ""));
 
-        //select notified body
-        notifiedBody(dd);
-        clickUploadCertificate();
+        boolean isErrorMessageDisplayed = fieldErrorMessages.size() > 0;
+
+        if(!isErrorMessageDisplayed) {
+            //select notified body
+            notifiedBody(dd);
+            clickUploadCertificate();
+        }
     }
 
     private void clickContinue() {

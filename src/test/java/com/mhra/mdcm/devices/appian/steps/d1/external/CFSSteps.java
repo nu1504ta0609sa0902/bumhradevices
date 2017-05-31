@@ -324,6 +324,12 @@ public class CFSSteps extends CommonSteps {
         Assert.assertEquals("Expected error message : " + errorMessage, true, errorMessageDisplayed);
     }
 
+    @Then("^I should see the following field \"([^\"]*)\" error message$")
+    public void i_should_see_the_following_field_error_message(String errorMessage) throws Throwable {
+        boolean errorMessageDisplayed = cfsAddDevices.isFieldErrorMessageDisplayed(errorMessage);
+        Assert.assertEquals("Expected field error message : " + errorMessage, true, errorMessageDisplayed);
+    }
+
     @When("^I submit the cfs application for approval$")
     public void i_submit_the_cfs_application_for_approval() throws Throwable {
         cfsManufacturerList = cfsAddDevices.submitApplicationForApproval();
