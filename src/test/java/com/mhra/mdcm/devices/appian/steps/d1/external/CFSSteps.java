@@ -67,7 +67,6 @@ public class CFSSteps extends CommonSteps {
 
     @Then("^I should see a list of manufacturers available for CFS$")
     public void i_should_see_a_list_of_manufacturers_available_for_CFS() throws Throwable {
-        cfsManufacturerList = cfsManufacturerList.tellUsAboutYourOrganisation();
         boolean isListVisible = cfsManufacturerList.isManufacturerListDisplayed();
         Assert.assertThat("Expected to see a list of manufacturers", isListVisible, is(true));
     }

@@ -76,7 +76,7 @@ public class DeviceDO {
 
         docType = "pdf";
         certificateType = "Full Quality Assurance";
-        monthsInFutureOrPast = 0;
+        monthsInFutureOrPast = 12;
     }
 
     public String getGMDN() {

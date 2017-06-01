@@ -321,8 +321,8 @@ public class CFSAddDevices extends _Page {
     }
 
     public CFSAddDevices addFollowingDevice(DeviceDO dd, boolean isRegistered) {
-        WaitUtils.isPageLoadingCompleteInMilliseconds(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_DEFAULT);
+//        WaitUtils.isPageLoadingCompleteInMilliseconds(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_10_SECOND);
         WaitUtils.waitForElementToBeClickable(driver, systemOrProcedurePack, TIMEOUT_3_SECOND);
         //Select device type
         selectDeviceType(dd);
@@ -414,7 +414,7 @@ public class CFSAddDevices extends _Page {
                         }
                         clickContinue();
                     }else {
-                        WaitUtils.waitForElementToBeClickable(driver, addProduct, TIMEOUT_5_SECOND);
+                        //WaitUtils.waitForElementToBeClickable(driver, addProduct, TIMEOUT_5_SECOND);
                     }
                 }else{
                     WaitUtils.waitForElementToBeClickable(driver, btnUploadCertificate, TIMEOUT_5_SECOND);
@@ -514,6 +514,7 @@ public class CFSAddDevices extends _Page {
     }
 
     private void clickContinue() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnContinue, TIMEOUT_10_SECOND);
         PageUtils.doubleClick(driver, btnContinue);
     }
@@ -940,10 +941,10 @@ public class CFSAddDevices extends _Page {
 //        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
 //        WebElement link;
 //        if (data.productName != null && !data.productName.equals("")) {
-//            link = PageUtils.findCorrectElement(listOfProductNames, data.productName);
+//            link = PageUtils.findElementWithText(listOfProductNames, data.productName);
 //        } else {
 //            //Confirm model and make
-//            link = PageUtils.findCorrectElement(listOfProductMake, data.productMake);
+//            link = PageUtils.findElementWithText(listOfProductMake, data.productMake);
 //        }
 //
 //        //WaitUtils.waitForElementToBeClickable(driver, link, TIMEOUT_5_SECOND);

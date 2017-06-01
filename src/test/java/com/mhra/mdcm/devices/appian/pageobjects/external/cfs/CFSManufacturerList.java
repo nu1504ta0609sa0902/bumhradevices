@@ -98,7 +98,7 @@ public class CFSManufacturerList extends _Page {
 
     public boolean isManufacturerListDisplayed() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        boolean isVisible = PageUtils.isVisible(driver, btnAddNewManufacturer, TIMEOUT_3_SECOND);
+        boolean isVisible = PageUtils.isVisible(driver, btnAddNewManufacturer, TIMEOUT_10_SECOND);
         return isVisible;
     }
 

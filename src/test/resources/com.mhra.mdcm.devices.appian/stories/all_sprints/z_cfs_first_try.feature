@@ -20,14 +20,14 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | deviceType           | General Medical Device |
       | gmdnDefinition       | Blood weighing scale   |
       | customMade           | false                  |
-      | riskClassification   | Class2b                |
+      | riskClassification   | Class2a                |
       | relatedDeviceSterile | true                   |
       | notifiedBody         | NB 0086 BSI            |
     And I add another device to SELECTED CFS manufacturer with following data
       | deviceType           | General Medical Device |
       | gmdnDefinition       | Res                    |
       | customMade           | false                  |
-      | riskClassification   | Class1                 |
+      | riskClassification   | Class2b                 |
       | relatedDeviceSterile | true                   |
       | notifiedBody         | NB 0086 BSI            |
     And I submit the cfs application for approval

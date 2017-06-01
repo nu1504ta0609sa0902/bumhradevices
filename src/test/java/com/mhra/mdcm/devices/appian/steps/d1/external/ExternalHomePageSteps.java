@@ -59,6 +59,7 @@ public class ExternalHomePageSteps extends CommonSteps {
     @And("^I go to device certificate of free sale page$")
     public void i_go_to_device_certificate_of_free_sale_page() throws Throwable {
         cfsManufacturerList = externalHomePage.gotoCFSPage();
+        cfsManufacturerList = cfsManufacturerList.tellUsAboutYourOrganisation();
     }
 
     @Then("^I goto list of manufacturers page again$")

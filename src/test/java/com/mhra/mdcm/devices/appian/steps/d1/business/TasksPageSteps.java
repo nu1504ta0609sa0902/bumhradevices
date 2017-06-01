@@ -6,6 +6,7 @@ import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
+import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.StepsUtils;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
@@ -492,11 +493,61 @@ public class TasksPageSteps extends CommonSteps {
     }
 
 
+    @When("^I assign the AWIP page task to me and \"([^\"]*)\" the generated task$")
+    public void i_assign_AWIP_task_and_accept_the_task_and_the_generated_task(String approveOrReject) throws Throwable {
+        //accept the taskSection and approve or reject it
+        taskSection = taskSection.assignTaskToMe();
+        taskSection = taskSection.confirmAssignment(true);
 
+        //Approve or reject
+        String taskType = (String) scenarioSession.getData(SessionKey.taskType);
+        if (approveOrReject.equals("approve")) {
+            if(taskType!=null && taskType.contains("New Account")) {
+                tasksPage = taskSection.approveTaskNewAccount();
+            }else if(taskType!=null && taskType.contains("New Manufacturer")){
+                tasksPage = taskSection.acceptRegistrationTask();
+            }else if(taskType!=null && taskType.contains("Update Manufacturer Registration Request")){
+                tasksPage = taskSection.approveTask();
+            }else{
+                //Assume New Manufacturer
+                tasksPage = taskSection.acceptRegistrationTask();
+            }
+        } else {
+            //Rejection process is slightly different, you need to enter a rejection reason
+            taskSection = taskSection.rejectTask();
+            tasksPage = taskSection.enterRejectionReason("This may have been removed", RandomDataUtils.getRandomTestName("Account already exists "));
+        }
+    }
     @When("^I go to application WIP page$")
     public void iGoToApplicationWIPTaksPage() throws Throwable {
         mainNavigationBar = new MainNavigationBar(driver);
         tasksPage = mainNavigationBar.clickTasks();
         taskSection = tasksPage.gotoApplicationWIPPage();
     }
+
+    @Then("^I search and view new task in AWIP page for the new account$")
+    public void i_should_see_a_new_task_in_AWIP_page_for_the_new_account() throws Throwable {
+        String accountNameOrReference = (String) scenarioSession.getData(SessionKey.newApplicationReferenceNumber);
+        if(!TestHarnessUtils.isNotEmptyOrNull(accountNameOrReference))
+            accountNameOrReference = (String) scenarioSession.getData(SessionKey.newAccountName);
+
+        mainNavigationBar = new MainNavigationBar(driver);
+        tasksPage = mainNavigationBar.clickTasks();
+        taskSection = tasksPage.gotoApplicationWIPPage();
+        taskSection = taskSection.searchAWIPPageForAccount(accountNameOrReference);
+        boolean isStatusCorrect = taskSection.isAWIPTaskStatusCorrect("In Progress");
+        taskSection = taskSection.viewAccountByReferenceNumber(accountNameOrReference);
+    }
+
+    @Then("^The task status in AWIP page should be \"([^\"]*)\" for the new account$")
+    public void the_task_status_in_AWIP_page_should_be_for_the_new_account(String status) throws Throwable {
+        String accountNameOrReference = (String) scenarioSession.getData(SessionKey.newApplicationReferenceNumber);
+        mainNavigationBar = new MainNavigationBar(driver);
+        tasksPage = mainNavigationBar.clickTasks();
+        taskSection = tasksPage.gotoApplicationWIPPage();
+        taskSection = taskSection.searchAWIPPageForAccount(accountNameOrReference);
+
+        boolean isStatusCorrect = taskSection.isAWIPTaskStatusCorrect(status);
+    }
+
 }

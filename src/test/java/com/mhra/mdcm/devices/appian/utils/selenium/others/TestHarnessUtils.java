@@ -61,14 +61,12 @@ public class TestHarnessUtils {
         return defaultAccount;
     }
 
-    private static boolean isNotEmptyOrNull(String data) {
-        boolean isValid = true;
-
+    public static boolean isNotEmptyOrNull(String data) {
+        boolean isNotEmptyOrNull = true;
         if(data == null || data.trim().equals("")){
-            isValid = false;
+            isNotEmptyOrNull = false;
         }
-
-        return isValid;
+        return isNotEmptyOrNull;
     }
 
     public static ManufacturerRequestDO updateManufacturerDefaultsWithData(Map<String, String> dataSets, ScenarioSession scenarioSession) {

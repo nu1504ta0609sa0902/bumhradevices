@@ -225,11 +225,12 @@ public class PageUtils {
         }
     }
 
-    public static WebElement findCorrectElement(List<WebElement> listOfElements, String productMake) {
+    public static WebElement findElementWithText(List<WebElement> listOfElements, String textToMatch) {
         WebElement element = null;
         for(WebElement el: listOfElements){
             String txt = el.getText();
-            if(txt.toLowerCase().contains(productMake.toLowerCase())){
+            System.out.println(txt);
+            if(txt.toLowerCase().contains(textToMatch.toLowerCase())){
                 element = el;
                 break;
             }

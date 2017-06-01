@@ -90,3 +90,18 @@ Feature: As a business user, I want a task to be created when new account reques
       | businessNoor | manufacturer  | 0     | Turkey      | Account already exists             | New Account Request |
       | businessNoor | authorisedRep | 0     | Estonia     | No authorisation evidence provided | New Account Request |
 
+
+  Scenario Outline: Create new account as business user and approve AWIP tasks
+    Given I am logged into appian as "<user>" user
+    When I create a new account using business test harness page with following data
+      | accountType | <accountType> |
+      | countryName | <countryName> |
+    Then I search and view new task in AWIP page for the new account
+    When I assign the AWIP page task to me and "<approveReject>" the generated task
+    Then The task status in AWIP page should be "Accepted" for the new account
+    When I search accounts for the stored organisation name
+    Then I should see at least <count> account matches
+    Examples:
+      | user         | accountType   | approveReject | count | countryName    | link                |
+      | businessNoor | manufacturer  | approve       | 1     | United Kingdom | New Account Request |
+#      | businessNoor | authorisedRep | approve       | 1     | Netherland     | New Account Request |

@@ -78,7 +78,7 @@ public class ActionsPageSteps extends CommonSteps {
 
         //Now create the test data using harness page
         AccountRequestDO newAccount = TestHarnessUtils.updateBusinessDefaultsWithData(dataSets, scenarioSession);
-        //log.info("New Account Requested With Following Data : \n" + newAccount);
+        String applicationRef = null;
 
         //go to accounts page > test harness page
         actionsTabPage = mainNavigationBar.clickActions();
@@ -103,11 +103,17 @@ public class ActionsPageSteps extends CommonSteps {
                 createTestsData = actionsTabPage.gotoTestsHarnessPage();
                 actionsTabPage = createTestsData.createTestOrganisation(newAccount);
                 isInCorrectPage = actionsTabPage.isApplicationSubmittedSuccessfully();
+                if(isInCorrectPage){
+                    applicationRef = actionsTabPage.getApplicationReferenceNumber();
+                }
                 count++;
             } while (!isInCorrectPage && count <= 3);
+        }else{
+            applicationRef = actionsTabPage.getApplicationReferenceNumber();
         }
 
         log.warn("Created a new account : " + newAccount.organisationName);
+        scenarioSession.putData(SessionKey.newApplicationReferenceNumber, applicationRef);
         scenarioSession.putData(SessionKey.organisationName, newAccount.organisationName);
         scenarioSession.putData(SessionKey.newAccountName, newAccount.organisationName);
         scenarioSession.putData(SessionKey.manufacturerData, newAccount);

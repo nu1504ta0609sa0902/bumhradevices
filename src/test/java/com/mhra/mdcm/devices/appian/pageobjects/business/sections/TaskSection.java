@@ -103,8 +103,24 @@ public class TaskSection extends _Page {
     //Application WIP page
     @FindBy(xpath = ".//*[text()='Urgency']/following::tr/td[1]")
     List<WebElement> listOfApplicationReferences;
+    @FindBy(xpath = ".//*[text()='Urgency']/following::tr/td[1]")
+    WebElement aApplicationReference;
+    @FindBy(xpath = ".//*[text()='Urgency']/following::tr/td[4]")
+    WebElement applicationStatus;
+    @FindBy(xpath = ".//*[text()='Urgency']/following::tr")
+    List<WebElement> listOfApplicationData;
     @FindBy(partialLinkText = "Filter application")
     WebElement linkFilterApplication;
+    @FindBy(xpath = ".//*[contains(text(), 'Search by manufacturer')]/following::input[1]")
+    WebElement tbxSearchByManufacturer;
+    @FindBy(xpath = ".//button[text()='Search']")
+    WebElement btnSearchForManufacuturer;
+    @FindBy(xpath = ".//button[text()='Assign to myself']")
+    WebElement btnAssignToMe;
+    @FindBy(xpath = ".//button[text()='Yes']")
+    WebElement btnConfirmYesAssignToMe;
+    @FindBy(xpath = ".//button[text()='No']")
+    WebElement btnConfirmNoAssignToMe;
 
     //New filter section introduced in sprint 13
     @FindBy(xpath = ".//*[.='Organisation']")
@@ -557,5 +573,45 @@ public class TaskSection extends _Page {
             }
         }
         return listOfInvalidReferences;
+    }
+
+    public TaskSection searchAWIPPageForAccount(String accountNameOrReference) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, tbxSearchByManufacturer, TIMEOUT_10_SECOND);
+        tbxSearchByManufacturer.sendKeys(accountNameOrReference);
+        btnSearchForManufacuturer.click();
+        listOfApplicationReferences.size();
+        return new TaskSection(driver);
+    }
+
+    public TaskSection viewAccountByReferenceNumber(String reference) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeVisible(driver, aApplicationReference, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, aApplicationReference, TIMEOUT_10_SECOND);
+        WebElement referenceToClick = PageUtils.findElementWithText(listOfApplicationReferences, reference);
+        referenceToClick.click();
+        return new TaskSection(driver);
+    }
+
+    public TaskSection assignTaskToMe() {
+        WaitUtils.waitForElementToBeClickable(driver, btnAssignToMe, TIMEOUT_10_SECOND);
+        btnAssignToMe.click();
+        return new TaskSection(driver);
+    }
+
+    public TaskSection confirmAssignment(boolean clickYes) {
+        WaitUtils.waitForElementToBeClickable(driver, btnConfirmYesAssignToMe, TIMEOUT_10_SECOND);
+        if(clickYes){
+            btnConfirmYesAssignToMe.click();
+        }else{
+            btnConfirmNoAssignToMe.click();
+        }
+        return new TaskSection(driver);
+    }
+
+    public boolean isAWIPTaskStatusCorrect(String status) {
+        WaitUtils.waitForElementToBeClickable(driver, applicationStatus, TIMEOUT_10_SECOND);
+        boolean contains = applicationStatus.getText().contains(status);
+        return contains;
     }
 }

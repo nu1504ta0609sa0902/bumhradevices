@@ -29,4 +29,5 @@ public class SessionKey {
     public static String newAccountName = "New Account Name";
     public static String numberOfCertificates = "Number of certificates";
     public static String listOfCFSCountryPairs = "List of CFS Country pairs";
+    public static String newApplicationReferenceNumber = "Account Reference Number Created For A New Account";
 }

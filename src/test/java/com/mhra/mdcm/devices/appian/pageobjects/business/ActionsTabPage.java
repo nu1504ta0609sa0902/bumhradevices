@@ -20,6 +20,8 @@ public class ActionsTabPage extends _Page {
 
     @FindBy(xpath = ".//h3[contains(text(), 'Application complete')]")
     WebElement txtApplicationComplete;
+    @FindBy(xpath = ".//h3[contains(text(), 'Application complete')]/following::h4[1]")
+    WebElement txtApplicationReference;
 
     @Autowired
     public ActionsTabPage(WebDriver driver) {
@@ -62,5 +64,9 @@ public class ActionsTabPage extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, linkCreateTestAccount, TIMEOUT_10_SECOND);
         driver.navigate().refresh();
         return new ActionsTabPage(driver);
+    }
+
+    public String getApplicationReferenceNumber() {
+        return txtApplicationReference.getText();
     }
 }

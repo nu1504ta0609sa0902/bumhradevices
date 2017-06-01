@@ -854,10 +854,10 @@ public class AddDevices extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WebElement link;
         if (data.productName != null && !data.productName.equals("")) {
-            link = PageUtils.findCorrectElement(listOfProductNames, data.productName);
+            link = PageUtils.findElementWithText(listOfProductNames, data.productName);
         } else {
             //Confirm model and make
-            link = PageUtils.findCorrectElement(listOfProductMake, data.productMake);
+            link = PageUtils.findElementWithText(listOfProductMake, data.productMake);
         }
 
         //WaitUtils.waitForElementToBeClickable(driver, link, TIMEOUT_5_SECOND);
