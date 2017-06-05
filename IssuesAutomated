@@ -249,61 +249,62 @@ Automated Issues:
         - @1957 -   MOVED
 
     Sprint 15: @_sprint15       CFS RELATED
-        - @1974 -   no tests for regression
-        - @1978 -   no tests for regression
-        - @1995 -   no tests for regression
-        - @3842 -   no tests for regression
-        - @3856 -   no tests for regression
-        - @4203 -
-        - @4698 -
-        - @4703 -
-        - @4704 -
-        - @4707 -
+        - @1974 -   DONE ISH
+        - @1978 -   DONE ISH
+        - @1995 -   @TODO prevent accessing CFS if not based in UK
+        - @3842 -   @Todo can't test because I am not able to create other accounts apart from Manufacturer, AuthorisedRep and Distributor
+        - @3856 -   DONE ISH
+        - @4203 -   DONE ISH
+        - @4698 -   DONE ISH
+        - @4703 -   @Todo Address field verification
+        - @4704 -   DONE ISH
+        - @4707 -   @Todo download sample CFS details
 
 
     Sprint 16: @_sprint16       CFS RELATED
-        - @4330 -
-        - @5141 -
-        - @3979 -
-        - @5212 -
+        - @4330 -   DONE ISH
+        - @5141 -   DONE ISH
+        - @3979 -   DONE ISH
+        - @5212 -   DONE ISH
         - @1989 -
-        - @5207 -
-        - @5463 -
+        - @5207 -   DONE ISH
+        - @5463 -   UX changes
+        - @4908 -   DONE ISH    covered
+        - @5450 -   Document row removed so no paper clip image
+        - @4324 -   @todo   field validation
+        - @4356 -   @todo   bug error messages and validations
+        - @1872 -   @todo   task status
+
         -       -   @TODO : below are all bugs related to sprint16
 
     Sprint 16: @_sprint16       BUGS AND CHANGES : should be covered by existing scenarios
         - @5441 -   2/2     DONE ISH   covered
         - @5368 -   2/2     DONE ISH   covered
-        - @5450 -   Document row removed so no paper clip image
         - @5440 -   2/2     DONE ISH    covered
         - @4550 -   @todo   bug
         - @4559 -   2/2     DONE ISH    covered
-        - @4908 -           DONE ISH    covered
         - @5220 -           DONE ISH    covered
         - @4679 -   @todo   bug
         - @4720 -   @todo   bug
         - @5218 -           DONE ISH    covered
         - @4699 -   @todo   bug
         - @4257 -   @todo   bug
-        - @4324 -   @todo   bug
         - @4830 -           DONE ISH    covered
-        - @4356 -   @todo   bug error messages and validations
         - @4743 -           DONE ISH    covered
         - @4711 -   @todo   filter by due date
         - @4628 -           DONE ISH    covered
         - @4715 -           DONE ISH    covered
         - @4560 -           DONE ISH    covered
         - @4961 -   @todo   resume saved application
-        - @1872 -   @todo   task status
 
     Sprint 17: @_sprint17       CFS RELATED
-        - @1944 -
-        - @1988 -
-        - @5125 -
-        - @5126 -
-        - @5127 -
-        - @5128 -
-        - @5499 -
+        - @1944 -   DONE ISH
+        - @1988 -   CFS
+        - @5125 -   DONE ISH
+        - @5126 -   DONE ISH
+        - @5127 -   CFS
+        - @5128 -   CFS
+        - @5499 -   CFS
         - @5232 -   @todo   bug
         - @5233 -   @todo   bug
         - @5234 -   @todo   bug
@@ -312,18 +313,44 @@ Automated Issues:
         - @5425 -   @todo   bug
 
     Sprint 18: @_sprint18       CFS RELATED
-        - @1845 -
-        - @1945 -
-        - @2179 -
-        - @2268 -
-        - @4368 -
-        - @5571 -
-        - @5578 -
-        - @3810 -
-        - @5583 -
+        - @1845 -   CFS
+        - @1945 -   DR
+        - @2179 -   DR
+        - @2268 -   DR
+        - @4368 -   DR
+        - @5571 -   DONE ISH
+        - @5578 -   DONE ISH
+        - @3810 -   DR
+        - @5583 -   DONE ISH
         - @5541 -   @todo   bug
         - @5542 -   @todo   bug
         - @5236 -   @todo   bug
 
 
     Sprint 19: @_sprint19
+        - @1845 -   CFS
+        - @1845 -   CFS
+        - @1845 -   CFS
+        - @1845 -   CFS
+        - @1845 -   CFS
+        - @1845 -   CFS
+        - @1845 -   CFS
+        - @1845 -   CFS
+        - @1845 -   CFS
+        - @1845 -   CFS
+        - @1845 -   CFS
+        - @1845 -   CFS
+        - @1845 -   CFS
+        - @1845 -   CFS
+        - @1845 -   CFS
+        - @1845 -   CFS
+        - @1845 -   CFS
+        - @1845 -   CFS
+        - @1845 -   CFS
+        - @1845 -   CFS
+        - @1845 -   CFS
+        - @1845 -   CFS
+        - @1845 -   CFS
+        - @1845 -   CFS
+        - @1845 -   CFS
+        - @1845 -   CFS

@@ -8,7 +8,6 @@ import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.*;
-import cucumber.api.Pending;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -95,7 +94,7 @@ public class CFSSteps extends CommonSteps {
         String noOfCFS = dataSets.get("noOfCFS");
 
         //Order CFS for a random device
-        deviceDetails = deviceDetails.orderCFS();
+        deviceDetails = deviceDetails.clickOrderCFSButton();
         deviceDetails = deviceDetails.selectDevices();
         deviceDetails = deviceDetails.enterACertificateDetails(countryName, noOfCFS);
 
@@ -111,7 +110,7 @@ public class CFSSteps extends CommonSteps {
         String[] data = cfsAndCountryPairs.split(",");
 
         //Enter CFS data, Only click "Continue" after adding all the countries
-        deviceDetails = deviceDetails.orderCFS();
+        deviceDetails = deviceDetails.clickOrderCFSButton();
         deviceDetails = deviceDetails.selectDevices();
 
         int count = 1;

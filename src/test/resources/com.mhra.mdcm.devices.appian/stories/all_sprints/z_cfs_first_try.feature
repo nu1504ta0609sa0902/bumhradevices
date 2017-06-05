@@ -1,7 +1,7 @@
 Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE to export medical devices to non-EU countries
 
 
-  @1974 @4330 @5141 @3979 @5212 @5126 @_sprint15 @_sprint17
+  @1974 @4330 @5141 @3979 @5212 @5126 @1845 @_sprint15 @_sprint17 @_sprint18
   Scenario: Users should be able to go to cfs page and add a new manufacturer
     Given I am logged into appian as "manufacturerNoor" user
     And I go to device certificate of free sale page
@@ -35,7 +35,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
     And I go to application WIP page
 
 
-  @1974 @4698 @1989 @5126 @_sprint15 @_sprint17
+  @1974 @4698 @1989 @5126 @3979 @5212 @_sprint15 @_sprint17
   Scenario: Users should be able to go to cfs page and add device to existing manufacturer
     Given I am logged into appian as "manufacturerNoor" user
     And I go to device certificate of free sale page
@@ -56,7 +56,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | listOfProductNames | ford,hyundai                       |
     And I submit the cfs application for approval
 
-  @1944 @5583 @5126 @_sprint17 @_sprint18
+  @1944 @5583 @5126 @5212 @_sprint15 @_sprint17 @_sprint18
   Scenario Outline: Able to upload certificates with different notified body
     Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
@@ -82,7 +82,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | manufacturerNoor | AccountST   | UL International | Full Quality       | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
 
 
-  @1944 @_sprint17
+  @1944 @5141 @5583 @_sprint15 @_sprint17 @_sprint18
   Scenario Outline: Users can upload different types of CE Certificates
     Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
@@ -107,7 +107,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
 #      | authorisedRepNoor | AccountST   |   jpg      |true       | true           | false       | SGS          | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
 
 
-  @5583 @_sprint18
+  @5583 @5578 @_sprint18
   Scenario Outline: Verify certain elements are disable by defaults like Upload Certificate button
     Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
@@ -131,7 +131,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | manufacturerNoor | AccountST   | true       | false          |             | Amtac        | General Medical Device             | Blood weighing scale | false      | Class2B            | true                 | ford,hyundai       |
       | manufacturerNoor | AccountST   | true       | true           | false       | SGS          | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
 
-  @5125 @_sprint17
+  @5125 @_sprint17 @wip
   Scenario Outline: Verify removing certificate should prevent us from moving to add products step
     Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
@@ -244,7 +244,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
     Then I should see a list of manufacturers available for CFS
 
 
-  @5571 @4203 @4698 @_sprint18
+  @5571 @4203 @4698 @_sprint15 @_sprint18
   Scenario Outline: Users should be able to go to BACK from the application 2
     Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
@@ -259,7 +259,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | manufacturerNoor | Yes         |
       | manufacturerNoor | No          |
 
-  @4330 @4203 @_sprint16
+  @4330 @4203 @_sprint15 @_sprint16
   Scenario: Users should be able to tell what stage of device registration they are in
     Given I am logged into appian as "manufacturerNoor" user
     And I go to device certificate of free sale page
@@ -268,7 +268,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
     Then I should see current stage of indication
 
 
-  @5207 @_sprint16
+  @5207 @5578 @_sprint16 @_sprint18
   Scenario Outline: Error messages should be displayed to user for certain combinations
     Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
@@ -289,7 +289,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | manufacturerNoor | AccountST   | This device must be registered with MHRA | System or Procedure Pack           |                      |            |                    |
 
 
-  @1974 @1978 @_sprint15
+  @1974 @1978 @4704 @_sprint15
   Scenario Outline: Users should be able to go to cfs page and add to a random manufacturer from the list
     Given I am logged into appian as "manufacturerNoor" user
     And I go to device certificate of free sale page
@@ -306,7 +306,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | Bangladesh | 10    |
 
 
-  @1974 @1978 @_sprint15
+  @1974 @1978 @4704 @_sprint15
   Scenario: Users should be able to go to edit list of devices added for initial CFS process
     Given I am logged into appian as "manufacturerNoor" user
     And I go to device certificate of free sale page
@@ -335,7 +335,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
     Then I should see the correct details in cfs review page
 
 
-  @1974 @1978 @_sprint15
+  @1974 @1978 @5578 @_sprint15 @_sprint18
   Scenario Outline: Users should be able to order CFS for multiple countries
     Given I am logged into appian as "manufacturerNoor" user
     And I go to device certificate of free sale page

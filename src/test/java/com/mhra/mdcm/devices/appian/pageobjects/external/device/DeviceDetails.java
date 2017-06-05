@@ -164,7 +164,7 @@ public class DeviceDetails extends _Page {
         return allFound;
     }
 
-    public DeviceDetails orderCFS() {
+    public DeviceDetails clickOrderCFSButton() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnOrderCFS, TIMEOUT_5_SECOND);
         btnOrderCFS.click();
