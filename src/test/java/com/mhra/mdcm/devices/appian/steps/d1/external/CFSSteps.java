@@ -8,6 +8,7 @@ import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.*;
+import cucumber.api.Pending;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -340,6 +341,12 @@ public class CFSSteps extends CommonSteps {
         String dateFormat = "yyyyDDmm";
         List<String> invalidReferences = taskSection.isApplicationReferenceFormatCorrect(12,dateFormat);
         Assert.assertThat("Following references may not be correct : " + invalidReferences, invalidReferences.size() == 0, is(true));
+    }
+
+
+    @When("^I remove the attached certificate$")
+    public void i_remove_the_attached_certificate() throws Throwable {
+        cfsAddDevices = cfsAddDevices.removeAttachedCertificate();
     }
 
 

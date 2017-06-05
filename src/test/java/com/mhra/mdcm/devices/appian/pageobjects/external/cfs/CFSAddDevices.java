@@ -321,8 +321,8 @@ public class CFSAddDevices extends _Page {
     }
 
     public CFSAddDevices addFollowingDevice(DeviceDO dd, boolean isRegistered) {
-//        WaitUtils.isPageLoadingCompleteInMilliseconds(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_10_SECOND);
+        //WaitUtils.isPageLoadingCompleteInMilliseconds(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_15_SECOND);
         WaitUtils.waitForElementToBeClickable(driver, systemOrProcedurePack, TIMEOUT_3_SECOND);
         //Select device type
         selectDeviceType(dd);
@@ -386,7 +386,7 @@ public class CFSAddDevices extends _Page {
     }
 
     private void addActiveImplantableDevice(DeviceDO dd) {
-        if(dd.addDevices) {
+        if (dd.addDevices) {
             searchByGMDN(dd);
             customMade(dd);
 
@@ -394,10 +394,10 @@ public class CFSAddDevices extends _Page {
             if (!dd.isCustomMade) {
                 clickContinue();
 
-                if(dd.addCertificate) {
+                if (dd.addCertificate) {
                     uploadCECertificates(dd);
 
-                    if(dd.addProducts) {
+                    if (dd.addProducts) {
                         clickContinue();
                         //Add more than 1 products
                         if (dd.listOfProductName.size() > 0) {
@@ -413,10 +413,10 @@ public class CFSAddDevices extends _Page {
                             addProduct(dd);
                         }
                         clickContinue();
-                    }else {
+                    } else {
                         //WaitUtils.waitForElementToBeClickable(driver, addProduct, TIMEOUT_5_SECOND);
                     }
-                }else{
+                } else {
                     WaitUtils.waitForElementToBeClickable(driver, btnUploadCertificate, TIMEOUT_5_SECOND);
                 }
             }
@@ -426,7 +426,7 @@ public class CFSAddDevices extends _Page {
 
     private void addGeneralMedicalDevice(DeviceDO dd) {
 
-        if(dd.addDevices) {
+        if (dd.addDevices) {
             searchByGMDN(dd);
             customMade(dd);
 
@@ -442,7 +442,7 @@ public class CFSAddDevices extends _Page {
                         clickContinue();
                         uploadCECertificates(dd);
 
-                        if(dd.addProducts) {
+                        if (dd.addProducts) {
                             clickContinue();
                             //Add more than 1 products : Not sure why we need to add product for GMD
                             if (dd.listOfProductName.size() > 0) {
@@ -464,10 +464,10 @@ public class CFSAddDevices extends _Page {
                                 addProduct(dd);
                             }
                             clickContinue();
-                        }else{
+                        } else {
                             //WaitUtils.waitForElementToBeClickable(driver, addProduct, TIMEOUT_5_SECOND);
                         }
-                    }else{
+                    } else {
                         WaitUtils.waitForElementToBeClickable(driver, btnUploadCertificate, TIMEOUT_5_SECOND);
                     }
                 }
@@ -490,8 +490,8 @@ public class CFSAddDevices extends _Page {
         String[] docTypes = docType.split(",");
 
         int count = 1;
-        for(String dt: docTypes) {
-            if(count>1){
+        for (String dt : docTypes) {
+            if (count > 1) {
                 PageUtils.singleClick(driver, imgClearFileSelected);
             }
             String certName = "CECertificate" + dd.deviceCount + "." + dt;
@@ -506,7 +506,7 @@ public class CFSAddDevices extends _Page {
 
         boolean isErrorMessageDisplayed = fieldErrorMessages.size() > 0;
 
-        if(!isErrorMessageDisplayed) {
+        if (!isErrorMessageDisplayed) {
             //select notified body
             notifiedBody(dd);
             clickUploadCertificate();
@@ -534,7 +534,6 @@ public class CFSAddDevices extends _Page {
 //
 //        return allHeadingCorrect;
 //    }
-
 
 
 //    private void productLabelName(DeviceDO dd) {
@@ -654,7 +653,7 @@ public class CFSAddDevices extends _Page {
         } else if (notifiedBodyOptionsCorrect && dd.notifiedBody != null && dd.notifiedBody.toLowerCase().contains("amtac")) {
             //WaitUtils.waitForElementToBeClickable(driver, nb0473Amtac, TIMEOUT_5_SECOND);
             PageUtils.singleClick(driver, nb0473Amtac);
-        }else if (notifiedBodyOptionsCorrect && dd.notifiedBody != null && dd.notifiedBody.toLowerCase().contains("ul inter")) {
+        } else if (notifiedBodyOptionsCorrect && dd.notifiedBody != null && dd.notifiedBody.toLowerCase().contains("ul inter")) {
             //WaitUtils.waitForElementToBeClickable(driver, nb0843ULI, TIMEOUT_5_SECOND);
             PageUtils.singleClick(driver, nb0843ULI);
         } else if (notifiedBodyOptionsCorrect && dd.notifiedBody != null && dd.notifiedBody.toLowerCase().contains("Other")) {
@@ -1142,5 +1141,10 @@ public class CFSAddDevices extends _Page {
         WaitUtils.waitForElementToBeVisible(driver, btnContinue, TIMEOUT_5_SECOND);
         boolean enabled = btnContinue.isEnabled();
         return enabled;
+    }
+
+    public CFSAddDevices removeAttachedCertificate() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        return new CFSAddDevices(driver);
     }
 }
