@@ -150,6 +150,16 @@ public class TaskSection extends _Page {
     @FindBy(xpath = ".//button[.='Approve']//following::button[1]")
     WebElement rejectTask;
 
+    //From APPLICATION WIP page
+    @FindBy(xpath = ".//button[contains(text(), 'Approve Account')]")
+    WebElement btnApproveNewAccount;
+    @FindBy(xpath = ".//button[contains(text(), 'Reject Account')]")
+    WebElement btnRejectNewAccount;
+    @FindBy(xpath = ".//button[contains(text(), 'Approve Manufacturer')]")
+    WebElement btnApproveManufacturer;
+    @FindBy(xpath = ".//button[contains(text(), 'Reject Manufacturer')]")
+    WebElement btnRejectManufacturer;
+
 
     @Autowired
     public TaskSection(WebDriver driver) {
@@ -613,5 +623,13 @@ public class TaskSection extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, applicationStatus, TIMEOUT_10_SECOND);
         boolean contains = applicationStatus.getText().contains(status);
         return contains;
+    }
+
+    public TasksTabPage rejectNewAccountRegistration() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, btnRejectNewAccount, TIMEOUT_3_SECOND);
+        PageUtils.doubleClick(driver, btnRejectNewAccount);
+        log.info("New account registration : REJECTED");
+        return new TasksTabPage(driver);
     }
 }

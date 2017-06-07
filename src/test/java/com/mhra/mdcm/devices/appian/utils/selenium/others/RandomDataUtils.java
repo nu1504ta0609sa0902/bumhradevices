@@ -204,4 +204,14 @@ public class RandomDataUtils {
         }
         return val;
     }
+
+    public static String getTodaysDate(boolean full, String separator) {
+        Calendar cal = Calendar.getInstance();
+        String date = cal.get(Calendar.DAY_OF_MONTH) + separator + (cal.get(Calendar.MONTH)+1);
+
+        if(full)
+            date = date + separator + (cal.get(Calendar.YEAR));
+
+        return date;
+    }
 }

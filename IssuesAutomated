@@ -266,7 +266,7 @@ Automated Issues:
         - @5141 -   DONE ISH
         - @3979 -   DONE ISH
         - @5212 -   DONE ISH
-        - @1989 -
+        - @1989 -   @todo Guidance text for types of certificates
         - @5207 -   DONE ISH
         - @5463 -   UX changes
         - @4908 -   DONE ISH    covered
@@ -299,12 +299,12 @@ Automated Issues:
 
     Sprint 17: @_sprint17       CFS RELATED
         - @1944 -   DONE ISH
-        - @1988 -   CFS
+        - @1988 -   @todo CFS   select certificates from list of options
         - @5125 -   DONE ISH
         - @5126 -   DONE ISH
-        - @5127 -   CFS
-        - @5128 -   CFS
-        - @5499 -   CFS
+        - @5127 -   @todo CFS   add products in bulk
+        - @5128 -   @todo CFS   review application before submitting
+        - @5499 -   @todo CFS   edit application before submitting
         - @5232 -   @todo   bug
         - @5233 -   @todo   bug
         - @5234 -   @todo   bug
@@ -313,14 +313,15 @@ Automated Issues:
         - @5425 -   @todo   bug
 
     Sprint 18: @_sprint18       CFS RELATED
-        - @1845 -   CFS
-        - @1945 -   DR
-        - @2179 -   DR
-        - @2268 -   DR
-        - @4368 -   DR
+        - @1845 -   DONE ISH
+        - @1945 -   @todo DR    application reference number
+        - @2179 -   @todo DR    unregister business user
+                    - DONE ISH
+        - @2268 -   @todo DR    unregister authorisedReps
+        - @4368 -   @todo DR    unregister manufacturer
         - @5571 -   DONE ISH
         - @5578 -   DONE ISH
-        - @3810 -   DR
+        - @3810 -   @todo DR    notification to manufacturers if registration is withdrawn
         - @5583 -   DONE ISH
         - @5541 -   @todo   bug
         - @5542 -   @todo   bug

@@ -338,7 +338,7 @@ public class CFSSteps extends CommonSteps {
     @Then("^Check the application reference number format is valid$")
     public void checkTheApplicationReferenceNumberFormatIsValid() throws Throwable {
         String dateFormat = "yyyyDDmm";
-        List<String> invalidReferences = taskSection.isApplicationReferenceFormatCorrect(12,dateFormat);
+        List<String> invalidReferences = taskSection.isApplicationReferenceFormatCorrect(14,dateFormat);
         Assert.assertThat("Following references may not be correct : " + invalidReferences, invalidReferences.size() == 0, is(true));
     }
 

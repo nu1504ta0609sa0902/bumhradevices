@@ -513,13 +513,26 @@ public class TasksPageSteps extends CommonSteps {
                 tasksPage = taskSection.acceptRegistrationTask();
             }
         } else {
-            //Rejection process is slightly different, you need to enter a rejection reason
-            taskSection = taskSection.rejectTask();
-            tasksPage = taskSection.enterRejectionReason("This may have been removed", RandomDataUtils.getRandomTestName("Account already exists "));
+            if(taskType!=null && taskType.contains("New Account")) {
+                tasksPage = taskSection.rejectNewAccountRegistration();
+                tasksPage = taskSection.enterRejectionReason("This may have been removed", RandomDataUtils.getRandomTestName("Account already exists "));
+            }else {
+                //Rejection process is slightly different, you need to enter a rejection reason
+                taskSection = taskSection.rejectTask();
+                tasksPage = taskSection.enterRejectionReason("This may have been removed", RandomDataUtils.getRandomTestName("Account already exists "));
+            }
         }
     }
+
     @When("^I go to application WIP page$")
     public void iGoToApplicationWIPTaksPage() throws Throwable {
+        mainNavigationBar = new MainNavigationBar(driver);
+        tasksPage = mainNavigationBar.clickTasks();
+        taskSection = tasksPage.gotoApplicationWIPPage();
+    }
+
+    @When("^I go to AWIP page$")
+    public void iGoToAWIPTaksPage() throws Throwable {
         mainNavigationBar = new MainNavigationBar(driver);
         tasksPage = mainNavigationBar.clickTasks();
         taskSection = tasksPage.gotoApplicationWIPPage();

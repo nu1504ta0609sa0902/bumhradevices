@@ -192,7 +192,7 @@ public class _CreateAccountTestHarnessPage extends _Page {
         jobTitle.sendKeys(ar.jobTitle);
         phoneNumber.sendKeys(ar.phoneNumber);
         emailAddress.sendKeys(ar.email);
-        userName.sendKeys(RandomDataUtils.getRandomTestNameAdvanced("NUddin"));
+        userName.sendKeys(ar.getUserName(true));
 
 
         //Organisation Role

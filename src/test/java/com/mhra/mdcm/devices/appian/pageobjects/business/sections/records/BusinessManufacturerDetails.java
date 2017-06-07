@@ -1,6 +1,8 @@
 package com.mhra.mdcm.devices.appian.pageobjects.business.sections.records;
 
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
+import com.mhra.mdcm.devices.appian.pageobjects.external._CreateCFSManufacturerTestHarnessPage;
+import com.mhra.mdcm.devices.appian.pageobjects.external.cfs.CFSManufacturerList;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.WebDriver;
@@ -30,6 +32,33 @@ public class BusinessManufacturerDetails extends _Page {
     //PARD message
     @FindBy(xpath = ".//*[contains(text(),'PARD selection')]//following::p[1]")
     WebElement pardMessage;
+
+    //Unregister a registered device
+    @FindBy(xpath = ".//button[contains(text(),'Unregister Manufacturer')]")
+    WebElement btnUnregisterManufacturer;
+    @FindBy(xpath = ".//button[contains(text(),'Unregister')]")
+    WebElement btnUnregister;
+    @FindBy(css = ".FileUploadWidget---ui-inaccessible")
+    WebElement fileUpload;
+
+    //HTML Alert box
+    @FindBy(xpath = ".//button[.='Yes']")
+    WebElement btnYes;
+    @FindBy(xpath = ".//button[.='No']")
+    WebElement btnNo;
+
+    //Unregister reason
+    @FindBy(xpath = ".//label[contains(text(),'Ceased Trading')]")
+    WebElement rbCeasedTrading;
+    @FindBy(xpath = ".//label[contains(text(),'No Longer Represented')]")
+    WebElement rbNoLongerRpresented;
+
+    //Unregisteration notifications
+    @FindBy(xpath = ".//h2[contains(text(),'Send unregisteration')]//following::label[1]")
+    WebElement cbToAuthorisedRep;
+    @FindBy(xpath = ".//h2[contains(text(),'Send unregisteration')]//following::label[2]")
+    WebElement cbToManufacturer;
+
 
     @Autowired
     public BusinessManufacturerDetails(WebDriver driver) {
@@ -72,4 +101,46 @@ public class BusinessManufacturerDetails extends _Page {
         boolean found = msg.contains(expectedMessage);
         return found;
     }
+
+    public BusinessManufacturerDetails clickUnregisterManufacturerBtn() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, btnUnregisterManufacturer, TIMEOUT_DEFAULT);
+        btnUnregisterManufacturer.click();
+        return new BusinessManufacturerDetails(driver);
+    }
+
+    public BusinessManufacturerDetails submitUnRegistrationWithReason(String reason, boolean confirmUnregisttratoin) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeVisible(driver, btnUnregister, TIMEOUT_DEFAULT);
+
+        //Select a reason
+        if(reason.contains("Ceased Trading")){
+            rbCeasedTrading.click();
+        }else if(reason.contains("No Longer Represented")){
+            rbNoLongerRpresented.click();
+            PageUtils.uploadDocument(fileUpload, "LetterOfCancellation1.pdf", 1, 2);
+        }
+
+        //Select send notifications to
+        cbToAuthorisedRep.click();
+        cbToManufacturer.click();
+
+        //Click unregister button and confirm
+        WaitUtils.waitForElementToBeClickable(driver, btnUnregister, TIMEOUT_DEFAULT);
+        btnUnregister.click();
+        return new BusinessManufacturerDetails(driver);
+    }
+
+    public BusinessManufacturerDetails clickAlertButtonYes() {
+        WaitUtils.waitForElementToBeClickable(driver, btnYes, TIMEOUT_5_SECOND);
+        btnYes.click();
+        return new BusinessManufacturerDetails(driver);
+    }
+
+    public BusinessManufacturerDetails clickAlertButtonNo() {
+        WaitUtils.waitForElementToBeClickable(driver, btnNo, TIMEOUT_5_SECOND);
+        btnNo.click();
+        return new BusinessManufacturerDetails(driver);
+    }
+
 }

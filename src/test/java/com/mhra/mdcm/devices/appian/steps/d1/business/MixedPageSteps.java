@@ -106,5 +106,25 @@ public class MixedPageSteps extends CommonSteps {
         Assert.assertThat("Not all the expected FIELDS displayed for device type : " + deviceType, areFieldsCorrect, is(true));
     }
 
+    @When("^I confirm \"([^\"]*)\" to unregister the manufacturer$")
+    public void i_confirm_to_unregister_manufacturer(String clickYes) throws Throwable {
+        if(clickYes.toLowerCase().equals("yes")){
+            businessManufacturerDetails = businessManufacturerDetails.clickAlertButtonYes();
+        }else{
+            businessManufacturerDetails = businessManufacturerDetails.clickAlertButtonNo();
+        }
+    }
+
+    @When("^I unregister the manufacturer for the following reason \"([^\"]*)\"$")
+    public void i_unregister_the_manufacturer_for_the_following_reason(String reason) throws Throwable {
+        businessManufacturerDetails = businessManufacturerDetails.clickUnregisterManufacturerBtn();
+        businessManufacturerDetails = businessManufacturerDetails.submitUnRegistrationWithReason(reason, true);
+    }
+
+    @Then("^The manufacturer should no longer be registered$")
+    public void the_manufacturer_should_no_longer_be_registered() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
+    }
 
 }
