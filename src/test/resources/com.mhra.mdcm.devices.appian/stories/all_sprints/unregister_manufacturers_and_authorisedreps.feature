@@ -15,7 +15,7 @@ Feature: As a user, I want to be able to unregister manufacturers when they are 
     Examples:
       | user         | link          | pageHeading   | filterBy          | filterValue | searchTerm        | unregisteredReason    |
       | businessAuto | Organisations | Organisations | Registered status | Registered  | AuthorisedRepRT01 | Ceased Trading        |
-      | businessAuto | Organisations | Organisations | Registered status | Registered  | AuthorisedRepRT01 | No Longer Represented |
+      | businessAuto | Organisations | Organisations | Registered status | Registered  | ManufacturerRT01 | No Longer Represented |
 
 
   @4368 @2268 @_sprint18

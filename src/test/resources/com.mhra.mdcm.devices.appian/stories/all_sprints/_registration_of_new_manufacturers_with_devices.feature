@@ -25,8 +25,8 @@ Feature: As a customer I want to register new manufacturers with devices
       | user              | accountType   | countryName | deviceType               | customMade | deviceSterile | deviceMeasuring | riskClassification | notifiedBody |
       | manufacturerAuto  | manufacturer  | Brazil      | General Medical Device   | true       |               |                 |                    |              |
       | authorisedRepAuto | authorisedRep | Bangladesh  | General Medical Device   | false      | true          | true            | class1             | NB 0086 BSI  |
-      | manufacturerAuto  | businessAuto  | Brazil      | System or Procedure Pack |            | true          |                 | class1             | NB 0086 BSI  |
-      | manufacturerAuto  | businessAuto  | Bangladesh  | System or Procedure Pack |            | false         |                 | class1             | NB 0086 BSI  |
+      | manufacturerAuto  | manufacturer  | Brazil      | System or Procedure Pack |            | true          |                 | class1             | NB 0086 BSI  |
+      | authorisedRepAuto | authorisedRep | Bangladesh  | System or Procedure Pack |            | false         |                 | class1             | NB 0086 BSI  |
 
 
   @regression @mdcm-485 @mdcm-374 @mdcm-186 @_sprint2 @1838 @3777 @1924 @_sprint8 @_sprint9 @_sprint13 @_sprint5 @wip @bug

@@ -228,4 +228,16 @@ public class TestHarnessUtils {
             e1.printStackTrace();
         }
     }
+
+    public static String getHardcodedFirstName(String initial) {
+        Map<String, String> mapOfNames = new HashMap<>();
+        mapOfNames.put("NU", "Noor");
+        mapOfNames.put("HB", "Hasanein");
+        mapOfNames.put("YC", "Yaaseen");
+        mapOfNames.put("AN", "Andrew");
+        mapOfNames.put("PG", "Priya");
+        mapOfNames.put("LP", "Lambros");
+        mapOfNames.put("AT", "Auto");
+        return mapOfNames.get(initial);
+    }
 }
