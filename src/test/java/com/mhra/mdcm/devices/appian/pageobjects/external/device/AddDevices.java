@@ -228,6 +228,24 @@ public class AddDevices extends _Page {
     @FindBy(partialLinkText = "Back to service")
     WebElement linkBackToService;
 
+    //Payment methods
+    @FindBy(xpath = ".//label[contains(text(),'Worldpay')]")
+    WebElement paymentWorldPay;
+    @FindBy(xpath = ".//label[contains(text(),'BACS')]")
+    WebElement paymentBACS;
+    @FindBy(xpath = ".//button[contains(text(),'Complete application')]")
+    WebElement btnCompleteApplication;
+    @FindBy(xpath = ".//div[@role='listbox']")
+    WebElement ddAddressBox;
+
+    //Product details : New Medical device names
+    @FindBy(xpath = ".//*[contains(text(),'Medical device name')]//following::input[1]")
+    WebElement pdMedicalDeviceName;
+    @FindBy(xpath = ".//*[contains(text(),'Medical Device Name')]//following::input[1]")
+    WebElement pdMedicalDeviceNameAIMD;
+
+    @FindBy(xpath = ".//h3[contains(text(), 'Application complete')]/following::h4[1]")
+    WebElement txtApplicationReference;
 
     @Autowired
     public AddDevices(WebDriver driver) {
@@ -345,21 +363,24 @@ public class AddDevices extends _Page {
     private void addActiveImplantableDevice(DeviceDO dd) {
         searchByGMDN(dd);
         customMade(dd);
-        int numberOfProductName = dd.listOfProductName.size();
-        if (numberOfProductName <= 1) {
-            if (numberOfProductName == 1) {
-                dd.productName = dd.listOfProductName.get(0);
-            }
-            //List of device to add
-            if (dd.isCustomMade) {
-                productLabelName(dd);
-            }
-        } else {
-            for (String x : dd.listOfProductName) {
-                productLabelName(x);
-            }
+//        int numberOfProductName = dd.listOfProductName.size();
+//        if (numberOfProductName <= 1) {
+//            if (numberOfProductName == 1) {
+//                dd.productName = dd.listOfProductName.get(0);
+//            }
+//            //List of device to add
+//            if (dd.isCustomMade) {
+//                productLabelName(dd);
+//            }
+//        } else {
+//            for (String x : dd.listOfProductName) {
+//                productLabelName(x);
+//            }
+//        }
+
+        for (String x : dd.listOfProductName) {
+            productDetailsAIMD(x);
         }
-        //saveProduct(dd);
     }
 
     private void addProcedurePackDevice(DeviceDO dd) {
@@ -381,13 +402,44 @@ public class AddDevices extends _Page {
         //No product needs to be added when Risk Classification = IVD General
         if (dd.riskClassification != null && !dd.riskClassification.equals("ivd general")) {
             //If more than 1 product listed
-            int numberOfProductName = dd.listOfProductName.size();
-            if (numberOfProductName <= 1) {
-                if (numberOfProductName == 1) {
-                    dd.productName = dd.listOfProductName.get(0);
-                }
-                //List of device to add
-                addProduct(dd);
+//            int numberOfProductName = dd.listOfProductName.size();
+//            if (numberOfProductName <= 1) {
+//                if (numberOfProductName == 1) {
+//                    dd.productName = dd.listOfProductName.get(0);
+//                }
+//                //List of device to add
+//                addProduct(dd);
+//                notifiedBody(dd);
+//                subjectToPerformanceEval(dd);
+//                productNewToMarket(dd);
+//                if (dd.riskClassification.toLowerCase().contains("list a"))
+//                    conformToCTS(dd);
+//                saveProduct(dd);
+//
+//                //Remove this if we find a better solution
+//                WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+//                WaitUtils.nativeWaitInSeconds(1);
+//            } else {
+//                for (String x : dd.listOfProductName) {
+//                    dd.productName = x;
+//                    addProduct(dd);
+//                    notifiedBody(dd);
+//                    subjectToPerformanceEval(dd);
+//                    productNewToMarket(dd);
+//                    if (dd.riskClassification.toLowerCase().contains("list a"))
+//                        conformToCTS(dd);
+//                    saveProduct(dd);
+//
+//                    //Remove this if we find a better solution
+//                    WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+//                    WaitUtils.nativeWaitInSeconds(1);
+//                }
+//            }
+
+            for (String x : dd.listOfProductName) {
+                dd.productName = x;
+                //addProduct(dd);
+                addProductNew(dd);
                 notifiedBody(dd);
                 subjectToPerformanceEval(dd);
                 productNewToMarket(dd);
@@ -398,21 +450,6 @@ public class AddDevices extends _Page {
                 //Remove this if we find a better solution
                 WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
                 WaitUtils.nativeWaitInSeconds(1);
-            } else {
-                for (String x : dd.listOfProductName) {
-                    dd.productName = x;
-                    addProduct(dd);
-                    notifiedBody(dd);
-                    subjectToPerformanceEval(dd);
-                    productNewToMarket(dd);
-                    if (dd.riskClassification.toLowerCase().contains("list a"))
-                        conformToCTS(dd);
-                    saveProduct(dd);
-
-                    //Remove this if we find a better solution
-                    WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-                    WaitUtils.nativeWaitInSeconds(1);
-                }
             }
 
             //Product Details Table Heading Check
@@ -453,6 +490,21 @@ public class AddDevices extends _Page {
             }
         }
         //saveProduct(dd);
+    }
+
+    private void productDetailsAIMD(String deviceName) {
+        PageUtils.clickOneOfTheFollowing(driver, addProduct, addProduct2, TIMEOUT_1_SECOND);
+
+        WaitUtils.waitForElementToBeClickable(driver, pdMedicalDeviceNameAIMD, TIMEOUT_5_SECOND);
+        pdMedicalDeviceNameAIMD.sendKeys(RandomDataUtils.getRandomTestName(deviceName));
+
+        PageUtils.uploadDocument(fileUpload, "DeviceLabelDoc2.pdf", 1, 3);
+        PageUtils.uploadDocument(listOfFileUploads.get(0), "DeviceInstructionForUse1.pdf", 1, 3);
+
+        //Save product label details
+        WaitUtils.waitForElementToBeClickable(driver, saveProduct2, TIMEOUT_5_SECOND);
+        saveProduct2.click();
+
     }
 
     private void productLabelName(DeviceDO dd) {
@@ -540,6 +592,11 @@ public class AddDevices extends _Page {
             pdProductModel.sendKeys(dd.productModel);
         }
 
+    }
+
+
+    private void addProductNew(DeviceDO dd) {
+        pdMedicalDeviceName.sendKeys(RandomDataUtils.getRandomTestName(dd.productName));
     }
 
     private void devicesCompatible(DeviceDO dd) {
@@ -1038,8 +1095,32 @@ public class AddDevices extends _Page {
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
             WaitUtils.waitForElementToBeClickable(driver, linkBackToService, TIMEOUT_10_SECOND);
             linkBackToService.click();
-            log.info("Link: Back to serivces");
+            log.info("Link: Back to services");
         }catch (Exception e){}
         return new ManufacturerList(driver);
+    }
+
+    public AddDevices enterPaymentDetails(String paymentMethod) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, ddAddressBox, TIMEOUT_5_SECOND);
+
+        //Select billing address:
+        PageUtils.selectFromDropDown(driver, ddAddressBox , "Registered Address", false);
+
+        if(paymentMethod.toLowerCase().contains("world")){
+            paymentWorldPay.click();
+        }else if(paymentMethod.toLowerCase().contains("bacs")){
+            paymentBACS.click();
+            PageUtils.uploadDocument(fileUpload, "CompletionOfTransfer1.pdf", 1, 3);
+        }
+
+        //Complete the application
+        btnCompleteApplication.click();
+        return new AddDevices(driver);
+    }
+
+    public String getApplicationReferenceNumber() {
+        WaitUtils.waitForElementToBeClickable(driver, txtApplicationReference, TIMEOUT_10_SECOND);
+        return txtApplicationReference.getText();
     }
 }

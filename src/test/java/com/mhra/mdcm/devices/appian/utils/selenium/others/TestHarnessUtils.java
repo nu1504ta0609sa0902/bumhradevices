@@ -163,6 +163,9 @@ public class TestHarnessUtils {
             //IVD risk classification
             if(isNotEmptyOrNull(productName)){
                 dd.productName = productName;
+                if(dd.listOfProductName.size() == 0){
+                    dd.listOfProductName.add(productName);
+                }
             }
             if(isNotEmptyOrNull(productMake)){
                 dd.productMake = productMake;
