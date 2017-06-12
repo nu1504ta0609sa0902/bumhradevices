@@ -159,3 +159,29 @@ Feature: As an account holder, I want to register manufacturers and declare high
       | authorisedRepAuto | businessAuto | Active Implantable Medical Devices | Desiccating chamber | suction         | true       | ford,hyundai        | Update Manufacturer Registration Request |
       | manufacturerAuto  | businessAuto | Active Implantable Medical Devices | Desiccating chamber | suction         | true       | ford,hyundai,toyota | Update Manufacturer Registration Request |
 
+
+
+  @regression @mdcm-489 @_sprint5 @mdcm-148 @_sprint7 @3755 @_sprint11 @2910 @_sprint7
+  Scenario Outline: Verify product details after adding IVD products
+    Given I am logged into appian as "<user>" user
+    And I go to list of manufacturers page
+    And I click on a random manufacturer to add devices
+    When I add a device to SELECTED manufacturer with following data
+      | deviceType         | <deviceType>         |
+      | gmdnDefinition     | <gmdnDefinition>     |
+      | riskClassification | <riskClassification> |
+      | notifiedBody       | <notifiedBody>       |
+      | productMake        | <productMake>        |
+      | productModel       | <productModel>       |
+      | subjectToPerfEval  | <subjectToPerfEval>  |
+      | newProduct         | <newProduct>         |
+      | conformsToCTS      | <conformsToCTS>      |
+      | listOfProductNames | <listOfProductNames> |
+    Then I should see option to add another device
+    And The gmdn code or term is "displayed" in summary section
+    And Verify name make model and other details are correct
+    Examples:
+      | user              | deviceType                 | gmdnDefinition        | riskClassification | listOfProductNames | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
+      | manufacturerAuto  | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | Ford               | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      | authorisedRepAuto | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | Opal               | ford        | focus        | NB 0086 BSI  | true              | true       | false         |
+      | authorisedRepAuto | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | General Motors     | ford        | focus        | NB 0086 BSI  | true              | true       | true          |

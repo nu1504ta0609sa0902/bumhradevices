@@ -452,9 +452,13 @@ public class AddDevices extends _Page {
 //                }
 //            }
 
+            int productAdded = 0;
             for (String x : dd.listOfProductName) {
                 dd.productName = x;
                 //addProduct(dd);
+                if(productAdded > 0){
+                    PageUtils.clickIfVisible(driver, addProduct);
+                }
                 addProductNew(dd);
                 notifiedBody(dd);
                 subjectToPerformanceEval(dd);
@@ -466,6 +470,7 @@ public class AddDevices extends _Page {
                 //Remove this if we find a better solution
                 WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
                 WaitUtils.nativeWaitInSeconds(1);
+                productAdded++;
             }
 
             //Product Details Table Heading Check
@@ -596,6 +601,7 @@ public class AddDevices extends _Page {
 
 
     private void addProductNew(DeviceDO dd) {
+        WaitUtils.waitForElementToBeClickable(driver, pdMedicalDeviceName, TIMEOUT_10_SECOND);
         pdMedicalDeviceName.sendKeys(RandomDataUtils.getRandomTestName(dd.productName));
     }
 

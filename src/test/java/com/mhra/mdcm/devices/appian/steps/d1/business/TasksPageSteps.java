@@ -111,7 +111,7 @@ public class TasksPageSteps extends CommonSteps {
             }else{
                 count++;
             }
-        } while (!contains && count <= 5);
+        } while (!contains && count <= 2);
 
         //If its still not found than try the first 1 again
         if (!contains) {
