@@ -129,8 +129,8 @@ public class ManufacturerViewDetails extends _Page {
             if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
                 return clickAddDeviceBtn();
             else
-                return clickRegisterManufacturerBtn();
-                //return clickContinueBtn();
+                //return clickRegisterManufacturerBtn();
+                return clickContinueBtn();
         }catch (Exception e){
             btnContinue.click();
             return new AddDevices(driver);

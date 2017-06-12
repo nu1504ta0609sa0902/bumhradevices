@@ -383,6 +383,22 @@ public class AddDevices extends _Page {
         }
     }
 
+
+    private void productDetailsAIMD(String deviceName) {
+        PageUtils.clickOneOfTheFollowing(driver, addProduct, addProduct2, TIMEOUT_1_SECOND);
+
+        WaitUtils.waitForElementToBeClickable(driver, pdMedicalDeviceNameAIMD, TIMEOUT_5_SECOND);
+        pdMedicalDeviceNameAIMD.sendKeys(RandomDataUtils.getRandomTestName(deviceName));
+
+        PageUtils.uploadDocument(fileUpload, "DeviceLabelDoc2.pdf", 1, 3);
+        PageUtils.uploadDocument(listOfFileUploads.get(0), "DeviceInstructionForUse1.pdf", 1, 3);
+
+        //Save product label details
+        WaitUtils.waitForElementToBeClickable(driver, saveProduct2, TIMEOUT_5_SECOND);
+        saveProduct2.click();
+
+    }
+
     private void addProcedurePackDevice(DeviceDO dd) {
         searchByGMDN(dd);
         deviceSterile(dd);
@@ -489,22 +505,6 @@ public class AddDevices extends _Page {
                 notifiedBody(dd);
             }
         }
-        //saveProduct(dd);
-    }
-
-    private void productDetailsAIMD(String deviceName) {
-        PageUtils.clickOneOfTheFollowing(driver, addProduct, addProduct2, TIMEOUT_1_SECOND);
-
-        WaitUtils.waitForElementToBeClickable(driver, pdMedicalDeviceNameAIMD, TIMEOUT_5_SECOND);
-        pdMedicalDeviceNameAIMD.sendKeys(RandomDataUtils.getRandomTestName(deviceName));
-
-        PageUtils.uploadDocument(fileUpload, "DeviceLabelDoc2.pdf", 1, 3);
-        PageUtils.uploadDocument(listOfFileUploads.get(0), "DeviceInstructionForUse1.pdf", 1, 3);
-
-        //Save product label details
-        WaitUtils.waitForElementToBeClickable(driver, saveProduct2, TIMEOUT_5_SECOND);
-        saveProduct2.click();
-
     }
 
     private void productLabelName(DeviceDO dd) {

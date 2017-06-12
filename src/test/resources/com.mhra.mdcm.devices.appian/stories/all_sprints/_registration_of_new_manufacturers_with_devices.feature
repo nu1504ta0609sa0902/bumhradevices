@@ -23,8 +23,8 @@ Feature: As a customer I want to register new manufacturers with devices
     Then I should see the registered manufacturers list
     Examples:
       | user              | accountType   | countryName | deviceType               | customMade | deviceSterile | deviceMeasuring | riskClassification | notifiedBody |
-#      | manufacturerAuto  | manufacturer  | Brazil      | General Medical Device   | true       |               |                 |                    |              |
-#      | authorisedRepAuto | authorisedRep | Bangladesh  | General Medical Device   | false      | true          | true            | class1             | NB 0086 BSI  |
+      | manufacturerAuto  | manufacturer  | Brazil      | General Medical Device   | true       |               |                 |                    |              |
+      | authorisedRepAuto | authorisedRep | Bangladesh  | General Medical Device   | false      | true          | true            | class1             | NB 0086 BSI  |
       | manufacturerAuto  | manufacturer  | Brazil      | System or Procedure Pack |            | true          |                 | class1             | NB 0086 BSI  |
       | authorisedRepAuto | authorisedRep | Bangladesh  | System or Procedure Pack |            | false         |                 | class1             | NB 0086 BSI  |
 
