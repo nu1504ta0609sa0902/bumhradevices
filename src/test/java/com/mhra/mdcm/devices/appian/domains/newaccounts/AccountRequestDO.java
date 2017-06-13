@@ -4,6 +4,7 @@ import com.mhra.mdcm.devices.appian.session.ScenarioSession;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.FileUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
+import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -221,8 +222,15 @@ public class AccountRequestDO {
         if(data.length == 2){
             lastName = name;
         }else {
-            String business = data[2];
-            lastName = data[1] + "." + name;
+            if(data.length == 1){
+                lastName = name;
+                //ASSUMING excel sheet username is something like Manufacturer_NU or AuthorisedRep_AT etc
+                String initial = loggedInAs.split("_")[1];
+                firstName = TestHarnessUtils.getHardcodedFirstName(initial);
+            }else {
+                String business = data[2];
+                lastName = data[1] + "." + name;
+            }
         }
     }
 

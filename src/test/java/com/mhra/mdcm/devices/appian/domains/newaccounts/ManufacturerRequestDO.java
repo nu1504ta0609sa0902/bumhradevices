@@ -11,9 +11,9 @@ import java.util.List;
 
 /**
  * Created by TPD_Auto
- *
+ * <p>
  * CREATES DEFAULT MANUFACTURER OR AUTHORISEDREP DATA
- *
+ * <p>
  * OVERRIDE THE DEFAULTS USING CUCUMBER SCENARIOS TEST DATA
  */
 public class ManufacturerRequestDO {
@@ -51,10 +51,10 @@ public class ManufacturerRequestDO {
     public ManufacturerRequestDO(ScenarioSession scenarioSession) {
         createDefaultRandom();
         //Update as required
-        if(scenarioSession!=null){
+        if (scenarioSession != null) {
             setUserDetails(getLoggedInUserName(scenarioSession));
         }
-        
+
         submissionDate = RandomDataUtils.getDateWIPPage();
     }
 
@@ -72,7 +72,7 @@ public class ManufacturerRequestDO {
 
         //Organisation Details
         address1 = RandomDataUtils.getRandomNumberBetween(1, 200) + " " + RandomDataUtils.generateTestNameStartingWith("Test", 5) + " GrowLand Avenue";
-        if(address1.equals("")){
+        if (address1.equals("")) {
             address1 = "111 This is weired St";
         }
         address2 = "South West";
@@ -98,7 +98,7 @@ public class ManufacturerRequestDO {
         description = RandomDataUtils.generateTestNameStartingWith("Test Description of Document", 0);
     }
 
-    private String getRandomTitle(){
+    private String getRandomTitle() {
 
         List<String> listOfTitles = new ArrayList<>();
         listOfTitles.add("Mr.");
@@ -139,20 +139,20 @@ public class ManufacturerRequestDO {
         return title;
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         ManufacturerRequestDO ar = new ManufacturerRequestDO(null);
     }
 
     public void updateName(ScenarioSession scenarioSession) {
-        if(isManufacturer){
+        if (isManufacturer) {
             organisationName = organisationName.replace("OrganisationTest", MANUFACTURER_RT_TEST);
             website = website.replace("organisationtest", MANUFACTURER_RT_TEST);
-        }else{
+        } else {
             organisationName = organisationName.replace("OrganisationTest", AUTHORISED_REP_RT_TEST);
             website = website.replace("organisationtest", AUTHORISED_REP_RT_TEST);
         }
 
-        if(scenarioSession!=null){
+        if (scenarioSession != null) {
             setUserDetails(getLoggedInUserName(scenarioSession));
         }
     }
@@ -164,31 +164,32 @@ public class ManufacturerRequestDO {
 
         //Because we have Auto.Business and Noor.Uddin.Business
         String name = generateLastName();
-        if(data.length == 2){
+        if (data.length == 2) {
             lastName = name;
-        }else {if(data.length == 1){
-            lastName = name;
-            //ASSUMING excel sheet username is something like Manufacturer_NU or AuthorisedRep_AT etc
-            String initial = loggedInAs.split("_")[1];
-            firstName = TestHarnessUtils.getHardcodedFirstName(initial);
-        }else {
-            String business = data[2];
-            lastName = data[1] + "." + name;
-        }
+        } else {
+            if (data.length == 1) {
+                lastName = name;
+                //ASSUMING excel sheet username is something like Manufacturer_NU or AuthorisedRep_AT etc
+                String initial = loggedInAs.split("_")[1];
+                firstName = TestHarnessUtils.getHardcodedFirstName(initial);
+            } else {
+                String business = data[2];
+                lastName = data[1] + "." + name;
+            }
         }
     }
 
     private String generateLastName() {
         String business = "";
-        if(isManufacturer){
+        if (isManufacturer) {
             business = "Manufacturer";
-        }else{
+        } else {
             business = "AuthorisedRep";
         }
         return business;
     }
 
-    public String getRoleName(){
+    public String getRoleName() {
         //WTF just make this public
         return generateLastName();
     }

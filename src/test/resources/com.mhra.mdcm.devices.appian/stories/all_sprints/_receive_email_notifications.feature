@@ -2,21 +2,24 @@
 Feature: As a customer I want to receive email notifications when ever a account or manufacturer is created or updated
   So that I am aware of what is going on
 
-  @regression @2191 @_sprint10 @bug
+  @regression @2191 @_sprint10
   Scenario Outline: Email should be generated for newly created account for business user
     Given I am logged into appian as "<user>" user
     When I create a new account using business test harness page with following data
       | accountType | <accountType> |
       | countryName | <countryName> |
-    Then I should see a new task for the new account
-    When I assign the task to me and "<approveReject>" the generated task
-    Then The task with link "<link>" should be removed from tasks list
+#    Then I should see a new task for the new account
+#    When I assign the task to me and "<approveReject>" the generated task
+#    Then The task with link "<link>" should be removed from tasks list
 #    And The completed task status of new account should update to "Completed"
+    Then I search and view new task in AWIP page for the new account
+    When I assign the AWIP page task to me and "<approveReject>" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email for stored account with heading "<emailHeader>"
     Examples:
-      | user         | accountType   | approveReject | countryName    | link                | emailHeader             |
-      | businessNoor | manufacturer  | approve       | United Kingdom | New Account Request | New Account Request for |
-      | businessNoor | authorisedRep | approve       | Netherland     | New Account Request | New Account Request for |
+      | user         | accountType   | approveReject | countryName    | link                | emailHeader                  |
+      | businessNoor | manufacturer  | approve       | United Kingdom | New Account Request | Account request approved for |
+      | businessNoor | authorisedRep | approve       | Netherland     | New Account Request | Account request approved for |
 
 
   @regression @2192 @_sprint10 @bug
@@ -25,13 +28,16 @@ Feature: As a customer I want to receive email notifications when ever a account
     When I create a new account using business test harness page with following data
       | accountType | <accountType> |
       | countryName | <countryName> |
-    Then I should see a new task for the new account
-    When I assign the task to me and reject the task for following reason "<reason>"
-    Then The task with link "<link>" should be removed from tasks list
+#    Then I should see a new task for the new account
+#    When I assign the task to me and reject the task for following reason "<reason>"
+#    Then The task with link "<link>" should be removed from tasks list
 #    And The completed task status of new account should update to "Completed"
+    Then I search and view new task in AWIP page for the new account
+    When I assign the AWIP page task to me and "reject" with following "<reason>"
+    Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email for stored account with heading "New Account Rejected"
     Examples:
-      | user         | accountType   | countryName | reason                             | link                |
+      | user         | accountType   | countryName | reason                             | link                    |
       | businessNoor | manufacturer  | Turkey      | Account already exists             | New Account Request for |
       | businessNoor | authorisedRep | Estonia     | No authorisation evidence provided | New Account Request for |
 
@@ -49,17 +55,17 @@ Feature: As a customer I want to receive email notifications when ever a account
       | customMade     | true                   |
     And Proceed to payment and confirm submit device details
     When I logout and log back into appian as "<logBackInAs>" user
-    And I view new task with link "New Manufacturer Registration Request" for the new account
-    When I assign the task to me and "<approveReject>" the generated task
-    Then The task should be removed from tasks list
-#    And The completed task status should update to "Completed"
-    And I should received an email for stored manufacturer with heading "Manufacturer Registration Request for"
+    Then I search and view new task in AWIP page for the new account
+    When I assign the AWIP page task to me and "<approveReject>" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
+    And I should received an email for stored manufacturer with heading "<emailHeading>" and stored application identifier
+    And I should received an email for stored manufacturer with heading "has been Approved" and stored application identifier
     Examples:
-      | user              | logBackInAs  | accountType   | approveReject | countryName |
-      | manufacturerAuto  | businessAuto | manufacturer  | approve       | Brazil      |
-      | authorisedRepAuto | businessAuto | authorisedRep | approve       | Belarus     |
+      | user              | logBackInAs  | accountType   | approveReject | countryName | emailHeading                            |
+      | manufacturerAuto  | businessAuto | manufacturer  | approve       | Brazil      | Request for manufacturer registration |
+      | authorisedRepAuto | businessAuto | authorisedRep | approve       | Belarus     | Request for manufacturer registration |
 
-  @regression @2192 @2190 @_sprint10
+  @regression @2192 @2190 @_sprint10 @bug
   Scenario Outline: Email should be generated for newly created manufacturers and authorisedReps which are rejected
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -72,10 +78,13 @@ Feature: As a customer I want to receive email notifications when ever a account
       | customMade     | true                   |
     And Proceed to payment and confirm submit device details
     When I logout and log back into appian as "<logBackInAs>" user
-    And I view new task with link "New Manufacturer Registration Request" for the new account
-    When I assign the task to me and reject the task for following reason "<reason>"
-    Then The task should be removed from tasks list
+#    And I view new task with link "New Manufacturer Registration Request" for the new account
+#    When I assign the task to me and reject the task for following reason "<reason>"
+#    Then The task should be removed from tasks list
 #    And The completed task status should update to "Completed"
+    Then I search and view new task in AWIP page for the new account
+    When I assign the AWIP page task to me and "reject" with following "<reason>"
+    Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email for stored manufacturer with heading "Manufacturer Registration Request for"
     Examples:
       | user              | logBackInAs  | accountType   | reason                 | countryName |
@@ -90,10 +99,14 @@ Feature: As a customer I want to receive email notifications when ever a account
       | accountType           | <accountType>           |
       | accountNameBeginsWith | <accountNameBeginsWith> |
       | countryName           | United Kingdom          |
-    Then I should see a new task for the new account
-    When I assign the task to me and "<approveReject>" the generated task
-    Then The task with link "<link>" should be removed from tasks list
-    And The completed task status should update to "Completed"
+#    Then I should see a new task for the new account
+#    When I assign the task to me and "<approveReject>" the generated task
+#    Then The task with link "<link>" should be removed from tasks list
+#    And The completed task status should update to "Completed"
+    Then I search and view new task in AWIP page for the new account
+    When I assign the AWIP page task to me and "<approveReject>" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
+    And I should received an email for stored account with heading "Account request approved for"
 #    Log back in as manufacturer/authorisedRep
     When I logout and log back into appian as "<logBackInAas>" user
     And I go to list of manufacturers page
@@ -109,10 +122,14 @@ Feature: As a customer I want to receive email notifications when ever a account
     And Proceed to payment and confirm submit device details
 #    Log back in as business and verify email is received
     When I logout and log back into appian as "<user>" user
-    Then I view new task with link "New Service Request" for the new account
-    And I assign the task to me and "approve" the generated task
+#    Then I view new task with link "New Service Request" for the new account
+#    And I assign the task to me and "approve" the generated task
 #    And The completed task status should update to "Completed"
-    And I should received an email for stored manufacturer with heading "Manufacturer Registration Request for"
+    Then I search and view new task in AWIP page for the new account
+    When I assign the AWIP page task to me and "<approveReject>" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
+    And I should received an email for stored manufacturer with heading "Request for manufacturer registration" and stored application identifier
+    And I should received an email for stored manufacturer with heading "has been Approved" and stored application identifier
     Examples:
       | user         | accountType   | approveReject | logBackInAas      | countryName | link                | accountNameBeginsWith |
       | businessNoor | manufacturer  | approve       | manufacturerNoor  | Bangladesh  | New Account Request | ManufacturerRT00      |

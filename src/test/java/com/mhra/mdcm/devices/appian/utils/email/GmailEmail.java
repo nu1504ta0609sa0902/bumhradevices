@@ -1,15 +1,12 @@
 package com.mhra.mdcm.devices.appian.utils.email;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.sort.SortByMessageNumber;
-import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
-import org.apache.poi.ss.usermodel.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMultipart;
-import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -36,12 +33,12 @@ public class GmailEmail {
      * @param min
      * @param numberOfMessgesToCheck
      * @param subjectHeading
-     * @param organisationName
+     * @param organisationIdentifier
      * @return
      */
-    public static String readMessageForSpecifiedOrganisations(double min, int numberOfMessgesToCheck, String subjectHeading, String organisationName) {
+    public static String readMessageForSpecifiedOrganisations(double min, int numberOfMessgesToCheck, String subjectHeading, String organisationIdentifier) {
 
-        subjectHeading = subjectHeading + " " + organisationName;
+        //subjectHeading = subjectHeading + " " + organisationIdentifier;
         log.info("Waiting for email with heading : " + subjectHeading);
         String bodyText = null;
         Properties props = getEmailServerConfiguration();
@@ -81,7 +78,7 @@ public class GmailEmail {
 
                 for (Address from : froms) {
                     String emailAddress = froms == null ? null : ((InternetAddress) from).getAddress();
-                    if (emailAddress != null && (emailAddress.contains("appian") || emailAddress.contains("incessant"))) {
+                    if (emailAddress != null && (emailAddress.contains("appian") || emailAddress.contains("incessant") || emailAddress.contains("mhra.gov.uk"))) {
 
                         boolean isMessageReceivedToday = isMessageReceivedToday(subject, subjectHeading, sentDate);
                         //isMessageReceivedToday = true;
@@ -97,7 +94,7 @@ public class GmailEmail {
                                 String body = getTextFromMessage(message);
                                 //log.warn("Body Text : " + body);
 
-                                if(body.contains(organisationName)){
+                                if(body.contains(organisationIdentifier)){
                                     log.info("Message RECEIVED");
                                     bodyText = body;
                                     break;
@@ -109,7 +106,19 @@ public class GmailEmail {
                                 String body = getTextFromMessage(message);
                                 //log.warn("Body Text : " + body);
 
-                                if(body.contains(organisationName)){
+                                if(body.contains(organisationIdentifier)){
+                                    log.info("Message RECEIVED");
+                                    bodyText = body;
+                                    break;
+                                }
+                            } else if (isRecent && subject.toLowerCase().contains("request approved for")) {
+                                log.warn("---------------------------------");
+                                log.warn("Recent email received : " + subject);
+                                log.warn("---------------------------------");
+                                String body = getTextFromMessage(message);
+                                //log.warn("Body Text : " + body);
+
+                                if(body.contains(organisationIdentifier)){
                                     log.info("Message RECEIVED");
                                     bodyText = body;
                                     break;
@@ -123,6 +132,7 @@ public class GmailEmail {
 
                 if(i > numberOfMessgesToCheck || bodyText!=null){
                     //Most likely no emails received yet
+                    log.info(bodyText);
                     break;
                 }
             }
@@ -137,6 +147,74 @@ public class GmailEmail {
         }
 
         return bodyText;
+
+    }
+
+    public static boolean isMessageReceivedWithHeading(double min, int numberOfMessgesToCheck, String subjectHeading, String organisationIdentifier) {
+
+        log.info("Waiting for email with heading : " + subjectHeading);
+        String bodyText = null;
+        Properties props = getEmailServerConfiguration();
+
+        try {
+
+            final String username = "mhra.uat@gmail.com";
+            final String password = "MHRA1234";
+
+            Session session = Session.getInstance(props,
+                    new javax.mail.Authenticator() {
+                        protected PasswordAuthentication getPasswordAuthentication() {
+                            return new PasswordAuthentication(username, password);
+                        }
+                    });
+
+            Store store = session.getStore("imaps");
+            store.connect("smtp.gmail.com", username, password);
+
+            Folder inbox = store.getFolder("inbox");
+            inbox.open(Folder.READ_ONLY);
+
+            Message[] messages = inbox.getMessages();
+            List<Message> lom = Arrays.asList(messages);
+            Collections.sort(lom, new SortByMessageNumber());
+            messages = lom.toArray(new Message[lom.size()]);
+
+            for (int i = 0; i < messages.length; i++) {
+                Message message = messages[i];
+                Date sentDate = message.getSentDate();
+                String subject = message.getSubject();
+                //log.warn(subject);
+                Address[] froms = message.getFrom();
+
+                for (Address from : froms) {
+                    String emailAddress = froms == null ? null : ((InternetAddress) from).getAddress();
+                    if (emailAddress != null && (emailAddress.contains("appian") || emailAddress.contains("incessant") || emailAddress.contains("mhra.gov.uk"))) {
+
+                        //If received today and subject contains the correct text
+                        boolean isMessageReceivedToday = isMessageReceivedToday(subject, subjectHeading, sentDate);
+                        if (isMessageReceivedToday && subject.contains(subjectHeading) && subject.contains(organisationIdentifier) ) {
+
+                            //If message is received in the last X min
+                            boolean isRecent = receivedInLast(min, sentDate);
+                            if(isRecent){
+                                return true;
+                            }
+                        }
+                    }
+                }
+
+                if(i > numberOfMessgesToCheck || bodyText!=null){
+                    //return false;
+                }
+            }
+            inbox.close(true);
+            store.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
 
     }
 
@@ -158,7 +236,7 @@ public class GmailEmail {
      */
     private static boolean isMessageReceivedToday(String subject, String subjectHeading, Date sentDate) {
 
-        if (subjectHeading == null || subjectHeading.equals("") || subjectHeading.contains("Annual Notification Invoices")) {
+        if (subjectHeading == null || subjectHeading.equals("") ) {
             return true;
         } else {
             String date = sentDate.toString();
@@ -197,175 +275,6 @@ public class GmailEmail {
         else
             return false;
     }
-
-
-//
-//    /*
-//    * This method checks for content-type
-//    * based on which, it processes and
-//    * fetches the content of the message
-//    */
-//
-//    public static void writePart(Part p) throws Exception {
-//        //if (p instanceof Message)
-//        //Call methos writeEnvelope
-//        writeEnvelope((Message) p);
-//
-//        if (p.isMimeType("multipart/*")) {
-//            log.warn("----------------------------");
-//            log.warn("CONTENT-TYPE: " + p.getContentType());
-//            log.warn("This is a Multipart");
-//            log.warn("---------------------------");
-//            Multipart mp = (Multipart) p.getContent();
-//            int count = mp.getCount();
-//            for (int i = 0; i < count; i++)
-//                writePart(mp.getBodyPart(i));
-//
-//        } else {
-//
-//            Object o = p.getContent();
-//            if (o instanceof InputStream) {
-//                log.warn("This is just an input stream");
-//                log.warn("---------------------------");
-//                InputStream is = (InputStream) o;
-//
-//                BufferedReader br = null;
-//                StringBuilder sb = new StringBuilder();
-//                String line;
-//                try {
-//                    int lineNumber = 0;
-//                    br = new BufferedReader(new InputStreamReader(is));
-//                    while ((line = br.readLine()) != null) {
-//                        //Ignore first line
-//                        if (lineNumber > 0) {
-//                            sb.append(line + "\n");
-//                            //Invoice invoice = new Invoice(line);
-//                            //if (!listOfInvoices.contains(invoice))
-//                            //listOfInvoices.add(invoice);
-//                        }
-//                        lineNumber++;
-//                    }
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                } finally {
-//                    if (br != null) {
-//                        try {
-//                            br.close();
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }
-//                log.warn(sb.toString());
-//            }
-//        }
-//    }
-//
-//
-//    public static void writePartPDF(Part p) throws Exception {
-//
-//
-//        if (p.isMimeType("multipart/*")) {
-//
-//            refusalForEmailContent = new StringBuilder();
-//            log.warn("----------------------------");
-//            log.warn("CONTENT-TYPE: " + p.getContentType());
-//            log.warn("This is a Multipart");
-//            log.warn("---------------------------");
-//            Multipart mp = (Multipart) p.getContent();
-//            int count = mp.getCount();
-//            for (int i = 0; i < count; i++) {
-//                try {
-//                    BodyPart bodyPart = mp.getBodyPart(i);
-//                    InputStream is = bodyPart.getInputStream();
-//                    PDDocument document = null;
-//                    document = PDDocument.load(is);
-//                    document.getClass();
-//                    if (!document.isEncrypted()) {
-//                        PDFTextStripperByArea stripper = new PDFTextStripperByArea();
-//                        stripper.setSortByPosition(true);
-//                        PDFTextStripper Tstripper = new PDFTextStripper();
-//                        String st = Tstripper.getText(document);
-//                        //log.warn("Text:" + st);
-//                        refusalForEmailContent.append(st);
-//                    }
-//                } catch (Exception e) {
-//                }
-//            }
-//
-//        } else {
-//
-//            Object o = p.getContent();
-//            if (o instanceof InputStream) {
-//                log.warn("This is just an input stream");
-//                log.warn("---------------------------");
-//                InputStream is = (InputStream) o;
-//
-//                BufferedReader br = null;
-//                StringBuilder sb = new StringBuilder();
-//                String line;
-//                try {
-//                    int lineNumber = 0;
-//                    br = new BufferedReader(new InputStreamReader(is));
-//                    while ((line = br.readLine()) != null) {
-//                        //Ignore first line
-//                        //if (lineNumber > 0) {
-//                        sb.append(line + "\n");
-//                        //Invoice invoice = new Invoice(line);
-//                        //if (!listOfInvoices.contains(invoice))
-//                        //listOfInvoices.add(invoice);
-//                        //}
-//                        lineNumber++;
-//                    }
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                } finally {
-//                    if (br != null) {
-//                        try {
-//                            br.close();
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }
-//                log.warn(sb.toString());
-//            }
-//        }
-//    }
-//
-//    /*
-//
-//    * This method would print FROM,TO and SUBJECT of the message
-//
-//    */
-//
-//    public static void writeEnvelope(Message m) throws Exception {
-//        log.warn("This is the message envelope");
-//        log.warn("---------------------------");
-//        Address[] a;
-//        // FROM
-//        if ((a = m.getFrom()) != null) {
-//            for (int j = 0; j < a.length; j++)
-//                log.warn("FROM: " + a[j].toString());
-//        }
-//
-//        // TO
-//        if ((a = m.getRecipients(Message.RecipientType.TO)) != null) {
-//            for (int j = 0; j < a.length; j++)
-//                log.warn("TO: " + a[j].toString());
-//        }
-//
-//        // SUBJECT
-//        if (m.getSubject() != null)
-//            log.warn("SUBJECT: " + m.getSubject());
-//
-//
-//        //Content
-//
-//        log.warn("Text: " + m.getContent().toString());
-//        String message = getTextFromMessage(m);
-//        log.warn(message);
-//    }
 
 
     private static String getTextFromMessage(Message message) throws Exception {
