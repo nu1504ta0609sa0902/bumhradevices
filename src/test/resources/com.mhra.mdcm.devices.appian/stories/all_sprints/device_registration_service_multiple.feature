@@ -10,26 +10,26 @@ Feature: As a customer I want to be able to enter more than one device at the po
       | accountType | <accountType> |
       | countryName | <countryName> |
     When I add a device to SELECTED manufacturer with following data
-#      | deviceType     | General Medical Device |
-#      | gmdnDefinition | <device1>              |
-#      | customMade     | true                   |
-#    When I add another device to SELECTED manufacturer with following data
-#      | deviceType         | In Vitro Diagnostic Device |
-#      | gmdnDefinition     | <device2>                  |
-#      | riskClassification | list a                     |
-#      | notifiedBody       | NB 0086 BSI                |
-#      | productName        | PremierLeague              |
-#      | productMake        | britishsky                 |
-#      | productModel       | wtf1                       |
-#      | subjectToPerfEval  | true                       |
-#      | newProduct         | true                       |
-#      | conformsToCTS      | true                       |
-#    When I add another device to SELECTED manufacturer with following data
-#      | deviceType     | Active Implantable Medical Devices |
-#      | gmdnDefinition | <device3>                          |
-#      | customMade     | true                               |
-#      | productName    | lordhelpme                         |
-#    When I add another device to SELECTED manufacturer with following data
+      | deviceType     | General Medical Device |
+      | gmdnDefinition | <device1>              |
+      | customMade     | true                   |
+    When I add another device to SELECTED manufacturer with following data
+      | deviceType         | In Vitro Diagnostic Device |
+      | gmdnDefinition     | <device2>                  |
+      | riskClassification | list a                     |
+      | notifiedBody       | NB 0086 BSI                |
+      | productName        | PremierLeague              |
+      | productMake        | britishsky                 |
+      | productModel       | wtf1                       |
+      | subjectToPerfEval  | true                       |
+      | newProduct         | true                       |
+      | conformsToCTS      | true                       |
+    When I add another device to SELECTED manufacturer with following data
+      | deviceType     | Active Implantable Medical Devices |
+      | gmdnDefinition | <device3>                          |
+      | customMade     | true                               |
+      | productName    | lordhelpme                         |
+    When I add another device to SELECTED manufacturer with following data
       | deviceType             | System or Procedure Pack |
       | gmdnDefinition         | <device4>                |
       | riskClassification     | class1                   |
@@ -39,14 +39,16 @@ Feature: As a customer I want to be able to enter more than one device at the po
       | relatedDeviceMeasuring | true                     |
       | isBearingCEMarking     | false                    |
       | devicesCompatible      | true                     |
+      | productName    | lordhelpme                         |
     Then I should see option to add another device
     And The gmdn code or term is "displayed" in summary section
     And All the gmdn codes or terms are "displayed" in summary section
     When Proceed to payment and confirm submit device details
     When I logout and log back into appian as "<logBackInAas>" user
-    And I view new task with link "New Manufacturer Registration Request" for the new account
+    Then I search and view new task in AWIP page for the new account
     Then Check task contains correct stored devices and other details
-    And I assign the task to me and "approve" the generated task
+    When I assign the AWIP page task to me and "approve" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
     Then The task should be removed from tasks list
     Examples:
       | user              | accountType  | countryName | logBackInAas | device1              | device2 | device3 | device4 |
@@ -59,26 +61,26 @@ Feature: As a customer I want to be able to enter more than one device at the po
     And I go to list of manufacturers page
     And I click on a random manufacturer to add devices
     When I add a device to SELECTED manufacturer with following data
-#      | deviceType     | General Medical Device |
-#      | gmdnDefinition | <device1>              |
-#      | customMade     | true                   |
-#    When I add another device to SELECTED manufacturer with following data
-#      | deviceType         | In Vitro Diagnostic Device |
-#      | gmdnDefinition     | <device2>                  |
-#      | riskClassification | list a                     |
-#      | notifiedBody       | NB 0086 BSI                |
-#      | productName        | premierLeague              |
-#      | productMake        | britishsky                 |
-#      | productModel       | wtf1                       |
-#      | subjectToPerfEval  | true                       |
-#      | newProduct         | true                       |
-#      | conformsToCTS      | true                       |
-#    When I add another device to SELECTED manufacturer with following data
-#      | deviceType     | Active Implantable Medical Devices |
-#      | gmdnDefinition | <device3>                          |
-#      | customMade     | true                               |
-#      | productName    | lordhelpme                         |
-#    When I add another device to SELECTED manufacturer with following data
+      | deviceType     | General Medical Device |
+      | gmdnDefinition | <device1>              |
+      | customMade     | true                   |
+    When I add another device to SELECTED manufacturer with following data
+      | deviceType         | In Vitro Diagnostic Device |
+      | gmdnDefinition     | <device2>                  |
+      | riskClassification | list a                     |
+      | notifiedBody       | NB 0086 BSI                |
+      | productName        | premierLeague              |
+      | productMake        | britishsky                 |
+      | productModel       | wtf1                       |
+      | subjectToPerfEval  | true                       |
+      | newProduct         | true                       |
+      | conformsToCTS      | true                       |
+    When I add another device to SELECTED manufacturer with following data
+      | deviceType     | Active Implantable Medical Devices |
+      | gmdnDefinition | <device3>                          |
+      | customMade     | true                               |
+      | productName    | lordhelpme                         |
+    When I add another device to SELECTED manufacturer with following data
       | deviceType             | System or Procedure Pack |
       | gmdnDefinition         | <device4>                |
       | riskClassification     | class1                   |
@@ -88,14 +90,16 @@ Feature: As a customer I want to be able to enter more than one device at the po
       | relatedDeviceMeasuring | true                     |
       | isBearingCEMarking     | false                    |
       | devicesCompatible      | true                     |
+      | productName    | lordhelpme                         |
     Then I should see option to add another device
     And The gmdn code or term is "displayed" in summary section
     And All the gmdn codes or terms are "displayed" in summary section
     When Proceed to payment and confirm submit device details
     When I logout and log back into appian as "<logBackInAas>" user
-    And I view new task with link "Update Manufacturer Registration Request" for the new account
+    Then I search and view new task in AWIP page for the new account
     Then Check task contains correct stored devices and other details
-    And I assign the task to me and "approve" the generated task
+    When I assign the AWIP page task to me and "approve" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
     Then The task should be removed from tasks list
     Examples:
       | user              | logBackInAas | device1              | device2 | device3 | device4 |

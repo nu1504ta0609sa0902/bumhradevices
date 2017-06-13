@@ -19,8 +19,9 @@ Feature: As a customer I want to register new manufacturers with devices
       | relatedDeviceSterile   | <deviceSterile>      |
       | relatedDeviceMeasuring | <deviceMeasuring>    |
       | isBearingCEMarking     | false                |
+      | productName            | TooManyChanges       |
     And Proceed to payment and confirm submit device details
-    Then I should see the registered manufacturers list
+    Then I should be returned to the manufacturers list page
     Examples:
       | user              | accountType   | countryName | deviceType               | customMade | deviceSterile | deviceMeasuring | riskClassification | notifiedBody |
       | manufacturerAuto  | manufacturer  | Brazil      | General Medical Device   | true       |               |                 |                    |              |
@@ -47,10 +48,9 @@ Feature: As a customer I want to register new manufacturers with devices
     And Proceed to payment and confirm submit device details
     When I logout of the application
     And I am logged into appian as "<logBackInAas>" user
-    And I view new task with link "New Manufacturer Registration Request" for the new account
-    Then Check task contains correct devices "<gmdn>" and other details
-    And I assign the task to me and "approve" the generated task
-    Then The task should be removed from tasks list
+    Then I search and view new task in AWIP page for the new account
+    When I assign the AWIP page task to me and "approve" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
     When I logout of the application
     And I am logged into appian as "<user>" user
     When I go to list of manufacturers page and click on stored manufacturer
@@ -92,11 +92,11 @@ Feature: As a customer I want to register new manufacturers with devices
     When I remove the stored device with gmdn code or definition
     Then I should see option to add another device
     And Proceed to payment and confirm submit device details
-    Then I should see the registered manufacturers list
+    Then I should be returned to the manufacturers list page
     Examples:
-      | user              | logBackInAas | accountType   | countryName | deviceType             | gmdn1                | gmdn2           |
-      | manufacturerAuto  | businessAuto | manufacturer  | Belarus     | General Medical Device | Blood weighing scale | Autopsy measure |
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | General Medical Device | Blood weighing scale | Autopsy measure |
+      | user               | accountType   | countryName | deviceType             | gmdn1                | gmdn2           |
+      | manufacturerAuto   | manufacturer  | Belarus     | General Medical Device | Blood weighing scale | Autopsy measure |
+      | authorisedRepAuto  | authorisedRep | Bangladesh  | General Medical Device | Blood weighing scale | Autopsy measure |
 
 
   @regression @mdcm-161 @mdcm-21 @mdcm-232 @mdcm-496 @_sprint4 @_sprint5
@@ -113,10 +113,9 @@ Feature: As a customer I want to register new manufacturers with devices
     And Proceed to payment and confirm submit device details
     When I logout of the application
     And I am logged into appian as "<logBackInAs>" user
-    And I view new task with link "New Manufacturer Registration Request" for the new account
-    When The designation letter should be attached and the status should be "Awaiting Review"
-    And I assign the task to me and "approve" the generated task
-    Then The task should be removed from tasks list
+    Then I search and view new task in AWIP page for the new account
+    When I assign the AWIP page task to me and "approve" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
     When I go to records page and click on "Organisations"
     And I search for stored organisation in "Organisations" page
     Then All organisation search result should return 1 matches
@@ -148,11 +147,9 @@ Feature: As a customer I want to register new manufacturers with devices
     And Proceed to payment and confirm submit device details
     When I logout of the application
     And I am logged into appian as "<logBackInAs>" user
-    #Then I should see a new task for the new account
-    And I view new task with link "New Manufacturer Registration Request" for the new account
-    When I assign the task to me and "approve" the generated task
-    Then The task should be removed from tasks list
-    #And The completed task status should update to "Completed"
+    Then I search and view new task in AWIP page for the new account
+    When I assign the AWIP page task to me and "approve" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
     When I go to records page and click on "<page>"
     And I search for stored organisation in "<page>" page
     And I click on a link which matches the stored organisations in "<page>" page
@@ -160,5 +157,5 @@ Feature: As a customer I want to register new manufacturers with devices
     Examples:
       | user              | logBackInAs  | accountType   | countryName | page                | deviceType                         | gmdnDefinition        | customMade | riskClassification | productName | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
       | authorisedRepAuto | businessAuto | manufacturer  | Bangladesh  | Registered Products | In Vitro Diagnostic Device         | Androgen receptor IVD |            | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
-      | manufacturerAuto  | businessAuto | authorisedRep | Turkey      | Registered Products | Active Implantable Medical Devices | Desiccating chamber   | true       |                    | ford focus  |             |              |              |                   |            |               |
+      | manufacturerAuto  | businessAuto | authorisedRep | Brazil      | Registered Products | Active Implantable Medical Devices | Desiccating chamber   | true       |                    | ford focus  |             |              |              |                   |            |               |
 

@@ -9,10 +9,9 @@ Feature: As a business user, I want a task to be created when new account reques
     When I create a new account using business test harness page with following data
       | accountType | <accountType> |
       | countryName | <countryName> |
-    Then I should see a new task for the new account
-    When I assign the task to me and "<approveReject>" the generated task
-    Then The task with link "<link>" should be removed from tasks list
-    And The completed task status of new account should update to "Completed"
+    Then I search and view new task in AWIP page for the new account
+    When I assign the AWIP page task to me and "<approveReject>" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
     When I search accounts for the stored organisation name
     Then I should see at least <count> account matches
     Examples:
@@ -27,11 +26,9 @@ Feature: As a business user, I want a task to be created when new account reques
     When I create a new account using business test harness page with following data
       | accountType | <accountType> |
       | countryName | <countryName> |
-    Then I should see a new task for the new account
-    When I assign the task to me and reject the task for following reason "<reason>"
-#    Then The task should be removed from tasks list
-    Then The task with link "<link>" should be removed from tasks list
-    And The completed task status of new account should update to "Completed"
+    When I search and view new task in AWIP page for the new account
+    And I assign the AWIP page task to me and "reject" with following "<reason>"
+    Then The task status in AWIP page should be "Completed" for the new account
     When I search accounts for the stored organisation name
     Then I should see no account matches
     Examples:
@@ -45,9 +42,9 @@ Feature: As a business user, I want a task to be created when new account reques
     When I create a new account using business test harness page with following data
       | accountType | <accountType> |
       | countryName | <countryName> |
-    Then I should see a new task for the new account
-    When I assign the task to me and "<approveReject>" the generated task
-    Then The task with link "<link>" should be removed from tasks list
+    When I search and view new task in AWIP page for the new account
+    And I assign the AWIP page task to me and "<approveReject>" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
     When I logout of the application
     And I am logged into appian as "<logBackInAs>" user
     And Provide indication of devices made
@@ -64,9 +61,9 @@ Feature: As a business user, I want a task to be created when new account reques
     When I create a new account using business test harness page with following data
       | accountType | <accountType> |
       | countryName | <countryName> |
-    Then I should see a new task for the new account in WIP page
-    When I assign the task to me and "<approveReject>" the generated task
-    Then The task should be removed from WIP tasks list
+    Then I search and view new task in AWIP page for the new account
+    When I assign the AWIP page task to me and "<approveReject>" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
     When I search accounts for the stored organisation name
     Then I should see at least <count> account matches
     Examples:
@@ -83,7 +80,7 @@ Feature: As a business user, I want a task to be created when new account reques
     When I create a new account using business test harness page with following data
       | accountType | <accountType> |
       | countryName | <countryName> |
-    And I should see a new task for the new account in WIP page
+    And I search and view new task in AWIP page for the new account
     Then validate task is displaying correct new account details
     Examples:
       | user         | accountType   | count | countryName | reason                             | link                |
@@ -99,7 +96,7 @@ Feature: As a business user, I want a task to be created when new account reques
       | countryName | <countryName> |
     Then I search and view new task in AWIP page for the new account
     When I assign the AWIP page task to me and "<approveReject>" the generated task
-    Then The task status in AWIP page should be "Accepted" for the new account
+    Then The task status in AWIP page should be "Completed" for the new account
     When I search accounts for the stored organisation name
     Then I should see at least <count> account matches
     Examples:
@@ -121,7 +118,7 @@ Feature: As a business user, I want a task to be created when new account reques
     Examples:
       | user         | accountType  | approveReject | count | countryName    |
       | businessNoor | manufacturer | reject        | 0     | United Kingdom |
-#      | businessNoor | authorisedRep | reject       | 0     | Netherland     |
+      | businessNoor | authorisedRep | reject       | 0     | Netherland     |
 
   @1945 @_sprint18 @wip
   Scenario Outline: Verify all the application reference number in AWIP tasks page is correct

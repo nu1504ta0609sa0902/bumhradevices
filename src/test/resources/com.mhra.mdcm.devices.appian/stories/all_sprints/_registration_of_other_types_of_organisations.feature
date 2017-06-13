@@ -8,10 +8,9 @@ Feature: As a customer I want to register other types of organisations such as D
     When I create a new account using business test harness page with following data
       | accountType | <accountType> |
       | countryName | <countryName> |
-    Then I should see a new task for the new account
-    And I assign the task to me and "approve" the generated task
-    Then The task with link "<link>" should be removed from tasks list
-    And The completed task status of new account should update to "Completed"
+    Then I search and view new task in AWIP page for the new account
+    When I assign the AWIP page task to me and "<approveReject>" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
     When I logout and log back into appian as "<logBackInAs>" user
     And I go to list of manufacturers page
     Then I should see error message "<errorMessage>" in instead of list of manufacturers
@@ -26,11 +25,10 @@ Feature: As a customer I want to register other types of organisations such as D
     When I create a new account using business test harness page with following data
       | accountType | <accountType> |
       | countryName | <countryName> |
-    Then I should see a new task for the new account in WIP page
+    Then I search and view new task in AWIP page for the new account
     Then validate task is displaying correct new account details
-    And I assign the task to me and "approve" the generated task
-    Then The task with link "<link>" should be removed from tasks list
-    And The completed task status of new account should update to "Completed"
+    When I assign the AWIP page task to me and "approve" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
     When I go to records page and click on "<pageHeading>"
     And I perform a search for "<searchFor>" in "<pageHeading>" page
     Then I should see at least <count> matches in "<pageHeading>" page search results

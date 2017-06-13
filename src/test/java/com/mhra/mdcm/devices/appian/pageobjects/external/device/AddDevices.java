@@ -2,6 +2,7 @@ package com.mhra.mdcm.devices.appian.pageobjects.external.device;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
+import com.mhra.mdcm.devices.appian.pageobjects.business.sections.TaskSection;
 import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.ManufacturerList;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
@@ -199,6 +200,10 @@ public class AddDevices extends _Page {
     WebElement btnSubmitConfirm;
     @FindBy(css = ".CheckboxGroup---choice_pair>label")
     WebElement cbxConfirmInformation;
+    @FindBy(xpath = ".//button[text()='Yes']")
+    WebElement btnConfirmYesAssignToMe;
+    @FindBy(xpath = ".//button[text()='No']")
+    WebElement btnConfirmNoAssignToMe;
 
     //Submit and save buttons
     @FindBy(xpath = ".//button[.='Add device']")
@@ -387,7 +392,7 @@ public class AddDevices extends _Page {
     private void productDetailsAIMD(String deviceName) {
         PageUtils.clickOneOfTheFollowing(driver, addProduct, addProduct2, TIMEOUT_1_SECOND);
 
-        WaitUtils.waitForElementToBeClickable(driver, pdMedicalDeviceNameAIMD, TIMEOUT_5_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, pdMedicalDeviceNameAIMD, TIMEOUT_15_SECOND);
         pdMedicalDeviceNameAIMD.sendKeys(RandomDataUtils.getRandomTestName(deviceName));
 
         PageUtils.uploadDocument(fileUpload, "DeviceLabelDoc2.pdf", 1, 3);
@@ -401,14 +406,17 @@ public class AddDevices extends _Page {
 
     private void addProcedurePackDevice(DeviceDO dd) {
         searchByGMDN(dd);
+        addProductNew(dd);
         deviceSterile(dd);
 
-        if (dd.isDeviceSterile) {
-            notifiedBody(dd);
-        }
+        //Removed in the deployment 12/06/2017
+//        if (dd.isDeviceSterile) {
+//            notifiedBody(dd);
+//        }
         isBearingCEMarking(dd);
         devicesCompatible(dd);
-        //saveProduct(dd);
+        PageUtils.uploadDocument(listOfFileUploads.get(0), "DeviceInstructionForUse1.pdf", 1, 3);
+
     }
 
     private void addVitroDiagnosticDevice(DeviceDO dd) {
@@ -452,11 +460,11 @@ public class AddDevices extends _Page {
 //                }
 //            }
 
-            int productAdded = 0;
+            int productCount = 0;
             for (String x : dd.listOfProductName) {
                 dd.productName = x;
                 //addProduct(dd);
-                if(productAdded > 0){
+                if(productCount > 0){
                     PageUtils.clickIfVisible(driver, addProduct);
                 }
                 addProductNew(dd);
@@ -470,7 +478,7 @@ public class AddDevices extends _Page {
                 //Remove this if we find a better solution
                 WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
                 WaitUtils.nativeWaitInSeconds(1);
-                productAdded++;
+                productCount++;
             }
 
             //Product Details Table Heading Check
@@ -602,6 +610,7 @@ public class AddDevices extends _Page {
 
     private void addProductNew(DeviceDO dd) {
         WaitUtils.waitForElementToBeClickable(driver, pdMedicalDeviceName, TIMEOUT_10_SECOND);
+        pdMedicalDeviceName.clear();
         pdMedicalDeviceName.sendKeys(RandomDataUtils.getRandomTestName(dd.productName));
     }
 
@@ -1108,7 +1117,7 @@ public class AddDevices extends _Page {
 
     public AddDevices enterPaymentDetails(String paymentMethod) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, ddAddressBox, TIMEOUT_5_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, ddAddressBox, TIMEOUT_15_SECOND);
 
         //Select billing address:
         PageUtils.selectFromDropDown(driver, ddAddressBox , "Registered Address", false);
@@ -1117,6 +1126,7 @@ public class AddDevices extends _Page {
             paymentWorldPay.click();
         }else if(paymentMethod.toLowerCase().contains("bacs")){
             paymentBACS.click();
+            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
             PageUtils.uploadDocument(fileUpload, "CompletionOfTransfer1.pdf", 1, 3);
         }
 
@@ -1128,5 +1138,15 @@ public class AddDevices extends _Page {
     public String getApplicationReferenceNumber() {
         WaitUtils.waitForElementToBeClickable(driver, txtApplicationReference, TIMEOUT_10_SECOND);
         return txtApplicationReference.getText();
+    }
+
+    public AddDevices confirmRemovalOfDevice(boolean confirm) {
+        WaitUtils.waitForElementToBeClickable(driver, btnConfirmYesAssignToMe, TIMEOUT_10_SECOND);
+        if(confirm){
+            btnConfirmYesAssignToMe.click();
+        }else{
+            btnConfirmNoAssignToMe.click();
+        }
+        return new AddDevices(driver);
     }
 }

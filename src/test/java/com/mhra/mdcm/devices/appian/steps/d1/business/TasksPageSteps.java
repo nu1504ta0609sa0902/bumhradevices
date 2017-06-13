@@ -448,8 +448,6 @@ public class TasksPageSteps extends CommonSteps {
     public void theStatusShouldBe(String expectedStatus) throws Throwable {
         boolean isAttached = taskSection.isDesignationLetterAttached();
         assertThat("Expected to see letter of designation link", isAttached, is(equalTo(true)));
-        //boolean isStatusCorrect = taskSection.isDesignationLetterStatusCorrect(expectedStatus);
-        //assertThat("Expected to see letter of designation status : " + expectedStatus, isStatusCorrect, is(equalTo(true)));
     }
 
 
@@ -496,16 +494,19 @@ public class TasksPageSteps extends CommonSteps {
     @When("^I assign the AWIP page task to me and \"([^\"]*)\" the generated task$")
     public void i_assign_AWIP_task_and_accept_the_task_and_the_generated_task(String approveOrReject) throws Throwable {
         //accept the taskSection and approve or reject it
-        taskSection = taskSection.assignTaskToMe();
-        taskSection = taskSection.confirmAssignment(true);
+        taskSection = taskSection.assignAWIPTaskToMe();
+        taskSection = taskSection.confirmAWIPIAssignment(true);
 
         //Approve or reject
         String taskType = (String) scenarioSession.getData(SessionKey.taskType);
         if (approveOrReject.equals("approve")) {
             if(taskType!=null && taskType.contains("New Account")) {
-                tasksPage = taskSection.approveTaskNewAccount();
+                taskSection = taskSection.approveAWIPTaskNewAccount();
+                taskSection = taskSection.confirmAWIPIAssignment(true);
             }else if(taskType!=null && taskType.contains("New Manufacturer")){
-                tasksPage = taskSection.acceptRegistrationTask();
+                taskSection = taskSection.approveAWIPManufacturerTask();
+                taskSection = taskSection.approveAWIPAllDevices();
+                taskSection = taskSection.completeTheApplication();
             }else if(taskType!=null && taskType.contains("Update Manufacturer Registration Request")){
                 tasksPage = taskSection.approveTask();
             }else{
@@ -514,12 +515,33 @@ public class TasksPageSteps extends CommonSteps {
             }
         } else {
             if(taskType!=null && taskType.contains("New Account")) {
-                tasksPage = taskSection.rejectNewAccountRegistration();
-                tasksPage = taskSection.enterRejectionReason("This may have been removed", RandomDataUtils.getRandomTestName("Account already exists "));
+                tasksPage = taskSection.rejectAWIPNewAccountRegistration();
+                tasksPage = taskSection.enterRejectionReason("Account already exists", RandomDataUtils.getRandomTestName("Account already exists "));
             }else {
                 //Rejection process is slightly different, you need to enter a rejection reason
                 taskSection = taskSection.rejectTask();
                 tasksPage = taskSection.enterRejectionReason("This may have been removed", RandomDataUtils.getRandomTestName("Account already exists "));
+            }
+        }
+    }
+
+
+    @When("^I assign the AWIP page task to me and \"([^\"]*)\" with following \"([^\"]*)\"$")
+    public void i_assign_AWIP_task_and_accept_the_task_and_the_generated_task(String reject, String reason) throws Throwable {
+        //accept the taskSection and approve or reject it
+        taskSection = taskSection.assignAWIPTaskToMe();
+        taskSection = taskSection.confirmAWIPIAssignment(true);
+
+        //Reject with reason
+        if (reject.equals("reject")) {
+            String taskType = (String) scenarioSession.getData(SessionKey.taskType);
+            if(taskType!=null && taskType.contains("New Account")) {
+                tasksPage = taskSection.rejectAWIPNewAccountRegistration();
+                tasksPage = taskSection.enterRejectionReason(reason, RandomDataUtils.getRandomTestName(reason));
+            }else {
+                //Rejection process is slightly different, you need to enter a rejection reason
+                taskSection = taskSection.rejectTask();
+                tasksPage = taskSection.enterRejectionReason("Account already exists", RandomDataUtils.getRandomTestName("Account already exists "));
             }
         }
     }
@@ -552,6 +574,20 @@ public class TasksPageSteps extends CommonSteps {
         taskSection = taskSection.viewAccountByReferenceNumber(accountNameOrReference);
     }
 
+
+
+    @Then("^I search for new task in AWIP page for the new account$")
+    public void i_search_for_the_new_task_in_AWIP_page_for_the_new_account() throws Throwable {
+        String accountNameOrReference = (String) scenarioSession.getData(SessionKey.newApplicationReferenceNumber);
+        if(!TestHarnessUtils.isNotEmptyOrNull(accountNameOrReference))
+            accountNameOrReference = (String) scenarioSession.getData(SessionKey.newAccountName);
+
+        mainNavigationBar = new MainNavigationBar(driver);
+        tasksPage = mainNavigationBar.clickTasks();
+        taskSection = tasksPage.gotoApplicationWIPPage();
+        taskSection = taskSection.searchAWIPPageForAccount(accountNameOrReference);
+    }
+
     @Then("^The task status in AWIP page should be \"([^\"]*)\" for the new account$")
     public void the_task_status_in_AWIP_page_should_be_for_the_new_account(String status) throws Throwable {
         String accountNameOrReference = (String) scenarioSession.getData(SessionKey.newApplicationReferenceNumber);
@@ -561,6 +597,7 @@ public class TasksPageSteps extends CommonSteps {
         taskSection = taskSection.searchAWIPPageForAccount(accountNameOrReference);
 
         boolean isStatusCorrect = taskSection.isAWIPTaskStatusCorrect(status);
+        //Assert.assertThat("Expected Status in Application WIP page : " + status, isStatusCorrect, is(true));
     }
 
 }

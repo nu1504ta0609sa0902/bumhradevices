@@ -139,6 +139,15 @@ public class ExternalHomePageSteps extends CommonSteps {
     }
 
 
+
+    @Then("^I should be returned to the manufacturers list page$")
+    public void iShouldReturnedToTheManufacturersList() throws Throwable {
+        String name = (String) scenarioSession.getData(SessionKey.organisationName);
+        boolean isCorrect = manufacturerList.isSpecificTableHeadingCorrect("Manufacturer name");
+        Assert.assertThat("Expected To See Manufacturer List : " + name, isCorrect, Matchers.is(true));
+    }
+
+
     @Then("^I should see stored manufacturer appear in the registration in progress list$")
     public void i_should_see_stored_manufacturer_appear_in_the_registration_in_progress_list() throws Throwable {
         String name = (String) scenarioSession.getData(SessionKey.organisationName);
@@ -209,7 +218,7 @@ public class ExternalHomePageSteps extends CommonSteps {
     public void proceedToPaymentAndConfirmSubmitDeviceDetails() throws Throwable {
         addDevices = addDevices.proceedToReview();
         addDevices = addDevices.proceedToPayment();
-        addDevices = addDevices.enterPaymentDetails("Worldpay");   //OR BACS
+        addDevices = addDevices.enterPaymentDetails("BACS");   //OR WorldPay
         String reference = addDevices.getApplicationReferenceNumber();
         log.info("New Applicaiton reference number : " + reference);
         //addDevices = addDevices.confirmPayment();
@@ -505,24 +514,28 @@ public class ExternalHomePageSteps extends CommonSteps {
      */
     @And("^Provide indication of devices made$")
     public void provideIndicationOfDevicesMade() throws Throwable {
-
-        WaitUtils.nativeWaitInSeconds(3);
-        for (int x = 0; x < 9; x++) {
-            try {
-                externalHomePage = externalHomePage.provideIndicationOfDevicesMade(x);
-            } catch (Exception e) {
+        try {
+            externalHomePage.provideIndicationOfDevicesMade(0);
+            WaitUtils.nativeWaitInSeconds(3);
+            for (int x = 0; x < 9; x++) {
+                try {
+                    externalHomePage = externalHomePage.provideIndicationOfDevicesMade(x);
+                } catch (Exception e) {
+                }
             }
+
+            //custom made
+            externalHomePage.selectCustomMade(true);
+
+            //Submit devices made : They changed the work flow on 03/02/2017
+            //createNewManufacturer = externalHomePage.submitIndicationOfDevicesMade(true);
+            //createNewManufacturer = externalHomePage.submitIndicationOfDevicesMade(false);
+
+            createNewManufacturer = externalHomePage.submitIndicationOfDevicesMade(false);
+        }catch (Exception e){
+            e.printStackTrace();
+
         }
-
-        //custom made
-        externalHomePage.selectCustomMade(true);
-
-        //Submit devices made : They changed the work flow on 03/02/2017
-        //createNewManufacturer = externalHomePage.submitIndicationOfDevicesMade(true);
-        //createNewManufacturer = externalHomePage.submitIndicationOfDevicesMade(false);
-
-        createNewManufacturer = externalHomePage.submitIndicationOfDevicesMade(false);
-        WaitUtils.nativeWaitInSeconds(5);
     }
 
 
@@ -586,6 +599,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         String gmdnCode = data.getGMDN();
         addDevices = addDevices.viewDeviceWithGMDNValue(gmdnCode);
         addDevices = addDevices.removeSelectedDevice();
+        addDevices = addDevices.confirmRemovalOfDevice(true);
     }
 
     @When("^I remove ALL the stored device with gmdn code or definition$")

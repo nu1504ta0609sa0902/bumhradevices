@@ -81,7 +81,7 @@ public class TaskSection extends _Page {
     //Attachments : Letter of designation
     @FindBy(xpath = ".//div[contains(text(),'Uploaded date')]//following::tr/td[6]")
     WebElement letterOfDesignationStatus;
-    @FindBy(xpath = ".//h4[contains(text(),'Designation')]//following::a")
+    @FindBy(xpath = ".//span[contains(text(),'Letter of designation')]//following::a")
     WebElement linkLetterOfDesignation;
 
     //List of Table data : GMDN for device types in the task
@@ -139,7 +139,7 @@ public class TaskSection extends _Page {
     WebElement accept;
     @FindBy(xpath = ".//button[.='Go Back']")
     WebElement goBack;
-    @FindBy(xpath = ".//button[contains(text(), 'Approve')]")
+    @FindBy(xpath = ".//button[contains(text(), 'Approve Account')]")
     WebElement approveNewAccount;
     @FindBy(xpath = ".//button[.='Accept Registration']")
     WebElement acceptRegistration;
@@ -151,14 +151,20 @@ public class TaskSection extends _Page {
     WebElement rejectTask;
 
     //From APPLICATION WIP page
-    @FindBy(xpath = ".//button[contains(text(), 'Approve Account')]")
+    @FindBy(xpath = ".//button[contains(text(), 'Approve account')]")
     WebElement btnApproveNewAccount;
-    @FindBy(xpath = ".//button[contains(text(), 'Reject Account')]")
+    @FindBy(xpath = ".//button[contains(text(), 'Reject account')]")
     WebElement btnRejectNewAccount;
-    @FindBy(xpath = ".//button[contains(text(), 'Approve Manufacturer')]")
+    @FindBy(xpath = ".//button[contains(text(), 'Approve manufacturer')]")
     WebElement btnApproveManufacturer;
-    @FindBy(xpath = ".//button[contains(text(), 'Reject Manufacturer')]")
+    @FindBy(xpath = ".//button[contains(text(), 'Reject manufacturer')]")
     WebElement btnRejectManufacturer;
+    @FindBy(xpath = ".//button[contains(text(), 'Approve all devices')]")
+    WebElement btnApproveAllDevices;
+    @FindBy(xpath = ".//button[contains(text(), 'Change decision')]")
+    WebElement btnChangeDecision;
+    @FindBy(xpath = ".//button[contains(text(), 'Complete the application')]")
+    WebElement btnCompleteTheApplication;
 
 
     @Autowired
@@ -271,8 +277,6 @@ public class TaskSection extends _Page {
                 //Comment is mandatory
                 WaitUtils.waitForElementToBeClickable(driver, other, TIMEOUT_10_SECOND);
                 other.click();
-                WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-                WaitUtils.waitForElementToBeClickable(driver, commentArea, TIMEOUT_10_SECOND);
             } else if (reason.contains("Account already exists")) {
                 WaitUtils.waitForElementToBeClickable(driver, reasonAccountAlreadyExists, TIMEOUT_10_SECOND);
                 PageUtils.clickIfVisible(driver, reasonAccountAlreadyExists);
@@ -292,6 +296,7 @@ public class TaskSection extends _Page {
         }
 
         //Enter comment
+        WaitUtils.waitForElementToBeClickable(driver, commentArea, TIMEOUT_10_SECOND);
         commentArea.sendKeys(randomTestComment);
 
         //Submit rejection
@@ -596,20 +601,19 @@ public class TaskSection extends _Page {
 
     public TaskSection viewAccountByReferenceNumber(String reference) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeVisible(driver, aApplicationReference, TIMEOUT_10_SECOND);
-        WaitUtils.waitForElementToBeClickable(driver, aApplicationReference, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, By.linkText(reference), TIMEOUT_15_SECOND);
         WebElement referenceToClick = PageUtils.findElementWithText(listOfApplicationReferences, reference);
         referenceToClick.click();
         return new TaskSection(driver);
     }
 
-    public TaskSection assignTaskToMe() {
+    public TaskSection assignAWIPTaskToMe() {
         WaitUtils.waitForElementToBeClickable(driver, btnAssignToMe, TIMEOUT_10_SECOND);
         btnAssignToMe.click();
         return new TaskSection(driver);
     }
 
-    public TaskSection confirmAssignment(boolean clickYes) {
+    public TaskSection confirmAWIPIAssignment(boolean clickYes) {
         WaitUtils.waitForElementToBeClickable(driver, btnConfirmYesAssignToMe, TIMEOUT_10_SECOND);
         if(clickYes){
             btnConfirmYesAssignToMe.click();
@@ -620,16 +624,49 @@ public class TaskSection extends _Page {
     }
 
     public boolean isAWIPTaskStatusCorrect(String status) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, applicationStatus, TIMEOUT_10_SECOND);
         boolean contains = applicationStatus.getText().contains(status);
         return contains;
     }
 
-    public TasksTabPage rejectNewAccountRegistration() {
+    public TasksTabPage rejectAWIPNewAccountRegistration() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnRejectNewAccount, TIMEOUT_3_SECOND);
         PageUtils.doubleClick(driver, btnRejectNewAccount);
         log.info("New account registration : REJECTED");
         return new TasksTabPage(driver);
+    }
+
+    public TaskSection approveAWIPTaskNewAccount() {
+            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+            WaitUtils.waitForElementToBeClickable(driver, btnApproveNewAccount, TIMEOUT_3_SECOND);
+            PageUtils.doubleClick(driver, btnApproveNewAccount);
+            log.info("Task should be approved now");
+            return new TaskSection(driver);
+        }
+
+    public TaskSection approveAWIPManufacturerTask() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, btnApproveManufacturer, TIMEOUT_10_SECOND);
+        PageUtils.doubleClick(driver, btnApproveManufacturer);
+        log.info("Approved the manufacturer");
+        return new TaskSection(driver);
+    }
+
+    public TaskSection approveAWIPAllDevices() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, btnApproveAllDevices, TIMEOUT_10_SECOND);
+        PageUtils.doubleClick(driver, btnApproveAllDevices);
+        log.info("Approved all the devices");
+        return new TaskSection(driver);
+    }
+
+    public TaskSection completeTheApplication() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, btnCompleteTheApplication, TIMEOUT_10_SECOND);
+        PageUtils.doubleClick(driver, btnCompleteTheApplication);
+        log.info("Application completed");
+        return new TaskSection(driver);
     }
 }

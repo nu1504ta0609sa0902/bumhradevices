@@ -259,7 +259,7 @@ public class AccountRequestDO {
     public String getUserName(boolean aRandomOne) {
         String lastName = generateLastName();
         if(aRandomOne){
-            lastName = lastName + RandomDataUtils.getTodaysDate(false, "") + RandomDataUtils.getRandomNumberBetween(100, 100000);
+            lastName = lastName + RandomDataUtils.getTodaysDate(false, "") + "_" + RandomDataUtils.getRandomNumberBetween(100, 100000);
         }
         return lastName ;
     }

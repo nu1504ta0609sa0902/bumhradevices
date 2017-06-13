@@ -17,11 +17,10 @@ Feature: As a business user, I want a task to be created each time a customer su
     And Proceed to payment and confirm submit device details
     When I logout of the application
     And I am logged into appian as "<logBackInAas>" user
-    Then I view new task with link "New Manufacturer Registration Request" for the new account
-#    When I download the letter of designation
+    Then I search and view new task in AWIP page for the new account
     And Check task contains correct devices "<gmdnDefinition>" and other details
-    And I assign the task to me and "approve" the generated task
-    #Then The completed task status should update to "Completed"
+    When I assign the AWIP page task to me and "approve" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
     Then The task should be removed from tasks list
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition      | customMade | listOfProductNames |
@@ -51,12 +50,11 @@ Feature: As a business user, I want a task to be created each time a customer su
     And Proceed to payment and confirm submit device details
     When I logout of the application
     And I am logged into appian as "<logBackInAas>" user
-    Then I view new task with link "New Manufacturer Registration Request" for the new account
-    #When I download the letter of designation
+    Then I search and view new task in AWIP page for the new account
     And Check task contains correct devices "<gmdnDefinition>" and other details
-    And I assign the task to me and "approve" the generated task
+    When I assign the AWIP page task to me and "approve" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
     Then The task should be removed from tasks list
-    #And The completed task status should update to "Completed"
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType                 | gmdnDefinition        | riskClassification | listOfProductNames | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
       | manufacturerAuto  | businessAuto | manufacturer  | Brazil      | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | ford,hyundai       | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
@@ -78,7 +76,7 @@ Feature: As a business user, I want a task to be created each time a customer su
     And Proceed to payment and confirm submit device details
     When I logout of the application
     And I login to appian as "<logBackInAas>" user
-    Then I view new task with link "<link>" for the new account
+    Then I search and view new task in AWIP page for the new account
     And The designation letter should be attached and the status should be "Awaiting Review"
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition       | customMade | listOfProductNames | link                                  |
@@ -108,14 +106,11 @@ Feature: As a business user, I want a task to be created each time a customer su
     And Proceed to payment and confirm submit device details
     When I logout of the application
     And I am logged into appian as "<logBackInAs>" user
-    And I go to WIP tasks page
-    Then Verify the WIP entry details for the new account is correct
-    When I view task for the new account in WIP page
+    Then I search and view new task in AWIP page for the new account
     Then Task contains correct devices and products and other details for "<deviceType>"
     And Task shows devices which are arranged by device types
-    And I assign the task to me and "<approveReject>" the generated task
-    Then The task should be removed from WIP tasks list
-    #Then The completed task status should update to "Completed"
+    When I assign the AWIP page task to me and "<approveReject>" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
     When I search accounts for the stored organisation name
     Then I should see at least 0 account matches
     Examples:
@@ -124,7 +119,7 @@ Feature: As a business user, I want a task to be created each time a customer su
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Blood weighing scale | Autopsy measure | approve       | General Medical Device |
 
 
-  @regression @4090 @_sprint13 @4088 @_sprint11
+  @4090 @_sprint13 @4088 @_sprint11
   Scenario Outline: Users should be able to search and filter tasks
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
