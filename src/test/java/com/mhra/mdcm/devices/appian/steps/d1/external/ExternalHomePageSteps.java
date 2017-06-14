@@ -3,6 +3,7 @@ package com.mhra.mdcm.devices.appian.steps.d1.external;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
+import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.AddDevices;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
@@ -17,6 +18,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.springframework.context.annotation.Scope;
 
 import java.util.List;
@@ -515,7 +517,8 @@ public class ExternalHomePageSteps extends CommonSteps {
     @And("^Provide indication of devices made$")
     public void provideIndicationOfDevicesMade() throws Throwable {
         try {
-            externalHomePage.provideIndicationOfDevicesMade(0);
+            WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//*[contains(text(),'ype of device')]//following::label[1]"), _Page.TIMEOUT_10_SECOND);
+
             WaitUtils.nativeWaitInSeconds(3);
             for (int x = 0; x < 9; x++) {
                 try {
@@ -525,7 +528,9 @@ public class ExternalHomePageSteps extends CommonSteps {
             }
 
             //custom made
-            externalHomePage.selectCustomMade(true);
+            try {
+                externalHomePage.selectCustomMade(true);
+            }catch (Exception e){}
 
             //Submit devices made : They changed the work flow on 03/02/2017
             //createNewManufacturer = externalHomePage.submitIndicationOfDevicesMade(true);

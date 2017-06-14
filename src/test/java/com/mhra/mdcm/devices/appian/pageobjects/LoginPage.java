@@ -23,6 +23,7 @@ public class LoginPage extends _Page {
     private static String baseUrl;
     public static boolean isAutorised = false;
 
+    //Login fields
     @FindBy(id = "un")
     WebElement username;
     @FindBy(id = "pw")
@@ -31,20 +32,31 @@ public class LoginPage extends _Page {
     WebElement remember;
     @FindBy(css = ".choice_pair>label")
     WebElement rememberLabel;
+
+    //Settings icons and links
     @FindBy(css = ".gwt-Anchor.pull-down-toggle")
     WebElement settings;
     @FindBy(css = ".gwt-Anchor.pull-down-toggle span")
     WebElement loggedInUserBusiness;
     @FindBy(css = ".UserProfileLayout---current_user_menu_wrapper")
     WebElement loggedInUserManufacturer;
-
-    @FindBy(xpath = ".//label[@for='remember']//following::input[1]")
-    WebElement loginBtn;
-
     @FindBy(xpath = ".//span[contains(@style, 'personalization')]")
     WebElement photoIcon;
     @FindBy(xpath = ".//*[contains(text(),'Sign Out')]")
     WebElement signOutLink;
+
+    //Change password form
+    @FindBy(name = "oldPw")
+    WebElement passwordTemporary;
+    @FindBy(name = "newPw")
+    WebElement passwordNew;
+    @FindBy(name = "confirmNewPw")
+    WebElement passwordNewConfirm;
+
+    @FindBy(xpath = ".//label[@for='remember']//following::input[1]")
+    WebElement btnLogin;
+    @FindBy(xpath = ".//input[@type='submit']")
+    WebElement btnSubmit;
 
 
     //Error message
@@ -234,19 +246,17 @@ public class LoginPage extends _Page {
     }
 
     public boolean isInLoginPage() {
-        boolean isLoginPage = loginBtn.isDisplayed() && loginBtn.isEnabled();
+        boolean isLoginPage = btnLogin.isDisplayed() && btnLogin.isEnabled();
         return isLoginPage;
     }
 
-//    private boolean isAlreadyLoggedInAsSpecifiedUser(String usernameTxt) {
-//        boolean isAreadyLoggedInAaUser = false;
-//        try {
-//            String loggedInAs = loggedInUsername.getText();
-//            String checkIfThisUserIsAlreadyLoggedIn = usernameTxt.replaceAll("\\.", " ");
-//            isAreadyLoggedInAaUser = loggedInAs.contains(checkIfThisUserIsAlreadyLoggedIn);
-//        } catch (Exception e) {
-//            isAreadyLoggedInAaUser = false;
-//        }
-//        return isAreadyLoggedInAaUser;
-//    }
+    public MainNavigationBar changePasswordTo(String tempPassword, String updatePasswordTo) {
+        WaitUtils.waitForElementToBeClickable(driver, btnSubmit, TIMEOUT_10_SECOND);
+        passwordTemporary.sendKeys(tempPassword);
+        passwordNew.sendKeys(updatePasswordTo);
+        passwordNewConfirm.sendKeys(updatePasswordTo);
+        btnSubmit.click();
+        return new MainNavigationBar(driver);
+    }
+
 }

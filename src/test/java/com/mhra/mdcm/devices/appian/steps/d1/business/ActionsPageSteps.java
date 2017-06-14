@@ -114,6 +114,8 @@ public class ActionsPageSteps extends CommonSteps {
 
         log.warn("Created a new account : " + newAccount.organisationName);
         log.warn("Application reference number : " + applicationRef);
+        if(isInCorrectPage)
+            scenarioSession.putData(SessionKey.newUserName, newAccount.userName);
         scenarioSession.putData(SessionKey.newApplicationReferenceNumber, applicationRef);
         scenarioSession.putData(SessionKey.organisationName, newAccount.organisationName);
         scenarioSession.putData(SessionKey.newAccountName, newAccount.organisationName);

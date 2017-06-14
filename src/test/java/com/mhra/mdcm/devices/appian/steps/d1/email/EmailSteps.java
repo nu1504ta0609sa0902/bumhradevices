@@ -1,7 +1,5 @@
 package com.mhra.mdcm.devices.appian.steps.d1.email;
 
-import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequestDO;
-import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.email.GmailEmail;
@@ -50,12 +48,15 @@ public class EmailSteps extends CommonSteps {
         String accountNameOrReference = (String) scenarioSession.getData(SessionKey.newApplicationReferenceNumber);
 
         boolean foundMessage = false;
+        String messageBody = null;
         int attempt = 0;
         do {
-            foundMessage = GmailEmail.isMessageReceivedWithHeading(7, 10, emailHeading, accountNameOrReference);
+            messageBody = GmailEmail.getMessageReceivedWithHeadingAndIdentifier(7, 10, emailHeading, accountNameOrReference);
 
             //Break from loop if invoices read from the email server
-            if (foundMessage) {
+            if (messageBody!=null) {
+                scenarioSession.putData(SessionKey.emailBody, messageBody);
+                foundMessage = true;
                 break;
             } else {
                 //Wait for 10 seconds and try again, Thread.sleep required because this is checking email and its outside of selenium scope
@@ -64,7 +65,38 @@ public class EmailSteps extends CommonSteps {
             attempt++;
         } while (!foundMessage && attempt < 30);
 
+        Assert.assertThat("Message should not be empty : " + messageBody, messageBody!=null, Matchers.is(true));
         Assert.assertThat("Found message with heading : " + emailHeading + ", And reference : " + accountNameOrReference, foundMessage, Matchers.is(true));
+    }
+
+    @And("^I should received an email with password for new account with heading \"([^\"]*)\" and stored username$")
+    public void iShouldReceivedAnEmailWithPasswordForNewAccountWithHeadingAndApplicationIdentifier(String emailHeading) throws Throwable {
+        String userName = (String) scenarioSession.getData(SessionKey.newUserName);
+
+        boolean foundMessage = false;
+        String messageBody = null;
+        int attempt = 0;
+        do {
+            messageBody = GmailEmail.getMessageReceivedWithHeadingAndIdentifier(7, 10, emailHeading, userName);
+
+            //Break from loop if invoices read from the email server
+            if (messageBody!=null) {
+                scenarioSession.putData(SessionKey.emailBody, messageBody);
+                foundMessage = true;
+                break;
+            } else {
+                //Wait for 10 seconds and try again, Thread.sleep required because this is checking email and its outside of selenium scope
+                WaitUtils.nativeWaitInSeconds(10);
+            }
+            attempt++;
+        } while (!foundMessage && attempt < 30);
+
+        if(messageBody!=null){
+            String tempPassword = messageBody.substring(messageBody.indexOf("d:")+3, messageBody.indexOf("To log")-1);
+            scenarioSession.putData(SessionKey.temporaryPassword, tempPassword);
+        }
+        Assert.assertThat("Message should not be empty : " + messageBody, messageBody!=null, Matchers.is(true));
+        Assert.assertThat("Found message with heading : " + emailHeading + ", And username : " + userName, foundMessage, Matchers.is(true));
     }
 
     @And("^I should received an email for stored account with heading \"([^\"]*)\"$")

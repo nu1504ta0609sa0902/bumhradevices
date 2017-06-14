@@ -241,6 +241,11 @@ public class TestHarnessUtils {
         mapOfNames.put("PG", "Priya");
         mapOfNames.put("LP", "Lambros");
         mapOfNames.put("AT", "Auto");
-        return mapOfNames.get(initial);
+        String name = mapOfNames.get(initial);
+
+        if(name == null){
+            name = "AutomaticallCreated" + RandomDataUtils.getTodaysDate(false,"");
+        }
+        return name;
     }
 }

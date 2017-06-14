@@ -8,10 +8,6 @@ Feature: As a customer I want to receive email notifications when ever a account
     When I create a new account using business test harness page with following data
       | accountType | <accountType> |
       | countryName | <countryName> |
-#    Then I should see a new task for the new account
-#    When I assign the task to me and "<approveReject>" the generated task
-#    Then The task with link "<link>" should be removed from tasks list
-#    And The completed task status of new account should update to "Completed"
     Then I search and view new task in AWIP page for the new account
     When I assign the AWIP page task to me and "<approveReject>" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
@@ -99,16 +95,14 @@ Feature: As a customer I want to receive email notifications when ever a account
       | accountType           | <accountType>           |
       | accountNameBeginsWith | <accountNameBeginsWith> |
       | countryName           | United Kingdom          |
-#    Then I should see a new task for the new account
-#    When I assign the task to me and "<approveReject>" the generated task
-#    Then The task with link "<link>" should be removed from tasks list
-#    And The completed task status should update to "Completed"
     Then I search and view new task in AWIP page for the new account
     When I assign the AWIP page task to me and "<approveReject>" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email for stored account with heading "Account request approved for"
+    And I should received an email with password for new account with heading "account creation" and stored username
+    When I logout and logback in with newly created account and set the password to "MHRA12345A"
 #    Log back in as manufacturer/authorisedRep
-    When I logout and log back into appian as "<logBackInAas>" user
+    #When I logout and log back into appian as "<logBackInAas>" user
     And I go to list of manufacturers page
     And Provide indication of devices made
     And I click on register new manufacturer
@@ -120,11 +114,7 @@ Feature: As a customer I want to receive email notifications when ever a account
       | gmdnDefinition | Blood weighing scale   |
       | customMade     | true                   |
     And Proceed to payment and confirm submit device details
-#    Log back in as business and verify email is received
     When I logout and log back into appian as "<user>" user
-#    Then I view new task with link "New Service Request" for the new account
-#    And I assign the task to me and "approve" the generated task
-#    And The completed task status should update to "Completed"
     Then I search and view new task in AWIP page for the new account
     When I assign the AWIP page task to me and "<approveReject>" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
@@ -132,5 +122,5 @@ Feature: As a customer I want to receive email notifications when ever a account
     And I should received an email for stored manufacturer with heading "has been Approved" and stored application identifier
     Examples:
       | user         | accountType   | approveReject | logBackInAas      | countryName | link                | accountNameBeginsWith |
-      | businessNoor | manufacturer  | approve       | manufacturerNoor  | Bangladesh  | New Account Request | ManufacturerRT00      |
-      | businessNoor | authorisedRep | approve       | authorisedRepNoor | Netherland  | New Account Request | AuthorisedRepRT00     |
+      | businessNoor | manufacturer  | approve       | manufacturerNoor  | Bangladesh  | New Account Request | ManufacturerAccountRT00      |
+      | businessNoor | authorisedRep | approve       | authorisedRepNoor | Netherland  | New Account Request | AuthorisedRepAccountRT00     |

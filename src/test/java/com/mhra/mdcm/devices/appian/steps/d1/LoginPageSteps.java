@@ -119,4 +119,24 @@ public class LoginPageSteps extends CommonSteps {
         iLogoutOfTheApplication();
         i_am_logged_into_appian_as_user(username);
     }
+
+
+    @When("^I logout and logback in with newly created account and set the password to \"([^\"]*)\"$")
+    public void i_logout_and_logback_in_with_newly_created_account_and_set_the_password_to(String updatePasswordTo) throws Throwable {
+        String userName = (String) scenarioSession.getData(SessionKey.newUserName);
+        String tempPassword = (String) scenarioSession.getData(SessionKey.temporaryPassword);
+
+        //This should take user to change password page
+        iLogoutOfTheApplication();
+        i_am_logged_into_appian_as_user(userName, tempPassword);
+        mainNavigationBar = loginPage.changePasswordTo(tempPassword, updatePasswordTo);
+        scenarioSession.putData(SessionKey.updatedPassword, updatePasswordTo);
+    }
+
+    @When("^I am logged back into appian using the newly created account details$")
+    public void i_am_logged_back_into_appian_using_newly_created_acccount_details() throws Throwable {
+        String userName = (String) scenarioSession.getData(SessionKey.newUserName);
+        String password = (String) scenarioSession.getData(SessionKey.temporaryPassword);
+        i_am_logged_into_appian_as_user(userName, password);
+    }
 }

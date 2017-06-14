@@ -62,8 +62,13 @@ public class ManufacturerRequestDO {
     private String getLoggedInUserName(ScenarioSession scenarioSession) {
         String selectedProfile = System.getProperty("spring.profiles.active");
         String unameKeyValue = (String) scenarioSession.getData(SessionKey.loggedInUser);
-        String userName = FileUtils.getSpecificPropertyFromFile(FileUtils.userFileName, selectedProfile + ".username." + unameKeyValue);
-        return userName;
+        try {
+            String userName = FileUtils.getSpecificPropertyFromFile(FileUtils.userFileName, selectedProfile + ".username." + unameKeyValue);
+            return userName;
+        }catch (Exception e){
+            //This could be a newly created account, change introduced in sprint 21/22 where email is sent via email
+            return (String) scenarioSession.getData(SessionKey.newUserName);
+        }
     }
 
     private void createDefaultRandom() {

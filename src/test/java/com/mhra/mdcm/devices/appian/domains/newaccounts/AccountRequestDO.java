@@ -45,6 +45,7 @@ public class AccountRequestDO {
     public String jobTitle;
     public String phoneNumber;
     public String email;
+    public String userName;
 
     //Organisation Role
     //public String autorisedRep;
@@ -255,21 +256,14 @@ public class AccountRequestDO {
         return business;
     }
 
-//    public String getUserName(boolean aRandomOne) {
-//        String lastName = generateLastName();
-//        if(aRandomOne){
-//            lastName = lastName + RandomDataUtils.getTodaysDate(false, "");
-//        }
-//        return lastName;
-//    }
-
 
     public String getUserName(boolean aRandomOne) {
-        String lastName = generateLastName();
+        String randomUserName = generateLastName();
         if(aRandomOne){
-            lastName = lastName + RandomDataUtils.getTodaysDate(false, "") + "_" + RandomDataUtils.getRandomNumberBetween(100, 100000);
+            randomUserName = randomUserName + RandomDataUtils.getTodaysDate(false, "") + "_" + RandomDataUtils.getRandomNumberBetween(100, 100000);
         }
-        return lastName ;
+        this.userName = randomUserName;
+        return randomUserName ;
     }
 
     @Override
