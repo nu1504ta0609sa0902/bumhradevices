@@ -1,5 +1,5 @@
 Feature: As a customer I want to register new manufacturers WITHOUT devices
-  sso that I can come back and add devices later
+  so that I can come back and add devices later
 
 
   @regression @3761 @_sprint9

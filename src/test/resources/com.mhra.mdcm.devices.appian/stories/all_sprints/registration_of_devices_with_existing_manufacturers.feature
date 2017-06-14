@@ -136,9 +136,12 @@ Feature: As an account holder, I should be able to add devices to existing manuf
     And Proceed to payment and confirm submit device details
     When I logout of the application
     And I am logged into appian as "<logBackInAas>" user
-    And I view new task with link "Update Manufacturer Registration Request" for the new account
+    #And I view new task with link "Update Manufacturer Registration Request" for the new account
+    Then I search and view new task in AWIP page for the new account
     Then Check task contains correct devices "<gmdn>" and other details
-    And I assign the task to me and "approve" the generated task
+    #And I assign the task to me and "approve" the generated task
+    When I assign the AWIP page task to me and "approve" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
     When I logout of the application
     And I am logged into appian as "<user>" user
     When I go to list of manufacturers page and click on stored manufacturer

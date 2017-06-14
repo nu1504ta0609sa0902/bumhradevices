@@ -37,7 +37,7 @@ public class ManufacturerList extends _Page {
     WebElement thManufacturerRegistrationStatus;
 
     //Registration in progress table
-    @FindBy(xpath = ".//h2[contains(text(),'Applications')]//following::tbody[1]/tr/td[3]")
+    @FindBy(xpath = ".//*[contains(text(),'Applications')]//following::tbody[1]/tr/td[3]")
     List<WebElement> listOfManufacturerNamesInProgress;
 
     //
@@ -54,6 +54,9 @@ public class ManufacturerList extends _Page {
 
     @FindBy(xpath = ".//tr/th")
     List<WebElement> listOfTableHeadings;
+    @FindBy(xpath = ".//tr/th")
+    WebElement singleTableHeader;
+
 
     @Autowired
     public ManufacturerList(WebDriver driver) {
@@ -260,6 +263,8 @@ public class ManufacturerList extends _Page {
     }
 
     public boolean isTableHeadingCorrect(String commaDelimitedHeading) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeVisible(driver, singleTableHeader, TIMEOUT_10_SECOND);
         String lowerCaseHeadings = commaDelimitedHeading.toLowerCase();
         return PageUtils.isTableHeadingCorrect(lowerCaseHeadings, listOfTableHeadings, 1, 4);
     }

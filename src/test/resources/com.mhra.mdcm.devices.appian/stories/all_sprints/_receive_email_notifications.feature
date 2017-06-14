@@ -13,9 +13,9 @@ Feature: As a customer I want to receive email notifications when ever a account
     Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email for stored account with heading "<emailHeader>"
     Examples:
-      | user         | accountType   | approveReject | countryName    | link                | emailHeader                  |
-      | businessNoor | manufacturer  | approve       | United Kingdom | New Account Request | Account request approved for |
-      | businessNoor | authorisedRep | approve       | Netherland     | New Account Request | Account request approved for |
+      | user         | accountType   | approveReject | countryName    | emailHeader                  |
+      | businessNoor | manufacturer  | approve       | United Kingdom | Account request approved for |
+      | businessNoor | authorisedRep | approve       | Netherland     | Account request approved for |
 
 
   @regression @2192 @_sprint10 @bug
@@ -57,7 +57,7 @@ Feature: As a customer I want to receive email notifications when ever a account
     And I should received an email for stored manufacturer with heading "<emailHeading>" and stored application identifier
     And I should received an email for stored manufacturer with heading "has been Approved" and stored application identifier
     Examples:
-      | user              | logBackInAs  | accountType   | approveReject | countryName | emailHeading                            |
+      | user              | logBackInAs  | accountType   | approveReject | countryName | emailHeading                          |
       | manufacturerAuto  | businessAuto | manufacturer  | approve       | Brazil      | Request for manufacturer registration |
       | authorisedRepAuto | businessAuto | authorisedRep | approve       | Belarus     | Request for manufacturer registration |
 
@@ -121,6 +121,6 @@ Feature: As a customer I want to receive email notifications when ever a account
     And I should received an email for stored manufacturer with heading "Request for manufacturer registration" and stored application identifier
     And I should received an email for stored manufacturer with heading "has been Approved" and stored application identifier
     Examples:
-      | user         | accountType   | approveReject | logBackInAas      | countryName | link                | accountNameBeginsWith |
-      | businessNoor | manufacturer  | approve       | manufacturerNoor  | Bangladesh  | New Account Request | ManufacturerAccountRT00      |
-      | businessNoor | authorisedRep | approve       | authorisedRepNoor | Netherland  | New Account Request | AuthorisedRepAccountRT00     |
+      | user         | accountType   | approveReject | logBackInAas      | countryName | link                | accountNameBeginsWith    |
+      | businessNoor | manufacturer  | approve       | manufacturerNoor  | Bangladesh  | New Account Request | ManufacturerAccountRT00  |
+      | businessNoor | authorisedRep | approve       | authorisedRepNoor | Netherland  | New Account Request | AuthorisedRepAccountRT00 |

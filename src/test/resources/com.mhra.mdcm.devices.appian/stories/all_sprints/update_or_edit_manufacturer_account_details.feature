@@ -80,8 +80,8 @@ Feature: As a business user, I want to be able to update party details associate
     And I click on random manufacturer with status "<status>"
     Examples:
       | user              | expectedHeadings                                                                             | status     |
-      | manufacturerAuto  | Organisation name,Organisation address,Organisation country,Manufacturer registration status | Registered |
-      | authorisedRepAuto | Organisation name,Organisation address,Organisation country,Manufacturer registration status | Registered |
+      | manufacturerAuto  | Manufacturer name,Address,Country,Registration status | Registered |
+      | authorisedRepAuto | Manufacturer name,Address,Country,Registration status | Registered |
 
 
   @mdcm-21 @mdcm-162 @mdcm-171 @mdcm-485 @_sprint5 @wip @ignore

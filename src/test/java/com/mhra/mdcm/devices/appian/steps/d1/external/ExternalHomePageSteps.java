@@ -424,7 +424,7 @@ public class ExternalHomePageSteps extends CommonSteps {
     public void i_click_on_random_manufacturer(String status) throws Throwable {
 
         if(status.equals("Registered")){
-            manufacturerList = manufacturerList.sortBy("Registered status", 2);
+            manufacturerList = manufacturerList.sortBy("Registration status", 2);
         }
 
         String name = manufacturerList.getARandomManufacturerNameWithStatus(status);

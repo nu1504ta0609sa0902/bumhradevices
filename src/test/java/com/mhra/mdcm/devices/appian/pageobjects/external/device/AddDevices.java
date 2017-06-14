@@ -383,8 +383,10 @@ public class AddDevices extends _Page {
 //            }
 //        }
 
-        for (String x : dd.listOfProductName) {
-            productDetailsAIMD(x);
+        if(dd.isCustomMade) {
+            for (String x : dd.listOfProductName) {
+                productDetailsAIMD(x);
+            }
         }
     }
 
