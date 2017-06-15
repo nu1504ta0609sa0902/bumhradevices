@@ -121,6 +121,6 @@ Feature: As a customer I want to receive email notifications when ever a account
     And I should received an email for stored manufacturer with heading "Request for manufacturer registration" and stored application identifier
     And I should received an email for stored manufacturer with heading "has been Approved" and stored application identifier
     Examples:
-      | user         | accountType   | approveReject | logBackInAas      | countryName | link                | accountNameBeginsWith    |
-      | businessNoor | manufacturer  | approve       | manufacturerNoor  | Bangladesh  | New Account Request | ManufacturerAccountRT00  |
-      | businessNoor | authorisedRep | approve       | authorisedRepNoor | Netherland  | New Account Request | AuthorisedRepAccountRT00 |
+      | user         | accountType   | approveReject | logBackInAas      | countryName   | link                | accountNameBeginsWith    |
+      | businessNoor | manufacturer  | approve       | manufacturerNoor  | Bangladesh    | New Account Request | ManufacturerAccountRT00  |
+      | businessNoor | authorisedRep | approve       | authorisedRepNoor | United States | New Account Request | AuthorisedRepAccountRT00 |

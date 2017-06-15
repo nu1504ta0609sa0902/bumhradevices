@@ -64,6 +64,9 @@ public class ManufacturerRequestDO {
         String unameKeyValue = (String) scenarioSession.getData(SessionKey.loggedInUser);
         try {
             String userName = FileUtils.getSpecificPropertyFromFile(FileUtils.userFileName, selectedProfile + ".username." + unameKeyValue);
+            if(userName == null){
+                return (String) scenarioSession.getData(SessionKey.newUserName);
+            }
             return userName;
         }catch (Exception e){
             //This could be a newly created account, change introduced in sprint 21/22 where email is sent via email
