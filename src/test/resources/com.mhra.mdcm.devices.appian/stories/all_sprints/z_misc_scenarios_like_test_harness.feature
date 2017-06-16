@@ -55,7 +55,7 @@ Feature: Aa a user I would like to verify features which are not related to devi
       | manufacturerAuto  | General Medical Device | Blood     | 1     |
       | manufacturerAuto  | General Medical Device | 10014     | 1     |
 
-  @regression @1838 @4211 @_sprint12 @_sprint13 @readonly @wip
+  @regression @1838 @4211 @_sprint12 @_sprint13 @readonly
   Scenario Outline: Users should be able to view all gmdn terms or definitions
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page

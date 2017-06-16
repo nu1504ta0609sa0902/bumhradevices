@@ -38,7 +38,7 @@ Feature: As a business user, I want to navigate to different sections like Accou
       | businessAuto | Organisations | Organisations | Name,Role,Contact name,Address,Country,Status |
 
 
-  @mdcm-126 @mdcm-23 @readonly @_sprint1 @_sprint6 @bug
+  @regression @mdcm-126 @mdcm-23 @readonly @_sprint1 @_sprint6
   Scenario Outline: By default list of accounts should be displayed in a to z order
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"

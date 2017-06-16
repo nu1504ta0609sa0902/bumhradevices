@@ -2,7 +2,7 @@ Feature: As a user, I want to view devices and product details associated with a
   so that I can quickly verify correct device and related product information is correct
 
 
-  @regression @mdcm-126 @readonly @_sprint1 @mdcm-125 @_sprint6 @wip
+  @regression @mdcm-126 @readonly @_sprint1 @mdcm-125 @_sprint6
   Scenario Outline: As a business user I should be able to view specific account in all accounts page
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
@@ -48,7 +48,7 @@ Feature: As a user, I want to view devices and product details associated with a
       | authorisedRepAuto | businessAuto | authorisedRep | approve       | Belarus     | Organisations | AuthorisedRep | General Medical Device |
 
 
-  @1924 @3271 @_sprint8 @wip @bug
+  @1924 @3271 @_sprint8 @readonly @wip @bug
   Scenario Outline: As a business user I should be able to verify device and product details related to a manufacturer
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<page>"
