@@ -43,7 +43,7 @@ Feature: Aa a user I would like to verify features which are not related to devi
   Scenario Outline: Users should be able to search using  GMDN code or term
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on a random manufacturer to add devices
+    And I click on random manufacturer with status "Registered" to add device
     When I search for device type "<deviceType>" with gmdn "<gmdn>"
     Then I should see at least <count> devices matches
     Examples:
@@ -59,7 +59,7 @@ Feature: Aa a user I would like to verify features which are not related to devi
   Scenario Outline: Users should be able to view all gmdn terms or definitions
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on a random manufacturer to add devices
+    And I click on random manufacturer with status "Registered" to add device
     When I click on view all gmdn term or definitions for device type "<deviceType>"
     And I search for gmdn "<gmdn>"
     Then I should see at least <count> devices matches
