@@ -13,13 +13,13 @@ import java.util.List;
 public class StepsUtils {
 
     public static void addToDeviceDataList(ScenarioSession scenarioSession, DeviceDO dd) {
-        List<DeviceDO> listOfDeviceData = (List<DeviceDO>) scenarioSession.getData(SessionKey.deviceDataList);
+        List<DeviceDO> listOfDeviceData = (List<DeviceDO>) scenarioSession.getData(SessionKey.listOfDevicesAdded);
         if(listOfDeviceData == null){
             listOfDeviceData = new ArrayList<>();
         }
 
         listOfDeviceData.add(dd);
-        scenarioSession.putData(SessionKey.deviceDataList, listOfDeviceData);
+        scenarioSession.putData(SessionKey.listOfDevicesAdded, listOfDeviceData);
     }
 
 

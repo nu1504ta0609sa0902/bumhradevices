@@ -101,13 +101,13 @@ public class TaskSection extends _Page {
     WebElement priorityDocumentImg;
 
     //Application WIP page
-    @FindBy(xpath = ".//*[text()='Urgency']/following::tr/td[1]")
+    @FindBy(xpath = ".//*[text()='Priority']/following::tr/td[1]")
     List<WebElement> listOfApplicationReferences;
-    @FindBy(xpath = ".//*[text()='Urgency']/following::tr/td[1]")
+    @FindBy(xpath = ".//*[text()='Priority']/following::tr/td[1]")
     WebElement aApplicationReference;
-    @FindBy(xpath = ".//*[text()='Urgency']/following::tr/td[4]")
+    @FindBy(xpath = ".//*[text()='Priority']/following::tr/td[4]")
     WebElement applicationStatus;
-    @FindBy(xpath = ".//*[text()='Urgency']/following::tr")
+    @FindBy(xpath = ".//*[text()='Priority']/following::tr")
     List<WebElement> listOfApplicationData;
     @FindBy(partialLinkText = "Filter application")
     WebElement linkFilterApplication;
@@ -144,7 +144,7 @@ public class TaskSection extends _Page {
     @FindBy(xpath = ".//button[.='Accept Registration']")
     WebElement acceptRegistration;
     @FindBy(xpath = ".//button[.='Reject Registration']") //Stupid to have 2 buttons called Reject on same page
-    WebElement rejectRegistration;
+            WebElement rejectRegistration;
     @FindBy(xpath = ".//button[.='Approve']")
     WebElement approveTask;
     @FindBy(xpath = ".//button[.='Approve']//following::button[1]")
@@ -196,7 +196,7 @@ public class TaskSection extends _Page {
 //        }
 
         WebElement header = taskHeading2;
-        if(taskType!=null && taskType.contains("New Account Request")){
+        if (taskType != null && taskType.contains("New Account Request")) {
             header = taskHeading;
         }
 
@@ -272,7 +272,7 @@ public class TaskSection extends _Page {
     public TasksTabPage enterRejectionReason(String reason, String randomTestComment) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
 
-        if(reason != null) {
+        if (reason != null) {
             if (reason.contains("Other")) {
                 //Comment is mandatory
                 WaitUtils.waitForElementToBeClickable(driver, other, TIMEOUT_10_SECOND);
@@ -573,13 +573,13 @@ public class TaskSection extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, linkFilterApplication, TIMEOUT_10_SECOND);
         List<String> listOfInvalidReferences = new ArrayList<>();
         boolean isValid = true;
-        for(WebElement el: listOfApplicationReferences){
+        for (WebElement el : listOfApplicationReferences) {
             String reference = el.getText();
-            if(reference.length() == lengthOfReference) {
+            if (reference.length() == lengthOfReference) {
                 //First 8 characters are date value
                 reference = reference.substring(0, 8);
                 isValid = RandomDataUtils.isDateFormatValid(dateFormat, reference);
-            }else{
+            } else {
                 isValid = false;
             }
             //Add to invalid list
@@ -615,9 +615,9 @@ public class TaskSection extends _Page {
 
     public TaskSection confirmAWIPIAssignment(boolean clickYes) {
         WaitUtils.waitForElementToBeClickable(driver, btnConfirmYesAssignToMe, TIMEOUT_10_SECOND);
-        if(clickYes){
+        if (clickYes) {
             btnConfirmYesAssignToMe.click();
-        }else{
+        } else {
             btnConfirmNoAssignToMe.click();
         }
         return new TaskSection(driver);
@@ -639,12 +639,12 @@ public class TaskSection extends _Page {
     }
 
     public TaskSection approveAWIPTaskNewAccount() {
-            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-            WaitUtils.waitForElementToBeClickable(driver, btnApproveNewAccount, TIMEOUT_3_SECOND);
-            PageUtils.doubleClick(driver, btnApproveNewAccount);
-            log.info("Task should be approved now");
-            return new TaskSection(driver);
-        }
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, btnApproveNewAccount, TIMEOUT_3_SECOND);
+        PageUtils.doubleClick(driver, btnApproveNewAccount);
+        log.info("Task should be approved now");
+        return new TaskSection(driver);
+    }
 
     public TaskSection approveAWIPManufacturerTask() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);

@@ -68,7 +68,7 @@ public class MainNavigationBar extends _Page {
     }
 
     public RecordsTabPage clickRecords() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, records, TIMEOUT_DEFAULT);
         PageUtils.doubleClick(driver, records);
         return new RecordsTabPage(driver);
@@ -88,7 +88,7 @@ public class MainNavigationBar extends _Page {
     }
 
     public ActionsTabPage clickActions() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, actions, TIMEOUT_DEFAULT);
         actions.click();
         PageUtils.doubleClick(driver, actions);

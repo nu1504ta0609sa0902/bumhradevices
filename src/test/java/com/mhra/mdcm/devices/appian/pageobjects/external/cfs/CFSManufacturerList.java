@@ -3,6 +3,7 @@ package com.mhra.mdcm.devices.appian.pageobjects.external.cfs;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.external._CreateCFSManufacturerTestHarnessPage;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.DeviceDetails;
+import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.ManufacturerViewDetails;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
@@ -34,7 +35,7 @@ public class CFSManufacturerList extends _Page {
     //List of table data
     @FindBy(xpath = ".//tr/th")
     List<WebElement> listOfTableHeadings;
-    @FindBy(xpath = ".//div[contains(text(),'Manufacturer registration')]//following::tbody[1]/tr/td[1]")
+    @FindBy(xpath = ".//h2[contains(text(),'Manufacturers you represent')]//following::tbody[1]/tr/td[1]")
     List<WebElement> listOfOrganisationNames;
 
     //About your organisations : Not always displayed
@@ -115,11 +116,11 @@ public class CFSManufacturerList extends _Page {
         return name;
     }
 
-    public DeviceDetails viewManufacturer(String name) {
+    public ManufacturerViewDetails viewManufacturer(String name) {
         WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(name), TIMEOUT_10_SECOND);
         WebElement man = driver.findElement(By.partialLinkText(name));
         man.click();
-        return new DeviceDetails(driver);
+        return new ManufacturerViewDetails(driver);
     }
 
     public String getARandomOrganisationName(String orgName) {

@@ -112,8 +112,8 @@ public class RegisteredProducts extends _Page {
     }
 
     public BusinessManufacturerDetails viewManufacturerByText(String searchTerm) {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//td[6]"), TIMEOUT_5_SECOND);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//td[6]"), TIMEOUT_15_SECOND);
         int position = RandomDataUtils.getSimpleRandomNumberBetween(1, listOfAllManufacturerNames.size() - 1, false);
         WebElement manufacaturerNameLink = listOfAllManufacturerNames.get(position);
         manufacaturerNameLink = manufacaturerNameLink.findElement(By.tagName("a"));
@@ -170,9 +170,10 @@ public class RegisteredProducts extends _Page {
         boolean allMatched = true;
         for (WebElement el : listOfDeviceTypes) {
             String text = el.getText();
-            log.info(text);
+            //log.info(text);
             if (!text.contains("revious") && !text.contains("ext")) {
-                allMatched = text.contains(value) || text.equals("");;
+                allMatched = text.contains(value) || text.equals("");
+                ;
                 if (!allMatched) {
                     break;
                 }
@@ -192,12 +193,11 @@ public class RegisteredProducts extends _Page {
     public boolean areDevicesOfTypeVisible(String value, String searchTerm) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WebElement element = clearFilters;
-        if(searchTerm == null)
+        if (searchTerm == null)
             element = btnSearch;
         WaitUtils.waitForElementToBeClickable(driver, element, TIMEOUT_10_SECOND);
-        PageUtils.isElementClickable(driver, clearFilters, TIMEOUT_15_SECOND);
-        WaitUtils.nativeWaitInSeconds(10);
 
+        WaitUtils.nativeWaitInSeconds(10);
         boolean aMatchFound = false;
         for (WebElement el : listOfDeviceTypes) {
             String text = el.getText();
@@ -216,8 +216,8 @@ public class RegisteredProducts extends _Page {
         boolean seachingCompleted = false;
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         try {
-            if(searchTerm!=null && !searchTerm.equals(""))
-            WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_30_SECOND);
+            if (searchTerm != null && !searchTerm.equals(""))
+                WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_30_SECOND);
             seachingCompleted = true;
         } catch (Exception e) {
         }

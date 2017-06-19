@@ -132,7 +132,7 @@ public class ManufacturerList extends _Page {
 
 
     public _CreateManufacturerTestHarnessPage registerNewManufacturer() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, linkRegisterNewManufacturer, TIMEOUT_DEFAULT);
         linkRegisterNewManufacturer.click();
         return new _CreateManufacturerTestHarnessPage(driver);

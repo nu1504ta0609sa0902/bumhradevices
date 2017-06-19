@@ -3,6 +3,7 @@ package com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequestDO;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
+import com.mhra.mdcm.devices.appian.pageobjects.external.cfs.CFSAddDevices;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.AddDevices;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.DeviceDetails;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.ProductDetails;
@@ -24,11 +25,13 @@ import java.util.List;
 public class ManufacturerViewDetails extends _Page {
 
     @FindBy(css = ".component_error")
-    List <WebElement> errorMessages;
+    List<WebElement> errorMessages;
 
     //Buttons for adding, editing devices
     @FindBy(xpath = ".//button[contains(text(),'Add a device')]")
     WebElement addADevice;
+    @FindBy(xpath = ".//button[contains(text(),'Add device')]")
+    WebElement addADeviceCFS;
     @FindBy(xpath = ".//button[contains(text(),'Declare devices')]")
     WebElement declareADevice;
     @FindBy(xpath = ".//button[contains(text(),'Continue')]")
@@ -94,10 +97,10 @@ public class ManufacturerViewDetails extends _Page {
     public boolean isOrganisationNameCorrect(String name, boolean isManufacturer) {
         WaitUtils.isPageLoadingComplete(driver, 1);
         boolean contains = false;
-        if(isManufacturer){
+        if (isManufacturer) {
             WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_10_SECOND);
             contains = orgName.getText().contains(name);
-        }else{
+        } else {
             WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_10_SECOND);
             contains = orgName.getText().contains(name);
         }
@@ -110,7 +113,7 @@ public class ManufacturerViewDetails extends _Page {
             WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".component_error"), 3);
             boolean isDisplayed = errorMessages.size() > 0;
             return isDisplayed;
-        }catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
@@ -131,29 +134,31 @@ public class ManufacturerViewDetails extends _Page {
             else
                 //return clickRegisterManufacturerBtn();
                 return clickContinueBtn();
-        }catch (Exception e){
+        } catch (Exception e) {
             btnContinue.click();
             return new AddDevices(driver);
         }
     }
 
-    public AddDevices clickContinueBtn(){
+    public AddDevices clickContinueBtn() {
         try {
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
             WaitUtils.waitForElementToBeVisible(driver, btnContinue, TIMEOUT_5_SECOND);
             WaitUtils.waitForElementToBeClickable(driver, btnContinue, TIMEOUT_5_SECOND);
             btnContinue.click();
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
         return new AddDevices(driver);
     }
 
-    public AddDevices clickRegisterManufacturerBtn(){
+    public AddDevices clickRegisterManufacturerBtn() {
         try {
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
             WaitUtils.waitForElementToBeVisible(driver, btnRegisterManufactuerer, TIMEOUT_15_SECOND);
             WaitUtils.waitForElementToBeClickable(driver, btnRegisterManufactuerer, TIMEOUT_5_SECOND);
             btnRegisterManufactuerer.click();
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
         return new AddDevices(driver);
     }
 
@@ -186,23 +191,23 @@ public class ManufacturerViewDetails extends _Page {
         //Check for the following
         String[] dataPairs = keyValuePairToUpdate.split(",");
 
-        for(String pairs: dataPairs){
+        for (String pairs : dataPairs) {
             //String[] split = pairs.split("=");
             String key = pairs;
 
             //Contact details
             if (key.equals("contact.title")) {
-                allChangesDisplayed = AssertUtils.areChangesDisplayed(fullName,  updatedData.title);
+                allChangesDisplayed = AssertUtils.areChangesDisplayed(fullName, updatedData.title);
             } else if (key.equals("contact.firstname")) {
-                allChangesDisplayed = AssertUtils.areChangesDisplayed(fullName,  updatedData.firstName);
+                allChangesDisplayed = AssertUtils.areChangesDisplayed(fullName, updatedData.firstName);
             } else if (key.equals("contact.lastname")) {
-                allChangesDisplayed = AssertUtils.areChangesDisplayed(fullName,  updatedData.lastName);
+                allChangesDisplayed = AssertUtils.areChangesDisplayed(fullName, updatedData.lastName);
             } else if (key.equals("contact.job.title")) {
-                allChangesDisplayed = AssertUtils.areChangesDisplayed(jobTitle,  updatedData.jobTitle);
+                allChangesDisplayed = AssertUtils.areChangesDisplayed(jobTitle, updatedData.jobTitle);
             } else if (key.equals("contact.email")) {
-                allChangesDisplayed = AssertUtils.areChangesDisplayed(email,  updatedData.email);
+                allChangesDisplayed = AssertUtils.areChangesDisplayed(email, updatedData.email);
             } else if (key.equals("contact.telephone")) {
-                allChangesDisplayed = AssertUtils.areChangesDisplayed(telephone,  updatedData.telephone);
+                allChangesDisplayed = AssertUtils.areChangesDisplayed(telephone, updatedData.telephone);
             }
 
             boolean orgNameUpdated = false;
@@ -210,25 +215,25 @@ public class ManufacturerViewDetails extends _Page {
             if (key.equals("org.name")) {
                 allChangesDisplayed = AssertUtils.areChangesDisplayed(orgName, updatedData.organisationName);
                 orgNameUpdated = true;
-            }else if (key.equals("org.address1")) {
+            } else if (key.equals("org.address1")) {
                 allChangesDisplayed = AssertUtils.areChangesDisplayed(orgAddressLine1, updatedData.address1);
-            }else if (key.equals("org.address2")) {
+            } else if (key.equals("org.address2")) {
                 allChangesDisplayed = AssertUtils.areChangesDisplayed(orgAddressLine2, updatedData.address2);
-            }else if (key.equals("org.city")) {
+            } else if (key.equals("org.city")) {
                 allChangesDisplayed = AssertUtils.areChangesDisplayed(orgCityTown, updatedData.townCity);
-            }else if (key.equals("org.postcode")) {
+            } else if (key.equals("org.postcode")) {
                 allChangesDisplayed = AssertUtils.areChangesDisplayed(orgPostCode, updatedData.postCode);
-            }else if (key.equals("org.country")) {
+            } else if (key.equals("org.country")) {
                 allChangesDisplayed = AssertUtils.areChangesDisplayed(orgCountry, updatedData.country);
-            }else if (key.equals("org.telephone")) {
+            } else if (key.equals("org.telephone")) {
                 allChangesDisplayed = AssertUtils.areChangesDisplayed(orgTelephone, updatedData.telephone);
-            }else if (key.equals("org.website")) {
-                if(orgNameUpdated)
-                allChangesDisplayed = AssertUtils.areChangesDisplayed(webSite, updatedData.website);
+            } else if (key.equals("org.website")) {
+                if (orgNameUpdated)
+                    allChangesDisplayed = AssertUtils.areChangesDisplayed(webSite, updatedData.website);
             }
 
 
-            if(!allChangesDisplayed){
+            if (!allChangesDisplayed) {
                 break;
             }
         }
@@ -244,7 +249,7 @@ public class ManufacturerViewDetails extends _Page {
 
     public ProductDetails viewProduct(DeviceDO deviceData) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        if(deviceData.gmdnTermOrDefinition!=null) {
+        if (deviceData.gmdnTermOrDefinition != null) {
             WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(deviceData.gmdnTermOrDefinition), TIMEOUT_10_SECOND);
             driver.findElement(By.partialLinkText(deviceData.gmdnTermOrDefinition)).click();
         }
@@ -257,9 +262,9 @@ public class ManufacturerViewDetails extends _Page {
         boolean fieldsDisplayed = true;
         try {
             WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND);
-            if(status.toLowerCase().contains("not")){
+            if (status.toLowerCase().contains("not")) {
                 WaitUtils.waitForElementToBeClickable(driver, orgAddressFull, TIMEOUT_3_SECOND);
-            }else {
+            } else {
                 WaitUtils.waitForElementToBeClickable(driver, orgAddressLine1, TIMEOUT_3_SECOND);
                 WaitUtils.waitForElementToBeClickable(driver, orgAddressLine2, TIMEOUT_1_SECOND);
                 WaitUtils.waitForElementToBeClickable(driver, orgCityTown, TIMEOUT_1_SECOND);
@@ -269,7 +274,7 @@ public class ManufacturerViewDetails extends _Page {
             WaitUtils.waitForElementToBeClickable(driver, orgTelephone, TIMEOUT_1_SECOND);
             WaitUtils.waitForElementToBeClickable(driver, orgFax, TIMEOUT_1_SECOND);
             WaitUtils.waitForElementToBeClickable(driver, webSite, TIMEOUT_1_SECOND);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             fieldsDisplayed = false;
         }
@@ -285,7 +290,7 @@ public class ManufacturerViewDetails extends _Page {
             WaitUtils.waitForElementToBeClickable(driver, jobTitle, TIMEOUT_1_SECOND);
             WaitUtils.waitForElementToBeClickable(driver, email, TIMEOUT_1_SECOND);
             WaitUtils.waitForElementToBeClickable(driver, telephone, TIMEOUT_1_SECOND);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             fieldsDisplayed = false;
         }
@@ -320,7 +325,7 @@ public class ManufacturerViewDetails extends _Page {
                 return clickAddDeviceBtn();
             else
                 return clickDeclareDeviceBtn();
-        }catch (Exception e){
+        } catch (Exception e) {
             btnContinue.click();
             return new AddDevices(driver);
         }
@@ -336,10 +341,26 @@ public class ManufacturerViewDetails extends _Page {
             WaitUtils.waitForElementToBeClickable(driver, jobTitle, TIMEOUT_1_SECOND);
             WaitUtils.waitForElementToBeClickable(driver, email, TIMEOUT_1_SECOND);
             WaitUtils.waitForElementToBeClickable(driver, telephone2, TIMEOUT_1_SECOND);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             fieldsDisplayed = false;
         }
         return fieldsDisplayed;
+    }
+
+    public CFSAddDevices clickContinue() {
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, btnContinue, TIMEOUT_10_SECOND);
+            btnContinue.click();
+        } catch (Exception e) {
+        }
+        return new CFSAddDevices(driver);
+    }
+
+    public CFSAddDevices clickAddDeviceCFS() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, addADeviceCFS, TIMEOUT_15_SECOND);
+        addADeviceCFS.click();
+        return new CFSAddDevices(driver);
     }
 }

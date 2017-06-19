@@ -121,7 +121,7 @@ public class LoginPageSteps extends CommonSteps {
     }
 
 
-    @When("^I logout and logback in with newly created account and set the password to \"([^\"]*)\"$")
+    @When("^I logout and logback in with newly created account and update the password to \"([^\"]*)\"$")
     public void i_logout_and_logback_in_with_newly_created_account_and_set_the_password_to(String updatePasswordTo) throws Throwable {
         String userName = (String) scenarioSession.getData(SessionKey.newUserName);
         String tempPassword = (String) scenarioSession.getData(SessionKey.temporaryPassword);

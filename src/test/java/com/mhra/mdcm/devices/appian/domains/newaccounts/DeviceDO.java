@@ -53,6 +53,12 @@ public class DeviceDO {
     public String certificateType;
     public int monthsInFutureOrPast;
 
+    //Randomly generated data for CFS
+    public List<String> listOfCertificates = new ArrayList<>();
+    public List<String> listOfModelName = new ArrayList<>();
+    public String ctsCertificateReference;
+    public String deviceName;
+
     public DeviceDO(ScenarioSession scenarioSession) {
         this.scenarioSession = scenarioSession; 
         createDefaultRandom();

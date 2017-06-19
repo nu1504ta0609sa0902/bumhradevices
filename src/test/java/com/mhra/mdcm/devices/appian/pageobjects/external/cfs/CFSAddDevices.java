@@ -2,18 +2,15 @@ package com.mhra.mdcm.devices.appian.pageobjects.external.cfs;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
-import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.ManufacturerList;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.CommonUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -212,8 +209,8 @@ public class CFSAddDevices extends _Page {
     WebElement btnSubmitForApproval;
 
     //Error messages
-    @FindBy(css = ".ParagraphText---error")
-    List<WebElement> errorMessages;
+    @FindBy(css = ".FieldLayout---field_error")
+    List<WebElement> alreadyExistsErrorMessages;
     @FindBy(css = ".FieldLayout---field_error")
     WebElement errMessage;
     @FindBy(css = ".FieldLayout---field_error")
@@ -282,7 +279,7 @@ public class CFSAddDevices extends _Page {
         try {
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
             boolean isDisplayed = false;
-            for (WebElement msg : errorMessages) {
+            for (WebElement msg : alreadyExistsErrorMessages) {
                 String txt = msg.getText();
                 System.out.println("Error message : " + txt);
                 isDisplayed = txt.toLowerCase().contains(message.toLowerCase());
@@ -449,7 +446,9 @@ public class CFSAddDevices extends _Page {
                                 for (String name : dd.listOfProductName) {
                                     dd.productName = name;
                                     if (dd.productModel == null) {
-                                        dd.productModel = RandomDataUtils.getRandomTestName("Model");
+                                        String model = RandomDataUtils.getRandomTestName("Model");
+                                        dd.productModel = model;
+                                        dd.listOfModelName.add(model);
                                     }
                                     addProduct(dd);
                                     dd.productModel = null;
@@ -459,7 +458,9 @@ public class CFSAddDevices extends _Page {
                                     dd.productName = RandomDataUtils.getRandomTestName("Product");
                                 }
                                 if (dd.productModel == null) {
-                                    dd.productModel = RandomDataUtils.getRandomTestName("Model");
+                                    String model = RandomDataUtils.getRandomTestName("Model");
+                                    dd.productModel = model;
+                                    dd.listOfModelName.add(model);
                                 }
                                 addProduct(dd);
                             }
@@ -496,13 +497,16 @@ public class CFSAddDevices extends _Page {
             }
             String certName = "CECertificate" + dd.deviceCount + "." + dt;
             PageUtils.uploadDocument(fileUpload, "certs", certName, 1, 3);
+            dd.listOfCertificates.add(certName);
             count++;
         }
 
         //Select certificate type and enter date
         PageUtils.selectFromDropDown(driver, listOfDropDownFilters.get(0), dd.certificateType, false);
         datePicker.sendKeys(RandomDataUtils.getDateInFutureMonths(dd.monthsInFutureOrPast), Keys.TAB);
-        tbxCertificateReferenceNumber.sendKeys(RandomDataUtils.getRandomTestName("CTS").replace("_", ""));
+        String ctsRef = RandomDataUtils.getRandomTestName("CTS").replace("_", "");
+        tbxCertificateReferenceNumber.sendKeys(ctsRef);
+        dd.ctsCertificateReference = ctsRef;
 
         boolean isErrorMessageDisplayed = fieldErrorMessages.size() > 0;
 
@@ -789,8 +793,11 @@ public class CFSAddDevices extends _Page {
                 WebElement element = CommonUtils.getElementFromList(listOfGmdnMatchesReturnedBySearch, randomPosition);
                 element.click();
 
+                //Set device name for later verification
+                dd.deviceName = element.getText();
+
                 //If its a duplicate Try again
-                isErrorMessageDisplayed = isErrorMessageDisplayed("Duplicate");
+                isErrorMessageDisplayed = isErrorMessageDisplayed("device already exists for this manufacturer");
                 if (isErrorMessageDisplayed) {
                     //Try again
                     //arrayOfDeviceBecauseTheyKeepBloodyChanging.remove(pos);
@@ -897,8 +904,9 @@ public class CFSAddDevices extends _Page {
 //    }
 
     public CFSAddDevices addAnotherDevice() {
+        WaitUtils.nativeWaitInSeconds(2);
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, btnAddAnotherDevice, TIMEOUT_5_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, btnAddAnotherDevice, TIMEOUT_10_SECOND);
         btnAddAnotherDevice.click();
         return new CFSAddDevices(driver);
     }

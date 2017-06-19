@@ -12,7 +12,7 @@ Feature: As a customer I want to register other types of organisations such as D
     When I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email with password for new account with heading "account creation" and stored username
-    When I logout and logback in with newly created account and set the password to "MHRA12345A"
+    When I logout and logback in with newly created account and update the password to "MHRA12345A"
     #When I logout and log back into appian as "<logBackInAs>" user
     And I go to list of manufacturers page
     Then I should see error message "<errorMessage>" in instead of list of manufacturers
@@ -32,7 +32,7 @@ Feature: As a customer I want to register other types of organisations such as D
     When I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email with password for new account with heading "account creation" and stored username
-    When I logout and logback in with newly created account and set the password to "MHRA12345A"
+    When I logout and logback in with newly created account and update the password to "MHRA12345A"
     When I go to records page and click on "<pageHeading>"
     And I perform a search for "<searchFor>" in "<pageHeading>" page
     Then I should see at least <count> matches in "<pageHeading>" page search results

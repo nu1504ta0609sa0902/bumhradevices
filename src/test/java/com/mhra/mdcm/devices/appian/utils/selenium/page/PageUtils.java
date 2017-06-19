@@ -328,7 +328,7 @@ public class PageUtils {
         String previous = "";
         for (final String current: listOfOrderedOrganisations) {
             //Its <=0 organisation should be unique
-            if (!current.equals("") && !previous.equals("") && current.compareToIgnoreCase(previous) <= 0)
+            if (!current.equals("") && !previous.equals("") && !current.equals(previous) && current.compareToIgnoreCase(previous) <= 0)
                 return false;
             previous = current;
         }

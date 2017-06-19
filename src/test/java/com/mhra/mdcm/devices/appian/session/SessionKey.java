@@ -22,7 +22,7 @@ public class SessionKey {
     public static String deviceData = "Device Data";
     public static String manufacturerData = "Manufactuerer Or AuthorisedRep Data";
     public static String organisationCountry = "Organisation Country";
-    public static String deviceDataList = "List of Device Data";
+    public static String listOfDevicesAdded = "List of Device Data";
     public static String autoSuggestResults = "List of items returned by autosuggest fields";
     public static String listOfGmndsAdded = "List of GMDNs added by the current scenario";
     public static String listOfProductsAdded = "List of products added";

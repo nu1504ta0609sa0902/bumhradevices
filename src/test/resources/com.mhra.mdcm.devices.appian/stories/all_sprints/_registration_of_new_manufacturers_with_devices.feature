@@ -62,7 +62,7 @@ Feature: As a customer I want to register new manufacturers with devices
       | manufacturerAuto  | businessAuto | authorisedRep | Brazil      | General Medical Device | true       |               |                 | Registered | Blood weighing scale |                    |              |
 
 
-  @regression @readonly @mdcm-39 @_sprint5 @1840 @_sprint9
+  @readonly @mdcm-39 @_sprint5 @1840 @_sprint9
   Scenario Outline: Verify manufacturers landing page contents
     Given I am logged into appian as "<user>" user
     When I go to portal page

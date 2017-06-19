@@ -66,7 +66,7 @@ public class BusinessManufacturerDetails extends _Page {
     }
 
     public boolean isManufacturerHeadingCorrect(String searchTerm) {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean contains = true;
         try {
             WaitUtils.waitForElementToBeClickable(driver, heading, TIMEOUT_10_SECOND);
@@ -79,7 +79,7 @@ public class BusinessManufacturerDetails extends _Page {
     }
 
     public BusinessDeviceDetails clickOnDevicesLink(String link) {
-        WaitUtils.waitForElementToBeClickable(driver, devicesAndProductDetails, TIMEOUT_3_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, devicesAndProductDetails, TIMEOUT_5_SECOND);
         devicesAndProductDetails.click();
         return new BusinessDeviceDetails(driver);
     }

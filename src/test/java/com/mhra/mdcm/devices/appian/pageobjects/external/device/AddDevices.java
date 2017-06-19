@@ -417,8 +417,8 @@ public class AddDevices extends _Page {
 //        }
         isBearingCEMarking(dd);
         devicesCompatible(dd);
-        PageUtils.uploadDocument(listOfFileUploads.get(0), "DeviceInstructionForUse1.pdf", 1, 3);
-
+        //PageUtils.uploadDocument(listOfFileUploads.get(0), "DeviceInstructionForUse1.pdf", 1, 3);
+        PageUtils.uploadDocument(listOfFileUploads.get(0), "refs", "SPP_Content_List_Template.xls", 1, 3);
     }
 
     private void addVitroDiagnosticDevice(DeviceDO dd) {
@@ -995,7 +995,7 @@ public class AddDevices extends _Page {
     }
 
     public AddDevices searchForDevice(DeviceDO dd, String deviceType, String gmdnTermCodeOrDefinition) {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         dd.gmdnTermOrDefinition = gmdnTermCodeOrDefinition;
         if(deviceType != null){
             dd.deviceType = deviceType;

@@ -74,7 +74,7 @@ public class CFSSteps extends CommonSteps {
     @When("^I click on a random organisation which needs cfs$")
     public void i_click_on_a_random_organisation_which_needs_cfs() throws Throwable {
         String name = cfsManufacturerList.getARandomOrganisationName();
-        deviceDetails = cfsManufacturerList.viewManufacturer(name);
+        manufacturerDetails = cfsManufacturerList.viewManufacturer(name);
 
         scenarioSession.putData(SessionKey.organisationName, name);
     }
@@ -83,8 +83,11 @@ public class CFSSteps extends CommonSteps {
     public void iClickOnAOrganisationNameBeginsWithWhichNeedsCfs(String orgName) throws Throwable {
         String name = cfsManufacturerList.getARandomOrganisationName(orgName);
         log.info("Manufacturer selected : " + name);
-        deviceDetails = cfsManufacturerList.viewManufacturer(name);
+        manufacturerDetails = cfsManufacturerList.viewManufacturer(name);
         scenarioSession.putData(SessionKey.organisationName, name);
+
+        //CFS list displays only registered organisations
+        scenarioSession.putData(SessionKey.registeredStatus,"registered");
     }
 
     @When("^I order cfs for a country with following data$")
@@ -226,10 +229,11 @@ public class CFSSteps extends CommonSteps {
 
         //Assumes we are in add device page
         DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
-        if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
+        if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered")) {
+            cfsAddDevices = manufacturerDetails.clickAddDeviceCFS();
             cfsAddDevices = cfsAddDevices.addFollowingDevice(dd, true);
-        else {
-            cfsAddDevices = cfsManufacturerList.clickContinue();
+        } else {
+            cfsAddDevices = manufacturerDetails.clickContinue();
             cfsAddDevices = cfsAddDevices.addFollowingDevice(dd, false);
         }
 
@@ -244,10 +248,11 @@ public class CFSSteps extends CommonSteps {
 
         //Assumes we are in add device page
         DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
-        if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
+        if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered")) {
+            cfsAddDevices = manufacturerDetails.clickAddDeviceCFS();
             cfsAddDevices = cfsAddDevices.addFollowingDevice(dd, true);
-        else {
-            cfsAddDevices = cfsManufacturerList.clickContinue();
+        } else {
+            cfsAddDevices = manufacturerDetails.clickContinue();
             cfsAddDevices = cfsAddDevices.addFollowingDevice(dd, false);
         }
 
@@ -263,7 +268,7 @@ public class CFSSteps extends CommonSteps {
         if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
             cfsAddDevices = cfsAddDevices.addPartiallyFilledDevices(dd);
         else {
-            cfsAddDevices = cfsManufacturerList.clickContinue();
+            cfsAddDevices = manufacturerDetails.clickContinue();
             cfsAddDevices = cfsAddDevices.addPartiallyFilledDevices(dd);
         }
     }
@@ -280,10 +285,11 @@ public class CFSSteps extends CommonSteps {
         //Assumes we are in add device page
         DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
         dd.setAnotherCertificate(true);
-        if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
+        if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered")) {
+            //cfsAddDevices = manufacturerDetails.clickAddDeviceCFS();
             cfsAddDevices = cfsAddDevices.addFollowingDevice(dd, true);
-        else {
-            cfsAddDevices = cfsManufacturerList.clickContinue();
+        } else {
+            cfsAddDevices = manufacturerDetails.clickContinue();
             cfsAddDevices = cfsAddDevices.addFollowingDevice(dd, false);
         }
 
@@ -353,5 +359,12 @@ public class CFSSteps extends CommonSteps {
     public void i_should_not_be_able_to_proceed_to_the_next_step() throws Throwable {
         boolean isContinueBtnEnabled = cfsAddDevices.isContinueButtonEnabled();
         Assert.assertThat("Form not fully completed therefore the continue button should be disabled", isContinueBtnEnabled, is(false));
+    }
+
+
+    @Then("^I should see correct device data in the review page$")
+    public void i_should_see_correct_device_data_in_the_review_page() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        throw new PendingException();
     }
 }

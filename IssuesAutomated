@@ -281,14 +281,9 @@ Automated Issues:
         - @5441 -   2/2     DONE ISH   covered
         - @5368 -   2/2     DONE ISH   covered
         - @5440 -   2/2     DONE ISH    covered
-        - @4550 -   @todo   bug
         - @4559 -   2/2     DONE ISH    covered
         - @5220 -           DONE ISH    covered
-        - @4679 -   @todo   bug
-        - @4720 -   @todo   bug
         - @5218 -           DONE ISH    covered
-        - @4699 -   @todo   bug
-        - @4257 -   @todo   bug
         - @4830 -           DONE ISH    covered
         - @4743 -           DONE ISH    covered
         - @4711 -   @todo   filter by due date
@@ -328,30 +323,64 @@ Automated Issues:
         - @5236 -   @todo   bug
 
 
-    Sprint 19: @_sprint19
-        - @1845 -   CFS
-        - @1845 -   CFS
-        - @1845 -   CFS
-        - @1845 -   CFS
-        - @1845 -   CFS
-        - @1845 -   CFS
-        - @1845 -   CFS
-        - @1845 -   CFS
-        - @1845 -   CFS
-        - @1845 -   CFS
-        - @1845 -   CFS
-        - @1845 -   CFS
-        - @1845 -   CFS
-        - @1845 -   CFS
-        - @1845 -   CFS
-        - @1845 -   CFS
-        - @1845 -   CFS
-        - @1845 -   CFS
-        - @1845 -   CFS
-        - @1845 -   CFS
-        - @1845 -   CFS
-        - @1845 -   CFS
-        - @1845 -   CFS
-        - @1845 -   CFS
-        - @1845 -   CFS
-        - @1845 -   CFS
+    Sprint 19/20: @_sprint19/20
+        - @5668 -
+        - @5672 -   CFS @todo customers able to remove devices from application
+        - @5666 -   CFS @todo business user to asign application to someone else
+        - @5679 -   CFS @todo business user assign application to myself
+        - @1954 -   CFS @todo business user view new cfs manufacturer details
+        - @5680 -   CFS @todo business user view device summary
+        - @5681 -   CFS @todo business user bulk approve devices
+        - @5670 -
+        - @5671 -
+        - @2222 -
+        - @2289 -
+        - @2328 -
+        - @4645 -
+        - @2278 -
+        - @2266 -
+        - @2047 -
+        - @3910 -
+        - @3912 -
+        - @4733 -
+        - @5830 -
+
+
+    Sprint 21: @_sprint21
+        - @5682 -   CFS
+        - @1840 -
+        - @5593 -   CFS @todo application view new devices
+        - @1986 -   CFS @todo business user approve manufacturer or devices
+        - @5665 -   CFS @todo business user complete an application
+        - @5664 -   CFS @todo business user reject request for a device
+        - @1961 -   CFS @todo business user reject request for a new manufacturer
+        - @1992 -   CFS @todo request CFS for multiple devices and products
+        - @5960 -   CFS @todo filter available devices and products
+        - @1947 -   CFS @todo specify the delivery address
+        - @3343 -
+        - @3207 -
+        - @2272 -
+        - @2151 -
+        - @5349 -
+        - @2294 -
+        - @2224 -
+        - @5765 -
+        - @5995 -
+        - @1957 -
+        - @5997 -
+        - @5749 -
+
+    Sprint 22: @_sprint22
+        - @5993 -
+        - @6086 -
+        - @6089 -
+        - @6091 -
+        - @5673 -   CFS @todo email if application is rejected
+        - @5674 -   CFS @todo email if application is successful
+        - @6012 -   CFS @todo view all products related to devices
+        - @1949 -   CFS @todo review order before submitting
+        - @5980 -   CFS @todo update CFS order after reviewing it
+        - @1958 -   CFS @todo save application and resume later
+        - @1960 -   CFS @todo view all the application submitted for CFS
+        - @6095 -   CFS @todo updload bulk devices
+

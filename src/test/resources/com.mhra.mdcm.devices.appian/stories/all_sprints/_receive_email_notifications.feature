@@ -100,7 +100,7 @@ Feature: As a customer I want to receive email notifications when ever a account
     Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email for stored account with heading "Account request approved for"
     And I should received an email with password for new account with heading "account creation" and stored username
-    When I logout and logback in with newly created account and set the password to "MHRA12345A"
+    When I logout and logback in with newly created account and update the password to "MHRA12345A"
 #    Log back in as manufacturer/authorisedRep
     #When I logout and log back into appian as "<logBackInAas>" user
     And I go to list of manufacturers page

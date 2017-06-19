@@ -51,7 +51,7 @@ public class Accounts extends _Page {
 
 
     public boolean isHeadingCorrect(String expectedHeadings) {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         By locator = By.xpath(".//h1[.='" + expectedHeadings + "']");
         WaitUtils.waitForElementToBeClickable(driver, locator, TIMEOUT_DEFAULT);
         WebElement heading = driver.findElement(locator);
@@ -62,9 +62,9 @@ public class Accounts extends _Page {
 
     public boolean isItemsDisplayed(String expectedHeadings) {
         boolean itemsDisplayed = false;
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h1[.='" + expectedHeadings + "']") , TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h1[.='" + expectedHeadings + "']"), TIMEOUT_DEFAULT);
 
-        if(expectedHeadings.contains(PageHeaders.PAGE_HEADERS_ACCOUNTS.header)){
+        if (expectedHeadings.contains(PageHeaders.PAGE_HEADERS_ACCOUNTS.header)) {
             itemsDisplayed = listOfAccounts.size() > 0;
         }
 
@@ -72,13 +72,13 @@ public class Accounts extends _Page {
     }
 
     public List<String> isTableColumnCorrect(String[] columns) {
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th") , TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th"), TIMEOUT_DEFAULT);
         List<String> columnsNotFound = PageUtils.areTheColumnsCorrect(columns, listOfTableColumns);
         return columnsNotFound;
     }
 
     public Accounts searchForAccount(String searchTerm) {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, searchBox, TIMEOUT_30_SECOND);
         PageUtils.searchPageFor(searchTerm, searchBox);
         return new Accounts(driver);
@@ -88,11 +88,11 @@ public class Accounts extends _Page {
         boolean atLeast1MatchFound = true;
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, By.linkText("Clear Filters"), TIMEOUT_DEFAULT);
-        try{
+        try {
             WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(searchText), TIMEOUT_5_SECOND);
             int actualCount = (listOfAccounts.size());
             atLeast1MatchFound = actualCount >= 1;
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("Timeout : Trying to search");
             atLeast1MatchFound = false;
         }
@@ -102,11 +102,12 @@ public class Accounts extends _Page {
 
     /**
      * NOTE THERE MAY BE MORE THAN 1 LINK PER ROW
+     *
      * @return
      */
     public String getARandomAccount() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//th[1]"), TIMEOUT_5_SECOND);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//th[1]"), TIMEOUT_15_SECOND);
 
         int position = RandomDataUtils.getSimpleRandomNumberBetween(1, listOfAccountsNames.size() - 1, false);
         WebElement accountLinks = listOfAccountsNames.get(position);
@@ -126,10 +127,10 @@ public class Accounts extends _Page {
             int position = RandomDataUtils.getSimpleRandomNumberBetween(1, listOfAccountsNames.size() - 1, false);
             WebElement accountLinks = listOfAccountsNames.get(position);
             accountName = accountLinks.getText();
-            if(accountName.contains(name)){
+            if (accountName.contains(name)) {
                 found = true;
             }
-        }while(!found && count <= 3);
+        } while (!found && count <= 3);
 
         return accountName;
     }
@@ -153,13 +154,13 @@ public class Accounts extends _Page {
 
     public Accounts filterByOrganistionRole(String organisationRole) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        PageUtils.selectFromDropDown(driver, listOfDropDownFilters.get(0) , organisationRole, false);
+        PageUtils.selectFromDropDown(driver, listOfDropDownFilters.get(0), organisationRole, false);
         return new Accounts(driver);
     }
 
     public Accounts filterByRegisteredStatus(String status) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        PageUtils.selectFromDropDown(driver, listOfDropDownFilters.get(1) , status, false);
+        PageUtils.selectFromDropDown(driver, listOfDropDownFilters.get(1), status, false);
         return new Accounts(driver);
     }
 
@@ -184,12 +185,13 @@ public class Accounts extends _Page {
         WaitUtils.nativeWaitInSeconds(5);
 
         boolean allMatched = true;
-        for(WebElement el: listOfOrganisationRoles){
+        for (WebElement el : listOfOrganisationRoles) {
             String text = el.getText().toLowerCase();
             log.info(text);
-            if(!text.contains("revious") && !text.contains("ext")) {
-                allMatched = text.contains(organisationType) || text.equals("");;
-                if(!allMatched){
+            if (!text.contains("revious") && !text.contains("ext")) {
+                allMatched = text.contains(organisationType) || text.equals("");
+                ;
+                if (!allMatched) {
                     break;
                 }
             }
@@ -199,8 +201,8 @@ public class Accounts extends _Page {
     }
 
     public boolean isOrderedAtoZ() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//td[1]"), TIMEOUT_5_SECOND);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//td[1]"), TIMEOUT_10_SECOND);
         boolean isOrderedAToZ = PageUtils.isOrderedAtoZ(listOfAccountsNames, 2);
         return isOrderedAToZ;
     }
@@ -215,17 +217,18 @@ public class Accounts extends _Page {
     public boolean areOrganisationOfRoleVisible(String organisationType, String searchTerm) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WebElement element = clearFilters;
-        if(searchTerm == null)
+        if (searchTerm == null)
             element = btnSearch;
         WaitUtils.waitForElementToBeClickable(driver, element, TIMEOUT_10_SECOND);
-        PageUtils.isElementClickable(driver, clearFilters, TIMEOUT_5_SECOND);
 
+        WaitUtils.nativeWaitInSeconds(5);
         boolean aMatchFound = false;
-        for(WebElement el: listOfOrganisationRoles){
+        for (WebElement el : listOfOrganisationRoles) {
             String text = el.getText();
             log.info(text);
-            if(!text.contains("revious") && !text.contains("ext")) {
-                aMatchFound = text.contains(organisationType) || text.equals("");;
+            if (!text.contains("revious") && !text.contains("ext")) {
+                aMatchFound = text.contains(organisationType) || text.equals("");
+                ;
                 if (aMatchFound) {
                     break;
                 }
@@ -240,22 +243,22 @@ public class Accounts extends _Page {
         WebElement manufacturer = null;
         boolean found = false;
         do {
-            int randomNumberBetween = RandomDataUtils.getSimpleRandomNumberBetween(0, listOfAccountsNames.size()-1, false);
-            if(listOfAccountsNames.size() == 1)
+            int randomNumberBetween = RandomDataUtils.getSimpleRandomNumberBetween(0, listOfAccountsNames.size() - 1, false);
+            if (listOfAccountsNames.size() == 1)
                 randomNumberBetween = 0;
             WebElement element = listOfAccountsNames.get(randomNumberBetween);
             String orgName = element.getText();
-            if(orgName.contains(searchTerm)){
+            if (orgName.contains(searchTerm)) {
                 manufacturer = element.findElement(By.tagName("a"));
                 found = true;
             }
-        }while(!found);
+        } while (!found);
 
         //Click the manufacturer name
-        if(manufacturer!=null) {
+        if (manufacturer != null) {
             PageUtils.doubleClick(driver, manufacturer);
             //manufacturer.click();
-        }else {
+        } else {
             throw new RuntimeException("No manufacturer found for search term : " + searchTerm);
         }
 
@@ -264,12 +267,13 @@ public class Accounts extends _Page {
 
     public boolean isSearchingCompleted(String searchTerm) {
         boolean seachingCompleted = false;
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         try {
-            if(searchTerm!=null && !searchTerm.equals(""))
-            WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_30_SECOND);
+            if (searchTerm != null && !searchTerm.equals(""))
+                WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_30_SECOND);
             seachingCompleted = true;
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
         return seachingCompleted;
     }
 }

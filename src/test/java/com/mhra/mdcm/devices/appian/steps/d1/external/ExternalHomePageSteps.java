@@ -609,7 +609,7 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     @When("^I remove ALL the stored device with gmdn code or definition$")
     public void iRemoveAllTheDeviceWithGmdnCode() throws Throwable {
-        List<DeviceDO> listOfDeviceData = (List<DeviceDO>) scenarioSession.getData(SessionKey.deviceDataList);
+        List<DeviceDO> listOfDeviceData = (List<DeviceDO>) scenarioSession.getData(SessionKey.listOfDevicesAdded);
         addDevices = addDevices.removeAllDevices(listOfDeviceData);
     }
 
@@ -724,10 +724,6 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     @When("^I click on view all gmdn term or definitions for device type \"([^\"]*)\"$")
     public void i_click_on_view_all_gmdn_term_or_definitions(String deviceType) throws Throwable {
-        //If registered we need to click on a button, else devices page is displayed
-        //String registeredStatus = (String) scenarioSession.getData(SessionKey.registeredStatus);
-        //addDevices = manufacturerDetails.gotoAddDevicesPage(registeredStatus);
-
         //View all gmdn
         DeviceDO dd = TestHarnessUtils.updateDeviceData(null, scenarioSession);
         addDevices = addDevices.viewAllGmdnTermDefinitions(dd, deviceType);

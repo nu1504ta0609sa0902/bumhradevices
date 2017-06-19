@@ -266,7 +266,7 @@ public class _CreateAccountTestHarnessPage extends _Page {
     }
 
     public List<String> getListOfAutosuggestionsFor(String searchTerm) {
-        WaitUtils.isPageLoadingComplete(driver,TIMEOUT_PAGE_LOAD);
+        //WaitUtils.isPageLoadingComplete(driver,TIMEOUT_PAGE_LOAD);
         enterAddressManually();
         WaitUtils.waitForElementToBeClickable(driver, country, TIMEOUT_10_SECOND);
         List<String> matchesFromAutoSuggests = PageUtils.getListOfMatchesFromAutoSuggests(driver, By.cssSelector(".PickerWidget---picker_value"), searchTerm);
