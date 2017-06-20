@@ -41,9 +41,9 @@ public class PageUtils {
         List<WebElement> options = select.getOptions();
         List<String> loo = new ArrayList<>();
 
-        for(WebElement o: options){
+        for (WebElement o : options) {
             String text = o.getText();
-            if(!text.contains("Please Select")){
+            if (!text.contains("Please Select")) {
                 loo.add(text);
             }
         }
@@ -56,25 +56,25 @@ public class PageUtils {
         select.selectByIndex(i);
     }
 
-    public static void clickOption(WebDriver driver, WebElement option,  boolean status) {
-        if(status){
+    public static void clickOption(WebDriver driver, WebElement option, boolean status) {
+        if (status) {
             clickIfVisible(driver, option);
             //option.click();
         }
     }
 
     public static void clickOption(WebElement option1, WebElement option2, boolean status) {
-        if(status){
+        if (status) {
             option1.click();
-        }else{
+        } else {
             option2.click();
         }
     }
 
     public static void clickOptionAdvanced(WebDriver driver, WebElement option1, WebElement option2, boolean status) {
-        if(status){
+        if (status) {
             clickIfVisible(driver, option1);
-        }else{
+        } else {
             clickIfVisible(driver, option2);
         }
     }
@@ -96,10 +96,10 @@ public class PageUtils {
     }
 
     public static void clickIfVisible(WebDriver driver, WebElement element) {
-        try{
+        try {
             //IE sometimes doesn't click the element
             element.sendKeys(Keys.SPACE);
-        }catch(Exception e){
+        } catch (Exception e) {
             try {
                 if (element.isDisplayed() && !element.isSelected()) {
                     Actions ac = new Actions(driver);
@@ -107,11 +107,11 @@ public class PageUtils {
                     ac.moveToElement(element).click(element).sendKeys(Keys.SPACE).build().perform();
                     //ac.moveToElement(element).sendKeys(Keys.SPACE).build().perform();
                 }
-            }catch(Exception e2){
+            } catch (Exception e2) {
             }
         }
 
-        if(!element.isSelected()){
+        if (!element.isSelected()) {
             WaitUtils.waitForElementToBeClickable(driver, element, _Page.TIMEOUT_3_SECOND);
             doubleClick(driver, element);
         }
@@ -121,7 +121,7 @@ public class PageUtils {
         element.sendKeys(text);
     }
 
-    public static void uploadDocument(WebElement element, String fileName, int timeWaitForItToBeClickable, int timeWaitForDocumentUploadToFinish){
+    public static void uploadDocument(WebElement element, String fileName, int timeWaitForItToBeClickable, int timeWaitForDocumentUploadToFinish) {
         String fullPath = FileUtils.getFileFullPath("tmp" + File.separator + "data" + File.separator + "pdfs", fileName);
         WaitUtils.nativeWaitInSeconds(timeWaitForItToBeClickable);
         element.sendKeys(fullPath);
@@ -129,7 +129,7 @@ public class PageUtils {
         WaitUtils.nativeWaitInSeconds(timeWaitForDocumentUploadToFinish);
     }
 
-    public static void uploadDocument(WebElement element, String folder, String fileName, int timeWaitForItToBeClickable, int timeWaitForDocumentUploadToFinish){
+    public static void uploadDocument(WebElement element, String folder, String fileName, int timeWaitForItToBeClickable, int timeWaitForDocumentUploadToFinish) {
         String fullPath = FileUtils.getFileFullPath("tmp" + File.separator + "data" + File.separator + folder, fileName);
         WaitUtils.nativeWaitInSeconds(timeWaitForItToBeClickable);
         element.sendKeys(fullPath);
@@ -140,7 +140,7 @@ public class PageUtils {
     public static WebElement getRandomElementFromList(List<WebElement> listOfECIDLinks) {
         String index = RandomDataUtils.getSimpleRandomNumberBetween(0, listOfECIDLinks.size() - 1);
         int i = Integer.parseInt(index);
-        if(i < 0){
+        if (i < 0) {
             i = 0;
         }
         WebElement element = listOfECIDLinks.get(i);
@@ -148,21 +148,19 @@ public class PageUtils {
     }
 
 
-
     public static String getText(WebElement element) {
         element.click();
         String existingName = element.getText();
-        if(existingName.equals(""))
+        if (existingName.equals(""))
             existingName = element.getAttribute("value");
         return existingName;
     }
 
 
-
     public static void setBrowserZoom(WebDriver driver, String currentBrowser) {
         String selectedProfile = System.getProperty("current.browser");
         System.out.println(currentBrowser);
-        if(currentBrowser!=null && currentBrowser.equals("ie")){
+        if (currentBrowser != null && currentBrowser.equals("ie")) {
             Actions action = new Actions(driver);
             action.keyDown(Keys.CONTROL).sendKeys(String.valueOf(0)).perform();
         }
@@ -179,7 +177,8 @@ public class PageUtils {
                     driver.switchTo().alert().dismiss();
                 }
             }
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
     }
 
     public static void acceptAlert(WebDriver driver, boolean accept, int timeToWait) {
@@ -193,7 +192,8 @@ public class PageUtils {
                     driver.switchTo().alert().dismiss();
                 }
             }
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
     }
 
     public static boolean isCorrectPage(WebDriver driver, String ecid) {
@@ -210,9 +210,9 @@ public class PageUtils {
 
     public static boolean isDisplayed(WebDriver driver, WebElement manufacturerDropDown, int timeOut) {
         boolean isDisplayed = true;
-        try{
+        try {
             WaitUtils.waitForElementToBeClickable(driver, manufacturerDropDown, timeOut);
-        }catch (Exception e){
+        } catch (Exception e) {
             isDisplayed = false;
         }
         return isDisplayed;
@@ -220,17 +220,17 @@ public class PageUtils {
 
     public static void isValueCorrect(WebElement element, String value, List<String> listOfInvalidFields) {
         String text = element.getText();
-        if(!text.contains(value)){
+        if (!text.contains(value)) {
             listOfInvalidFields.add(value);
         }
     }
 
     public static WebElement findElementWithText(List<WebElement> listOfElements, String textToMatch) {
         WebElement element = null;
-        for(WebElement el: listOfElements){
+        for (WebElement el : listOfElements) {
             String txt = el.getText();
             System.out.println(txt);
-            if(txt.toLowerCase().contains(textToMatch.toLowerCase())){
+            if (txt.toLowerCase().contains(textToMatch.toLowerCase())) {
                 element = el;
                 break;
             }
@@ -243,10 +243,10 @@ public class PageUtils {
         String lowerCaseHeadings = commaDelimitedHeading.toLowerCase();
         //Get list of headings
         boolean allFound = true;
-        for(WebElement el: listOfTableHeadings){
+        for (WebElement el : listOfTableHeadings) {
             String heading = el.getText().toLowerCase();
             System.out.println(heading);
-            if(!lowerCaseHeadings.contains(heading)){
+            if (!lowerCaseHeadings.contains(heading)) {
                 allFound = false;
                 break;
             }
@@ -260,8 +260,8 @@ public class PageUtils {
         //Get list of headings
         boolean allFound = true;
         int position = 1;
-        for(WebElement el: listOfTableHeadings){
-            if(position >= headingFrom && position <= headingTo) {
+        for (WebElement el : listOfTableHeadings) {
+            if (position >= headingFrom && position <= headingTo) {
                 String heading = el.getText().toLowerCase();
                 System.out.println(heading);
                 if (!lowerCaseHeadings.contains(heading)) {
@@ -279,15 +279,15 @@ public class PageUtils {
         String[] tableHeadings = lowerCaseHeadings.split(",");
         //Get list of headings
         String headings = "";
-        for(WebElement el: listOfTableHeadings){
+        for (WebElement el : listOfTableHeadings) {
             String heading = getText(el).toLowerCase();
             headings = headings + "," + heading;
         }
 
         boolean found = true;
-        for(String head: tableHeadings){
+        for (String head : tableHeadings) {
             found = headings.contains(head);
-            if(!found){
+            if (!found) {
                 break;
             }
         }
@@ -297,7 +297,7 @@ public class PageUtils {
     public static boolean isOrderedAtoZ(List<WebElement> listOfElements, int everyXItem) {
         int getFirstX = 20;
         int reminder = 1;
-        if(everyXItem == 1){
+        if (everyXItem == 1) {
             reminder = 0;
         }
         List<String> listOfOrderedOrganisations = new ArrayList<>();
@@ -305,18 +305,18 @@ public class PageUtils {
         //Get list of account names
         int position = 0;   //Only even ones are organisation name
         int elementCount = 0;
-        for(WebElement el: listOfElements){
+        for (WebElement el : listOfElements) {
 
             //At the moment only the even ones are organisation names
-            if(position!=0 && position % everyXItem == reminder){
+            if (position != 0 && position % everyXItem == reminder) {
                 String orgName = el.getText();
 
                 //
-                if(!orgName.equals("Next") && !orgName.equals("Previous"))
+                if (!orgName.equals("Next") && !orgName.equals("Previous"))
                     listOfOrderedOrganisations.add(orgName);
             }
 
-            if(elementCount == (getFirstX*everyXItem)){  //Every 2nd link is an organisation name
+            if (elementCount == (getFirstX * everyXItem)) {  //Every 2nd link is an organisation name
                 break;
             }
 
@@ -326,7 +326,7 @@ public class PageUtils {
 
         //Check if a-Z
         String previous = "";
-        for (final String current: listOfOrderedOrganisations) {
+        for (final String current : listOfOrderedOrganisations) {
             //Its <=0 organisation should be unique
             if (!current.equals("") && !previous.equals("") && !current.equals(previous) && current.compareToIgnoreCase(previous) <= 0)
                 return false;
@@ -338,11 +338,11 @@ public class PageUtils {
 
     public static WebElement getElementMatchingText(List<WebElement> listOfWebElements, String textToMatch) {
         WebElement elementFound = null;
-        for(WebElement el: listOfWebElements){
+        for (WebElement el : listOfWebElements) {
             String txt = el.getText();
             //System.out.println(txt);
             boolean contains = txt.contains(textToMatch);
-            if(contains){
+            if (contains) {
                 elementFound = el;
                 break;
             }
@@ -351,32 +351,32 @@ public class PageUtils {
     }
 
     public static boolean isTableDataContentCorrect(WebElement tr, int tableDataPosition, String textToMatch) {
-        if(textToMatch!=null) {
+        if (textToMatch != null) {
             List<WebElement> tdElements = tr.findElements(By.tagName("td"));
             WebElement element = tdElements.get(tableDataPosition);
             String actualText = element.getText();
             boolean matched = actualText.contains(textToMatch);
             return matched;
-        }else{
+        } else {
             return true;
         }
     }
 
     public static List<String> areTheColumnsCorrect(String[] columns, List<WebElement> listOfTableColumns) {
         List<String> listOfColumns = new ArrayList<>();
-        for(WebElement el: listOfTableColumns){
+        for (WebElement el : listOfTableColumns) {
             String text = el.getText();
             //System.out.println(text);
-            if(text!=null){
+            if (text != null) {
                 listOfColumns.add(text);
             }
         }
 
         //Verify columns matches expectation
         List<String> columnsNotFound = new ArrayList<>();
-        for(String c: columns){
+        for (String c : columns) {
             c = c.trim();
-            if(!listOfColumns.contains(c)){
+            if (!listOfColumns.contains(c)) {
                 System.out.println("Column Not Found : " + c);
                 columnsNotFound.add(c);
             }
@@ -401,19 +401,19 @@ public class PageUtils {
 
     public static void clickOnGMDNCodeOrDefinition(List<WebElement> listOfDevices, String gmdnTermOrDefinition) {
         WebElement linkToClick = null;
-        for(WebElement tr: listOfDevices){
+        for (WebElement tr : listOfDevices) {
             try {
                 linkToClick = tr.findElement(By.partialLinkText(gmdnTermOrDefinition));
                 if (linkToClick != null) {
                     break;
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 //Not found
             }
         }
 
         //If link doesn't exist than next step will fail
-        if(linkToClick!=null){
+        if (linkToClick != null) {
             linkToClick.click();
         }
 
@@ -429,7 +429,7 @@ public class PageUtils {
                 WebElement country = driver.findElements(By.cssSelector(elementPath)).get(0);
                 country.sendKeys(countryName);
                 WaitUtils.nativeWaitInSeconds(1);
-                WaitUtils.waitForElementToBeClickable(driver,By.cssSelector("li[role='option']") , _Page.TIMEOUT_5_SECOND);
+                WaitUtils.waitForElementToBeClickable(driver, By.cssSelector("li[role='option']"), _Page.TIMEOUT_5_SECOND);
 
                 //Get list of options displayed
                 WaitUtils.nativeWaitInSeconds(1);
@@ -438,7 +438,7 @@ public class PageUtils {
                 String text = item.getText();
                 //System.out.println("country : " + text);
 
-                if(text!=null && !text.contains("Searching")) {
+                if (text != null && !text.contains("Searching")) {
                     PageUtils.singleClick(driver, item);
                     completed = true;
                 }
@@ -455,7 +455,7 @@ public class PageUtils {
     }
 
 
-    public static void selectFromAutoSuggestedListItemsManufacturers(WebDriver driver, WebElement element, String countryName ) {
+    public static void selectFromAutoSuggestedListItemsManufacturers(WebDriver driver, WebElement element, String countryName) {
         boolean completed = true;
         int count = 0;
         do {
@@ -465,7 +465,7 @@ public class PageUtils {
                 WebElement country = element;
                 country.sendKeys(countryName);
                 WaitUtils.nativeWaitInSeconds(1);
-                WaitUtils.waitForElementToBeClickable(driver,By.cssSelector("li[role='option']") , _Page.TIMEOUT_5_SECOND);
+                WaitUtils.waitForElementToBeClickable(driver, By.cssSelector("li[role='option']"), _Page.TIMEOUT_5_SECOND);
 
                 //Get list of options displayed
                 WaitUtils.nativeWaitInSeconds(1);
@@ -474,7 +474,7 @@ public class PageUtils {
                 String text = item.getText();
                 //System.out.println("country : " + text);
 
-                if(text!=null && !text.contains("Searching")) {
+                if (text != null && !text.contains("Searching")) {
                     PageUtils.singleClick(driver, item);
                     completed = true;
                 }
@@ -496,7 +496,7 @@ public class PageUtils {
                 WebElement country = driver.findElements(By.cssSelector(elementPath)).get(0);
                 country.sendKeys(countryName);
                 WaitUtils.nativeWaitInSeconds(1);
-                WaitUtils.waitForElementToBeClickable(driver,By.cssSelector("li[role='option']") , _Page.TIMEOUT_5_SECOND);
+                WaitUtils.waitForElementToBeClickable(driver, By.cssSelector("li[role='option']"), _Page.TIMEOUT_5_SECOND);
 
                 //Get list of options displayed
                 WaitUtils.isPageLoadingComplete(driver, 1);
@@ -505,7 +505,7 @@ public class PageUtils {
                 String text = item.getText();
                 //System.out.println("country : " + text);
 
-                if(text!=null && !text.contains("Searching")) {
+                if (text != null && !text.contains("Searching")) {
                     PageUtils.singleClick(driver, item);
                     completed = true;
                 }
@@ -521,7 +521,7 @@ public class PageUtils {
     }
 
 
-    public static void selectFromDropDown(WebDriver driver, WebElement element, String text, boolean throwException){
+    public static void selectFromDropDown(WebDriver driver, WebElement element, String text, boolean throwException) {
         boolean completed = true;
         int count = 0;
         do {
@@ -529,8 +529,8 @@ public class PageUtils {
                 count++;    //It will go forever without this
                 PageUtils.singleClick(driver, element);
                 WaitUtils.isPageLoadingComplete(driver, _Page.TIMEOUT_PAGE_LOAD);
-                WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//div[contains(text(), '"+ text + "')]"), _Page.TIMEOUT_3_SECOND);
-                WebElement titleToSelect = driver.findElement(By.xpath(".//div[contains(text(), '"+ text + "')]"));
+                WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//div[contains(text(), '" + text + "')]"), _Page.TIMEOUT_3_SECOND);
+                WebElement titleToSelect = driver.findElement(By.xpath(".//div[contains(text(), '" + text + "')]"));
                 PageUtils.singleClick(driver, titleToSelect);
                 completed = true;
             } catch (Exception e) {
@@ -542,14 +542,14 @@ public class PageUtils {
     }
 
 
-    public static List<String> getListOfMatchesFromAutoSuggests(WebDriver driver, By elementPath, String text )   {
+    public static List<String> getListOfMatchesFromAutoSuggests(WebDriver driver, By elementPath, String text) {
         List<String> listOfCountries = new ArrayList<>();
 
         try {
             WebElement country = driver.findElements((elementPath)).get(0);
             country.sendKeys(text);
             WaitUtils.isPageLoadingComplete(driver, 1);
-            WaitUtils.waitForElementToBeClickable(driver,By.cssSelector("li[role='option']") , _Page.TIMEOUT_5_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector("li[role='option']"), _Page.TIMEOUT_5_SECOND);
 
             //Generate list of items
             WaitUtils.isPageLoadingComplete(driver, 1);
@@ -558,7 +558,7 @@ public class PageUtils {
                 String countryName = (el.getText());
                 listOfCountries.add(countryName);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             listOfCountries.add("No results found");
         }
 
@@ -569,7 +569,7 @@ public class PageUtils {
         boolean isVisible = true;
         try {
             WaitUtils.waitForElementToBeClickable(driver, element, timeout);
-        }catch (Exception e){
+        } catch (Exception e) {
             isVisible = false;
         }
         return isVisible;
@@ -577,8 +577,8 @@ public class PageUtils {
 
     public static boolean clickOneOfTheFollowing(WebDriver driver, WebElement btn, WebElement btn2, int timeout) {
         boolean clicked = clickElement(driver, btn, timeout, true);
-        if(!clicked){
-            clicked = clickElement(driver, btn2,timeout,true);
+        if (!clicked) {
+            clicked = clickElement(driver, btn2, timeout, true);
         }
         return clicked;
     }
@@ -587,12 +587,12 @@ public class PageUtils {
         boolean clicked = true;
         try {
             WaitUtils.waitForElementToBeClickable(driver, btn, timeout);
-            if(singleClick) {
+            if (singleClick) {
                 singleClick(driver, btn);
-            }else{
+            } else {
                 doubleClick(driver, btn);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             clicked = false;
         }
         return clicked;
@@ -600,9 +600,9 @@ public class PageUtils {
 
     public static boolean isElementClickable(WebDriver driver, WebElement element, int timeoutSecond) {
         boolean clickable = true;
-        try{
+        try {
             WaitUtils.waitForElementToBeClickable(driver, element, timeoutSecond);
-        }catch (Exception e){
+        } catch (Exception e) {
             //Its not clickable
         }
         return clickable;
@@ -610,11 +610,49 @@ public class PageUtils {
 
     public static boolean isLinkVisible(WebDriver driver, String manufacturerName) {
         boolean clickable = true;
-        try{
+        try {
             driver.findElement(By.partialLinkText(manufacturerName));
-        }catch (Exception e){
+        } catch (Exception e) {
             clickable = false;
         }
         return clickable;
+    }
+
+    public static List<String> getListOfElementsForDropDown(List<WebElement> options) {
+        List<String> loo = new ArrayList<>();
+        for(WebElement o: options){
+            String val = o.getText();
+            if(!val.contains("All medical dev"))
+            loo.add(val);
+        }
+        return loo;
+    }
+
+    public static int getElementPositionInList(List<WebElement> listOfDevicesAdded, String deviceName) {
+        int position = 0;
+        for(WebElement el: listOfDevicesAdded){
+            if(el.getText().contains(deviceName)){
+                break;
+            }
+            position++;
+        }
+        return position;
+    }
+
+    public static boolean isAllItemsDisplayed(List<WebElement> listOfAllCECertificates, List<String> certificatesExpected) {
+        boolean allFound = true;
+
+        if(listOfAllCECertificates.size() == 0){
+            allFound = false;
+        }
+
+        for(WebElement el: listOfAllCECertificates){
+            String cert = el.getText();
+            if(!certificatesExpected.contains(cert)){
+                allFound = false;
+                break;
+            }
+        }
+        return allFound;
     }
 }

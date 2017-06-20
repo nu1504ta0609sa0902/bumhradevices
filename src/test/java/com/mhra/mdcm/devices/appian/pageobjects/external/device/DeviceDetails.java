@@ -55,7 +55,7 @@ public class DeviceDetails extends _Page {
     List<WebElement> listOfDeviceCheckbox;
     @FindBy(css = ".PickerWidget---picker_value")
     List<WebElement> listOfCountryPickers;
-    @FindBy(xpath = ".//*[contains(text(),'Number of')]//following::input")
+    @FindBy(xpath = ".//*[contains(text(),'Number of')]//following::input[@type='text']")
     List<WebElement> listOfTbxNumberOfCFS;
     @FindBy(xpath = ".//div[contains(text(),'Number of certificates')]/following::tr/td[1]")
     List<WebElement> listOfCountryNames;
@@ -63,8 +63,12 @@ public class DeviceDetails extends _Page {
     List<WebElement> listOfCountryNamesRemoveX;
     @FindBy(xpath = ".//div[contains(text(),'Number of certificates')]/following::tr/td[2]")
     List<WebElement> listOfNumberOfCertificates;
+    @FindBy(css = ".DropdownWidget---dropdown_value")
+    List<WebElement> listOfDropDownFilters;
+    @FindBy(xpath = ".//*[contains(text(), 'GMDN term')]//following::li")
+    List<WebElement> listOfGMDNTerms;
 
-    @FindBy(xpath = ".//h4")
+    @FindBy(css = "h1.TitleText---page_header")
     WebElement txtManufacturerName;
     @FindBy(xpath = ".//*[contains(text(),'Total number of certificates')]")
     WebElement txtTotalNumberOfCertificates;
@@ -72,8 +76,10 @@ public class DeviceDetails extends _Page {
     WebElement txtTotalPriceOfCertificates;
     @FindBy(xpath = ".//*[contains(text(),'Number of')]//following::input")
     WebElement tbxNumberOfCFS;
-    @FindBy(xpath = ".//label")
+    @FindBy(css = ".GridWidget---checkbox")
     WebElement cbxSelectAllDevices;
+    @FindBy(css = ".GridWidget---checkbox")
+    WebElement cbxDonotSpecifyACountry;
     @FindBy(xpath = ".//div[contains(text(),'Number of certificates')]//following::p[2]")
     WebElement txtNumberOfCertificates;
     @FindBy(partialLinkText = "Add country")
@@ -94,6 +100,10 @@ public class DeviceDetails extends _Page {
     WebElement btnSubmitPayment;
     @FindBy(xpath = ".//button[contains(text(), 'Finish')]")
     WebElement btnFinish;
+    @FindBy(xpath = ".//button[contains(text(), 'Search')]")
+    WebElement btnSearch;
+    @FindBy(xpath = ".//*[contains(text(),'Number of')]//following::button[1]")
+    WebElement btnEditDevicesList;
 
 
     @Autowired
@@ -166,15 +176,26 @@ public class DeviceDetails extends _Page {
 
     public DeviceDetails clickOrderCFSButton() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, btnOrderCFS, TIMEOUT_5_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, btnOrderCFS, TIMEOUT_10_SECOND);
         btnOrderCFS.click();
         return new DeviceDetails(driver);
     }
 
     public DeviceDetails selectDevices() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD * 2);
-        WaitUtils.waitForElementToBeClickable(driver, cbxSelectAllDevices, TIMEOUT_5_SECOND);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD );
+        WaitUtils.waitForElementToBeClickable(driver, cbxSelectAllDevices, TIMEOUT_10_SECOND);
         WebElement cbx = PageUtils.getRandomElementFromList(listOfDeviceCheckbox);
+        PageUtils.singleClick(driver, cbx);
+        //Wait for continue button to be clickable
+        WaitUtils.waitForElementToBeClickable(driver, btnContinue, TIMEOUT_5_SECOND);
+        PageUtils.singleClick(driver, btnContinue);
+        return new DeviceDetails(driver);
+    }
+
+    public DeviceDetails selectAllDevices() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD * 2);
+        WaitUtils.waitForElementToBeClickable(driver, cbxSelectAllDevices, TIMEOUT_10_SECOND);
+        WebElement cbx = PageUtils.getRandomElementFromList(listOfAllCheckbox);
         PageUtils.singleClick(driver, cbx);
         //Wait for continue button to be clickable
         WaitUtils.waitForElementToBeClickable(driver, btnContinue, TIMEOUT_5_SECOND);
@@ -184,6 +205,7 @@ public class DeviceDetails extends _Page {
 
     public DeviceDetails enterACertificateDetails(String countryName, String noOfCFS) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".PickerWidget---picker_value"), TIMEOUT_10_SECOND);
         try {
             PageUtils.selectFromAutoSuggestedListItemsManufacturers(driver, ".PickerWidget---picker_value", countryName, true);
         } catch (Exception e) {
@@ -198,21 +220,22 @@ public class DeviceDetails extends _Page {
 
     }
 
-    public DeviceDetails enterMultipleCertificateDetails(String data, boolean clickAddCountryLink, int whichPicker) {
+    public DeviceDetails enterMultipleCertificateDetails(String data, boolean clickAddCountryLink, int whichLine) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, tbxNumberOfCFS, TIMEOUT_5_SECOND);
-        WaitUtils.waitForElementToBeClickable(driver, linkAddCountry, TIMEOUT_5_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, linkAddCountry, TIMEOUT_10_SECOND);
 
         String[] values = data.split("=");
         if (values.length == 2) {
             String countryName = values[0];
             String noOfCFS = values[1];
             try {
-                PageUtils.selectFromAutoSuggestedListItemsManufacturers(driver, listOfCountryPickers.get(whichPicker-1), countryName);
+                //Select a country
+                PageUtils.selectFromAutoSuggestedListItemsManufacturers(driver, listOfCountryPickers.get(whichLine-1), countryName);
             } catch (Exception e) {
             }
+
             //Enter number of certificates
-            listOfTbxNumberOfCFS.get(whichPicker-1).sendKeys(noOfCFS);
+            listOfTbxNumberOfCFS.get(whichLine-1).sendKeys(noOfCFS);
 
             if (clickAddCountryLink)
                 linkAddCountry.click();
@@ -260,7 +283,7 @@ public class DeviceDetails extends _Page {
 
     public boolean isManufacturerNameCorrect(String name) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, btnContinueToPayment, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, txtManufacturerName, TIMEOUT_10_SECOND);
         String txt = txtManufacturerName.getText().trim();
         return txt.contains(name);
     }
@@ -304,8 +327,8 @@ public class DeviceDetails extends _Page {
         return isDataCorrect;
     }
 
-    public DeviceDetails clickEditDevicesLink() {
-        linkEditDevices.click();
+    public DeviceDetails clickEditButton() {
+        btnEditDevicesList.click();
         return new DeviceDetails(driver);
     }
 
@@ -332,12 +355,13 @@ public class DeviceDetails extends _Page {
 
     public DeviceDetails updateCountryNumber(int pos, String countryName) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, tbxNumberOfCFS, TIMEOUT_5_SECOND);
         WebElement element = listOfCountryNamesRemoveX.get(pos - 1);
         element.click();
 
+        txtManufacturerName.click();
         //Reenter value
         try {
-            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
             PageUtils.selectFromAutoSuggestedListItemsManufacturers(driver, ".PickerWidget---picker_value", countryName, true);
         } catch (Exception e) {
         }
@@ -346,6 +370,7 @@ public class DeviceDetails extends _Page {
 
     public DeviceDetails updateNumberOfCFS(int pos, String numberOfCFS) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, tbxNumberOfCFS, TIMEOUT_5_SECOND);
         WebElement element = listOfTbxNumberOfCFS.get(pos - 1);
         element.clear();
         element.sendKeys(numberOfCFS);
@@ -356,5 +381,22 @@ public class DeviceDetails extends _Page {
         //Verify total cost
         boolean isCorrect = txtTotalPriceOfCertificates.getText().contains(String.valueOf(totalCost));
         return isCorrect;
+    }
+
+    public DeviceDetails selectAGMDNTerm(String gmdn) {
+        WaitUtils.waitForElementToBeClickable(driver, btnSearch, TIMEOUT_15_SECOND);
+        PageUtils.selectFromDropDown(driver, listOfDropDownFilters.get(0), gmdn, false);
+        return new DeviceDetails(driver);
+    }
+
+    public DeviceDetails selectARandomGMDNTerm() {
+        WaitUtils.waitForElementToBeClickable(driver, btnSearch, TIMEOUT_15_SECOND);
+        WebElement element = listOfDropDownFilters.get(0);
+        element.click();
+
+        //Get gmdn terms available and select the first one: @todo Change to randomly select
+        List<String> listOfOptions = PageUtils.getListOfElementsForDropDown(listOfGMDNTerms);
+        PageUtils.selectFromDropDown(driver, listOfDropDownFilters.get(0), listOfOptions.get(0), false);
+        return new DeviceDetails(driver);
     }
 }

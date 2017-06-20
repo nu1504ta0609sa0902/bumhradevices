@@ -23,6 +23,23 @@ public class StepsUtils {
     }
 
 
+    public static void removeFromDeviceDataList(ScenarioSession scenarioSession, String deviceName) {
+        List<DeviceDO> listOfDeviceData = (List<DeviceDO>) scenarioSession.getData(SessionKey.listOfDevicesAdded);
+
+        int position = 0;
+        for(DeviceDO dd: listOfDeviceData){
+            if(deviceName.equals(dd.deviceName)){
+                break;
+            }
+            position++;
+        }
+
+        //Remove and update
+        listOfDeviceData.remove(position);
+        scenarioSession.putData(SessionKey.listOfDevicesAdded, listOfDeviceData);
+    }
+
+
     public static void addToListOfStrings(ScenarioSession scenarioSession, String sessionKey, String value) {
         List<String> listOfStrings = (List<String>) scenarioSession.getData(sessionKey);
         if(listOfStrings == null){
@@ -57,5 +74,18 @@ public class StepsUtils {
             }
         }
         return commaDelimited;
+    }
+
+    public static void addCertificatesToAllCertificateList(ScenarioSession scenarioSession, DeviceDO dd) {
+        List<String> listOfAllCertificates = (List<String>) scenarioSession.getData(SessionKey.listOfAllCertificatesAddedToApplication);
+        if(listOfAllCertificates == null){
+            listOfAllCertificates = new ArrayList<>();
+        }
+
+        for(String c: dd.listOfCertificates){
+            String x = c.split("\\.")[0];
+            listOfAllCertificates.add(x);
+        }
+        scenarioSession.putData(SessionKey.listOfAllCertificatesAddedToApplication, listOfAllCertificates);
     }
 }

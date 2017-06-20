@@ -77,12 +77,12 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
     And I submit the cfs application for approval
     Examples:
       | user             | searchTerm | notifiedBody     | certificateType    | deviceType                         | gmdnDefinition       | customMade | riskClassification | relatedDeviceSterile | listOfProductNames |
-      | manufacturerAuto | AccountST   | BSI              | Inspection Quality | General Medical Device             | Blood weighing scale | false      | Class2A            | true                 | ford,hyundai       |
-      | manufacturerAuto | AccountST   | Amtac            | Batch Verification | General Medical Device             | Blood weighing scale | false      | Class2B            | true                 | ford,hyundai       |
-      | manufacturerAuto | AccountST   | Amtac            | Design Exam        | General Medical Device             | Blood weighing scale | false      | Class3             | false                | ford,hyundai       |
-      | manufacturerAuto | AccountST   | Lloyd            | Production Quality | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
-      | manufacturerAuto | AccountST   | SGS              | Type Exam          | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
-      | manufacturerAuto | AccountST   | UL International | Full Quality       | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
+      | manufacturerAuto | AccountST  | BSI              | Inspection Quality | General Medical Device             | Blood weighing scale | false      | Class2A            | true                 | ford,hyundai       |
+      | manufacturerAuto | AccountST  | Amtac            | Batch Verification | General Medical Device             | Blood weighing scale | false      | Class2B            | true                 | ford,hyundai       |
+      | manufacturerAuto | AccountST  | Amtac            | Design Exam        | General Medical Device             | Blood weighing scale | false      | Class3             | false                | ford,hyundai       |
+      | manufacturerAuto | AccountST  | Lloyd            | Production Quality | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
+      | manufacturerAuto | AccountST  | SGS              | Type Exam          | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
+      | manufacturerAuto | AccountST  | UL International | Full Quality       | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
 
 
   @1944 @5141 @5583 @_sprint15 @_sprint17 @_sprint18
@@ -106,7 +106,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
     Then I should not be able to proceed to the next step
     Examples:
       | user             | searchTerm | docType                  | addDevices | addCertificate | addProducts | notifiedBody | deviceType             | gmdnDefinition       | customMade | riskClassification | relatedDeviceSterile | listOfProductNames |
-      | manufacturerAuto | AccountST   | pdf, jpg,png , tif ,docx | true       | true           | false       | Amtac        | General Medical Device | Blood weighing scale | false      | Class2B            | true                 | ford,hyundai       |
+      | manufacturerAuto | AccountST  | pdf, jpg,png , tif ,docx | true       | true           | false       | Amtac        | General Medical Device | Blood weighing scale | false      | Class2B            | true                 | ford,hyundai       |
 #      | authorisedRepNoor | AccountST   |   jpg      |true       | true           | false       | SGS          | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
 
 
@@ -130,9 +130,9 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
     Then I should not be able to proceed to the next step
     Examples:
       | user             | searchTerm | addDevices | addCertificate | addProducts | notifiedBody | deviceType                         | gmdnDefinition       | customMade | riskClassification | relatedDeviceSterile | listOfProductNames |
-      | manufacturerAuto | AccountST   | false      |                |             | BSI          | General Medical Device             | Blood weighing scale | false      | Class2A            | true                 | ford,hyundai       |
-      | manufacturerAuto | AccountST   | true       | false          |             | Amtac        | General Medical Device             | Blood weighing scale | false      | Class2B            | true                 | ford,hyundai       |
-      | manufacturerAuto | AccountST   | true       | true           | false       | SGS          | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
+      | manufacturerAuto | AccountST  | false      |                |             | BSI          | General Medical Device             | Blood weighing scale | false      | Class2A            | true                 | ford,hyundai       |
+      | manufacturerAuto | AccountST  | true       | false          |             | Amtac        | General Medical Device             | Blood weighing scale | false      | Class2B            | true                 | ford,hyundai       |
+      | manufacturerAuto | AccountST  | true       | true           | false       | SGS          | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
 
   @5125 @_sprint17 @wip
   Scenario Outline: Verify removing certificate should prevent us from moving to add products step
@@ -200,8 +200,8 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
     Then I should see the following field "<errorMsg>" error message
     Examples:
       | user             | searchTerm | errorMsg                                                                                      | monthsInFutureOrPast | deviceType             | notifiedBody | gmdnDefinition       | customMade | riskClassification | relatedDeviceSterile |
-      | manufacturerAuto | AccountST   | According to this date your certificate has expired. MHRA cannot accept expired certificates. | -1                   | General Medical Device | BSI          | Blood weighing scale | false      | class3             | false                |
-      | manufacturerAuto | AccountST   | According to this date your certificate has expired. MHRA cannot accept expired certificates. | 0                    | General Medical Device | BSI          | Blood weighing scale | false      | class2b            | false                |
+      | manufacturerAuto | AccountST  | According to this date your certificate has expired. MHRA cannot accept expired certificates. | -1                   | General Medical Device | BSI          | Blood weighing scale | false      | class3             | false                |
+      | manufacturerAuto | AccountST  | According to this date your certificate has expired. MHRA cannot accept expired certificates. | 0                    | General Medical Device | BSI          | Blood weighing scale | false      | class2b            | false                |
 #      | manufacturerAuto | AccountST   | This certificate expires within 3 months                                                     | 2                    | General Medical Device | BSI          | Blood weighing scale | false      | class2a            | false                |
 
 
@@ -285,11 +285,11 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
     Then I should see the following "<errorMsg>" error message
     Examples:
       | user             | searchTerm | errorMsg                                 | deviceType                         | gmdnDefinition       | customMade | riskClassification |
-      | manufacturerAuto | AccountST   | This device must be registered with MHRA | General Medical Device             | Blood weighing scale | true       |                    |
-      | manufacturerAuto | AccountST   | This device must be registered with MHRA | General Medical Device             | Blood weighing scale | false      | class1             |
-      | manufacturerAuto | AccountST   | This device must be registered with MHRA | Active Implantable Medical Devices | Blood weighing scale | true       |                    |
-      | manufacturerAuto | AccountST   | This device must be registered with MHRA | In Vitro Diagnostic Device         |                      |            |                    |
-      | manufacturerAuto | AccountST   | This device must be registered with MHRA | System or Procedure Pack           |                      |            |                    |
+      | manufacturerAuto | AccountST  | This device must be registered with MHRA | General Medical Device             | Blood weighing scale | true       |                    |
+      | manufacturerAuto | AccountST  | This device must be registered with MHRA | General Medical Device             | Blood weighing scale | false      | class1             |
+      | manufacturerAuto | AccountST  | This device must be registered with MHRA | Active Implantable Medical Devices | Blood weighing scale | true       |                    |
+      | manufacturerAuto | AccountST  | This device must be registered with MHRA | In Vitro Diagnostic Device         |                      |            |                    |
+      | manufacturerAuto | AccountST  | This device must be registered with MHRA | System or Procedure Pack           |                      |            |                    |
 
 
   @1974 @1978 @4704 @_sprint15
@@ -309,7 +309,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | Bangladesh | 10    |
 
 
-  @1974 @1978 @4704 @_sprint15
+  @1974 @1978 @4704 @_sprint15 @wip
   Scenario: Users should be able to go to edit list of devices added for initial CFS process
     Given I am logged into appian as "manufacturerAuto" user
     And I go to device certificate of free sale page
@@ -333,8 +333,9 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | countryName | Brazil |
       | noOfCFS     | 10     |
     Then I should see the correct details in cfs review page
-    When I update the country added for CFS to "Bangladesh"
-    And I update the no of certificates for CFS to 9
+#    When I update the country added for CFS to "Bangladesh"
+#    And I update the no of certificates for CFS to 9
+    When I update the country to "Bangladesh" and number of certificates to 9
     Then I should see the correct details in cfs review page
 
 
@@ -349,8 +350,8 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
     Then I should see correct details for all the countries and certificate in cfs review page
     When I submit payment for the CFS
     Examples:
-      | countryAndCertificateNumber                                                |
-      | Switzerland=5,Norway=10,British Virgin=15,British Indian=1,Lichtenstein=20 |
-      | Bangladesh=5,Brazil=2,United States=3                                      |
-      | Turkey=5,Iceland=10,United States=20                                       |
+      | countryAndCertificateNumber                                |
+      | Switzerland=5,Norway=10,British Virgin=15,British Indian=1 |
+      | Bangladesh=5,Brazil=2,United States=3                      |
+      | Turkey=5,Iceland=10,United States=20,Liechtenstein=20       |
 
