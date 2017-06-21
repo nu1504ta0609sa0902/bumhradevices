@@ -35,4 +35,5 @@ public class SessionKey {
     public static String temporaryPassword = "Temporary Password created for new account";
     public static String updatedPassword = "Update Password for new account";
     public static String listOfAllCertificatesAddedToApplication = "All the certificates added to application";
+    public static String taskAssignedTo = "Task can be assigned to a colleague or Nobody";
 }

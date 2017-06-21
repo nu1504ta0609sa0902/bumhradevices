@@ -33,7 +33,11 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
     Then I should see correct device data in the review page
     And I submit the cfs application for approval
     When I logout and log back into appian as "businessNoor" user
-    And I go to application WIP page
+    When I logout and log back into appian as "businessAuto" user
+    And I search and view new task in AWIP page for the newly created manufacturer
+    And I assign the AWIP page task to me and "approve" the generated task
+    Then The task status in AWIP page should be "Completed" for the newly created manufacturer
+    And I should received an email for stored manufacturer with heading "Application"
 
 
   @1974 @4698 @1989 @5126 @3979 @5212 @5128 @_sprint15 @_sprint17
@@ -105,9 +109,9 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | docType              | <docType>              |
     Then I should not be able to proceed to the next step
     Examples:
-      | user             | searchTerm | docType                  | addDevices | addCertificate | addProducts | notifiedBody | deviceType             | gmdnDefinition       | customMade | riskClassification | relatedDeviceSterile | listOfProductNames |
-      | manufacturerAuto | AccountST  | pdf, jpg,png , tif ,docx | true       | true           | false       | Amtac        | General Medical Device | Blood weighing scale | false      | Class2B            | true                 | ford,hyundai       |
-#      | authorisedRepNoor | AccountST   |   jpg      |true       | true           | false       | SGS          | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
+      | user              | searchTerm | docType                  | addDevices | addCertificate | addProducts | notifiedBody | deviceType                         | gmdnDefinition       | customMade | riskClassification | relatedDeviceSterile | listOfProductNames |
+      | manufacturerAuto  | AccountST  | pdf, jpg,png , tif ,docx | true       | true           | false       | Amtac        | General Medical Device             | Blood weighing scale | false      | Class2B            | true                 | ford,hyundai       |
+      | authorisedRepNoor | AccountST  | jpg                      | true       | true           | false       | SGS          | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
 
 
   @5583 @5578 @_sprint18
@@ -133,6 +137,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | manufacturerAuto | AccountST  | false      |                |             | BSI          | General Medical Device             | Blood weighing scale | false      | Class2A            | true                 | ford,hyundai       |
       | manufacturerAuto | AccountST  | true       | false          |             | Amtac        | General Medical Device             | Blood weighing scale | false      | Class2B            | true                 | ford,hyundai       |
       | manufacturerAuto | AccountST  | true       | true           | false       | SGS          | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
+
 
   @5125 @_sprint17 @wip
   Scenario Outline: Verify removing certificate should prevent us from moving to add products step
@@ -353,5 +358,5 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | countryAndCertificateNumber                                |
       | Switzerland=5,Norway=10,British Virgin=15,British Indian=1 |
       | Bangladesh=5,Brazil=2,United States=3                      |
-      | Turkey=5,Iceland=10,United States=20,Liechtenstein=20       |
+      | Turkey=5,Iceland=10,United States=20,Liechtenstein=20      |
 

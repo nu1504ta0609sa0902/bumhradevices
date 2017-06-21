@@ -764,7 +764,11 @@ public class CFSAddDevices extends _Page {
 
     public boolean isReviewPageShowingCorrectNumberOfDevices(int size) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        return listOfDevicesAdded.size() == size;
+        boolean matched = listOfDevicesAdded.size() == size;
+        if(!matched){
+            log.info("Number of devices displayed : " + listOfDevicesAdded.size());
+        }
+        return matched;
     }
 
     public boolean isReviewPageShowingCorrectDeviceNames(List<DeviceDO> listOfDeviceDataObjects) {

@@ -249,25 +249,25 @@ Automated Issues:
         - @1957 -   MOVED
 
     Sprint 15: @_sprint15       CFS RELATED
-        - @1974 -   DONE ISH
-        - @1978 -   DONE ISH
+        - @1974 -   DONE ISH    @todo review cfs order
+        - @1978 -   DONE ISH    @todo indicate country and quantity
         - @1995 -   @TODO prevent accessing CFS if not based in UK
         - @3842 -   @Todo can't test because I am not able to create other accounts apart from Manufacturer, AuthorisedRep and Distributor
-        - @3856 -   DONE ISH
-        - @4203 -   DONE ISH
-        - @4698 -   DONE ISH
+        - @3856 -   DONE ISH    @todo check where and what customer wants to export
+        - @4203 -   DONE ISH    @todo display cfs service link
+        - @4698 -   DONE ISH    @todo display list of previously registered manufacturers
         - @4703 -   @Todo Address field verification
-        - @4704 -   DONE ISH
+        - @4704 -   DONE ISH    @todo select device to order cfs for
         - @4707 -   @Todo download sample CFS details
 
 
     Sprint 16: @_sprint16       CFS RELATED
-        - @4330 -   DONE ISH
-        - @5141 -   DONE ISH
-        - @3979 -   DONE ISH
-        - @5212 -   DONE ISH
+        - @4330 -   DONE ISH    @todo add a new manufacturer for cfs
+        - @5141 -   DONE ISH    @todo upload letter of designation
+        - @3979 -   DONE ISH    @todo add a device to new manufacturer for cfs
+        - @5212 -   DONE ISH    @todo add certificate information
         - @1989 -   @todo Guidance text for types of certificates
-        - @5207 -   DONE ISH
+        - @5207 -   DONE ISH    @todo error messaage checks
         - @5463 -   UX changes
         - @4908 -   DONE ISH    covered
         - @5450 -   Document row removed so no paper clip image
@@ -293,14 +293,14 @@ Automated Issues:
         - @4961 -   @todo   resume saved application
 
     Sprint 17: @_sprint17       CFS RELATED
-        - @1944 -   DONE ISH
-        - @1988 -   @todo CFS   select certificates from list of options
-        - @5125 -   DONE ISH
-        - @5126 -   DONE ISH
+        - @1944 -   DONE ISH    @todo upload CE certificate for a devices
+        - @1988 -   DONE ISH    @todo select certificates from list of options
+        - @5125 -   DONE ISH    @todo remove added certificates
+        - @5126 -   DONE ISH    @todo add products to devices
         - @5127 -   @todo CFS   add products in bulk
-        - @5128 -   @todo CFS   review application before submitting
+        - @5128 -   DONE ISH    @todo review application
                 -   Do more verification
-        - @5499 -   @todo CFS   edit application before submitting
+        - @5499 -   @todo CFS   @todo edit application before submitting
         - @5232 -   @todo   bug
         - @5233 -   @todo   bug
         - @5234 -   @todo   bug
@@ -309,15 +309,15 @@ Automated Issues:
         - @5425 -   @todo   bug
 
     Sprint 18: @_sprint18       CFS RELATED
-        - @1845 -   DONE ISH
+        - @1845 -   DONE ISH    @todo view filter list of cfs manufacturer applications
         - @1945 -   DONE ish    application reference number
         - @2179 -   DONE ish    unregister business user
         - @2268 -   @todo DR    unregister authorisedReps
         - @4368 -   @todo DR    unregister manufacturer
-        - @5571 -   DONE ISH
-        - @5578 -   DONE ISH
+        - @5571 -   DONE ISH    @todo  back button added to cfs add new manufacturer process
+        - @5578 -   DONE ISH    @todo order cfs for country and quantity
         - @3810 -   @todo DR    notification to manufacturers if registration is withdrawn
-        - @5583 -   DONE ISH
+        - @5583 -   DONE ISH    @todo add notified body to ce certificates
         - @5541 -   @todo   bug
         - @5542 -   @todo   bug
         - @5236 -   @todo   bug
@@ -327,8 +327,10 @@ Automated Issues:
         - @5668 -
         - @5672 -   CFS @todo customers able to remove devices from application
                 -   DONE ish
-        - @5666 -   CFS @todo business user to asign application to someone else
+        - @5666 -   CFS @todo business user to assign application to someone else
+                -   DONE ISH
         - @5679 -   CFS @todo business user assign application to myself
+                -   DONE ISH
         - @1954 -   CFS @todo business user view new cfs manufacturer details
         - @5680 -   CFS @todo business user view device summary
         - @5681 -   CFS @todo business user bulk approve devices

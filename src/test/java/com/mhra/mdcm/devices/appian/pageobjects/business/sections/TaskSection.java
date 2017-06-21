@@ -107,6 +107,8 @@ public class TaskSection extends _Page {
     WebElement aApplicationReference;
     @FindBy(xpath = ".//*[text()='Priority']/following::tr/td[4]")
     WebElement applicationStatus;
+    @FindBy(xpath = ".//*[text()='Priority']/following::tr/td[5]")
+    WebElement applicationAssignedTo;
     @FindBy(xpath = ".//*[text()='Priority']/following::tr")
     List<WebElement> listOfApplicationData;
     @FindBy(partialLinkText = "Filter application")
@@ -115,12 +117,24 @@ public class TaskSection extends _Page {
     WebElement tbxSearchByManufacturer;
     @FindBy(xpath = ".//button[text()='Search']")
     WebElement btnSearchForManufacuturer;
+    @FindBy(xpath = ".//button[text()='Clear']")
+    WebElement btnClearSearchField;
     @FindBy(xpath = ".//button[text()='Assign to myself']")
     WebElement btnAssignToMe;
     @FindBy(xpath = ".//button[text()='Yes']")
     WebElement btnConfirmYesAssignToMe;
-    @FindBy(xpath = ".//button[text()='No']")
+    @FindBy(xpath = ".//label[contains(text(), 'Nobody')]")
     WebElement btnConfirmNoAssignToMe;
+    @FindBy(xpath = ".//button[text()='Assign to colleague']")
+    WebElement btnAssignToColleague;
+    @FindBy(xpath = ".//button[text()='Assign']")
+    WebElement btnAssign;
+    @FindBy(xpath = ".//label[contains(text(), 'Nobody')]")
+    WebElement cbxNobody;
+    @FindBy(xpath = ".//label[contains(text(), 'of my colleague')]")
+    WebElement cbxOneOfMyColleague;
+    @FindBy(xpath = ".//*[contains(text(), 'Select user')]/following::input")
+    WebElement tbxColleagueSearchBox;
 
     //New filter section introduced in sprint 13
     @FindBy(xpath = ".//*[.='Organisation']")
@@ -607,9 +621,23 @@ public class TaskSection extends _Page {
         return new TaskSection(driver);
     }
 
+    public TaskSection clickOnReferenceNumberReturnedBySearchResult(int i) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, aApplicationReference, TIMEOUT_15_SECOND);
+        WebElement firstMatch = listOfApplicationReferences.get(i - 1);
+        firstMatch.click();
+        return new TaskSection(driver);
+    }
+
     public TaskSection assignAWIPTaskToMe() {
         WaitUtils.waitForElementToBeClickable(driver, btnAssignToMe, TIMEOUT_10_SECOND);
         btnAssignToMe.click();
+        return new TaskSection(driver);
+    }
+
+    public TaskSection assignAWIPTaskToColleague() {
+        WaitUtils.waitForElementToBeClickable(driver, btnAssignToColleague, TIMEOUT_10_SECOND);
+        btnAssignToColleague.click();
         return new TaskSection(driver);
     }
 
@@ -668,5 +696,74 @@ public class TaskSection extends _Page {
         PageUtils.doubleClick(driver, btnCompleteTheApplication);
         log.info("Application completed");
         return new TaskSection(driver);
+    }
+
+    public boolean isButtonVisibleWithText(String button, int timeout) {
+        if(button.contains("Assign to myself"))
+            return PageUtils.isElementClickable(driver, btnAssignToMe, timeout);
+        else if(button.contains("Assign to colleague"))
+            return PageUtils.isElementClickable(driver, btnAssignToColleague, timeout);
+        else if(button.contains("Approve manufacturer"))
+            return PageUtils.isElementClickable(driver, btnApproveManufacturer, timeout);
+        else if(button.contains("Reject manufacturer"))
+            return PageUtils.isElementClickable(driver, btnRejectManufacturer, timeout);
+
+        return true;
+    }
+
+    public boolean isButtonNotVisibleWithText(String button, int timeout) {
+        if(button.contains("Assign to myself"))
+            return PageUtils.isElementNotVisible(driver, btnAssignToMe, timeout);
+        else if(button.contains("Assign to colleague"))
+            return PageUtils.isElementNotVisible(driver, btnAssignToColleague, timeout);
+        else if(button.contains("Approve manufacturer"))
+            return PageUtils.isElementNotVisible(driver, btnApproveManufacturer, timeout);
+        else if(button.contains("Reject manufacturer"))
+            return PageUtils.isElementNotVisible(driver, btnRejectManufacturer, timeout);
+        return true;
+    }
+
+    public String getTheApplicationReferenceNumber() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WebElement element = listOfApplicationReferences.get(0);
+        return element.getText();
+    }
+
+    public boolean isSearchingCompleted() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        return PageUtils.isElementClickable(driver, btnClearSearchField, TIMEOUT_10_SECOND);
+    }
+
+    public TaskSection assigntToNobody() {
+        WaitUtils.waitForElementToBeClickable(driver, cbxNobody, TIMEOUT_10_SECOND);
+        cbxNobody.click();
+        btnAssign.click();
+        return new TaskSection(driver);
+    }
+
+    public TaskSection assignToColleague(String assignTo) {
+        WaitUtils.waitForElementToBeClickable(driver, cbxOneOfMyColleague, TIMEOUT_10_SECOND);
+        cbxOneOfMyColleague.click();
+        WaitUtils.waitForElementToBeClickable(driver, tbxColleagueSearchBox, TIMEOUT_10_SECOND);
+        try {
+            PageUtils.selectFromAutoSuggestedListItemsManufacturers(driver, ".PickerWidget---picker_value", assignTo, true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        btnAssign.click();
+        return new TaskSection(driver);
+    }
+
+    public boolean isTaskAssignedToCorrectUser(String assignedTo) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, applicationAssignedTo, TIMEOUT_10_SECOND);
+
+        if(assignedTo.contains("Nobody")){
+            //If assigned to nobody than it should be empty
+            return applicationAssignedTo.getText().equals("");
+        }else {
+            boolean contains = applicationAssignedTo.getText().contains(assignedTo);
+            return contains;
+        }
     }
 }

@@ -604,6 +604,7 @@ public class PageUtils {
             WaitUtils.waitForElementToBeClickable(driver, element, timeoutSecond);
         } catch (Exception e) {
             //Its not clickable
+            clickable = false;
         }
         return clickable;
     }
@@ -654,5 +655,17 @@ public class PageUtils {
             }
         }
         return allFound;
+    }
+
+    public static boolean isElementNotVisible(WebDriver driver, WebElement btnAssignToMe, int timeout5Second) {
+
+        boolean isInvisible = true;
+        try {
+            new WebDriverWait(driver, timeout5Second).until(ExpectedConditions.invisibilityOf(btnAssignToMe));
+        } catch (Exception e) {
+            //Its not clickable
+            isInvisible = false;
+        }
+        return isInvisible;
     }
 }

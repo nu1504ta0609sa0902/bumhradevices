@@ -525,6 +525,13 @@ public class TasksPageSteps extends CommonSteps {
         }
     }
 
+    @When("^I assign the generated AWIP page task to me$")
+    public void i_assign_AWIP_task_to_me() throws Throwable {
+        //accept the taskSection and approve or reject it
+        taskSection = taskSection.assignAWIPTaskToMe();
+        taskSection = taskSection.confirmAWIPIAssignment(true);
+    }
+
 
     @When("^I assign the AWIP page task to me and \"([^\"]*)\" with following \"([^\"]*)\"$")
     public void i_assign_AWIP_task_and_accept_the_task_and_the_generated_task(String reject, String reason) throws Throwable {
@@ -570,10 +577,40 @@ public class TasksPageSteps extends CommonSteps {
         tasksPage = mainNavigationBar.clickTasks();
         taskSection = tasksPage.gotoApplicationWIPPage();
         taskSection = taskSection.searchAWIPPageForAccount(accountNameOrReference);
-        boolean isStatusCorrect = taskSection.isAWIPTaskStatusCorrect("In Progress");
+        boolean isCompleted = taskSection.isSearchingCompleted();
         taskSection = taskSection.viewAccountByReferenceNumber(accountNameOrReference);
     }
 
+    @Then("^I search and view new task in AWIP page for the newly created manufacturer$")
+    public void i_should_see_a_new_task_in_AWIP_page_for_the_newly_created_manufacturer() throws Throwable {
+        String organisationNameOrReference = (String) scenarioSession.getData(SessionKey.newApplicationReferenceNumber);
+        if(!TestHarnessUtils.isNotEmptyOrNull(organisationNameOrReference))
+            organisationNameOrReference = (String) scenarioSession.getData(SessionKey.organisationName);
+
+        mainNavigationBar = new MainNavigationBar(driver);
+        tasksPage = mainNavigationBar.clickTasks();
+        taskSection = tasksPage.gotoApplicationWIPPage();
+        taskSection = taskSection.searchAWIPPageForAccount(organisationNameOrReference);
+        boolean isCompleted = taskSection.isSearchingCompleted();
+
+        //get the reference number
+        String reference = taskSection.getTheApplicationReferenceNumber();
+        scenarioSession.putData(SessionKey.newApplicationReferenceNumber, reference);
+        taskSection = taskSection.clickOnReferenceNumberReturnedBySearchResult(1);
+    }
+
+
+    @Then("^I search and view \"([^\"]*)\" in AWIP page for the newly created manufacturer$")
+    public void i_search_and_view_for_org_in_AWIP_page_for_the_newly_created_manufacturer(String orgName) throws Throwable {
+        mainNavigationBar = new MainNavigationBar(driver);
+        tasksPage = mainNavigationBar.clickTasks();
+        taskSection = tasksPage.gotoApplicationWIPPage();
+        taskSection = taskSection.searchAWIPPageForAccount(orgName);
+        boolean isSearchCompleted = taskSection.isSearchingCompleted();
+
+        taskSection = taskSection.clickOnReferenceNumberReturnedBySearchResult(1);
+        scenarioSession.putData(SessionKey.organisationName, orgName);
+    }
 
 
     @Then("^I search for new task in AWIP page for the new account$")
@@ -588,6 +625,16 @@ public class TasksPageSteps extends CommonSteps {
         taskSection = taskSection.searchAWIPPageForAccount(accountNameOrReference);
     }
 
+    @Then("^I search for task in AWIP page for the manufacturer$")
+    public void i_search_for_the_new_task_in_AWIP_page_for_the_new_manufacturer() throws Throwable {
+        String accountNameOrReference = (String) scenarioSession.getData(SessionKey.organisationName);
+        mainNavigationBar = new MainNavigationBar(driver);
+        tasksPage = mainNavigationBar.clickTasks();
+        taskSection = tasksPage.gotoApplicationWIPPage();
+        taskSection = taskSection.searchAWIPPageForAccount(accountNameOrReference);
+        taskSection.isSearchingCompleted();
+    }
+
     @Then("^The task status in AWIP page should be \"([^\"]*)\" for the new account$")
     public void the_task_status_in_AWIP_page_should_be_for_the_new_account(String status) throws Throwable {
         String accountNameOrReference = (String) scenarioSession.getData(SessionKey.newApplicationReferenceNumber);
@@ -600,4 +647,58 @@ public class TasksPageSteps extends CommonSteps {
         //Assert.assertThat("Expected Status in Application WIP page : " + status, isStatusCorrect, is(true));
     }
 
+    @Then("^The task status in AWIP page should be \"([^\"]*)\" for the newly created manufacturer$")
+    public void the_task_status_in_AWIP_page_should_be_for_the_newly_created_manufacturer(String status) throws Throwable {
+        String accountNameOrReference = (String) scenarioSession.getData(SessionKey.organisationName);
+        mainNavigationBar = new MainNavigationBar(driver);
+        tasksPage = mainNavigationBar.clickTasks();
+        taskSection = tasksPage.gotoApplicationWIPPage();
+        taskSection = taskSection.searchAWIPPageForAccount(accountNameOrReference);
+        boolean isCompleted = taskSection.isSearchingCompleted();
+
+        //get the reference number
+        String reference = taskSection.getTheApplicationReferenceNumber();
+        scenarioSession.putData(SessionKey.newApplicationReferenceNumber, reference);
+
+        boolean isStatusCorrect = taskSection.isAWIPTaskStatusCorrect(status);
+        Assert.assertThat("Expected Status in Application WIP page : " + status + " for application : " + reference, isStatusCorrect, is(true));
+    }
+
+    @Then("^I should see the option to \"([^\"]*)\"$")
+    public void i_should_see_the_option_to(String button) throws Throwable {
+        boolean isVisible = taskSection.isButtonVisibleWithText(button, 5);
+        Assert.assertThat("Expected following button : " + button, isVisible, is(true));
+
+    }
+
+    @Then("^I should not see any option related to approving reject and completing the application$")
+    public void i_should_not_see_any_option_related_to_approving_reject_and_completing_the_application() throws Throwable {
+        boolean isApproveManufacturerInVisible = taskSection.isButtonVisibleWithText("Approve manufacturer", 2);
+        boolean isRejectManufacturerINVisible = taskSection.isButtonVisibleWithText("Reject manufacturer", 2);
+        Assert.assertThat("This button should not be displayed: Approve manufacturer" , isApproveManufacturerInVisible, is(false));
+        Assert.assertThat("This button should not be displayed: Reject manufacturer" , isRejectManufacturerINVisible, is(false));
+    }
+
+
+
+    @And("^I assign the task to another user called \"([^\"]*)\"$")
+    public void iAssignTheTaskToAnotherUserCalled(String assignTo) throws Throwable {
+        taskSection = taskSection.assignAWIPTaskToColleague();
+        if(assignTo.contains("Nobody")){
+            taskSection = taskSection.assigntToNobody();
+        }else{
+            taskSection = taskSection.assignToColleague(assignTo);
+        }
+        scenarioSession.putData(SessionKey.taskAssignedTo, assignTo);
+    }
+
+    @Then("^Verify the task is assigned to the correct user$")
+    public void theTaskIsAssignedToTheCorrectUser() throws Throwable {
+        String assignedTo = (String) scenarioSession.getData(SessionKey.taskAssignedTo);
+        boolean isAssignedToCorrectUser = taskSection.isTaskAssignedToCorrectUser(assignedTo);
+        if(assignedTo.equals("Nobody")){
+            assignedTo = "";
+        }
+        Assert.assertThat("Task should be assigned to someone called : " + assignedTo , isAssignedToCorrectUser, is(true));
+    }
 }
