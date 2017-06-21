@@ -4,6 +4,7 @@ import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequestDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.business.TasksTabPage;
+import com.mhra.mdcm.devices.appian.pageobjects.business.sections.records.BusinessDeviceDetails;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.CommonUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
@@ -180,6 +181,18 @@ public class TaskSection extends _Page {
     @FindBy(xpath = ".//button[contains(text(), 'Complete the application')]")
     WebElement btnCompleteTheApplication;
 
+
+    //ORGANISATION DETAILS
+    @FindBy(xpath = ".//span[.='Manufacturer name']//following::p[1]")
+    WebElement manName;
+    @FindBy(xpath = ".//span[.='Manufacturer address']//following::p[1]")
+    WebElement manAddressFull;
+    @FindBy(xpath = ".//span[contains(text(),'Manufacturer telephone')]//following::p[1]")
+    WebElement manTelephone;
+
+    //Device details
+    @FindBy(partialLinkText = "Devices & products")
+    WebElement devicesAndProductDetails;
 
     @Autowired
     public TaskSection(WebDriver driver) {
@@ -765,5 +778,35 @@ public class TaskSection extends _Page {
             boolean contains = applicationAssignedTo.getText().contains(assignedTo);
             return contains;
         }
+    }
+
+    public boolean isManufacturerDetailCorrect(ManufacturerRequestDO manufacaturerData) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        boolean isValid = manName.getText().contains(manufacaturerData.organisationName);
+        if(isValid){
+            isValid = manAddressFull.getText().contains(manufacaturerData.address1);
+            log.info("Address is valid");
+        }
+        if(isValid){
+            isValid = manAddressFull.getText().contains(manufacaturerData.postCode);
+            log.info("Postcode is valid");
+        }
+        if(isValid){
+            isValid = manAddressFull.getText().contains(manufacaturerData.country);
+            log.info("Country is valid");
+        }
+
+        if(isValid){
+            isValid = manTelephone.getText().contains(manufacaturerData.telephone);
+            log.info("Telephone is valid");
+        }
+
+        return isValid;
+    }
+
+    public BusinessDeviceDetails clickOnDeviceAndProductsTab() {
+        WaitUtils.waitForElementToBeClickable(driver, devicesAndProductDetails, TIMEOUT_5_SECOND);
+        devicesAndProductDetails.click();
+        return new BusinessDeviceDetails(driver);
     }
 }

@@ -1,5 +1,6 @@
 package com.mhra.mdcm.devices.appian.pageobjects.business.sections.records;
 
+import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
@@ -73,10 +74,10 @@ public class BusinessDeviceDetails extends _Page {
 
     public boolean isTableColumnsCorrect(String expectedHeadings) {
         boolean allFound = true;
-        for(WebElement el: listOfTableHeadings){
+        for (WebElement el : listOfTableHeadings) {
             String text = el.getText();
             log.info(text);
-            if(!expectedHeadings.contains(text)){
+            if (!expectedHeadings.contains(text)) {
                 allFound = false;
                 break;
             }
@@ -85,13 +86,13 @@ public class BusinessDeviceDetails extends _Page {
     }
 
     public BusinessDeviceDetails viewDeviceOfType(String deviceType, String gmdnTermOrDefinition) {
-        if(deviceType.contains("general medical")){
+        if (deviceType.contains("general medical")) {
             PageUtils.clickOnGMDNCodeOrDefinition(listOfGMDDevices, gmdnTermOrDefinition);
-        }else if(deviceType.contains("vitro")){
+        } else if (deviceType.contains("vitro")) {
             PageUtils.clickOnGMDNCodeOrDefinition(listOfIVDDevices, gmdnTermOrDefinition);
-        }else if(deviceType.contains("active")){
+        } else if (deviceType.contains("active")) {
             PageUtils.clickOnGMDNCodeOrDefinition(listOfAIMDDevices, gmdnTermOrDefinition);
-        }else if(deviceType.contains("procedure pack")){
+        } else if (deviceType.contains("procedure pack")) {
             PageUtils.clickOnGMDNCodeOrDefinition(listOfSPPDevices, gmdnTermOrDefinition);
         }
         return new BusinessDeviceDetails(driver);
@@ -99,13 +100,13 @@ public class BusinessDeviceDetails extends _Page {
 
     public boolean areDeviceInformationPageShowingCorrectFields(String deviceType) {
         boolean fieldsCorrect = true;
-        if(deviceType.contains("general medical")){
+        if (deviceType.contains("general medical")) {
             fieldsCorrect = isGMDNDeviceDisplayingCorrectFields();
-        }else if(deviceType.contains("vitro")){
+        } else if (deviceType.contains("vitro")) {
 
-        }else if(deviceType.contains("active")){
+        } else if (deviceType.contains("active")) {
 
-        }else if(deviceType.contains("procedure pack")){
+        } else if (deviceType.contains("procedure pack")) {
 
         }
         return fieldsCorrect;
@@ -122,10 +123,26 @@ public class BusinessDeviceDetails extends _Page {
             WaitUtils.waitForElementToBeClickable(driver, fieldCustomMade, TIMEOUT_3_SECOND);
             WaitUtils.waitForElementToBeClickable(driver, fieldSterile, TIMEOUT_3_SECOND);
             WaitUtils.waitForElementToBeClickable(driver, fieldMeasuring, TIMEOUT_3_SECOND);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             fieldsDisplayed = false;
         }
         return fieldsDisplayed;
+    }
+
+    public boolean verifyAllTheDevicesAreDisplayed(List<DeviceDO> listOfDeviceData) {
+        String pageSource = driver.getPageSource();
+        boolean allDataCorrect = true;
+        for(DeviceDO dd: listOfDeviceData){
+            allDataCorrect = pageSource.contains(dd.deviceName);
+            if(allDataCorrect){
+                allDataCorrect = pageSource.contains(dd.deviceType);
+            }
+
+            if(!allDataCorrect){
+                break;
+            }
+        }
+        return allDataCorrect;
     }
 }

@@ -1,5 +1,6 @@
 package com.mhra.mdcm.devices.appian.steps.d1.business;
 
+import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequestDO;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
@@ -700,5 +701,20 @@ public class TasksPageSteps extends CommonSteps {
             assignedTo = "";
         }
         Assert.assertThat("Task should be assigned to someone called : " + assignedTo , isAssignedToCorrectUser, is(true));
+    }
+
+    @Then("^I should see the correct cfs manufacturer details$")
+    public void iShouldSeeTheCorrectCfsManufacturerDetails() throws Throwable {
+        ManufacturerRequestDO manufacaturerData = (ManufacturerRequestDO) scenarioSession.getData(SessionKey.manufacturerData);
+        boolean isCorrect = taskSection.isManufacturerDetailCorrect(manufacaturerData);
+        Assert.assertThat("Expected manufacturer detail to cotains : "  + manufacaturerData.address1 , isCorrect, is(true));
+    }
+
+    @And("^I should see correct device details$")
+    public void iShouldSeeCorrectDeviceDetails() throws Throwable {
+        List<DeviceDO> listOfDeviceData = (List<DeviceDO>) scenarioSession.getData(SessionKey.listOfDevicesAdded);
+        businessDevicesDetails = taskSection.clickOnDeviceAndProductsTab();
+        boolean allDevicesFound = businessDevicesDetails.verifyAllTheDevicesAreDisplayed(listOfDeviceData);
+        Assert.assertThat("Expected to see following devices : "  + listOfDeviceData , allDevicesFound, is(true));
     }
 }
