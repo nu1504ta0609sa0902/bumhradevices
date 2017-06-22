@@ -151,7 +151,7 @@ Feature: As an account holder, I should be able to add devices to existing manuf
     Examples:
       | user              | logBackInAas | deviceType                         | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
       | authorisedRepAuto | businessAuto | General Medical Device             | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
-      | authorisedRepAuto | businessAuto | Active Implantable Medical Devices | true       |               |                 | Registered | Desiccating chamber  |                    |              |
+      | authorisedRepAuto | businessAuto | Active Implantable Device | true       |               |                 | Registered | Desiccating chamber  |                    |              |
       | manufacturerAuto  | businessAuto | General Medical Device             | true       |               |                 | Registered | Blood weighing scale |                    |              |
       | manufacturerAuto  | businessAuto | System or Procedure Pack           |            | true          | true            | Registered | Desiccating chanber  | class1             | NB 0086 BSI  |
       | manufacturerAuto  | businessAuto | System or Procedure Pack           |            | false         | true            | Registered | Desiccating chanber  | class1             | NB 0086 BSI  |

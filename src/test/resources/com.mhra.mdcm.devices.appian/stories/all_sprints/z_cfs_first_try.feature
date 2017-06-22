@@ -10,7 +10,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | accountType | manufacturer |
       | countryName | Brazil       |
     And I add devices to NEWLY created CFS manufacturer with following data
-      | deviceType     | Active Implantable Medical Devices |
+      | deviceType     | Active Implantable Device |
       | gmdnDefinition | Desiccating chamber                |
       | customMade     | false                              |
       | notifiedBody   | NB 0086 BSI                        |
@@ -54,7 +54,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | relatedDeviceSterile | true                   |
       | notifiedBody         | NB 0086 BSI            |
     And I add another device to SELECTED CFS manufacturer with following data
-      | deviceType         | Active Implantable Medical Devices |
+      | deviceType         | Active Implantable Device |
       | gmdnDefinition     | Desiccating chamber                |
       | customMade         | false                              |
       | notifiedBody       | NB 0086 BSI                        |
@@ -84,9 +84,9 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | manufacturerAuto | AccountST  | BSI              | Inspection Quality | General Medical Device             | Blood weighing scale | false      | Class2A            | true                 | ford,hyundai       |
       | manufacturerAuto | AccountST  | Amtac            | Batch Verification | General Medical Device             | Blood weighing scale | false      | Class2B            | true                 | ford,hyundai       |
       | manufacturerAuto | AccountST  | Amtac            | Design Exam        | General Medical Device             | Blood weighing scale | false      | Class3             | false                | ford,hyundai       |
-      | manufacturerAuto | AccountST  | Lloyd            | Production Quality | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
-      | manufacturerAuto | AccountST  | SGS              | Type Exam          | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
-      | manufacturerAuto | AccountST  | UL International | Full Quality       | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
+      | manufacturerAuto | AccountST  | Lloyd            | Production Quality | Active Implantable Device | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
+      | manufacturerAuto | AccountST  | SGS              | Type Exam          | Active Implantable Device | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
+      | manufacturerAuto | AccountST  | UL International | Full Quality       | Active Implantable Device | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
 
 
   @1944 @5141 @5583 @_sprint15 @_sprint17 @_sprint18
@@ -111,7 +111,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
     Examples:
       | user              | searchTerm | docType                  | addDevices | addCertificate | addProducts | notifiedBody | deviceType                         | gmdnDefinition       | customMade | riskClassification | relatedDeviceSterile | listOfProductNames |
       | manufacturerAuto  | AccountST  | pdf, jpg,png , tif ,docx | true       | true           | false       | Amtac        | General Medical Device             | Blood weighing scale | false      | Class2B            | true                 | ford,hyundai       |
-      | authorisedRepNoor | AccountST  | jpg                      | true       | true           | false       | SGS          | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
+      | authorisedRepNoor | AccountST  | jpg                      | true       | true           | false       | SGS          | Active Implantable Device | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
 
 
   @5583 @5578 @_sprint18
@@ -136,7 +136,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | user             | searchTerm | addDevices | addCertificate | addProducts | notifiedBody | deviceType                         | gmdnDefinition       | customMade | riskClassification | relatedDeviceSterile | listOfProductNames |
       | manufacturerAuto | AccountST  | false      |                |             | BSI          | General Medical Device             | Blood weighing scale | false      | Class2A            | true                 | ford,hyundai       |
       | manufacturerAuto | AccountST  | true       | false          |             | Amtac        | General Medical Device             | Blood weighing scale | false      | Class2B            | true                 | ford,hyundai       |
-      | manufacturerAuto | AccountST  | true       | true           | false       | SGS          | Active Implantable Medical Devices | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
+      | manufacturerAuto | AccountST  | true       | true           | false       | SGS          | Active Implantable Device | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
 
 
   @5125 @_sprint17 @wip
@@ -160,7 +160,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
     Then I should not be able to proceed to the next step
     Examples:
       | user             | searchTerm | addDevices | addCertificate | addProducts | notifiedBody | deviceType                         | gmdnDefinition      | customMade | riskClassification | relatedDeviceSterile | listOfProductNames |
-      | manufacturerAuto | AccountST  | true       | true           | false       | SGS          | Active Implantable Medical Devices | Desiccating chamber | false      |                    |                      | ford,hyundai       |
+      | manufacturerAuto | AccountST  | true       | true           | false       | SGS          | Active Implantable Device | Desiccating chamber | false      |                    |                      | ford,hyundai       |
 
 
   @5126 @_sprint17 @wip
@@ -184,7 +184,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
     Then I should not be able to proceed to the next step
     Examples:
       | user             | searchTerm | addDevices | addCertificate | addProducts | notifiedBody | deviceType                         | gmdnDefinition      | customMade | riskClassification | relatedDeviceSterile | listOfProductNames |
-      | manufacturerAuto | AccountST  | true       | true           | true        | SGS          | Active Implantable Medical Devices | Desiccating chamber | false      |                    |                      | ford,hyundai       |
+      | manufacturerAuto | AccountST  | true       | true           | true        | SGS          | Active Implantable Device | Desiccating chamber | false      |                    |                      | ford,hyundai       |
 
 
   @1944 @_sprint17
@@ -292,7 +292,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | user             | searchTerm | errorMsg                                 | deviceType                         | gmdnDefinition       | customMade | riskClassification |
       | manufacturerAuto | AccountST  | This device must be registered with MHRA | General Medical Device             | Blood weighing scale | true       |                    |
       | manufacturerAuto | AccountST  | This device must be registered with MHRA | General Medical Device             | Blood weighing scale | false      | class1             |
-      | manufacturerAuto | AccountST  | This device must be registered with MHRA | Active Implantable Medical Devices | Blood weighing scale | true       |                    |
+      | manufacturerAuto | AccountST  | This device must be registered with MHRA | Active Implantable Device | Blood weighing scale | true       |                    |
       | manufacturerAuto | AccountST  | This device must be registered with MHRA | In Vitro Diagnostic Device         |                      |            |                    |
       | manufacturerAuto | AccountST  | This device must be registered with MHRA | System or Procedure Pack           |                      |            |                    |
 

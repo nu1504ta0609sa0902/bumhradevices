@@ -29,7 +29,7 @@ Feature: Tasks will need to be generated for CFS application
       | accountType | manufacturer |
       | countryName | Brazil       |
     And I add devices to NEWLY created CFS manufacturer with following data
-      | deviceType     | Active Implantable Medical Devices |
+      | deviceType     | Active Implantable Device |
       | gmdnDefinition | Desiccating chamber                |
       | customMade     | false                              |
       | notifiedBody   | NB 0086 BSI                        |
@@ -54,7 +54,7 @@ Feature: Tasks will need to be generated for CFS application
       | accountType | manufacturer |
       | countryName | Brazil       |
     And I add devices to NEWLY created CFS manufacturer with following data
-      | deviceType     | Active Implantable Medical Devices |
+      | deviceType     | Active Implantable Device |
       | gmdnDefinition | Desiccating chamber                |
       | customMade     | false                              |
       | notifiedBody   | NB 0086 BSI                        |
@@ -78,7 +78,7 @@ Feature: Tasks will need to be generated for CFS application
       | accountType | manufacturer |
       | countryName | Brazil       |
     And I add devices to NEWLY created CFS manufacturer with following data
-      | deviceType     | Active Implantable Medical Devices |
+      | deviceType     | Active Implantable Device |
       | gmdnDefinition | Desiccating chamber                |
       | customMade     | false                              |
       | notifiedBody   | NB 0086 BSI                        |

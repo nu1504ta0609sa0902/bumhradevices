@@ -51,7 +51,7 @@ public class ProductDetails extends _Page {
             allValid = isGeneralMedicalDeviceValid(deviceData);
         } else if (deviceType.equals("System or Procedure Pack")) {
             allValid = isGeneralMedicalDeviceValid(deviceData);
-        } else if (deviceType.equals("Active Implantable Medical Devices")) {
+        } else if (deviceType.equals("Active Implantable Device")) {
             allValid = isGeneralMedicalDeviceValid(deviceData);
         }
 

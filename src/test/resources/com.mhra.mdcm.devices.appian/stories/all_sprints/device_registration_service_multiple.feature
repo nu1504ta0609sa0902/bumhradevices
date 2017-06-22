@@ -25,7 +25,7 @@ Feature: As a customer I want to be able to enter more than one device at the po
       | newProduct         | true                       |
       | conformsToCTS      | true                       |
     When I add another device to SELECTED manufacturer with following data
-      | deviceType     | Active Implantable Medical Devices |
+      | deviceType     | Active Implantable Device |
       | gmdnDefinition | <device3>                          |
       | customMade     | true                               |
       | productName    | lordhelpme                         |
@@ -76,7 +76,7 @@ Feature: As a customer I want to be able to enter more than one device at the po
       | newProduct         | true                       |
       | conformsToCTS      | true                       |
     When I add another device to SELECTED manufacturer with following data
-      | deviceType     | Active Implantable Medical Devices |
+      | deviceType     | Active Implantable Device |
       | gmdnDefinition | <device3>                          |
       | customMade     | true                               |
       | productName    | lordhelpme                         |

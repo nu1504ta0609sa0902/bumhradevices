@@ -8,10 +8,15 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     When I create a new account using business test harness page with following data
       | accountType | <accountType> |
       | countryName | <countryName> |
-    Then I should see a new task for the new account
-    When I assign the task to me and "<approveReject>" the generated task
+    Then I search and view new task in AWIP page for the new account
+    When I assign the AWIP page task to me and "<approveReject>" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
+    And I should received an email for stored account with heading "Account request approved for"
+    And I should received an email with password for new account with heading "account creation" and stored username
+    When I logout and logback in with newly created account and update the password to "MHRA12345A"
 #Log back in as newly created manufacturer account user and register a new organisation with devices
-    And I logout and log back into appian as "<logBackInAas>" user
+    And I go to list of manufacturers page
+    And Provide indication of devices made
     And I go to register a new manufacturer page
     When I create a new manufacturer using manufacturer test harness page with following data
       | accountType | <accountType>      |
@@ -23,11 +28,11 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And Proceed to payment and confirm submit device details
 #Log back and verify task created for newly created manufacturer
     When I logout and log back into appian as "<businessUser>" user
-    And I view new task with link "New Manufacturer Registration Request" for the new account
-    And I assign the task to me and "approve" the generated task
-    Then The task should be removed from tasks list
-    And I should received an email for stored account with heading "<newAccountEmail>"
-    And I should received an email for stored manufacturer with heading "<newOrganisationEmail>"
+    Then I search and view new task in AWIP page for the new account
+    When I assign the AWIP page task to me and "<approveReject>" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
+    And I should received an email for stored manufacturer with heading "Request for manufacturer registration" and stored application identifier
+    And I should received an email for stored manufacturer with heading "has been Approved" and stored application identifier
     Examples:
       | businessUser | logBackInAas     | accountType  | approveReject | countryName    | countryNameNonEU | newAccountEmail         | newOrganisationEmail                  |
       | businessNoor | manufacturerNoor | manufacturer | approve       | United Kingdom | Bangladesh       | New Account Request for | Manufacturer Registration Request for |
@@ -35,14 +40,20 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
 
   @ignore
   Scenario Outline: S2 AuthorisedRep account registration for non uk manufacturers
+#Register new manufacturer account, approve the task and check MHRA approval email received
     Given I am logged into appian as "<businessUser>" user
     When I create a new account using business test harness page with following data
       | accountType | <accountType> |
       | countryName | <countryName> |
-    Then I should see a new task for the new account
-    When I assign the task to me and "<approveReject>" the generated task
-    Then I should received an email for stored account with heading "<newAccountEmail>"
-    And I logout and log back into appian as "<logBackInAas>" user
+    Then I search and view new task in AWIP page for the new account
+    When I assign the AWIP page task to me and "<approveReject>" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
+    And I should received an email for stored account with heading "Account request approved for"
+    And I should received an email with password for new account with heading "account creation" and stored username
+    When I logout and logback in with newly created account and update the password to "MHRA12345A"
+#Log back in as newly created manufacturer account user and register a new organisation with devices
+    And I go to list of manufacturers page
+    And Provide indication of devices made
     And I go to register a new manufacturer page
     And I create a new manufacturer using manufacturer test harness page with following data
       | accountType | <accountType>   |
@@ -52,21 +63,78 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | gmdnDefinition | Blood weighing scale   |
       | customMade     | true                   |
     And Proceed to payment and confirm submit device details
-    And I logout and log back into appian as "<businessUser>" user
-    Then I view new task with link "New Service Request" for the new account
-    And I assign the task to me and "approve" the generated task
-    #And The completed task status should update to "Completed"
-    And I should received an email for stored manufacturer with heading "<newOrganisationEmail>"
+#Log back and verify task created for newly created manufacturer
+    When I logout and log back into appian as "<businessUser>" user
+    Then I search and view new task in AWIP page for the new account
+    When I assign the AWIP page task to me and "<approveReject>" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
+    And I should received an email for stored manufacturer with heading "Request for manufacturer registration" and stored application identifier
+    And I should received an email for stored manufacturer with heading "has been Approved" and stored application identifier
     Examples:
       | businessUser | logBackInAas     | accountType   | approveReject | countryName    | countryNameEU | newAccountEmail         | newOrganisationEmail              |
       | businessNoor | manufacturerNoor | authorisedRep | approve       | United Kingdom | Netherland    | New Account Request for | Manufacturer registration service |
 
 
-  @ignore
-  Scenario: S3 UK based manufacturer which is already registered and in need of CFS
+  @1974 @1978 @4704 @_sprint15
+  Scenario Outline: S3 UK based manufacturer which is already registered and in need of CFS
+    Given I am logged into appian as "manufacturerAuto" user
+    And I go to device certificate of free sale page
+    Then I should see a list of manufacturers available for CFS
+    When I click on a random organisation which needs cfs
+    And I order cfs for a country with following data
+      | countryName | <country> |
+      | noOfCFS     | <noCFS>   |
+    Then I should see the correct details in cfs review page
+    When I submit payment for the CFS
+    Examples:
+      | country    | noCFS |
+      | Brazil     | 15    |
+      | Bangladesh | 10    |
 
-  @ignore
-  Scenario: S4 Non UK based authorised reps which is already registered and in need of CFS
+
+  @1974 @1978 @4704 @_sprint15
+  Scenario Outline: S4 Non UK based authorised reps which is already registered and in need of CFS
+    Given I am logged into appian as "authorisedRepAuto" user
+    And I go to device certificate of free sale page
+    Then I should see a list of manufacturers available for CFS
+    When I click on a random organisation which needs cfs
+    And I order cfs for a country with following data
+      | countryName | <country> |
+      | noOfCFS     | <noCFS>   |
+    Then I should see the correct details in cfs review page
+    When I submit payment for the CFS
+    Examples:
+      | country    | noCFS |
+      | Brazil     | 15    |
+      | Bangladesh | 10    |
+
+
+  @1974 @4330 @5141 @3979 @5212 @5126 @1845 @5128 @5673 @5674 @5583
+  Scenario Outline: S4b Register and approve Non UK based manufacturers for CFS
+    Given I am logged into appian as "<user>" user
+    And I go to device certificate of free sale page
+    Then I should see a list of manufacturers available for CFS
+    When I create a new manufacturer using CFS manufacturer test harness page with following data
+      | accountType | <accountType> |
+      | countryName | <country>     |
+    And I add devices to NEWLY created CFS manufacturer with following data
+      | deviceType     | Active Implantable Device |
+      | gmdnDefinition | Desiccating chamber                |
+      | customMade     | false                              |
+      | notifiedBody   | NB 0086 BSI                        |
+      | productName    | FordHybrid                         |
+      | productModel   | FocusYeah                          |
+    Then I should see correct device data in the review page
+    And I submit the cfs application for approval
+    When I logout and log back into appian as "<businessUser>" user
+    And I search and view new task in AWIP page for the newly created manufacturer
+    And I assign the AWIP page task to me and "approve" the generated task
+    Then The task status in AWIP page should be "Completed" for the newly created manufacturer
+    And I should received an email for stored manufacturer with heading "Application"
+    Examples:
+      | user              | businessUser | accountType  | country       | approveReject | status    |
+      | authorisedRepAuto | businessAuto | manufacturer | United States | approve       | Completed |
+      | manufacturerAuto  | businessAuto | manufacturer | Brazil        | approve       | Completed |
 
   @ignore
   Scenario Outline: S5a Update already registered manufacturers by adding new devices
@@ -154,7 +222,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And I should received an email for stored manufacturer with heading "<newOrganisationEmail>"
     Examples:
       | user              | deviceType                         | gmdnDefinition      | customMade | productName |
-      | authorisedRepAuto | Active Implantable Medical Devices | Desiccating chamber | true       | ford focus  |
+      | authorisedRepAuto | Active Implantable Device | Desiccating chamber | true       | ford focus  |
 
   @ignore
   Scenario Outline: S6a Update manufacturer for authorised rep which is already registered by adding devices
@@ -180,7 +248,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And I should received an email for stored account with heading "<emailHeader>"
     Examples:
       | user              | businessUser | deviceType                         | customMade | status     | gmdnDefinition       | productName |
-      | authorisedRepAuto | businessAuto | Active Implantable Medical Devices | false      | Registered | Blood weighing scale | ford focus  |
+      | authorisedRepAuto | businessAuto | Active Implantable Device | false      | Registered | Blood weighing scale | ford focus  |
 
 
   @ignore

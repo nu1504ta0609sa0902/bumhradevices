@@ -28,7 +28,7 @@ Feature: As an account holder, I want to register manufacturers and declare high
 
 
   @regression @mdcm-183 @_sprint3 @mdcm-148 @_sprint7
-  Scenario Outline: Register device with SINGLE product for active implantable medical devices
+  Scenario Outline: Register device with SINGLE product for Active Implantable Device
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
     And I click on a random manufacturer to add devices
@@ -40,9 +40,9 @@ Feature: As an account holder, I want to register manufacturers and declare high
     Then I should see option to add another device
     Examples:
       | user              | deviceType                         | gmdnDefinition      | customMade | productName |
-      | authorisedRepAuto | Active Implantable Medical Devices | Desiccating chamber | true       | ford focus  |
-      | manufacturerAuto | Active Implantable Medical Devices | Desiccating chamber | true       | ford focus  |
-#      | manufacturerAuto | Active Implantable Medical Devices | Blood          | false      | ford focus  | can't register if custom made is false
+      | authorisedRepAuto | Active Implantable Device | Desiccating chamber | true       | ford focus  |
+      | manufacturerAuto | Active Implantable Device | Desiccating chamber | true       | ford focus  |
+#      | manufacturerAuto | Active Implantable Device | Blood          | false      | ford focus  | can't register if custom made is false
 
 
   @regression @3559 @2143 @_sprint10 @2185 @_sprint8
@@ -87,8 +87,8 @@ Feature: As an account holder, I want to register manufacturers and declare high
     And I should be prevented from adding the high risk devices
     Examples:
       | user              | deviceType                         | gmdnDefinition      | customMade | notifiedBody | errorMsg                                                                             |
-      | authorisedRepAuto | Active Implantable Medical Devices | Desiccating chamber | false      | NB 0086 BSI  | You cannot register non custom made active implantable medical devices with the MHRA |
-      | manufacturerAuto  | Active Implantable Medical Devices | Desiccating chamber | false      | NB 0086 BSI  | You cannot register non custom made active implantable medical devices with the MHRA |
+      | authorisedRepAuto | Active Implantable Device | Desiccating chamber | false      | NB 0086 BSI  | You cannot register non custom made active implantable device with the MHRA |
+      | manufacturerAuto  | Active Implantable Device | Desiccating chamber | false      | NB 0086 BSI  | You cannot register non custom made active implantable device with the MHRA |
 
 
   @regression @mdcm-183 @_sprint3 @mdcm-148 @_sprint7 @2049 @_sprint8
@@ -128,7 +128,7 @@ Feature: As an account holder, I want to register manufacturers and declare high
 
 
   @regression @mdcm-183 @mdcm-240 @_sprint3 @_sprint4 @3777 @2184 @_sprint9 @mdcm-148 @2910 @_sprint7
-  Scenario Outline: Register a device with MULTIPLE product and devices for active implantable medical devices type
+  Scenario Outline: Register a device with MULTIPLE product and devices for Active Implantable Device type
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
     And I click on a random manufacturer to add devices
@@ -156,8 +156,8 @@ Feature: As an account holder, I want to register manufacturers and declare high
     Then The task should be removed from tasks list
     Examples:
       | user              | logBackInAas | deviceType                         | gmdnDefinition      | gmdnDefinition2 | customMade | listOfProductNames  | link                                     |
-      | authorisedRepAuto | businessAuto | Active Implantable Medical Devices | Desiccating chamber | suction         | true       | ford,hyundai        | Update Manufacturer Registration Request |
-      | manufacturerAuto  | businessAuto | Active Implantable Medical Devices | Desiccating chamber | suction         | true       | ford,hyundai,toyota | Update Manufacturer Registration Request |
+      | authorisedRepAuto | businessAuto | Active Implantable Device | Desiccating chamber | suction         | true       | ford,hyundai        | Update Manufacturer Registration Request |
+      | manufacturerAuto  | businessAuto | Active Implantable Device | Desiccating chamber | suction         | true       | ford,hyundai,toyota | Update Manufacturer Registration Request |
 
 
 

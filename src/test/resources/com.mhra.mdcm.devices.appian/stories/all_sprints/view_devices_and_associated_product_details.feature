@@ -62,7 +62,7 @@ Feature: As a user, I want to view devices and product details associated with a
     Examples:
       | user         | page          | searchTerm      | deviceType                         |
       | businessAuto | Organisations | ManufacturerRT  | General Medical Device             |
-      | businessAuto | Organisations | AuthorisedRepRT | Active Implantable Medical Devices |
+      | businessAuto | Organisations | AuthorisedRepRT | Active Implantable Device |
 
 
   @regression @mdcm-125 @_sprint6 @wip

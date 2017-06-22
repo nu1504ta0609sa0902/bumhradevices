@@ -9,7 +9,7 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
       | accountType | manufacturer |
       | countryName | Brazil       |
     And I add devices to NEWLY created CFS manufacturer with following data
-      | deviceType     | Active Implantable Medical Devices |
+      | deviceType     | Active Implantable Device |
       | gmdnDefinition | Desiccating chamber                |
       | customMade     | false                              |
       | notifiedBody   | NB 0086 BSI                        |
@@ -43,7 +43,7 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
       | accountType | manufacturer |
       | countryName | Brazil       |
     And I add devices to NEWLY created CFS manufacturer with following data
-      | deviceType     | Active Implantable Medical Devices |
+      | deviceType     | Active Implantable Device |
       | gmdnDefinition | Desiccating chamber                |
       | customMade     | false                              |
       | notifiedBody   | NB 0086 BSI                        |

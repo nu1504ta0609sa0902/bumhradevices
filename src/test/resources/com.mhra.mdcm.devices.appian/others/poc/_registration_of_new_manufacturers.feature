@@ -64,6 +64,6 @@
 #    Examples:
 #      | user              | logBackInAs  | accountType   | page                | deviceType                         | gmdnDefinition        | customMade          | riskClassification | productName | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
 #      | authorisedRepAuto | businessAuto | manufacturer  | Registered Products | In Vitro Diagnostic Device         | Androgen receptor IVD |                     | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
-#      | manufacturerAuto  | businessAuto | authorisedRep | Registered Products | Active Implantable Medical Devices | Desiccating chamber   | true                |                    | ford focus  |             |              |              |                   |            |               |
+#      | manufacturerAuto  | businessAuto | authorisedRep | Registered Products | Active Implantable Device | Desiccating chamber   | true                |                    | ford focus  |             |              |              |                   |            |               |
 #
 #

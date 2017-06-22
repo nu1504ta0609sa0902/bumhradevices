@@ -157,5 +157,5 @@ Feature: As a customer I want to register new manufacturers with devices
     Examples:
       | user              | logBackInAs  | accountType   | countryName | page                | deviceType                         | gmdnDefinition        | customMade | riskClassification | productName | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
       | authorisedRepAuto | businessAuto | manufacturer  | Bangladesh  | Registered Products | In Vitro Diagnostic Device         | Androgen receptor IVD |            | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
-      | manufacturerAuto  | businessAuto | authorisedRep | Brazil      | Registered Products | Active Implantable Medical Devices | Desiccating chamber   | true       |                    | ford focus  |             |              |              |                   |            |               |
+      | manufacturerAuto  | businessAuto | authorisedRep | Brazil      | Registered Products | Active Implantable Device | Desiccating chamber   | true       |                    | ford focus  |             |              |              |                   |            |               |
 

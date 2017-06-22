@@ -24,8 +24,8 @@ Feature: As a business user, I want a task to be created each time a customer su
     Then The task should be removed from tasks list
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition      | customMade | listOfProductNames |
-      | manufacturerAuto  | businessAuto | manufacturer  | Brazil      | Active Implantable Medical Devices | Desiccating chamber | true       | setmeup1           |
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Desiccating chamber | true       | setmeup2           |
+      | manufacturerAuto  | businessAuto | manufacturer  | Brazil      | Active Implantable Device | Desiccating chamber | true       | setmeup1           |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Device | Desiccating chamber | true       | setmeup2           |
 
 
   @regression @mdcm-15 @mdcm-21 @mdcm-39 @mdcm-186 @_sprint2 @_sprint3 @_sprint5 @3755 @_sprint11 @2910 @_sprint7 @2049 @_sprint8
@@ -80,8 +80,8 @@ Feature: As a business user, I want a task to be created each time a customer su
     And The designation letter should be attached and the status should be "Awaiting Review"
     Examples:
       | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition       | customMade | listOfProductNames | link                                  |
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Desiccating chamber  | true       | ford               | New Manufacturer Registration Request |
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Medical Devices | Blood weighing scale | false      | fiesta             | New Manufacturer Registration Request |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Device | Desiccating chamber  | true       | ford               | New Manufacturer Registration Request |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Device | Blood weighing scale | false      | fiesta             | New Manufacturer Registration Request |
 
 
   @regression @mdcm-263 @_sprint6  @4088 @_sprint11 @2185 @_sprint8 @2833 @_sprint14 @wip
