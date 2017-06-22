@@ -1,11 +1,15 @@
 package com.mhra.mdcm.devices.appian.steps.d1.business;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequestDO;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
 import com.mhra.mdcm.devices.appian.enums.LinksRecordPage;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
+import cucumber.api.PendingException;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
@@ -534,5 +538,57 @@ public class RecordsPageSteps extends CommonSteps {
     public void iShouldSeeFollowingPARDMessage(String expectedMessage) throws Throwable {
         boolean isMessageCorrect = businessManufacturerDetails.isPARDMessaageCorrect(expectedMessage);
         Assert.assertThat("Expected to see the following message : " + expectedMessage, isMessageCorrect, is(true));
+    }
+
+    @Then("^I should see the correct cfs manufacturer details$")
+    public void iShouldSeeTheCorrectCfsManufacturerDetails() throws Throwable {
+        ManufacturerRequestDO manufacaturerData = (ManufacturerRequestDO) scenarioSession.getData(SessionKey.manufacturerData);
+        boolean isCorrect = businessManufacturerDetails.isManufacturerDetailCorrect(manufacaturerData);
+        Assert.assertThat("Expected manufacturer detail to cotains : "  + manufacaturerData.address1 , isCorrect, is(true));
+    }
+
+    @And("^I should see correct device details$")
+    public void iShouldSeeCorrectDeviceDetails() throws Throwable {
+        List<DeviceDO> listOfDeviceData = (List<DeviceDO>) scenarioSession.getData(SessionKey.listOfDevicesAdded);
+        businessDevicesDetails = businessManufacturerDetails.clickOnDeviceAndProductsTab();
+        boolean allDevicesFound = businessDevicesDetails.verifyAllTheDevicesAreDisplayedSimple(listOfDeviceData);
+        Assert.assertThat("Expected to see following devices : "  + listOfDeviceData , allDevicesFound, is(true));
+    }
+
+
+    @When("^I view device with gmdn code \"([^\"]*)\"$")
+    public void iViewDeviceWithGmdnCode(String gmdn) throws Throwable {
+        DeviceDO deviceDO = (DeviceDO) scenarioSession.getData(SessionKey.deviceData);
+        businessDevicesDetails = businessDevicesDetails.viewDeviceByGMDN(deviceDO.gmdnTermOrDefinition);
+    }
+
+    @Then("^I should see all the correct product and certificate details$")
+    public void i_should_see_all_the_correct_product_and_certificate_details() throws Throwable {
+        DeviceDO deviceDO = (DeviceDO) scenarioSession.getData(SessionKey.deviceData);
+        List<String> listOfCerts = (List<String>) scenarioSession.getData(SessionKey.listOfAllCertificatesAddedToApplication);
+        boolean isPageDisplayingCorrectCertificates = businessDevicesDetails.isCertificatesDisplayed(listOfCerts);
+        Assert.assertThat("Expected to see following certificates : "  + deviceDO.listOfCertificates , isPageDisplayingCorrectCertificates, is(true));
+        boolean isPageDisplayingCorrectProducts = businessDevicesDetails.isProductsDisplayed(deviceDO);
+        Assert.assertThat("Expected to see following products : "  + deviceDO.listOfProductName , isPageDisplayingCorrectProducts, is(true));
+    }
+
+    @Then("^I should see option to approve individual devices$")
+    public void iShouldSeeOptionToApproveIndividualDevices() throws Throwable {
+        businessDevicesDetails = businessManufacturerDetails.clickOnDeviceAndProductsTab();
+        businessDevicesDetails = businessDevicesDetails.selectADevices();
+        boolean isAbleToApproveIndividualDevices = businessDevicesDetails.isAbleToApproveIndividualDevices();
+        Assert.assertThat("Option to approve individual devices expected" , isAbleToApproveIndividualDevices, is(true));
+
+    }
+
+    @When("^I click on change decision$")
+    public void iClickOnChangeDecision() throws Throwable {
+        businessManufacturerDetails = businessManufacturerDetails.clickOnSummaryTab();
+        businessManufacturerDetails = businessManufacturerDetails.clickOnChangeDecisionButton();
+    }
+
+    @Then("^I should see information related to the approver$")
+    public void iShouldSeeInformationRelatedToTheApprover() throws Throwable {
+
     }
 }

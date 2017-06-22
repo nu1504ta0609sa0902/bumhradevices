@@ -703,18 +703,23 @@ public class TasksPageSteps extends CommonSteps {
         Assert.assertThat("Task should be assigned to someone called : " + assignedTo , isAssignedToCorrectUser, is(true));
     }
 
-    @Then("^I should see the correct cfs manufacturer details$")
-    public void iShouldSeeTheCorrectCfsManufacturerDetails() throws Throwable {
-        ManufacturerRequestDO manufacaturerData = (ManufacturerRequestDO) scenarioSession.getData(SessionKey.manufacturerData);
-        boolean isCorrect = businessManufacturerDetails.isManufacturerDetailCorrect(manufacaturerData);
-        Assert.assertThat("Expected manufacturer detail to cotains : "  + manufacaturerData.address1 , isCorrect, is(true));
-    }
+    @And("^I assign the AWIP page task to me and \"([^\"]*)\" without completing the application$")
+    public void iAssignTheAWIPPageTaskToMeAndWithoutCompletingTheApplication(String approveOrReject) throws Throwable {
+            //accept the taskSection and approve or reject it
+            businessManufacturerDetails = businessManufacturerDetails.assignAWIPTaskToMe();
+            businessManufacturerDetails = businessManufacturerDetails.confirmAWIPIAssignment(true);
 
-    @And("^I should see correct device details$")
-    public void iShouldSeeCorrectDeviceDetails() throws Throwable {
-        List<DeviceDO> listOfDeviceData = (List<DeviceDO>) scenarioSession.getData(SessionKey.listOfDevicesAdded);
-        businessDevicesDetails = businessManufacturerDetails.clickOnDeviceAndProductsTab();
-        boolean allDevicesFound = businessDevicesDetails.verifyAllTheDevicesAreDisplayedSimple(listOfDeviceData);
-        Assert.assertThat("Expected to see following devices : "  + listOfDeviceData , allDevicesFound, is(true));
-    }
+            //Approve or reject
+            String taskType = (String) scenarioSession.getData(SessionKey.taskType);
+            if (approveOrReject.equals("approve")) {
+                if(taskType!=null && taskType.contains("New Manufacturer")){
+                    businessManufacturerDetails = businessManufacturerDetails.approveAWIPManufacturerTask();
+                }
+            } else {
+                if(taskType!=null && taskType.contains("New Account")) {
+                    businessManufacturerDetails = businessManufacturerDetails.rejectAWIPNewAccountRegistration();
+                    businessManufacturerDetails = businessManufacturerDetails.enterRejectionReason("Account already exists", RandomDataUtils.getRandomTestName("Account already exists "));
+                }
+            }
+        }
 }

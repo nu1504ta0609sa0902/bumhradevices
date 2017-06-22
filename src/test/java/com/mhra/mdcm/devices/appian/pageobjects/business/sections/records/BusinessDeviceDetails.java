@@ -2,6 +2,8 @@ package com.mhra.mdcm.devices.appian.pageobjects.business.sections.records;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
+import com.mhra.mdcm.devices.appian.pageobjects.external.device.DeviceDetails;
+import com.mhra.mdcm.devices.appian.utils.selenium.page.CommonUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
@@ -68,6 +70,12 @@ public class BusinessDeviceDetails extends _Page {
     List<WebElement> listOfGMDNTermsAndCodes;
     @FindBy(xpath = ".//td[2]")
     List<WebElement> listOfDeviceTypes;
+    @FindBy(xpath = ".//button[contains(text(), 'Approve selected devices')]")
+    WebElement btnApproveSelectedDevices;
+    @FindBy(css = ".GridWidget---checkbox")
+    WebElement cbxSelectAllDevices;
+    @FindBy(css = "td.GridWidget---checkbox")
+    List<WebElement> listOfDeviceCheckbox;
 
 
     @Autowired
@@ -140,15 +148,16 @@ public class BusinessDeviceDetails extends _Page {
     }
 
     public boolean verifyAllTheDevicesAreDisplayedSimple(List<DeviceDO> listOfDeviceData) {
+        WaitUtils.waitForElementToBeClickable(driver, totalNumberOfDevices, TIMEOUT_10_SECOND);
         String pageSource = driver.getPageSource();
         boolean allDataCorrect = true;
-        for(DeviceDO dd: listOfDeviceData){
+        for (DeviceDO dd : listOfDeviceData) {
             allDataCorrect = pageSource.contains(dd.deviceName);
-            if(allDataCorrect){
+            if (allDataCorrect) {
                 allDataCorrect = pageSource.contains(dd.deviceType);
             }
 
-            if(!allDataCorrect){
+            if (!allDataCorrect) {
                 break;
             }
         }
@@ -161,5 +170,40 @@ public class BusinessDeviceDetails extends _Page {
 
         //Perform check for other details like GMDN terms and device types
         return isValid;
+    }
+
+    public BusinessDeviceDetails viewDeviceByGMDN(String gmdnTermOrDefinition) {
+        WebElement element = PageUtils.getElementMatchingText(listOfGMDNTermsAndCodes, gmdnTermOrDefinition);
+        element.click();
+        return new BusinessDeviceDetails(driver);
+    }
+
+    public boolean isCertificatesDisplayed(List<String> listOfCertificates) {
+        String pageSource = driver.getPageSource();
+        boolean isValid = PageUtils.isPageDisplayingCorrectData(listOfCertificates, pageSource);
+        return isValid;
+    }
+
+    public boolean isProductsDisplayed(DeviceDO deviceDO) {
+        List<String> listOfProductName = deviceDO.listOfProductName;
+        List<String> listOfModelName = deviceDO.listOfModelName;
+        String pageSource = driver.getPageSource();
+        boolean isValid = PageUtils.isPageDisplayingCorrectData(listOfProductName, pageSource);
+        if (isValid)
+            isValid = PageUtils.isPageDisplayingCorrectData(listOfModelName, pageSource);
+        return isValid;
+    }
+
+    public boolean isAbleToApproveIndividualDevices() {
+        WaitUtils.waitForElementToBeClickable(driver, btnApproveSelectedDevices, TIMEOUT_10_SECOND);
+        return btnApproveSelectedDevices.isEnabled() && btnApproveSelectedDevices.isDisplayed();
+    }
+
+    public BusinessDeviceDetails selectADevices() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD );
+        WaitUtils.waitForElementToBeClickable(driver, cbxSelectAllDevices, TIMEOUT_10_SECOND);
+        WebElement cbx = PageUtils.getRandomElementFromList(listOfDeviceCheckbox);
+        PageUtils.singleClick(driver, cbx);
+        return new BusinessDeviceDetails(driver);
     }
 }

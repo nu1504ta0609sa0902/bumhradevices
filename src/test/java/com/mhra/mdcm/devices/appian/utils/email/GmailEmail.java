@@ -105,6 +105,18 @@ public class GmailEmail {
                                     bodyText = body;
                                     break;
                                 }
+                            } else if (isRecent && subject.toLowerCase().contains("has been approved") && subject.toLowerCase().contains("application")) {
+                                log.warn("---------------------------------");
+                                log.warn("Recent email received : " + subject);
+                                log.warn("---------------------------------");
+                                String body = getTextFromMessage(message);
+                                //log.warn("Body Text : " + body);
+
+                                if (body.contains(organisationIdentifier)) {
+                                    log.info("Message RECEIVED");
+                                    bodyText = body;
+                                    break;
+                                }
                             }
                         } else {
                             //log.warn("Message is old or not relevant" );

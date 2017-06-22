@@ -2,7 +2,7 @@ Feature: Tasks will need to be generated for CFS application
   So that business users can verify, approve and reject them accordingly
 
   Scenario: Remove me
-    When I logout and log back into appian as "businessNoor" user
+    When I logout and log back into appian as "businessAuto" user
     And I search and view "ManufacturerRT01Test_20_6_877745" in AWIP page for the newly created manufacturer
     #Without approving
 #    Then I should see the option to "Assign to myself"
@@ -37,7 +37,7 @@ Feature: Tasks will need to be generated for CFS application
       | productModel   | FocusYeah                          |
     Then I should see correct device data in the review page
     And I submit the cfs application for approval
-    When I logout and log back into appian as "businessNoor" user
+    When I logout and log back into appian as "businessAuto" user
     And I search and view new task in AWIP page for the newly created manufacturer
     Then I should see the option to "Assign to myself"
     And I should not see any option related to approving reject and completing the application
@@ -62,7 +62,7 @@ Feature: Tasks will need to be generated for CFS application
       | productModel   | FocusYeah                          |
     Then I should see correct device data in the review page
     And I submit the cfs application for approval
-    When I logout and log back into appian as "businessNoor" user
+    When I logout and log back into appian as "businessAuto" user
     And I search and view new task in AWIP page for the newly created manufacturer
     And I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the newly created manufacturer
@@ -86,7 +86,7 @@ Feature: Tasks will need to be generated for CFS application
       | productModel   | FocusYeah                          |
     Then I should see correct device data in the review page
     And I submit the cfs application for approval
-    When I logout and log back into appian as "businessNoor" user
+    When I logout and log back into appian as "businessAuto" user
     And I search and view new task in AWIP page for the newly created manufacturer
     And I assign the task to another user called "<assignTo>"
     Then I search for task in AWIP page for the manufacturer

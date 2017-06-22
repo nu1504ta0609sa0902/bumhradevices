@@ -32,7 +32,6 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | notifiedBody         | NB 0086 BSI            |
     Then I should see correct device data in the review page
     And I submit the cfs application for approval
-    When I logout and log back into appian as "businessNoor" user
     When I logout and log back into appian as "businessAuto" user
     And I search and view new task in AWIP page for the newly created manufacturer
     And I assign the AWIP page task to me and "approve" the generated task
@@ -224,13 +223,13 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | relatedDeviceSterile | true                   |
       | notifiedBody         | NB 0086 BSI            |
     And I submit the cfs application for approval
-    When I logout and log back into appian as "businessNoor" user
+    When I logout and log back into appian as "businessAuto" user
     And I go to application WIP page
     Then Check the application reference number format is valid
 
   @1845 @1945 @_sprint18
   Scenario: Check application reference is correct format
-    Given I am logged into appian as "businessNoor" user
+    Given I am logged into appian as "businessAuto" user
     And I go to application WIP page
     Then Check the application reference number format is valid
 

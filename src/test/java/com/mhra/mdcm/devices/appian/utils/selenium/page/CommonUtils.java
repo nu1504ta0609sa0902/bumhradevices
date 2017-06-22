@@ -184,4 +184,5 @@ public class CommonUtils {
 
         return calculateTotalCost(String.valueOf(total));
     }
+
 }

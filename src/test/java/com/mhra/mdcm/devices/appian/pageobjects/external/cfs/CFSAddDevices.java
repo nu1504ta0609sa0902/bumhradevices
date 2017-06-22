@@ -245,8 +245,6 @@ public class CFSAddDevices extends _Page {
     List<WebElement> listOfDropDownFilters;
     @FindBy(xpath = ".//*[contains(text(), 'Devices')]/following::h2/a")
     List<WebElement> listOfDevicesAdded;
-    @FindBy(xpath = ".//*[contains(text(), 'Devices')]/following::button[text()='Delete Device']")
-    List<WebElement> listOfDeleteButtons;
     @FindBy(css = "input.DatePickerWidget---text")
     WebElement datePicker;
     @FindBy(xpath = ".//*[contains(text(),'reference number')]//following::input[1]")
@@ -255,6 +253,12 @@ public class CFSAddDevices extends _Page {
     WebElement headingProductsPage;
     @FindBy(xpath = ".//h3[contains(text(),'Upload CE')]")
     WebElement headingCECertificatesPage;
+
+    //Delete device or application
+    @FindBy(xpath = ".//*[contains(text(), 'Devices')]/following::button[text()='Delete Device']")
+    List<WebElement> listOfDeleteButtons;
+    @FindBy(xpath = ".//*[contains(text(), 'Devices')]/following::button[text()='Delete Application']")
+    WebElement deleteApplicationButtons;
 
 
     @Autowired
@@ -764,6 +768,7 @@ public class CFSAddDevices extends _Page {
 
     public boolean isReviewPageShowingCorrectNumberOfDevices(int size) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, deleteApplicationButtons, TIMEOUT_10_SECOND);
         boolean matched = listOfDevicesAdded.size() == size;
         if(!matched){
             log.info("Number of devices displayed : " + listOfDevicesAdded.size());

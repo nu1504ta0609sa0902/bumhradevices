@@ -18,7 +18,6 @@ public class EmailSteps extends CommonSteps {
 
     @And("^I should received an email for stored manufacturer with heading \"([^\"]*)\"$")
     public void iShouldReceivedAnEmailForStoredManufacturerWithHeading(String emailHeading) throws Throwable {
-        String org = (String) scenarioSession.getData(SessionKey.organisationName);
         String accountNameOrReference = (String) scenarioSession.getData(SessionKey.newApplicationReferenceNumber);
 
         boolean foundMessage = false;
@@ -39,7 +38,6 @@ public class EmailSteps extends CommonSteps {
         } while (!foundMessage && attempt < 30);
 
         Assert.assertThat("Message should not be empty : " + messageBody, messageBody!=null, Matchers.is(true));
-        Assert.assertThat("Organisation Name Expected : " + org, messageBody.contains(org), Matchers.is(true));
     }
 
     @And("^I should received an email for stored manufacturer with heading \"([^\"]*)\" and stored application identifier$")

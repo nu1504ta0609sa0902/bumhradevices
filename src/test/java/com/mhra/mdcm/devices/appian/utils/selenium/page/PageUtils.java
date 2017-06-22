@@ -668,4 +668,16 @@ public class PageUtils {
         }
         return isInvisible;
     }
+
+    public static boolean isPageDisplayingCorrectData(List<String> listOfStrings, String pageSource) {
+        boolean isValid = true;
+        for(String cert: listOfStrings){
+            isValid = pageSource.contains(cert);
+            if(!isValid){
+                System.out.println("Page not displaying expected data : " + cert);
+                break;
+            }
+        }
+        return isValid;
+    }
 }

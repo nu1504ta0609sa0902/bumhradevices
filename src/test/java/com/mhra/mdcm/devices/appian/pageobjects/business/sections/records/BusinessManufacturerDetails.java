@@ -2,10 +2,6 @@ package com.mhra.mdcm.devices.appian.pageobjects.business.sections.records;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
-import com.mhra.mdcm.devices.appian.pageobjects.business.TasksTabPage;
-import com.mhra.mdcm.devices.appian.pageobjects.business.sections.TaskSection;
-import com.mhra.mdcm.devices.appian.pageobjects.external._CreateCFSManufacturerTestHarnessPage;
-import com.mhra.mdcm.devices.appian.pageobjects.external.cfs.CFSManufacturerList;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.WebDriver;
@@ -87,7 +83,7 @@ public class BusinessManufacturerDetails extends _Page {
     WebElement btnRejectManufacturer;
     @FindBy(xpath = ".//button[contains(text(), 'Approve all devices')]")
     WebElement btnApproveAllDevices;
-    @FindBy(xpath = ".//button[contains(text(), 'Change decision')]")
+    @FindBy(xpath = ".//button[contains(text(), 'Change')]")
     WebElement btnChangeDecision;
     @FindBy(xpath = ".//button[contains(text(), 'Complete the application')]")
     WebElement btnCompleteTheApplication;
@@ -110,9 +106,11 @@ public class BusinessManufacturerDetails extends _Page {
     @FindBy(xpath = ".//*[contains(text(), 'Select user')]/following::input")
     WebElement tbxColleagueSearchBox;
 
-    //Device details
+    //Tabs summary, devices and products, history
     @FindBy(partialLinkText = "Devices & products")
-    WebElement devicesAndProductDetails;
+    WebElement tabDevicesAndProductDetails;
+    @FindBy(partialLinkText = "Summary")
+    WebElement tabSummary;
 
     //ORGANISATION DETAILS verify
     @FindBy(xpath = ".//span[.='Manufacturer name']//following::p[1]")
@@ -134,15 +132,15 @@ public class BusinessManufacturerDetails extends _Page {
             WaitUtils.waitForElementToBeClickable(driver, heading, TIMEOUT_10_SECOND);
             contains = heading.getText().contains(searchTerm);
         }catch (Exception e){
-            WaitUtils.waitForElementToBeClickable(driver, devicesAndProductDetails, TIMEOUT_3_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, tabDevicesAndProductDetails, TIMEOUT_3_SECOND);
             contains = subHeading.getText().contains(searchTerm);
         }
         return contains;
     }
 
     public BusinessDeviceDetails clickOnDevicesLink(String link) {
-        WaitUtils.waitForElementToBeClickable(driver, devicesAndProductDetails, TIMEOUT_5_SECOND);
-        devicesAndProductDetails.click();
+        WaitUtils.waitForElementToBeClickable(driver, tabDevicesAndProductDetails, TIMEOUT_5_SECOND);
+        tabDevicesAndProductDetails.click();
         return new BusinessDeviceDetails(driver);
     }
 
@@ -270,14 +268,18 @@ public class BusinessManufacturerDetails extends _Page {
     }
 
     public boolean isButtonVisibleWithText(String button, int timeout) {
-        if(button.contains("Assign to myself"))
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        button = button.toLowerCase();
+        if(button.contains("assign to myself"))
             return PageUtils.isElementClickable(driver, btnAssignToMe, timeout);
-        else if(button.contains("Assign to colleague"))
+        else if(button.contains("assign to colleague"))
             return PageUtils.isElementClickable(driver, btnAssignToColleague, timeout);
-        else if(button.contains("Approve manufacturer"))
+        else if(button.contains("approve manufacturer"))
             return PageUtils.isElementClickable(driver, btnApproveManufacturer, timeout);
-        else if(button.contains("Reject manufacturer"))
+        else if(button.contains("reject manufacturer"))
             return PageUtils.isElementClickable(driver, btnRejectManufacturer, timeout);
+        else if(button.contains("change decision"))
+            return PageUtils.isElementClickable(driver, btnChangeDecision, timeout);
 
         return true;
     }
@@ -332,9 +334,15 @@ public class BusinessManufacturerDetails extends _Page {
 
 
     public BusinessDeviceDetails clickOnDeviceAndProductsTab() {
-        WaitUtils.waitForElementToBeClickable(driver, devicesAndProductDetails, TIMEOUT_5_SECOND);
-        devicesAndProductDetails.click();
+        WaitUtils.waitForElementToBeClickable(driver, tabDevicesAndProductDetails, TIMEOUT_5_SECOND);
+        tabDevicesAndProductDetails.click();
         return new BusinessDeviceDetails(driver);
+    }
+
+    public BusinessManufacturerDetails clickOnSummaryTab() {
+        WaitUtils.waitForElementToBeClickable(driver, tabSummary, TIMEOUT_5_SECOND);
+        tabSummary.click();
+        return new BusinessManufacturerDetails(driver);
     }
 
 
@@ -361,6 +369,7 @@ public class BusinessManufacturerDetails extends _Page {
 
     public boolean isManufacturerDetailCorrect(ManufacturerRequestDO manufacaturerData) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, manName, TIMEOUT_10_SECOND);
         boolean isValid = manName.getText().contains(manufacaturerData.organisationName);
         if (isValid) {
             isValid = manAddressFull.getText().contains(manufacaturerData.address1);
@@ -382,4 +391,11 @@ public class BusinessManufacturerDetails extends _Page {
 
         return isValid;
     }
+
+    public BusinessManufacturerDetails clickOnChangeDecisionButton() {
+        WaitUtils.waitForElementToBeClickable(driver, btnChangeDecision, TIMEOUT_5_SECOND);
+        btnChangeDecision.click();
+        return new BusinessManufacturerDetails(driver);
+    }
+
 }
