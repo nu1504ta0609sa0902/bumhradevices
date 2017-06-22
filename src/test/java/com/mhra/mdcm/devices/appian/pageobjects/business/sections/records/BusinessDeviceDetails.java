@@ -61,6 +61,15 @@ public class BusinessDeviceDetails extends _Page {
 
     //Device information page fields In Vitro Diagnostic Devices
 
+    //CFS application details
+    @FindBy(xpath = ".//*[contains(text(), 'Number of devices')]")
+    WebElement totalNumberOfDevices;
+    @FindBy(xpath = ".//td[1]")
+    List<WebElement> listOfGMDNTermsAndCodes;
+    @FindBy(xpath = ".//td[2]")
+    List<WebElement> listOfDeviceTypes;
+
+
     @Autowired
     public BusinessDeviceDetails(WebDriver driver) {
         super(driver);
@@ -130,7 +139,7 @@ public class BusinessDeviceDetails extends _Page {
         return fieldsDisplayed;
     }
 
-    public boolean verifyAllTheDevicesAreDisplayed(List<DeviceDO> listOfDeviceData) {
+    public boolean verifyAllTheDevicesAreDisplayedSimple(List<DeviceDO> listOfDeviceData) {
         String pageSource = driver.getPageSource();
         boolean allDataCorrect = true;
         for(DeviceDO dd: listOfDeviceData){
@@ -144,5 +153,13 @@ public class BusinessDeviceDetails extends _Page {
             }
         }
         return allDataCorrect;
+    }
+
+    public boolean verifyAllTheDevicesAreDisplayed(List<DeviceDO> listOfDeviceData) {
+        String numberOfDevices = String.valueOf(listOfDeviceData.size());
+        boolean isValid = totalNumberOfDevices.getText().contains(numberOfDevices);
+
+        //Perform check for other details like GMDN terms and device types
+        return isValid;
     }
 }

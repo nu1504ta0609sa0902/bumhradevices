@@ -352,7 +352,7 @@ Automated Issues:
 
 
     Sprint 21: @_sprint21
-        - @5682 -   CFS @todo business user reject request for a device
+        - @5682 -   CFS @todo business user bulk reject request for a device
         - @1840 -
         - @5593 -   CFS @todo business user application view new devices
         - @1986 -   CFS @todo business user approve manufacturer or devices

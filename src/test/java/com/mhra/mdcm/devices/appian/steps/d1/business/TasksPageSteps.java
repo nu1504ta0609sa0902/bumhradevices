@@ -495,19 +495,19 @@ public class TasksPageSteps extends CommonSteps {
     @When("^I assign the AWIP page task to me and \"([^\"]*)\" the generated task$")
     public void i_assign_AWIP_task_and_accept_the_task_and_the_generated_task(String approveOrReject) throws Throwable {
         //accept the taskSection and approve or reject it
-        taskSection = taskSection.assignAWIPTaskToMe();
-        taskSection = taskSection.confirmAWIPIAssignment(true);
+        businessManufacturerDetails = businessManufacturerDetails.assignAWIPTaskToMe();
+        businessManufacturerDetails = businessManufacturerDetails.confirmAWIPIAssignment(true);
 
         //Approve or reject
         String taskType = (String) scenarioSession.getData(SessionKey.taskType);
         if (approveOrReject.equals("approve")) {
             if(taskType!=null && taskType.contains("New Account")) {
-                taskSection = taskSection.approveAWIPTaskNewAccount();
-                taskSection = taskSection.confirmAWIPIAssignment(true);
+                businessManufacturerDetails = businessManufacturerDetails.approveAWIPTaskNewAccount();
+                businessManufacturerDetails = businessManufacturerDetails.confirmAWIPIAssignment(true);
             }else if(taskType!=null && taskType.contains("New Manufacturer")){
-                taskSection = taskSection.approveAWIPManufacturerTask();
-                taskSection = taskSection.approveAWIPAllDevices();
-                taskSection = taskSection.completeTheApplication();
+                businessManufacturerDetails = businessManufacturerDetails.approveAWIPManufacturerTask();
+                businessManufacturerDetails = businessManufacturerDetails.approveAWIPAllDevices();
+                businessManufacturerDetails = businessManufacturerDetails.completeTheApplication();
             }else if(taskType!=null && taskType.contains("Update Manufacturer Registration Request")){
                 tasksPage = taskSection.approveTask();
             }else{
@@ -516,8 +516,8 @@ public class TasksPageSteps extends CommonSteps {
             }
         } else {
             if(taskType!=null && taskType.contains("New Account")) {
-                tasksPage = taskSection.rejectAWIPNewAccountRegistration();
-                tasksPage = taskSection.enterRejectionReason("Account already exists", RandomDataUtils.getRandomTestName("Account already exists "));
+                businessManufacturerDetails = businessManufacturerDetails.rejectAWIPNewAccountRegistration();
+                businessManufacturerDetails = businessManufacturerDetails.enterRejectionReason("Account already exists", RandomDataUtils.getRandomTestName("Account already exists "));
             }else {
                 //Rejection process is slightly different, you need to enter a rejection reason
                 taskSection = taskSection.rejectTask();
@@ -529,23 +529,23 @@ public class TasksPageSteps extends CommonSteps {
     @When("^I assign the generated AWIP page task to me$")
     public void i_assign_AWIP_task_to_me() throws Throwable {
         //accept the taskSection and approve or reject it
-        taskSection = taskSection.assignAWIPTaskToMe();
-        taskSection = taskSection.confirmAWIPIAssignment(true);
+        businessManufacturerDetails = businessManufacturerDetails.assignAWIPTaskToMe();
+        businessManufacturerDetails = businessManufacturerDetails.confirmAWIPIAssignment(true);
     }
 
 
     @When("^I assign the AWIP page task to me and \"([^\"]*)\" with following \"([^\"]*)\"$")
     public void i_assign_AWIP_task_and_accept_the_task_and_the_generated_task(String reject, String reason) throws Throwable {
         //accept the taskSection and approve or reject it
-        taskSection = taskSection.assignAWIPTaskToMe();
-        taskSection = taskSection.confirmAWIPIAssignment(true);
+        businessManufacturerDetails = businessManufacturerDetails.assignAWIPTaskToMe();
+        businessManufacturerDetails = businessManufacturerDetails.confirmAWIPIAssignment(true);
 
         //Reject with reason
         if (reject.equals("reject")) {
             String taskType = (String) scenarioSession.getData(SessionKey.taskType);
             if(taskType!=null && taskType.contains("New Account")) {
-                tasksPage = taskSection.rejectAWIPNewAccountRegistration();
-                tasksPage = taskSection.enterRejectionReason(reason, RandomDataUtils.getRandomTestName(reason));
+                businessManufacturerDetails = businessManufacturerDetails.rejectAWIPNewAccountRegistration();
+                businessManufacturerDetails = businessManufacturerDetails.enterRejectionReason(reason, RandomDataUtils.getRandomTestName(reason));
             }else {
                 //Rejection process is slightly different, you need to enter a rejection reason
                 taskSection = taskSection.rejectTask();
@@ -579,7 +579,7 @@ public class TasksPageSteps extends CommonSteps {
         taskSection = tasksPage.gotoApplicationWIPPage();
         taskSection = taskSection.searchAWIPPageForAccount(accountNameOrReference);
         boolean isCompleted = taskSection.isSearchingCompleted();
-        taskSection = taskSection.viewAccountByReferenceNumber(accountNameOrReference);
+        businessManufacturerDetails = taskSection.viewAccountByReferenceNumber(accountNameOrReference);
     }
 
     @Then("^I search and view new task in AWIP page for the newly created manufacturer$")
@@ -597,7 +597,7 @@ public class TasksPageSteps extends CommonSteps {
         //get the reference number
         String reference = taskSection.getTheApplicationReferenceNumber();
         scenarioSession.putData(SessionKey.newApplicationReferenceNumber, reference);
-        taskSection = taskSection.clickOnReferenceNumberReturnedBySearchResult(1);
+        businessManufacturerDetails = taskSection.clickOnReferenceNumberReturnedBySearchResult(1);
     }
 
 
@@ -609,7 +609,7 @@ public class TasksPageSteps extends CommonSteps {
         taskSection = taskSection.searchAWIPPageForAccount(orgName);
         boolean isSearchCompleted = taskSection.isSearchingCompleted();
 
-        taskSection = taskSection.clickOnReferenceNumberReturnedBySearchResult(1);
+        businessManufacturerDetails = taskSection.clickOnReferenceNumberReturnedBySearchResult(1);
         scenarioSession.putData(SessionKey.organisationName, orgName);
     }
 
@@ -667,15 +667,15 @@ public class TasksPageSteps extends CommonSteps {
 
     @Then("^I should see the option to \"([^\"]*)\"$")
     public void i_should_see_the_option_to(String button) throws Throwable {
-        boolean isVisible = taskSection.isButtonVisibleWithText(button, 5);
+        boolean isVisible = businessManufacturerDetails.isButtonVisibleWithText(button, 5);
         Assert.assertThat("Expected following button : " + button, isVisible, is(true));
 
     }
 
     @Then("^I should not see any option related to approving reject and completing the application$")
     public void i_should_not_see_any_option_related_to_approving_reject_and_completing_the_application() throws Throwable {
-        boolean isApproveManufacturerInVisible = taskSection.isButtonVisibleWithText("Approve manufacturer", 2);
-        boolean isRejectManufacturerINVisible = taskSection.isButtonVisibleWithText("Reject manufacturer", 2);
+        boolean isApproveManufacturerInVisible = businessManufacturerDetails.isButtonVisibleWithText("Approve manufacturer", 2);
+        boolean isRejectManufacturerINVisible = businessManufacturerDetails.isButtonVisibleWithText("Reject manufacturer", 2);
         Assert.assertThat("This button should not be displayed: Approve manufacturer" , isApproveManufacturerInVisible, is(false));
         Assert.assertThat("This button should not be displayed: Reject manufacturer" , isRejectManufacturerINVisible, is(false));
     }
@@ -684,11 +684,11 @@ public class TasksPageSteps extends CommonSteps {
 
     @And("^I assign the task to another user called \"([^\"]*)\"$")
     public void iAssignTheTaskToAnotherUserCalled(String assignTo) throws Throwable {
-        taskSection = taskSection.assignAWIPTaskToColleague();
+        businessManufacturerDetails = businessManufacturerDetails.assignAWIPTaskToColleague();
         if(assignTo.contains("Nobody")){
-            taskSection = taskSection.assigntToNobody();
+            businessManufacturerDetails = businessManufacturerDetails.assigntToNobody();
         }else{
-            taskSection = taskSection.assignToColleague(assignTo);
+            businessManufacturerDetails = businessManufacturerDetails.assignToColleague(assignTo);
         }
         scenarioSession.putData(SessionKey.taskAssignedTo, assignTo);
     }
@@ -706,15 +706,15 @@ public class TasksPageSteps extends CommonSteps {
     @Then("^I should see the correct cfs manufacturer details$")
     public void iShouldSeeTheCorrectCfsManufacturerDetails() throws Throwable {
         ManufacturerRequestDO manufacaturerData = (ManufacturerRequestDO) scenarioSession.getData(SessionKey.manufacturerData);
-        boolean isCorrect = taskSection.isManufacturerDetailCorrect(manufacaturerData);
+        boolean isCorrect = businessManufacturerDetails.isManufacturerDetailCorrect(manufacaturerData);
         Assert.assertThat("Expected manufacturer detail to cotains : "  + manufacaturerData.address1 , isCorrect, is(true));
     }
 
     @And("^I should see correct device details$")
     public void iShouldSeeCorrectDeviceDetails() throws Throwable {
         List<DeviceDO> listOfDeviceData = (List<DeviceDO>) scenarioSession.getData(SessionKey.listOfDevicesAdded);
-        businessDevicesDetails = taskSection.clickOnDeviceAndProductsTab();
-        boolean allDevicesFound = businessDevicesDetails.verifyAllTheDevicesAreDisplayed(listOfDeviceData);
+        businessDevicesDetails = businessManufacturerDetails.clickOnDeviceAndProductsTab();
+        boolean allDevicesFound = businessDevicesDetails.verifyAllTheDevicesAreDisplayedSimple(listOfDeviceData);
         Assert.assertThat("Expected to see following devices : "  + listOfDeviceData , allDevicesFound, is(true));
     }
 }
