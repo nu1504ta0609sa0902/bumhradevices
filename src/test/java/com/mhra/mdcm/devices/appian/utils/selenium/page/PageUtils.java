@@ -205,7 +205,7 @@ public class PageUtils {
         WaitUtils.nativeWaitInSeconds(1);
         WaitUtils.waitForElementToBeClickable(driver, element, timeOut);
         element.clear();
-        element.sendKeys(RandomDataUtils.generateTestNameStartingWith(value, 0));
+        element.sendKeys(RandomDataUtils.getRandomTestNameStartingWith(value, 0));
     }
 
     public static boolean isDisplayed(WebDriver driver, WebElement manufacturerDropDown, int timeOut) {

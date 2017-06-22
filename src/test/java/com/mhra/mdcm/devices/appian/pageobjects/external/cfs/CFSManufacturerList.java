@@ -48,6 +48,11 @@ public class CFSManufacturerList extends _Page {
     @FindBy(xpath = ".//*[contains(text(), 'What products')]//following::label[2]")
     WebElement rbtExportsOtherProducts;
 
+    //CFS manufacturer search and filter
+    @FindBy(xpath = ".//*[contains(text(), 'Search by manufacturer name')]//following::input")
+    WebElement tbxSearchTerm;
+
+
     //Buttons
     @FindBy(xpath = ".//button[contains(text(), 'Submit')]")
     WebElement btnSubmit;
@@ -55,6 +60,8 @@ public class CFSManufacturerList extends _Page {
     WebElement btnAddNewManufacturer;
     @FindBy(xpath = ".//button[.='Continue']")
     WebElement btnContinue;
+    @FindBy(xpath = ".//button[.='Search']")
+    WebElement btnSearch;
 
     @Autowired
     public CFSManufacturerList(WebDriver driver) {
@@ -111,6 +118,7 @@ public class CFSManufacturerList extends _Page {
     }
 
     public String getARandomOrganisationName() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WebElement element = PageUtils.getRandomElementFromList(listOfOrganisationNames);
         String name = element.getText();
         return name;
@@ -148,5 +156,12 @@ public class CFSManufacturerList extends _Page {
             btnContinue.click();
         }catch (Exception e){}
         return new CFSAddDevices(driver);
+    }
+
+    public CFSManufacturerList searchForManufacturer(String searchTerm) {
+        WaitUtils.waitForElementToBeClickable(driver, tbxSearchTerm, TIMEOUT_5_SECOND);
+        tbxSearchTerm.sendKeys(searchTerm);
+        btnSearch.click();
+        return new CFSManufacturerList(driver);
     }
 }

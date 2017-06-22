@@ -89,6 +89,20 @@ public class DeviceDetails extends _Page {
     @FindBy(partialLinkText = "Edit country and")
     WebElement linkEditCountryAndCertificates;
 
+    //Payment methods
+    @FindBy(xpath = ".//label[contains(text(),'Worldpay')]")
+    WebElement paymentWorldPay;
+    @FindBy(xpath = ".//label[contains(text(),'BACS')]")
+    WebElement paymentBACS;
+    @FindBy(xpath = ".//button[contains(text(),'Complete application')]")
+    WebElement btnCompleteApplication;
+    @FindBy(xpath = ".//div[@role='listbox']")
+    WebElement ddAddressBox;
+    @FindBy(css = ".FileUploadWidget---ui-inaccessible")
+    WebElement fileUpload;
+    @FindBy(xpath = ".//h2[contains(text(), 'Confirmation')]/following::p[1]")
+    WebElement txtApplicationReference;
+
     //Buttons
     @FindBy(xpath = ".//button[contains(text(), 'Order CFS')]")
     WebElement btnOrderCFS;
@@ -176,7 +190,7 @@ public class DeviceDetails extends _Page {
 
     public DeviceDetails clickOrderCFSButton() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, btnOrderCFS, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, btnOrderCFS, TIMEOUT_15_SECOND);
         btnOrderCFS.click();
         return new DeviceDetails(driver);
     }
@@ -398,5 +412,30 @@ public class DeviceDetails extends _Page {
         List<String> listOfOptions = PageUtils.getListOfElementsForDropDown(listOfGMDNTerms);
         PageUtils.selectFromDropDown(driver, listOfDropDownFilters.get(0), listOfOptions.get(0), false);
         return new DeviceDetails(driver);
+    }
+
+    public DeviceDetails enterPaymentDetails(String paymentMethod) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, ddAddressBox, TIMEOUT_15_SECOND);
+
+        //Select billing address:
+        PageUtils.selectFromDropDown(driver, ddAddressBox , "Registered Address", false);
+
+        if(paymentMethod.toLowerCase().contains("world")){
+            paymentWorldPay.click();
+        }else if(paymentMethod.toLowerCase().contains("bacs")){
+            paymentBACS.click();
+            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+            PageUtils.uploadDocument(fileUpload, "CompletionOfTransfer1.pdf", 1, 3);
+        }
+
+        //Complete the application
+        btnCompleteApplication.click();
+        return new DeviceDetails(driver);
+    }
+
+    public String getApplicationReferenceNumber() {
+        WaitUtils.waitForElementToBeClickable(driver, txtApplicationReference, TIMEOUT_10_SECOND);
+        return txtApplicationReference.getText().split(":")[1];
     }
 }

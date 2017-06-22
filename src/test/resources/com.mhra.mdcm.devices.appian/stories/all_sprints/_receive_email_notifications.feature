@@ -24,10 +24,6 @@ Feature: As a customer I want to receive email notifications when ever a account
     When I create a new account using business test harness page with following data
       | accountType | <accountType> |
       | countryName | <countryName> |
-#    Then I should see a new task for the new account
-#    When I assign the task to me and reject the task for following reason "<reason>"
-#    Then The task with link "<link>" should be removed from tasks list
-#    And The completed task status of new account should update to "Completed"
     Then I search and view new task in AWIP page for the new account
     When I assign the AWIP page task to me and "reject" with following "<reason>"
     Then The task status in AWIP page should be "Completed" for the new account
@@ -74,10 +70,6 @@ Feature: As a customer I want to receive email notifications when ever a account
       | customMade     | true                   |
     And Proceed to payment and confirm submit device details
     When I logout and log back into appian as "<logBackInAs>" user
-#    And I view new task with link "New Manufacturer Registration Request" for the new account
-#    When I assign the task to me and reject the task for following reason "<reason>"
-#    Then The task should be removed from tasks list
-#    And The completed task status should update to "Completed"
     Then I search and view new task in AWIP page for the new account
     When I assign the AWIP page task to me and "reject" with following "<reason>"
     Then The task status in AWIP page should be "Completed" for the new account
@@ -102,7 +94,6 @@ Feature: As a customer I want to receive email notifications when ever a account
     And I should received an email with password for new account with heading "account creation" and stored username
     When I logout and logback in with newly created account and update the password to "MHRA12345A"
 #    Log back in as manufacturer/authorisedRep
-    #When I logout and log back into appian as "<logBackInAas>" user
     And I go to list of manufacturers page
     And Provide indication of devices made
     And I click on register new manufacturer

@@ -80,7 +80,7 @@ public class RandomDataUtils {
         return test + "_" + cal.get(Calendar.DAY_OF_MONTH) + "_" + (cal.get(Calendar.MONTH)+1) + "_" + getRandomNumberBetween(100, 1000000);
     }
 
-    public static String generateTestNameStartingWith(String test, int lengthOfString) {
+    public static String getRandomTestNameStartingWith(String test, int lengthOfString) {
         String SALTCHARS = "abcdefghijklmnopqrstuvwxyz";
         StringBuilder sb = new StringBuilder();
         Random rnd = new Random();

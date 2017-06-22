@@ -79,7 +79,7 @@ public class ManufacturerRequestDO {
         organisationName = RandomDataUtils.getRandomTestName("OrganisationTest");//.replace("_", "");
 
         //Organisation Details
-        address1 = RandomDataUtils.getRandomNumberBetween(1, 200) + " " + RandomDataUtils.generateTestNameStartingWith("Test", 5) + " GrowLand Avenue";
+        address1 = RandomDataUtils.getRandomNumberBetween(1, 200) + " " + RandomDataUtils.getRandomTestNameStartingWith("Test", 5) + " GrowLand Avenue";
         if (address1.equals("")) {
             address1 = "111 This is weired St";
         }
@@ -93,8 +93,8 @@ public class ManufacturerRequestDO {
 
         //Contact Person Details
         title = getRandomTitle();
-        firstName = RandomDataUtils.generateTestNameStartingWith("Noor", 2);
-        lastName = RandomDataUtils.generateTestNameStartingWith("Uddin", 2);
+        firstName = RandomDataUtils.getRandomTestNameStartingWith("Noor", 2);
+        lastName = RandomDataUtils.getRandomTestNameStartingWith("Uddin", 2);
 
         //Get real first name and last name
 
@@ -103,7 +103,7 @@ public class ManufacturerRequestDO {
         email = "mhra.uat@gmail.com";
 
         isManufacturer = true;
-        description = RandomDataUtils.generateTestNameStartingWith("Test Description of Document", 0);
+        description = RandomDataUtils.getRandomTestNameStartingWith("Test Description of Document", 0);
     }
 
     private String getRandomTitle() {

@@ -84,7 +84,7 @@ public class AccountRequestDO {
         organisationName = RandomDataUtils.getRandomTestName("OrganisationTest");//.replace("_", "");
 
         //Organisation Details
-        address1 = RandomDataUtils.getRandomNumberBetween(1, 200) + " " + RandomDataUtils.generateTestNameStartingWith("Test", 5) + " GrowLand Avenue";
+        address1 = RandomDataUtils.getRandomNumberBetween(1, 200) + " " + RandomDataUtils.getRandomTestNameStartingWith("Test", 5) + " GrowLand Avenue";
         if(address1.equals("")){
             address1 = "111 This is weired St";
         }
@@ -104,8 +104,8 @@ public class AccountRequestDO {
 
         //Contact Person Details
         title = getRandomTitle();
-        firstName = RandomDataUtils.generateTestNameStartingWith("Noor", 2); //RandomDataUtils.getRandomTestName("Noor").replace("_", "");
-        lastName = RandomDataUtils.generateTestNameStartingWith("Uddin", 2); //RandomDataUtils.getRandomTestName("Uddin").replace("_", "");
+        firstName = RandomDataUtils.getRandomTestNameStartingWith("Noor", 2); //RandomDataUtils.getRandomTestName("Noor").replace("_", "");
+        lastName = RandomDataUtils.getRandomTestNameStartingWith("Uddin", 2); //RandomDataUtils.getRandomTestName("Uddin").replace("_", "");
 
         //Get real first name and last name
 

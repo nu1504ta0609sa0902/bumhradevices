@@ -6,6 +6,7 @@ import com.mhra.mdcm.devices.appian.pageobjects.external.cfs.CFSAddDevices;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.AddDevices;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
+import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.*;
 import cucumber.api.PendingException;
@@ -31,6 +32,12 @@ public class CFSSteps extends CommonSteps {
 
         createNewCFSManufacturer = cfsManufacturerList.addNewManufacturer();
         ManufacturerRequestDO newAccount = TestHarnessUtils.updateManufacturerDefaultsWithData(dataSets, scenarioSession);
+
+        //Setup data : Real address required NOW
+        newAccount.lastName = RandomDataUtils.getRandomTestNameStartingWith(newAccount.lastName, 5);
+        newAccount.address1 = "46 Drayton Gardens";
+        newAccount.townCity = "London";
+
         log.info("New Manufacturer Account Requested With Following Data : \n" + newAccount);
 
         //Create new manufacturer data
@@ -231,8 +238,12 @@ public class CFSSteps extends CommonSteps {
     @When("^I submit payment for the CFS$")
     public void i_submit_payment_for_the_CFS() throws Throwable {
         deviceDetails = deviceDetails.continueToPaymentAfterReviewFinished();
-        deviceDetails = deviceDetails.submitPayment();
+        deviceDetails = deviceDetails.enterPaymentDetails("BACS");
+        String reference = deviceDetails.getApplicationReferenceNumber();
+        log.info("New Applicaiton reference number : " + reference);
+
         deviceDetails = deviceDetails.finishPayment();
+        scenarioSession.putData(SessionKey.newApplicationReferenceNumber, reference);
     }
 
     @When("^I add devices to NEWLY created CFS manufacturer with following data$")
@@ -413,5 +424,12 @@ public class CFSSteps extends CommonSteps {
         List<String> certs = (List<String>) scenarioSession.getData(SessionKey.listOfAllCertificatesAddedToApplication);
         boolean isCertsVisible = cfsAddDevices.isCECertificateCorrect(certs);
         Assert.assertThat("Expected to see following certificates : " + certs, isCertsVisible, is(true));
+    }
+
+    @When("^I search for registered manufacturer \"([^\"]*)\"$")
+    public void iSearchForRegisteredManufacturer(String searchTerm) throws Throwable {
+        if(searchTerm == null || searchTerm.equals(""))
+            searchTerm = (String) scenarioSession.getData(SessionKey.organisationName);
+        cfsManufacturerList = cfsManufacturerList.searchForManufacturer(searchTerm);
     }
 }
