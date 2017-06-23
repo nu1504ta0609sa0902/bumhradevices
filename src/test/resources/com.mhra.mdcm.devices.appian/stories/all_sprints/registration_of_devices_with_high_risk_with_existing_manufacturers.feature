@@ -2,7 +2,7 @@ Feature: As an account holder, I want to register manufacturers and declare high
   and declare the specific products being manufactured
   so that they can place the device for sale on the EU market
 
-  @regression @mdcm-183 @mdcm-21 @_sprint3 @_sprint5 @2049 @_sprint8
+  @regression @mdcm-183 @2259 @mdcm-21 @2323 @_sprint3 @_sprint5 @2049 @_sprint8
   Scenario Outline: Register device with SINGLE product for IVD devices
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -27,7 +27,7 @@ Feature: As an account holder, I want to register manufacturers and declare high
       | manufacturerAuto  | In Vitro Diagnostic Device | Androgen receptor IVD | self-test          | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
 
-  @regression @mdcm-183 @_sprint3 @mdcm-148 @_sprint7
+  @regression @mdcm-183 @2259 @_sprint3 @mdcm-148 @2284 @_sprint7
   Scenario Outline: Register device with SINGLE product for Active Implantable Device
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -91,7 +91,7 @@ Feature: As an account holder, I want to register manufacturers and declare high
       | manufacturerAuto  | Active Implantable Device | Desiccating chamber | false      | NB 0086 BSI  | You cannot register non custom made active implantable device with the MHRA |
 
 
-  @regression @mdcm-183 @_sprint3 @mdcm-148 @_sprint7 @2049 @_sprint8
+  @regression @mdcm-183 @2259 @_sprint3 @mdcm-148 @2284 @_sprint7 @2049 @_sprint8
   Scenario Outline: Register device with MULTIPLE products and devices for IVD devices type
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -127,7 +127,7 @@ Feature: As an account holder, I want to register manufacturers and declare high
       | manufacturerAuto  | In Vitro Diagnostic Device | Androgen receptor IVD | Cat             | self-test          | ferrari,peugeot    | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
 
-  @regression @mdcm-183 @mdcm-240 @_sprint3 @_sprint4 @3777 @2184 @_sprint9 @mdcm-148 @2910 @_sprint7
+  @regression @mdcm-183 @2259 @mdcm-240 @2216 @_sprint3 @_sprint4 @3777 @2184 @_sprint9 @mdcm-148 @2284 @2910 @_sprint7
   Scenario Outline: Register a device with MULTIPLE product and devices for Active Implantable Device type
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -161,7 +161,7 @@ Feature: As an account holder, I want to register manufacturers and declare high
 
 
 
-  @regression @mdcm-489 @_sprint5 @mdcm-148 @_sprint7 @3755 @_sprint11 @2910 @_sprint7
+  @regression @mdcm-489 @2027 @_sprint5 @mdcm-148 @2284 @_sprint7 @3755 @_sprint11 @2910 @_sprint7
   Scenario Outline: Verify product details after adding IVD products
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page

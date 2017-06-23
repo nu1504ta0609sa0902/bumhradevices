@@ -27,7 +27,7 @@ Feature: Aa a user I would like to verify features which are not related to devi
       | authorisedRepAuto | ZZZ        | No results found |
 
 
-  @regression @mdcm-465 @mdcm-164 @readonly @_sprint5 @_sprint6
+  @regression @mdcm-465 @mdcm-164 @2274 @readonly @_sprint5 @_sprint6
   Scenario Outline: Verify no EU countries are displayed to authorisedReps
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page

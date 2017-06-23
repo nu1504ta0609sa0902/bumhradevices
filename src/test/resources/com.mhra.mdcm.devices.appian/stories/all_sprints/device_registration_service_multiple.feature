@@ -55,7 +55,7 @@ Feature: As a customer I want to be able to enter more than one device at the po
       | manufacturerAuto  | manufacturer | Brazil      | businessAuto | Blood weighing scale | Blood   | Sinus   | Recept  |
       | authorisedRepAuto | manufacturer | Bangladesh  | businessAuto | Blood weighing scale | Blood   | Sinus   | Recept  |
 
-  @regression @mdcm-143 @_sprint1 @isReadyForRT @mdcm-134 @_sprint6
+  @regression @mdcm-143 @2283 @_sprint1 @isReadyForRT @mdcm-134 @2290 @_sprint6
   Scenario Outline: Users should be able to add all 4 device type to EXISTING organisations
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page

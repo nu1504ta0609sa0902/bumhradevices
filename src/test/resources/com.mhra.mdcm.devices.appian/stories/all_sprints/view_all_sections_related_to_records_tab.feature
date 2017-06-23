@@ -1,7 +1,7 @@
 Feature: As a business user, I want to navigate to different sections like Accounts and organisations
   so that I can quickly confirm if they are known to the MHRA and retrieve key contact information
 
-  @regression @mdcm-23 @mdcm-126 @2797 @mdcm-626 @readonly @_sprint1 @_sprint6 @_sprint7
+  @regression @mdcm-23 @2321 @mdcm-126 @2292 @2797 @mdcm-626 @1928 @readonly @_sprint1 @_sprint6 @_sprint7
   Scenario Outline: As a business user I should be able to view all sections in records page and verify details
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
@@ -26,7 +26,7 @@ Feature: As a business user, I want to navigate to different sections like Accou
       | businessAuto | Task,Name,Role,Submitted,Status,Documents |
 
 
-  @regression @mdcm-23 @mdcm-126 @readonly @_sprint1 @_sprint6
+  @regression @mdcm-23 @2321 @mdcm-126 @2292 @readonly @_sprint1 @_sprint6
   Scenario Outline: As a business user I should be able to view all organisation page
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
@@ -38,7 +38,7 @@ Feature: As a business user, I want to navigate to different sections like Accou
       | businessAuto | Organisations | Organisations | Name,Role,Contact name,Address,Country,Status |
 
 
-  @regression @mdcm-126 @mdcm-23 @readonly @_sprint1 @_sprint6
+  @regression @mdcm-126 @2292 @mdcm-23 @2321 @readonly @_sprint1 @_sprint6
   Scenario Outline: By default list of accounts should be displayed in a to z order
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
@@ -50,7 +50,7 @@ Feature: As a business user, I want to navigate to different sections like Accou
       | businessAuto | Accounts      | Accounts      |
 
 
-  @regression @mdcm-126 @mdcm-23 @1937 @3837 @3895 @_sprint10 @readonly @_sprint1 @_sprint6
+  @regression @mdcm-126 @2292 @mdcm-23 @2321 @1937 @3837 @3895 @_sprint10 @readonly @_sprint1 @_sprint6
   Scenario Outline: Business users should be able to filter search and sort by headings
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
@@ -71,7 +71,7 @@ Feature: As a business user, I want to navigate to different sections like Accou
       | businessAuto | Registered Products | Registered Products | Device type       | In Vitro           | Active Implantable | Manufacturer              | RT01       | Device Type |
 
 
-  @mdcm-23 @readonly @_sprint6 @3837 @_sprint10
+  @mdcm-23 @2321 @readonly @_sprint6 @3837 @_sprint10
   Scenario Outline: As a business user I should be able to search and filter for an existing organisation
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
@@ -83,7 +83,7 @@ Feature: As a business user, I want to navigate to different sections like Accou
       | businessAuto | Organisations | non existing | 0     |
 
 
-  @mdcm-2797 @readonly @mdcm-626 @3895 @_sprint7 @_sprint10
+  @mdcm-2797 @readonly @mdcm-626 @1928 @3895 @_sprint7 @_sprint10
   Scenario Outline: As a business user I should be able to view accounts, devices, all organisations and products page
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
@@ -96,7 +96,7 @@ Feature: As a business user, I want to navigate to different sections like Accou
       | businessAuto | GMDN Devices        | GMDN Devices        |
 
 
-  @mdcm-23 @2797 @mdcm-626 @readonly @3895 @_sprint6 @_sprint7 @_sprint10
+  @mdcm-23 @2321 @2797 @mdcm-626 @1928 @readonly @3895 @_sprint6 @_sprint7 @_sprint10
   Scenario Outline: As a business user I should be able to RANDOMLY search for an existing organisation products and accounts
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<page>"
@@ -108,7 +108,7 @@ Feature: As a business user, I want to navigate to different sections like Accou
       | businessAuto | GMDN Devices        | 1     |
       | businessAuto | Registered Products | 1     |
 
-  @2797 @mdcm-626 @readonly @_sprint7
+  @2797 @mdcm-626 @1928 @readonly @_sprint7
   Scenario Outline: As a business user I should be able to perform SPECIFIC search for an existing organisation products devices and accounts
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<page>"
@@ -154,7 +154,7 @@ Feature: As a business user, I want to navigate to different sections like Accou
       | businessAuto | Registered Products | ManufacturerRT  | 1     |
 
 
-  @2797 @mdcm-626 @readonly @3894 @_sprint10 @_sprint7
+  @2797 @mdcm-626 @1928 @readonly @3894 @_sprint10 @_sprint7
   Scenario Outline: As a business user I should be able to view all manufacturers who are using a gmdn code or gmdn term
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<pageHeading>"

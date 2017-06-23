@@ -14,16 +14,16 @@ Automated Issues:
 
     STORIES:
     Sprint 1: @_sprint1
-        - @mdcm-10  -   6/7       DONE
-        - @mdcm-126 -   7/9       DONE
+        - @mdcm-10  -   6/7       DONE  @2327
+        - @mdcm-126 -   7/9       DONE  @2292
         - @mdcm-143 -   20/21     DONE
                 Total   33/37
 
     Sprint 2: @_sprint2
-        - @mdcm-41  -   8/9       DONE
-        - @mdcm-175 -   11/14     DONE
-        - @mdcm-178 -   30/35     DONE
-        - @mdcm-186 -   2/13      DONE
+        - @mdcm-41  -   8/9       DONE   @2311
+        - @mdcm-175 -   11/14     DONE   @2265
+        - @mdcm-178 -   30/35     DONE   @2263
+        - @mdcm-186 -   2/13      DONE   @2258
         - @mdcm-187 -   no tests for regression
         - @mdcm-157 -   no tests for regression
         - @mdcm-174 -   no tests for regression
@@ -31,48 +31,48 @@ Automated Issues:
                 Total   51/71
 
     Sprint 3: @_sprint3
-        - @mdcm-149 -   6/6       DONE
-        - @mdcm-14  -   15/15     DONE
-        - @mdcm-183 -   7/7       DONE
-        - @mdcm-292 -   1/1       DONE ish
-        - @mdcm-15  -   13/23     DONE ish
+        - @mdcm-149 -   6/6       DONE       @2283
+        - @mdcm-14  -   15/15     DONE       @2325
+        - @mdcm-183 -   7/7       DONE       @2259
+        - @mdcm-292 -   1/1       DONE ish   @2177
+        - @mdcm-15  -   13/23     DONE ish   @2324
         - @mdcm-237 -   no tests for regression
         - @mdcm-238 -   no tests for regression
                 Total   42/52
 
     Spring 4: @_sprint4
         - @mdcm-13  -   3/8       DONE
-        - @mdcm-240 -   11/17     DONE
-        - @mdcm-161 -   7/10      DONE
-        - @mdcm-232 -   6/10      DONE
-        - @mdcm-261 -   3/4       DONE
+        - @mdcm-240 -   11/17     DONE   @2216
+        - @mdcm-161 -   7/10      DONE   @2276
+        - @mdcm-232 -   6/10      DONE   @2221
+        - @mdcm-261 -   3/4       DONE   @2199
         - @mdcm-353 -   no tests for regression
         - @mdcm-358 -   no tests for regression
         - @mdcm-362 -   no tests for regression
                 Total   30/49
 
     Spring 5: @_sprint5
-        - @mdcm-39  -   8/12        DONE
-        - @mdcm-489 -   10/14       DONE
+        - @mdcm-39  -   8/12        DONE     @2312
+        - @mdcm-489 -   10/14       DONE     @2027
                     -   Add more tests for CTS and AIMD
         - @mdcm-277 -   2/3         DONE
                     -   Verify business users can't edit
         - @mdcm-260 -   1/5
-                    -   Related to @mdcm-39
+                    -   Related to @mdcm-39  @2312
                     -   Lots of TCs marked with "Need Clarificatons"
-        - @mdcm-21  -   7/8         DONE
+        - @mdcm-21  -   7/8         DONE     @2323
                     -   Didn't receive a task for the updates
                     -   Also need to make sure updates are checked in the task level before accept/reject
         - @mdcm-496 -   2/2         DONE
-        - @mdcm-485 -   12/15       DONE
+        - @mdcm-485 -   12/15       DONE     @2030
                     -   Tests for product code
                     -   Tests few more for product details
         - @mdcm-465 -   1/1         DONE
-        - @mdcm-374 -   13/16       DONE
+        - @mdcm-374 -   13/16       DONE     @2112
                     -   No CE marking for S&PP
         - @mdcm-467 -   2/2         DONE
-        - @mdcm-171 -   11/12       DONE
-        - @mdcm-162 -   7/11        DONE
+        - @mdcm-171 -   11/12       DONE     @2269
+        - @mdcm-162 -   7/11        DONE     @2275
                     -   Update organisation name
                     -   Previous name/address
         - @mdcm-298 -   no tests for regression
@@ -82,23 +82,23 @@ Automated Issues:
                 Total   76/99
 
     Spring 6: @_sprint6
-        - @mdcm-23  -   13/16
+        - @mdcm-23  -   13/16    @2321
                     -   Test for search + view full organisation details
                     -   Creating manufacturer without device doesn't generate a task, AT THE MOMENT
-        - @mdcm-125 -   0/14
+        - @mdcm-125 -   0/14    @2293
                     -   @todo most of the TC
                     -   Verify all the associated organisations
                     -   And all the info related to the org is correct
                     -   Test for organisation role
-        - @mdcm-134 -   7/9         DONE ish
+        - @mdcm-134 -   7/9         DONE ish    @2290
                     -   Test for duplicate registration request
                     -   Test for AIM device with multiple products
-        - @mdcm-164 -   11/17       DONE ish
+        - @mdcm-164 -   11/17       DONE ish     @2274
                     -   Add multiple authorisedReps
                     -   Address should be displayed as Registered
                     -   Address validation for telephone, phone , fax
                     -   Submit without filling all the mandatory fields
-        - @mdcm-263 -   9/15        DONE ish
+        - @mdcm-263 -   9/15        DONE ish     @2197
                     -   RAG status tests
                     -   Submission date tests
                     -   Device types and product details in the task
@@ -110,18 +110,18 @@ Automated Issues:
     Spring 7: @_sprint7
         - @2797     -   15/16       DONE ish
                     -   1 or 2 stories have bugs associated with them
-        - @mdcm-148 -   8/9         DONE ish
+        - @mdcm-148 -   8/9         DONE ish     @2284
                     -   1 or 2 stories have bugs associated with them
-        - @mdcm-275 -   5/20        DONE ish
+        - @mdcm-275 -   5/20        DONE ish     @2188
                     -   RAG status and device data
         - @mdcm-345 -   @Todo Business has moved this outside of this sprints, all 3 TC
         - @3365     -   4/4         DONE ish
                     -   Once approved users can register more manufacturer
         - @2910     -   @TODO Add more product to an already existing device
         - @2399     -   7/7         DONE ish
-        - @mdcm-490 -   @Todo add tests when deployment finishes
+        - @mdcm-490 -   @Todo add tests when deployment finishes     @2026
                     -   Business manufacturer details page
-        - @mdcm-626 -   10/13       DONE ish
+        - @mdcm-626 -   10/13       DONE ish     @1928
                     -   Last 3 or 4 still remaining to do
         - @3360     -   no tests for regression
         - @2339     -   no tests for regression

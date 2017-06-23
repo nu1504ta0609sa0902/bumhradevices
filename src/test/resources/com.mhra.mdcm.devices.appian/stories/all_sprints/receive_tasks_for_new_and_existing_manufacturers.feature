@@ -2,7 +2,7 @@ Feature: As a business user, I want a task to be created each time a customer su
   So that I know an action to review the request is required by myself or another team member
 
 
-  @regression @mdcm-15 @mdcm-21 @mdcm-39 @mdcm-186 @mdcm-240 @_sprint4 @_sprint2 @_sprint3 @_sprint5 @2910 @_sprint7 @bug
+  @regression @mdcm-15 @2324 @mdcm-21 @2323 @mdcm-39 @2312 @mdcm-186 @2258 @mdcm-240 @2216 @_sprint4 @_sprint2 @_sprint3 @_sprint5 @2910 @_sprint7 @bug
   Scenario Outline: Business users should be able to review and process manufacturer and device registration tasks
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -28,7 +28,7 @@ Feature: As a business user, I want a task to be created each time a customer su
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Device | Desiccating chamber | true       | setmeup2           |
 
 
-  @regression @mdcm-15 @mdcm-21 @mdcm-39 @mdcm-186 @_sprint2 @_sprint3 @_sprint5 @3755 @_sprint11 @2910 @_sprint7 @2049 @_sprint8
+  @regression @mdcm-15 @2324 @mdcm-21 @2323 @mdcm-39 @2312 @mdcm-186 @2258 @_sprint2 @_sprint3 @_sprint5 @3755 @_sprint11 @2910 @_sprint7 @2049 @_sprint8
   Scenario Outline: Business users to review and process manufacturer and device registration task for IVD List A
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -61,7 +61,7 @@ Feature: As a business user, I want a task to be created each time a customer su
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | ford,honda         | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
 
-  @regression @mdcm-161 @mdcm-232 @mdcm-164 @mdcm-240 @_sprint4 @_sprint6 @wip
+  @regression @mdcm-161 @2276 @mdcm-232 @2221 @mdcm-164 @2274 @mdcm-240 @2216 @_sprint4 @_sprint6 @wip
   Scenario Outline: Register manufacturer as authorisedRep and verify status of letter of designation is correct
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -84,7 +84,7 @@ Feature: As a business user, I want a task to be created each time a customer su
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Device | Blood weighing scale | false      | fiesta             | New Manufacturer Registration Request |
 
 
-  @regression @mdcm-263 @_sprint6  @4088 @_sprint11 @2185 @_sprint8 @2833 @_sprint14 @wip
+  @regression @mdcm-263 @2197 @_sprint6  @4088 @_sprint11 @2185 @_sprint8 @2833 @_sprint14 @wip
   Scenario Outline: Verify only 1 task is created when we create NEW manufacturer with multiple devices
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page

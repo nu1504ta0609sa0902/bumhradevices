@@ -3,7 +3,7 @@ Feature: As a business user, I want a task to be created when new account reques
   So that I know an action to review the request is required by myself or another team member
 
 
-  @regression @mdcm-10 @mdcm-41 @mdcm-178 @_sprint1 @_sprint2 @bug
+  @regression @mdcm-10 @2327 @mdcm-41 @2311 @mdcm-178 @2263 @_sprint1 @_sprint2 @bug
   Scenario Outline: Create new account as business user and approve tasks
     Given I am logged into appian as "<user>" user
     When I create a new account using business test harness page with following data
@@ -20,7 +20,7 @@ Feature: As a business user, I want a task to be created when new account reques
       | businessNoor | authorisedRep | approve       | 1     | Netherland     | New Account Request |
 
 
-  @regression @mdcm-41 @mdcm-178 @_sprint2 @bug
+  @regression @mdcm-41 @2311 @mdcm-178 @2263 @_sprint2 @bug
   Scenario Outline: Create new account as business user and reject tasks
     Given I am logged into appian as "<user>" user
     When I create a new account using business test harness page with following data
@@ -55,7 +55,7 @@ Feature: As a business user, I want a task to be created when new account reques
       | businessNoor | authorisedRep | authorisedRepNoor | approve       | 1     | Netherland     | New Account Request |
 
 
-  @regression @mdcm-41 @_sprint2 @3365 @_sprint7 @2833 @_sprint14 @bug
+  @regression @mdcm-41 @2311 @_sprint2 @3365 @_sprint7 @2833 @_sprint14 @bug
   Scenario Outline: Verify WIP section shows newly created tasks and users can approve reject tasks
     Given I am logged into appian as "<user>" user
     When I create a new account using business test harness page with following data
@@ -74,7 +74,7 @@ Feature: As a business user, I want a task to be created when new account reques
       | businessNoor | authorisedRep | reject        | 0     | Estonia        |
 
 
-  @regression @mdcm-178 @_sprint2 @bug
+  @regression @mdcm-178 @2263 @_sprint2 @bug
   Scenario Outline: Create new account and verify WIP task details are correct
     Given I am logged into appian as "<user>" user
     When I create a new account using business test harness page with following data

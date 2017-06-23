@@ -2,7 +2,7 @@ Feature: As an account holder, I should be able to add devices to existing manuf
   I want to register a manufacturer and declare devices being manufacturer
   so that they can place the device for sale on the EU market
 
-  @readonly @mdcm-14 @mdcm-21 @_sprint3 @_sprint5
+  @readonly @mdcm-14 @2325 @mdcm-21 @2323 @_sprint3 @_sprint5
   Scenario Outline: Users should be able to view already registered manufacturers
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -13,7 +13,7 @@ Feature: As an account holder, I should be able to add devices to existing manuf
       | manufacturerAuto  | Registered |
       | authorisedRepAuto | Registered |
 
-  @regression @readonly @mdcm-14 @mdcm-21 @_sprint3 @_sprint5
+  @regression @readonly @mdcm-14 @2325 @mdcm-21 @2323 @_sprint3 @_sprint5
   Scenario Outline: Verify correct device type options are displayed on add devices page
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -25,7 +25,7 @@ Feature: As an account holder, I should be able to add devices to existing manuf
       | authorisedRepAuto |
 
 
-  @regression @mdcm-14 @mdcm-467 @mdcm-21 @_sprint3 @_sprint5 @2185 @_sprint8
+  @regression @mdcm-14 @2325 @mdcm-467 @mdcm-21 @2323 @_sprint3 @_sprint5 @2185 @_sprint8
   Scenario Outline: Verify correct options are displayed on add devices page for different combinations
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -55,7 +55,7 @@ Feature: As an account holder, I should be able to add devices to existing manuf
       | manufacturerAuto  | Registered | System or Procedure Pack   | Desiccating chamber               |            | true          | true            | class1             | NB 0086 BSI  | false              | true              |
 
 
-  @regression @mdcm-14 @mdcm-489 @_sprint3 @_sprint5 @mdcm-134 @_sprint6
+  @regression @mdcm-14 @2325 @mdcm-489 @2027 @_sprint3 @_sprint5 @mdcm-134 @2290 @_sprint6
   Scenario Outline: Users should be able to add devices to existing manufacturers
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -72,7 +72,7 @@ Feature: As an account holder, I should be able to add devices to existing manuf
       | manufacturerAuto  | General Medical Device |
 
 
-  @regression @mdcm-134 @_sprint6 @bug
+  @regression @mdcm-134 @2290 @_sprint6 @bug
   Scenario Outline: Users should be able to remove devices from manufacturers
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -94,7 +94,7 @@ Feature: As an account holder, I should be able to add devices to existing manuf
       | manufacturerAuto  | General Medical Device | Blood weighing scale | Autopsy measure |
 
 
-  @regression @mdcm-489 @_sprint5 @mdcm-134 @_sprint6 @mdcm-148 @_sprint7 @3762 @_sprint9 @bug
+  @regression @mdcm-489 @2027 @_sprint5 @mdcm-134 @2290 @_sprint6 @mdcm-148 @2284 @_sprint7 @3762 @_sprint9 @bug
   Scenario Outline: Users should be able to add and remove devices using GMDN code from existing manufacturers
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -120,7 +120,7 @@ Feature: As an account holder, I should be able to add devices to existing manuf
       | authorisedRepAuto | General Medical Device |                  | 18148      | Dress            |            |
       | manufacturerAuto  | General Medical Device |                  | 18148      | Dress            |            |
 
-  @mdcm-485 @mdcm-374 @3777 @_sprint9 @_sprint5 @1924 @_sprint8 @4337 @_sprint14 @wip @bug
+  @mdcm-485 @2030 @mdcm-374 @2112 @3777 @_sprint9 @_sprint5 @1924 @_sprint8 @4337 @_sprint14 @wip @bug
   Scenario Outline: Users should be able to add devices to existing manufacturers and verify devices are added
     Given I am logged into appian as "<user>" user
     When I go to list of manufacturers page
@@ -157,7 +157,7 @@ Feature: As an account holder, I should be able to add devices to existing manuf
       | manufacturerAuto  | businessAuto | System or Procedure Pack           |            | false         | true            | Registered | Desiccating chanber  | class1             | NB 0086 BSI  |
 
 
-  @regression @readonly @mdcm-485 @_sprint5 @wip
+  @regression @readonly @mdcm-485 @2030 @_sprint5 @wip
   Scenario Outline: Users should be able to VIEW additional info related to registered manufacturers
     Given I am logged into appian as "<user>" user
     When I go to list of manufacturers page
