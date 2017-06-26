@@ -72,6 +72,8 @@ public class BusinessDeviceDetails extends _Page {
     List<WebElement> listOfDeviceTypes;
     @FindBy(xpath = ".//button[contains(text(), 'Approve selected devices')]")
     WebElement btnApproveSelectedDevices;
+    @FindBy(xpath = ".//*[contains(text(), 'approve or reject')]//following::button[3]")
+    WebElement btnApproveAllCFSDevices;
     @FindBy(css = ".GridWidget---checkbox")
     WebElement cbxSelectAllDevices;
     @FindBy(css = "td.GridWidget---checkbox")
@@ -205,5 +207,15 @@ public class BusinessDeviceDetails extends _Page {
         WebElement cbx = PageUtils.getRandomElementFromList(listOfDeviceCheckbox);
         PageUtils.singleClick(driver, cbx);
         return new BusinessDeviceDetails(driver);
+    }
+
+    public BusinessDeviceDetails approveAllTheDevices() {
+        WaitUtils.waitForElementToBeClickable(driver, btnApproveAllCFSDevices, TIMEOUT_10_SECOND);
+        btnApproveAllCFSDevices.click();
+        return new BusinessDeviceDetails(driver);
+    }
+
+    public boolean isDeviceStatusCorrect(String statusOfDevices) {
+        return false;
     }
 }

@@ -13,8 +13,8 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
       | gmdnDefinition | Desiccating chamber                |
       | customMade     | false                              |
       | notifiedBody   | NB 0086 BSI                        |
-      | productName    | FordHybrid                         |
-      | productModel   | FocusYeah                          |
+      | productName    | FordHybrid2                         |
+      | productModel   | FocusYeah3                          |
     And I add another device to SELECTED CFS manufacturer with following data
       | deviceType           | General Medical Device |
       | gmdnDefinition       | <deviceToRemove>       |
@@ -24,7 +24,6 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
       | notifiedBody         | NB 0086 BSI            |
     Then I should see correct device data in the review page
     When I remove device called "<deviceToRemove>" from list of devices
-#    Then The delete button should be disabled
     Then I should see correct device data in the review page
     When I go back to the CE certificates page
     Then I should see all the certificates previously uploaded
@@ -58,6 +57,9 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
     When I view device with gmdn code "Blood weighing scale"
     Then I should see all the correct product and certificate details
     When I search and view new task in AWIP page for the newly created manufacturer
+    And I assign the AWIP page task to me and "approve" without completing the application
+    And I approve all the cfs devices
+    Then I all the device status should update to "Approved"
     And I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the newly created manufacturer
     And I should received an email for stored manufacturer with heading "Free Sale"
@@ -85,7 +87,7 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
     And I assign the AWIP page task to me and "approve" without completing the application
     Then I should see information related to the approver
     Then I should see the option to "Change decision"
-    And I should see option to approve individual devices
-    When I click on change decision
+    When I approve a single cfs devices
+    And I click on change decision
     Then I should see the option to "Approve manufacturer"
 

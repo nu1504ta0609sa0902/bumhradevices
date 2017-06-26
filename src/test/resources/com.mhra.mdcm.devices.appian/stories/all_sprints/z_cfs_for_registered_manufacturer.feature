@@ -30,22 +30,22 @@ Feature: Able to add CFS for products and devices that are already registered
       | authorisedRepAuto | Completed      | reject        |
 
 
-  @1992 @_sprint21
+  @1992 @5960 @_sprint21
   Scenario Outline: Customers can order CFS for already registered manufacturers
     Given I am logged into appian as "<logInAs>" user
     And I go to device certificate of free sale page
     Then I should see a list of manufacturers available for CFS
     When I search for registered manufacturer "<searchTerm>"
     And I click on a random organisation which needs cfs
-    And I order cfs for a country with following data
+    And I search by "medical device name" for the value "random" and order cfs for a country with following data
       | countryName | <country> |
       | noOfCFS     | <noCFS>   |
     Then I should see the correct details in cfs review page
     When I submit payment for the CFS
     Examples:
-      | country    | noCFS | logInAs           | searchTerm                       |
-      | Brazil     | 15    | manufacturerAuto  | ManufacturerRT01Test_22_6_298400 |
-      | Bangladesh | 10    | authorisedRepAuto | AutorisedRepRT01Test             |
+      | country    | noCFS | logInAs           | searchTerm           |
+      | Brazil     | 15    | manufacturerAuto  | ManufacturerRT01Test |
+      | Bangladesh | 10    | authorisedRepAuto | AuthorisedRepRT01Test |
 
 
   @1992 @_sprint21 @cfs_e2e
@@ -62,15 +62,15 @@ Feature: Able to add CFS for products and devices that are already registered
       | gmdnDefinition | Desiccating chamber       |
       | customMade     | false                     |
       | notifiedBody   | NB 0086 BSI               |
-      | productName    | FordHybrid                |
-      | productModel   | FocusYeah                 |
+      | productName    | FordHybrid1                |
+      | productModel   | FocusYeah1                 |
     And I add another device to SELECTED CFS manufacturer with following data
       | deviceType     | Active Implantable Device |
       | gmdnDefinition | Desiccating chamber       |
       | customMade     | false                     |
       | notifiedBody   | NB 0086 BSI               |
-      | productName    | ARP1                      |
-      | productModel   | FocusYeah1                |
+      | productName    | FordHybrid2                      |
+      | productModel   | FocusYeah2                |
     Then I should see correct device data in the review page
     And I submit the cfs application for approval
     When I logout and log back into appian as "businessAuto" user

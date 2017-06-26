@@ -103,6 +103,11 @@ public class DeviceDetails extends _Page {
     @FindBy(xpath = ".//h2[contains(text(), 'Confirmation')]/following::p[1]")
     WebElement txtApplicationReference;
 
+    //Search and filter CFS devices
+    @FindBy(xpath = ".//*[contains(text(), 'Search by medical')]/following::input[1]")
+    WebElement tbxMedicalDeviceName;
+
+
     //Buttons
     @FindBy(xpath = ".//button[contains(text(), 'Order CFS')]")
     WebElement btnOrderCFS;
@@ -437,5 +442,18 @@ public class DeviceDetails extends _Page {
     public String getApplicationReferenceNumber() {
         WaitUtils.waitForElementToBeClickable(driver, txtApplicationReference, TIMEOUT_10_SECOND);
         return txtApplicationReference.getText().split(":")[1];
+    }
+
+    public DeviceDetails searchByMedicalDeviceName(String searchTerm) {
+        WaitUtils.waitForElementToBeClickable(driver, tbxMedicalDeviceName, TIMEOUT_10_SECOND);
+        tbxMedicalDeviceName.sendKeys(searchTerm);
+        btnSearch.click();
+        return new DeviceDetails(driver);
+    }
+
+    public boolean isDeviceFound() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, btnSearch, TIMEOUT_10_SECOND);
+        return listOfDeviceCheckbox.size() > 0;
     }
 }

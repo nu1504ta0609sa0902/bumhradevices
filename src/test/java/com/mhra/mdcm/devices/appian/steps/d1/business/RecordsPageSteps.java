@@ -572,13 +572,19 @@ public class RecordsPageSteps extends CommonSteps {
         Assert.assertThat("Expected to see following products : "  + deviceDO.listOfProductName , isPageDisplayingCorrectProducts, is(true));
     }
 
-    @Then("^I should see option to approve individual devices$")
+    @Then("^I approve a single cfs devices$")
     public void iShouldSeeOptionToApproveIndividualDevices() throws Throwable {
         businessDevicesDetails = businessManufacturerDetails.clickOnDeviceAndProductsTab();
         businessDevicesDetails = businessDevicesDetails.selectADevices();
         boolean isAbleToApproveIndividualDevices = businessDevicesDetails.isAbleToApproveIndividualDevices();
         Assert.assertThat("Option to approve individual devices expected" , isAbleToApproveIndividualDevices, is(true));
 
+    }
+
+    @Then("^I approve all the cfs devices$")
+    public void iApproveAllTheDevices() throws Throwable {
+        businessDevicesDetails = businessManufacturerDetails.clickOnDeviceAndProductsTab();
+        businessDevicesDetails = businessDevicesDetails.approveAllTheDevices();
     }
 
     @When("^I click on change decision$")
@@ -589,6 +595,13 @@ public class RecordsPageSteps extends CommonSteps {
 
     @Then("^I should see information related to the approver$")
     public void iShouldSeeInformationRelatedToTheApprover() throws Throwable {
+//        String loggedInUser = (String) scenarioSession.getData(SessionKey.loggedInUser);
+//        boolean isCorrect = businessManufacturerDetails.isApproverDetailCorrect(loggedInUser);
+    }
 
+    @Then("^I all the device status should update to \"([^\"]*)\"$")
+    public void iAllTheDeviceStatusShouldUpdateTo(String statusOfDevices) throws Throwable {
+        boolean isStatusCorrect = businessDevicesDetails.isDeviceStatusCorrect(statusOfDevices);
+        Assert.assertThat("All status should be : " + statusOfDevices, isStatusCorrect, is(true));
     }
 }

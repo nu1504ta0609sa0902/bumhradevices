@@ -116,6 +116,43 @@ public class CFSSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.numberOfCertificates, noOfCFS);
     }
 
+    @When("^I search by \"([^\"]*)\" for the value \"([^\"]*)\" and order cfs for a country with following data$")
+    public void i_order_cfs_for_a_country_with_following_data(String searchBy, String searchTerm, Map<String, String> dataSets) throws Throwable {
+        if(searchTerm.equals("random")){
+            searchTerm = "Ford";
+        }
+        //Data
+        String countryName = dataSets.get("countryName");
+        String noOfCFS = dataSets.get("noOfCFS");
+
+        //Order CFS for a random device
+        deviceDetails = deviceDetails.clickOrderCFSButton();
+
+        boolean atLeast1DeviceFound = false;
+        int count = 1;
+        do {
+            if (searchBy.toLowerCase().contains("medical device name")) {
+                deviceDetails = deviceDetails.searchByMedicalDeviceName(searchTerm);
+            } else if (searchBy.toLowerCase().contains("gmdn term")) {
+                deviceDetails = deviceDetails.selectARandomGMDNTerm();
+            } else if (searchBy.toLowerCase().contains("device type")) {
+                //deviceDetails = deviceDetails.selectARandomGMDNTerm();
+            }
+            atLeast1DeviceFound = deviceDetails.isDeviceFound();
+            if(count <= 2 && !atLeast1DeviceFound){
+                searchTerm = "Product";
+                count++;
+            }
+        }while (!atLeast1DeviceFound);
+
+        deviceDetails = deviceDetails.selectDevices();
+        deviceDetails = deviceDetails.enterACertificateDetails(countryName, noOfCFS);
+
+        //Store data to be verified later
+        scenarioSession.putData(SessionKey.organisationCountry, countryName);
+        scenarioSession.putData(SessionKey.numberOfCertificates, noOfCFS);
+    }
+
     @When("^I order cfs for multiple countries with following data$")
     public void i_order_cfs_for_multiple_countries_with_following_data(Map<String, String> dataSets) throws Throwable {
         //Data pair of cfs and country, Bangladesh=10,Brazi=2,India=5 etc

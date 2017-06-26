@@ -417,7 +417,7 @@ public class CFSAddDevices extends _Page {
                             for (String name : dd.listOfProductName) {
                                 dd.productName = name;
                                 if (dd.productModel == null) {
-                                    dd.productModel = RandomDataUtils.getRandomTestName("Model");
+                                    dd.productModel = RandomDataUtils.getRandomTestName("FocusYeah");
                                 }
                                 addProduct(dd);
                                 dd.productModel = null;
@@ -471,10 +471,10 @@ public class CFSAddDevices extends _Page {
                                 }
                             } else {
                                 if (dd.productName == null) {
-                                    dd.productName = RandomDataUtils.getRandomTestName("Product");
+                                    dd.productName = RandomDataUtils.getRandomTestName("FordHybrid");
                                 }
                                 if (dd.productModel == null) {
-                                    String model = RandomDataUtils.getRandomTestName("Model");
+                                    String model = RandomDataUtils.getRandomTestName("FocusYeah");
                                     dd.productModel = model;
                                     dd.listOfModelName.add(model);
                                 }
