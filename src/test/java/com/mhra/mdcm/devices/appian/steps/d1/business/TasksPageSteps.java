@@ -518,10 +518,9 @@ public class TasksPageSteps extends CommonSteps {
             if(taskType!=null && taskType.contains("New Account")) {
                 businessManufacturerDetails = businessManufacturerDetails.rejectAWIPNewAccountRegistration();
                 businessManufacturerDetails = businessManufacturerDetails.enterRejectionReason("Account already exists", RandomDataUtils.getRandomTestName("Account already exists "));
-            }else {
-                //Rejection process is slightly different, you need to enter a rejection reason
-                taskSection = taskSection.rejectTask();
-                tasksPage = taskSection.enterRejectionReason("This may have been removed", RandomDataUtils.getRandomTestName("Account already exists "));
+            }else if(taskType!=null && taskType.contains("New Manufacturer")){
+                businessManufacturerDetails = businessManufacturerDetails.rejectAWIPManufacturerTask();
+                businessManufacturerDetails = businessManufacturerDetails.enterManufacturerRejectionReason("Submitted in error", RandomDataUtils.getRandomTestName("Account already exists "));
             }
         }
     }
@@ -596,6 +595,8 @@ public class TasksPageSteps extends CommonSteps {
 
         //get the reference number
         String reference = taskSection.getTheApplicationReferenceNumber();
+        log.info("Found Applicaiton reference number : " + reference);
+
         scenarioSession.putData(SessionKey.newApplicationReferenceNumber, reference);
         businessManufacturerDetails = taskSection.clickOnReferenceNumberReturnedBySearchResult(1);
     }
@@ -659,6 +660,7 @@ public class TasksPageSteps extends CommonSteps {
 
         //get the reference number
         String reference = taskSection.getTheApplicationReferenceNumber();
+        log.info("Found Applicaiton reference number : " + reference);
         scenarioSession.putData(SessionKey.newApplicationReferenceNumber, reference);
 
         boolean isStatusCorrect = taskSection.isAWIPTaskStatusCorrect(status);

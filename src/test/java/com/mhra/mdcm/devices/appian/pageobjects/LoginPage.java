@@ -53,7 +53,7 @@ public class LoginPage extends _Page {
     @FindBy(name = "confirmNewPw")
     WebElement passwordNewConfirm;
 
-    @FindBy(xpath = ".//label[@for='remember']//following::input[1]")
+    @FindBy(xpath = ".//input[@value='Log in']")
     WebElement btnLogin;
     @FindBy(xpath = ".//input[@type='submit']")
     WebElement btnSubmit;
@@ -81,7 +81,7 @@ public class LoginPage extends _Page {
     }
 
     public MainNavigationBar login(String unameKeyValue) {
-        dontRemember();
+        //dontRemember(); removed 26/06/2017
 
         //System properties decides which users to use and which profile to use
         String selectedProfile = System.getProperty("spring.profiles.active");
@@ -117,9 +117,10 @@ public class LoginPage extends _Page {
     }
 
     public MainNavigationBar loginWithSpecificUsernamePassword(String usernameTxt, String passwordTxt) {
-        dontRemember();
+        //dontRemember(); removed 26/06/2017
 
         //login
+        WaitUtils.waitForElementToBeClickable(driver, username, TIMEOUT_DEFAULT);
         username.sendKeys(usernameTxt);
         password.sendKeys(passwordTxt);
         username.submit();
@@ -129,9 +130,10 @@ public class LoginPage extends _Page {
 
     public MainNavigationBar loginDataDriver(String usernameTxt, String passwordTxt) {
         logoutIfLoggedIn();
-        dontRemember();
+        //dontRemember(); removed 26/06/2017
 
         //login
+        WaitUtils.waitForElementToBeClickable(driver, username, TIMEOUT_DEFAULT);
         username.sendKeys(usernameTxt);
         password.sendKeys(passwordTxt);
         username.submit();
@@ -246,6 +248,7 @@ public class LoginPage extends _Page {
     }
 
     public boolean isInLoginPage() {
+        WaitUtils.waitForElementToBeClickable(driver, btnLogin, TIMEOUT_10_SECOND);
         boolean isLoginPage = btnLogin.isDisplayed() && btnLogin.isEnabled();
         return isLoginPage;
     }
@@ -259,4 +262,17 @@ public class LoginPage extends _Page {
         return new MainNavigationBar(driver);
     }
 
+    public void logout(String currentLoggedInUser) {
+        //Note page displayed to Business user is different from Manufacturer and AuthorisedRep
+        if(currentLoggedInUser!=null){
+            if(currentLoggedInUser.toLowerCase().contains("business")){
+                logoutIfLoggedIn();
+            }else if(currentLoggedInUser.toLowerCase().contains("manufacturer")){
+                logoutIfLoggedInOthers();
+            }else if(currentLoggedInUser.toLowerCase().contains("authorised")){
+                logoutIfLoggedInOthers();
+            }
+        }
+        PageUtils.acceptAlert(driver, true, 1);
+    }
 }

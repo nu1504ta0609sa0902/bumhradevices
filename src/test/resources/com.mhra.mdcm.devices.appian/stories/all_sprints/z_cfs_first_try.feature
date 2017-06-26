@@ -36,7 +36,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
     And I search and view new task in AWIP page for the newly created manufacturer
     And I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the newly created manufacturer
-    And I should received an email for stored manufacturer with heading "Application"
+    And I should received an email for stored manufacturer with heading "Free Sale"
 
 
   @1974 @4698 @1989 @5126 @3979 @5212 @5128 @_sprint15 @_sprint17

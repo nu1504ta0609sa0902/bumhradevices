@@ -34,7 +34,7 @@ public class TasksTabPage extends _Page {
     @FindBy(xpath = ".//span[contains(text(),'Work In Progress')]")
     WebElement workInProgress;
 
-    @FindBy(xpath = ".//span[contains(text(),'Application work in')]")
+    @FindBy(xpath = ".//span[contains(text(),'Work in progress')]")
     WebElement applicationWorkInProgress;
 
     @FindBy(xpath = ".//span[contains(text(),'Completed Tasks')]")

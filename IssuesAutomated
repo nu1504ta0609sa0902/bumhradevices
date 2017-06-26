@@ -250,6 +250,7 @@ Automated Issues:
 
     Sprint 15: @_sprint15       CFS RELATED
         - @1974 -   DONE ISH    @todo review cfs order
+                -   more test for verifying review page
         - @1978 -   DONE ISH    @todo indicate country and quantity
         - @1995 -   @TODO prevent accessing CFS if not based in UK
         - @3842 -   @Todo can't test because I am not able to create other accounts apart from Manufacturer, AuthorisedRep and Distributor
@@ -299,7 +300,7 @@ Automated Issues:
         - @5126 -   DONE ISH    @todo add products to devices
         - @5127 -   @todo CFS   add products in bulk
         - @5128 -   DONE ISH    @todo review application
-                -   Do more verification
+                -   more test for verifying review page
         - @5499 -   @todo CFS   @todo edit application before submitting
         - @5232 -   @todo   bug
         - @5233 -   @todo   bug
@@ -359,9 +360,14 @@ Automated Issues:
         - @1986 -   CFS @todo business user approve manufacturer or devices
                 -   DONE ISH
         - @5665 -   CFS @todo business user complete an application
+                -   DONE ISH
+                -   Approved/Rejected Device status (not sure if this is still required)
         - @5664 -   CFS @todo business user reject request for a device
         - @1961 -   CFS @todo business user reject request for a new manufacturer
+                -   DONE ISH
+                -   Rejecting application doesn't take me back to WIP page
         - @1992 -   CFS @todo request CFS for multiple devices and products
+                -   DONE ISH
         - @5960 -   CFS @todo filter available devices and products
         - @1947 -   CFS @todo specify the delivery address
         - @3343 -

@@ -412,10 +412,12 @@ public class CFSSteps extends CommonSteps {
         //Go to products page
         cfsAddDevices = cfsAddDevices.clickBackButton();
         boolean isInProductsPage = cfsAddDevices.isInProductsPage();
+        Assert.assertThat("Expected to be in ADD PRODUCTS page", isInProductsPage, is(true));
 
         //Go back to CE certificate page
         cfsAddDevices = cfsAddDevices.clickBackButton();
         boolean isInCertificatesPage = cfsAddDevices.isInCertificatesPage();
+        Assert.assertThat("Expected to be in ADD CERTIFICATES page", isInCertificatesPage, is(true));
 
     }
 

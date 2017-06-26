@@ -31,10 +31,10 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
     Examples:
       | user              | deviceToRemove       |
       | manufacturerAuto  | Blood weighing scale |
-      | authorisedRepAuto | Desiccating chamber  |
+      | authorisedRepAuto | Blood weighing scale  |
 
 
-  @5679 @1954 @5680 @_sprint20 @5593 @_sprint21 @5673 @5674 @_sprint22
+  @5679 @1954 @5680 @_sprint20 @5593 @5665 @_sprint21 @5673 @5674 @_sprint22
   Scenario: Business users should be able to view cfs new manufacturer and its devices and complete application
     Given I am logged into appian as "manufacturerAuto" user
     And I go to device certificate of free sale page
@@ -60,7 +60,7 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
     When I search and view new task in AWIP page for the newly created manufacturer
     And I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the newly created manufacturer
-    And I should received an email for stored manufacturer with heading "Application"
+    And I should received an email for stored manufacturer with heading "Free Sale"
 
 
   @1986 @5593 @_sprint21 @5673 @5674 @_sprint22

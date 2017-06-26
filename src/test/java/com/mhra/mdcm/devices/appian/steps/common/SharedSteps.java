@@ -33,6 +33,7 @@ public class SharedSteps extends CommonSteps {
     public void embedScreenshot(Scenario scenario) {
 		generatePrettyReportOnTheGo();
         if (driver!=null && scenario.isFailed()) {
+
         	log.info("Scenario Failed");
     		log.info("==================================\n");
             try {  
@@ -53,6 +54,14 @@ public class SharedSteps extends CommonSteps {
     		//log.info("\n==================================");
         	
         }
+
+		//This is added because of SSO: 26/06/2017
+        if(driver!=null){
+        	log.info("MUST SIGNOUT OTHERWISE YOU WILL NOT BE ABLE TO LOGBACK IN WITH SAME USER");
+			String currentLoggedInUser = (String) scenarioSession.getData(SessionKey.loggedInUser);
+			loginPage.logout(currentLoggedInUser);
+			loginPage.isInLoginPage();
+		}
     }
 
 	@Before

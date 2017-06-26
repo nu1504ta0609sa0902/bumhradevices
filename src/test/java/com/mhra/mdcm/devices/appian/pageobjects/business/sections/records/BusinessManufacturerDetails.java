@@ -72,6 +72,15 @@ public class BusinessManufacturerDetails extends _Page {
     @FindBy(xpath = ".//button[.='Submit']")
     WebElement submitBtn;
 
+
+    //Rejection reason CFS new manufacturer
+    @FindBy(xpath = ".//button[.='Reject CFS new manufacturer']")
+    WebElement rejectCFSNewManufacturer;
+    @FindBy(xpath = ".//*[.='Select a rejection reason']//following::input[3]")
+    WebElement cfsReasonOther;
+    @FindBy(xpath = ".//*[.='Select a rejection reason']//following::input[5]")
+    WebElement cfsReasonSubmittedInError;
+
     //Application approve reject buttons
     @FindBy(xpath = ".//button[contains(text(), 'Approve account')]")
     WebElement btnApproveNewAccount;
@@ -251,6 +260,14 @@ public class BusinessManufacturerDetails extends _Page {
         return new BusinessManufacturerDetails(driver);
     }
 
+    public BusinessManufacturerDetails rejectAWIPManufacturerTask() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, btnRejectManufacturer, TIMEOUT_10_SECOND);
+        PageUtils.doubleClick(driver, btnRejectManufacturer);
+        log.info("Reject the manufacturer");
+        return new BusinessManufacturerDetails(driver);
+    }
+
     public BusinessManufacturerDetails approveAWIPAllDevices() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnApproveAllDevices, TIMEOUT_10_SECOND);
@@ -329,6 +346,29 @@ public class BusinessManufacturerDetails extends _Page {
 
         //Submit rejection
         PageUtils.doubleClick(driver, submitBtn);
+        return new BusinessManufacturerDetails(driver);
+    }
+
+    public BusinessManufacturerDetails enterManufacturerRejectionReason(String reason, String randomTestComment) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+
+        if (reason != null) {
+            if (reason.contains("Other")) {
+                //Comment is mandatory
+                WaitUtils.waitForElementToBeClickable(driver, cfsReasonOther, TIMEOUT_10_SECOND);
+                other.click();
+            } else if (reason.contains("Submitted in error")) {
+                WaitUtils.waitForElementToBeClickable(driver, cfsReasonSubmittedInError, TIMEOUT_10_SECOND);
+                PageUtils.clickIfVisible(driver, cfsReasonSubmittedInError);
+            }
+        }
+
+        //Enter comment
+        WaitUtils.waitForElementToBeClickable(driver, commentArea, TIMEOUT_10_SECOND);
+        commentArea.sendKeys(randomTestComment);
+
+        //Submit rejection
+        PageUtils.doubleClick(driver, rejectCFSNewManufacturer);
         return new BusinessManufacturerDetails(driver);
     }
 
