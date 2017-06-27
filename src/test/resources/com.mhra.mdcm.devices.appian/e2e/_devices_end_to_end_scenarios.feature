@@ -1,7 +1,7 @@
 @e2e
 Feature: End 2 End Scenarios to verify system is behaving correctly from a high level view
 
-  @1929 @2327 @2278 @2260 @2193 @2290 @2273 @2324 @2191
+  @1836 @1929 @2327 @2278 @2260 @2193 @2290 @2273 @2324 @2191 @2190 @2311 @2263 @2292 @2258
   Scenario Outline: S1 Manufacturer account registration
 #Register new manufacturer account, approve the task and check MHRA approval email received
     Given I am logged into appian as "<businessUser>" user
@@ -38,7 +38,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | businessNoor | manufacturerNoor | manufacturer | approve       | United Kingdom | Bangladesh       | New Account Request for | Manufacturer Registration Request for |
 
 
-  @ignore
+  @1836 @1929 @2327 @2278 @2260 @2193 @2290 @2273 @2324 @2191 @2190 @2311 @2263 @2292 @2258
   Scenario Outline: S2 AuthorisedRep account registration for non uk manufacturers
 #Register new manufacturer account, approve the task and check MHRA approval email received
     Given I am logged into appian as "<businessUser>" user
@@ -75,7 +75,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | businessNoor | manufacturerNoor | authorisedRep | approve       | United Kingdom | Netherland    | New Account Request for | Manufacturer registration service |
 
 
-  @1974 @1978 @4704 @_sprint15
+  @1974 @1978 @4704 @1954 @1952
   Scenario Outline: S3 UK based manufacturer which is already registered and in need of CFS
     Given I am logged into appian as "manufacturerAuto" user
     And I go to device certificate of free sale page
@@ -92,7 +92,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | Bangladesh | 10    |
 
 
-  @1974 @1978 @4704 @_sprint15
+  @1974 @1978 @4704 @1954 @1952
   Scenario Outline: S4 Non UK based authorised reps which is already registered and in need of CFS
     Given I am logged into appian as "authorisedRepAuto" user
     And I go to device certificate of free sale page
@@ -109,7 +109,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | Bangladesh | 10    |
 
 
-  @1974 @4330 @5141 @3979 @5212 @5126 @1845 @5128 @5673 @5674 @5583
+  @1845 @1974 @1952 @1971 @3979 @4330 @5141 @5212 @5126 @5128 @5673 @5674 @5583
   Scenario Outline: S4b Register and approve Non UK based manufacturers for CFS
     Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
@@ -130,13 +130,14 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And I search and view new task in AWIP page for the newly created manufacturer
     And I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the newly created manufacturer
-    And I should received an email for stored manufacturer with heading "Application"
+    And I should received an email for stored manufacturer with heading "Free Sale"
     Examples:
       | user              | businessUser | accountType  | country       | approveReject | status    |
       | authorisedRepAuto | businessAuto | manufacturer | United States | approve       | Completed |
       | manufacturerAuto  | businessAuto | manufacturer | Brazil        | approve       | Completed |
 
-  @ignore
+
+  @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149 @2257
   Scenario Outline: S5a Update already registered manufacturers by adding new devices
     Given I am logged into appian as "<user>" user
     When I go to list of manufacturers page
@@ -163,7 +164,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | manufacturerAuto  | businessAuto | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
 
 
-  @ignore
+  @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149
   Scenario Outline: S5b Update already registered manufacturers by adding and removing devices
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -196,7 +197,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | manufacturerAuto | businessAuto | Blood weighing scale | Autopsy measure | reject        | General Medical Device |
 
 
-  @ignore
+  @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149
   Scenario Outline: S5c Update already registered manufacturers by adding devices with products
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -224,7 +225,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | user              | deviceType                         | gmdnDefinition      | customMade | productName |
       | authorisedRepAuto | Active Implantable Device | Desiccating chamber | true       | ford focus  |
 
-  @ignore
+  @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149
   Scenario Outline: S6a Update manufacturer for authorised rep which is already registered by adding devices
     Given I am logged into appian as "<user>" user
     When I go to list of manufacturers page
@@ -251,7 +252,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | authorisedRepAuto | businessAuto | Active Implantable Device | false      | Registered | Blood weighing scale | ford focus  |
 
 
-  @ignore
+  @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149
   Scenario Outline: S6b Update manufacturer for authorised rep which is already registered by adding and removing devices
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -282,7 +283,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | authorisedRepAuto | businessAuto | Blood weighing scale | Autopsy measure | approve       | General Medical Device |
       | authorisedRepAuto | businessAuto | Blood weighing scale | Autopsy measure | reject        | General Medical Device |
 
-  @ignore
+  @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149
   Scenario: S6c Update manufacturer for authorised rep which is already registered by adding devices with products and removing products
 
 
