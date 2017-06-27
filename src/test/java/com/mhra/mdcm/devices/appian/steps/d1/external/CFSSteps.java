@@ -10,7 +10,6 @@ import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.*;
 import cucumber.api.PendingException;
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
@@ -299,9 +298,11 @@ public class CFSSteps extends CommonSteps {
             cfsAddDevices = cfsAddDevices.addFollowingDevice(dd, false);
         }
 
-        scenarioSession.putData(SessionKey.deviceData, dd);
+        StepsUtils.addToListOfStrings(scenarioSession, SessionKey.listOfGmndsAdded, AddDevices.gmdnSelected);
+        StepsUtils.addToListOfStrings(scenarioSession, SessionKey.listOfProductsAdded, dd.listOfProductName);
         StepsUtils.addToDeviceDataList(scenarioSession, dd);
         StepsUtils.addCertificatesToAllCertificateList(scenarioSession, dd);
+        scenarioSession.putData(SessionKey.deviceData, dd);
     }
 
     @When("^I add a device to SELECTED CFS manufacturer with following data$")
@@ -429,7 +430,7 @@ public class CFSSteps extends CommonSteps {
 
     @Then("^I should see correct device data in the review page$")
     public void i_should_see_correct_device_data_in_the_review_page() throws Throwable {
-        List<DeviceDO> listOfDeviceDataObjects = (List<DeviceDO>) scenarioSession.getData(SessionKey.listOfDevicesAdded);
+        List<DeviceDO> listOfDeviceDataObjects = (List<DeviceDO>) scenarioSession.getData(SessionKey.listOfDeviceDO);
         boolean isListOfDeviceCorrect = cfsAddDevices.isReviewPageShowingCorrectNumberOfDevices(listOfDeviceDataObjects.size());
         boolean isListOfDeviceNamesCorrect = cfsAddDevices.isReviewPageShowingCorrectDeviceNames(listOfDeviceDataObjects);
         boolean isDeviceDetailsCorrect = cfsAddDevices.isDeviceDetailsCorrect(listOfDeviceDataObjects);

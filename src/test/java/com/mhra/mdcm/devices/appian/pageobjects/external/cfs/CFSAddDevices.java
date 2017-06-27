@@ -132,7 +132,7 @@ public class CFSAddDevices extends _Page {
     WebElement addProduct;
     @FindBy(xpath = ".//button[contains(text(),'Add Product')]")
     WebElement addProduct2;
-//    @FindBy(xpath = ".//button[.='Save Product']")
+    //    @FindBy(xpath = ".//button[.='Save Product']")
 //    WebElement saveProduct;
 //    @FindBy(xpath = ".//button[.='Save product']")
 //    WebElement saveProduct2;
@@ -140,7 +140,7 @@ public class CFSAddDevices extends _Page {
 //    WebElement cbxProductName;
     @FindBy(xpath = ".//*[contains(text(),'Medical Device Name')]//following::input[1]")
     WebElement pdProductName;
-//    @FindBy(xpath = ".//label[contains(text(),'Model')]")
+    //    @FindBy(xpath = ".//label[contains(text(),'Model')]")
 //    WebElement cbxMakeAndModel;
 //    @FindBy(xpath = ".//*[contains(text(),'and model')]//following::input[1]")
 //    WebElement pdProductMake;
@@ -529,6 +529,7 @@ public class CFSAddDevices extends _Page {
         if (!isErrorMessageDisplayed) {
             //select notified body
             notifiedBody(dd);
+            WaitUtils.nativeWaitInSeconds(1);
             clickUploadCertificate();
         }
     }
@@ -770,7 +771,7 @@ public class CFSAddDevices extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, deleteApplicationButtons, TIMEOUT_10_SECOND);
         boolean matched = listOfDevicesAdded.size() == size;
-        if(!matched){
+        if (!matched) {
             log.info("Number of devices displayed : " + listOfDevicesAdded.size());
         }
         return matched;

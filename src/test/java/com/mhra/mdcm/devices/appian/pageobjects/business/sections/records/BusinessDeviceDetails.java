@@ -49,14 +49,6 @@ public class BusinessDeviceDetails extends _Page {
     @FindBy(xpath = ".//span[contains(text(), 'Measuring')]//following::p[1]")
     WebElement fieldMeasuring;
 
-    //Device information page fields Procedure Pack
-    @FindBy(xpath = ".//span[contains(text(), 'Notified Body')]//following::p[1]")
-    WebElement fieldNotifiedBody;
-    @FindBy(xpath = ".//span[contains(text(), 'CE marked')]//following::p[1]")
-    WebElement fieldCEMarked;
-    @FindBy(xpath = ".//span[contains(text(), 'Inteded use')]//following::p[1]")
-    WebElement fieldIntendedUse;
-
     //CFS application details
     @FindBy(xpath = ".//*[contains(text(), 'Number of devices')]")
     WebElement totalNumberOfDevices;
@@ -64,7 +56,7 @@ public class BusinessDeviceDetails extends _Page {
     List<WebElement> listOfGMDNTermsAndCodes;
     @FindBy(xpath = ".//td[2]")
     List<WebElement> listOfDeviceTypes;
-    @FindBy(xpath = ".//td[5]")
+    @FindBy(xpath = ".//td[6]")
     List<WebElement> listOfDeviceApprovedStatus;
     @FindBy(xpath = ".//button[contains(text(), 'Approve selected devices')]")
     WebElement btnApproveSelectedDevices;
@@ -72,7 +64,7 @@ public class BusinessDeviceDetails extends _Page {
     WebElement btnRejectSelectedDevices;
     @FindBy(xpath = ".//*[contains(text(), 'approve or reject')]//following::button[3]")
     WebElement btnApproveAllCFSDevices;
-    @FindBy(css = ".GridWidget---checkbox")
+    @FindBy(css = "th.GridWidget---checkbox")
     WebElement cbxSelectAllDevices;
     @FindBy(partialLinkText = "EU directive")
     WebElement linkEuDirective;
@@ -82,10 +74,14 @@ public class BusinessDeviceDetails extends _Page {
     //CFS device rejection
     @FindBy(xpath = ".//label[.='Other']")
     WebElement cfsDRROther;
+    @FindBy(xpath = ".//input[@type='text']")
+    WebElement otherReason;
     @FindBy(xpath = ".//label[.='Registered twice']")
-    WebElement cfsDRRSubmittedInError;
+    WebElement cfsDRRRegisteredTwice;
+    @FindBy(xpath = ".//label[.='Incomplete form']")
+    WebElement cfsDRRIncompleteForm;
     @FindBy(xpath = ".//button[contains(text(), 'Reject device')]")
-    WebElement btnRejectCFSDevice;
+    WebElement btnRejectCFSDeviceWithReasons;
 
 
     @Autowired
@@ -217,10 +213,16 @@ public class BusinessDeviceDetails extends _Page {
     }
 
     public BusinessDeviceDetails selectADevices() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD );
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, cbxSelectAllDevices, TIMEOUT_10_SECOND);
         WebElement cbx = PageUtils.getRandomElementFromList(listOfDeviceCheckbox);
         PageUtils.singleClick(driver, cbx);
+        return new BusinessDeviceDetails(driver);
+    }
+
+    public BusinessDeviceDetails selectAllDevices() {
+        WaitUtils.waitForElementToBeClickable(driver, cbxSelectAllDevices, TIMEOUT_10_SECOND);
+        cbxSelectAllDevices.click();
         return new BusinessDeviceDetails(driver);
     }
 
@@ -231,44 +233,52 @@ public class BusinessDeviceDetails extends _Page {
     }
 
     public boolean isDeviceStatusCorrect(String statusOfDevices) {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD );
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnApproveAllCFSDevices, TIMEOUT_10_SECOND);
         boolean correct = PageUtils.isAllDataCorrect(listOfDeviceApprovedStatus, statusOfDevices);
         return correct;
     }
 
     public BusinessDeviceDetails approveOrRejectIndividualDevices(boolean approveIndividualDevice) {
-        if(approveIndividualDevice){
+        if (approveIndividualDevice) {
             WaitUtils.waitForElementToBeVisible(driver, btnApproveSelectedDevices, TIMEOUT_5_SECOND);
             btnApproveSelectedDevices.click();
-        }else{
+        } else {
             WaitUtils.waitForElementToBeVisible(driver, btnRejectSelectedDevices, TIMEOUT_5_SECOND);
             btnRejectSelectedDevices.click();
         }
         return new BusinessDeviceDetails(driver);
     }
 
-    public BusinessManufacturerDetails enterDeviceRejectionReason(String reason, String randomTestComment) {
+    public BusinessManufacturerDetails enterDeviceRejectionReason(String reasons, String randomTestComment) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
 
-        if (reason != null) {
-            if (reason.contains("Other")) {
-//                //Comment is mandatory
-//                WaitUtils.waitForElementToBeClickable(driver, cfsDeviceOther, TIMEOUT_10_SECOND);
-//                cfsDeviceOther.click();
-//
-//                //Enter comment
-//                WaitUtils.waitForElementToBeClickable(driver, commentArea, TIMEOUT_10_SECOND);
-//                commentArea.sendKeys(randomTestComment);
-            } else if (reason.contains("Registered twice")) {
-                WaitUtils.waitForElementToBeClickable(driver, cfsDRRSubmittedInError, TIMEOUT_10_SECOND);
-                PageUtils.clickIfVisible(driver, cfsDRRSubmittedInError);
+        if (reasons != null) {
+            String[] lor = reasons.split(",");
+            for (String reason : lor) {
+                if (reason.contains("Other")) {
+                    //Comment is mandatory
+                    WaitUtils.waitForElementToBeClickable(driver, cfsDRROther, TIMEOUT_10_SECOND);
+                    cfsDRROther.click();
+
+                    //Enter comment
+                    WaitUtils.waitForElementToBeClickable(driver, otherReason, TIMEOUT_10_SECOND);
+                    otherReason.sendKeys(randomTestComment);
+                } else if (reason.contains("Incomplete form")) {
+                    WaitUtils.waitForElementToBeClickable(driver, cfsDRRIncompleteForm, TIMEOUT_10_SECOND);
+                    PageUtils.clickIfVisible(driver, cfsDRRIncompleteForm);
+                } else if (reason.contains("Registered twice")) {
+                    WaitUtils.waitForElementToBeClickable(driver, cfsDRRRegisteredTwice, TIMEOUT_10_SECOND);
+                    PageUtils.clickIfVisible(driver, cfsDRRRegisteredTwice);
+                }
             }
         }
 
 
         //Submit rejection
-        PageUtils.doubleClick(driver, btnRejectCFSDevice);
+        WaitUtils.waitForElementToBeVisible(driver, btnRejectCFSDeviceWithReasons, TIMEOUT_5_SECOND);
+        PageUtils.singleClick(driver, btnRejectCFSDeviceWithReasons);
         return new BusinessManufacturerDetails(driver);
     }
+
 }

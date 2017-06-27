@@ -609,7 +609,7 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     @When("^I remove ALL the stored device with gmdn code or definition$")
     public void iRemoveAllTheDeviceWithGmdnCode() throws Throwable {
-        List<DeviceDO> listOfDeviceData = (List<DeviceDO>) scenarioSession.getData(SessionKey.listOfDevicesAdded);
+        List<DeviceDO> listOfDeviceData = (List<DeviceDO>) scenarioSession.getData(SessionKey.listOfDeviceDO);
         addDevices = addDevices.removeAllDevices(listOfDeviceData);
     }
 

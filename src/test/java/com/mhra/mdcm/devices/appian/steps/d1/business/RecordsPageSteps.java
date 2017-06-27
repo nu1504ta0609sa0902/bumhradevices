@@ -8,7 +8,6 @@ import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -549,7 +548,7 @@ public class RecordsPageSteps extends CommonSteps {
 
     @And("^I should see correct device details$")
     public void iShouldSeeCorrectDeviceDetails() throws Throwable {
-        List<DeviceDO> listOfDeviceData = (List<DeviceDO>) scenarioSession.getData(SessionKey.listOfDevicesAdded);
+        List<DeviceDO> listOfDeviceData = (List<DeviceDO>) scenarioSession.getData(SessionKey.listOfDeviceDO);
         businessDevicesDetails = businessManufacturerDetails.clickOnDeviceAndProductsTab();
         boolean allDevicesFound = businessDevicesDetails.verifyAllTheDevicesAreDisplayedSimple(listOfDeviceData);
         Assert.assertThat("Expected to see following devices : "  + listOfDeviceData , allDevicesFound, is(true));
@@ -579,18 +578,27 @@ public class RecordsPageSteps extends CommonSteps {
 
     }
 
-    @Then("^I click to \"([^\"]*)\" selected devices$")
-    public void iShouldSeeOptionToApproveOrRejectIndividualDevices(String approveOrReject) throws Throwable {
+    @Then("^I select all the cfs devices$")
+    public void iSelectAllTheDevices() throws Throwable {
+        businessDevicesDetails = businessManufacturerDetails.clickOnDeviceAndProductsTab();
+        businessDevicesDetails = businessDevicesDetails.selectAllDevices();
+    }
+
+    @Then("^I click to \"([^\"]*)\" selected devices with following reasons \"([^\"]*)\"$")
+    public void iShouldSeeOptionToApproveOrRejectIndividualDevices(String approveOrReject, String reasons) throws Throwable {
 
         if(approveOrReject.equals("approve")) {
-            boolean isAbleToApproveIndividualDevices = businessDevicesDetails.isAbleToApproveIndividualDevices();
             businessDevicesDetails = businessDevicesDetails.approveOrRejectIndividualDevices(true);
-            Assert.assertThat("Option to approve individual devices expected", isAbleToApproveIndividualDevices, is(true));
+            //boolean isAbleToApproveIndividualDevices = businessDevicesDetails.isAbleToApproveIndividualDevices();
+            //Assert.assertThat("Option to approve individual devices expected", isAbleToApproveIndividualDevices, is(true));
         }else {
-            boolean isAbleToApproveIndividualDevices = businessDevicesDetails.isAbleToRejectIndividualDevices();
             businessDevicesDetails = businessDevicesDetails.approveOrRejectIndividualDevices(false);
-            businessDevicesDetails.enterDeviceRejectionReason("Registered twice", "Rejected for registering multiple times");
-            Assert.assertThat("Option to REJECT individual devices expected", isAbleToApproveIndividualDevices, is(true));
+            List<DeviceDO> listOfDeviceData = (List<DeviceDO>) scenarioSession.getData(SessionKey.listOfDeviceDO);
+            for(DeviceDO deviceDO: listOfDeviceData) {
+                businessDevicesDetails.enterDeviceRejectionReason(reasons, "Rejected following device : " + deviceDO.deviceName);
+            }
+            //boolean isAbleToApproveIndividualDevices = businessDevicesDetails.isAbleToRejectIndividualDevices();
+            //Assert.assertThat("Option to REJECT individual devices expected", isAbleToApproveIndividualDevices, is(true));
         }
 
     }

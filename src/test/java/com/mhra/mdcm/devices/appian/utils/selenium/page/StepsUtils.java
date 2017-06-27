@@ -13,18 +13,18 @@ import java.util.List;
 public class StepsUtils {
 
     public static void addToDeviceDataList(ScenarioSession scenarioSession, DeviceDO dd) {
-        List<DeviceDO> listOfDeviceData = (List<DeviceDO>) scenarioSession.getData(SessionKey.listOfDevicesAdded);
+        List<DeviceDO> listOfDeviceData = (List<DeviceDO>) scenarioSession.getData(SessionKey.listOfDeviceDO);
         if(listOfDeviceData == null){
             listOfDeviceData = new ArrayList<>();
         }
 
         listOfDeviceData.add(dd);
-        scenarioSession.putData(SessionKey.listOfDevicesAdded, listOfDeviceData);
+        scenarioSession.putData(SessionKey.listOfDeviceDO, listOfDeviceData);
     }
 
 
     public static void removeFromDeviceDataList(ScenarioSession scenarioSession, String deviceName) {
-        List<DeviceDO> listOfDeviceData = (List<DeviceDO>) scenarioSession.getData(SessionKey.listOfDevicesAdded);
+        List<DeviceDO> listOfDeviceData = (List<DeviceDO>) scenarioSession.getData(SessionKey.listOfDeviceDO);
 
         int position = 0;
         for(DeviceDO dd: listOfDeviceData){
@@ -36,7 +36,7 @@ public class StepsUtils {
 
         //Remove and update
         listOfDeviceData.remove(position);
-        scenarioSession.putData(SessionKey.listOfDevicesAdded, listOfDeviceData);
+        scenarioSession.putData(SessionKey.listOfDeviceDO, listOfDeviceData);
     }
 
 

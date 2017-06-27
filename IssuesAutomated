@@ -355,6 +355,7 @@ Automated Issues:
 
     Sprint 21: @_sprint21
         - @5682 -   CFS @todo business user bulk reject request for a device
+                -   DONE ISH
         - @1840 -
         - @5593 -   CFS @todo business user application view new devices
                 -   Done ish
@@ -364,6 +365,7 @@ Automated Issues:
                 -   DONE ISH
                 -   Approved/Rejected Device status (not sure if this is still required)
         - @5664 -   CFS @todo business user reject request for a device
+                -   DONE ISH
         - @1961 -   CFS @todo business user reject request for a new manufacturer
                 -   DONE ISH
                 -   Rejecting application doesn't take me back to WIP page
@@ -390,8 +392,10 @@ Automated Issues:
         - @6086 -
         - @6089 -
         - @6091 -
-        - @5673 -   CFS @todo email if application is rejected
-        - @5674 -   CFS @todo email if application is successful
+        - @5673 -   CFS @todo email if cfs new application is rejected
+                -   DONE ISH
+        - @5674 -   CFS @todo email if cfs new application is successful
+                -   DONE ISH
         - @6012 -   CFS @todo view all products related to devices
         - @1949 -   CFS @todo review order before submitting
         - @5980 -   CFS @todo update CFS order after reviewing it
