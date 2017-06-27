@@ -403,7 +403,7 @@ public class CFSSteps extends CommonSteps {
     @When("^I submit the cfs application for approval$")
     public void i_submit_the_cfs_application_for_approval() throws Throwable {
         cfsManufacturerList = cfsAddDevices.submitApplicationForApproval();
-        cfsManufacturerList.isManufacturerListDisplayed();
+        //cfsManufacturerList.isManufacturerListDisplayed();
     }
 
     @Then("^Check the application reference number format is valid$")

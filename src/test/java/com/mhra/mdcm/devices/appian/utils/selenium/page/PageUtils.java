@@ -680,4 +680,18 @@ public class PageUtils {
         }
         return isValid;
     }
+
+
+
+    public static boolean isAllDataCorrect(List<WebElement> listOfStrings, String expectedData) {
+        boolean isValid = true;
+        for(WebElement data: listOfStrings){
+            isValid = data.getText().contains(expectedData);
+            if(!isValid){
+                System.out.println("Page not displaying expected data : " + expectedData);
+                break;
+            }
+        }
+        return isValid;
+    }
 }

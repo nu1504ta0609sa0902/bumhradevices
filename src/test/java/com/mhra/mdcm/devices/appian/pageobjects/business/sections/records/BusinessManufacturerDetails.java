@@ -374,6 +374,7 @@ public class BusinessManufacturerDetails extends _Page {
 
 
     public BusinessDeviceDetails clickOnDeviceAndProductsTab() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, tabDevicesAndProductDetails, TIMEOUT_5_SECOND);
         tabDevicesAndProductDetails.click();
         return new BusinessDeviceDetails(driver);

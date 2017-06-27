@@ -350,7 +350,7 @@ public class ManufacturerViewDetails extends _Page {
 
     public CFSAddDevices clickContinue() {
         try {
-            WaitUtils.waitForElementToBeClickable(driver, btnContinue, TIMEOUT_10_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, btnContinue, TIMEOUT_3_SECOND);
             btnContinue.click();
         } catch (Exception e) {
         }

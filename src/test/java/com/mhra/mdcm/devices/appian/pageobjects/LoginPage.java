@@ -161,26 +161,37 @@ public class LoginPage extends _Page {
      * @return
      */
     public LoginPage logoutIfLoggedIn() {
-        WaitUtils.isPageLoadingComplete(driver, _Page.TIMEOUT_PAGE_LOAD);
-        try {
-            WaitUtils.waitForElementToBeClickable(driver, settings, TIMEOUT_10_SECOND);
-            if (settings.isDisplayed()) {
-                //settings.click();
-                PageUtils.doubleClick(driver, settings);
-                driver.findElement(By.linkText("Sign Out")).click();
+        boolean loggedOut = isAlreadyLoggedOut();
+        if(!loggedOut) {
+            try {
+                WaitUtils.waitForElementToBeClickable(driver, settings, TIMEOUT_10_SECOND);
+                if (settings.isDisplayed()) {
+                    //settings.click();
+                    PageUtils.doubleClick(driver, settings);
+                    driver.findElement(By.linkText("Sign Out")).click();
 
-                //If logout and login is too fast, appian system shows 404 in some instance of automation
-                WaitUtils.nativeWaitInSeconds(2);
-                driver.get(baseUrl);
+                    //If logout and login is too fast, appian system shows 404 in some instance of automation
+                    WaitUtils.nativeWaitInSeconds(2);
+                    driver.get(baseUrl);
 
-                WaitUtils.waitForElementToBeClickable(driver, remember, TIMEOUT_10_SECOND);
+                    WaitUtils.waitForElementToBeClickable(driver, remember, TIMEOUT_10_SECOND);
+                }
+            } catch (Exception e) {
+                //Probably not logged in
             }
-        } catch (Exception e) {
-            //Probably not logged in
         }
         return new LoginPage(driver);
     }
 
+    private boolean isAlreadyLoggedOut() {
+        boolean loggedOut = true;
+        try{
+            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText("Forgot your password"), 2);
+        }catch (Exception e){
+            loggedOut = false;
+        }
+        return loggedOut;
+    }
 
     /**
      * logout from Manufacturer and AuthorisedRep site
@@ -188,24 +199,26 @@ public class LoginPage extends _Page {
      * @return
      */
     public LoginPage logoutIfLoggedInOthers() {
-        WaitUtils.isPageLoadingComplete(driver, _Page.TIMEOUT_PAGE_LOAD);
-        try {
-            WaitUtils.waitForElementToBeClickable(driver, photoIcon, TIMEOUT_10_SECOND);
-            if (photoIcon.isDisplayed()) {
-                //settings.click();
-                PageUtils.doubleClick(driver, photoIcon);
-                signOutLink.click();
+        boolean loggedOut = isAlreadyLoggedOut();
+        if(!loggedOut) {
+            try {
+                WaitUtils.waitForElementToBeClickable(driver, photoIcon, TIMEOUT_10_SECOND);
+                if (photoIcon.isDisplayed()) {
+                    //settings.click();
+                    PageUtils.doubleClick(driver, photoIcon);
+                    signOutLink.click();
 
-                //If logout and login is too fast, appian system shows 404 in some instance of automation
-                WaitUtils.nativeWaitInSeconds(2);
-                driver.get(baseUrl);
+                    //If logout and login is too fast, appian system shows 404 in some instance of automation
+                    WaitUtils.nativeWaitInSeconds(2);
+                    driver.get(baseUrl);
 
-                WaitUtils.waitForElementToBeClickable(driver, remember, TIMEOUT_10_SECOND);
-                //If logout and login is too fast, appian system shows 404 in some instance of automation
-                WaitUtils.nativeWaitInSeconds(2);
+                    WaitUtils.waitForElementToBeClickable(driver, remember, TIMEOUT_10_SECOND);
+                    //If logout and login is too fast, appian system shows 404 in some instance of automation
+                    WaitUtils.nativeWaitInSeconds(2);
+                }
+            } catch (Exception e) {
+                //Probably not logged in
             }
-        } catch (Exception e) {
-            //Probably not logged in
         }
         return new LoginPage(driver);
     }

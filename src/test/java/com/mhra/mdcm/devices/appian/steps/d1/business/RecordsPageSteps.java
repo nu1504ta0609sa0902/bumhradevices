@@ -572,12 +572,26 @@ public class RecordsPageSteps extends CommonSteps {
         Assert.assertThat("Expected to see following products : "  + deviceDO.listOfProductName , isPageDisplayingCorrectProducts, is(true));
     }
 
-    @Then("^I approve a single cfs devices$")
+    @Then("^I select a single cfs devices$")
     public void iShouldSeeOptionToApproveIndividualDevices() throws Throwable {
         businessDevicesDetails = businessManufacturerDetails.clickOnDeviceAndProductsTab();
         businessDevicesDetails = businessDevicesDetails.selectADevices();
-        boolean isAbleToApproveIndividualDevices = businessDevicesDetails.isAbleToApproveIndividualDevices();
-        Assert.assertThat("Option to approve individual devices expected" , isAbleToApproveIndividualDevices, is(true));
+
+    }
+
+    @Then("^I click to \"([^\"]*)\" selected devices$")
+    public void iShouldSeeOptionToApproveOrRejectIndividualDevices(String approveOrReject) throws Throwable {
+
+        if(approveOrReject.equals("approve")) {
+            boolean isAbleToApproveIndividualDevices = businessDevicesDetails.isAbleToApproveIndividualDevices();
+            businessDevicesDetails = businessDevicesDetails.approveOrRejectIndividualDevices(true);
+            Assert.assertThat("Option to approve individual devices expected", isAbleToApproveIndividualDevices, is(true));
+        }else {
+            boolean isAbleToApproveIndividualDevices = businessDevicesDetails.isAbleToRejectIndividualDevices();
+            businessDevicesDetails = businessDevicesDetails.approveOrRejectIndividualDevices(false);
+            businessDevicesDetails.enterDeviceRejectionReason("Registered twice", "Rejected for registering multiple times");
+            Assert.assertThat("Option to REJECT individual devices expected", isAbleToApproveIndividualDevices, is(true));
+        }
 
     }
 
@@ -599,9 +613,16 @@ public class RecordsPageSteps extends CommonSteps {
 //        boolean isCorrect = businessManufacturerDetails.isApproverDetailCorrect(loggedInUser);
     }
 
-    @Then("^I all the device status should update to \"([^\"]*)\"$")
+    @Then("^All the device status should update to \"([^\"]*)\"$")
     public void iAllTheDeviceStatusShouldUpdateTo(String statusOfDevices) throws Throwable {
         boolean isStatusCorrect = businessDevicesDetails.isDeviceStatusCorrect(statusOfDevices);
         Assert.assertThat("All status should be : " + statusOfDevices, isStatusCorrect, is(true));
+    }
+
+    @Then("^I should see option to approve reject individual devices$")
+    public void iShouldSeeOptionToApproveRejectIndividualDevices() throws Throwable {
+        businessDevicesDetails = businessManufacturerDetails.clickOnDeviceAndProductsTab();
+        businessDevicesDetails = businessDevicesDetails.selectADevices();
+        boolean isAbleToApproveIndividualDevice = businessDevicesDetails.isAbleToApproveIndividualDevices();
     }
 }

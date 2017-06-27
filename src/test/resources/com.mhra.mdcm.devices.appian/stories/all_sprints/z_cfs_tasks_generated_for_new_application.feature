@@ -39,7 +39,7 @@ Feature: Tasks will need to be generated for CFS application
     And I submit the cfs application for approval
     When I logout and log back into appian as "businessAuto" user
     And I search and view new task in AWIP page for the newly created manufacturer
-    Then I should see the option to "Assign to myself"
+    Then I should see a button with the following text "Assign to myself"
     And I should not see any option related to approving reject and completing the application
     And I assign the generated AWIP page task to me
     Then The task status in AWIP page should be "Assigned" for the newly created manufacturer

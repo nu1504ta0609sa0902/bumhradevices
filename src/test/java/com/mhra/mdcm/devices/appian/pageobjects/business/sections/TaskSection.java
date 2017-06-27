@@ -324,6 +324,7 @@ public class TaskSection extends _Page {
     }
 
     public boolean isOrganisationDisplayedOnLink(String orgName) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD );
         boolean contains = driver.getPageSource().contains(orgName);
         return contains;
     }
@@ -578,7 +579,7 @@ public class TaskSection extends _Page {
 
     public TaskSection searchAWIPPageForAccount(String accountNameOrReference) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, tbxSearchByManufacturer, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, tbxSearchByManufacturer, TIMEOUT_30_SECOND);
         tbxSearchByManufacturer.sendKeys(accountNameOrReference);
         btnSearchForManufacuturer.click();
         listOfApplicationReferences.size();

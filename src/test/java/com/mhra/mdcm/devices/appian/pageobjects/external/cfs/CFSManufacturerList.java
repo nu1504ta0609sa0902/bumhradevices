@@ -56,7 +56,7 @@ public class CFSManufacturerList extends _Page {
     //Buttons
     @FindBy(xpath = ".//button[contains(text(), 'Submit')]")
     WebElement btnSubmit;
-    @FindBy(xpath = ".//button[contains(text(), 'Add new man')]")
+    @FindBy(xpath = ".//button[contains(text(), 'Add new manufacturer')]")
     WebElement btnAddNewManufacturer;
     @FindBy(xpath = ".//button[.='Continue']")
     WebElement btnContinue;
@@ -105,7 +105,7 @@ public class CFSManufacturerList extends _Page {
     }
 
     public boolean isManufacturerListDisplayed() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean isVisible = PageUtils.isVisible(driver, btnAddNewManufacturer, TIMEOUT_10_SECOND);
         return isVisible;
     }

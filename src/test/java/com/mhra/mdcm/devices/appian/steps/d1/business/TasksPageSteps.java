@@ -553,6 +553,13 @@ public class TasksPageSteps extends CommonSteps {
         }
     }
 
+    @When("^I complete the already assigned task$")
+    public void i_complete_the_alredy_assigned_generated_task() throws Throwable {
+        //accept the taskSection and approve or reject it
+        businessManufacturerDetails = businessManufacturerDetails.clickOnSummaryTab();
+        businessManufacturerDetails = businessManufacturerDetails.completeTheApplication();
+    }
+
     @When("^I go to application WIP page$")
     public void iGoToApplicationWIPTaksPage() throws Throwable {
         mainNavigationBar = new MainNavigationBar(driver);
@@ -667,7 +674,7 @@ public class TasksPageSteps extends CommonSteps {
         Assert.assertThat("Expected Status in Application WIP page : " + status + " for application : " + reference, isStatusCorrect, is(true));
     }
 
-    @Then("^I should see the option to \"([^\"]*)\"$")
+    @Then("^I should see a button with the following text \"([^\"]*)\"$")
     public void i_should_see_the_option_to(String button) throws Throwable {
         boolean isVisible = businessManufacturerDetails.isButtonVisibleWithText(button, 5);
         Assert.assertThat("Expected following button : " + button, isVisible, is(true));

@@ -2,8 +2,6 @@ package com.mhra.mdcm.devices.appian.pageobjects.business.sections.records;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
-import com.mhra.mdcm.devices.appian.pageobjects.external.device.DeviceDetails;
-import com.mhra.mdcm.devices.appian.utils.selenium.page.CommonUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
@@ -59,10 +57,6 @@ public class BusinessDeviceDetails extends _Page {
     @FindBy(xpath = ".//span[contains(text(), 'Inteded use')]//following::p[1]")
     WebElement fieldIntendedUse;
 
-    //Device information page fields Active Implantable Medical Device
-
-    //Device information page fields In Vitro Diagnostic Devices
-
     //CFS application details
     @FindBy(xpath = ".//*[contains(text(), 'Number of devices')]")
     WebElement totalNumberOfDevices;
@@ -70,14 +64,28 @@ public class BusinessDeviceDetails extends _Page {
     List<WebElement> listOfGMDNTermsAndCodes;
     @FindBy(xpath = ".//td[2]")
     List<WebElement> listOfDeviceTypes;
+    @FindBy(xpath = ".//td[5]")
+    List<WebElement> listOfDeviceApprovedStatus;
     @FindBy(xpath = ".//button[contains(text(), 'Approve selected devices')]")
     WebElement btnApproveSelectedDevices;
+    @FindBy(xpath = ".//button[contains(text(), 'Reject selected devices')]")
+    WebElement btnRejectSelectedDevices;
     @FindBy(xpath = ".//*[contains(text(), 'approve or reject')]//following::button[3]")
     WebElement btnApproveAllCFSDevices;
     @FindBy(css = ".GridWidget---checkbox")
     WebElement cbxSelectAllDevices;
+    @FindBy(partialLinkText = "EU directive")
+    WebElement linkEuDirective;
     @FindBy(css = "td.GridWidget---checkbox")
     List<WebElement> listOfDeviceCheckbox;
+
+    //CFS device rejection
+    @FindBy(xpath = ".//label[.='Other']")
+    WebElement cfsDRROther;
+    @FindBy(xpath = ".//label[.='Registered twice']")
+    WebElement cfsDRRSubmittedInError;
+    @FindBy(xpath = ".//button[contains(text(), 'Reject device')]")
+    WebElement btnRejectCFSDevice;
 
 
     @Autowired
@@ -181,12 +189,14 @@ public class BusinessDeviceDetails extends _Page {
     }
 
     public boolean isCertificatesDisplayed(List<String> listOfCertificates) {
+        WaitUtils.waitForElementToBeClickable(driver, linkEuDirective, TIMEOUT_10_SECOND);
         String pageSource = driver.getPageSource();
         boolean isValid = PageUtils.isPageDisplayingCorrectData(listOfCertificates, pageSource);
         return isValid;
     }
 
     public boolean isProductsDisplayed(DeviceDO deviceDO) {
+        WaitUtils.waitForElementToBeClickable(driver, linkEuDirective, TIMEOUT_5_SECOND);
         List<String> listOfProductName = deviceDO.listOfProductName;
         List<String> listOfModelName = deviceDO.listOfModelName;
         String pageSource = driver.getPageSource();
@@ -197,8 +207,13 @@ public class BusinessDeviceDetails extends _Page {
     }
 
     public boolean isAbleToApproveIndividualDevices() {
-        WaitUtils.waitForElementToBeClickable(driver, btnApproveSelectedDevices, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeVisible(driver, btnApproveSelectedDevices, TIMEOUT_10_SECOND);
         return btnApproveSelectedDevices.isEnabled() && btnApproveSelectedDevices.isDisplayed();
+    }
+
+    public boolean isAbleToRejectIndividualDevices() {
+        WaitUtils.waitForElementToBeVisible(driver, btnRejectSelectedDevices, TIMEOUT_10_SECOND);
+        return btnRejectSelectedDevices.isEnabled() && btnRejectSelectedDevices.isDisplayed();
     }
 
     public BusinessDeviceDetails selectADevices() {
@@ -216,6 +231,44 @@ public class BusinessDeviceDetails extends _Page {
     }
 
     public boolean isDeviceStatusCorrect(String statusOfDevices) {
-        return false;
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD );
+        WaitUtils.waitForElementToBeClickable(driver, btnApproveAllCFSDevices, TIMEOUT_10_SECOND);
+        boolean correct = PageUtils.isAllDataCorrect(listOfDeviceApprovedStatus, statusOfDevices);
+        return correct;
+    }
+
+    public BusinessDeviceDetails approveOrRejectIndividualDevices(boolean approveIndividualDevice) {
+        if(approveIndividualDevice){
+            WaitUtils.waitForElementToBeVisible(driver, btnApproveSelectedDevices, TIMEOUT_5_SECOND);
+            btnApproveSelectedDevices.click();
+        }else{
+            WaitUtils.waitForElementToBeVisible(driver, btnRejectSelectedDevices, TIMEOUT_5_SECOND);
+            btnRejectSelectedDevices.click();
+        }
+        return new BusinessDeviceDetails(driver);
+    }
+
+    public BusinessManufacturerDetails enterDeviceRejectionReason(String reason, String randomTestComment) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+
+        if (reason != null) {
+            if (reason.contains("Other")) {
+//                //Comment is mandatory
+//                WaitUtils.waitForElementToBeClickable(driver, cfsDeviceOther, TIMEOUT_10_SECOND);
+//                cfsDeviceOther.click();
+//
+//                //Enter comment
+//                WaitUtils.waitForElementToBeClickable(driver, commentArea, TIMEOUT_10_SECOND);
+//                commentArea.sendKeys(randomTestComment);
+            } else if (reason.contains("Registered twice")) {
+                WaitUtils.waitForElementToBeClickable(driver, cfsDRRSubmittedInError, TIMEOUT_10_SECOND);
+                PageUtils.clickIfVisible(driver, cfsDRRSubmittedInError);
+            }
+        }
+
+
+        //Submit rejection
+        PageUtils.doubleClick(driver, btnRejectCFSDevice);
+        return new BusinessManufacturerDetails(driver);
     }
 }
