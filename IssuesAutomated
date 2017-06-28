@@ -399,7 +399,12 @@ Automated Issues:
         - @6012 -   CFS @todo search view all products related to devices
                 -   DONE ISH
         - @1949 -   CFS @todo review order before submitting
+                -   DONE ISH
+                -   Add without country
+                -   Verify address
         - @5980 -   CFS @todo update CFS order after reviewing it
+                -   DONE ISH
+                -   Add/remove product or device
         - @1958 -   CFS @todo save application and resume later
         - @1960 -   CFS @todo view all the application submitted for CFS
         - @6095 -   CFS @todo updload bulk devices
