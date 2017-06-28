@@ -88,7 +88,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | Bangladesh | 10    |
 
 
-  @1974 @1978 @4704 @_sprint15 @5980 @_sprint22 @wip
+  @1974 @1978 @4704 @_sprint15 @5980 @1958 @1960 @_sprint22 @wip
   Scenario: Users should be able to go to edit list of devices added for initial CFS process
     Given I am logged into appian as "manufacturerAuto" user
     And I go to device certificate of free sale page
@@ -100,9 +100,11 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
     Then I should see the correct details in cfs order review page
     When I edit the list of devices added for CFS
     Then I should see the correct details in cfs order review page
+    When I save cfs order application for later
+    Then I should see application tab showing my application with correct details
 
 
-  @1974 @1978 @_sprint15 @5980 @_sprint22
+  @1974 @1978 @_sprint15 @5980 @1958 @1960 @_sprint22
   Scenario: Users should be able to go to edit country and number of certificates
     Given I am logged into appian as "manufacturerAuto" user
     And I go to device certificate of free sale page
@@ -114,6 +116,8 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
     Then I should see the correct details in cfs order review page
     When I update the country to "Bangladesh" and number of certificates to 9
     Then I should see the correct details in cfs order review page
+    When I save cfs order application for later
+    Then I should see application tab showing my application with correct details
 
 
   @1974 @1978 @5578 @_sprint15 @_sprint18

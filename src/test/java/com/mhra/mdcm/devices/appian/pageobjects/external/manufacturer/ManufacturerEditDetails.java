@@ -168,14 +168,14 @@ public class ManufacturerEditDetails extends _Page {
     }
 
 
-    public ManufacturerViewDetails confirmChanges(boolean confirm) {
+    public ManufacturerDetails confirmChanges(boolean confirm) {
         WaitUtils.waitForElementToBeClickable(driver, confirmYes, TIMEOUT_DEFAULT);
         if(confirm){
             confirmYes.click();
         }else{
             confirmNo.click();
         }
-        return new ManufacturerViewDetails(driver);
+        return new ManufacturerDetails(driver);
     }
 
 }

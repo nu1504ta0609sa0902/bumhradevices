@@ -3,6 +3,7 @@ package com.mhra.mdcm.devices.appian.pageobjects.external.device;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
+import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.ManufacturerDetails;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.CommonUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
@@ -112,6 +113,8 @@ public class DeviceDetails extends _Page {
     WebElement btnOrderCFS;
     @FindBy(xpath = ".//button[contains(text(), 'Continue')]")
     WebElement btnContinue;
+    @FindBy(xpath = ".//button[contains(text(), 'Save & exit')]")
+    WebElement btnSaveAndExit;
     @FindBy(xpath = ".//button[contains(text(), 'Continue to Payment')]")
     WebElement btnContinueToPayment;
     @FindBy(xpath = ".//button[contains(text(), 'Submit')]")
@@ -278,6 +281,13 @@ public class DeviceDetails extends _Page {
         return new DeviceDetails(driver);
     }
 
+    public ManufacturerDetails saveAndExitCFSOrderApplication() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, btnSaveAndExit, TIMEOUT_10_SECOND);
+        btnSaveAndExit.click();
+        return new ManufacturerDetails(driver);
+    }
+
     public DeviceDetails submitPayment() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnSubmitPayment, TIMEOUT_10_SECOND);
@@ -294,7 +304,7 @@ public class DeviceDetails extends _Page {
 
     public boolean isNumberOfCertificatesCorrect(String number) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, btnContinueToPayment, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, txtNumberOfCertificates, TIMEOUT_10_SECOND);
         String txt = txtNumberOfCertificates.getText().trim();
         return number.equals(txt);
     }

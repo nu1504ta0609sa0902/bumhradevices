@@ -406,6 +406,10 @@ Automated Issues:
                 -   DONE ISH
                 -   Add/remove product or device
         - @1958 -   CFS @todo save application and resume later
+                -   Able to resume application later on
+                -   Resume from all the different stages
         - @1960 -   CFS @todo view all the application submitted for CFS
+                -   DONE ISH
+                -   View all the draft application in the application tab
         - @6095 -   CFS @todo updload bulk devices
 

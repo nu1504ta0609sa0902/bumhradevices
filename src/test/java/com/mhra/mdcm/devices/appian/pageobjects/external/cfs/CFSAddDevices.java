@@ -2,6 +2,7 @@ package com.mhra.mdcm.devices.appian.pageobjects.external.cfs;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
+import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.ManufacturerDetails;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.CommonUtils;
@@ -229,6 +230,8 @@ public class CFSAddDevices extends _Page {
     WebElement btnAddDevice;
     @FindBy(xpath = ".//button[.='Save']")
     WebElement btnSaveProgress;
+    @FindBy(xpath = ".//button[contains(text(), 'Save & exit')]")
+    WebElement btnSaveAndExit;
     @FindBy(xpath = ".//button[.='Continue']")
     WebElement btnContinue;
     @FindBy(xpath = ".//button[.='Upload certificate']")
@@ -485,7 +488,7 @@ public class CFSAddDevices extends _Page {
                             //WaitUtils.waitForElementToBeClickable(driver, addProduct, TIMEOUT_5_SECOND);
                         }
                     } else {
-                        WaitUtils.waitForElementToBeClickable(driver, btnUploadCertificate, TIMEOUT_5_SECOND);
+                        //WaitUtils.waitForElementToBeClickable(driver, btnUploadCertificate, TIMEOUT_5_SECOND);
                     }
                 }
             }
@@ -812,5 +815,12 @@ public class CFSAddDevices extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, headingCECertificatesPage, TIMEOUT_5_SECOND);
         boolean allMatched = PageUtils.isAllItemsDisplayed(listOfAllCECertificates, certificatesExpected);
         return allMatched;
+    }
+
+    public ManufacturerDetails saveAndExitNewManufacturerApplication() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, btnSaveAndExit, TIMEOUT_10_SECOND);
+        btnSaveAndExit.click();
+        return new ManufacturerDetails(driver);
     }
 }

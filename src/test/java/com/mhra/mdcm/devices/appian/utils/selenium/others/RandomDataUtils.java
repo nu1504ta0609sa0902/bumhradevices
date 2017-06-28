@@ -207,10 +207,19 @@ public class RandomDataUtils {
 
     public static String getTodaysDate(boolean full, String separator) {
         Calendar cal = Calendar.getInstance();
-        String date = cal.get(Calendar.DAY_OF_MONTH) + separator + (cal.get(Calendar.MONTH)+1);
+        String date = format(cal.get(Calendar.DAY_OF_MONTH), true) + separator + format((cal.get(Calendar.MONTH)+1), true);
 
         if(full)
             date = date + separator + (cal.get(Calendar.YEAR));
+
+        return date;
+    }
+
+    public static String getTempReference(String startsWith, String separator) {
+        Calendar cal = Calendar.getInstance();
+        String date = startsWith + cal.get(Calendar.YEAR) + separator + format(cal.get(Calendar.MONTH)+1, true) + separator
+                + format(cal.get(Calendar.DAY_OF_MONTH),true) + separator + format(cal.get(Calendar.HOUR_OF_DAY), true)
+                + separator + format(cal.get(Calendar.MINUTE)%60, true);
 
         return date;
     }

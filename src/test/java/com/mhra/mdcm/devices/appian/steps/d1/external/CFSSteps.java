@@ -71,7 +71,6 @@ public class CFSSteps extends CommonSteps {
     }
 
 
-
     @Then("^I should see a list of manufacturers available for CFS$")
     public void i_should_see_a_list_of_manufacturers_available_for_CFS() throws Throwable {
         boolean isListVisible = cfsManufacturerList.isManufacturerListDisplayed();
@@ -94,7 +93,7 @@ public class CFSSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.organisationName, name);
 
         //CFS list displays only registered organisations
-        scenarioSession.putData(SessionKey.registeredStatus,"registered");
+        scenarioSession.putData(SessionKey.registeredStatus, "registered");
     }
 
     @When("^I order cfs for a country with following data$")
@@ -118,7 +117,7 @@ public class CFSSteps extends CommonSteps {
 
     @When("^I search for product by \"([^\"]*)\" for the value \"([^\"]*)\"$")
     public void i_search_for_product_by_for_the_value(String searchBy, String searchTerm) throws Throwable {
-        if(searchTerm.equals("random")){
+        if (searchTerm.equals("random")) {
             searchTerm = "Product";
         }
 
@@ -136,11 +135,11 @@ public class CFSSteps extends CommonSteps {
                 //deviceDetails = deviceDetails.selectARandomGMDNTerm();
             }
             atLeast1DeviceFound = deviceDetails.isDeviceFound();
-            if(count <= 2 && !atLeast1DeviceFound){
+            if (count <= 2 && !atLeast1DeviceFound) {
                 searchTerm = "Product";
                 count++;
             }
-        }while (!atLeast1DeviceFound);
+        } while (!atLeast1DeviceFound);
 
         //Store data to be verified later
         scenarioSession.putData(SessionKey.searchTerm, searchTerm);
@@ -148,7 +147,7 @@ public class CFSSteps extends CommonSteps {
 
     @When("^I search by \"([^\"]*)\" for the value \"([^\"]*)\" and order cfs for a country with following data$")
     public void i_order_cfs_for_a_country_with_following_data(String searchBy, String searchTerm, Map<String, String> dataSets) throws Throwable {
-        if(searchTerm.equals("random")){
+        if (searchTerm.equals("random")) {
             searchTerm = "Ford";
         }
         //Data
@@ -169,11 +168,11 @@ public class CFSSteps extends CommonSteps {
                 //deviceDetails = deviceDetails.selectARandomGMDNTerm();
             }
             atLeast1DeviceFound = deviceDetails.isDeviceFound();
-            if(count <= 2 && !atLeast1DeviceFound){
+            if (count <= 2 && !atLeast1DeviceFound) {
                 searchTerm = "Product";
                 count++;
             }
-        }while (!atLeast1DeviceFound);
+        } while (!atLeast1DeviceFound);
 
         deviceDetails = deviceDetails.selectADevices();
         deviceDetails = deviceDetails.enterACertificateDetails(countryName, noOfCFS);
@@ -246,7 +245,7 @@ public class CFSSteps extends CommonSteps {
 
     @Then("^I should see correct details for all the countries and certificate in cfs order review page$")
     public void i_should_multiple_country_details_in_cfs_review_page() throws Throwable {
-        String[] data = (String[] )scenarioSession.getData(SessionKey.listOfCFSCountryPairs);
+        String[] data = (String[]) scenarioSession.getData(SessionKey.listOfCFSCountryPairs);
         String name = (String) scenarioSession.getData(SessionKey.organisationName);
 
         //Verify data number of cfs and country and name
@@ -271,7 +270,6 @@ public class CFSSteps extends CommonSteps {
 
         //Complete editing of devices, at the moment I only have 1 device
         //deviceDetails = deviceDetails.editDevicesAddedForCFS();
-        deviceDetails.clickContinueButton();
         deviceDetails.clickContinueButton();
     }
 
@@ -311,6 +309,13 @@ public class CFSSteps extends CommonSteps {
 
         deviceDetails = deviceDetails.finishPayment();
         scenarioSession.putData(SessionKey.newApplicationReferenceNumber, reference);
+    }
+
+    @When("^I save cfs order application for later$")
+    public void i_save_cfs_application_for_later() throws Throwable {
+        manufacturerDetails = deviceDetails.saveAndExitCFSOrderApplication();
+        String reference = RandomDataUtils.getTempReference("TEMP", "");
+        scenarioSession.putData(SessionKey.temporaryReference, reference);
     }
 
     @When("^I add devices to NEWLY created CFS manufacturer with following data$")
@@ -413,9 +418,9 @@ public class CFSSteps extends CommonSteps {
     @When("^I click \"([^\"]*)\" on the alert box$")
     public void i_click_on_the_alert_box(String clickYes) throws Throwable {
 
-        if(clickYes.toLowerCase().equals("yes")){
+        if (clickYes.toLowerCase().equals("yes")) {
             cfsManufacturerList = createNewCFSManufacturer.clickAlertButtonYes();
-        }else{
+        } else {
             createNewCFSManufacturer = createNewCFSManufacturer.clickAlertButtonNo();
         }
     }
@@ -441,7 +446,7 @@ public class CFSSteps extends CommonSteps {
     @Then("^Check the application reference number format is valid$")
     public void checkTheApplicationReferenceNumberFormatIsValid() throws Throwable {
         String dateFormat = "yyyyDDmm";
-        List<String> invalidReferences = taskSection.isApplicationReferenceFormatCorrect(14,dateFormat);
+        List<String> invalidReferences = taskSection.isApplicationReferenceFormatCorrect(14, dateFormat);
         Assert.assertThat("Following references may not be correct : " + invalidReferences, invalidReferences.size() == 0, is(true));
     }
 
@@ -499,7 +504,7 @@ public class CFSSteps extends CommonSteps {
 
     @When("^I search for registered manufacturer \"([^\"]*)\"$")
     public void iSearchForRegisteredManufacturer(String searchTerm) throws Throwable {
-        if(searchTerm == null || searchTerm.equals(""))
+        if (searchTerm == null || searchTerm.equals(""))
             searchTerm = (String) scenarioSession.getData(SessionKey.organisationName);
         cfsManufacturerList = cfsManufacturerList.searchForManufacturer(searchTerm);
     }
@@ -508,5 +513,30 @@ public class CFSSteps extends CommonSteps {
     public void i_should_see_products_matching_search_results(int expectedCount) throws Throwable {
         boolean isCorrect = deviceDetails.isNumberOfProductsDisplayedCorrect(expectedCount);
         Assert.assertThat("Expected number of products to be : " + expectedCount, isCorrect, is(true));
+    }
+
+    @Then("^I should see application tab showing my application with correct details$")
+    public void iShouldSeeApplicatonTabShowingMyApplicationWithCorrectDetails() throws Throwable {
+        String reference = (String) scenarioSession.getData(SessionKey.temporaryReference);
+        reference = reference.substring(0, reference.length()-1);
+
+        //Go to applications tab and verify details are correct
+        manufacturerDetails = manufacturerDetails.clickApplicationTab();
+        boolean isRefVisible = manufacturerDetails.isApplicationReferenceVisible(reference);
+        boolean isStatusCorrect = manufacturerDetails.isApplicaitonStatusCorrect("Draft");
+        boolean isDateCorrect = manufacturerDetails.isApplicationDateCorrect();
+        Assert.assertThat("Expected to see entry with reference : " + reference, isRefVisible, is(true));
+        Assert.assertThat("Expected status : Draft " + reference, isStatusCorrect, is(true));
+        Assert.assertThat("Expected date formatted DD/MM/YYYY " + reference, isDateCorrect, is(true));
+
+        //boolean isApplicationTypeCorrect = manufacturerDetails.isApplicationTypeCorrect("CFS New Order");
+        //Assert.assertThat("Expected application type : CFS New Order" + reference, isApplicationTypeCorrect, is(true));
+    }
+
+    @When("^I save cfs new manufacturer application for later$")
+    public void iSaveCfsNewManufacturerApplicationForLater() throws Throwable {
+        manufacturerDetails = cfsAddDevices.saveAndExitNewManufacturerApplication();
+        String reference = RandomDataUtils.getTempReference("TEMP", "");
+        scenarioSession.putData(SessionKey.temporaryReference, reference);
     }
 }

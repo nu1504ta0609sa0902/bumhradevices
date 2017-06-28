@@ -2,7 +2,7 @@ package com.mhra.mdcm.devices.appian.steps.d1.external;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequestDO;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
-import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.ManufacturerViewDetails;
+import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.ManufacturerDetails;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import cucumber.api.java.en.And;
@@ -117,7 +117,7 @@ public class MyAccountPageSteps extends CommonSteps {
 
         //confirm and save
         //manufacturerDetails = editManufacturer.confirmChanges(true);
-        manufacturerDetails = new ManufacturerViewDetails(driver);
+        manufacturerDetails = new ManufacturerDetails(driver);
 
         scenarioSession.putData(SessionKey.manufacturerData, updatedData);
     }

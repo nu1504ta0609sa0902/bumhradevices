@@ -16,7 +16,7 @@ import com.mhra.mdcm.devices.appian.pageobjects.external.device.DeviceDetails;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.ProductDetails;
 import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.ManufacturerEditDetails;
 import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.ManufacturerList;
-import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.ManufacturerViewDetails;
+import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.ManufacturerDetails;
 import com.mhra.mdcm.devices.appian.pageobjects.external.myaccount.ContactPersonDetails;
 import com.mhra.mdcm.devices.appian.pageobjects.external.myaccount.OrganisationDetails;
 import com.mhra.mdcm.devices.appian.session.ScenarioSession;
@@ -105,7 +105,7 @@ public class CommonSteps {
     @Autowired
     public ContactPersonDetails amendPersonDetails;
     @Autowired
-    public ManufacturerViewDetails manufacturerDetails;
+    public ManufacturerDetails manufacturerDetails;
     @Autowired
     public _CreateManufacturerTestHarnessPage createNewManufacturer;
     @Autowired

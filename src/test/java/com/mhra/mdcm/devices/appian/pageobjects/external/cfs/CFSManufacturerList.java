@@ -2,8 +2,7 @@ package com.mhra.mdcm.devices.appian.pageobjects.external.cfs;
 
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.external._CreateCFSManufacturerTestHarnessPage;
-import com.mhra.mdcm.devices.appian.pageobjects.external.device.DeviceDetails;
-import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.ManufacturerViewDetails;
+import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.ManufacturerDetails;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
@@ -124,11 +123,11 @@ public class CFSManufacturerList extends _Page {
         return name;
     }
 
-    public ManufacturerViewDetails viewManufacturer(String name) {
+    public ManufacturerDetails viewManufacturer(String name) {
         WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(name), TIMEOUT_10_SECOND);
         WebElement man = driver.findElement(By.partialLinkText(name));
         man.click();
-        return new ManufacturerViewDetails(driver);
+        return new ManufacturerDetails(driver);
     }
 
     public String getARandomOrganisationName(String orgName) {
@@ -141,6 +140,7 @@ public class CFSManufacturerList extends _Page {
     }
 
     public String getManufacturerWithName(String orgName) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         return PageUtils.getElementMatchingText(listOfOrganisationNames, orgName).getText();
     }
 

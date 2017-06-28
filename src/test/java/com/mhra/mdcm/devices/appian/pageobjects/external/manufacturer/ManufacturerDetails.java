@@ -7,7 +7,9 @@ import com.mhra.mdcm.devices.appian.pageobjects.external.cfs.CFSAddDevices;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.AddDevices;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.DeviceDetails;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.ProductDetails;
+import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
+import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -22,7 +24,7 @@ import java.util.List;
  * Created by TPD_Auto
  */
 @Component
-public class ManufacturerViewDetails extends _Page {
+public class ManufacturerDetails extends _Page {
 
     @FindBy(css = ".component_error")
     List<WebElement> errorMessages;
@@ -89,13 +91,22 @@ public class ManufacturerViewDetails extends _Page {
     @FindBy(partialLinkText = "product details")
     WebElement devicesAndProductDetails;
 
+    //Tabs: Summary, Applications etc
+    @FindBy(partialLinkText = "Applications")
+    WebElement tabApplicationDetails;
+    @FindBy(xpath = ".//td[2]")
+    WebElement tdApplicationType;
+    @FindBy(xpath = ".//td[3]")
+    WebElement tdApplicationDate;
+    @FindBy(xpath = ".//td[4]")
+    WebElement tdApplicationStatus;
 
     //CFS related buttons
     @FindBy(xpath = ".//button[contains(text(), 'Order CFS')]")
     WebElement btnOrderCFS;
 
     @Autowired
-    public ManufacturerViewDetails(WebDriver driver) {
+    public ManufacturerDetails(WebDriver driver) {
         super(driver);
     }
 
@@ -317,11 +328,11 @@ public class ManufacturerViewDetails extends _Page {
         return new AddDevices(driver);
     }
 
-    public ManufacturerViewDetails refreshThePage() {
+    public ManufacturerDetails refreshThePage() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, fullName, TIMEOUT_10_SECOND);
         driver.navigate().refresh();
-        return new ManufacturerViewDetails(driver);
+        return new ManufacturerDetails(driver);
     }
 
     public AddDevices gotoAddDevicesPage(String registeredStatus) {
@@ -375,5 +386,33 @@ public class ManufacturerViewDetails extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, btnOrderCFS, TIMEOUT_15_SECOND);
         btnOrderCFS.click();
         return new DeviceDetails(driver);
+    }
+
+    public ManufacturerDetails clickApplicationTab() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, tabApplicationDetails, TIMEOUT_5_SECOND);
+        tabApplicationDetails.click();
+        return new ManufacturerDetails(driver);
+    }
+
+    public boolean isApplicationReferenceVisible(String reference) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        return PageUtils.isLinkVisible(driver, reference);
+    }
+
+    public boolean isApplicaitonStatusCorrect(String draft) {
+        WaitUtils.waitForElementToBeClickable(driver, tdApplicationStatus, TIMEOUT_10_SECOND);
+        return tdApplicationStatus.getText().contains(draft);
+    }
+
+    public boolean isApplicationDateCorrect() {
+        String date = RandomDataUtils.getTodaysDate(true, "/");
+        WaitUtils.waitForElementToBeClickable(driver, tdApplicationDate, TIMEOUT_10_SECOND);
+        return tdApplicationDate.getText().contains(date);
+    }
+
+    public boolean isApplicationTypeCorrect(String type) {
+        WaitUtils.waitForElementToBeClickable(driver, tdApplicationType, TIMEOUT_10_SECOND);
+        return tdApplicationType.getText().contains(type);
     }
 }

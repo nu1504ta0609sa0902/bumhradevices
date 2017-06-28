@@ -64,7 +64,7 @@ public class ManufacturerList extends _Page {
     }
 
 
-    public ManufacturerViewDetails viewAManufacturer(String manufacturerName) {
+    public ManufacturerDetails viewAManufacturer(String manufacturerName) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         if(manufacturerName == null){
             //Than view a random one
@@ -76,7 +76,7 @@ public class ManufacturerList extends _Page {
             WebElement man = driver.findElement(By.partialLinkText(manufacturerName));
             man.click();
         }
-        return new ManufacturerViewDetails(driver);
+        return new ManufacturerDetails(driver);
     }
 
     public String getARandomManufacturerName() {
