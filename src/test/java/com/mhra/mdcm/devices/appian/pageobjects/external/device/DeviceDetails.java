@@ -3,7 +3,6 @@ package com.mhra.mdcm.devices.appian.pageobjects.external.device;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
-import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.CommonUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
@@ -52,7 +51,7 @@ public class DeviceDetails extends _Page {
     @FindBy(css = ".GridWidget---checkbox")
     List<WebElement> listOfAllCheckbox;
     @FindBy(css = "td.GridWidget---checkbox")
-    List<WebElement> listOfDeviceCheckbox;
+    List<WebElement> listOfDeviceProductCheckbox;
     @FindBy(css = ".PickerWidget---picker_value")
     List<WebElement> listOfCountryPickers;
     @FindBy(xpath = ".//*[contains(text(),'Number of')]//following::input[@type='text']")
@@ -76,7 +75,7 @@ public class DeviceDetails extends _Page {
     WebElement txtTotalPriceOfCertificates;
     @FindBy(xpath = ".//*[contains(text(),'Number of')]//following::input")
     WebElement tbxNumberOfCFS;
-    @FindBy(css = ".GridWidget---checkbox")
+    @FindBy(css = "th.GridWidget---checkbox")
     WebElement cbxSelectAllDevices;
     @FindBy(css = ".GridWidget---checkbox")
     WebElement cbxDonotSpecifyACountry;
@@ -200,10 +199,10 @@ public class DeviceDetails extends _Page {
         return new DeviceDetails(driver);
     }
 
-    public DeviceDetails selectDevices() {
+    public DeviceDetails selectADevices() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD );
         WaitUtils.waitForElementToBeClickable(driver, cbxSelectAllDevices, TIMEOUT_10_SECOND);
-        WebElement cbx = PageUtils.getRandomElementFromList(listOfDeviceCheckbox);
+        WebElement cbx = PageUtils.getRandomElementFromList(listOfDeviceProductCheckbox);
         PageUtils.singleClick(driver, cbx);
         //Wait for continue button to be clickable
         WaitUtils.waitForElementToBeClickable(driver, btnContinue, TIMEOUT_5_SECOND);
@@ -214,8 +213,8 @@ public class DeviceDetails extends _Page {
     public DeviceDetails selectAllDevices() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD * 2);
         WaitUtils.waitForElementToBeClickable(driver, cbxSelectAllDevices, TIMEOUT_10_SECOND);
-        WebElement cbx = PageUtils.getRandomElementFromList(listOfAllCheckbox);
-        PageUtils.singleClick(driver, cbx);
+        cbxSelectAllDevices.click();
+
         //Wait for continue button to be clickable
         WaitUtils.waitForElementToBeClickable(driver, btnContinue, TIMEOUT_5_SECOND);
         PageUtils.singleClick(driver, btnContinue);
@@ -419,6 +418,18 @@ public class DeviceDetails extends _Page {
         return new DeviceDetails(driver);
     }
 
+    public DeviceDetails selectARandomGMDNTerm(String searchTerm) {
+        WaitUtils.waitForElementToBeClickable(driver, btnSearch, TIMEOUT_15_SECOND);
+        WebElement element = listOfDropDownFilters.get(0);
+        element.click();
+
+        //Get gmdn terms available and select the first one: @todo Change to randomly select
+        List<String> listOfOptions = PageUtils.getListOfElementsForDropDown(listOfGMDNTerms);
+        String option = PageUtils.findOptionMatchingSearchTerm(listOfOptions, searchTerm);
+        PageUtils.selectFromDropDown(driver, listOfDropDownFilters.get(0), option, false);
+        return new DeviceDetails(driver);
+    }
+
     public DeviceDetails enterPaymentDetails(String paymentMethod) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, ddAddressBox, TIMEOUT_15_SECOND);
@@ -446,6 +457,7 @@ public class DeviceDetails extends _Page {
 
     public DeviceDetails searchByMedicalDeviceName(String searchTerm) {
         WaitUtils.waitForElementToBeClickable(driver, tbxMedicalDeviceName, TIMEOUT_10_SECOND);
+        tbxMedicalDeviceName.clear();
         tbxMedicalDeviceName.sendKeys(searchTerm);
         btnSearch.click();
         return new DeviceDetails(driver);
@@ -454,6 +466,12 @@ public class DeviceDetails extends _Page {
     public boolean isDeviceFound() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnSearch, TIMEOUT_10_SECOND);
-        return listOfDeviceCheckbox.size() > 0;
+        return listOfDeviceProductCheckbox.size() > 0;
+    }
+
+    public boolean isNumberOfProductsDisplayedCorrect(int expected) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, btnSearch, TIMEOUT_10_SECOND);
+        return listOfDeviceProductCheckbox.size() ==  expected;
     }
 }

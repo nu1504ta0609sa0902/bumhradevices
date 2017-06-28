@@ -694,4 +694,17 @@ public class PageUtils {
         }
         return isValid;
     }
+
+    public static String findOptionMatchingSearchTerm(List<String> listOfOptions, String searchTerm) {
+        String matched = searchTerm;
+
+        for(String option: listOfOptions){
+            if(option.contains(searchTerm)){
+                matched = option;
+                break;
+            }
+        }
+
+        return matched;
+    }
 }

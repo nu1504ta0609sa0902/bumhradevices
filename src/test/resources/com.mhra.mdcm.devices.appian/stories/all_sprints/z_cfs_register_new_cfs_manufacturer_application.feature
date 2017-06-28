@@ -12,11 +12,11 @@ Feature: Able to add CFS for products and devices that are already registered
       | countryName | Brazil       |
     And I add devices to NEWLY created CFS manufacturer with following data
       | deviceType     | Active Implantable Device |
-      | gmdnDefinition | Desiccating chamber                |
-      | customMade     | false                              |
-      | notifiedBody   | NB 0086 BSI                        |
-      | productName    | FordHybrid                         |
-      | productModel   | FocusYeah                          |
+      | gmdnDefinition | Desiccating chamber       |
+      | customMade     | false                     |
+      | notifiedBody   | NB 0086 BSI               |
+      | productName    | Product1                |
+      | productModel   | Model1                 |
     And I add another device to SELECTED CFS manufacturer with following data
       | deviceType           | General Medical Device |
       | gmdnDefinition       | Blood weighing scale   |
@@ -64,26 +64,8 @@ Feature: Able to add CFS for products and devices that are already registered
     And I should received an email for stored manufacturer with heading "Free Sale"
     Examples:
       | user              | expectedStatus | approveReject |
-#      | manufacturerAuto  | Completed      | approve       |
+      | manufacturerAuto  | Completed      | approve       |
       | authorisedRepAuto | Completed      | reject        |
-
-
-  @1992 @5960 @_sprint21
-  Scenario Outline: Customers can order CFS for already registered manufacturers
-    Given I am logged into appian as "<logInAs>" user
-    And I go to device certificate of free sale page
-    Then I should see a list of manufacturers available for CFS
-    When I search for registered manufacturer "<searchTerm>"
-    And I click on a random organisation which needs cfs
-    And I search by "medical device name" for the value "random" and order cfs for a country with following data
-      | countryName | <country> |
-      | noOfCFS     | <noCFS>   |
-    Then I should see the correct details in cfs review page
-    When I submit payment for the CFS
-    Examples:
-      | country    | noCFS | logInAs           | searchTerm           |
-      | Brazil     | 15    | manufacturerAuto  | ManufacturerRT01Test |
-      | Bangladesh | 10    | authorisedRepAuto | AuthorisedRepRT01Test |
 
 
   @5679 @1954 @5680 @5681 @_sprint20 @5593 @5665 @_sprint21 @5673 @5674 @5673 @5674 @_sprint22
@@ -148,7 +130,7 @@ Feature: Able to add CFS for products and devices that are already registered
     Examples:
       | user              | approveOrReject | status   | reasons          |
       | authorisedRepAuto | reject          | Rejected | Registered twice |
-#      | manufacturerAuto  | approve         | Approved ||
+      | manufacturerAuto  | approve         | Approved |                  |
 
 
   @5682 @5664 @_sprint21 @5673 @5674 @_sprint22
@@ -164,8 +146,8 @@ Feature: Able to add CFS for products and devices that are already registered
       | gmdnDefinition | Desiccating chamber       |
       | customMade     | false                     |
       | notifiedBody   | NB 0086 BSI               |
-      | productName    | FordHybrid2               |
-      | productModel   | FocusYeah3                |
+      | productName    | Product12               |
+      | productModel   | Model13                |
     And I add another device to SELECTED CFS manufacturer with following data
       | deviceType           | General Medical Device |
       | gmdnDefinition       | Blood weighing scale   |
@@ -185,7 +167,7 @@ Feature: Able to add CFS for products and devices that are already registered
     Then The task status in AWIP page should be "Completed" for the newly created manufacturer
     And I should received an email for stored manufacturer with heading "Free Sale"
     Examples:
-      | user              | approveOrReject | status   | reasons                 |
+      | user              | approveOrReject | status   | reasons                |
       | authorisedRepAuto | reject          | Rejected | Other,Registered twice |
-#      | manufacturerAuto  | approve         | Approved ||
+      | manufacturerAuto  | approve         | Approved |                        |
 

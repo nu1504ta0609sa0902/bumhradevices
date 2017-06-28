@@ -89,6 +89,11 @@ public class ManufacturerViewDetails extends _Page {
     @FindBy(partialLinkText = "product details")
     WebElement devicesAndProductDetails;
 
+
+    //CFS related buttons
+    @FindBy(xpath = ".//button[contains(text(), 'Order CFS')]")
+    WebElement btnOrderCFS;
+
     @Autowired
     public ManufacturerViewDetails(WebDriver driver) {
         super(driver);
@@ -362,5 +367,13 @@ public class ManufacturerViewDetails extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, addADeviceCFS, TIMEOUT_15_SECOND);
         addADeviceCFS.click();
         return new CFSAddDevices(driver);
+    }
+
+
+    public DeviceDetails clickOrderCFSButton() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, btnOrderCFS, TIMEOUT_15_SECOND);
+        btnOrderCFS.click();
+        return new DeviceDetails(driver);
     }
 }

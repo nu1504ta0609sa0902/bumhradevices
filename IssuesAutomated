@@ -396,7 +396,8 @@ Automated Issues:
                 -   DONE ISH
         - @5674 -   CFS @todo email if cfs new application is successful
                 -   DONE ISH
-        - @6012 -   CFS @todo view all products related to devices
+        - @6012 -   CFS @todo search view all products related to devices
+                -   DONE ISH
         - @1949 -   CFS @todo review order before submitting
         - @5980 -   CFS @todo update CFS order after reviewing it
         - @1958 -   CFS @todo save application and resume later

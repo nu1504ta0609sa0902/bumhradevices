@@ -104,15 +104,46 @@ public class CFSSteps extends CommonSteps {
         String noOfCFS = dataSets.get("noOfCFS");
 
         //Order CFS for a random device
-        deviceDetails = deviceDetails.clickOrderCFSButton();
+        deviceDetails = manufacturerDetails.clickOrderCFSButton();
         //deviceDetails = deviceDetails.selectAGMDNTerm("Blood weighing");
         deviceDetails = deviceDetails.selectARandomGMDNTerm();
-        deviceDetails = deviceDetails.selectDevices();
+        deviceDetails = deviceDetails.selectADevices();
         deviceDetails = deviceDetails.enterACertificateDetails(countryName, noOfCFS);
 
         //Store data to be verified later
         scenarioSession.putData(SessionKey.organisationCountry, countryName);
         scenarioSession.putData(SessionKey.numberOfCertificates, noOfCFS);
+    }
+
+
+    @When("^I search for product by \"([^\"]*)\" for the value \"([^\"]*)\"$")
+    public void i_search_for_product_by_for_the_value(String searchBy, String searchTerm) throws Throwable {
+        if(searchTerm.equals("random")){
+            searchTerm = "Product";
+        }
+
+        //Order CFS for a random device
+        deviceDetails = manufacturerDetails.clickOrderCFSButton();
+
+        boolean atLeast1DeviceFound = false;
+        int count = 1;
+        do {
+            if (searchBy.toLowerCase().contains("medical device name")) {
+                deviceDetails = deviceDetails.searchByMedicalDeviceName(searchTerm);
+            } else if (searchBy.toLowerCase().contains("gmdn term")) {
+                deviceDetails = deviceDetails.selectARandomGMDNTerm(searchTerm);
+            } else if (searchBy.toLowerCase().contains("device type")) {
+                //deviceDetails = deviceDetails.selectARandomGMDNTerm();
+            }
+            atLeast1DeviceFound = deviceDetails.isDeviceFound();
+            if(count <= 2 && !atLeast1DeviceFound){
+                searchTerm = "Product";
+                count++;
+            }
+        }while (!atLeast1DeviceFound);
+
+        //Store data to be verified later
+        scenarioSession.putData(SessionKey.searchTerm, searchTerm);
     }
 
     @When("^I search by \"([^\"]*)\" for the value \"([^\"]*)\" and order cfs for a country with following data$")
@@ -125,7 +156,7 @@ public class CFSSteps extends CommonSteps {
         String noOfCFS = dataSets.get("noOfCFS");
 
         //Order CFS for a random device
-        deviceDetails = deviceDetails.clickOrderCFSButton();
+        deviceDetails = manufacturerDetails.clickOrderCFSButton();
 
         boolean atLeast1DeviceFound = false;
         int count = 1;
@@ -144,7 +175,7 @@ public class CFSSteps extends CommonSteps {
             }
         }while (!atLeast1DeviceFound);
 
-        deviceDetails = deviceDetails.selectDevices();
+        deviceDetails = deviceDetails.selectADevices();
         deviceDetails = deviceDetails.enterACertificateDetails(countryName, noOfCFS);
 
         //Store data to be verified later
@@ -159,9 +190,9 @@ public class CFSSteps extends CommonSteps {
         String[] data = cfsAndCountryPairs.split(",");
 
         //Enter CFS data, Only click "Continue" after adding all the countries
-        deviceDetails = deviceDetails.clickOrderCFSButton();
+        deviceDetails = manufacturerDetails.clickOrderCFSButton();
         deviceDetails = deviceDetails.selectARandomGMDNTerm();
-        deviceDetails = deviceDetails.selectDevices();
+        deviceDetails = deviceDetails.selectADevices();
 
         int count = 1;
         boolean clickAddCountryLink = true;
@@ -186,14 +217,14 @@ public class CFSSteps extends CommonSteps {
         new PendingException();
     }
 
-    @Then("^I should see the correct number of certificates \"([^\"]*)\" in review page$")
+    @Then("^I should see the correct number of certificates \"([^\"]*)\" in cfs order review page$")
     public void i_should_see_the_correct_number_of_certificates_in_review_page(String number) throws Throwable {
         boolean isNumberOfCertificatesCorrect = deviceDetails.isNumberOfCertificatesCorrect(number);
         Assert.assertThat("Expected number of certifictes : " + number, isNumberOfCertificatesCorrect, is(true));
     }
 
 
-    @Then("^I should see the correct details in cfs review page$")
+    @Then("^I should see the correct details in cfs order review page$")
     public void i_should_see_the_correct_details_in_cfs_review_page() throws Throwable {
         String country = (String) scenarioSession.getData(SessionKey.organisationCountry);
         String numberOfCFS = (String) scenarioSession.getData(SessionKey.numberOfCertificates);
@@ -213,7 +244,7 @@ public class CFSSteps extends CommonSteps {
 
     }
 
-    @Then("^I should see correct details for all the countries and certificate in cfs review page$")
+    @Then("^I should see correct details for all the countries and certificate in cfs order review page$")
     public void i_should_multiple_country_details_in_cfs_review_page() throws Throwable {
         String[] data = (String[] )scenarioSession.getData(SessionKey.listOfCFSCountryPairs);
         String name = (String) scenarioSession.getData(SessionKey.organisationName);
@@ -471,5 +502,11 @@ public class CFSSteps extends CommonSteps {
         if(searchTerm == null || searchTerm.equals(""))
             searchTerm = (String) scenarioSession.getData(SessionKey.organisationName);
         cfsManufacturerList = cfsManufacturerList.searchForManufacturer(searchTerm);
+    }
+
+    @Then("^I should see (\\d+) products matching search results$")
+    public void i_should_see_products_matching_search_results(int expectedCount) throws Throwable {
+        boolean isCorrect = deviceDetails.isNumberOfProductsDisplayedCorrect(expectedCount);
+        Assert.assertThat("Expected number of products to be : " + expectedCount, isCorrect, is(true));
     }
 }

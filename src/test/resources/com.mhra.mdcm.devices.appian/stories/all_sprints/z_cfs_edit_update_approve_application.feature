@@ -16,10 +16,10 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
       | notifiedBody         | NB 0086 BSI            |
     And I add another device to SELECTED CFS manufacturer with following data
       | deviceType         | Active Implantable Device |
-      | gmdnDefinition     | Desiccating chamber                |
-      | customMade         | false                              |
-      | notifiedBody       | NB 0086 BSI                        |
-      | listOfProductNames | ford,hyundai                       |
+      | gmdnDefinition     | Desiccating chamber       |
+      | customMade         | false                     |
+      | notifiedBody       | NB 0086 BSI               |
+      | listOfProductNames | Product1,Product2         |
     Then I should see correct device data in the review page
     And I submit the cfs application for approval
 
@@ -42,13 +42,13 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
     Then I should see correct device data in the review page
     And I submit the cfs application for approval
     Examples:
-      | user             | searchTerm | notifiedBody     | certificateType    | deviceType                         | gmdnDefinition       | customMade | riskClassification | relatedDeviceSterile | listOfProductNames |
-      | manufacturerAuto | AccountST  | BSI              | Inspection Quality | General Medical Device             | Blood weighing scale | false      | Class2A            | true                 | ford,hyundai       |
-      | manufacturerAuto | AccountST  | Amtac            | Batch Verification | General Medical Device             | Blood weighing scale | false      | Class2B            | true                 | ford,hyundai       |
-      | manufacturerAuto | AccountST  | Amtac            | Design Exam        | General Medical Device             | Blood weighing scale | false      | Class3             | false                | ford,hyundai       |
-      | manufacturerAuto | AccountST  | Lloyd            | Production Quality | Active Implantable Device | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
-      | manufacturerAuto | AccountST  | SGS              | Type Exam          | Active Implantable Device | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
-      | manufacturerAuto | AccountST  | UL International | Full Quality       | Active Implantable Device | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
+      | user             | searchTerm | notifiedBody     | certificateType    | deviceType                | gmdnDefinition       | customMade | riskClassification | relatedDeviceSterile | listOfProductNames |
+      | manufacturerAuto | AccountST  | BSI              | Inspection Quality | General Medical Device    | Blood weighing scale | false      | Class2A            | true                 | Product1,Product2       |
+      | manufacturerAuto | AccountST  | Amtac            | Batch Verification | General Medical Device    | Blood weighing scale | false      | Class2B            | true                 | Product1,Product2       |
+      | manufacturerAuto | AccountST  | Amtac            | Design Exam        | General Medical Device    | Blood weighing scale | false      | Class3             | false                | Product1,Product2       |
+      | manufacturerAuto | AccountST  | Lloyd            | Production Quality | Active Implantable Device | Desiccating chamber  | false      |                    |                      | Product1,Product2       |
+      | manufacturerAuto | AccountST  | SGS              | Type Exam          | Active Implantable Device | Desiccating chamber  | false      |                    |                      | Product1,Product2       |
+      | manufacturerAuto | AccountST  | UL International | Full Quality       | Active Implantable Device | Desiccating chamber  | false      |                    |                      | Product1,Product2       |
 
 
   @1944 @5141 @5583 @_sprint15 @_sprint17 @_sprint18
@@ -71,9 +71,9 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
       | docType              | <docType>              |
     Then I should not be able to proceed to the next step
     Examples:
-      | user              | searchTerm | docType                  | addDevices | addCertificate | addProducts | notifiedBody | deviceType                         | gmdnDefinition       | customMade | riskClassification | relatedDeviceSterile | listOfProductNames |
-      | manufacturerAuto  | AccountST  | pdf, jpg,png , tif ,docx | true       | true           | false       | Amtac        | General Medical Device             | Blood weighing scale | false      | Class2B            | true                 | ford,hyundai       |
-      | authorisedRepNoor | AccountST  | jpg                      | true       | true           | false       | SGS          | Active Implantable Device | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
+      | user              | searchTerm | docType                  | addDevices | addCertificate | addProducts | notifiedBody | deviceType                | gmdnDefinition       | customMade | riskClassification | relatedDeviceSterile | listOfProductNames |
+      | manufacturerAuto  | AccountST  | pdf, jpg,png , tif ,docx | true       | true           | false       | Amtac        | General Medical Device    | Blood weighing scale | false      | Class2B            | true                 | Product1,Product2       |
+      | authorisedRepNoor | AccountST  | jpg                      | true       | true           | false       | SGS          | Active Implantable Device | Desiccating chamber  | false      |                    |                      | Product1,Product2       |
 
 
   @5583 @5578 @_sprint18
@@ -95,10 +95,10 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
       | listOfProductNames   | <listOfProductNames>   |
     Then I should not be able to proceed to the next step
     Examples:
-      | user             | searchTerm | addDevices | addCertificate | addProducts | notifiedBody | deviceType                         | gmdnDefinition       | customMade | riskClassification | relatedDeviceSterile | listOfProductNames |
-      | manufacturerAuto | AccountST  | false      |                |             | BSI          | General Medical Device             | Blood weighing scale | false      | Class2A            | true                 | ford,hyundai       |
-      | manufacturerAuto | AccountST  | true       | false          |             | Amtac        | General Medical Device             | Blood weighing scale | false      | Class2B            | true                 | ford,hyundai       |
-      | manufacturerAuto | AccountST  | true       | true           | false       | SGS          | Active Implantable Device | Desiccating chamber  | false      |                    |                      | ford,hyundai       |
+      | user             | searchTerm | addDevices | addCertificate | addProducts | notifiedBody | deviceType                | gmdnDefinition       | customMade | riskClassification | relatedDeviceSterile | listOfProductNames |
+      | manufacturerAuto | AccountST  | false      |                |             | BSI          | General Medical Device    | Blood weighing scale | false      | Class2A            | true                 | Product1,Product2       |
+      | manufacturerAuto | AccountST  | true       | false          |             | Amtac        | General Medical Device    | Blood weighing scale | false      | Class2B            | true                 | Product1,Product2       |
+      | manufacturerAuto | AccountST  | true       | true           | false       | SGS          | Active Implantable Device | Desiccating chamber  | false      |                    |                      | Product1,Product2       |
 
 
   @5125 @_sprint17 @wip
@@ -121,8 +121,8 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
     When I remove the attached certificate
     Then I should not be able to proceed to the next step
     Examples:
-      | user             | searchTerm | addDevices | addCertificate | addProducts | notifiedBody | deviceType                         | gmdnDefinition      | customMade | riskClassification | relatedDeviceSterile | listOfProductNames |
-      | manufacturerAuto | AccountST  | true       | true           | false       | SGS          | Active Implantable Device | Desiccating chamber | false      |                    |                      | ford,hyundai       |
+      | user             | searchTerm | addDevices | addCertificate | addProducts | notifiedBody | deviceType                | gmdnDefinition      | customMade | riskClassification | relatedDeviceSterile | listOfProductNames |
+      | manufacturerAuto | AccountST  | true       | true           | false       | SGS          | Active Implantable Device | Desiccating chamber | false      |                    |                      | Product1,Product2       |
 
 
   @5126 @_sprint17 @wip
@@ -145,8 +145,8 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
     When I remove the attached product
     Then I should not be able to proceed to the next step
     Examples:
-      | user             | searchTerm | addDevices | addCertificate | addProducts | notifiedBody | deviceType                         | gmdnDefinition      | customMade | riskClassification | relatedDeviceSterile | listOfProductNames |
-      | manufacturerAuto | AccountST  | true       | true           | true        | SGS          | Active Implantable Device | Desiccating chamber | false      |                    |                      | ford,hyundai       |
+      | user             | searchTerm | addDevices | addCertificate | addProducts | notifiedBody | deviceType                | gmdnDefinition      | customMade | riskClassification | relatedDeviceSterile | listOfProductNames |
+      | manufacturerAuto | AccountST  | true       | true           | true        | SGS          | Active Implantable Device | Desiccating chamber | false      |                    |                      | Product1,Product2       |
 
 
   @1944 @_sprint17
@@ -204,8 +204,8 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
       | gmdnDefinition | Desiccating chamber       |
       | customMade     | false                     |
       | notifiedBody   | NB 0086 BSI               |
-      | productName    | FordHybrid2               |
-      | productModel   | FocusYeah3                |
+      | productName    | Product12                 |
+      | productModel   | Model13                   |
     And I add another device to SELECTED CFS manufacturer with following data
       | deviceType           | General Medical Device |
       | gmdnDefinition       | <deviceToRemove>       |

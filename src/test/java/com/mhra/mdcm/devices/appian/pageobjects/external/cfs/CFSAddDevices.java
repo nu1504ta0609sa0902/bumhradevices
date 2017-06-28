@@ -417,7 +417,7 @@ public class CFSAddDevices extends _Page {
                             for (String name : dd.listOfProductName) {
                                 dd.productName = name;
                                 if (dd.productModel == null) {
-                                    dd.productModel = RandomDataUtils.getRandomTestName("FocusYeah");
+                                    dd.productModel = RandomDataUtils.getRandomTestName("Model1");
                                 }
                                 addProduct(dd);
                                 dd.productModel = null;
@@ -462,7 +462,7 @@ public class CFSAddDevices extends _Page {
                                 for (String name : dd.listOfProductName) {
                                     dd.productName = name;
                                     if (dd.productModel == null) {
-                                        String model = RandomDataUtils.getRandomTestName("Model");
+                                        String model = RandomDataUtils.getRandomTestName("Model1");
                                         dd.productModel = model;
                                         dd.listOfModelName.add(model);
                                     }
@@ -471,10 +471,10 @@ public class CFSAddDevices extends _Page {
                                 }
                             } else {
                                 if (dd.productName == null) {
-                                    dd.productName = RandomDataUtils.getRandomTestName("FordHybrid");
+                                    dd.productName = RandomDataUtils.getRandomTestName("Product1");
                                 }
                                 if (dd.productModel == null) {
-                                    String model = RandomDataUtils.getRandomTestName("FocusYeah");
+                                    String model = RandomDataUtils.getRandomTestName("Model1");
                                     dd.productModel = model;
                                     dd.listOfModelName.add(model);
                                 }
@@ -536,6 +536,7 @@ public class CFSAddDevices extends _Page {
 
     private void clickContinue() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeVisible(driver, btnContinue, TIMEOUT_10_SECOND);
         WaitUtils.waitForElementToBeClickable(driver, btnContinue, TIMEOUT_10_SECOND);
         PageUtils.doubleClick(driver, btnContinue);
     }

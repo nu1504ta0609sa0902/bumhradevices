@@ -33,8 +33,8 @@ Feature: Tasks will need to be generated for CFS application
       | gmdnDefinition | Desiccating chamber                |
       | customMade     | false                              |
       | notifiedBody   | NB 0086 BSI                        |
-      | productName    | FordHybrid                         |
-      | productModel   | FocusYeah                          |
+      | productName    | Product1                         |
+      | productModel   | Model1                          |
     Then I should see correct device data in the review page
     And I submit the cfs application for approval
     When I logout and log back into appian as "businessAuto" user
@@ -58,8 +58,8 @@ Feature: Tasks will need to be generated for CFS application
       | gmdnDefinition | Desiccating chamber                |
       | customMade     | false                              |
       | notifiedBody   | NB 0086 BSI                        |
-      | productName    | FordHybrid                         |
-      | productModel   | FocusYeah                          |
+      | productName    | Product1                         |
+      | productModel   | Model1                          |
     Then I should see correct device data in the review page
     And I submit the cfs application for approval
     When I logout and log back into appian as "businessAuto" user
@@ -82,8 +82,8 @@ Feature: Tasks will need to be generated for CFS application
       | gmdnDefinition | Desiccating chamber                |
       | customMade     | false                              |
       | notifiedBody   | NB 0086 BSI                        |
-      | productName    | FordHybrid                         |
-      | productModel   | FocusYeah                          |
+      | productName    | Product1                         |
+      | productModel   | Model1                          |
     Then I should see correct device data in the review page
     And I submit the cfs application for approval
     When I logout and log back into appian as "businessAuto" user
