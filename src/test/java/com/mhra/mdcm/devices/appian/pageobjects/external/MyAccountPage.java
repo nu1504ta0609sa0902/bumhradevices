@@ -2,15 +2,19 @@ package com.mhra.mdcm.devices.appian.pageobjects.external;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequestDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
+import com.mhra.mdcm.devices.appian.pageobjects.business.sections.TaskSection;
 import com.mhra.mdcm.devices.appian.pageobjects.external.myaccount.OrganisationDetails;
 import com.mhra.mdcm.devices.appian.pageobjects.external.myaccount.ContactPersonDetails;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
+import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * Created by TPD_Auto
@@ -24,22 +28,30 @@ import org.springframework.stereotype.Component;
 @Component
 public class MyAccountPage extends _Page {
 
+    //Buttons
     @FindBy(xpath = ".//button[contains(text(),'Organisation')]")
     WebElement amendOrganisationDetails;
-
+    @FindBy(xpath = ".//button[contains(text(),'Add contact')]")
+    WebElement btnAddContact;
+    @FindBy(xpath = ".//button[contains(text(),'Edit contact')]")
+    WebElement btnEditContact;
+    @FindBy(xpath = ".//button[contains(text(),'Manage Contacts')]")
+    WebElement btnManageContacts;
+    @FindBy(xpath = ".//button[contains(text(),'Edit Account Information')]")
+    WebElement btnEditAccountInformation;
     @FindBy(xpath = ".//button[contains(text(),'Person')]")
     WebElement amendContactPersonDetails;
 
     //Contact details
-    @FindBy(xpath = ".//span[contains(text(),'Full')]//following::p[1]")
+    @FindBy(xpath = ".//*[contains(text(),'Full name')]//following::td[2]")
     WebElement fullName;
-    @FindBy(xpath = ".//span[contains(text(),'Job')]//following::p[1]")
+    @FindBy(xpath = ".//*[contains(text(),'Full name')]//following::td[3]")
     WebElement jobTitle;
-    @FindBy(xpath = ".//span[contains(text(),'Email')]//following::p[1]")
+    @FindBy(xpath = ".//*[contains(text(),'Full name')]//following::td[4]")
     WebElement email;
-    @FindBy(xpath = ".//span[contains(text(),'Email')]//following::p[2]")
+    @FindBy(xpath = ".//*[contains(text(),'Full name')]//following::td[5]")
     WebElement telephone;
-    @FindBy(xpath = ".//span[contains(text(),'Associated')]//following::p[1]")
+    @FindBy(xpath = ".//*[contains(text(),'Full name')]//following::td[6]")
     WebElement associatedDates;
 
     //Organisation details
@@ -68,6 +80,19 @@ public class MyAccountPage extends _Page {
     @FindBy(xpath = ".//span[contains(text(),'Created date')]//following::p[1]")
     WebElement createdDates;
 
+    //Select contact from contacts table
+    @FindBy(css = "td.GridWidget---checkbox")
+    WebElement cbxFirstContact;
+    @FindBy(css = "td.GridWidget---checkbox")
+    List<WebElement> listOfAllContacts;
+    @FindBy(xpath = ".//td[2]")
+    List<WebElement> listOfAllFullNames;
+
+    //Table headings
+    @FindBy(xpath = ".//div[contains(text(),'Associated Date')]")
+    WebElement thAssociatedDate;
+    @FindBy(xpath = ".//div[contains(text(),'Telephone')]")
+    WebElement thTelephone;
 
     @Autowired
     public MyAccountPage(WebDriver driver) {
@@ -89,7 +114,7 @@ public class MyAccountPage extends _Page {
 
     public boolean isCorrectPage() {
         try {
-            WaitUtils.waitForElementToBeClickable(driver, amendContactPersonDetails, TIMEOUT_5_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, btnManageContacts, TIMEOUT_5_SECOND);
             return true;
         } catch (Exception e) {
             return false;
@@ -154,6 +179,7 @@ public class MyAccountPage extends _Page {
             }
 
             if (!allChangesDisplayed) {
+                log.info("Data maybe incorrect : " + key);
                 break;
             }
         }
@@ -182,7 +208,7 @@ public class MyAccountPage extends _Page {
         boolean areDatesVisible = true;
         try {
             WaitUtils.waitForElementToBeVisible(driver, associatedDates, TIMEOUT_5_SECOND);
-            WaitUtils.waitForElementToBeVisible(driver, createdDates, TIMEOUT_5_SECOND);
+            //WaitUtils.waitForElementToBeVisible(driver, createdDates, TIMEOUT_5_SECOND);
         } catch (Exception e) {
             areDatesVisible = false;
         }
@@ -194,5 +220,80 @@ public class MyAccountPage extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, fullName, TIMEOUT_10_SECOND);
         driver.navigate().refresh();
         return new MyAccountPage(driver);
+    }
+
+    public MyAccountPage clickManageContacts() {
+        WaitUtils.waitForElementToBeClickable(driver, btnManageContacts, TIMEOUT_10_SECOND);
+        btnManageContacts.click();
+        return new MyAccountPage(driver);
+    }
+
+    public ContactPersonDetails selectContactToEdit() {
+        WaitUtils.waitForElementToBeClickable(driver, cbxFirstContact, TIMEOUT_10_SECOND);
+        cbxFirstContact.click();
+        WaitUtils.waitForElementToBeClickable(driver, btnEditContact, TIMEOUT_10_SECOND);
+        btnEditContact.click();
+        return new ContactPersonDetails(driver);
+    }
+
+    public ContactPersonDetails selectLastContactToEdit() {
+        WaitUtils.waitForElementToBeClickable(driver, cbxFirstContact, TIMEOUT_10_SECOND);
+        listOfAllContacts.get(listOfAllContacts.size()-1).click();
+        WaitUtils.waitForElementToBeClickable(driver, btnEditContact, TIMEOUT_10_SECOND);
+        btnEditContact.click();
+        return new ContactPersonDetails(driver);
+    }
+
+
+    public MyAccountPage sortBy(String sortBy, int numberOfTimesToClick) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WebElement toClick = null;
+        if (sortBy.equals("Associated Date")) {
+            toClick = thAssociatedDate;
+        }else if (sortBy.equals("Telephone")) {
+            toClick = thTelephone;
+        }
+
+        if(toClick!=null) {
+            for (int c = 0; c < numberOfTimesToClick; c++) {
+                WaitUtils.waitForElementToBeClickable(driver, toClick, TIMEOUT_5_SECOND);
+                toClick.click();
+                WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+            }
+        }
+
+        return new MyAccountPage(driver);
+    }
+
+    public OrganisationDetails editAccountInformation() {
+        WaitUtils.waitForElementToBeClickable(driver, btnEditAccountInformation, TIMEOUT_10_SECOND);
+        btnEditAccountInformation.click();
+        return new OrganisationDetails(driver);
+    }
+
+    public MyAccountPage clickAddContact() {
+        WaitUtils.waitForElementToBeClickable(driver, btnAddContact, TIMEOUT_10_SECOND);
+        btnAddContact.click();
+        return new MyAccountPage(driver);
+    }
+
+    public ContactPersonDetails selectNewContactToEdit(AccountRequestDO data) {
+        WaitUtils.waitForElementToBeClickable(driver, btnAddContact, TIMEOUT_10_SECOND);
+        int index = 0;
+        for(WebElement el: listOfAllFullNames){
+            String fnTxt = el.getText();
+            log.info("Fullname : " + fnTxt);
+            if(fnTxt.contains(data.firstName) && fnTxt.contains(data.lastName) && fnTxt.contains(data.title)){
+                break;
+            }
+            index++;
+        }
+
+        //Open correct item to verify
+        listOfAllContacts.get(index).click();
+        WaitUtils.waitForElementToBeClickable(driver, btnEditContact, TIMEOUT_10_SECOND);
+        btnEditContact.click();
+
+        return new ContactPersonDetails(driver);
     }
 }

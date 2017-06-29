@@ -6,7 +6,6 @@ import com.mhra.mdcm.devices.appian.pageobjects.external.MyAccountPage;
 import com.mhra.mdcm.devices.appian.pageobjects.external.ExternalHomePage;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -34,8 +33,18 @@ public class MainNavigationBar extends _Page {
     //Manufacturers and authorisedRep
     @FindBy(partialLinkText = "MHRA home")
     WebElement linkHOME;
-    @FindBy(partialLinkText = "MY ACCOUNT")
-    WebElement linkMyAccount;
+    @FindBy(linkText = "Organisations")
+    WebElement linkMyOrganisations;
+    @FindBy(partialLinkText = "Summary")
+    WebElement linkSummary;
+
+    //Signout and profile section
+    @FindBy(xpath = ".//span[contains(@style, 'personalization')]")
+    WebElement photoIcon;
+    @FindBy(xpath = ".//*[contains(text(),'Sign Out')]")
+    WebElement signOutLink;
+    @FindBy(xpath = ".//*[contains(text(),'Profile')]")
+    WebElement profileLink;
 
     @FindBy(css = ".appian-menu-item.appian-menu-item-selected")
     WebElement currentSelection;
@@ -103,8 +112,6 @@ public class MainNavigationBar extends _Page {
     }
 
 
-
-
     //==========================================================
     //
     // MUNUFACTURER AND AUTHORISEDREP NAVIGATION BAR
@@ -120,10 +127,20 @@ public class MainNavigationBar extends _Page {
         return new ExternalHomePage(driver);
     }
 
-    public MyAccountPage clickMyAccount() {
+    public MyAccountPage clickMyOrganisationsTab() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, linkMyAccount, TIMEOUT_DEFAULT);
-        PageUtils.doubleClick(driver, linkMyAccount);
+        WaitUtils.waitForElementToBeClickable(driver, linkMyOrganisations, TIMEOUT_5_SECOND);
+        PageUtils.doubleClick(driver, linkMyOrganisations);
+        return new MyAccountPage(driver);
+    }
+
+    public MyAccountPage gotoMyAccountProfilePage() {
+        WaitUtils.waitForElementToBeClickable(driver, photoIcon, TIMEOUT_10_SECOND);
+        if (photoIcon.isDisplayed()) {
+            PageUtils.singleClick(driver, photoIcon);
+            WaitUtils.waitForElementToBeClickable(driver, profileLink, TIMEOUT_5_SECOND);
+            profileLink.click();
+        }
         return new MyAccountPage(driver);
     }
 }

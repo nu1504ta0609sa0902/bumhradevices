@@ -202,7 +202,6 @@ public class PageUtils {
 
 
     public static void updateElementValue(WebDriver driver, WebElement element, String value, int timeOut) {
-        WaitUtils.nativeWaitInSeconds(1);
         WaitUtils.waitForElementToBeClickable(driver, element, timeOut);
         element.clear();
         element.sendKeys(RandomDataUtils.getRandomTestNameStartingWith(value, 0));

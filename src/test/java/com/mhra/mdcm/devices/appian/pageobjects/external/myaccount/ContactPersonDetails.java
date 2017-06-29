@@ -21,6 +21,7 @@ import java.util.List;
 @Component
 public class ContactPersonDetails extends _Page {
 
+    //Fields related to a contact person details
     @FindBy(xpath = ".//span[contains(text(),'Title')]//following::div[@role='listbox']")
     WebElement title;
     @FindBy(xpath = ".//label[.='First name']//following::input[1]")
@@ -33,8 +34,14 @@ public class ContactPersonDetails extends _Page {
     WebElement email;
     @FindBy(xpath = ".//label[.='Telephone']//following::input[1]")
     WebElement telephone;
+    @FindBy(xpath = ".//*[contains(text(),'main point of contact')]//following::label[1]")
+    WebElement mainContactYes;
+    @FindBy(xpath = ".//*[contains(text(),'main point of contact')]//following::label[2]")
+    WebElement mainContactNo;
 
     //Submit changes to contact person details
+    @FindBy(xpath = ".//button[.='Save']")
+    WebElement saveBtn;
     @FindBy(xpath = ".//button[.='Submit']")
     WebElement submitBtn;
     @FindBy(xpath = ".//button[.='Cancel']")
@@ -62,7 +69,7 @@ public class ContactPersonDetails extends _Page {
 
 
     public ContactPersonDetails updateFollowingFields(String keyValuePairToUpdate, AccountRequestDO updatedData) {
-        WaitUtils.waitForElementToBeClickable(driver, submitBtn, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, saveBtn, TIMEOUT_DEFAULT);
 
         String[] dataPairs = keyValuePairToUpdate.split(",");
 
@@ -86,7 +93,32 @@ public class ContactPersonDetails extends _Page {
 
         }
 
-        PageUtils.doubleClick(driver, submitBtn);
+        PageUtils.doubleClick(driver, saveBtn);
+
+        return new ContactPersonDetails(driver);
+    }
+
+    public ContactPersonDetails addNewContactPerson(AccountRequestDO contactNew, boolean submitForm) {
+        WaitUtils.waitForElementToBeClickable(driver, saveBtn, TIMEOUT_10_SECOND);
+
+        //Add a new contact details
+        PageUtils.selectFromDropDown(driver, title, contactNew.title, false);
+        PageUtils.updateElementValue(driver, firstName, contactNew.firstName, TIMEOUT_5_SECOND);
+        PageUtils.updateElementValue(driver, lastName, contactNew.lastName, TIMEOUT_5_SECOND);
+        PageUtils.updateElementValue(driver, jobTitle, contactNew.jobTitle, TIMEOUT_5_SECOND);
+        PageUtils.updateElementValue(driver, email, contactNew.email, TIMEOUT_5_SECOND);
+        PageUtils.updateElementValue(driver, telephone, contactNew.telephone, TIMEOUT_5_SECOND);
+
+        //Is main point of contact
+        if(contactNew.isMainPointOfContact){
+            mainContactYes.click();
+        }else{
+            mainContactNo.click();
+        }
+
+        if(submitForm){
+            PageUtils.doubleClick(driver, saveBtn);
+        }
 
         return new ContactPersonDetails(driver);
     }
@@ -121,4 +153,5 @@ public class ContactPersonDetails extends _Page {
             return false;
         }
     }
+
 }

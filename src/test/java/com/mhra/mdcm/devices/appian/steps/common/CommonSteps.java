@@ -103,7 +103,7 @@ public class CommonSteps {
 
     //SECTIONS
     @Autowired
-    public ContactPersonDetails amendPersonDetails;
+    public ContactPersonDetails amendContactPersonDetails;
     @Autowired
     public ManufacturerDetails manufacturerDetails;
     @Autowired

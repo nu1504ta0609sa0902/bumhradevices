@@ -250,7 +250,6 @@ Automated Issues:
 
     Sprint 15: @_sprint15       CFS RELATED
         - @1974 -   DONE ISH    @todo review cfs order
-                -   more test for verifying review page
         - @1978 -   DONE ISH    @todo indicate country and quantity
         - @1995 -   @TODO prevent accessing CFS if not based in UK
         - @3842 -   @Todo can't test because I am not able to create other accounts apart from Manufacturer, AuthorisedRep and Distributor
@@ -300,8 +299,7 @@ Automated Issues:
         - @5126 -   DONE ISH    @todo add products to devices
         - @5127 -   @todo CFS   add products in bulk
         - @5128 -   DONE ISH    @todo review application
-                -   more test for verifying review page
-        - @5499 -   @todo CFS   @todo edit application before submitting
+        - @5499 -   DONE ish   @todo edit application before submitting
         - @5232 -   @todo   bug
         - @5233 -   @todo   bug
         - @5234 -   @todo   bug
@@ -338,19 +336,19 @@ Automated Issues:
                 -   DONE ISH
         - @5681 -   CFS @todo business user bulk approve devices
                 -   DONE ISH
-        - @5670 -
-        - @5671 -
-        - @2222 -
-        - @2289 -
-        - @2328 -
-        - @4645 -
-        - @2278 -
-        - @2266 -
-        - @2047 -
-        - @3910 -
-        - @3912 -
-        - @4733 -
-        - @5830 -
+        - @5670 -   DR  @todo SSO for internal users
+        - @5671 -   DR  @todo External user authentication
+        - @2222 -   DR  @todo review address details
+        - @2289 -   DR  @todo lookup addresses
+        - @2328 -   DR  @todo request access to online services
+        - @4645 -   DR  @todo reset forgotten password
+        - @2278 -   DR  @todo confirm successful request to access services
+        - @2266 -   DR  @todo confirm unsuccessful request to access services
+        - @2047 -   DR  @todo associate an email to application
+        - @3910 -   Payment reconciliation  @todo
+        - @3912 -   Payment reconciliation  @todo
+        - @4733 -   Payment reconciliation  @todo
+        - @5830 -   DR  @todo validation of mandatory fields
 
 
     Sprint 21: @_sprint21
@@ -374,42 +372,56 @@ Automated Issues:
         - @5960 -   CFS @todo filter available devices and products
                 -   DONE ish
         - @1947 -   CFS @todo specify the delivery address
-        - @3343 -
-        - @3207 -
-        - @2272 -
-        - @2151 -
-        - @5349 -
-        - @2294 -
-        - @2224 -
-        - @5765 -
-        - @5995 -
-        - @1957 -
-        - @5997 -
-        - @5749 -
+        - @3343 -   DR  @todo specify products for SSP
+        - @3207 -   DR  @todo specify products for GMD and IVD (low risks)
+        - @2272 -   DR  @todo reset forgotten password
+        - @2151 -   DR  @todo confirmation email for registering a manufacturer
+        - @5349 -   DR  @todo capture device and product details
+        - @2294 -   DR  @todo calculate amount to pay for manufacturer registration (payments page)
+        - @2224 -   DR  @todo change a known password in appian
+        - @5765 -   DR  @todo email notification for password change
+        - @5995 -   DR  @todo saving and exiting not navigating to DR landing page
+        - @1957 -   DR  @todo bug/issue : resume application for manufacturer registration
+        - @5997 -   DR  @todo bug/issue : resume application behaviour not correct
+        - @5749 -   DR  @todo payment section
 
     Sprint 22: @_sprint22
-        - @5993 -
-        - @6086 -
-        - @6089 -
-        - @6091 -
-        - @5673 -   CFS @todo email if cfs new application is rejected
-                -   DONE ISH
-        - @5674 -   CFS @todo email if cfs new application is successful
-                -   DONE ISH
-        - @6012 -   CFS @todo search view all products related to devices
-                -   DONE ISH
-        - @1949 -   CFS @todo review order before submitting
-                -   DONE ISH
+        - @5993 -   DR  @todo saving application and viewing it appear in the "applications tab"
+        - @6086 -   DONE ISH    DR  @todo add new contact at my organisation level
+                -   Add a new contact
+        - @6089 -   DR  @todo edit and amend contact at my organisation level
+        - @6091 -   DR  @todo remove contacts at my organisation level
+        - @5673 -   DONE ISH CFS @todo email if cfs new application is rejected
+        - @5674 -   DONE ISH CFS @todo email if cfs new application is successful
+        - @6012 -   DONE ISH CFS @todo search view all products related to devices
+        - @1949 -   DONE ISH CFS @todo review order before submitting
                 -   Add without country
                 -   Verify address
-        - @5980 -   CFS @todo update CFS order after reviewing it
-                -   DONE ISH
+        - @5980 -   DONE ISH CFS @todo update CFS order after reviewing it
                 -   Add/remove product or device
-        - @1958 -   CFS @todo save application and resume later
+        - @1958 -   DONE ISH CFS @todo save application and resume later
                 -   Able to resume application later on
                 -   Resume from all the different stages
-        - @1960 -   CFS @todo view all the application submitted for CFS
-                -   DONE ISH
-                -   View all the draft application in the application tab
+        - @1960 -   DONE ISH CFS @todo view all the application submitted for CFS
         - @6095 -   CFS @todo updload bulk devices
 
+    Sprint 23: @_sprint23
+        - @1946 -   CFS @todo
+        - @1952 -   CFS @todo
+        - @1962 -   CFS @todo
+        - @3831 -   CFS @todo
+        - @4207 -
+        - @4329 -
+        - @4744 -
+        - @5743 -
+        - @5748 -
+        - @2091 -
+        - @2096 -
+        - @2150 -
+        - @2190 -
+        - @4546 -
+        - @5752 -
+        - @6343 -
+        - @6345 -
+        - @6430 -
+        - @5993 -

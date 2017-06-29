@@ -5,11 +5,15 @@ import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.ManufacturerDetails;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
+import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
 import org.springframework.context.annotation.Scope;
+
+import java.util.Date;
 
 import static org.hamcrest.Matchers.is;
 
@@ -23,13 +27,17 @@ public class MyAccountPageSteps extends CommonSteps {
     @When("^I go to my accounts page$")
     public void iGoToMyAccountsPage() throws Throwable {
         mainNavigationBar = new MainNavigationBar(driver);
-        myAccountPage = mainNavigationBar.clickMyAccount();
+        myAccountPage = mainNavigationBar.gotoMyAccountProfilePage();
+        myAccountPage = mainNavigationBar.clickMyOrganisationsTab();
     }
 
 
     @When("^I update the contact person details with following data \"([^\"]*)\"$")
     public void i_update_the_following_data(String keyValuePair) throws Throwable {
-        amendPersonDetails = myAccountPage.amendContactPersonDetails();
+        myAccountPage = myAccountPage.clickManageContacts();
+        myAccountPage = myAccountPage.sortBy("Associated Date", 1);
+        amendContactPersonDetails = myAccountPage.selectLastContactToEdit();
+        //amendContactPersonDetails = myAccountPage.amendContactPersonDetails();
 
         //Update details, firstName and lastName
         AccountRequestDO updatedData = new AccountRequestDO(scenarioSession);
@@ -39,24 +47,37 @@ public class MyAccountPageSteps extends CommonSteps {
         int count = 0;
         do {
             count++;
-            amendPersonDetails = amendPersonDetails.updateFollowingFields(keyValuePair, updatedData);
-            errorMsgDisplayed = amendPersonDetails.isErrorMessageDisplayed();
+            amendContactPersonDetails = amendContactPersonDetails.updateFollowingFields(keyValuePair, updatedData);
+            errorMsgDisplayed = amendContactPersonDetails.isErrorMessageDisplayed();
         }while (errorMsgDisplayed && count < 2);
-
-        //confirm and save
-        amendPersonDetails = amendPersonDetails.confirmChangesRelateToOrganisation(true);
-        myAccountPage = amendPersonDetails.saveChanges(true);
 
         scenarioSession.putData(SessionKey.manufacturerData, updatedData);
     }
 
+    @And("^I add a new contact person with random data$")
+    public void iAddANewContactPersonWithRandomData() throws Throwable {
+        myAccountPage = myAccountPage.clickManageContacts();
+        myAccountPage = myAccountPage.clickAddContact();
+
+        AccountRequestDO contactNew = new AccountRequestDO(scenarioSession);
+        contactNew.isMainPointOfContact = false;
+        String hourMin = RandomDataUtils.getTimeMinHour(false).replaceAll("_","");
+        contactNew.firstName = RandomDataUtils.getRandomTestNameStartingWith(contactNew.firstName, 6);
+        String x = "9" + hourMin + new Date().getTime();
+        contactNew.telephone = x.substring(0, x.length()-7);
+
+        //Add new contact
+        amendContactPersonDetails = amendContactPersonDetails.addNewContactPerson(contactNew, true);
+        scenarioSession.putData(SessionKey.manufacturerData, contactNew);
+    }
+
     @Then("^I should see the changes \"([^\"]*)\" in my accounts page$")
     public void iShouldSeeTheChangesInMyAccountsPage(String keyValuePairToUpdate) throws Throwable {
-        boolean isCorrectPage = myAccountPage.isCorrectPage();
         AccountRequestDO updatedData = (AccountRequestDO) scenarioSession.getData(SessionKey.manufacturerData);
 
         //BUG requires another refresh
-        myAccountPage = myAccountPage.refreshThePage();
+        //myAccountPage = myAccountPage.refreshThePage();
+        boolean isCorrectPage = myAccountPage.isCorrectPage();
         boolean updatesFound = myAccountPage.verifyUpdatesDisplayedOnPage(keyValuePairToUpdate, updatedData);
         Assert.assertThat("Expected to see following updates : " + keyValuePairToUpdate, updatesFound, is(true));
     }
@@ -72,7 +93,7 @@ public class MyAccountPageSteps extends CommonSteps {
 
     @When("^I update the organisation details with following data \"([^\"]*)\"$")
     public void i_update_the_organisation_details_with_following_data(String keyValuePair) throws Throwable {
-        amendOrganisationDetails = myAccountPage.amendOrganisationDetails();
+        amendOrganisationDetails = myAccountPage.editAccountInformation();
 
         //Update details, firstName and lastName
         AccountRequestDO updatedData = new AccountRequestDO(scenarioSession);
@@ -150,5 +171,12 @@ public class MyAccountPageSteps extends CommonSteps {
         if(editSection.contains("Organisation")){
             amendOrganisationDetails = myAccountPage.amendOrganisationDetails();
         }
+    }
+
+    @And("^I view the newly created contact person$")
+    public void iViewTheNewlyCreatedContactPerson() throws Throwable {
+        AccountRequestDO data = (AccountRequestDO) scenarioSession.getData(SessionKey.manufacturerData);
+        myAccountPage = myAccountPage.sortBy("Telephone", 1);
+        //amendContactPersonDetails = myAccountPage.selectNewContactToEdit(data);
     }
 }

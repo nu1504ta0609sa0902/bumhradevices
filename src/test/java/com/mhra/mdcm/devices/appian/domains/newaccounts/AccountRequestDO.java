@@ -59,6 +59,9 @@ public class AccountRequestDO {
     public boolean clinicalInvestigation;
     public boolean aitsAdverseIncidentTrackingSystem;
 
+    //Is main point of contact
+    public boolean isMainPointOfContact;
+
 
     public AccountRequestDO(ScenarioSession scenarioSession) {
         createDefaultRandom();
