@@ -177,6 +177,20 @@ public class MyAccountPageSteps extends CommonSteps {
     public void iViewTheNewlyCreatedContactPerson() throws Throwable {
         AccountRequestDO data = (AccountRequestDO) scenarioSession.getData(SessionKey.manufacturerData);
         myAccountPage = myAccountPage.sortBy("Telephone", 1);
-        //amendContactPersonDetails = myAccountPage.selectNewContactToEdit(data);
+    }
+
+    @And("^I remove the newly created contact person$")
+    public void iRemoveTheNewlyCreatedContactPerson() throws Throwable {
+        AccountRequestDO data = (AccountRequestDO) scenarioSession.getData(SessionKey.manufacturerData);
+        myAccountPage.selectNewContactToEdit(data, false);
+        myAccountPage = myAccountPage.clickRemoveContact();
+        myAccountPage = myAccountPage.confirmRemoveContact(true);
+    }
+
+    @Then("^I should not see the contact person information on the page$")
+    public void iShouldNotSeeTheContactPersonInformationOnThePage() throws Throwable {
+        AccountRequestDO data = (AccountRequestDO) scenarioSession.getData(SessionKey.manufacturerData);
+        boolean isContactVisible = myAccountPage.isContactVisible(data);
+        Assert.assertThat("Contact Should be removed : " + data.firstName, isContactVisible, is(false));
     }
 }

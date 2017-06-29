@@ -31,18 +31,6 @@ Feature: As a business user, I want to be able to update party details associate
       #| businessAuto | Accounts | AuthorisedRepAccountRT00 | org.name                                       |
 
 
-  @mdcm-149 @2283 @mdcm-171 @2269 @mdcm-162 @2275 @mdcm-164 @2274 @_sprint3 @_sprint5 @_sprint6 @6086 @_sprint22
-  Scenario Outline: Manufacturer and authorisedRep user should be able to update account contact details
-    Given I am logged into appian as "<user>" user
-    When I go to my accounts page
-    And I update the contact person details with following data "<keyValuePairs>"
-    Then I should see the changes "<keyValuePairs>" in my accounts page
-    And I should see creation and association dates
-    Examples:
-      | user              | keyValuePairs                                                                                      |
-      | authorisedRepAuto | contact.title,contact.firstname,contact.lastname,contact.job.title,contact.email,contact.telephone |
-      | manufacturerAuto  | contact.job.title,contact.email,contact.telephone,contact.firstname,contact.lastname               |
-
   @6086 @_sprint22 @wip
   Scenario Outline: Manufacturer and authorisedRep user should be able to add new contacts
     Given I am logged into appian as "<user>" user
@@ -57,7 +45,33 @@ Feature: As a business user, I want to be able to update party details associate
       | manufacturerAuto  | contact.job.title,contact.email,contact.telephone,contact.firstname,contact.lastname               |
 
 
-  @mdcm-13 @mdcm-171 @2269 @mdcm-162 @2275 @mdcm-164 @2274 @_sprint4 @_sprint5 @_sprint6 @bug
+  @6091 @6086 @_sprint22
+  Scenario Outline: Manufacturer and authorisedRep user should be able to remove contacts person details
+    Given I am logged into appian as "<user>" user
+    When I go to my accounts page
+    And I add a new contact person with random data
+    And I remove the newly created contact person
+    Then I should not see the contact person information on the page
+    Examples:
+      | user              |
+      | authorisedRepAuto |
+      | manufacturerAuto  |
+
+
+  @mdcm-149 @2283 @mdcm-171 @2269 @mdcm-162 @2275 @mdcm-164 @2274 @_sprint3 @_sprint5 @_sprint6 @6089 @_sprint22
+  Scenario Outline: Manufacturer and authorisedRep user should be able to update account contact details
+    Given I am logged into appian as "<user>" user
+    When I go to my accounts page
+    And I update the contact person details with following data "<keyValuePairs>"
+    Then I should see the changes "<keyValuePairs>" in my accounts page
+    And I should see creation and association dates
+    Examples:
+      | user              | keyValuePairs                                                                                      |
+      | authorisedRepAuto | contact.title,contact.firstname,contact.lastname,contact.job.title,contact.email,contact.telephone |
+      | manufacturerAuto  | contact.job.title,contact.email,contact.telephone,contact.firstname,contact.lastname               |
+
+
+  @mdcm-13 @mdcm-171 @2269 @mdcm-162 @2275 @mdcm-164 @2274 @_sprint4 @_sprint5 @_sprint6 @6089 @_sprint22 @wip @bug
   Scenario Outline: Manufacturer and authorisedRep user should be able to update organisation details
     Given I am logged into appian as "<user>" user
     When I go to my accounts page

@@ -354,7 +354,7 @@ Automated Issues:
     Sprint 21: @_sprint21
         - @5682 -   CFS @todo business user bulk reject request for a device
                 -   DONE ISH
-        - @1840 -
+        - @1840 -   @Todo verfication
         - @5593 -   CFS @todo business user application view new devices
                 -   Done ish
         - @1986 -   CFS @todo business user approve manufacturer or devices
@@ -388,9 +388,11 @@ Automated Issues:
     Sprint 22: @_sprint22
         - @5993 -   DR  @todo saving application and viewing it appear in the "applications tab"
         - @6086 -   DONE ISH    DR  @todo add new contact at my organisation level
-                -   Add a new contact
+                -   Represented organisation page does not show "Manage contacts"
         - @6089 -   DR  @todo edit and amend contact at my organisation level
+                -   DONE ISH
         - @6091 -   DR  @todo remove contacts at my organisation level
+                -   DONE ISH
         - @5673 -   DONE ISH CFS @todo email if cfs new application is rejected
         - @5674 -   DONE ISH CFS @todo email if cfs new application is successful
         - @6012 -   DONE ISH CFS @todo search view all products related to devices

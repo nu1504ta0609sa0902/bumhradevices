@@ -3,6 +3,7 @@ package com.mhra.mdcm.devices.appian.pageobjects.external;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequestDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.business.sections.TaskSection;
+import com.mhra.mdcm.devices.appian.pageobjects.external.device.AddDevices;
 import com.mhra.mdcm.devices.appian.pageobjects.external.myaccount.OrganisationDetails;
 import com.mhra.mdcm.devices.appian.pageobjects.external.myaccount.ContactPersonDetails;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
@@ -33,6 +34,8 @@ public class MyAccountPage extends _Page {
     WebElement amendOrganisationDetails;
     @FindBy(xpath = ".//button[contains(text(),'Add contact')]")
     WebElement btnAddContact;
+    @FindBy(xpath = ".//button[contains(text(),'Remove contact')]")
+    WebElement btnRemoveContact;
     @FindBy(xpath = ".//button[contains(text(),'Edit contact')]")
     WebElement btnEditContact;
     @FindBy(xpath = ".//button[contains(text(),'Manage Contacts')]")
@@ -93,6 +96,12 @@ public class MyAccountPage extends _Page {
     WebElement thAssociatedDate;
     @FindBy(xpath = ".//div[contains(text(),'Telephone')]")
     WebElement thTelephone;
+
+    //Alert box : HTML
+    @FindBy(xpath = ".//button[text()='Yes']")
+    WebElement btnConfirmYes;
+    @FindBy(xpath = ".//button[text()='No']")
+    WebElement btnConfirmNo;
 
     @Autowired
     public MyAccountPage(WebDriver driver) {
@@ -238,7 +247,7 @@ public class MyAccountPage extends _Page {
 
     public ContactPersonDetails selectLastContactToEdit() {
         WaitUtils.waitForElementToBeClickable(driver, cbxFirstContact, TIMEOUT_10_SECOND);
-        listOfAllContacts.get(listOfAllContacts.size()-1).click();
+        listOfAllContacts.get(listOfAllContacts.size() - 1).click();
         WaitUtils.waitForElementToBeClickable(driver, btnEditContact, TIMEOUT_10_SECOND);
         btnEditContact.click();
         return new ContactPersonDetails(driver);
@@ -250,11 +259,11 @@ public class MyAccountPage extends _Page {
         WebElement toClick = null;
         if (sortBy.equals("Associated Date")) {
             toClick = thAssociatedDate;
-        }else if (sortBy.equals("Telephone")) {
+        } else if (sortBy.equals("Telephone")) {
             toClick = thTelephone;
         }
 
-        if(toClick!=null) {
+        if (toClick != null) {
             for (int c = 0; c < numberOfTimesToClick; c++) {
                 WaitUtils.waitForElementToBeClickable(driver, toClick, TIMEOUT_5_SECOND);
                 toClick.click();
@@ -277,13 +286,13 @@ public class MyAccountPage extends _Page {
         return new MyAccountPage(driver);
     }
 
-    public ContactPersonDetails selectNewContactToEdit(AccountRequestDO data) {
+    public ContactPersonDetails selectNewContactToEdit(AccountRequestDO data, boolean openToEdit) {
         WaitUtils.waitForElementToBeClickable(driver, btnAddContact, TIMEOUT_10_SECOND);
         int index = 0;
-        for(WebElement el: listOfAllFullNames){
+        for (WebElement el : listOfAllFullNames) {
             String fnTxt = el.getText();
             log.info("Fullname : " + fnTxt);
-            if(fnTxt.contains(data.firstName) && fnTxt.contains(data.lastName) && fnTxt.contains(data.title)){
+            if (fnTxt.contains(data.firstName) && fnTxt.contains(data.lastName) && fnTxt.contains(data.title)) {
                 break;
             }
             index++;
@@ -291,9 +300,44 @@ public class MyAccountPage extends _Page {
 
         //Open correct item to verify
         listOfAllContacts.get(index).click();
-        WaitUtils.waitForElementToBeClickable(driver, btnEditContact, TIMEOUT_10_SECOND);
-        btnEditContact.click();
+
+        if (openToEdit) {
+            WaitUtils.waitForElementToBeClickable(driver, btnEditContact, TIMEOUT_10_SECOND);
+            btnEditContact.click();
+        }
 
         return new ContactPersonDetails(driver);
+    }
+
+    public MyAccountPage clickRemoveContact() {
+        WaitUtils.waitForElementToBeClickable(driver, btnRemoveContact, TIMEOUT_10_SECOND);
+        btnRemoveContact.click();
+        return new MyAccountPage(driver);
+    }
+
+    public boolean isContactVisible(AccountRequestDO data) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, btnAddContact, TIMEOUT_10_SECOND);
+        PageUtils.isElementNotVisible(driver, btnRemoveContact, TIMEOUT_3_SECOND);
+        boolean isVisible = false;
+        for (WebElement el : listOfAllFullNames) {
+            String fnTxt = el.getText();
+            log.info("Fullname : " + fnTxt);
+            if (fnTxt.contains(data.firstName) && fnTxt.contains(data.lastName) && fnTxt.contains(data.title)) {
+                isVisible = true;
+                break;
+            }
+        }
+        return isVisible;
+    }
+
+    public MyAccountPage confirmRemoveContact(boolean confirm) {
+        WaitUtils.waitForElementToBeClickable(driver, btnConfirmYes , TIMEOUT_10_SECOND);
+        if(confirm){
+            btnConfirmYes .click();
+        }else{
+            btnConfirmNo.click();
+        }
+        return new MyAccountPage(driver);
     }
 }
