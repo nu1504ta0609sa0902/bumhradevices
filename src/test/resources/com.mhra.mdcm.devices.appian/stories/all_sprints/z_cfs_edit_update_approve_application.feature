@@ -43,12 +43,12 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
     And I submit the cfs application for approval
     Examples:
       | user             | searchTerm | notifiedBody     | certificateType    | deviceType                | gmdnDefinition       | customMade | riskClassification | relatedDeviceSterile | listOfProductNames |
-      | manufacturerAuto | RT01Test  | BSI              | Inspection Quality | General Medical Device    | Blood weighing scale | false      | Class2A            | true                 | Product1,Product2       |
-      | manufacturerAuto | RT01Test  | Amtac            | Batch Verification | General Medical Device    | Blood weighing scale | false      | Class2B            | true                 | Product1,Product2       |
-      | manufacturerAuto | RT01Test  | Amtac            | Design Exam        | General Medical Device    | Blood weighing scale | false      | Class3             | false                | Product1,Product2       |
-      | manufacturerAuto | RT01Test  | Lloyd            | Production Quality | Active Implantable Device | Desiccating chamber  | false      |                    |                      | Product1,Product2       |
-      | manufacturerAuto | RT01Test  | SGS              | Type Exam          | Active Implantable Device | Desiccating chamber  | false      |                    |                      | Product1,Product2       |
-      | manufacturerAuto | RT01Test  | UL International | Full Quality       | Active Implantable Device | Desiccating chamber  | false      |                    |                      | Product1,Product2       |
+      | manufacturerAuto | RT01Test   | BSI              | Inspection Quality | General Medical Device    | Blood weighing scale | false      | Class2A            | true                 | Product1,Product2  |
+      | manufacturerAuto | RT01Test   | Amtac            | Batch Verification | General Medical Device    | Blood weighing scale | false      | Class2B            | true                 | Product1,Product2  |
+      | manufacturerAuto | RT01Test   | Amtac            | Design Exam        | General Medical Device    | Blood weighing scale | false      | Class3             | false                | Product1,Product2  |
+      | manufacturerAuto | RT01Test   | Lloyd            | Production Quality | Active Implantable Device | Desiccating chamber  | false      |                    |                      | Product1,Product2  |
+      | manufacturerAuto | RT01Test   | SGS              | Type Exam          | Active Implantable Device | Desiccating chamber  | false      |                    |                      | Product1,Product2  |
+      | manufacturerAuto | RT01Test   | UL International | Full Quality       | Active Implantable Device | Desiccating chamber  | false      |                    |                      | Product1,Product2  |
 
 
   @1944 @5141 @5583 @_sprint15 @_sprint17 @_sprint18
@@ -72,11 +72,11 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
     Then I should not be able to proceed to the next step
     Examples:
       | user              | searchTerm | docType                  | addDevices | addCertificate | addProducts | notifiedBody | deviceType                | gmdnDefinition       | customMade | riskClassification | relatedDeviceSterile | listOfProductNames |
-      | manufacturerAuto  | RT01Test  | pdf, jpg,png , tif ,docx | true       | true           | false       | Amtac        | General Medical Device    | Blood weighing scale | false      | Class2B            | true                 | Product1,Product2       |
-      | authorisedRepNoor | RT01Test  | jpg                      | true       | true           | false       | SGS          | Active Implantable Device | Desiccating chamber  | false      |                    |                      | Product1,Product2       |
+      | manufacturerAuto  | RT01Test   | pdf, jpg,png , tif ,docx | true       | true           | false       | Amtac        | General Medical Device    | Blood weighing scale | false      | Class2B            | true                 | Product1,Product2  |
+      | authorisedRepNoor | RT01Test   | jpg                      | true       | true           | false       | SGS          | Active Implantable Device | Desiccating chamber  | false      |                    |                      | Product1,Product2  |
 
 
-  @5583 @5578 @_sprint18 @1958 @1960 @_sprint22
+  @5583 @5578 @_sprint18 @1958 @1960 @_sprint22 @wip
   Scenario Outline: Verify certain elements are disable by defaults like Upload Certificate button
     Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
@@ -98,9 +98,9 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
     Then I should see application tab showing my application with correct details
     Examples:
       | user             | searchTerm | addDevices | addCertificate | addProducts | notifiedBody | deviceType                | gmdnDefinition       | customMade | riskClassification | relatedDeviceSterile | listOfProductNames |
-      | manufacturerAuto | RT01Test  | false      |                |             | BSI          | General Medical Device    | Blood weighing scale | false      | Class2A            | true                 | Product1,Product2       |
-      | manufacturerAuto | RT01Test  | true       | false          |             | Amtac        | General Medical Device    | Blood weighing scale | false      | Class2B            | true                 | Product1,Product2       |
-      | manufacturerAuto | RT01Test  | true       | true           | false       | SGS          | Active Implantable Device | Desiccating chamber  | false      |                    |                      | Product1,Product2       |
+      | manufacturerAuto | RT01Test   | false      |                |             | BSI          | General Medical Device    | Blood weighing scale | false      | Class2A            | true                 | Product1,Product2  |
+      | manufacturerAuto | RT01Test   | true       | false          |             | Amtac        | General Medical Device    | Blood weighing scale | false      | Class2B            | true                 | Product1,Product2  |
+      | manufacturerAuto | RT01Test   | true       | true           | false       | SGS          | Active Implantable Device | Desiccating chamber  | false      |                    |                      | Product1,Product2  |
 
 
   @5125 @_sprint17 @wip
@@ -124,7 +124,7 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
     Then I should not be able to proceed to the next step
     Examples:
       | user             | searchTerm | addDevices | addCertificate | addProducts | notifiedBody | deviceType                | gmdnDefinition      | customMade | riskClassification | relatedDeviceSterile | listOfProductNames |
-      | manufacturerAuto | RT01Test  | true       | true           | false       | SGS          | Active Implantable Device | Desiccating chamber | false      |                    |                      | Product1,Product2       |
+      | manufacturerAuto | RT01Test   | true       | true           | false       | SGS          | Active Implantable Device | Desiccating chamber | false      |                    |                      | Product1,Product2  |
 
 
   @5126 @_sprint17 @wip
@@ -148,7 +148,7 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
     Then I should not be able to proceed to the next step
     Examples:
       | user             | searchTerm | addDevices | addCertificate | addProducts | notifiedBody | deviceType                | gmdnDefinition      | customMade | riskClassification | relatedDeviceSterile | listOfProductNames |
-      | manufacturerAuto | RT01Test  | true       | true           | true        | SGS          | Active Implantable Device | Desiccating chamber | false      |                    |                      | ford,hyundai       |
+      | manufacturerAuto | RT01Test   | true       | true           | true        | SGS          | Active Implantable Device | Desiccating chamber | false      |                    |                      | ford,hyundai       |
 
 
   @1944 @_sprint17
@@ -169,8 +169,8 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
     Then I should see the following field "<errorMsg>" error message
     Examples:
       | user             | searchTerm | errorMsg                                                                                      | monthsInFutureOrPast | deviceType             | notifiedBody | gmdnDefinition       | customMade | riskClassification | relatedDeviceSterile |
-      | manufacturerAuto | RT01Test  | According to this date your certificate has expired. MHRA cannot accept expired certificates. | -1                   | General Medical Device | BSI          | Blood weighing scale | false      | class3             | false                |
-      | manufacturerAuto | RT01Test  | According to this date your certificate has expired. MHRA cannot accept expired certificates. | 0                    | General Medical Device | BSI          | Blood weighing scale | false      | class2b            | false                |
+      | manufacturerAuto | RT01Test   | According to this date your certificate has expired. MHRA cannot accept expired certificates. | -1                   | General Medical Device | BSI          | Blood weighing scale | false      | class3             | false                |
+      | manufacturerAuto | RT01Test   | According to this date your certificate has expired. MHRA cannot accept expired certificates. | 0                    | General Medical Device | BSI          | Blood weighing scale | false      | class2b            | false                |
 #      | manufacturerAuto | RT01Test   | This certificate expires within 3 months                                                     | 2                    | General Medical Device | BSI          | Blood weighing scale | false      | class2a            | false                |
 
 

@@ -15,8 +15,8 @@ Feature: Able to add CFS for products and devices that are already registered
       | gmdnDefinition | Desiccating chamber       |
       | customMade     | false                     |
       | notifiedBody   | NB 0086 BSI               |
-      | productName    | Product1                |
-      | productModel   | Model1                 |
+      | productName    | Product1                  |
+      | productModel   | Model1                    |
     And I add another device to SELECTED CFS manufacturer with following data
       | deviceType           | General Medical Device |
       | gmdnDefinition       | Blood weighing scale   |
@@ -146,8 +146,8 @@ Feature: Able to add CFS for products and devices that are already registered
       | gmdnDefinition | Desiccating chamber       |
       | customMade     | false                     |
       | notifiedBody   | NB 0086 BSI               |
-      | productName    | Product12               |
-      | productModel   | Model13                |
+      | productName    | Product12                 |
+      | productModel   | Model13                   |
     And I add another device to SELECTED CFS manufacturer with following data
       | deviceType           | General Medical Device |
       | gmdnDefinition       | Blood weighing scale   |
