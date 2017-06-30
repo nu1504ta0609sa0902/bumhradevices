@@ -16,9 +16,9 @@ Feature: Reset all the information related to a manufacturer and authorisedRep
     When I search accounts for the stored organisation name
     Then I should see at least <count> account matches
     Examples:
-      | user         | accountType   | approveReject | count | countryName    | link                | accountNameBeginsWith |
-      | businessNoor | manufacturer  | approve       | 1     | United Kingdom | New Account Request | ManufacturerAccountRT00      |
-      | businessNoor | authorisedRep | approve       | 1     | Netherland     | New Account Request | AuthorisedRepAccountRT00     |
+      | user         | accountType   | approveReject | count | countryName    | link                | accountNameBeginsWith    |
+      | businessNoor | manufacturer  | approve       | 1     | United Kingdom | New Account Request | ManufacturerAccountRT00  |
+      | businessNoor | authorisedRep | approve       | 1     | Netherland     | New Account Request | AuthorisedRepAccountRT00 |
 
 
   @setup
@@ -39,12 +39,12 @@ Feature: Reset all the information related to a manufacturer and authorisedRep
     And I go to list of manufacturers page
     And Provide indication of devices made
     When I logout of the application
-    And I am logged into appian as "<logBackInAas>" user
+    And I am logged into appian as "<logBackInAs>" user
     Then I view new task with link "New Service Request" for the new account
     When I assign the task to me and "approve" the generated task
     Examples:
-      | user             | logBackInAas |
-      | manufacturerNoor | businessNoor |
+      | user              | logBackInAs |
+      | manufacturerNoor  | businessNoor |
       | authorisedRepNoor | businessNoor |
 
 
@@ -57,13 +57,13 @@ Feature: Reset all the information related to a manufacturer and authorisedRep
       | countryName | <countryName> |
     And Provide indication of devices made
     When I logout of the application
-    And I am logged into appian as "<logBackInAas>" user
+    And I am logged into appian as "<logBackInAs>" user
     Then I view new task with link "New Service Request" for the new account
     When I download the letter of designation
     And I assign the task to me and "approve" the generated task
     Then The task should be removed from tasks list
     Examples:
-      | user              | logBackInAas | accountType   | countryName |
+      | user              | logBackInAs | accountType   | countryName |
       | authorisedRepNoor | businessNoor | authorisedRep | Bangladesh  |
 
   @setup
@@ -75,13 +75,13 @@ Feature: Reset all the information related to a manufacturer and authorisedRep
       | countryName | <countryName> |
     And Provide indication of devices made
     When I logout of the application
-    And I am logged into appian as "<logBackInAas>" user
+    And I am logged into appian as "<logBackInAs>" user
     Then I view new task with link "New Service Request" for the new account
     When I download the letter of designation
     And I assign the task to me and "approve" the generated task
     Then The task should be removed from tasks list
     Examples:
-      | user             | logBackInAas | accountType  | countryName |
+      | user             | logBackInAs | accountType  | countryName |
       | manufacturerNoor | businessNoor | manufacturer | Bangladesh  |
 
 
@@ -99,17 +99,15 @@ Feature: Reset all the information related to a manufacturer and authorisedRep
       | listOfProductNames | <listOfProductNames> |
     And Proceed to payment and confirm submit device details
     Then I should see stored manufacturer appear in the manufacturers list
-    When I logout of the application
-    And I am logged into appian as "<logBackInAas>" user
-    Then I view new task with link "New Manufacturer Registration Request" for the new account
-#    When I download the letter of designation
-    And I assign the task to me and "approve" the generated task
-    Then The task should be removed from tasks list
-    #And The completed task status should update to "Completed"
+    When I logout and log back into appian as "<logBackInAs>" user
+    Then I search and view new task in AWIP page for the newly created manufacturer
+    And Check task contains correct devices "<gmdnDefinition>" and other details
+    When I assign the AWIP page task to me and "approve" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
     When I search accounts for the stored organisation name
     Then I should see at least 0 account matches
     Examples:
-      | user             | logBackInAas | accountType  | countryName    | deviceType                         | gmdnDefinition      | customMade | listOfProductNames |
+      | user             | logBackInAs | accountType  | countryName    | deviceType                | gmdnDefinition      | customMade | listOfProductNames |
       | manufacturerAuto | businessAuto | manufacturer | United Kingdom | Active Implantable Device | Desiccating chamber | true       | setmeup            |
 
 
@@ -127,17 +125,15 @@ Feature: Reset all the information related to a manufacturer and authorisedRep
       | listOfProductNames | <listOfProductNames> |
     And Proceed to payment and confirm submit device details
     Then I should see stored manufacturer appear in the manufacturers list
-    When I logout of the application
-    And I am logged into appian as "<logBackInAas>" user
-    Then I view new task with link "New Manufacturer Registration Request" for the new account
-#    When I download the letter of designation
-    And I assign the task to me and "approve" the generated task
-    Then The task should be removed from tasks list
-    #And The completed task status should update to "Completed"
+    When I logout and log back into appian as "<logBackInAs>" user
+    Then I search and view new task in AWIP page for the newly created manufacturer
+    And Check task contains correct devices "<gmdnDefinition>" and other details
+    When I assign the AWIP page task to me and "approve" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
     When I search accounts for the stored organisation name
     Then I should see at least 0 account matches
     Examples:
-      | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition      | customMade | listOfProductNames |
+      | user              | logBackInAs | accountType   | countryName | deviceType                | gmdnDefinition      | customMade | listOfProductNames |
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Device | Desiccating chamber | true       | ford,hyundai       |
 
 
@@ -155,11 +151,11 @@ Feature: Reset all the information related to a manufacturer and authorisedRep
       | businessAuto | Accounts | AuthorisedRepRT00 | org.name      |
 
 
-    Scenario Outline: Clear up task residue
-      Given I am logged into appian as "<user>" user
-      When I go to tasks page
-      And I clear up any old taks with name "<searchTerm1>"
-      And I clear up any old taks with name "<searchTerm2>"
-      Examples:
-        | user         | link     | searchTerm        | searchTerm2 |
-        | businessAuto | Accounts | ManufacturerRT01  | AuthorisedRepRT01      |
+  Scenario Outline: Clear up task residue
+    Given I am logged into appian as "<user>" user
+    When I go to tasks page
+    And I clear up any old taks with name "<searchTerm1>"
+    And I clear up any old taks with name "<searchTerm2>"
+    Examples:
+      | user         | link     | searchTerm       | searchTerm2       |
+      | businessAuto | Accounts | ManufacturerRT01 | AuthorisedRepRT01 |
