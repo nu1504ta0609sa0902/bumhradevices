@@ -28,14 +28,14 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And Proceed to payment and confirm submit device details
 #Log back and verify task created for newly created manufacturer
     When I logout and log back into appian as "<businessUser>" user
-    Then I search and view new task in AWIP page for the new account
+    Then I search and view new task in AWIP page for the newly created manufacturer
     When I assign the AWIP page task to me and "<approveReject>" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email for stored manufacturer with heading "Request for manufacturer registration" and stored application identifier
     And I should received an email for stored manufacturer with heading "has been Approved" and stored application identifier
     Examples:
-      | businessUser | logBackInAas     | accountType  | approveReject | countryName    | countryNameNonEU | newAccountEmail         | newOrganisationEmail                  |
-      | businessNoor | manufacturerNoor | manufacturer | approve       | United Kingdom | Bangladesh       | New Account Request for | Manufacturer Registration Request for |
+      | businessUser | logBackInAs     | accountType  | approveReject | countryName    | countryNameNonEU |
+      | businessNoor | manufacturerNoor | manufacturer | approve       | United Kingdom | Bangladesh       |
 
 
   @1836 @1929 @2327 @2278 @2260 @2193 @2290 @2273 @2324 @2191 @2190 @2311 @2263 @2292 @2258
@@ -65,14 +65,14 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And Proceed to payment and confirm submit device details
 #Log back and verify task created for newly created manufacturer
     When I logout and log back into appian as "<businessUser>" user
-    Then I search and view new task in AWIP page for the new account
+    Then I search and view new task in AWIP page for the newly created manufacturer
     When I assign the AWIP page task to me and "<approveReject>" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email for stored manufacturer with heading "Request for manufacturer registration" and stored application identifier
     And I should received an email for stored manufacturer with heading "has been Approved" and stored application identifier
     Examples:
-      | businessUser | logBackInAas     | accountType   | approveReject | countryName    | countryNameEU | newAccountEmail         | newOrganisationEmail              |
-      | businessNoor | manufacturerNoor | authorisedRep | approve       | United Kingdom | Netherland    | New Account Request for | Manufacturer registration service |
+      | businessUser | logBackInAs     | accountType   | approveReject | countryName    | countryNameEU |
+      | businessNoor | manufacturerNoor | authorisedRep | approve       | United Kingdom | Netherland    |
 
 
   @1974 @1978 @4704 @1954 @1952
@@ -84,7 +84,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And I order cfs for a country with following data
       | countryName | <country> |
       | noOfCFS     | <noCFS>   |
-    Then I should see the correct details in cfs review page
+    Then I should see the correct details in cfs order review page
     When I submit payment for the CFS
     Examples:
       | country    | noCFS |
@@ -101,7 +101,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And I order cfs for a country with following data
       | countryName | <country> |
       | noOfCFS     | <noCFS>   |
-    Then I should see the correct details in cfs review page
+    Then I should see the correct details in cfs order review page
     When I submit payment for the CFS
     Examples:
       | country    | noCFS |
@@ -119,11 +119,11 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | countryName | <country>     |
     And I add devices to NEWLY created CFS manufacturer with following data
       | deviceType     | Active Implantable Device |
-      | gmdnDefinition | Desiccating chamber                |
-      | customMade     | false                              |
-      | notifiedBody   | NB 0086 BSI                        |
-      | productName    | FordHybrid                         |
-      | productModel   | FocusYeah                          |
+      | gmdnDefinition | Desiccating chamber       |
+      | customMade     | false                     |
+      | notifiedBody   | NB 0086 BSI               |
+      | productName    | FordHybrid                |
+      | productModel   | FocusYeah                 |
     Then I should see correct device data in the review page
     And I submit the cfs application for approval
     When I logout and log back into appian as "<businessUser>" user
@@ -133,8 +133,59 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And I should received an email for stored manufacturer with heading "Free Sale"
     Examples:
       | user              | businessUser | accountType  | country       | approveReject | status    |
-      | authorisedRepAuto | businessAuto | manufacturer | United States | approve       | Completed |
+      | authorisedRepAuto | businessAuto | authorisedRep | United States | approve       | Completed |
       | manufacturerAuto  | businessAuto | manufacturer | Brazil        | approve       | Completed |
+
+  @1992 @1845 @1974 @1952 @1971 @3979 @4330 @5141 @5212 @5126 @5128 @5673 @5674 @5583 @cfs_e2e
+  Scenario Outline: S4c Register and approve Non UK based manufacturers with multiple devices for CFS
+    Given I am logged into appian as "<logInAs>" user
+# Submit a new CFS manufacturer application
+    And I go to device certificate of free sale page
+    Then I should see a list of manufacturers available for CFS
+    When I create a new manufacturer using CFS manufacturer test harness page with following data
+      | accountType | manufacturer |
+      | countryName | Brazil       |
+    And I add devices to NEWLY created CFS manufacturer with following data
+      | deviceType     | Active Implantable Device |
+      | gmdnDefinition | Desiccating chamber       |
+      | customMade     | false                     |
+      | notifiedBody   | NB 0086 BSI               |
+      | productName    | FordHybrid1               |
+      | productModel   | FocusYeah1                |
+    And I add another device to SELECTED CFS manufacturer with following data
+      | deviceType           | General Medical Device |
+      | gmdnDefinition       | Blood weighing scale   |
+      | customMade           | false                  |
+      | riskClassification   | Class2A                |
+      | relatedDeviceSterile | true                   |
+      | notifiedBody         | NB 0086 BSI            |
+    Then I should see correct device data in the review page
+    And I submit the cfs application for approval
+    When I logout and log back into appian as "businessAuto" user
+    And I search and view new task in AWIP page for the newly created manufacturer
+    And I assign the AWIP page task to me and "approve" the generated task
+    Then The task status in AWIP page should be "Completed" for the newly created manufacturer
+    And I should received an email for stored manufacturer with heading "Free Sale"
+# Now apply for cfs
+    Given I am logged into appian as "<logInAs>" user
+    And I go to device certificate of free sale page
+    Then I should see a list of manufacturers available for CFS
+    When I search for registered manufacturer ""
+    And I click on a random organisation which needs cfs
+    And I order cfs for a country with following data
+      | countryName | <country> |
+      | noOfCFS     | <noCFS>   |
+    Then I should see the correct details in cfs order review page
+    When I submit payment for the CFS
+    When I logout and log back into appian as "businessAuto" user
+    And I search and view new task in AWIP page for the newly created manufacturer
+    And I assign the AWIP page task to me and "approve" the generated task
+    Then The task status in AWIP page should be "Completed" for the newly created manufacturer
+    And I should received an email for stored manufacturer with heading "Free Sale"
+    Examples:
+      | country    | noCFS | logInAs           | searchTerm |
+      | Brazil     | 15    | manufacturerAuto  |            |
+      | Bangladesh | 10    | authorisedRepAuto |            |
 
 
   @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149 @2257
@@ -151,15 +202,14 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | relatedDeviceSterile   | <deviceSterile>      |
       | relatedDeviceMeasuring | <deviceMeasuring>    |
     And Proceed to payment and confirm submit device details
-    When I logout of the application
-    And I am logged into appian as "<businessUser>" user
-    And I view new task with link "Update Manufacturer Registration Request" for the new account
-    Then Check task contains correct devices "<gmdn>" and other details
-    And I assign the task to me and "approve" the generated task
-    #And The completed task status should update to "Completed"
+    When I logout and log back into appian as "<logBackInAs>" user
+    Then I search and view new task in AWIP page for the newly created manufacturer
+    And Check task contains correct devices "<gmdn>" and other details
+    When I assign the AWIP page task to me and "approve" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email for stored manufacturer with heading "<newOrganisationEmail>"
     Examples:
-      | user              | businessUser | deviceType             | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
+      | user              | logBackInAs  | deviceType             | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
       | authorisedRepAuto | businessAuto | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
       | manufacturerAuto  | businessAuto | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
 
@@ -184,10 +234,10 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And I remove the device with gmdn "<gmdn1>" code
     And Proceed to payment and confirm submit device details
     When I logout and log back into appian as "<logBackInAs>" user
-    And I go to WIP tasks page
-    And I view task for the new account in WIP page
-    And I assign the task to me and "<approveReject>" the generated task
-    #Then The completed task status should update to "Completed"
+    Then I search and view new task in AWIP page for the newly created manufacturer
+    And Check task contains correct devices "<gmdn1>" and other details
+    When I assign the AWIP page task to me and "<approveReject>" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
     When I search accounts for the stored organisation name
     Then I should see at least 0 account matches
     And I should received an email for stored manufacturer with heading "<newOrganisationEmail>"
@@ -214,16 +264,16 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And I remove the device with gmdn "<gmdn1>" code
     And Proceed to payment and confirm submit device details
     When I logout and log back into appian as "<logBackInAs>" user
-    And I go to WIP tasks page
-    And I view task for the new account in WIP page
-    And I assign the task to me and "<approveReject>" the generated task
-    #Then The completed task status should update to "Completed"
+    Then I search and view new task in AWIP page for the newly created manufacturer
+    And Check task contains correct devices "<gmdnDefinition>" and other details
+    When I assign the AWIP page task to me and "approve" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
     When I search accounts for the stored organisation name
     Then I should see at least 0 account matches
     And I should received an email for stored manufacturer with heading "<newOrganisationEmail>"
     Examples:
-      | user              | deviceType                         | gmdnDefinition      | customMade | productName |
-      | authorisedRepAuto | Active Implantable Device | Desiccating chamber | true       | ford focus  |
+      | user              | logBackInAs  | deviceType                | gmdnDefinition      | customMade | productName |
+      | authorisedRepAuto | businessAuto | Active Implantable Device | Desiccating chamber | true       | ford focus  |
 
   @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149
   Scenario Outline: S6a Update manufacturer for authorised rep which is already registered by adding devices
@@ -240,15 +290,14 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | customMade     | <customMade>     |
       | productName    | <productName>    |
     And Proceed to payment and confirm submit device details
-    When I logout of the application
-    And I am logged into appian as "<businessUser>" user
-    And I view new task with link "Update Manufacturer Registration Request" for the new account
-    Then Check task contains correct devices "<gmdnDefinition>" and other details
-    And I assign the task to me and "approve" the generated task
-    #And The completed task status should update to "Completed"
+    When I logout and log back into appian as "<logBackInAs>" user
+    Then I search and view new task in AWIP page for the newly created manufacturer
+    And Check task contains correct devices "<gmdnDefinition>" and other details
+    When I assign the AWIP page task to me and "approve" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email for stored account with heading "<emailHeader>"
     Examples:
-      | user              | businessUser | deviceType                         | customMade | status     | gmdnDefinition       | productName |
+      | user              | logBackInAs | deviceType                | customMade | status     | gmdnDefinition       | productName |
       | authorisedRepAuto | businessAuto | Active Implantable Device | false      | Registered | Blood weighing scale | ford focus  |
 
 
@@ -272,10 +321,9 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And I remove the device with gmdn "<gmdn1>" code
     And Proceed to payment and confirm submit device details
     When I logout and log back into appian as "<logBackInAs>" user
-    And I go to WIP tasks page
-    And I view task for the new account in WIP page
-    And I assign the task to me and "<approveReject>" the generated task
-    #Then The completed task status should update to "Completed"
+    Then I search and view new task in AWIP page for the newly created manufacturer
+    When I assign the AWIP page task to me and "<approveReject>" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
     When I search accounts for the stored organisation name
     Then I should see at least 0 account matches
     Examples:
