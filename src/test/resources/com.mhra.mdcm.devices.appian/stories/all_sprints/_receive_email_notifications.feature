@@ -34,7 +34,7 @@ Feature: As a customer I want to receive email notifications when ever a account
       | businessNoor | authorisedRep | Estonia     | No authorisation evidence provided | New Account Request for |
 
 
-  @regression @2191 @2193 @2190 @_sprint10
+  @regression @2191 @2193 @2190 @_sprint10 @2151 @_sprint21 @bug
   Scenario Outline: Email should be generated for newly created manufacturers and authorisedReps
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -47,8 +47,8 @@ Feature: As a customer I want to receive email notifications when ever a account
       | customMade     | true                   |
     And Proceed to payment and confirm submit device details
     When I logout and log back into appian as "<logBackInAs>" user
-    Then I search and view new task in AWIP page for the new account
-    When I assign the AWIP page task to me and "<approveReject>" the generated task
+    And I search and view new task in AWIP page for the newly created manufacturer
+    And I assign the AWIP page task to me and "<approveReject>" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email for stored manufacturer with heading "<emailHeading>" and stored application identifier
     And I should received an email for stored manufacturer with heading "has been Approved" and stored application identifier
@@ -57,7 +57,7 @@ Feature: As a customer I want to receive email notifications when ever a account
       | manufacturerAuto  | businessAuto | manufacturer  | approve       | Brazil      | Request for manufacturer registration |
       | authorisedRepAuto | businessAuto | authorisedRep | approve       | Belarus     | Request for manufacturer registration |
 
-  @regression @2192 @2190 @_sprint10 @bug
+  @regression @2192 @2190 @_sprint10 @2151 @_sprint21 @bug
   Scenario Outline: Email should be generated for newly created manufacturers and authorisedReps which are rejected
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -70,9 +70,10 @@ Feature: As a customer I want to receive email notifications when ever a account
       | customMade     | true                   |
     And Proceed to payment and confirm submit device details
     When I logout and log back into appian as "<logBackInAs>" user
-    Then I search and view new task in AWIP page for the new account
+    And I search and view new task in AWIP page for the newly created manufacturer
     When I assign the AWIP page task to me and "reject" with following "<reason>"
     Then The task status in AWIP page should be "Completed" for the new account
+    Then I should received an email for stored manufacturer with heading "Request for manufacturer registration" and stored application identifier
     And I should received an email for stored manufacturer with heading "Manufacturer Registration Request for"
     Examples:
       | user              | logBackInAs  | accountType   | reason                 | countryName |
@@ -106,12 +107,12 @@ Feature: As a customer I want to receive email notifications when ever a account
       | customMade     | true                   |
     And Proceed to payment and confirm submit device details
     When I logout and log back into appian as "<user>" user
-    Then I search and view new task in AWIP page for the new account
+    Then I search and view new task in AWIP page for the newly created manufacturer
     When I assign the AWIP page task to me and "<approveReject>" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email for stored manufacturer with heading "Request for manufacturer registration" and stored application identifier
     And I should received an email for stored manufacturer with heading "has been Approved" and stored application identifier
     Examples:
-      | user         | accountType   | approveReject | logBackInAas      | countryName   | link                | accountNameBeginsWith    |
-      | businessNoor | manufacturer  | approve       | manufacturerNoor  | Bangladesh    | New Account Request | ManufacturerAccountRT00  |
-      | businessNoor | authorisedRep | approve       | authorisedRepNoor | United States | New Account Request | AuthorisedRepAccountRT00 |
+      | user         | accountType   | approveReject | logBackInAs       | countryName   | accountNameBeginsWith    |
+      | businessNoor | manufacturer  | approve       | manufacturerNoor  | Bangladesh    | ManufacturerAccountRT00  |
+      | businessNoor | authorisedRep | approve       | authorisedRepNoor | United States | AuthorisedRepAccountRT00 |
