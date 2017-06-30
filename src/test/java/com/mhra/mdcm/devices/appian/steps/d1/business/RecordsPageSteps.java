@@ -12,6 +12,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 import org.junit.Assert;
@@ -555,6 +556,23 @@ public class RecordsPageSteps extends CommonSteps {
     }
 
 
+    @And("^Check task contains correct devices \"([^\"]*)\" and other details$")
+    public void checkCorrectDevicesAreDisplayed(String deviceList) throws Throwable {
+        List<DeviceDO> listOfDeviceData = (List<DeviceDO>) scenarioSession.getData(SessionKey.listOfDeviceDO);
+        businessDevicesDetails = businessManufacturerDetails.clickOnDeviceAndProductsTab();
+        boolean allDevicesFound = businessDevicesDetails.verifyAllTheDevicesAreDisplayedSimple(listOfDeviceData);
+        assertThat("Expected to see following devices : " + deviceList, allDevicesFound, is(equalTo(true)));
+    }
+
+
+
+    @And("^The designation letter should be attached and the status should be \"([^\"]*)\"$")
+    public void theStatusShouldBe(String expectedStatus) throws Throwable {
+        boolean isAttached = businessManufacturerDetails.isDesignationLetterAttached();
+        assertThat("Expected to see letter of designation link", isAttached, is(equalTo(true)));
+    }
+
+
     @When("^I view device with gmdn code \"([^\"]*)\"$")
     public void iViewDeviceWithGmdnCode(String gmdn) throws Throwable {
         DeviceDO deviceDO = (DeviceDO) scenarioSession.getData(SessionKey.deviceData);
@@ -632,5 +650,34 @@ public class RecordsPageSteps extends CommonSteps {
         businessDevicesDetails = businessManufacturerDetails.clickOnDeviceAndProductsTab();
         businessDevicesDetails = businessDevicesDetails.selectADevices();
         boolean isAbleToApproveIndividualDevice = businessDevicesDetails.isAbleToApproveIndividualDevices();
+    }
+
+
+
+    @Then("^Task contains correct devices and products and other details for \"([^\"]*)\"$")
+    public void task_contains_correct_devices_and_products_and_other_details_for(String deviceType) throws Throwable {
+
+        //Check GMDN values are displayed
+        List<DeviceDO> listOfDeviceData = (List<DeviceDO>) scenarioSession.getData(SessionKey.listOfDeviceDO);
+        businessDevicesDetails = businessManufacturerDetails.clickOnDeviceAndProductsTab();
+        boolean allDevicesFound = businessDevicesDetails.verifyAllTheDevicesAreDisplayedSimple(listOfDeviceData);
+        Assert.assertThat("Expected to see following devices : "  + listOfDeviceData , allDevicesFound, is(true));
+
+//        List<String> listOfGmdns = (List<String>) scenarioSession.getData(SessionKey.listOfGmndsAdded);
+//        boolean isGMDNCorrect = businessDevicesDetails.isDisplayingGMDN(listOfGmdns);
+//        assertThat("Expected to see the following GMDNs : " + listOfGmdns, isGMDNCorrect, is(equalTo(true)));
+
+        //Check list of products displayed
+        List<String> listOfProducts = (List<String>) scenarioSession.getData(SessionKey.listOfProductsAdded);
+        boolean productsFound = businessDevicesDetails.isProductDetailsCorrect(deviceType, listOfProducts);
+        assertThat("Expected to see the following products : " + listOfProducts, productsFound, is(equalTo(true)));
+
+    }
+
+
+    @And("^Task shows devices which are arranged by device types$")
+    public void taskShowsDevicesWhichAreArrangedByDeviceTypes() throws Throwable {
+        boolean isOrderedCorrectly = businessDevicesDetails.areDevicesOrderedByDeviceTypes();
+        Assert.assertThat("Devices should be ordered by device type", isOrderedCorrectly, is(true));
     }
 }

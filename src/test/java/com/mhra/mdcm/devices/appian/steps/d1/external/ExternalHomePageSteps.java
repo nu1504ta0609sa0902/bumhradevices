@@ -213,6 +213,7 @@ public class ExternalHomePageSteps extends CommonSteps {
             addDevices = addDevices.addFollowingDevice(dd, false);
 
         scenarioSession.putData(SessionKey.deviceData, dd);
+        StepsUtils.addToDeviceDataList(scenarioSession, dd);
     }
 
 

@@ -47,8 +47,8 @@ Feature: As a customer I want to register new manufacturers with devices
       | relatedDeviceMeasuring | <deviceMeasuring>    |
     And Proceed to payment and confirm submit device details
     When I logout of the application
-    And I am logged into appian as "<logBackInAas>" user
-    Then I search and view new task in AWIP page for the new account
+    And I am logged into appian as "<logBackInAs>" user
+    Then I search and view new task in AWIP page for the newly created manufacturer
     When I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
     When I logout of the application
@@ -57,9 +57,9 @@ Feature: As a customer I want to register new manufacturers with devices
     Then Verify devices displayed and GMDN details are correct
     And I should be able to view stored device details
     Examples:
-      | user              | logBackInAas | accountType   | countryName | deviceType             | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
-      | authorisedRepAuto | businessAuto | manufacturer  | Bangladesh  | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
-      | manufacturerAuto  | businessAuto | authorisedRep | Brazil      | General Medical Device | true       |               |                 | Registered | Blood weighing scale |                    |              |
+      | user              | logBackInAs  | accountType   | countryName | deviceType             | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
+      | authorisedRepAuto | businessAuto | authorisedRep  | Bangladesh  | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
+      | manufacturerAuto  | businessAuto | manufacturer | Brazil      | General Medical Device | true       |               |                 | Registered | Blood weighing scale |                    |              |
 
 
   @readonly @mdcm-39 @2312 @_sprint5 @1840 @_sprint9
@@ -94,9 +94,9 @@ Feature: As a customer I want to register new manufacturers with devices
     And Proceed to payment and confirm submit device details
     Then I should be returned to the manufacturers list page
     Examples:
-      | user               | accountType   | countryName | deviceType             | gmdn1                | gmdn2           |
-      | manufacturerAuto   | manufacturer  | Belarus     | General Medical Device | Blood weighing scale | Autopsy measure |
-      | authorisedRepAuto  | authorisedRep | Bangladesh  | General Medical Device | Blood weighing scale | Autopsy measure |
+      | user              | accountType   | countryName | deviceType             | gmdn1                | gmdn2           |
+      | manufacturerAuto  | manufacturer  | Belarus     | General Medical Device | Blood weighing scale | Autopsy measure |
+      | authorisedRepAuto | authorisedRep | Bangladesh  | General Medical Device | Blood weighing scale | Autopsy measure |
 
 
   @regression @mdcm-161 @2276 @mdcm-21 @2323 @mdcm-232 @2221 @mdcm-496 @_sprint4 @_sprint5
@@ -113,7 +113,7 @@ Feature: As a customer I want to register new manufacturers with devices
     And Proceed to payment and confirm submit device details
     When I logout of the application
     And I am logged into appian as "<logBackInAs>" user
-    Then I search and view new task in AWIP page for the new account
+    Then I search and view new task in AWIP page for the newly created manufacturer
     When I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
     When I go to records page and click on "Organisations"
@@ -147,7 +147,7 @@ Feature: As a customer I want to register new manufacturers with devices
     And Proceed to payment and confirm submit device details
     When I logout of the application
     And I am logged into appian as "<logBackInAs>" user
-    Then I search and view new task in AWIP page for the new account
+    Then I search and view new task in AWIP page for the newly created manufacturer
     When I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
     When I go to records page and click on "<page>"
@@ -155,7 +155,7 @@ Feature: As a customer I want to register new manufacturers with devices
     And I click on a link which matches the stored organisations in "<page>" page
     Then I should see new product id generated for my device
     Examples:
-      | user              | logBackInAs  | accountType   | countryName | page                | deviceType                         | gmdnDefinition        | customMade | riskClassification | productName | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
-      | authorisedRepAuto | businessAuto | manufacturer  | Bangladesh  | Registered Products | In Vitro Diagnostic Device         | Androgen receptor IVD |            | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
-      | manufacturerAuto  | businessAuto | authorisedRep | Brazil      | Registered Products | Active Implantable Device | Desiccating chamber   | true       |                    | ford focus  |             |              |              |                   |            |               |
+      | user              | logBackInAs  | accountType   | countryName | page                | deviceType                 | gmdnDefinition        | customMade | riskClassification | productName | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
+      | authorisedRepAuto | businessAuto | authorisedRep  | Bangladesh  | Registered Products | In Vitro Diagnostic Device | Androgen receptor IVD |            | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      | manufacturerAuto  | businessAuto | manufacturer | Brazil      | Registered Products | Active Implantable Device  | Desiccating chamber   | true       |                    | ford focus  |             |              |              |                   |            |               |
 

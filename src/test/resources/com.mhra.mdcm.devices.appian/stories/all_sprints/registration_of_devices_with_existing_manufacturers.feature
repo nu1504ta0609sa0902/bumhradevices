@@ -134,12 +134,9 @@ Feature: As an account holder, I should be able to add devices to existing manuf
       | relatedDeviceSterile   | <deviceSterile>      |
       | relatedDeviceMeasuring | <deviceMeasuring>    |
     And Proceed to payment and confirm submit device details
-    When I logout of the application
-    And I am logged into appian as "<logBackInAas>" user
-    #And I view new task with link "Update Manufacturer Registration Request" for the new account
+    When I logout and log back into appian as "<logBackInAs>" user
     Then I search and view new task in AWIP page for the new account
     Then Check task contains correct devices "<gmdn>" and other details
-    #And I assign the task to me and "approve" the generated task
     When I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
     When I logout of the application
@@ -149,12 +146,12 @@ Feature: As an account holder, I should be able to add devices to existing manuf
     #Then The gmdn code or term is "displayed" in summary section
     And I should be able to view stored device details
     Examples:
-      | user              | logBackInAas | deviceType                         | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
-      | authorisedRepAuto | businessAuto | General Medical Device             | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
+      | user              | logBackInAs  | deviceType                | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
+      | authorisedRepAuto | businessAuto | General Medical Device    | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
       | authorisedRepAuto | businessAuto | Active Implantable Device | true       |               |                 | Registered | Desiccating chamber  |                    |              |
-      | manufacturerAuto  | businessAuto | General Medical Device             | true       |               |                 | Registered | Blood weighing scale |                    |              |
-      | manufacturerAuto  | businessAuto | System or Procedure Pack           |            | true          | true            | Registered | Desiccating chanber  | class1             | NB 0086 BSI  |
-      | manufacturerAuto  | businessAuto | System or Procedure Pack           |            | false         | true            | Registered | Desiccating chanber  | class1             | NB 0086 BSI  |
+      | manufacturerAuto  | businessAuto | General Medical Device    | true       |               |                 | Registered | Blood weighing scale |                    |              |
+      | manufacturerAuto  | businessAuto | System or Procedure Pack  |            | true          | true            | Registered | Desiccating chanber  | class1             | NB 0086 BSI  |
+      | manufacturerAuto  | businessAuto | System or Procedure Pack  |            | false         | true            | Registered | Desiccating chanber  | class1             | NB 0086 BSI  |
 
 
   @regression @readonly @mdcm-485 @2030 @_sprint5 @wip
@@ -166,6 +163,6 @@ Feature: As an account holder, I should be able to add devices to existing manuf
     Then I should see organisation details
     And I should see contact person details
     Examples:
-      | user              | status     |
+      | user              | status         |
       | manufacturerAuto  | Not Registered |
       | authorisedRepAuto | Not Registered |

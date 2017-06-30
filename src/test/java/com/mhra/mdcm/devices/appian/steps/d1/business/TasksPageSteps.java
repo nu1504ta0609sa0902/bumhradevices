@@ -1,6 +1,5 @@
 package com.mhra.mdcm.devices.appian.steps.d1.business;
 
-import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequestDO;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
@@ -302,20 +301,6 @@ public class TasksPageSteps extends CommonSteps {
         assertThat("Task not found for organisation : " + orgName, isCorrectTask, is(equalTo(true)));
     }
 
-    @Then("^Task contains correct devices and products and other details for \"([^\"]*)\"$")
-    public void task_contains_correct_devices_and_products_and_other_details_for(String deviceType) throws Throwable {
-        //Check GMDN values are displayed
-        List<String> listOfGmdns = (List<String>) scenarioSession.getData(SessionKey.listOfGmndsAdded);
-        boolean isGMDNCorrect = taskSection.isAllTheGMDNValueDisplayed(listOfGmdns);
-        assertThat("Expected to see the following GMDNs : " + listOfGmdns, isGMDNCorrect, is(equalTo(true)));
-
-        //Check list of products displayed
-        List<String> listOfProducts = (List<String>) scenarioSession.getData(SessionKey.listOfProductsAdded);
-        boolean productsFound = taskSection.isProductsDisplayedForDeviceType(deviceType, listOfProducts);
-        assertThat("Expected to see the following products : " + listOfProducts, productsFound, is(equalTo(true)));
-
-    }
-
 
     @Then("^The task should be removed from WIP tasks list$")
     public void theTaskShouldBeRemovedFromWIPTaskList() {
@@ -431,11 +416,11 @@ public class TasksPageSteps extends CommonSteps {
         throw new PendingException();
     }
 
-    @And("^Check task contains correct devices \"([^\"]*)\" and other details$")
-    public void checkCorrectDevicesAreDisplayed(String deviceList) throws Throwable {
-        boolean isDevicesCorrect = taskSection.isDevicesDisplayedCorrect(deviceList);
-        assertThat("Expected to see following devices : " + deviceList, isDevicesCorrect, is(equalTo(true)));
-    }
+//    @And("^Check task contains correct devices \"([^\"]*)\" and other details$")
+//    public void checkCorrectDevicesAreDisplayed(String deviceList) throws Throwable {
+//        boolean isDevicesCorrect = taskSection.isDevicesDisplayedCorrect(deviceList);
+//        assertThat("Expected to see following devices : " + deviceList, isDevicesCorrect, is(equalTo(true)));
+//    }
 
     @And("^Check task contains correct stored devices and other details$")
     public void checkTaskContainsCorrectDevicesAreDisplayed() throws Throwable {
@@ -443,12 +428,6 @@ public class TasksPageSteps extends CommonSteps {
         String deviceList = StepsUtils.getCommaDelimitedData(listOfGmdns);
         boolean isDevicesCorrect = taskSection.isDevicesDisplayedCorrect(deviceList);
         assertThat("Expected to see following devices : " + deviceList, isDevicesCorrect, is(equalTo(true)));
-    }
-
-    @And("^The designation letter should be attached and the status should be \"([^\"]*)\"$")
-    public void theStatusShouldBe(String expectedStatus) throws Throwable {
-        boolean isAttached = taskSection.isDesignationLetterAttached();
-        assertThat("Expected to see letter of designation link", isAttached, is(equalTo(true)));
     }
 
 
@@ -471,6 +450,8 @@ public class TasksPageSteps extends CommonSteps {
     public void i_filter_WIP_tasks_by(String filterBy) throws Throwable {
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
         String taskType = (String) scenarioSession.getData(SessionKey.taskType);
+
+        //Filter section is hidden now: so need to expand it
         taskSection = taskSection.filterWIPTasksBy(filterBy, orgName, taskType);
     }
 
@@ -485,18 +466,13 @@ public class TasksPageSteps extends CommonSteps {
         Assert.assertThat("Following columns not found : " + tableColumnsNotFound, tableColumnsNotFound.size() == 0, is(true));
     }
 
-    @And("^Task shows devices which are arranged by device types$")
-    public void taskShowsDevicesWhichAreArrangedByDeviceTypes() throws Throwable {
-        boolean isOrderedCorrectly = taskSection.areDevicesOrderedByDeviceTypes();
-        Assert.assertThat("Devices should be ordered by device type", isOrderedCorrectly, is(true));
-    }
-
 
     @When("^I assign the AWIP page task to me and \"([^\"]*)\" the generated task$")
     public void i_assign_AWIP_task_and_accept_the_task_and_the_generated_task(String approveOrReject) throws Throwable {
         //accept the taskSection and approve or reject it
         businessManufacturerDetails = businessManufacturerDetails.assignAWIPTaskToMe();
         businessManufacturerDetails = businessManufacturerDetails.confirmAWIPIAssignment(true);
+        businessManufacturerDetails = businessManufacturerDetails.clickOnSummaryTab();
 
         //Approve or reject
         String taskType = (String) scenarioSession.getData(SessionKey.taskType);
@@ -650,6 +626,7 @@ public class TasksPageSteps extends CommonSteps {
         tasksPage = mainNavigationBar.clickTasks();
         taskSection = tasksPage.gotoApplicationWIPPage();
         taskSection = taskSection.searchAWIPPageForAccount(accountNameOrReference);
+        taskSection.isSearchingCompleted();
 
         boolean isStatusCorrect = taskSection.isAWIPTaskStatusCorrect(status);
         //Assert.assertThat("Expected Status in Application WIP page : " + status, isStatusCorrect, is(true));

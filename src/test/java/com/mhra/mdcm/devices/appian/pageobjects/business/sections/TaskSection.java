@@ -544,18 +544,6 @@ public class TaskSection extends _Page {
         return allFound;
     }
 
-    public boolean areDevicesOrderedByDeviceTypes() {
-        boolean isOrdered = true;
-
-        //This is harder than expected because you may only have IDV or AIMD or GMD or SPP or any combinations
-        return isOrdered;
-    }
-
-    public boolean isDesignationLetterAttached() {
-        boolean clickable = PageUtils.isElementClickable(driver, linkLetterOfDesignation, TIMEOUT_5_SECOND);
-        return clickable;
-    }
-
     public List<String> isApplicationReferenceFormatCorrect(int lengthOfReference, String dateFormat) {
         WaitUtils.waitForElementToBeClickable(driver, linkFilterApplication, TIMEOUT_10_SECOND);
         List<String> listOfInvalidReferences = new ArrayList<>();

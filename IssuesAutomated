@@ -354,7 +354,8 @@ Automated Issues:
     Sprint 21: @_sprint21
         - @5682 -   CFS @todo business user bulk reject request for a device
                 -   DONE ISH
-        - @1840 -   @Todo verfication
+        - @1840 -   @Todo verfication of logos and images on manufacturer view
+                -
         - @5593 -   CFS @todo business user application view new devices
                 -   Done ish
         - @1986 -   CFS @todo business user approve manufacturer or devices
@@ -372,10 +373,13 @@ Automated Issues:
         - @5960 -   CFS @todo filter available devices and products
                 -   DONE ish
         - @1947 -   CFS @todo specify the delivery address
+
         - @3343 -   DR  @todo specify products for SSP
         - @3207 -   DR  @todo specify products for GMD and IVD (low risks)
         - @2272 -   DR  @todo reset forgotten password
         - @2151 -   DR  @todo confirmation email for registering a manufacturer
+                -   DONE ISH
+                -   Content need to be verified in more details
         - @5349 -   DR  @todo capture device and product details
         - @2294 -   DR  @todo calculate amount to pay for manufacturer registration (payments page)
         - @2224 -   DR  @todo change a known password in appian

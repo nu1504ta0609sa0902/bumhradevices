@@ -777,6 +777,9 @@ public class AddDevices extends _Page {
                 WebElement element = CommonUtils.getElementFromList(listOfGmdnMatchesReturnedBySearch, randomPosition);
                 element.click();
 
+                //Set device name for later verification
+                dd.deviceName = element.getText();
+
                 //If its a duplicate Try again
                 isErrorMessageDisplayed = isErrorMessageDisplayed("Duplicate");
                 if (isErrorMessageDisplayed) {
@@ -1128,7 +1131,7 @@ public class AddDevices extends _Page {
             paymentWorldPay.click();
         }else if(paymentMethod.toLowerCase().contains("bacs")){
             paymentBACS.click();
-            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+            //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
             PageUtils.uploadDocument(fileUpload, "CompletionOfTransfer1.pdf", 1, 3);
         }
 

@@ -25,6 +25,8 @@ public class BusinessManufacturerDetails extends _Page {
     //Links to other sections like devices, documents
     @FindBy(xpath = ".//button[contains(text(),'Edit Account Information')]")
     WebElement editAccountInfoLink;
+    @FindBy(xpath = ".//span[contains(text(),'Letter of designation')]//following::a")
+    WebElement linkLetterOfDesignation;
 
     //PARD message
     @FindBy(xpath = ".//*[contains(text(),'PARD selection')]//following::p[1]")
@@ -245,8 +247,8 @@ public class BusinessManufacturerDetails extends _Page {
     }
 
     public BusinessManufacturerDetails approveAWIPTaskNewAccount() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, btnApproveNewAccount, TIMEOUT_3_SECOND);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, btnApproveNewAccount, TIMEOUT_10_SECOND);
         PageUtils.doubleClick(driver, btnApproveNewAccount);
         log.info("Task should be approved now");
         return new BusinessManufacturerDetails(driver);
@@ -374,14 +376,15 @@ public class BusinessManufacturerDetails extends _Page {
 
 
     public BusinessDeviceDetails clickOnDeviceAndProductsTab() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, tabDevicesAndProductDetails, TIMEOUT_5_SECOND);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, tabDevicesAndProductDetails, TIMEOUT_10_SECOND);
         tabDevicesAndProductDetails.click();
         return new BusinessDeviceDetails(driver);
     }
 
     public BusinessManufacturerDetails clickOnSummaryTab() {
-        WaitUtils.waitForElementToBeClickable(driver, tabSummary, TIMEOUT_5_SECOND);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, tabSummary, TIMEOUT_10_SECOND);
         tabSummary.click();
         return new BusinessManufacturerDetails(driver);
     }
@@ -439,4 +442,8 @@ public class BusinessManufacturerDetails extends _Page {
         return new BusinessManufacturerDetails(driver);
     }
 
+    public boolean isDesignationLetterAttached() {
+        boolean clickable = PageUtils.isElementClickable(driver, linkLetterOfDesignation, TIMEOUT_5_SECOND);
+        return clickable;
+    }
 }

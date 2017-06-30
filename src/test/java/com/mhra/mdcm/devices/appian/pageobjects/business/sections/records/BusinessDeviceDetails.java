@@ -170,7 +170,7 @@ public class BusinessDeviceDetails extends _Page {
         return allDataCorrect;
     }
 
-    public boolean verifyAllTheDevicesAreDisplayed(List<DeviceDO> listOfDeviceData) {
+    public boolean verifyNumberOfDevicesCount(List<DeviceDO> listOfDeviceData) {
         String numberOfDevices = String.valueOf(listOfDeviceData.size());
         boolean isValid = totalNumberOfDevices.getText().contains(numberOfDevices);
 
@@ -280,5 +280,22 @@ public class BusinessDeviceDetails extends _Page {
         PageUtils.singleClick(driver, btnRejectCFSDeviceWithReasons);
         return new BusinessManufacturerDetails(driver);
     }
+
+    public boolean areDevicesOrderedByDeviceTypes() {
+        boolean isOrdered = true;
+
+        //Not sure if this is still required as the old page has been removed
+        return isOrdered;
+    }
+
+    public boolean isDisplayingGMDN(List<String> listOfGmdns) {
+        return false;
+    }
+
+    public boolean isProductDetailsCorrect(String deviceType, List<String> listOfProducts) {
+        return false;
+    }
+
+
 
 }

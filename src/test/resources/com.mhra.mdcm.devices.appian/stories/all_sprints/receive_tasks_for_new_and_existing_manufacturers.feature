@@ -15,15 +15,14 @@ Feature: As a business user, I want a task to be created each time a customer su
       | customMade         | <customMade>         |
       | listOfProductNames | <listOfProductNames> |
     And Proceed to payment and confirm submit device details
-    When I logout of the application
-    And I am logged into appian as "<logBackInAas>" user
-    Then I search and view new task in AWIP page for the new account
+    When I logout and log back into appian as "<logBackInAs>" user
+    Then I search and view new task in AWIP page for the newly created manufacturer
     And Check task contains correct devices "<gmdnDefinition>" and other details
     When I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
     Then The task should be removed from tasks list
     Examples:
-      | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition      | customMade | listOfProductNames |
+      | user              | logBackInAs  | accountType   | countryName | deviceType                | gmdnDefinition      | customMade | listOfProductNames |
       | manufacturerAuto  | businessAuto | manufacturer  | Brazil      | Active Implantable Device | Desiccating chamber | true       | setmeup1           |
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Device | Desiccating chamber | true       | setmeup2           |
 
@@ -48,15 +47,14 @@ Feature: As a business user, I want a task to be created each time a customer su
       | listOfProductNames | <listOfProductNames> |
     And The gmdn code or term is "displayed" in summary section
     And Proceed to payment and confirm submit device details
-    When I logout of the application
-    And I am logged into appian as "<logBackInAas>" user
-    Then I search and view new task in AWIP page for the new account
+    When I logout and log back into appian as "<logBackInAs>" user
+    Then I search and view new task in AWIP page for the newly created manufacturer
     And Check task contains correct devices "<gmdnDefinition>" and other details
     When I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
     Then The task should be removed from tasks list
     Examples:
-      | user              | logBackInAas | accountType   | countryName | deviceType                 | gmdnDefinition        | riskClassification | listOfProductNames | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
+      | user              | logBackInAs  | accountType   | countryName | deviceType                 | gmdnDefinition        | riskClassification | listOfProductNames | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
       | manufacturerAuto  | businessAuto | manufacturer  | Brazil      | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | ford,hyundai       | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | ford,honda         | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
@@ -74,14 +72,13 @@ Feature: As a business user, I want a task to be created each time a customer su
       | customMade         | <customMade>         |
       | listOfProductNames | <listOfProductNames> |
     And Proceed to payment and confirm submit device details
-    When I logout of the application
-    And I login to appian as "<logBackInAas>" user
-    Then I search and view new task in AWIP page for the new account
+    When I logout and log back into appian as "<logBackInAs>" user
+    Then I search and view new task in AWIP page for the newly created manufacturer
     And The designation letter should be attached and the status should be "Awaiting Review"
     Examples:
-      | user              | logBackInAas | accountType   | countryName | deviceType                         | gmdnDefinition       | customMade | listOfProductNames | link                                  |
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Device | Desiccating chamber  | true       | ford               | New Manufacturer Registration Request |
-      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Device | Blood weighing scale | false      | fiesta             | New Manufacturer Registration Request |
+      | user              | logBackInAs  | accountType   | countryName | deviceType                | gmdnDefinition       | customMade | listOfProductNames |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Device | Desiccating chamber  | true       | ford               |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Device | Blood weighing scale | false      | fiesta             |
 
 
   @regression @mdcm-263 @2197 @_sprint6  @4088 @_sprint11 @2185 @_sprint8 @2833 @_sprint14 @wip
@@ -104,9 +101,8 @@ Feature: As a business user, I want a task to be created each time a customer su
       | riskClassification     | class1       |
       | notifiedBody           | NB 0086 BSI  |
     And Proceed to payment and confirm submit device details
-    When I logout of the application
-    And I am logged into appian as "<logBackInAs>" user
-    Then I search and view new task in AWIP page for the new account
+    When I logout and log back into appian as "<logBackInAs>" user
+    Then I search and view new task in AWIP page for the newly created manufacturer
     Then Task contains correct devices and products and other details for "<deviceType>"
     And Task shows devices which are arranged by device types
     When I assign the AWIP page task to me and "<approveReject>" the generated task
@@ -119,8 +115,8 @@ Feature: As a business user, I want a task to be created each time a customer su
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Blood weighing scale | Autopsy measure | approve       | General Medical Device |
 
 
-  @4090 @_sprint13 @4088 @_sprint11
-  Scenario Outline: Users should be able to search and filter tasks
+  @4090 @_sprint13 @4088 @_sprint11 @wip @bug
+  Scenario Outline: Users should be able to search and filter tasks in WIP page
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
     And I click on a random manufacturer to add devices
@@ -129,9 +125,8 @@ Feature: As a business user, I want a task to be created each time a customer su
       | gmdnDefinition | <gmdn>                 |
       | customMade     | true                   |
     And Proceed to payment and confirm submit device details
-    When I logout of the application
-    And I am logged into appian as "<logBackInAs>" user
-    And I go to WIP tasks page
+    When I logout and log back into appian as "<logBackInAs>" user
+    And I go to application WIP page
     And I filter WIP tasks by "<filterBy>"
     And I filter WIP tasks by "<filterBy2>"
     Then Check the WIP entry details for the "<taskType>" task is correct

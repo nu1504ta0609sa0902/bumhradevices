@@ -39,9 +39,9 @@ Feature: As an account holder, I want to register manufacturers and declare high
       | productName    | <productName>    |
     Then I should see option to add another device
     Examples:
-      | user              | deviceType                         | gmdnDefinition      | customMade | productName |
+      | user              | deviceType                | gmdnDefinition      | customMade | productName |
       | authorisedRepAuto | Active Implantable Device | Desiccating chamber | true       | ford focus  |
-      | manufacturerAuto | Active Implantable Device | Desiccating chamber | true       | ford focus  |
+      | manufacturerAuto  | Active Implantable Device | Desiccating chamber | true       | ford focus  |
 #      | manufacturerAuto | Active Implantable Device | Blood          | false      | ford focus  | can't register if custom made is false
 
 
@@ -86,7 +86,7 @@ Feature: As an account holder, I want to register manufacturers and declare high
     Then I should see validation error message in devices page with text "<errorMsg>"
     And I should be prevented from adding the high risk devices
     Examples:
-      | user              | deviceType                         | gmdnDefinition      | customMade | notifiedBody | errorMsg                                                                             |
+      | user              | deviceType                | gmdnDefinition      | customMade | notifiedBody | errorMsg                                                                    |
       | authorisedRepAuto | Active Implantable Device | Desiccating chamber | false      | NB 0086 BSI  | You cannot register non custom made active implantable device with the MHRA |
       | manufacturerAuto  | Active Implantable Device | Desiccating chamber | false      | NB 0086 BSI  | You cannot register non custom made active implantable device with the MHRA |
 
@@ -144,21 +144,17 @@ Feature: As an account holder, I want to register manufacturers and declare high
       | listOfProductNames | <listOfProductNames> |
     Then I should see option to add another device
     And Proceed to payment and confirm submit device details
-    When I logout of the application
-    And I login to appian as "<logBackInAas>" user
-    When I go to WIP tasks page
-    And I wait for task to appear for stored manufacturer in WIP page
-    #Then The WIP task for stored manufacturer should contain a paper click image
-    When I view task for the stored account in WIP page
-    Then Task contains correct devices and products and other details for "<deviceType>"
-    And Task shows devices which are arranged by device types
-    And I assign the task to me and "approve" the generated task
+    When I logout and log back into appian as "<logBackInAs>" user
+    Then I search and view new task in AWIP page for the new account
+    Then Check task contains correct devices "<gmdnDefinition>" and other details
+    And Task contains correct devices and products and other details for "<deviceType>"
+    When I assign the AWIP page task to me and "approve" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
     Then The task should be removed from tasks list
     Examples:
-      | user              | logBackInAas | deviceType                         | gmdnDefinition      | gmdnDefinition2 | customMade | listOfProductNames  | link                                     |
-      | authorisedRepAuto | businessAuto | Active Implantable Device | Desiccating chamber | suction         | true       | ford,hyundai        | Update Manufacturer Registration Request |
-      | manufacturerAuto  | businessAuto | Active Implantable Device | Desiccating chamber | suction         | true       | ford,hyundai,toyota | Update Manufacturer Registration Request |
-
+      | user              | logBackInAs  | deviceType                | gmdnDefinition      | gmdnDefinition2 | customMade | listOfProductNames  |
+      | authorisedRepAuto | businessAuto | Active Implantable Device | Desiccating chamber | suction         | true       | ford,hyundai        |
+      | manufacturerAuto  | businessAuto | Active Implantable Device | Desiccating chamber | suction         | true       | ford,hyundai,toyota |
 
 
   @regression @mdcm-489 @2027 @_sprint5 @mdcm-148 @2284 @_sprint7 @3755 @_sprint11 @2910 @_sprint7
