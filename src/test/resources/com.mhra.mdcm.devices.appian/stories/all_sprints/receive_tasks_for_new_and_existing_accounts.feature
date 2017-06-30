@@ -15,9 +15,9 @@ Feature: As a business user, I want a task to be created when new account reques
     When I search accounts for the stored organisation name
     Then I should see at least <count> account matches
     Examples:
-      | user         | accountType   | approveReject | count | countryName    | link                |
-      | businessNoor | manufacturer  | approve       | 1     | United Kingdom | New Account Request |
-      | businessNoor | authorisedRep | approve       | 1     | Netherland     | New Account Request |
+      | user         | accountType   | approveReject | count | countryName    |
+      | businessNoor | manufacturer  | approve       | 1     | United Kingdom |
+      | businessNoor | authorisedRep | approve       | 1     | Netherland     |
 
 
   @regression @mdcm-41 @2311 @mdcm-178 @2263 @_sprint2 @bug
@@ -116,12 +116,12 @@ Feature: As a business user, I want a task to be created when new account reques
     When I search accounts for the stored organisation name
     Then I should see at least <count> account matches
     Examples:
-      | user         | accountType  | approveReject | count | countryName    |
-      | businessNoor | manufacturer | reject        | 0     | United Kingdom |
-      | businessNoor | authorisedRep | reject       | 0     | Netherland     |
+      | user         | accountType   | approveReject | count | countryName    |
+      | businessNoor | manufacturer  | reject        | 0     | United Kingdom |
+      | businessNoor | authorisedRep | reject        | 0     | Netherland     |
 
   @1945 @_sprint18 @wip
-  Scenario Outline: Verify all the application reference number in AWIP tasks page is correct
+  Scenario Outline: Verify application reference number format in AWIP tasks page is correct
     Given I am logged into appian as "<user>" user
     And I go to AWIP page
     Then Check the application reference number format is valid
