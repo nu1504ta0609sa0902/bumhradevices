@@ -106,7 +106,7 @@ Feature: As a business user, I want to be able to update party details associate
     Then I should see the following columns for "<expectedHeadings>" list of manufacturer table
     And I click on random manufacturer with status "<status>"
     Examples:
-      | user              | expectedHeadings                                                                             | status     |
+      | user              | expectedHeadings                                      | status     |
       | manufacturerAuto  | Manufacturer name,Address,Country,Registration status | Registered |
       | authorisedRepAuto | Manufacturer name,Address,Country,Registration status | Registered |
 
@@ -119,11 +119,9 @@ Feature: As a business user, I want to be able to update party details associate
     And I update the manufacturer details with following data "<keyValuePairs>"
     Then I should see the changes "<keyValuePairs>" in my manufacturer details page
     Then I should see stored manufacturer appear in the manufacturers list
-    When I logout of the application
-    And I am logged into appian as "<logBackInAs>" user
-    And I go to WIP tasks page
-    Then Check the WIP entry details for the "Update Manufacturer Registration Request" task is correct
-    When I view task for the new account in WIP page
+    When I logout and log back into appian as "<logBackInAs>" user
+    Then The task status in AWIP page should be "Completed" for the new account
+    And validate task is displaying correct new account details
     Examples:
       | user              | logBackInAs  | keyValuePairs                                                                                      | status     |
       | manufacturerAuto  | businessAuto | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website                          | Registered |
@@ -151,22 +149,19 @@ Feature: As a business user, I want to be able to update party details associate
       | riskClassification     | class1       |
       | notifiedBody           | NB 0086 BSI  |
     And Proceed to payment and confirm submit device details
-    When I logout of the application
-    And I am logged into appian as "<logBackInAs>" user
-    And I go to WIP tasks page
-    Then Check the WIP entry details for the "<taskType>" task is correct
-    When I view task for the new account in WIP page
+    When I logout and log back into appian as "<logBackInAs>" user
+    Then I search and view new task in AWIP page for the newly created manufacturer
+    Then I should see correct device details
+    And Check task contains correct devices "<gmdn1>" and other details
     Then Task contains correct devices and products and other details for "<deviceType>"
-    And Task shows devices which are arranged by device types
-    And I assign the task to me and "<approveReject>" the generated task
-    Then The task should be removed from WIP tasks list
-    #Then The completed task status should update to "Completed"
+    When I assign the AWIP page task to me and "<approveReject>" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
     When I search accounts for the stored organisation name
     Then I should see at least 0 account matches
     Examples:
-      | user              | logBackInAs  | status         | gmdn1                | gmdn2           | approveReject | taskType                                 | deviceType             |
-      | authorisedRepAuto | businessAuto | Registered     | Blood weighing scale | Autopsy measure | approve       | Update Manufacturer Registration Request | General Medical Device |
-      | authorisedRepAuto | businessAuto | Not Registered | Blood weighing scale | Autopsy measure | reject        | Update Manufacturer Registration Request | General Medical Device |
-      | manufacturerAuto  | businessAuto | Registered     | Blood weighing scale | Autopsy measure | approve       | Update Manufacturer Registration Request | General Medical Device |
-      | manufacturerAuto  | businessAuto | Not Registered | Blood weighing scale | Autopsy measure | reject        | Update Manufacturer Registration Request | General Medical Device |
+      | user              | logBackInAs  | status         | gmdn1                | gmdn2           | approveReject | deviceType             |
+      | authorisedRepAuto | businessAuto | Registered     | Blood weighing scale | Autopsy measure | approve       | General Medical Device |
+      | authorisedRepAuto | businessAuto | Not Registered | Blood weighing scale | Autopsy measure | reject        | General Medical Device |
+      | manufacturerAuto  | businessAuto | Registered     | Blood weighing scale | Autopsy measure | approve       | General Medical Device |
+      | manufacturerAuto  | businessAuto | Not Registered | Blood weighing scale | Autopsy measure | reject        | General Medical Device |
 
