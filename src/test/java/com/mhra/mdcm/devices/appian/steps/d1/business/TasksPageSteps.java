@@ -544,11 +544,10 @@ public class TasksPageSteps extends CommonSteps {
             String taskType = (String) scenarioSession.getData(SessionKey.taskType);
             if(taskType!=null && taskType.contains("New Account")) {
                 businessManufacturerDetails = businessManufacturerDetails.rejectAWIPNewAccountRegistration();
-                businessManufacturerDetails = businessManufacturerDetails.enterRejectionReason(reason, RandomDataUtils.getRandomTestName(reason));
-            }else {
-                //Rejection process is slightly different, you need to enter a rejection reason
-                taskSection = taskSection.rejectTask();
-                tasksPage = taskSection.enterRejectionReason("Account already exists", RandomDataUtils.getRandomTestName("Account already exists "));
+                businessManufacturerDetails = businessManufacturerDetails.enterRejectionReason("Account already exists", RandomDataUtils.getRandomTestName("Account already exists "));
+            }else if(taskType!=null && taskType.contains("New Manufacturer")){
+                businessManufacturerDetails = businessManufacturerDetails.rejectAWIPManufacturerTask();
+                businessManufacturerDetails = businessManufacturerDetails.enterManufacturerRejectionReason("Submitted in error", RandomDataUtils.getRandomTestName("Account already exists "));
             }
         }
     }
