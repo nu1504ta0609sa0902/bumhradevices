@@ -32,8 +32,8 @@ Feature: As a user, I want to view devices and product details associated with a
       | customMade     | true                 |
     And Proceed to payment and confirm submit device details
     When I logout and log back into appian as "<logBackInAs>" user
-    And I view new task with link "New Manufacturer Registration Request" for the new account
-    When I assign the task to me and "<approveReject>" the generated task
+    Then I search and view new task in AWIP page for the newly created manufacturer
+    When I assign the AWIP page task to me and "approve" the generated task
     When I go to records page and click on "<page>"
     And I search for stored organisation in "<page>" page
     And I click on a random organisation link "<searchTerm>" in "<page>" page
@@ -60,8 +60,8 @@ Feature: As a user, I want to view devices and product details associated with a
     When I click on a device with link "heart" for device type "<deviceType>"
     Then I should see correct information for device type "<deviceType>"
     Examples:
-      | user         | page          | searchTerm      | deviceType                         |
-      | businessAuto | Organisations | ManufacturerRT  | General Medical Device             |
+      | user         | page          | searchTerm      | deviceType                |
+      | businessAuto | Organisations | ManufacturerRT  | General Medical Device    |
       | businessAuto | Organisations | AuthorisedRepRT | Active Implantable Device |
 
 
@@ -77,11 +77,10 @@ Feature: As a user, I want to view devices and product details associated with a
       | gmdnDefinition | Blood weighing scale   |
       | customMade     | true                   |
     And Proceed to payment and confirm submit device details
-    When I logout of the application
-    And I am logged into appian as "<logBackInAs>" user
-    And I view new task with link "New Manufacturer Registration Request" for the new account
-    When I assign the task to me and "<approveReject>" the generated task
-    Then The task should be removed from tasks list
+    When I logout and log back into appian as "<logBackInAs>" user
+    Then I search and view new task in AWIP page for the newly created manufacturer
+    When I assign the AWIP page task to me and "<approveReject>" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
     When I go to records page and click on "<page>"
     And I search for stored organisation in "<page>" page
     Then All organisation search result should return <count> matches
@@ -90,5 +89,5 @@ Feature: As a user, I want to view devices and product details associated with a
       | manufacturerAuto  | businessAuto | manufacturer  | approve       | 1     | Brazil      | Organisations | Organisations |
       | authorisedRepAuto | businessAuto | authorisedRep | approve       | 1     | Belarus     | Accounts      | Organisations |
 #    If task is rejected than orgsnisation should not appear on the search results
-#      | manufacturerAuto  | businessAuto | manufacturer  | reject       | 0     | Brazil      | Organisations | Organisations |
-#      | authorisedRepAuto | businessAuto | authorisedRep | reject       | 0     | Belarus     | Accounts      | Organisations |
+      | manufacturerAuto  | businessAuto | manufacturer  | reject        | 0     | Brazil      | Organisations | Organisations |
+      | authorisedRepAuto | businessAuto | authorisedRep | reject        | 0     | Belarus     | Accounts      | Organisations |
