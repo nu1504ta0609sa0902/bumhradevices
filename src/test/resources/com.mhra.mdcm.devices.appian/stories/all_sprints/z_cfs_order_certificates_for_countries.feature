@@ -104,7 +104,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
     Then I should see application tab showing my application with correct details
 
 
-  @smoke_test_cfs @1974 @1978 @_sprint15 @5499 @_sprint17 @5980 @1958 @1960 @_sprint22
+  @1974 @1978 @_sprint15 @5499 @_sprint17 @5980 @1958 @1960 @_sprint22
   Scenario: Users should be able to go to edit country and number of certificates
     Given I am logged into appian as "manufacturerAuto" user
     And I go to device certificate of free sale page
@@ -136,7 +136,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | Bangladesh=5,Brazil=2,United States=3                      |
       | Turkey=5,Iceland=10,United States=20,Liechtenstein=20      |
 
-  @1992 @5960 @_sprint21 @6012 @_sprint22
+  @smoke_test_cfs @1992 @5960 @_sprint21 @6012 @_sprint22
   Scenario Outline: Users can search for products and order CFS for already registered manufacturers
     Given I am logged into appian as "<logInAs>" user
     And I go to device certificate of free sale page

@@ -24,7 +24,7 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
     And I submit the cfs application for approval
 
 
-  @smoke_test_cfs @1944 @1988 @5583 @5126 @5212 @5128 @_sprint15 @_sprint17 @_sprint18
+  @1944 @1988 @5583 @5126 @5212 @5128 @_sprint15 @_sprint17 @_sprint18
   Scenario Outline: Able to upload certificates with different notified body
     Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
@@ -174,7 +174,7 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
 #      | manufacturerAuto | RT01Test   | This certificate expires within 3 months                                                     | 2                    | General Medical Device | BSI          | Blood weighing scale | false      | class2a            | false                |
 
 
-  @1845 @1945 @_sprint18
+  @smoke_test_cfs @1845 @1945 @_sprint18
   Scenario: Users should receive task in application WIP page
     Given I am logged into appian as "manufacturerAuto" user
     And I go to device certificate of free sale page
