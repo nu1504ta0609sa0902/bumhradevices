@@ -381,18 +381,19 @@ Automated Issues:
                 -   Custom made or risk classification of class 1 not shown
         - @3207 -   DR  @todo specify products for GMD and IVD (low risks)
                 -   Custom made question not displayed for IVD
-        - @2272 -   DR  @todo reset forgotten password
         - @2151 -   DR  @todo confirmation email for registering a manufacturer
                 -   DONE ISH
                 -   Content need to be verified in more details
         - @5349 -   DR  @todo capture device and product details
+                -   DONE ISH
+        - @5995 -   DR  @todo saving and exiting not navigating to DR landing page
         - @2294 -   DR  @todo calculate amount to pay for manufacturer registration (payments page)
+        - @5749 -   DR  @todo payment section
+        - @2272 -   DR  @todo reset forgotten password
         - @2224 -   DR  @todo change a known password in appian
         - @5765 -   DR  @todo email notification for password change
-        - @5995 -   DR  @todo saving and exiting not navigating to DR landing page
         - @1957 -   DR  @todo bug/issue : resume application for manufacturer registration
         - @5997 -   DR  @todo bug/issue : resume application behaviour not correct
-        - @5749 -   DR  @todo payment section
 
     Sprint 22: @_sprint22
         - @5993 -   DR  @todo saving application and viewing it appear in the "applications tab"

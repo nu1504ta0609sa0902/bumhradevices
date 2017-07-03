@@ -45,9 +45,9 @@ Feature: Tasks will need to be generated for CFS application
     Then The task status in AWIP page should be "Assigned" for the newly created manufacturer
 
 
-  @5679 @_sprint20 @5673 @5674 @_sprint22
-  Scenario: Users should be able to approve and reject a cfs application
-    Given I am logged into appian as "manufacturerAuto" user
+  @smoke_test_cfs @5679 @_sprint20 @5673 @5674 @_sprint22
+  Scenario Outline: Users should be able to approve and reject a cfs application
+    Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
     Then I should see a list of manufacturers available for CFS
     When I create a new manufacturer using CFS manufacturer test harness page with following data
@@ -64,9 +64,13 @@ Feature: Tasks will need to be generated for CFS application
     And I submit the cfs application for approval
     When I logout and log back into appian as "businessAuto" user
     And I search and view new task in AWIP page for the newly created manufacturer
-    And I assign the AWIP page task to me and "approve" the generated task
-    Then The task status in AWIP page should be "Completed" for the newly created manufacturer
+    And I assign the AWIP page task to me and "<approveReject>" the generated task
+    Then The task status in AWIP page should be "<expectedStatus>" for the newly created manufacturer
     And I should received an email for stored manufacturer with heading "Free Sale"
+    Examples:
+      | user              | expectedStatus | approveReject |
+      | manufacturerAuto  | Completed      | approve       |
+      | authorisedRepAuto | Completed      | reject        |
 
 
   @5666 @_sprint20

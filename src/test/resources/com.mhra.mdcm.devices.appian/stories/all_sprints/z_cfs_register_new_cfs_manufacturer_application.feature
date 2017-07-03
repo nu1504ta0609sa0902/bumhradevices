@@ -40,7 +40,7 @@ Feature: Able to add CFS for products and devices that are already registered
     And I should received an email for stored manufacturer with heading "Free Sale"
 
 
-  @1961 @_sprint21
+  @smoke_test_cfs @1961 @_sprint21
   Scenario Outline: Users should be able to approve and reject a cfs application
     Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
