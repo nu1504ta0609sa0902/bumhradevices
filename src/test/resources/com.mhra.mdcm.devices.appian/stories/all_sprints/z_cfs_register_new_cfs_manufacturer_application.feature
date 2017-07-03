@@ -2,7 +2,7 @@ Feature: Able to add CFS for products and devices that are already registered
   So that manufacturers can export products outside EU without going through MHRA again
 
 
-  @1974 @4330 @5141 @3979 @5212 @5126 @1845 @5128 @_sprint15 @_sprint17 @_sprint18
+  @1974 @4330 @5141 @3979 @5212 @5126 @1845 @5128 @5349 @_sprint21 @_sprint15 @_sprint17 @_sprint18
   Scenario: Users should be able to add a new cfs application with multiple devices
     Given I am logged into appian as "manufacturerAuto" user
     And I go to device certificate of free sale page
@@ -68,7 +68,7 @@ Feature: Able to add CFS for products and devices that are already registered
       | authorisedRepAuto | Completed      | reject        |
 
 
-  @5679 @1954 @5680 @5681 @_sprint20 @5593 @5665 @_sprint21 @5673 @5674 @5673 @5674 @_sprint22
+  @5679 @1954 @5680 @5681 @_sprint20 @5593 @5665 @5349 @_sprint21 @5673 @5674 @5673 @5674 @_sprint22
   Scenario: Business users should be able to view cfs new manufacturer and its devices and complete application
     Given I am logged into appian as "manufacturerAuto" user
     And I go to device certificate of free sale page

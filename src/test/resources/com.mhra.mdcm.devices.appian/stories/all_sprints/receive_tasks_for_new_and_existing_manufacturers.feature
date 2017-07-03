@@ -27,7 +27,7 @@ Feature: As a business user, I want a task to be created each time a customer su
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Device | Desiccating chamber | true       | setmeup2           |
 
 
-  @regression @mdcm-15 @2324 @mdcm-21 @2323 @mdcm-39 @2312 @mdcm-186 @2258 @_sprint2 @_sprint3 @_sprint5 @3755 @_sprint11 @2910 @_sprint7 @2049 @_sprint8 @3207 @_sprint21
+  @regression @mdcm-15 @2324 @mdcm-21 @2323 @mdcm-39 @2312 @mdcm-186 @2258 @_sprint2 @_sprint3 @_sprint5 @3755 @_sprint11 @2910 @_sprint7 @2049 @_sprint8 @3207 @5349 @_sprint21
   Scenario Outline: Business users to review and process manufacturer and device registration task for IVD List A
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
