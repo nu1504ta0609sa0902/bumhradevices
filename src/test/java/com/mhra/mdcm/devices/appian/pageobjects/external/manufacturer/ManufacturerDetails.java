@@ -390,7 +390,7 @@ public class ManufacturerDetails extends _Page {
 
     public ManufacturerDetails clickApplicationTab() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, tabApplicationDetails, TIMEOUT_5_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, tabApplicationDetails, TIMEOUT_15_SECOND);
         tabApplicationDetails.click();
         return new ManufacturerDetails(driver);
     }

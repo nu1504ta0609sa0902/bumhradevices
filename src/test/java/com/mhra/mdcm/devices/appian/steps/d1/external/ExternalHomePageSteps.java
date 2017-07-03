@@ -221,7 +221,7 @@ public class ExternalHomePageSteps extends CommonSteps {
     public void proceedToPaymentAndConfirmSubmitDeviceDetails() throws Throwable {
         addDevices = addDevices.proceedToReview();
         addDevices = addDevices.proceedToPayment();
-        addDevices = addDevices.enterPaymentDetails("BACS");   //OR WorldPay
+        addDevices = addDevices.enterPaymentDetails("Worldpay");   //OR WorldPay
         String reference = addDevices.getApplicationReferenceNumber();
         log.info("New Applicaiton reference number : " + reference);
         //addDevices = addDevices.confirmPayment();

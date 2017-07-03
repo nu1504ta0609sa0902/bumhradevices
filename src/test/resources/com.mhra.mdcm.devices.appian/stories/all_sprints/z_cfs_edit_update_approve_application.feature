@@ -1,3 +1,4 @@
+@cfs
 Feature: Users should be able to add remove and edit for CFS new manufacturer application
 
 

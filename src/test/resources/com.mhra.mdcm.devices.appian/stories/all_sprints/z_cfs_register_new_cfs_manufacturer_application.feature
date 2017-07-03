@@ -1,3 +1,4 @@
+@cfs
 Feature: Able to add CFS for products and devices that are already registered
   So that manufacturers can export products outside EU without going through MHRA again
 

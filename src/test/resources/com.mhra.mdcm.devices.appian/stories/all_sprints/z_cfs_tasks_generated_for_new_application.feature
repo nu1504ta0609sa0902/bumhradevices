@@ -1,3 +1,4 @@
+@cfs
 Feature: Tasks will need to be generated for CFS application
   So that business users can verify, approve and reject them accordingly
 

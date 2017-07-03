@@ -236,6 +236,10 @@ public class AddDevices extends _Page {
     //Payment methods
     @FindBy(xpath = ".//label[contains(text(),'Worldpay')]")
     WebElement paymentWorldPay;
+    @FindBy(xpath = ".//a[contains(text(),'here')]")
+    WebElement linkHereToInitiateWorldpay;
+    @FindBy(xpath = ".//a[contains(text(),'Proceed to worldpay')]")
+    WebElement linkProceedToWorldpay;
     @FindBy(xpath = ".//label[contains(text(),'BACS')]")
     WebElement paymentBACS;
     @FindBy(xpath = ".//button[contains(text(),'Complete application')]")
@@ -1090,7 +1094,18 @@ public class AddDevices extends _Page {
         PageUtils.selectFromDropDown(driver, ddAddressBox , "Registered Address", false);
 
         if(paymentMethod.toLowerCase().contains("world")){
+            WaitUtils.waitForElementToBeClickable(driver, paymentWorldPay, TIMEOUT_15_SECOND);
             paymentWorldPay.click();
+            //Click "here" link
+            WaitUtils.waitForElementToBeClickable(driver, linkHereToInitiateWorldpay, TIMEOUT_10_SECOND);
+            linkHereToInitiateWorldpay.click();
+            //Link "Proceed to worldpay"
+            WaitUtils.waitForElementToBeClickable(driver, linkProceedToWorldpay, TIMEOUT_10_SECOND);
+            linkProceedToWorldpay.click();
+
+            //Focus on different tab
+
+
         }else if(paymentMethod.toLowerCase().contains("bacs")){
             paymentBACS.click();
             //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);

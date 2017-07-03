@@ -303,7 +303,7 @@ public class CFSSteps extends CommonSteps {
     @When("^I submit payment for the CFS$")
     public void i_submit_payment_for_the_CFS() throws Throwable {
         deviceDetails = deviceDetails.continueToPaymentAfterReviewFinished();
-        deviceDetails = deviceDetails.enterPaymentDetails("BACS");
+        deviceDetails = deviceDetails.enterPaymentDetails("Worldpay");
         String reference = deviceDetails.getApplicationReferenceNumber();
         log.info("New Applicaiton reference number : " + reference);
 
