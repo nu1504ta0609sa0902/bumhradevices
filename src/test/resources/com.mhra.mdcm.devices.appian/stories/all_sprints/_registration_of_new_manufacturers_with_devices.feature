@@ -3,7 +3,7 @@ Feature: As a customer I want to register new manufacturers with devices
   so that I am granted access to that and can then register overseas manufacturers on their behalf
 
 
-  @mdcm-14 @2325 @mdcm-39 @2312 @mdcm-496 @_sprint3 @_sprint5 @2185 @_sprint8 @1956 @_sprint9 @wip
+  @mdcm-14 @2325 @mdcm-39 @2312 @mdcm-496 @_sprint3 @_sprint5 @2185 @_sprint8 @1956 @_sprint9 @3343 @_sprint21 @wip
   Scenario Outline: Users should be able to register new manufacturers with devices
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -19,15 +19,15 @@ Feature: As a customer I want to register new manufacturers with devices
       | relatedDeviceSterile   | <deviceSterile>      |
       | relatedDeviceMeasuring | <deviceMeasuring>    |
       | isBearingCEMarking     | false                |
-      | productName            | TooManyChanges       |
+      | productName            | Product1,Product2       |
     And Proceed to payment and confirm submit device details
     Then I should be returned to the manufacturers list page
     Examples:
       | user              | accountType   | countryName | deviceType               | customMade | deviceSterile | deviceMeasuring | riskClassification | notifiedBody |
-      | manufacturerAuto  | manufacturer  | Brazil      | General Medical Device   | true       |               |                 |                    |              |
-      | authorisedRepAuto | authorisedRep | Bangladesh  | General Medical Device   | false      | true          | true            | class1             | NB 0086 BSI  |
       | manufacturerAuto  | manufacturer  | Brazil      | System or Procedure Pack |            | true          |                 | class1             | NB 0086 BSI  |
       | authorisedRepAuto | authorisedRep | Bangladesh  | System or Procedure Pack |            | false         |                 | class1             | NB 0086 BSI  |
+      | manufacturerAuto  | manufacturer  | Brazil      | General Medical Device   | true       |               |                 |                    |              |
+      | authorisedRepAuto | authorisedRep | Bangladesh  | General Medical Device   | false      | true          | true            | class1             | NB 0086 BSI  |
 
 
   @regression @mdcm-485 @2030 @mdcm-374 @2112 @mdcm-186 @2258 @_sprint2 @1838 @3777 @1924 @_sprint8 @_sprint9 @_sprint13 @_sprint5 @wip @bug
@@ -58,8 +58,8 @@ Feature: As a customer I want to register new manufacturers with devices
     And I should be able to view stored device details
     Examples:
       | user              | logBackInAs  | accountType   | countryName | deviceType             | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
-      | authorisedRepAuto | businessAuto | authorisedRep  | Bangladesh  | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
-      | manufacturerAuto  | businessAuto | manufacturer | Brazil      | General Medical Device | true       |               |                 | Registered | Blood weighing scale |                    |              |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
+      | manufacturerAuto  | businessAuto | manufacturer  | Brazil      | General Medical Device | true       |               |                 | Registered | Blood weighing scale |                    |              |
 
 
   @readonly @mdcm-39 @2312 @_sprint5 @1840 @_sprint9
@@ -156,6 +156,6 @@ Feature: As a customer I want to register new manufacturers with devices
     Then I should see new product id generated for my device
     Examples:
       | user              | logBackInAs  | accountType   | countryName | page                | deviceType                 | gmdnDefinition        | customMade | riskClassification | productName | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
-      | authorisedRepAuto | businessAuto | authorisedRep  | Bangladesh  | Registered Products | In Vitro Diagnostic Device | Androgen receptor IVD |            | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
-      | manufacturerAuto  | businessAuto | manufacturer | Brazil      | Registered Products | Active Implantable Device  | Desiccating chamber   | true       |                    | ford focus  |             |              |              |                   |            |               |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Registered Products | In Vitro Diagnostic Device | Androgen receptor IVD |            | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      | manufacturerAuto  | businessAuto | manufacturer  | Brazil      | Registered Products | Active Implantable Device  | Desiccating chamber   | true       |                    | ford focus  |             |              |              |                   |            |               |
 

@@ -81,7 +81,7 @@ Feature: As a business user, I want a task to be created each time a customer su
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Active Implantable Device | Blood weighing scale | false      | fiesta             |
 
 
-  @regression @mdcm-263 @2197 @_sprint6  @4088 @_sprint11 @2185 @_sprint8 @2833 @_sprint14 @wip
+  @regression @mdcm-263 @2197 @_sprint6 @4088 @_sprint11 @2185 @_sprint8 @2833 @_sprint14 @wip
   Scenario Outline: Verify only 1 task is created when we create NEW manufacturer with multiple devices
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
