@@ -34,7 +34,7 @@ Feature: As a customer I want to receive email notifications when ever a account
       | businessNoor | authorisedRep | Estonia     | No authorisation evidence provided | New Account Request for |
 
 
-  @regression @2191 @2193 @2190 @_sprint10 @2151 @_sprint21 @bug
+  @regression @2191 @2193 @2190 @_sprint10 @3207 @2151 @_sprint21
   Scenario Outline: Email should be generated for newly created manufacturers and authorisedReps
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -45,6 +45,7 @@ Feature: As a customer I want to receive email notifications when ever a account
       | deviceType     | General Medical Device |
       | gmdnDefinition | Blood weighing scale   |
       | customMade     | true                   |
+      | productName    | Product1               |
     And Proceed to payment and confirm submit device details
     When I logout and log back into appian as "<logBackInAs>" user
     And I search and view new task in AWIP page for the newly created manufacturer
@@ -57,7 +58,7 @@ Feature: As a customer I want to receive email notifications when ever a account
       | manufacturerAuto  | businessAuto | manufacturer  | approve       | Brazil      | Request for manufacturer registration |
       | authorisedRepAuto | businessAuto | authorisedRep | approve       | Belarus     | Request for manufacturer registration |
 
-  @regression @2192 @2190 @_sprint10 @2151 @_sprint21 @bug
+  @regression @2192 @2190 @_sprint10 @2151 @3207 @_sprint21 @wip @bug
   Scenario Outline: Email should be generated for newly created manufacturers and authorisedReps which are rejected
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -67,7 +68,8 @@ Feature: As a customer I want to receive email notifications when ever a account
     And I add devices to NEWLY created manufacturer with following data
       | deviceType     | General Medical Device |
       | gmdnDefinition | Blood weighing scale   |
-      | customMade     | true                   |
+      | customMade     | false                   |
+      | productName    | Product1               |
     And Proceed to payment and confirm submit device details
     When I logout and log back into appian as "<logBackInAs>" user
     And I search and view new task in AWIP page for the newly created manufacturer
@@ -115,4 +117,4 @@ Feature: As a customer I want to receive email notifications when ever a account
     Examples:
       | user         | accountType   | approveReject | logBackInAs       | countryName   | accountNameBeginsWith    |
       | businessNoor | manufacturer  | approve       | manufacturerNoor  | Bangladesh    | ManufacturerAccountRT00  |
-      | businessNoor | authorisedRep | approve       | authorisedRepNoor | United States | AuthorisedRepAccountRT00 |
+      | businessNoor | authorisedRep | reject        | authorisedRepNoor | United States | AuthorisedRepAccountRT00 |

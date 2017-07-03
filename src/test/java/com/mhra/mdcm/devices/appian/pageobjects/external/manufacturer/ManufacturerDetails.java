@@ -314,14 +314,14 @@ public class ManufacturerDetails extends _Page {
     }
 
     public DeviceDetails clickOnDevicesAndProductDetailsLink() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, devicesAndProductDetails, TIMEOUT_10_SECOND);
         devicesAndProductDetails.click();
         return new DeviceDetails(driver);
     }
 
     public AddDevices clickDeclareDeviceBtn() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeVisible(driver, declareADevice, TIMEOUT_5_SECOND);
         WaitUtils.waitForElementToBeClickable(driver, declareADevice, TIMEOUT_5_SECOND);
         declareADevice.click();

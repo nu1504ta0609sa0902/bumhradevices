@@ -312,7 +312,9 @@ Automated Issues:
         - @1945 -   DONE ish    application reference number
         - @2179 -   DONE ish    unregister business user
         - @2268 -   @todo DR    unregister authorisedReps
+                -   Lots of scenarios
         - @4368 -   @todo DR    unregister manufacturer
+                -   Lots of scenarios
         - @5571 -   DONE ISH    @todo  back button added to cfs add new manufacturer process
         - @5578 -   DONE ISH    @todo order cfs for country and quantity
         - @3810 -   @todo DR    notification to manufacturers if registration is withdrawn
@@ -375,7 +377,10 @@ Automated Issues:
         - @1947 -   CFS @todo specify the delivery address
 
         - @3343 -   DR  @todo specify products for SSP
+                -   DONE ISH
+                -   Custom made or risk classification of class 1 not shown
         - @3207 -   DR  @todo specify products for GMD and IVD (low risks)
+                -   Custom made question not displayed for IVD
         - @2272 -   DR  @todo reset forgotten password
         - @2151 -   DR  @todo confirmation email for registering a manufacturer
                 -   DONE ISH

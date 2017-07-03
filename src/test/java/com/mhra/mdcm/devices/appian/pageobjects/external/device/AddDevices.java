@@ -246,6 +246,12 @@ public class AddDevices extends _Page {
     //Product details : New Medical device names
     @FindBy(xpath = ".//*[contains(text(),'Medical device name')]//following::input[1]")
     WebElement pdMedicalDeviceName;
+    @FindBy(xpath = ".//*[contains(text(),'Medical device name')]//following::input[2]")
+    WebElement pdModelOptional;
+    @FindBy(xpath = ".//*[contains(text(),'Medical device name')]//following::input[3]")
+    WebElement pdCatalogReferenceOptional;
+    @FindBy(xpath = ".//*[contains(text(),'Medical device name')]//following::input[4]")
+    WebElement pdUniqueDeviceIdentifierOptional;
     @FindBy(xpath = ".//*[contains(text(),'Medical Device Name')]//following::input[1]")
     WebElement pdMedicalDeviceNameAIMD;
 
@@ -368,20 +374,6 @@ public class AddDevices extends _Page {
     private void addActiveImplantableDevice(DeviceDO dd) {
         searchByGMDN(dd);
         customMade(dd);
-//        int numberOfProductName = dd.listOfProductName.size();
-//        if (numberOfProductName <= 1) {
-//            if (numberOfProductName == 1) {
-//                dd.productName = dd.listOfProductName.get(0);
-//            }
-//            //List of device to add
-//            if (dd.isCustomMade) {
-//                productLabelName(dd);
-//            }
-//        } else {
-//            for (String x : dd.listOfProductName) {
-//                productLabelName(x);
-//            }
-//        }
 
         if(dd.isCustomMade) {
             for (String x : dd.listOfProductName) {
@@ -427,40 +419,6 @@ public class AddDevices extends _Page {
 
         //No product needs to be added when Risk Classification = IVD General
         if (dd.riskClassification != null && !dd.riskClassification.equals("ivd general")) {
-            //If more than 1 product listed
-//            int numberOfProductName = dd.listOfProductName.size();
-//            if (numberOfProductName <= 1) {
-//                if (numberOfProductName == 1) {
-//                    dd.productName = dd.listOfProductName.get(0);
-//                }
-//                //List of device to add
-//                addProduct(dd);
-//                notifiedBody(dd);
-//                subjectToPerformanceEval(dd);
-//                productNewToMarket(dd);
-//                if (dd.riskClassification.toLowerCase().contains("list a"))
-//                    conformToCTS(dd);
-//                saveProduct(dd);
-//
-//                //Remove this if we find a better solution
-//                WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-//                WaitUtils.nativeWaitInSeconds(1);
-//            } else {
-//                for (String x : dd.listOfProductName) {
-//                    dd.productName = x;
-//                    addProduct(dd);
-//                    notifiedBody(dd);
-//                    subjectToPerformanceEval(dd);
-//                    productNewToMarket(dd);
-//                    if (dd.riskClassification.toLowerCase().contains("list a"))
-//                        conformToCTS(dd);
-//                    saveProduct(dd);
-//
-//                    //Remove this if we find a better solution
-//                    WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-//                    WaitUtils.nativeWaitInSeconds(1);
-//                }
-//            }
 
             int productCount = 0;
             for (String x : dd.listOfProductName) {
@@ -519,6 +477,12 @@ public class AddDevices extends _Page {
                 riskClassification(dd);
                 notifiedBody(dd);
             }
+        }
+
+        if(dd.productName!=null) {
+            PageUtils.clickIfVisible(driver, addProduct);
+            addProductNew(dd);
+            saveProduct(dd);
         }
     }
 
@@ -614,6 +578,12 @@ public class AddDevices extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, pdMedicalDeviceName, TIMEOUT_10_SECOND);
         pdMedicalDeviceName.clear();
         pdMedicalDeviceName.sendKeys(RandomDataUtils.getRandomTestName(dd.productName));
+        pdModelOptional.sendKeys(RandomDataUtils.getRandomTestName("Model"));
+
+        //Verify other fields by adding random data
+        WaitUtils.waitForElementToBeVisible(driver, pdCatalogReferenceOptional, TIMEOUT_3_SECOND);
+        WaitUtils.waitForElementToBeVisible(driver, pdUniqueDeviceIdentifierOptional, TIMEOUT_3_SECOND);
+
     }
 
     private void devicesCompatible(DeviceDO dd) {
@@ -676,20 +646,12 @@ public class AddDevices extends _Page {
         String lcRiskClassification = dd.riskClassification.toLowerCase();
 
         if (lcRiskClassification.contains("ivd general")) {
-            //WaitUtils.waitForElementToBePartOfDOM(driver, By.xpath(".//label[contains(text(),'IVD General')]"), TIMEOUT_5_SECOND);
-            //PageUtils.clickIfVisible(driver, ivdIVDGeneral);
             ivdIVDGeneral.click();
         } else if (lcRiskClassification.contains("list a")) {
-            //WaitUtils.waitForElementToBePartOfDOM(driver, By.xpath(".//label[contains(text(),'List A')]"), TIMEOUT_5_SECOND);
-            //PageUtils.clickIfVisible(driver, ivdListA);
             ivdListA.click();
         } else if (lcRiskClassification.contains("list b")) {
-            //WaitUtils.waitForElementToBePartOfDOM(driver, By.xpath(".//label[contains(text(),'List B')]"), TIMEOUT_5_SECOND);
-            //PageUtils.clickIfVisible(driver, ivdListB);
             ivdListB.click();
         } else if (lcRiskClassification.contains("self-test")) {
-            //WaitUtils.waitForElementToBePartOfDOM(driver, By.xpath(".//label[contains(text(),'Self-Test')]"), TIMEOUT_5_SECOND);
-            //PageUtils.clickIfVisible(driver, ivdSelfTest);
             ivdSelfTest.click();
         }
     }

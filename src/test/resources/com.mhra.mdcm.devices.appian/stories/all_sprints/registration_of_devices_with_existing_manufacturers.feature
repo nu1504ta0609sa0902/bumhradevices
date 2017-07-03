@@ -25,7 +25,7 @@ Feature: As an account holder, I should be able to add devices to existing manuf
       | authorisedRepAuto |
 
 
-  @regression @mdcm-14 @2325 @mdcm-467 @mdcm-21 @2323 @_sprint3 @_sprint5 @2185 @_sprint8
+  @regression @mdcm-14 @2325 @mdcm-467 @mdcm-21 @2323 @_sprint3 @_sprint5 @2185 @_sprint8 @3207 @_sprint21
   Scenario Outline: Verify correct options are displayed on add devices page for different combinations
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
