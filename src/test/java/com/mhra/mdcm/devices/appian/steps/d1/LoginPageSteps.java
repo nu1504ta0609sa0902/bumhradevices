@@ -94,7 +94,7 @@ public class LoginPageSteps extends CommonSteps {
 
     @Then("^I should be in login page$")
     public void iShouldBeInLoginPage() throws Throwable {
-        boolean isLoginPage = loginPage.isInLoginPage();
+        boolean isLoginPage = loginPage.isInLoginPage(_Page.TIMEOUT_10_SECOND);
         Assert.assertThat("Expected to be in login page", isLoginPage, Matchers.is(true));
     }
 

@@ -12,6 +12,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -105,7 +106,7 @@ public class DeviceDetails extends _Page {
     WebElement ddAddressBox;
     @FindBy(css = ".FileUploadWidget---ui-inaccessible")
     WebElement fileUpload;
-    @FindBy(xpath = ".//h2[contains(text(), 'Confirmation')]/following::p[1]")
+    @FindBy(xpath = ".//*[contains(text(), 'Confirmation')]/following::p[1]")
     WebElement txtApplicationReference;
 
     //Search and filter CFS devices
@@ -424,8 +425,7 @@ public class DeviceDetails extends _Page {
 
     public DeviceDetails selectARandomGMDNTerm() {
         WaitUtils.waitForElementToBeClickable(driver, btnSearch, TIMEOUT_15_SECOND);
-        WebElement element = listOfDropDownFilters.get(0);
-        element.click();
+        listOfDropDownFilters.get(0).click();
 
         //Get gmdn terms available and select the first one: @todo Change to randomly select
         List<String> listOfOptions = PageUtils.getListOfElementsForDropDown(listOfGMDNTerms);
@@ -468,6 +468,7 @@ public class DeviceDetails extends _Page {
 
             //When completed
             WaitUtils.waitForElementToBeClickable(driver, linkHereToInitiateWorldpay, TIMEOUT_10_SECOND);
+            PageFactory.initElements(driver,this);
             linkHereToInitiateWorldpay.click();
 
         }else if(paymentMethod.toLowerCase().contains("bacs")){
@@ -477,12 +478,14 @@ public class DeviceDetails extends _Page {
         }
 
         //Complete the application
+        WaitUtils.waitForElementToBeClickable(driver, btnCompleteApplication, TIMEOUT_10_SECOND);
         btnCompleteApplication.click();
         return new DeviceDetails(driver);
     }
 
     public String getApplicationReferenceNumber() {
-        WaitUtils.waitForElementToBeClickable(driver, txtApplicationReference, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, btnFinish, TIMEOUT_15_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, txtApplicationReference, TIMEOUT_15_SECOND);
         return txtApplicationReference.getText().split(":")[1];
     }
 

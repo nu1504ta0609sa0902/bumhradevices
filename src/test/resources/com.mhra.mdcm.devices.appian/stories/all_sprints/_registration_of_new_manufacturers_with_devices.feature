@@ -3,7 +3,7 @@ Feature: As a customer I want to register new manufacturers with devices
   so that I am granted access to that and can then register overseas manufacturers on their behalf
 
 
-  @mdcm-14 @2325 @mdcm-39 @2312 @mdcm-496 @_sprint3 @_sprint5 @2185 @_sprint8 @1956 @_sprint9 @3343 @_sprint21 @wip
+  @mdcm-14 @2325 @mdcm-39 @2312 @mdcm-496 @_sprint3 @_sprint5 @2185 @_sprint8 @1956 @_sprint9 @3343 @5749 @_sprint21
   Scenario Outline: Users should be able to register new manufacturers with devices
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -19,15 +19,15 @@ Feature: As a customer I want to register new manufacturers with devices
       | relatedDeviceSterile   | <deviceSterile>      |
       | relatedDeviceMeasuring | <deviceMeasuring>    |
       | isBearingCEMarking     | false                |
-      | productName            | Product1,Product2       |
-    And Proceed to payment and confirm submit device details
+      | productName            | Product1,Product2    |
+    And Proceed to payment via "<paymentType>" and confirm submit device details
     Then I should be returned to the manufacturers list page
     Examples:
-      | user              | accountType   | countryName | deviceType               | customMade | deviceSterile | deviceMeasuring | riskClassification | notifiedBody |
-      | manufacturerAuto  | manufacturer  | Brazil      | System or Procedure Pack |            | true          |                 | class1             | NB 0086 BSI  |
-      | authorisedRepAuto | authorisedRep | Bangladesh  | System or Procedure Pack |            | false         |                 | class1             | NB 0086 BSI  |
-      | manufacturerAuto  | manufacturer  | Brazil      | General Medical Device   | true       |               |                 |                    |              |
-      | authorisedRepAuto | authorisedRep | Bangladesh  | General Medical Device   | false      | true          | true            | class1             | NB 0086 BSI  |
+      | user              | accountType   | countryName | paymentType | deviceType               | customMade | deviceSterile | deviceMeasuring | riskClassification | notifiedBody |
+      | manufacturerAuto  | manufacturer  | Brazil      | Worldpay    | System or Procedure Pack |            | true          |                 | class1             | NB 0086 BSI  |
+      | authorisedRepAuto | authorisedRep | Bangladesh  | BACS        | System or Procedure Pack |            | false         |                 | class1             | NB 0086 BSI  |
+      | manufacturerAuto  | manufacturer  | Brazil      | Worldpay    | General Medical Device   | true       |               |                 |                    |              |
+      | authorisedRepAuto | authorisedRep | Bangladesh  | BACS        | General Medical Device   | false      | true          | true            | class1             | NB 0086 BSI  |
 
 
   @regression @mdcm-485 @2030 @mdcm-374 @2112 @mdcm-186 @2258 @_sprint2 @1838 @3777 @1924 @_sprint8 @_sprint9 @_sprint13 @_sprint5 @wip @bug

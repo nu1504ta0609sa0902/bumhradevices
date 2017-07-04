@@ -57,8 +57,10 @@ public class PaymentDetails extends _Page {
     WebElement billingAddressCountryRo;
 
     //Submit
-    @FindBy(id = "contactContainerPanel1wayContainer")
+    @FindBy(id = "submitButton")
     WebElement btnMakePayment;
+    @FindBy(xpath = ".//*[contains(text(), 'Payment complete')]")
+    WebElement paymentCompletedText;
 
     @Autowired
     public PaymentDetails(WebDriver driver) {
@@ -66,26 +68,44 @@ public class PaymentDetails extends _Page {
     }
 
     public void performWorldPayPayment(String title) {
-        String parentHandle = driver.getWindowHandle(); // get the current window handle
-        System.out.println(parentHandle);               //Prints the parent window handle
+        String parentHandle = driver.getWindowHandle();
 
         //Move to the newly opened tab
-        for (String winHandle : driver.getWindowHandles()) { //Gets the new window handle
-            System.out.println(winHandle);
-            driver.switchTo().window(winHandle);        // switch focus of WebDriver to the next found window handle (that's your newly opened window)
+        boolean switched = false;
+        for (String winHandle : driver.getWindowHandles()) {
+            if(!parentHandle.equals(winHandle)) {
+                driver.switchTo().window(winHandle);
+                switched = true;
+            }
         }
 
-        //Enter payment details
-        cardNumber.sendKeys("4444333322221111");
-        cardholderName.sendKeys("Mr " + RandomDataUtils.getRandomTestNameStartingWith("Noor", 5));
-        securityCode.sendKeys(RandomDataUtils.getRandomNumberBetween(101,999));
-        PageUtils.selectByIndex(expiryMonth, RandomDataUtils.getRandomNumberBetween(1,12));
-        PageUtils.selectByIndex(expiryYear, RandomDataUtils.getRandomNumberBetween(2,12));
+        try {
+            //Enter payment details
+            WaitUtils.waitForElementToBeClickable(driver, cardNumber, TIMEOUT_10_SECOND);
+            cardNumber.sendKeys("4444333322221111");
+            cardholderName.sendKeys("Mr " + RandomDataUtils.getRandomTestNameStartingWith("Noor", 5));
+            PageUtils.selectByIndex(expiryMonth, RandomDataUtils.getRandomNumberBetween(1, 12));
+            PageUtils.selectByIndex(expiryYear, RandomDataUtils.getRandomNumberBetween(2, 7));
 
-        btnMakePayment.click();
-        //Close and go back to devices
-        driver.close();
-        driver.switchTo().window(parentHandle);
+            //Too fast, value is lost therefore we need to click on somewhere else
+            cardholderName.click();
+            WaitUtils.waitForElementToBeClickable(driver, securityCode, TIMEOUT_3_SECOND);
+            securityCode.sendKeys("986");
+
+            //Submit for payment
+            WaitUtils.waitForElementToBeClickable(driver, btnMakePayment, TIMEOUT_5_SECOND);
+            btnMakePayment.click();
+
+            //Close and go back to devices: wait for payment to complete
+            PageUtils.isElementClickable(driver, paymentCompletedText, TIMEOUT_10_SECOND);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if(switched) {
+                driver.close();
+                driver.switchTo().window(parentHandle);
+            }
+        }
 
     }
 

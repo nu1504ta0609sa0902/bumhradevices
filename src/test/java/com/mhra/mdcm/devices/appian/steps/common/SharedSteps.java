@@ -31,36 +31,42 @@ public class SharedSteps extends CommonSteps {
 	 */
 	@After  
     public void embedScreenshot(Scenario scenario) {
-		generatePrettyReportOnTheGo();
-        if (driver!=null && scenario.isFailed()) {
+		try {
+			generatePrettyReportOnTheGo();
+			if (driver != null && scenario.isFailed()) {
 
-        	log.info("Scenario Failed");
-    		log.info("==================================\n");
-            try {  
-            	byte[] bytes = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-            	scenario.embed(bytes, "image/png");
+				log.info("Scenario Failed");
+				log.info("==================================\n");
+				try {
+					byte[] bytes = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+					scenario.embed(bytes, "image/png");
 
-            	//Write to a separate folder
-				TestHarnessUtils.takeScreenShot(driver, scenario.getName());
-            } catch (WebDriverException wde) {  
-                System.err.println(wde.getMessage());  
-            } catch (ClassCastException cce) {  
-                cce.printStackTrace();  
-            } catch (Exception e){
-            	e.printStackTrace();
-            }
-        }  else{
-        	log.info("Scenario Passed");
-    		//log.info("\n==================================");
-        	
-        }
+					//Write to a separate folder
+					TestHarnessUtils.takeScreenShot(driver, scenario.getName());
+				} catch (WebDriverException wde) {
+					System.err.println(wde.getMessage());
+				} catch (ClassCastException cce) {
+					cce.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else {
+				log.info("Scenario Passed");
+				//log.info("\n==================================");
 
-		//This is added because of SSO: 26/06/2017
-        if(driver!=null){
-        	log.info("MUST SIGNOUT OTHERWISE YOU WILL NOT BE ABLE TO LOGBACK IN WITH SAME USER");
-			String currentLoggedInUser = (String) scenarioSession.getData(SessionKey.loggedInUser);
-			loginPage.logout(currentLoggedInUser);
-			loginPage.isInLoginPage();
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+		}finally {
+			//This is added because of SSO: 26/06/2017
+			if (driver != null) {
+				log.info("MUST SIGNOUT OTHERWISE YOU WILL NOT BE ABLE TO LOGBACK IN WITH SAME USER");
+				//if (!loginPage.isInLoginPage(_Page.TIMEOUT_3_SECOND)) {
+					String currentLoggedInUser = (String) scenarioSession.getData(SessionKey.loggedInUser);
+					loginPage.logout(currentLoggedInUser);
+					loginPage.isInLoginPage(_Page.TIMEOUT_5_SECOND);
+				//}
+			}
 		}
     }
 

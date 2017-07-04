@@ -72,7 +72,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | manufacturerAuto | AccountST  | This device must be registered with MHRA | System or Procedure Pack   |                      |            |                    |
 
 
-  @1974 @1978 @4704 @_sprint15
+  @1974 @1978 @4704 @_sprint15 @5749 @_sprint21
   Scenario Outline: Users should be able to go to cfs page and add to a random manufacturer from the list
     Given I am logged into appian as "manufacturerAuto" user
     And I go to device certificate of free sale page
@@ -83,10 +83,11 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | noOfCFS     | <noCFS>   |
     Then I should see the correct details in cfs order review page
     When I submit payment for the CFS
+    And I should received an email with subject heading "WorldPay Payment"
     Examples:
       | country    | noCFS |
       | Brazil     | 15    |
-#      | Bangladesh | 10    |
+      | Bangladesh | 10    |
 
 
   @1974 @1978 @4704 @_sprint15 @5499 @_sprint17 @5980 @1958 @1960 @_sprint22 @wip
@@ -121,7 +122,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
     Then I should see application tab showing my application with correct details
 
 
-  @smoke_test_cfs @1974 @1978 @5578 @_sprint15 @_sprint18
+  @smoke_test_cfs @1974 @1978 @5578 @_sprint15 @_sprint18 @5749 @_sprint21
   Scenario Outline: Users should be able to order CFS for multiple countries
     Given I am logged into appian as "manufacturerAuto" user
     And I go to device certificate of free sale page
@@ -131,13 +132,14 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | listOfCFSCountryPair | <countryAndCertificateNumber> |
     Then I should see correct details for all the countries and certificate in cfs order review page
     When I submit payment for the CFS
+    And I should received an email with subject heading "WorldPay Payment"
     Examples:
       | countryAndCertificateNumber                                |
       | Switzerland=5,Norway=10,British Virgin=15,British Indian=1 |
       | Bangladesh=5,Brazil=2,United States=3                      |
       | Turkey=5,Iceland=10,United States=20,Liechtenstein=20      |
 
-  @1992 @5960 @_sprint21 @6012 @_sprint22
+  @1992 @5960  @5749 @_sprint21 @6012 @_sprint22
   Scenario Outline: Users can search for products and order CFS for already registered manufacturers
     Given I am logged into appian as "<logInAs>" user
     And I go to device certificate of free sale page
@@ -151,6 +153,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | noOfCFS     | <noCFS>   |
     Then I should see the correct details in cfs order review page
     When I submit payment for the CFS
+    And I should received an email with subject heading "WorldPay Payment"
     Examples:
       | country    | noCFS | logInAs           | searchTerm            |
       | Brazil     | 15    | manufacturerAuto  | ManufacturerRT01Test  |

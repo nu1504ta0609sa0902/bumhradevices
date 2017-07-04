@@ -260,10 +260,14 @@ public class LoginPage extends _Page {
         return alreadyLoggedInAsUser;
     }
 
-    public boolean isInLoginPage() {
-        WaitUtils.waitForElementToBeClickable(driver, btnLogin, TIMEOUT_10_SECOND);
-        boolean isLoginPage = btnLogin.isDisplayed() && btnLogin.isEnabled();
-        return isLoginPage;
+    public boolean isInLoginPage(int timeout) {
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, btnLogin, timeout);
+            boolean isLoginPage = btnLogin.isDisplayed() && btnLogin.isEnabled();
+            return isLoginPage;
+        }catch (Exception e){
+            return false;
+        }
     }
 
     public MainNavigationBar changePasswordTo(String tempPassword, String updatePasswordTo) {

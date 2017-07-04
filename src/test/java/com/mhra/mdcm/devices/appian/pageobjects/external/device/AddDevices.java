@@ -3,6 +3,7 @@ package com.mhra.mdcm.devices.appian.pageobjects.external.device;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.business.sections.TaskSection;
+import com.mhra.mdcm.devices.appian.pageobjects.external.PaymentDetails;
 import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.ManufacturerList;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
@@ -13,6 +14,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -407,10 +409,6 @@ public class AddDevices extends _Page {
         addProductNew(dd);
         deviceSterile(dd);
 
-        //Removed in the deployment 12/06/2017
-//        if (dd.isDeviceSterile) {
-//            notifiedBody(dd);
-//        }
         isBearingCEMarking(dd);
         devicesCompatible(dd);
         //PageUtils.uploadDocument(listOfFileUploads.get(0), "DeviceInstructionForUse1.pdf", 1, 3);
@@ -484,6 +482,7 @@ public class AddDevices extends _Page {
         }
 
         if(dd.productName!=null) {
+            WaitUtils.waitForElementToBeClickable(driver, addProduct, TIMEOUT_5_SECOND);
             PageUtils.clickIfVisible(driver, addProduct);
             addProductNew(dd);
             saveProduct(dd);
@@ -1104,15 +1103,21 @@ public class AddDevices extends _Page {
             linkProceedToWorldpay.click();
 
             //Focus on different tab
+            PaymentDetails payment = new PaymentDetails(driver);
+            payment.performWorldPayPayment("Card Details");
 
-
+            //When completed
+            WaitUtils.waitForElementToBeClickable(driver, linkHereToInitiateWorldpay, TIMEOUT_10_SECOND);
+            PageFactory.initElements(driver,this);
+            linkHereToInitiateWorldpay.click();
         }else if(paymentMethod.toLowerCase().contains("bacs")){
             paymentBACS.click();
-            //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
             PageUtils.uploadDocument(fileUpload, "CompletionOfTransfer1.pdf", 1, 3);
         }
 
         //Complete the application
+        WaitUtils.waitForElementToBeClickable(driver, btnCompleteApplication, TIMEOUT_10_SECOND);
         btnCompleteApplication.click();
         return new AddDevices(driver);
     }

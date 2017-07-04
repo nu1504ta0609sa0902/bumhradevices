@@ -229,6 +229,18 @@ public class ExternalHomePageSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.newApplicationReferenceNumber, reference);
     }
 
+    @And("^Proceed to payment via \"([^\"]*)\" and confirm submit device details$")
+    public void proceedToPaymentAndConfirmSubmitDeviceDetails(String method) throws Throwable {
+        addDevices = addDevices.proceedToReview();
+        addDevices = addDevices.proceedToPayment();
+        addDevices = addDevices.enterPaymentDetails(method);   //OR WorldPay
+        String reference = addDevices.getApplicationReferenceNumber();
+        log.info("New Applicaiton reference number : " + reference);
+        //addDevices = addDevices.confirmPayment();
+        manufacturerList = addDevices.backToService();
+        scenarioSession.putData(SessionKey.newApplicationReferenceNumber, reference);
+    }
+
 
     @When("^I add a device to SELECTED manufacturer with following data$")
     public void i_add_a_device_to_selected_manufactuerer_of_type_with_following_data(Map<String, String> dataSets) throws Throwable {

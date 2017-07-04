@@ -124,4 +124,27 @@ public class EmailSteps extends CommonSteps {
         Assert.assertThat("Organisation Name Expected : " + org, messageBody.contains(org), Matchers.is(true));
     }
 
+    @And("^I should received an email with subject heading \"([^\"]*)\"$")
+    public void iShouldReceivedAnEmailWithSubjectHeading(String emailHeading) throws Throwable {
+
+        boolean foundMessage = false;
+        String messageBody = null;
+        int attempt = 0;
+        do {
+            messageBody = GmailEmail.getMessageReceivedWithSubjectHeading(3, 5, emailHeading);
+
+            //Break from loop if invoices read from the email server
+            if (messageBody!=null) {
+                foundMessage = true;
+                break;
+            } else {
+                //Wait for 10 seconds and try again, Thread.sleep required because this is checking email
+                WaitUtils.nativeWaitInSeconds(5);
+            }
+            attempt++;
+        } while (!foundMessage && attempt < 30);
+
+        Assert.assertThat("Message should not be empty : " + messageBody, messageBody!=null, Matchers.is(true));
+    }
+
 }

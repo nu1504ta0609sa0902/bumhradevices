@@ -379,6 +379,7 @@ Automated Issues:
         - @3343 -   DR  @todo specify products for SSP
                 -   DONE ISH
                 -   Custom made or risk classification of class 1 not shown
+                -   DONE ISH
         - @3207 -   DR  @todo specify products for GMD and IVD (low risks)
                 -   Custom made question not displayed for IVD
         - @2151 -   DR  @todo confirmation email for registering a manufacturer
@@ -389,6 +390,7 @@ Automated Issues:
         - @5995 -   DR  @todo saving and exiting not navigating to DR landing page
         - @2294 -   DR  @todo calculate amount to pay for manufacturer registration (payments page)
         - @5749 -   DR  @todo payment section
+                -   DONE ISH
         - @2272 -   DR  @todo reset forgotten password
         - @2224 -   DR  @todo change a known password in appian
         - @5765 -   DR  @todo email notification for password change

@@ -240,6 +240,71 @@ public class GmailEmail {
 
     }
 
+
+
+    public static String getMessageReceivedWithSubjectHeading(double min, int numberOfMessgesToCheck, String subjectHeading) {
+
+        log.info("Waiting for email with heading : " + subjectHeading);
+        String bodyText = null;
+        Properties props = getEmailServerConfiguration();
+
+        try {
+            Store store = null;
+            Folder inbox = null;
+            Message[] messages = getMessagesFromEmailServer(props, store, inbox);
+
+            for (int i = 0; i < messages.length; i++) {
+                Message message = messages[i];
+                Date sentDate = message.getSentDate();
+                String subject = message.getSubject();
+                //log.warn(subject);
+                Address[] froms = message.getFrom();
+
+                for (Address from : froms) {
+                    String emailAddress = froms == null ? null : ((InternetAddress) from).getAddress();
+                    if (emailAddress != null && (emailAddress.contains("appian") || emailAddress.contains("incessant") || emailAddress.contains("mhra.gov.uk")|| emailAddress.contains("worldpay.com"))) {
+
+                        //If received today and subject contains the correct text
+                        boolean isMessageReceivedToday = isMessageReceivedToday(subject, subjectHeading, sentDate);
+                        if (isMessageReceivedToday && subject.contains(subjectHeading)) {
+
+                            //If message is received in the last X min
+                            boolean isRecent = receivedInLast(min, sentDate);
+                            if (isRecent) {
+                                log.warn("---------------------------------");
+                                log.warn("Recent email received : " + subject);
+                                log.warn("---------------------------------");
+                                String body = getTextFromMessage(message);
+                                if(body!=null){
+                                    log.info("Message RECEIVED");
+                                    bodyText = body;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (i > numberOfMessgesToCheck || bodyText != null) {
+                    //Most likely no emails received yet
+                    log.info(bodyText);
+                    break;
+                }
+            }
+
+            if(inbox!=null)
+                inbox.close(true);
+            if(store!=null)
+                store.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return bodyText;
+
+    }
+
     private static Properties getEmailServerConfiguration() {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
