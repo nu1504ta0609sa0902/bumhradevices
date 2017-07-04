@@ -13,6 +13,7 @@ import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -372,7 +373,14 @@ public class ExternalHomePageSteps extends CommonSteps {
         String registered = manufacturerList.getRegistrationStatus(name);
         log.info("Manufacturer selected : " + name + ", is " + registered);
         manufacturerDetails = manufacturerList.viewAManufacturer(name);
-        addDevices = manufacturerDetails.clickContinueToAddDevices(registered);
+
+        if(manufacturerDetails.isDevicesAndProductTabVisible()){
+            deviceDetails = manufacturerDetails.clickOnDevicesAndProductDetailsLink();
+            addDevices = deviceDetails.clickAddDeviceBtn();
+        }else {
+            addDevices = manufacturerDetails.clickContinueToAddDevices(registered);
+        }
+
         scenarioSession.putData(SessionKey.organisationName, name);
         scenarioSession.putData(SessionKey.registeredStatus, registered);
         scenarioSession.putData(SessionKey.taskType, "Update Manufacturer");
@@ -500,7 +508,14 @@ public class ExternalHomePageSteps extends CommonSteps {
 
         log.info("Manufacturer selected : " + name + ", is " + registered);
         manufacturerDetails = manufacturerList.viewAManufacturer(name);
-        addDevices = manufacturerDetails.clickContinueToAddDevices(registered);
+
+        if(manufacturerDetails.isDevicesAndProductTabVisible()){
+            deviceDetails = manufacturerDetails.clickOnDevicesAndProductDetailsLink();
+            addDevices = deviceDetails.clickAddDeviceBtn();
+        }else {
+            addDevices = manufacturerDetails.clickContinueToAddDevices(registered);
+        }
+
         scenarioSession.putData(SessionKey.organisationName, name);
         scenarioSession.putData(SessionKey.organisationCountry, country);
         scenarioSession.putData(SessionKey.registeredStatus, registered);
@@ -774,7 +789,10 @@ public class ExternalHomePageSteps extends CommonSteps {
     }
 
 
-
-
-
+    @When("^I save the application and confirm to exit$")
+    public void iSaveTheApplicationAndExit() throws Throwable {
+        addDevices = addDevices.saveAndExit();
+        manufacturerList = addDevices.confirmSaveApplication(true);
+        manufacturerList = manufacturerList.clickOnLinkToDisplayManufacturers();
+    }
 }

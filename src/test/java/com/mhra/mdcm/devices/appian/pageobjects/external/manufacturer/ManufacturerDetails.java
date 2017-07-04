@@ -89,7 +89,7 @@ public class ManufacturerDetails extends _Page {
 
     //Links to other sections like devices, documents
     @FindBy(partialLinkText = "product details")
-    WebElement devicesAndProductDetails;
+    WebElement devicesAndProductDetailsTab;
 
     //Tabs: Summary, Applications etc
     @FindBy(partialLinkText = "Applications")
@@ -315,9 +315,13 @@ public class ManufacturerDetails extends _Page {
 
     public DeviceDetails clickOnDevicesAndProductDetailsLink() {
         //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, devicesAndProductDetails, TIMEOUT_10_SECOND);
-        devicesAndProductDetails.click();
+        WaitUtils.waitForElementToBeClickable(driver, devicesAndProductDetailsTab, TIMEOUT_15_SECOND);
+        devicesAndProductDetailsTab.click();
         return new DeviceDetails(driver);
+    }
+
+    public boolean isDevicesAndProductTabVisible(){
+        return PageUtils.isVisible(driver, devicesAndProductDetailsTab, TIMEOUT_3_SECOND);
     }
 
     public AddDevices clickDeclareDeviceBtn() {

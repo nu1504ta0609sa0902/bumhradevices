@@ -212,6 +212,8 @@ public class AddDevices extends _Page {
     WebElement btnAddDevice;
     @FindBy(xpath = ".//button[.='Save']")
     WebElement btnSaveProgress;
+    @FindBy(xpath = ".//button[.='Save and Exit']")
+    WebElement btnSaveAndExit;
 
     //Error message
     @FindBy(css = ".FieldLayout---field_error")
@@ -322,7 +324,7 @@ public class AddDevices extends _Page {
 
     public AddDevices addFollowingDevice(DeviceDO dd, boolean isRegistered) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_10_SECOND);
         WaitUtils.waitForElementToBeClickable(driver, systemOrProcedurePack, TIMEOUT_3_SECOND);
         //Select device type
         selectDeviceType(dd);
@@ -1135,5 +1137,21 @@ public class AddDevices extends _Page {
             btnConfirmNoAssignToMe.click();
         }
         return new AddDevices(driver);
+    }
+
+    public AddDevices saveAndExit() {
+        WaitUtils.waitForElementToBeClickable(driver, btnSaveAndExit, TIMEOUT_10_SECOND);
+        btnSaveAndExit.click();
+        return new AddDevices(driver);
+    }
+
+    public ManufacturerList confirmSaveApplication(boolean confirm) {
+        WaitUtils.waitForElementToBeClickable(driver, btnConfirmYesAssignToMe, TIMEOUT_10_SECOND);
+        if(confirm){
+            btnConfirmYesAssignToMe.click();
+        }else{
+            btnConfirmNoAssignToMe.click();
+        }
+        return new ManufacturerList(driver);
     }
 }

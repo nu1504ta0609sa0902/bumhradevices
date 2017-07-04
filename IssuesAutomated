@@ -299,7 +299,7 @@ Automated Issues:
         - @5126 -   DONE ISH    @todo add products to devices
         - @5127 -   @todo CFS   add products in bulk
         - @5128 -   DONE ISH    @todo review application
-        - @5499 -   DONE ish   @todo edit application before submitting
+        - @5499 -   DONE ish    @todo edit application before submitting
         - @5232 -   @todo   bug
         - @5233 -   @todo   bug
         - @5234 -   @todo   bug
@@ -326,18 +326,12 @@ Automated Issues:
 
     Sprint 19/20: @_sprint19/20
         - @5668 -
-        - @5672 -   CFS @todo customers able to remove devices from application
-                -   DONE ish
-        - @5666 -   CFS @todo business user to assign application to someone else
-                -   DONE ISH
-        - @5679 -   CFS @todo business user assign application to myself
-                -   DONE ISH
-        - @1954 -   CFS @todo business user view new cfs manufacturer details
-                -   DONE ISH
-        - @5680 -   CFS @todo business user view device summary
-                -   DONE ISH
-        - @5681 -   CFS @todo business user bulk approve devices
-                -   DONE ISH
+        - @5672 -   DONE ISH CFS @todo customers able to remove devices from application
+        - @5666 -   DONE ISH CFS @todo business user to assign application to someone else
+        - @5679 -   DONE ISH CFS @todo business user assign application to myself
+        - @1954 -   DONE ISH CFS @todo business user view new cfs manufacturer details
+        - @5680 -   DONE ISH CFS @todo business user view device summary
+        - @5681 -   DONE ISH CFS @todo business user bulk approve devices
         - @5670 -   DR  @todo SSO for internal users
         - @5671 -   DR  @todo External user authentication
         - @2222 -   DR  @todo review address details
@@ -354,57 +348,47 @@ Automated Issues:
 
 
     Sprint 21: @_sprint21
-        - @5682 -   CFS @todo business user bulk reject request for a device
-                -   DONE ISH
-        - @1840 -   @Todo verfication of logos and images on manufacturer view
-                -
-        - @5593 -   CFS @todo business user application view new devices
-                -   Done ish
-        - @1986 -   CFS @todo business user approve manufacturer or devices
-                -   DONE ISH
-        - @5665 -   CFS @todo business user complete an application
-                -   DONE ISH
+        - @5682 -   DONE ISH CFS @todo business user bulk reject request for a device
+        - @1840 -   @Todo verification of logos and images on manufacturer view
+        - @5593 -   DONE ISH CFS @todo business user application view new devices
+        - @1986 -   DONE ISH CFS @todo business user approve manufacturer or devices
+        - @5665 -   DONE ISH CFS @todo business user complete an application
                 -   Approved/Rejected Device status (not sure if this is still required)
-        - @5664 -   CFS @todo business user reject request for a device
-                -   DONE ISH
-        - @1961 -   CFS @todo business user reject request for a new manufacturer
-                -   DONE ISH
+        - @5664 -   DONE ISH CFS @todo business user reject request for a device
+        - @1961 -   DONE ISH CFS @todo business user reject request for a new manufacturer
                 -   Rejecting application doesn't take me back to WIP page
-        - @1992 -   CFS @todo request CFS for multiple devices and products
-                -   DONE ISH
-        - @5960 -   CFS @todo filter available devices and products
-                -   DONE ish
+        - @1992 -   DONE ISH CFS @todo request CFS for multiple devices and products
+        - @5960 -   DONE ISH CFS @todo filter available devices and products
         - @1947 -   CFS @todo specify the delivery address
 
-        - @3343 -   DR  @todo specify products for SSP
-                -   DONE ISH
+        - @3343 -   DONE ISH DR  @todo specify products for SSP
                 -   Custom made or risk classification of class 1 not shown
-                -   DONE ISH
-        - @3207 -   DR  @todo specify products for GMD and IVD (low risks)
+        - @3207 -   DONE ISH DR  @todo specify products for GMD and IVD (low risks)
                 -   Custom made question not displayed for IVD
-        - @2151 -   DR  @todo confirmation email for registering a manufacturer
-                -   DONE ISH
-                -   Content need to be verified in more details
-        - @5349 -   DR  @todo capture device and product details
-                -   DONE ISH
-        - @5995 -   DR  @todo saving and exiting not navigating to DR landing page
-        - @2294 -   DR  @todo calculate amount to pay for manufacturer registration (payments page)
-        - @5749 -   DR  @todo payment section
-                -   DONE ISH
         - @2272 -   DR  @todo reset forgotten password
+                -   @TODO NO web cms yet
+                -   change password link is not visible
+        - @2151 -   DONE ISH DR  @todo confirmation email for registering a manufacturer
+                -   Content need to be verified in more details
+        - @5349 -   DONE ISH DR  @todo capture device and product details
+        - @2294 -   DR  @todo calculate amount to pay for manufacturer registration (payments page)
         - @2224 -   DR  @todo change a known password in appian
+                -   change password link is not visible
         - @5765 -   DR  @todo email notification for password change
+                -   change password link is not visible
+        - @5995 -   DONE ISH DR  @todo saving and exiting not navigating to DR landing page
+                -   Takes me to a intermediary page where I have to click "Click here" link to go back to manufacturer lists
         - @1957 -   DR  @todo bug/issue : resume application for manufacturer registration
         - @5997 -   DR  @todo bug/issue : resume application behaviour not correct
+        - @5749 -   DR  @todo payment section
+                -   DONE ISH
 
     Sprint 22: @_sprint22
         - @5993 -   DR  @todo saving application and viewing it appear in the "applications tab"
         - @6086 -   DONE ISH    DR  @todo add new contact at my organisation level
                 -   Represented organisation page does not show "Manage contacts"
-        - @6089 -   DR  @todo edit and amend contact at my organisation level
-                -   DONE ISH
-        - @6091 -   DR  @todo remove contacts at my organisation level
-                -   DONE ISH
+        - @6089 -   DONE ISH DR  @todo edit and amend contact at my organisation level
+        - @6091 -   DONE ISH DR  @todo remove contacts at my organisation level
         - @5673 -   DONE ISH CFS @todo email if cfs new application is rejected
         - @5674 -   DONE ISH CFS @todo email if cfs new application is successful
         - @6012 -   DONE ISH CFS @todo search view all products related to devices

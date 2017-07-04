@@ -25,6 +25,8 @@ public class ManufacturerList extends _Page {
     WebElement linkRegisterNewManufacturer;
     @FindBy(xpath = ".//button[.='Register My Organisation']")
     WebElement linkRegisterMyNewOrganisation;
+    @FindBy(partialLinkText = "Click here")
+    WebElement linkClickHere;
 
     //Registered or completed manufactureres
     @FindBy(xpath = ".//h2[contains(text(),'Manufacturer')]//following::tbody[1]/tr/td[1]")
@@ -39,6 +41,8 @@ public class ManufacturerList extends _Page {
     //Registration in progress table
     @FindBy(xpath = ".//*[contains(text(),'Applications')]//following::tbody[1]/tr/td[3]")
     List<WebElement> listOfManufacturerNamesInProgress;
+    @FindBy(xpath = ".//*[contains(text(),'Applications')]//following::tbody[1]/tr/td[3]")
+    WebElement manufacturerInProgress;
 
     //
     @FindBy(css = ".GridWidget---count")
@@ -279,7 +283,7 @@ public class ManufacturerList extends _Page {
 
     public boolean isManufacturerLinkDisplayedOnInProgressTable(String name) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeVisible(driver, linkRegisterNewManufacturer, TIMEOUT_15_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, manufacturerInProgress, TIMEOUT_15_SECOND);
         boolean found = false;
         for(WebElement manufacturer: listOfManufacturerNamesInProgress){
             String manName = manufacturer.getText();
@@ -312,5 +316,11 @@ public class ManufacturerList extends _Page {
             }
         }
         return found;
+    }
+
+    public ManufacturerList clickOnLinkToDisplayManufacturers() {
+        WaitUtils.waitForElementToBeVisible(driver, linkClickHere, TIMEOUT_15_SECOND);
+        linkClickHere.click();
+        return new ManufacturerList(driver);
     }
 }

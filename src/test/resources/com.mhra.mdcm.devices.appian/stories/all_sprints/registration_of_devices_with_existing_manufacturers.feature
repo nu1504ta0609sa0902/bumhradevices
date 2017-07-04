@@ -25,7 +25,7 @@ Feature: As an account holder, I should be able to add devices to existing manuf
       | authorisedRepAuto |
 
 
-  @regression @mdcm-14 @2325 @mdcm-467 @mdcm-21 @2323 @_sprint3 @_sprint5 @2185 @_sprint8 @3207 @5349 @_sprint21
+  @regression @mdcm-14 @2325 @mdcm-467 @mdcm-21 @2323 @_sprint3 @_sprint5 @2185 @_sprint8 @3207 @5349 @5995 @_sprint21
   Scenario Outline: Verify correct options are displayed on add devices page for different combinations
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -42,6 +42,8 @@ Feature: As an account holder, I should be able to add devices to existing manuf
       | devicesCompatible      | <devicesCompatible>  |
     Then I should see option to add another device
     And The gmdn code or term is "displayed" in summary section
+    When I save the application and confirm to exit
+    Then I should see stored manufacturer appear in the registration in progress list
     Examples:
       | user              | status     | deviceType                 | gmdnDefinition                    | customMade | deviceSterile | deviceMeasuring | riskClassification | notifiedBody | isBearingCEMarking | devicesCompatible |
       | authorisedRepAuto | Registered | General Medical Device     | Blood weighing scale              | false      | true          | true            | class1             | NB 0086 BSI  |                    |                   |

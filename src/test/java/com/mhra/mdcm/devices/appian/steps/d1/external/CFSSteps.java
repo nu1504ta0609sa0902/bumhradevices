@@ -535,7 +535,7 @@ public class CFSSteps extends CommonSteps {
 
     @When("^I save cfs new manufacturer application for later$")
     public void iSaveCfsNewManufacturerApplicationForLater() throws Throwable {
-        manufacturerDetails = cfsAddDevices.saveAndExitNewManufacturerApplication();
+        manufacturerDetails = cfsAddDevices.saveAndExitNewCFSManufacturerApplication();
         String reference = RandomDataUtils.getTempReference("TEMP", "");
         scenarioSession.putData(SessionKey.temporaryReference, reference);
     }

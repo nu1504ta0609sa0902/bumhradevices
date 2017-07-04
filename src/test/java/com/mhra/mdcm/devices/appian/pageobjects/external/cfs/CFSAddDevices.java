@@ -817,7 +817,7 @@ public class CFSAddDevices extends _Page {
         return allMatched;
     }
 
-    public ManufacturerDetails saveAndExitNewManufacturerApplication() {
+    public ManufacturerDetails saveAndExitNewCFSManufacturerApplication() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnSaveAndExit, TIMEOUT_10_SECOND);
         btnSaveAndExit.click();

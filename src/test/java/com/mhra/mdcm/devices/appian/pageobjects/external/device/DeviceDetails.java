@@ -131,6 +131,8 @@ public class DeviceDetails extends _Page {
     WebElement btnSearch;
     @FindBy(xpath = ".//*[contains(text(),'Number of')]//following::button[1]")
     WebElement btnEditDevicesList;
+    @FindBy(xpath = ".//button[contains(text(),'Add devices')]")
+    WebElement addADevice;
 
 
     @Autowired
@@ -498,14 +500,21 @@ public class DeviceDetails extends _Page {
     }
 
     public boolean isDeviceFound() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnSearch, TIMEOUT_10_SECOND);
         return listOfDeviceProductCheckbox.size() > 0;
     }
 
     public boolean isNumberOfProductsDisplayedCorrect(int expected) {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnSearch, TIMEOUT_10_SECOND);
         return listOfDeviceProductCheckbox.size() ==  expected;
     }
+
+    public AddDevices clickAddDeviceBtn() {
+        WaitUtils.waitForElementToBeClickable(driver, addADevice, TIMEOUT_15_SECOND);
+        addADevice.click();
+        return new AddDevices(driver);
+    }
+
 }
