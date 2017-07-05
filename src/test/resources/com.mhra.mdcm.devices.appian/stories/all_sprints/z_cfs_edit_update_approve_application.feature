@@ -77,7 +77,7 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
       | authorisedRepNoor | RT01Test   | jpg                      | true       | true           | false       | SGS          | Active Implantable Device | Desiccating chamber  | false      |                    |                      | Product1,Product2  |
 
 
-  @5583 @5578 @_sprint18 @1958 @1960 @_sprint22 @wip
+  @5583 @5578 @_sprint18 @1958 @1960 @_sprint22 @4207 @_sprint23 @wip
   Scenario Outline: Verify certain elements are disable by defaults like Upload Certificate button
     Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
