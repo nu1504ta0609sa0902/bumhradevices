@@ -539,4 +539,14 @@ public class CFSSteps extends CommonSteps {
         String reference = RandomDataUtils.getTempReference("TEMP", "");
         scenarioSession.putData(SessionKey.temporaryReference, reference);
     }
+
+    @When("^I search and view for the newly created cfs manufacturer$")
+    public void iSearchAndViewForTheNewlyCreatedCfsManufacturer() throws Throwable {
+        String searchTerm = (String) scenarioSession.getData(SessionKey.organisationName);
+        cfsManufacturerList = cfsManufacturerList.searchForManufacturer(searchTerm);
+
+        //Search result should only return 1 match
+        String name = cfsManufacturerList.getARandomOrganisationName();
+        manufacturerDetails = cfsManufacturerList.viewManufacturer(name);
+    }
 }
