@@ -83,14 +83,14 @@ public class PaymentDetails extends _Page {
             //Enter payment details
             WaitUtils.waitForElementToBeClickable(driver, cardNumber, TIMEOUT_10_SECOND);
             cardNumber.sendKeys("4444333322221111");
-            cardholderName.sendKeys("Mr " + RandomDataUtils.getRandomTestNameStartingWith("Noor", 5));
+            cardholderName.sendKeys("AUTHORISED");
             PageUtils.selectByIndex(expiryMonth, RandomDataUtils.getRandomNumberBetween(1, 12));
             PageUtils.selectByIndex(expiryYear, RandomDataUtils.getRandomNumberBetween(2, 7));
 
             //Too fast, value is lost therefore we need to click on somewhere else
             cardholderName.click();
             WaitUtils.waitForElementToBeClickable(driver, securityCode, TIMEOUT_3_SECOND);
-            securityCode.sendKeys("986");
+            securityCode.sendKeys("555");
 
             //Submit for payment
             WaitUtils.waitForElementToBeClickable(driver, btnMakePayment, TIMEOUT_5_SECOND);

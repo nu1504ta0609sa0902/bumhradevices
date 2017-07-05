@@ -2,7 +2,7 @@
 Feature: Users should be able to add remove and edit for CFS new manufacturer application
 
 
-  @1974 @4698 @1989 @5126 @3979 @5212 @5128 @_sprint15 @_sprint17
+  @1974 @4698 @1989 @5126 @3979 @5212 @5128 @_sprint15 @_sprint17 @1962 @_sprint23
   Scenario: Users should be able to go to cfs page and add device to existing manufacturer
     Given I am logged into appian as "manufacturerAuto" user
     And I go to device certificate of free sale page
@@ -25,7 +25,7 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
     And I submit the cfs application for approval
 
 
-  @1944 @1988 @5583 @5126 @5212 @5128 @_sprint15 @_sprint17 @_sprint18
+  @1944 @1988 @5583 @5126 @5212 @5128 @_sprint15 @_sprint17 @_sprint18 @1962 @_sprint23
   Scenario Outline: Able to upload certificates with different notified body
     Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
@@ -52,7 +52,7 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
       | manufacturerAuto | RT01Test   | UL International | Full Quality       | Active Implantable Device | Desiccating chamber  | false      |                    |                      | Product1,Product2  |
 
 
-  @1944 @5141 @5583 @_sprint15 @_sprint17 @_sprint18
+  @1944 @5141 @5583 @_sprint15 @_sprint17 @_sprint18 @1962 @_sprint23
   Scenario Outline: Users can upload different types of CE Certificates
     Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
