@@ -404,22 +404,75 @@ Automated Issues:
         - @6095 -   CFS @todo updload bulk devices
 
     Sprint 23: @_sprint23
-        - @1946 -   CFS @todo
-        - @1952 -   CFS @todo
-        - @1962 -   CFS @todo
-        - @3831 -   CFS @todo
-        - @4207 -
-        - @4329 -
-        - @4744 -
-        - @5743 -
-        - @5748 -
-        - @2091 -
-        - @2096 -
-        - @2150 -
-        - @2190 -
-        - @4546 -
-        - @5752 -
-        - @6343 -
-        - @6345 -
-        - @6430 -
-        - @5993 -
+        - @1946 -   CFS @todo Customer cancellation of a draft CFS application
+        - @1952 -   DONE ISH CFS @todo Payment for CFS
+                -   Able to select billing address from dropdown
+        - @1962 -   CFS @todo Add devices to an existing manufacturer
+                -   It has other tests not related to adding devices
+                -   Lots of them
+        - @3831 -   CFS @todo Display list of manufacturer within CFS
+        - @4207 -   CFS @todo view draft or submitted CFS application
+        - @4329 -   CFS @todo display manufacturer and device details
+        - @4744 -   CFS @todo display approved devices for cfs
+        - @5743 -   CFS @todo display existing certificates for manufacturer
+        - @5748 -   CFS @todo display error message for duplicate devices
+        - @2091 -   CFS @todo Email for further information
+        - @2096 -   DR @todo Email for unregistering a manufacturer
+        - @2150 -   CFS @todo Email reminder to customers more information required
+        - @2190 -   DR @todo Email notification for unsuccessful manufacturer registration
+        - @4546 -   DR @todo Email notification for confirming request received for unregistering
+        - @5752 -   CFS @todo Enter Worldpay card holder details
+        - @6343 -   DR @todo News feed notification of registration event
+        - @6345 -   DR @todo News feed change event notification
+        - @6539 -   DR @todo Manage contacts page
+        - @5750 -   DR @todo Worldpay more details
+        - @6430 -   DR @todo Email unregister rep org from authorisedRep
+
+
+    Sprint 24: @_sprint24
+        - @6626 -   DR @todo Manage customer user sessions
+        - @3793 -   DR @todo Auto logout after idle session
+        - @6619 -   DR @todo Create application number for unregistering
+        - @2229 -   DR @todo Respond to multiple registration request
+        - @6625 -   DR @todo Apply agency password
+        - @4546 -   DR @todo Email notification receipt of an application wanting to unregister
+        - @5345 -   DR @todo View a list of all users
+        - @2154 -   DR @todo View payment details for an applicaton
+        - @2107 -   DR @todo Receive review and process request for manufacturer registration
+        - @4648 -   DR @todo Email link for password reset
+        - @4378 -   DR @todo Email notification to customer when processing has begun
+        - @6341 -   DR @todo Organisation page edit org details
+        - @6632 -   DR @todo Organisation page summary tab view details
+        - @6482 -   DR @todo Manage address add new address
+        - @6559 -   DR @todo Manage address edit/amend addresses
+        - @6565 -   DR @todo Remove address
+        - @6634 -   DR @todo Contacts tab view selected org page
+        - @6128 -   DR @todo Summary tab on profile page
+        - @6351 -   DR @todo Customer news feed registration of events notification
+        - @6360 -   DR @todo Customer news feed other events
+        - @5673 -   CFS @todo Email customer about rejection
+        - @5674 -   CFS @todo Email customer about the outcome of an application
+        - @4767 -   CFS @todo List of devices awaiting documentation and products
+        - @5959 -   CFS @todo Add alternative address
+        - @6024 -   CFS @todo View CFS order
+
+
+    Sprint 25: @_sprint25
+        - @1943 -   View and print cover letter
+        - @1950 -   CFS @todo view sample CFS certificate
+        - @1975 -   View and print a standard schedule
+        - @1976 -   CFS @todo View and print standard CFS cert for order
+        - @6316 -   submit and view submitted amend devices application
+        - @6806 -   View devices to manage
+        - @6807 -   Select a device to manage
+        - @6808 -   Select a device with an amendment in progress
+        - @6809 -   Indicate missing device information
+        - @6810 -   Edit CE information
+        - @6811 -   Edit product information
+        - @6812 -   Delete a device
+        - @6813 -   Delete device in bulk/multiple
+        - @3791 -   Expire password
+        - @6318 -   Profile page organisation tab
+        - @6324 -   Selected org from profile view
+        - @6557 -   Manage addresses from selected organisation page
+        - @6793 -   DR @todo Model attribute mandatory for

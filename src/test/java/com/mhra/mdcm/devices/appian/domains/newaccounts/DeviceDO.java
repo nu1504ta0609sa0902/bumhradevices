@@ -83,6 +83,7 @@ public class DeviceDO {
         docType = "pdf";
         certificateType = "Full Quality Assurance";
         monthsInFutureOrPast = 12;
+        riskClassification = "class1";
     }
 
     public String getGMDN() {

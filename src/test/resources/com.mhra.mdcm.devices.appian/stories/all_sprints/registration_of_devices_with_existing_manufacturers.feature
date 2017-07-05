@@ -161,10 +161,9 @@ Feature: As an account holder, I should be able to add devices to existing manuf
     Given I am logged into appian as "<user>" user
     When I go to list of manufacturers page
     And I view a random manufacturer with status "<status>"
-#    And I click on a random manufacturer
     Then I should see organisation details
     And I should see contact person details
     Examples:
       | user              | status         |
-      | manufacturerAuto  | Not Registered |
+#      | manufacturerAuto  | Not Registered |
       | authorisedRepAuto | Not Registered |

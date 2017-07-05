@@ -73,7 +73,7 @@ public class ManufacturerDetails extends _Page {
     //ORGANISATION DETAILS
     @FindBy(css = "div>h1")
     WebElement orgName;
-    @FindBy(xpath = ".//span[.='Address']//following::p[1]")
+    @FindBy(xpath = ".//span[.='Registered address']//following::p[1]")
     WebElement orgAddressFull;
     @FindBy(xpath = ".//span[.='Address line 1']//following::p[1]")
     WebElement orgAddressLine1;
@@ -297,9 +297,18 @@ public class ManufacturerDetails extends _Page {
         boolean fieldsDisplayed = true;
         try {
             WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND);
-            if (status.toLowerCase().contains("not")) {
-                WaitUtils.waitForElementToBeClickable(driver, orgAddressFull, TIMEOUT_3_SECOND);
-            } else {
+//            if (status.toLowerCase().contains("not")) {
+//                WaitUtils.waitForElementToBeClickable(driver, orgAddressFull, TIMEOUT_3_SECOND);
+//            } else {
+//                WaitUtils.waitForElementToBeClickable(driver, orgAddressLine1, TIMEOUT_3_SECOND);
+//                WaitUtils.waitForElementToBeClickable(driver, orgAddressLine2, TIMEOUT_1_SECOND);
+//                WaitUtils.waitForElementToBeClickable(driver, orgCityTown, TIMEOUT_1_SECOND);
+//                WaitUtils.waitForElementToBeClickable(driver, orgPostCode, TIMEOUT_1_SECOND);
+//                WaitUtils.waitForElementToBeClickable(driver, orgCountry, TIMEOUT_1_SECOND);
+//            }
+            try {
+                WaitUtils.waitForElementToBeClickable(driver, orgAddressFull, TIMEOUT_1_SECOND);
+            }catch (Exception e){
                 WaitUtils.waitForElementToBeClickable(driver, orgAddressLine1, TIMEOUT_3_SECOND);
                 WaitUtils.waitForElementToBeClickable(driver, orgAddressLine2, TIMEOUT_1_SECOND);
                 WaitUtils.waitForElementToBeClickable(driver, orgCityTown, TIMEOUT_1_SECOND);
@@ -321,7 +330,12 @@ public class ManufacturerDetails extends _Page {
         boolean fieldsDisplayed = true;
         try {
             WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND);
-            WaitUtils.waitForElementToBeClickable(driver, fullName, TIMEOUT_1_SECOND);
+            try {
+                WaitUtils.waitForElementToBeClickable(driver, fullName, TIMEOUT_1_SECOND);
+            }catch (Exception e){
+                WaitUtils.waitForElementToBeClickable(driver, firstName, TIMEOUT_1_SECOND);
+                WaitUtils.waitForElementToBeClickable(driver, lastName, TIMEOUT_1_SECOND);
+            }
             WaitUtils.waitForElementToBeClickable(driver, jobTitle, TIMEOUT_1_SECOND);
             WaitUtils.waitForElementToBeClickable(driver, email, TIMEOUT_1_SECOND);
             WaitUtils.waitForElementToBeClickable(driver, telephone, TIMEOUT_1_SECOND);

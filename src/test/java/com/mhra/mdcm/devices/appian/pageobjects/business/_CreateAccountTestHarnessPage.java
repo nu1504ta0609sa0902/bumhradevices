@@ -119,9 +119,8 @@ public class _CreateAccountTestHarnessPage extends _Page {
      * @return
      */
     public ActionsTabPage createTestOrganisation(AccountRequestDO ar) throws Exception {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        //WaitUtils.waitForPageToLoad(driver, By.xpath(".//label[.='Organisation name']//following::input[1]"), TIMEOUT_5_SECOND, false); ;
-        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_10_SECOND);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_15_SECOND);
         orgName.sendKeys(ar.organisationName);
 
         //Enter address manually if required
