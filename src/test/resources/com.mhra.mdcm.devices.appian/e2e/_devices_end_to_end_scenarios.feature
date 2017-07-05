@@ -1,7 +1,7 @@
 @e2e
 Feature: End 2 End Scenarios to verify system is behaving correctly from a high level view
 
-  @1836 @1929 @2327 @2278 @2260 @2193 @2290 @2273 @2324 @2191 @2190 @2311 @2263 @2292 @2258
+  @1836 @1929 @2327 @2278 @2260 @2193 @2290 @2273 @2324 @2191 @2190 @2311 @2263 @2292 @2258 @2197 @2833
   Scenario Outline: S1 Manufacturer account registration
 #Register new manufacturer account, approve the task and check MHRA approval email received
     Given I am logged into appian as "<businessUser>" user
@@ -38,7 +38,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | businessNoor | manufacturerNoor | manufacturer | approve       | United Kingdom | Bangladesh       |
 
 
-  @1836 @1929 @2327 @2278 @2260 @2193 @2290 @2273 @2324 @2191 @2190 @2311 @2263 @2292 @2258
+  @1836 @1929 @2327 @2278 @2260 @2193 @2290 @2273 @2324 @2191 @2190 @2311 @2263 @2292 @2258 @2197 @2216 @2833
   Scenario Outline: S2 AuthorisedRep account registration for non uk manufacturers
 #Register new manufacturer account, approve the task and check MHRA approval email received
     Given I am logged into appian as "<businessUser>" user
@@ -62,6 +62,13 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | deviceType     | General Medical Device |
       | gmdnDefinition | Blood weighing scale   |
       | customMade     | true                   |
+    And I add another device to SELECTED CFS manufacturer with following data
+      | deviceType     | Active Implantable Device |
+      | gmdnDefinition | Desiccating chamber       |
+      | customMade     | true                     |
+      | notifiedBody   | NB 0086 BSI               |
+      | productName    | FordHybrid                |
+      | productModel   | FocusYeah                 |
     And Proceed to payment and confirm submit device details
 #Log back and verify task created for newly created manufacturer
     When I logout and log back into appian as "<businessUser>" user
@@ -75,7 +82,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | businessNoor | manufacturerNoor | authorisedRep | approve       | United Kingdom | Netherland    |
 
 
-  @1974 @1978 @4704 @1954 @1952
+  @1974 @1978 @4704 @1954 @1952 @1952
   Scenario Outline: S3 UK based manufacturer which is already registered and in need of CFS
     Given I am logged into appian as "manufacturerAuto" user
     And I go to device certificate of free sale page
@@ -86,6 +93,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | noOfCFS     | <noCFS>   |
     Then I should see the correct details in cfs order review page
     When I submit payment for the CFS
+    And I should received an email with subject heading "WorldPay Payment"
     Examples:
       | country    | noCFS |
       | Brazil     | 15    |
@@ -103,6 +111,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | noOfCFS     | <noCFS>   |
     Then I should see the correct details in cfs order review page
     When I submit payment for the CFS
+    And I should received an email with subject heading "WorldPay Payment"
     Examples:
       | country    | noCFS |
       | Brazil     | 15    |
@@ -136,7 +145,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | authorisedRepAuto | businessAuto | authorisedRep | United States | approve       | Completed |
       | manufacturerAuto  | businessAuto | manufacturer | Brazil        | approve       | Completed |
 
-  @1992 @1845 @1974 @1952 @1971 @3979 @4330 @5141 @5212 @5126 @5128 @5673 @5674 @5583 @cfs_e2e
+  @1992 @1845 @1974 @1952 @1971 @3979 @4330 @5141 @5212 @5126 @5128 @5673 @5674 @5583 @2833 @cfs_e2e
   Scenario Outline: S4c Register and approve Non UK based manufacturers with multiple devices for CFS
     Given I am logged into appian as "<logInAs>" user
 # Submit a new CFS manufacturer application
@@ -177,6 +186,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | noOfCFS     | <noCFS>   |
     Then I should see the correct details in cfs order review page
     When I submit payment for the CFS
+    And I should received an email with subject heading "WorldPay Payment"
     When I logout and log back into appian as "businessAuto" user
     And I search and view new task in AWIP page for the newly created manufacturer
     And I assign the AWIP page task to me and "approve" the generated task
@@ -188,7 +198,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | Bangladesh | 10    | authorisedRepAuto |            |
 
 
-  @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149 @2257
+  @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149 @2257 @2325
   Scenario Outline: S5a Update already registered manufacturers by adding new devices
     Given I am logged into appian as "<user>" user
     When I go to list of manufacturers page
@@ -214,7 +224,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | manufacturerAuto  | businessAuto | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
 
 
-  @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149
+  @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149 @2325
   Scenario Outline: S5b Update already registered manufacturers by adding and removing devices
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -247,7 +257,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | manufacturerAuto | businessAuto | Blood weighing scale | Autopsy measure | reject        | General Medical Device |
 
 
-  @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149
+  @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149 @2216 @2325
   Scenario Outline: S5c Update already registered manufacturers by adding devices with products
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -275,7 +285,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | user              | logBackInAs  | deviceType                | gmdnDefinition      | customMade | productName |
       | authorisedRepAuto | businessAuto | Active Implantable Device | Desiccating chamber | true       | ford focus  |
 
-  @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149
+  @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149 @2325
   Scenario Outline: S6a Update manufacturer for authorised rep which is already registered by adding devices
     Given I am logged into appian as "<user>" user
     When I go to list of manufacturers page
@@ -301,7 +311,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | authorisedRepAuto | businessAuto | Active Implantable Device | false      | Registered | Blood weighing scale | ford focus  |
 
 
-  @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149
+  @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149 @2325
   Scenario Outline: S6b Update manufacturer for authorised rep which is already registered by adding and removing devices
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
