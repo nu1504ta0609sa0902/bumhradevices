@@ -375,6 +375,24 @@ public class CFSSteps extends CommonSteps {
     }
 
 
+
+    @When("^I select a specific device for CFS manufacturer with following data$")
+    public void i_select_a_specific_device_for_CFS_manufacturer_with_following_data(Map<String, String> dataSets) throws Throwable {
+        DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
+        String registeredStatus = (String) scenarioSession.getData(SessionKey.registeredStatus);
+
+        //Go and add another device
+        cfsAddDevices = cfsAddDevices.addAnotherDevice();
+
+        if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
+            cfsAddDevices = cfsAddDevices.selectADeviceWithoutAddingOtherDetails(dd);
+        else {
+            cfsAddDevices = manufacturerDetails.clickContinue();
+            cfsAddDevices = cfsAddDevices.selectADeviceWithoutAddingOtherDetails(dd);
+        }
+    }
+
+
     @When("^I add another device to SELECTED CFS manufacturer with following data$")
     public void i_add_another_device_to_selected_manufactuerer_of_type_with_following_data(Map<String, String> dataSets) throws Throwable {
 

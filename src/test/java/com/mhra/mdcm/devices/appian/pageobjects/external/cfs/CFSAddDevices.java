@@ -393,6 +393,17 @@ public class CFSAddDevices extends _Page {
     }
 
 
+    public CFSAddDevices selectADeviceWithoutAddingOtherDetails(DeviceDO dd) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, systemOrProcedurePack, TIMEOUT_3_SECOND);
+        //Select device type
+        selectDeviceType(dd);
+        searchByGMDNForPartiallyFilledDevice(dd);
+
+        return new CFSAddDevices(driver);
+    }
+
     private void addProcedurePackDevice(DeviceDO dd) {
         //In CFS if device type is System or Procedure Pack, Than it should show an error message
     }
@@ -657,6 +668,42 @@ public class CFSAddDevices extends _Page {
             } else if (lcRiskClassiffication.contains("class3")) {
                 PageUtils.clickIfVisible(driver, radioRiskClass3);
             }
+        }
+    }
+
+
+    /**
+     * MAINLY USED FOR TESTING : duplicates and error messages
+     * @param dd
+     */
+    private void searchByGMDNForPartiallyFilledDevice(DeviceDO dd) {
+        if (dd.gmdnTermOrDefinition != null) {
+
+            List<String> arrayOfDeviceBecauseTheyKeepBloodyChanging = TestHarnessUtils.getListOfSearchTermsForGMDN();
+            int pos = -1;
+            String searchFor = dd.gmdnTermOrDefinition;
+
+            WaitUtils.waitForElementToBeClickable(driver, tbxGMDNDefinitionOrTerm, TIMEOUT_10_SECOND);
+            tbxGMDNDefinitionOrTerm.clear();
+            tbxGMDNDefinitionOrTerm.sendKeys(searchFor);
+            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+
+            //Wait for list of items to appear and add it only if its not a duplicate
+            WaitUtils.waitForElementToBeClickable(driver, aGmdnMatchesReturnedBySearch, TIMEOUT_DEFAULT);
+            int noi = CommonUtils.getNumberOfItemsInList(driver, listOfGmdnMatchesReturnedBySearch);
+            int randomPosition = RandomDataUtils.getARandomNumberBetween(0, noi - 1);
+
+            //Click gmdn from search results
+            WebElement element = CommonUtils.getElementFromList(listOfGmdnMatchesReturnedBySearch, randomPosition);
+            element.click();
+
+            //Set device name for later verification
+            dd.deviceName = element.getText();
+
+        } else {
+            WaitUtils.waitForElementToBeClickable(driver, tbxGMDNDefinitionOrTerm, TIMEOUT_5_SECOND);
+            tbxGMDNDefinitionOrTerm.clear();
+            tbxGMDNDefinitionOrTerm.sendKeys(dd.gmdnCode);
         }
     }
 

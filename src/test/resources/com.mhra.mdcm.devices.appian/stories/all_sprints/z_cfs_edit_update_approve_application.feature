@@ -24,6 +24,44 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
     Then I should see correct device data in the review page
     And I submit the cfs application for approval
 
+  @5748 @_sprint23
+  Scenario: Error message should be displayed when we try to add a duplicate device to a new cfs manufacturer
+    Given I am logged into appian as "manufacturerAuto" user
+    And I go to device certificate of free sale page
+    Then I should see a list of manufacturers available for CFS
+    When I create a new manufacturer using CFS manufacturer test harness page with following data
+      | accountType | manufacturer |
+      | countryName | Brazil       |
+    And I add devices to NEWLY created CFS manufacturer with following data
+      | deviceType           | General Medical Device |
+      | gmdnDefinition       | Blood weighing scale   |
+      | customMade           | false                  |
+      | riskClassification   | Class2A                |
+      | relatedDeviceSterile | true                   |
+      | notifiedBody         | NB 0086 BSI            |
+    And I select a specific device for CFS manufacturer with following data
+      | deviceType           | General Medical Device |
+      | gmdnDefinition       | Blood weighing scale   |
+    Then I should see the following "This device already exists for this manufacturer" error message
+
+
+  @5748 @_sprint23
+  Scenario: Error message should be displayed when we try to add a duplicate device to an existing cfs manufacturer
+    Given I am logged into appian as "manufacturerAuto" user
+    And I go to device certificate of free sale page
+    Then I should see a list of manufacturers available for CFS
+    When I click on a organisation name begins with "RT01" which needs cfs
+    And I add a device to SELECTED CFS manufacturer with following data
+      | deviceType           | General Medical Device |
+      | gmdnDefinition       | Blood weighing scale   |
+      | customMade           | false                  |
+      | riskClassification   | Class2A                |
+      | relatedDeviceSterile | true                   |
+      | notifiedBody         | NB 0086 BSI            |
+    And I select a specific device for CFS manufacturer with following data
+      | deviceType           | General Medical Device |
+      | gmdnDefinition       | Blood weighing scale   |
+    Then I should see the following "This device already exists for this manufacturer" error message
 
   @1944 @1988 @5583 @5126 @5212 @5128 @_sprint15 @_sprint17 @_sprint18 @1962 @_sprint23
   Scenario Outline: Able to upload certificates with different notified body
@@ -104,7 +142,7 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
       | manufacturerAuto | RT01Test   | true       | true           | false       | SGS          | Active Implantable Device | Desiccating chamber  | false      |                    |                      | Product1,Product2  |
 
 
-  @5125 @_sprint17 @wip
+  @5125 @_sprint17
   Scenario Outline: Verify removing certificate should prevent us from moving to add products step
     Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
