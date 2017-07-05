@@ -88,7 +88,7 @@ Feature: As a business user, I want a task to be created when new account reques
       | businessNoor | authorisedRep | 0     | Estonia     | No authorisation evidence provided | New Account Request |
 
 
-  @1945 @_sprint18 @wip
+  @1945 @_sprint18
   Scenario Outline: Create new account as business user and approve AWIP tasks
     Given I am logged into appian as "<user>" user
     When I create a new account using business test harness page with following data
@@ -120,7 +120,7 @@ Feature: As a business user, I want a task to be created when new account reques
       | businessNoor | manufacturer  | reject        | 0     | United Kingdom |
       | businessNoor | authorisedRep | reject        | 0     | Netherland     |
 
-  @1945 @_sprint18 @wip
+  @1945 @_sprint18
   Scenario Outline: Verify application reference number format in AWIP tasks page is correct
     Given I am logged into appian as "<user>" user
     And I go to AWIP page

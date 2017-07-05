@@ -59,7 +59,7 @@ Feature: As a business user, I want a task to be created each time a customer su
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | ford,honda         | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
 
-  @regression @mdcm-161 @2276 @mdcm-232 @2221 @mdcm-164 @2274 @mdcm-240 @2216 @_sprint4 @_sprint6 @wip
+  @regression @mdcm-161 @2276 @mdcm-232 @2221 @mdcm-164 @2274 @mdcm-240 @2216 @_sprint4 @_sprint6
   Scenario Outline: Register manufacturer as authorisedRep and verify status of letter of designation is correct
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page

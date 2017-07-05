@@ -30,7 +30,7 @@ Feature: As a customer I want to register new manufacturers with devices
       | authorisedRepAuto | authorisedRep | Bangladesh  | BACS        | General Medical Device   | false      | true          | true            | class1             | NB 0086 BSI  |
 
 
-  @regression @mdcm-485 @2030 @mdcm-374 @2112 @mdcm-186 @2258 @_sprint2 @1838 @3777 @1924 @_sprint8 @_sprint9 @_sprint13 @_sprint5 @wip @bug
+  @regression @mdcm-485 @2030 @mdcm-374 @2112 @mdcm-186 @2258 @_sprint2 @1838 @3777 @1924 @_sprint8 @_sprint9 @_sprint13 @_sprint5
   Scenario Outline: Users should be able to register new manufacturers with devices and verify devices are added
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
