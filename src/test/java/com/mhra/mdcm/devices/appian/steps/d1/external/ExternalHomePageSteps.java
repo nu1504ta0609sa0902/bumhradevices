@@ -795,4 +795,16 @@ public class ExternalHomePageSteps extends CommonSteps {
         manufacturerList = addDevices.confirmSaveApplication(true);
         manufacturerList = manufacturerList.clickOnLinkToDisplayManufacturers();
     }
+
+    @Then("^I should option to unregister the manufacturer$")
+    public void iShouldOptionToUnregisterTheManufacturer() throws Throwable {
+        boolean isDisplayed = manufacturerDetails.isUnregisterBtnDisplayed();
+        Assert.assertThat("Expected to see UNREGISTER BUTTON", isDisplayed, is(true));
+    }
+
+    @When("^I unregister the manufacturer with the following reasons \"([^\"]*)\"$")
+    public void iUnregisterTheManufacturerWithTheFollowingReasons(String reasons) throws Throwable {
+        manufacturerDetails = manufacturerDetails.clickUnregisterManufacturerBtn();
+        manufacturerDetails = manufacturerDetails.submitUnregistrationWithReasons(reasons, true);
+    }
 }

@@ -43,6 +43,8 @@ public class ManufacturerList extends _Page {
     List<WebElement> listOfManufacturerNamesInProgress;
     @FindBy(xpath = ".//*[contains(text(),'Applications')]//following::tbody[1]/tr/td[3]")
     WebElement manufacturerInProgress;
+    @FindBy(css = ".elements---global_p .elements---global_a")
+    WebElement manufacturerName;
 
     //
     @FindBy(css = ".GridWidget---count")
@@ -85,7 +87,7 @@ public class ManufacturerList extends _Page {
 
     public String getARandomManufacturerName() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".elements---global_p .elements---global_a"), TIMEOUT_5_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, manufacturerName, TIMEOUT_5_SECOND);
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[contains(text(),'Manufacturer')]//following::tbody[1]/tr"), TIMEOUT_15_SECOND);
         int index = RandomDataUtils.getNumberBetween(0, listOfManufacturerNames.size() - 1);
         WebElement link = listOfManufacturerNames.get(index);
@@ -93,15 +95,15 @@ public class ManufacturerList extends _Page {
         return name;
     }
 
-    public boolean isManufacturerDisplayedInList(String manufacturerName){
+    public boolean isManufacturerDisplayedInList(String manufacturerNameValue){
         //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean found = false;
         try {
-            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".elements---global_p .elements---global_a"), TIMEOUT_10_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, manufacturerName, TIMEOUT_10_SECOND);
             WaitUtils.nativeWaitInSeconds(2);
             for (WebElement item : listOfManufacturerNames) {
                 String name = item.getText();
-                if (name.contains(manufacturerName)) {
+                if (name.contains(manufacturerNameValue)) {
                     found = true;
                     break;
                 }
@@ -184,7 +186,7 @@ public class ManufacturerList extends _Page {
         boolean isDisplayed = true;
         try{
             itemCount = itemCounts.get(index);
-            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".elements---global_p .elements---global_a"), TIMEOUT_30_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, manufacturerName , TIMEOUT_30_SECOND);
             WaitUtils.waitForElementToBeVisible(driver, itemCount, TIMEOUT_10_SECOND);
         }catch (Exception e){
             isDisplayed = false;
@@ -258,7 +260,7 @@ public class ManufacturerList extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean found = true;
         try {
-            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".elements---global_p .elements---global_a"), TIMEOUT_30_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, manufacturerName, TIMEOUT_30_SECOND);
             WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(name), TIMEOUT_5_SECOND);
         }catch (Exception e){
             found = false;
@@ -296,15 +298,15 @@ public class ManufacturerList extends _Page {
         return found;
     }
 
-    public boolean isRegistraionInProgressDisplayingManufacturer(String manufacturerName) {
+    public boolean isRegistraionInProgressDisplayingManufacturer(String manufacturerNameValue) {
         //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean found = false;
         try {
-            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".elements---global_p .elements---global_a"), TIMEOUT_10_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver,manufacturerName, TIMEOUT_10_SECOND);
             WaitUtils.nativeWaitInSeconds(2);
             for (WebElement item : listOfManufacturerNamesInProgress) {
                 String name = item.getText();
-                if (name.contains(manufacturerName)) {
+                if (name.contains(manufacturerNameValue)) {
                     found = true;
                     break;
                 }

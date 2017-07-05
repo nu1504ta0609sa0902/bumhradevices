@@ -3,6 +3,7 @@ package com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequestDO;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
+import com.mhra.mdcm.devices.appian.pageobjects.business.sections.records.BusinessManufacturerDetails;
 import com.mhra.mdcm.devices.appian.pageobjects.external.cfs.CFSAddDevices;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.AddDevices;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.DeviceDetails;
@@ -40,10 +41,14 @@ public class ManufacturerDetails extends _Page {
     WebElement btnContinue;
     @FindBy(xpath = ".//button[contains(text(),'Register Manufacturer')]")
     WebElement btnRegisterManufactuerer;
+    @FindBy(xpath = ".//button[contains(text(),'Unregister Manufacturer')]")
+    WebElement btnUnRegisterManufactuerer;
     @FindBy(xpath = ".//button[contains(text(),'Edit Account Information')]")
     WebElement amendRepresentativeParty;
     @FindBy(xpath = ".//button[contains(text(),'Edit Account Information')]")
     WebElement editAccountInformation;
+    @FindBy(xpath = ".//*[contains(text(),'Ceased Trading')]//following::button[contains(text(),'Unregister')]")
+    WebElement btnUnregister;
 
     //Contact details
     @FindBy(xpath = ".//span[contains(text(),'Full')]//following::p[1]")
@@ -104,6 +109,20 @@ public class ManufacturerDetails extends _Page {
     //CFS related buttons
     @FindBy(xpath = ".//button[contains(text(), 'Order CFS')]")
     WebElement btnOrderCFS;
+
+    //Unregister reason
+    @FindBy(xpath = ".//*[contains(text(),'Merged OR Acquired')]")
+    WebElement rbMergedOrAcquired;
+    @FindBy(xpath = ".//*[contains(text(),'Ceased Trading')]")
+    WebElement rbCeasedTrading;
+    @FindBy(xpath = ".//*[contains(text(),'No Longer Makes Registerable Devices')]")
+    WebElement rbNoLongerMakesRegisterableDevices;
+    @FindBy(xpath = ".//*[contains(text(),'No Longer Makes Any Medical Device')]")
+    WebElement rbNoLongerMakesAnyMedicalDevice;
+    @FindBy(xpath = ".//*[contains(text(),'No Longer Represented')]")
+    WebElement rbNoLongerRpresented;
+    @FindBy(css = ".FileUploadWidget---ui-inaccessible")
+    WebElement fileUpload;
 
     @Autowired
     public ManufacturerDetails(WebDriver driver) {
@@ -418,5 +437,33 @@ public class ManufacturerDetails extends _Page {
     public boolean isApplicationTypeCorrect(String type) {
         WaitUtils.waitForElementToBeClickable(driver, tdApplicationType, TIMEOUT_10_SECOND);
         return tdApplicationType.getText().contains(type);
+    }
+
+    public boolean isUnregisterBtnDisplayed() {
+        return PageUtils.isVisible(driver, btnUnRegisterManufactuerer, TIMEOUT_10_SECOND);
+    }
+
+    public ManufacturerDetails clickUnregisterManufacturerBtn() {
+        WaitUtils.waitForElementToBeClickable(driver, btnUnRegisterManufactuerer, TIMEOUT_DEFAULT);
+        btnUnRegisterManufactuerer.click();
+        return new ManufacturerDetails(driver);
+    }
+
+    public ManufacturerDetails submitUnregistrationWithReasons(String reason, boolean confirmUnregisttration) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeVisible(driver, btnUnregister, TIMEOUT_DEFAULT);
+
+        //Select a reason
+        if(reason.contains("Ceased Trading")){
+            rbCeasedTrading.click();
+        }else if(reason.contains("No Longer Represented")){
+            rbNoLongerRpresented.click();
+            PageUtils.uploadDocument(fileUpload, "LetterOfCancellation1.pdf", 1, 2);
+        }
+
+        //Click unregister button and confirm
+        WaitUtils.waitForElementToBeClickable(driver, btnUnregister, TIMEOUT_DEFAULT);
+        btnUnregister.click();
+        return new ManufacturerDetails(driver);
     }
 }
