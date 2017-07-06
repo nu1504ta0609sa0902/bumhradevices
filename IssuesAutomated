@@ -443,9 +443,11 @@ Automated Issues:
         - @2229 -   DR @todo Respond to multiple registration request
         - @6625 -   DR @todo Apply agency password
         - @4546 -   DR @todo Email notification receipt of an application wanting to unregister
+                -
         - @5345 -   DR @todo View a list of all users
         - @2154 -   DR @todo View payment details for an applicaton
         - @2107 -   DR @todo Receive review and process request for manufacturer registration
+
         - @4648 -   DR @todo Email link for password reset
         - @4378 -   DR @todo Email notification to customer when processing has begun
         - @6341 -   DR @todo Organisation page edit org details
@@ -458,7 +460,9 @@ Automated Issues:
         - @6351 -   DR @todo Customer news feed registration of events notification
         - @6360 -   DR @todo Customer news feed other events
         - @5673 -   CFS @todo Email customer about rejection
+                -   Verify email content
         - @5674 -   CFS @todo Email customer about the outcome of an application
+                -   Verify email content
         - @4767 -   CFS @todo List of devices awaiting documentation and products
         - @5959 -   CFS @todo Add alternative address
         - @6024 -   CFS @todo View CFS order

@@ -265,7 +265,7 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
       | authorisedRepAuto | Blood weighing scale |
 
 
-  @1986 @5593 @_sprint21 @5673 @5674 @_sprint22
+  @1986 @5593 @_sprint21 @5673 @5674 @_sprint22 @_sprint23
   Scenario: Business users should be able to view cfs new manufacturer and its devices and able to change approval decisions
     Given I am logged into appian as "manufacturerAuto" user
     And I go to device certificate of free sale page

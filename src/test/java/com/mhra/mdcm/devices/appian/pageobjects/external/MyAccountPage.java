@@ -130,8 +130,8 @@ public class MyAccountPage extends _Page {
         }
     }
 
-    public boolean verifyUpdatesDisplayedOnPage(String keyValuePairToUpdate, AccountRequestDO updatedData) {
-        WaitUtils.waitForElementToBeVisible(driver, email, TIMEOUT_DEFAULT);
+    public boolean verifyAccountUpdatesDisplayedOnPage(String keyValuePairToUpdate, AccountRequestDO updatedData) {
+        WaitUtils.waitForElementToBeVisible(driver, email, TIMEOUT_10_SECOND);
         WaitUtils.waitForElementToBeVisible(driver, fullName, TIMEOUT_5_SECOND);
 
         boolean allChangesDisplayed = true;
@@ -316,7 +316,7 @@ public class MyAccountPage extends _Page {
     }
 
     public boolean isContactVisible(AccountRequestDO data) {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnAddContact, TIMEOUT_10_SECOND);
         PageUtils.isElementNotVisible(driver, btnRemoveContact, TIMEOUT_3_SECOND);
         boolean isVisible = false;

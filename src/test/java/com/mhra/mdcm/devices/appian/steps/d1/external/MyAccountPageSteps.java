@@ -6,7 +6,6 @@ import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.Manufactur
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -78,7 +77,7 @@ public class MyAccountPageSteps extends CommonSteps {
         //BUG requires another refresh
         //myAccountPage = myAccountPage.refreshThePage();
         boolean isCorrectPage = myAccountPage.isCorrectPage();
-        boolean updatesFound = myAccountPage.verifyUpdatesDisplayedOnPage(keyValuePairToUpdate, updatedData);
+        boolean updatesFound = myAccountPage.verifyAccountUpdatesDisplayedOnPage(keyValuePairToUpdate, updatedData);
         Assert.assertThat("Expected to see following updates : " + keyValuePairToUpdate, updatesFound, is(true));
     }
 
@@ -192,5 +191,12 @@ public class MyAccountPageSteps extends CommonSteps {
         AccountRequestDO data = (AccountRequestDO) scenarioSession.getData(SessionKey.manufacturerData);
         boolean isContactVisible = myAccountPage.isContactVisible(data);
         Assert.assertThat("Contact Should be removed : " + data.firstName, isContactVisible, is(false));
+    }
+
+    @Then("^I should see the contact person information on the page$")
+    public void iShouldSeeTheContactPersonInformationOnThePage() throws Throwable {
+        AccountRequestDO data = (AccountRequestDO) scenarioSession.getData(SessionKey.manufacturerData);
+        boolean isContactVisible = myAccountPage.isContactVisible(data);
+        Assert.assertThat("Contact Should be removed : " + data.firstName, isContactVisible, is(true));
     }
 }

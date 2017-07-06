@@ -46,7 +46,7 @@ Feature: Tasks will need to be generated for CFS application
     Then The task status in AWIP page should be "Assigned" for the newly created manufacturer
 
 
-  @5679 @_sprint20 @5673 @5674 @_sprint22
+  @5679 @_sprint20 @5673 @5674 @_sprint22 @_sprint24
   Scenario Outline: Users should be able to approve and reject a cfs application
     Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
