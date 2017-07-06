@@ -423,17 +423,21 @@ Automated Issues:
         - @2150 -   CFS @todo Email reminder to customers more information required
         - @2190 -   DR @todo Email notification for unsuccessful manufacturer registration
         - @4546 -   DR @todo Email notification for confirming request received for unregistering
-        - @5752 -   CFS @todo Enter Worldpay card holder details
+        - @5752 -   DONE ISH DR @todo Enter Worldpay card holder details
+                -   CAPTCHA step is missing at the moment
         - @6343 -   DR @todo News feed notification of registration event
         - @6345 -   DR @todo News feed change event notification
         - @6539 -   DR @todo Manage contacts page
         - @5750 -   DR @todo Worldpay more details
+                -   Verify Merchant code is MHRAM5, description and email are correct
         - @6430 -   DR @todo Email unregister rep org from authorisedRep
 
 
     Sprint 24: @_sprint24
         - @6626 -   DR @todo Manage customer user sessions
+                -   CANT automate needs to be tested manually
         - @3793 -   DR @todo Auto logout after idle session
+                -   CANT automate needs to be tested manually
         - @6619 -   DR @todo Create application number for unregistering
         - @2229 -   DR @todo Respond to multiple registration request
         - @6625 -   DR @todo Apply agency password

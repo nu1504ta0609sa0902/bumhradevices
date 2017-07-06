@@ -5,6 +5,7 @@ import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.external.PaymentDetails;
 import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.ManufacturerDetails;
+import com.mhra.mdcm.devices.appian.session.ScenarioSession;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.CommonUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
@@ -447,7 +448,7 @@ public class DeviceDetails extends _Page {
         return new DeviceDetails(driver);
     }
 
-    public DeviceDetails enterPaymentDetails(String paymentMethod) {
+    public DeviceDetails enterPaymentDetails(String paymentMethod, ScenarioSession scenarioSession) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, ddAddressBox, TIMEOUT_15_SECOND);
 
@@ -466,7 +467,7 @@ public class DeviceDetails extends _Page {
 
             //Focus on different tab
             PaymentDetails payment = new PaymentDetails(driver);
-            payment.performWorldPayPayment("Card Details");
+            payment.performWorldPayPayment("Card Details", scenarioSession);
 
             //When completed
             WaitUtils.waitForElementToBeClickable(driver, linkHereToInitiateWorldpay, TIMEOUT_10_SECOND);

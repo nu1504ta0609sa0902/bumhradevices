@@ -47,6 +47,7 @@ Feature: As a customer I want to receive email notifications when ever a account
       | customMade     | true                   |
       | productName    | Product1               |
     And Proceed to payment and confirm submit device details
+    Then I should received an email with subject heading "WorldPay Payment"
     When I logout and log back into appian as "<logBackInAs>" user
     And I search and view new task in AWIP page for the newly created manufacturer
     And I assign the AWIP page task to me and "<approveReject>" the generated task

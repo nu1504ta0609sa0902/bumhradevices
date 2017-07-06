@@ -1,9 +1,10 @@
 package com.mhra.mdcm.devices.appian.pageobjects.external;
 
-import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
+import com.mhra.mdcm.devices.appian.session.ScenarioSession;
+import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
-import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.WebDriver;
@@ -11,8 +12,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.Calendar;
 
 /**
  * Created by TPD_Auto
@@ -67,7 +66,8 @@ public class PaymentDetails extends _Page {
         super(driver);
     }
 
-    public void performWorldPayPayment(String title) {
+    public void performWorldPayPayment(String title, ScenarioSession scenarioSession) {
+        ManufacturerRequestDO manufacaturerData = (ManufacturerRequestDO) scenarioSession.getData(SessionKey.manufacturerData);
         String parentHandle = driver.getWindowHandle();
 
         //Move to the newly opened tab
@@ -91,6 +91,16 @@ public class PaymentDetails extends _Page {
             cardholderName.click();
             WaitUtils.waitForElementToBeClickable(driver, securityCode, TIMEOUT_3_SECOND);
             securityCode.sendKeys("555");
+
+            //CAPTCHA
+
+
+            //Verify descriptions and emails are correct
+            boolean contains = contactDetailscontactEmailRo.getText().contains(manufacaturerData.email);
+            if(!contains){
+                throw new RuntimeException("Email is not valid, it should be : " + manufacaturerData.email);
+            }
+
 
             //Submit for payment
             WaitUtils.waitForElementToBeClickable(driver, btnMakePayment, TIMEOUT_5_SECOND);

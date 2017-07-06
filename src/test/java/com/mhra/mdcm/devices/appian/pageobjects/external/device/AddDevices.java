@@ -1,10 +1,12 @@
 package com.mhra.mdcm.devices.appian.pageobjects.external.device;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
-import com.mhra.mdcm.devices.appian.pageobjects.business.sections.TaskSection;
 import com.mhra.mdcm.devices.appian.pageobjects.external.PaymentDetails;
 import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.ManufacturerList;
+import com.mhra.mdcm.devices.appian.session.ScenarioSession;
+import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.CommonUtils;
@@ -1087,7 +1089,7 @@ public class AddDevices extends _Page {
         return new ManufacturerList(driver);
     }
 
-    public AddDevices enterPaymentDetails(String paymentMethod) {
+    public AddDevices enterPaymentDetails(String paymentMethod, ScenarioSession scenarioSession) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, ddAddressBox, TIMEOUT_15_SECOND);
 
@@ -1106,7 +1108,7 @@ public class AddDevices extends _Page {
 
             //Focus on different tab
             PaymentDetails payment = new PaymentDetails(driver);
-            payment.performWorldPayPayment("Card Details");
+            payment.performWorldPayPayment("Card Details", scenarioSession);
 
             //When completed
             WaitUtils.waitForElementToBeClickable(driver, linkHereToInitiateWorldpay, TIMEOUT_10_SECOND);

@@ -13,7 +13,6 @@ import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -222,7 +221,7 @@ public class ExternalHomePageSteps extends CommonSteps {
     public void proceedToPaymentAndConfirmSubmitDeviceDetails() throws Throwable {
         addDevices = addDevices.proceedToReview();
         addDevices = addDevices.proceedToPayment();
-        addDevices = addDevices.enterPaymentDetails("Worldpay");   //OR WorldPay
+        addDevices = addDevices.enterPaymentDetails("Worldpay", scenarioSession);   //OR WorldPay
         String reference = addDevices.getApplicationReferenceNumber();
         log.info("New Applicaiton reference number : " + reference);
         //addDevices = addDevices.confirmPayment();
@@ -234,7 +233,7 @@ public class ExternalHomePageSteps extends CommonSteps {
     public void proceedToPaymentAndConfirmSubmitDeviceDetails(String method) throws Throwable {
         addDevices = addDevices.proceedToReview();
         addDevices = addDevices.proceedToPayment();
-        addDevices = addDevices.enterPaymentDetails(method);   //OR WorldPay
+        addDevices = addDevices.enterPaymentDetails(method, scenarioSession);   //OR WorldPay
         String reference = addDevices.getApplicationReferenceNumber();
         log.info("New Applicaiton reference number : " + reference);
         //addDevices = addDevices.confirmPayment();
