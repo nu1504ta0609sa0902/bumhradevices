@@ -692,10 +692,10 @@ public class ExternalHomePageSteps extends CommonSteps {
         String org = (String) scenarioSession.getData(SessionKey.organisationName);
         String registeredStatus = (String) scenarioSession.getData(SessionKey.registeredStatus);
         boolean isCorrectFieldsDisplayed = manufacturerDetails.isDisplayedContactPersonFieldsCorrect(org);
-//        if(registeredStatus!=null && registeredStatus.toLowerCase().equals("registered"))
-//            isCorrectFieldsDisplayed = manufacturerDetails.isDisplayedContactPersonFieldsCorrect(org);
-//        else
-//            isCorrectFieldsDisplayed = manufacturerDetails.isDisplayedContactPersonFieldsCorrectForNonRegisteredManufacturer(org);
+        if(registeredStatus!=null && registeredStatus.toLowerCase().equals("registered"))
+            isCorrectFieldsDisplayed = manufacturerDetails.isDisplayedContactPersonFieldsCorrect(org);
+        else
+            isCorrectFieldsDisplayed = manufacturerDetails.isDisplayedContactPersonFieldsCorrectForNonRegisteredManufacturer(org);
         Assert.assertThat("Please check organisation fields displayed are correct for : " + org, isCorrectFieldsDisplayed, Matchers.is(true));
     }
 

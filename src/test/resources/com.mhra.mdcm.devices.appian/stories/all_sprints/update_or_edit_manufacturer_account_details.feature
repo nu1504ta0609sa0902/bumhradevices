@@ -31,13 +31,14 @@ Feature: As a business user, I want to be able to update party details associate
       #| businessAuto | Accounts | AuthorisedRepAccountRT00 | org.name                                       |
 
 
-  @6086 @_sprint22 @wip
+  @6086 @_sprint22 @2107 @_sprint24 @wip
   Scenario Outline: Manufacturer and authorisedRep user should be able to add new contacts
     Given I am logged into appian as "<user>" user
     When I go to my accounts page
     And I add a new contact person with random data
     And I view the newly created contact person
-    Then I should see the changes "<keyValuePairs>" in my accounts page
+    Then I should see the contact person information on the page
+#    Then I should see the changes "<keyValuePairs>" in my accounts page
     And I should see creation and association dates
     Examples:
       | user              | keyValuePairs                                                                                      |
@@ -58,7 +59,7 @@ Feature: As a business user, I want to be able to update party details associate
       | manufacturerAuto  |
 
 
-  @mdcm-149 @2283 @mdcm-171 @2269 @mdcm-162 @2275 @mdcm-164 @2274 @_sprint3 @_sprint5 @_sprint6 @6089 @_sprint22
+  @mdcm-149 @2283 @mdcm-171 @2269 @mdcm-162 @2275 @mdcm-164 @2274 @_sprint3 @_sprint5 @_sprint6 @6089 @_sprint22 @2107 @_sprint24 @bug
   Scenario Outline: Manufacturer and authorisedRep user should be able to update account contact details
     Given I am logged into appian as "<user>" user
     When I go to my accounts page
