@@ -19,7 +19,7 @@ Feature: As a customer I want to register new manufacturers with devices
       | relatedDeviceSterile   | <deviceSterile>      |
       | relatedDeviceMeasuring | <deviceMeasuring>    |
       | isBearingCEMarking     | false                |
-      | productName            | Product1,Product2    |
+      | productName            | Product1             |
     And Proceed to payment via "<paymentType>" and confirm submit device details
     Then I should be returned to the manufacturers list page
     Examples:

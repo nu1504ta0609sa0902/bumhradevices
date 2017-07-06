@@ -429,7 +429,7 @@ Automated Issues:
         - @6345 -   DR @todo News feed change event notification
         - @6539 -   DR @todo Manage contacts page
         - @5750 -   DR @todo Worldpay more details
-                -   Verify Merchant code is MHRAM5, description and email are correct
+                -   Verify Merchant code is MHRAM5, description are correct
         - @6430 -   DR @todo Email unregister rep org from authorisedRep
 
 
