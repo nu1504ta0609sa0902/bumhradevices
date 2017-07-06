@@ -172,8 +172,8 @@ Feature: Able to add CFS for products and devices that are already registered
       | authorisedRepAuto | reject          | Rejected | Other,Registered twice |
       | manufacturerAuto  | approve         | Approved |                        |
 
-  @4744 @_sprint23
-  Scenario Outline: Register manufacturers for CFS and verify it appears in the registered manufacturers list with correct devices
+  @4744 @_sprint23 @wip
+  Scenario Outline: Register a manufacturer for CFS and verify it appears in the registered manufacturers list with correct devices
     Given I am logged into appian as "<logInAs>" user
 # Submit a new CFS manufacturer application
     And I go to device certificate of free sale page
@@ -201,12 +201,12 @@ Feature: Able to add CFS for products and devices that are already registered
     Then I should see a list of manufacturers available for CFS
     When I search and view for the newly created cfs manufacturer
     Then Verify devices displayed and GMDN details are correct
-    And I order cfs for a country with following data
-      | countryName | <country> |
-      | noOfCFS     | <noCFS>   |
-    Then I should see the correct details in cfs order review page
-    When I submit payment for the CFS
-    And I should received an email with subject heading "WorldPay Payment"
+#    And I order cfs for a country with following data
+#      | countryName | <country> |
+#      | noOfCFS     | <noCFS>   |
+#    Then I should see the correct details in cfs order review page
+#    When I submit payment for the CFS
+#    And I should received an email with subject heading "WorldPay Payment"
 #    When I logout and log back into appian as "businessAuto" user
 #    And I search and view new task in AWIP page for the newly created manufacturer
 #    And I assign the AWIP page task to me and "approve" the generated task
