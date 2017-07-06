@@ -487,7 +487,7 @@ public class AddDevices extends _Page {
 
         if(dd.productName!=null) {
             WaitUtils.waitForElementToBeClickable(driver, addProduct, TIMEOUT_5_SECOND);
-            PageUtils.clickIfVisible(driver, addProduct);
+            PageUtils.singleClick(driver, addProduct);
             addProductNew(dd);
             saveProduct(dd);
         }

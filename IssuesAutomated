@@ -438,7 +438,8 @@ Automated Issues:
                 -   CANT automate needs to be tested manually
         - @3793 -   DR @todo Auto logout after idle session
                 -   CANT automate needs to be tested manually
-        - @6619 -   DR @todo Create application number for unregistering
+        - @6619 -   DONE ISH DR @todo Create application number for unregistering
+                -   Application reference number not generated
         - @2229 -   DR @todo Respond to multiple registration request
         - @6625 -   DR @todo Apply agency password
         - @4546 -   DR @todo Email notification receipt of an application wanting to unregister

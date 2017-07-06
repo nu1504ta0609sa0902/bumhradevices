@@ -1,7 +1,7 @@
 Feature: As a user, I want to be able to unregister manufacturers when they are no longer required
 
 
-  @2179 @_sprint18
+  @2179 @_sprint18 @6619 @_sprint24 @bug @wip
   Scenario Outline: As a business user I should be able to unregister organisations
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
@@ -11,14 +11,15 @@ Feature: As a user, I want to be able to unregister manufacturers when they are 
     Then I should see business manufacturer details page for the manufacturer
     When I unregister the manufacturer for the following reason "<unregisteredReason>"
     And I confirm "yes" to unregister the manufacturer
-    Then The manufacturer should no longer be registered
+    Then I should see application reference number generated
+    And The manufacturer should no longer be registered
     Examples:
       | user         | link          | pageHeading   | filterBy          | filterValue | searchTerm        | unregisteredReason    |
       | businessAuto | Organisations | Organisations | Registered status | Registered  | AuthorisedRepRT01 | Ceased Trading        |
       | businessAuto | Organisations | Organisations | Registered status | Registered  | ManufacturerRT01  | No Longer Represented |
 
 
-  @4368 @2268 @_sprint18 @wip
+  @4368 @2268 @_sprint18 @4546 @_sprint24 @wip @bug
   Scenario Outline: As a manufacturer and authorisedRep users I should be able to unregister organisations
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -43,6 +44,8 @@ Feature: As a user, I want to be able to unregister manufacturers when they are 
     Then I should option to unregister the manufacturer
     When I unregister the manufacturer with the following reasons "<unregisteredReason>"
     And I confirm "Yes" to unregister the manufacturer
+    Then I should see application reference number generated
+    And I should received an email for stored manufacturer with heading "MHRA device registration service" and stored application identifier
     Examples:
       | user              | logBackInAs  | status     | accountType   | searchTerm        | unregisteredReason    |
       | manufacturerNoor  | businessAuto | Registered | manufacturer  | AuthorisedRepRT01 | No Longer Represented |
