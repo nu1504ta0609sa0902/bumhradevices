@@ -91,3 +91,31 @@ Feature: Aa a user I would like to verify features which are not related to devi
       | businessAuto | Organisations | ManufacturerRT  | name=Optin,address=Optout  | address                 | Publish name only              |
       | businessAuto | Organisations | AuthorisedRepRT | name=Optout,address=Optin  | name                    | Publish address only           |
       | businessAuto | Organisations | ManufacturerRT  | name=Optout,address=Optout | address                 | Do not publish name or address |
+
+
+  @4711 @_sprint16 @readonly
+  Scenario Outline: Users should be able to filter tasks in application WIP page
+    Given I am logged into appian as "<user>" user
+    And I go to application WIP page
+    And I filter WIP tasks by "<filterBy>" for value "<value>"
+    Examples:
+      | user         | filterBy                | value              |
+      | businessAuto | byService               | Account Management |
+      | businessAuto | byPriority              | Green              |
+      | businessAuto | byApplicationType       | CFS New Order      |
+      | businessAuto | byApplicationStatus     | Assigned           |
+      | businessAuto | byApplicationRole       | Manufacturer       |
+      | businessAuto | byApplicationAssignedTo | Auto               |
+
+
+  @4711 @_sprint16 @readonly
+  Scenario Outline: Users should be able to filter tasks with multiple filters in application WIP page
+    Given I am logged into appian as "<user>" user
+    And I go to application WIP page
+    And I filter WIP tasks by multiple filters "<commaDelimitedFilters>"
+    Examples:
+      | user         | commaDelimitedFilters                                                                                                   |
+      | businessAuto | byService=Account Management,byPriority=Red,byApplicationType=CFS New Order                                             |
+      | businessAuto | byService=Device Registration,byApplicationStatus=Accepted,byApplicationStatus=In Progress,byPriority=Amber             |
+      | businessAuto | byService=CFS,byApplicationStatus=Rejected,byApplicationRole=Manufacturer,byPriority=Green,byApplicationRole=Authorised |
+

@@ -455,16 +455,42 @@ public class TasksPageSteps extends CommonSteps {
     @When("^I filter WIP tasks by stored organisation name$")
     public void i_filter_WIP_tasks_by_stored_org_name() throws Throwable {
         String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
-        taskSection = taskSection.filterWIPTasksBy("orgName", orgName, null);
+        taskSection = taskSection.filterWIPTasksBy("orgName", orgName);
     }
 
-    @When("^I filter WIP tasks by \"([^\"]*)\"$")
-    public void i_filter_WIP_tasks_by(String filterBy) throws Throwable {
-        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
-        String taskType = (String) scenarioSession.getData(SessionKey.taskType);
-
+    @When("^I filter WIP tasks by \"([^\"]*)\" for value \"([^\"]*)\"$")
+    public void i_filter_WIP_tasks_by(String filterBy, String value) throws Throwable {
         //Filter section is hidden now: so need to expand it
-        taskSection = taskSection.filterWIPTasksBy(filterBy, orgName, taskType);
+        if(filterBy.contains("byService")) {
+            taskSection = taskSection.filterWIPTasksBy(filterBy, value);
+        }else{
+            //Its hidden behind a link: so expand it
+            taskSection = taskSection.expandFilterSection(true);
+            taskSection = taskSection.filterWIPTasksBy(filterBy, value);
+        }
+    }
+
+    @When("^I filter WIP tasks by multiple filters \"([^\"]*)\"$")
+    public void i_filter_WIP_tasks_by_multiple_filters(String multipleFilters) throws Throwable {
+        String[] filters = multipleFilters.split(",");
+
+        for(String filterByAndValue: filters) {
+            String[] dataPair = filterByAndValue.split("=");
+            String filterBy = dataPair[0];
+            String value = null;
+            if(dataPair.length>1){
+                value = dataPair[1];
+            }
+
+            //Filter section is hidden now: so need to expand it
+            if (filterBy.contains("byService")) {
+                taskSection = taskSection.filterWIPTasksBy(filterBy, value);
+            } else {
+                //Its hidden behind a link: so expand it
+                taskSection = taskSection.expandFilterSection(true);
+                taskSection = taskSection.filterWIPTasksBy(filterBy, value);
+            }
+        }
     }
 
 

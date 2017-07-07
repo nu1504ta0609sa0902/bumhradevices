@@ -58,6 +58,15 @@ public class RandomDataUtils {
         return dom + "/" + month + "/" + year;
     }
 
+    public static String getDateInFutureDays(int daysInFuture) {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_MONTH, daysInFuture);
+        int dom = cal.get(Calendar.DAY_OF_MONTH);
+        int month = cal.get(Calendar.MONTH)+1;
+        int year = cal.get(Calendar.YEAR);
+        return dom + "/" + month + "/" + year;
+    }
+
     public static String getDateInFutureMonthsUS(int monthsInFuture, boolean format) {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.MONTH, monthsInFuture);

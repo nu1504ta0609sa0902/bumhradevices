@@ -11,6 +11,7 @@ import com.mhra.mdcm.devices.appian.utils.selenium.page.CommonUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -128,10 +129,26 @@ public class TaskSection extends _Page {
     //New filter section introduced in sprint 13
     @FindBy(xpath = ".//*[.='Organisation']")
     WebElement lblOrgName;
-    @FindBy(xpath = ".//*[.='Organisation']/following::input[1]")
-    WebElement orgName;
+    @FindBy(xpath = ".//*[.='Application assigned to']/following::input[1]")
+    WebElement byApplicationAssignedTo;
     @FindBy(xpath = ".//*[.='Task type']//following::div[1]")
     WebElement taskTypeDD;
+    @FindBy(xpath = ".//*[.='Filter by service']//following::div[1]")
+    WebElement byServiceDD;
+    @FindBy(xpath = ".//*[.='Application type']//following::div[1]")
+    WebElement byApplicationTypeDD;
+    @FindBy(xpath = ".//*[.='Application status']//following::div[1]")
+    WebElement byApplicationStatusDD;
+    @FindBy(xpath = ".//*[.='Application status']//following::div[1]")
+    WebElement byApplicationRoleDD;
+    @FindBy(xpath = ".//*[.='Application status']//following::div[1]")
+    WebElement byPriorityDD;
+    @FindBy(partialLinkText = "Show Filter application")
+    WebElement linkShowFilters;
+    @FindBy(partialLinkText = "Hide Filter application")
+    WebElement linkHideFilters;
+    @FindBy(xpath = ".//*[contains(text(),'Due date')]//following::input[1]")
+    WebElement dueDate;
 
     //Active Implantable MD table
     @FindBy(xpath = ".//h3[contains(text(), 'Active Implant')]//following::tr/td[8]")
@@ -458,20 +475,37 @@ public class TaskSection extends _Page {
         return isDataCorrect;
     }
 
-    public TaskSection filterWIPTasksBy(String filterBy, String txtOrgName, String other) {
+    public TaskSection filterWIPTasksBy(String filterBy, String value) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND);
-        if (filterBy.contains("orgName")) {
-            orgName.sendKeys(txtOrgName);
-        } else if (filterBy.contains("taskType")) {
-            String value = "Update Manufacturer Registration Request";
-            if (value.contains("New Manufacturer")) {
-                value = "New Manufacturer Registration Request";
-            }
-            //PageUtils.selectByText(taskTypeDD, value);
-            PageUtils.selectFromDropDown(driver, taskTypeDD, value, true);
+
+        if(filterBy.contains("byService")) {
+            WaitUtils.waitForElementToBeClickable(driver, tbxSearchByManufacturer, TIMEOUT_15_SECOND);
+        }else{
+            WaitUtils.waitForElementToBeClickable(driver, byApplicationAssignedTo, TIMEOUT_15_SECOND);
         }
-        lblOrgName.click();
+
+        if(filterBy.contains("byService")){
+            PageUtils.selectFromDropDown(driver, byServiceDD, value, true);
+        } else if(filterBy.equals("dueDate")){
+            dueDate.sendKeys(RandomDataUtils.getDateInFutureDays(2), Keys.TAB);
+        } else if(filterBy.contains("byPriority")){
+            PageUtils.selectFromDropDown(driver, byPriorityDD, value, true);
+        }  else if(filterBy.contains("byApplicationType")){
+            PageUtils.selectFromDropDown(driver, byApplicationTypeDD, value, true);
+        } else if(filterBy.contains("byApplicationStatus")){
+            PageUtils.selectFromDropDown(driver, byApplicationStatusDD, value, true);
+        } else if(filterBy.contains("byApplicationRole")){
+            PageUtils.selectFromDropDown(driver, byApplicationRoleDD, value, true);
+        } else if(filterBy.contains("byApplicationAssignedTo")){
+            //byApplicationAssignedTo.sendKeys(value);
+            //PageUtils.selectFromDropDown(driver, byApplicationAssignedTo, value, true);
+            try {
+                PageUtils.selectFromAutoSuggestedListItemsManufacturers(driver, ".PickerWidget---picker_value", value, true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        tbxSearchByManufacturer.click();
         return new TaskSection(driver);
     }
 
@@ -631,4 +665,16 @@ public class TaskSection extends _Page {
     }
 
 
+    public TaskSection expandFilterSection(boolean expand) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        if(expand){
+            WaitUtils.waitForElementToBeClickable(driver, linkShowFilters, TIMEOUT_15_SECOND);
+            linkShowFilters.click();
+        }else{
+            //Hide it
+            WaitUtils.waitForElementToBeClickable(driver, linkHideFilters, TIMEOUT_15_SECOND);
+            linkHideFilters.click();
+        }
+        return new TaskSection(driver);
+    }
 }
