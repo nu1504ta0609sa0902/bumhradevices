@@ -313,16 +313,28 @@ public class TasksPageSteps extends CommonSteps {
     }
 
     /**
-     * Manufacturer account request
-     * Use only after a new account has been created using manufacturer/authorised rep view
+     * This is normally done after a search is performed to filter out the correct data
      * @throws Throwable
      */
-    @Then("^Verify the WIP entry details for the new account is correct$")
+    @Then("^Verify the AWIP entry details for the new cfs manufacturer application$")
     public void verify_the_WIP_entry_details_for_the_new_account_is_correct() throws Throwable {
-        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
-        ManufacturerRequestDO organisationData = (ManufacturerRequestDO) scenarioSession.getData(SessionKey.manufacturerData);
-        boolean isWIPDataCorrect = taskSection.isWIPTaskDetailsCorrectForAccount(orgName, organisationData, "New Manufacturer Registration Request");
-        assertThat("WIP page not showing correct data for : " + orgName, isWIPDataCorrect, is(equalTo(true)));
+        String status = "Not Assigned";
+        String applicationType = "CFS New Manufacturer";
+        boolean isApplicationTypeCorrect = taskSection.isAWIPApplicationTypeCorrect(applicationType);
+        boolean isStatusCorrect = taskSection.isAWIPTaskStatusCorrect(status);
+        assertThat("Expected status : " + status, isStatusCorrect, is(equalTo(true)));
+        assertThat("Expected application type : " + applicationType, isApplicationTypeCorrect, is(equalTo(true)));
+    }
+
+
+    @Then("^Verify the AWIP entry details for the new cfs order application$")
+    public void verify_the_WIP_entry_details_for_the_new_ordert_is_correct() throws Throwable {
+        String status = "Not Assigned";
+        String applicationType = "CFS New Order";
+        boolean isApplicationTypeCorrect = taskSection.isAWIPApplicationTypeCorrect(applicationType);
+        boolean isStatusCorrect = taskSection.isAWIPTaskStatusCorrect(status);
+        assertThat("Expected status : " + status, isStatusCorrect, is(equalTo(true)));
+        assertThat("Expected application type : " + applicationType, isApplicationTypeCorrect, is(equalTo(true)));
     }
 
     /**

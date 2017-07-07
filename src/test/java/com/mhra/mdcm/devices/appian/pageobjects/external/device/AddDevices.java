@@ -1111,8 +1111,8 @@ public class AddDevices extends _Page {
             payment.performWorldPayPayment("Card Details", scenarioSession);
 
             //When completed
-            WaitUtils.waitForElementToBeClickable(driver, linkHereToInitiateWorldpay, TIMEOUT_10_SECOND);
             PageFactory.initElements(driver,this);
+            WaitUtils.waitForElementToBeClickable(driver, linkHereToInitiateWorldpay, TIMEOUT_10_SECOND);
             linkHereToInitiateWorldpay.click();
         }else if(paymentMethod.toLowerCase().contains("bacs")){
             paymentBACS.click();

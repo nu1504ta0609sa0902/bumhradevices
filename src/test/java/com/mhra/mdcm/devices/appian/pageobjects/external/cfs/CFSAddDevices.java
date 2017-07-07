@@ -549,7 +549,7 @@ public class CFSAddDevices extends _Page {
     }
 
     private void clickContinue() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeVisible(driver, btnContinue, TIMEOUT_10_SECOND);
         WaitUtils.waitForElementToBeClickable(driver, btnContinue, TIMEOUT_10_SECOND);
         PageUtils.doubleClick(driver, btnContinue);
@@ -727,10 +727,10 @@ public class CFSAddDevices extends _Page {
 
                 //Click gmdn from search results
                 WebElement element = CommonUtils.getElementFromList(listOfGmdnMatchesReturnedBySearch, randomPosition);
-                element.click();
 
                 //Set device name for later verification
                 dd.deviceName = element.getText();
+                element.click();
 
                 //If its a duplicate Try again
                 isErrorMessageDisplayed = isErrorMessageDisplayed("device already exists for this manufacturer");

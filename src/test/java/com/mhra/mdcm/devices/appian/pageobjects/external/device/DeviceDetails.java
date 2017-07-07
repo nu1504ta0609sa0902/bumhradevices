@@ -233,7 +233,7 @@ public class DeviceDetails extends _Page {
         return new DeviceDetails(driver);
     }
 
-    public DeviceDetails enterACertificateDetails(String countryName, String noOfCFS) {
+    public DeviceDetails enterACertificateDetails(String countryName, String noOfCFS, boolean continueToNextStep) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".PickerWidget---picker_value"), TIMEOUT_10_SECOND);
         try {
@@ -245,6 +245,7 @@ public class DeviceDetails extends _Page {
         tbxNumberOfCFS.sendKeys(noOfCFS);
 
         //Submit
+        if(continueToNextStep)
         btnContinue.click();
         return new DeviceDetails(driver);
 

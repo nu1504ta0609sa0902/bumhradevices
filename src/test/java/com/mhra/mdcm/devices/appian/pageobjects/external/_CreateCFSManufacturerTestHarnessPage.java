@@ -172,7 +172,7 @@ public class _CreateCFSManufacturerTestHarnessPage extends _Page {
     }
 
     public _CreateCFSManufacturerTestHarnessPage clickBackButton() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnBack, TIMEOUT_15_SECOND);
         btnBack.click();
         return new _CreateCFSManufacturerTestHarnessPage(driver);

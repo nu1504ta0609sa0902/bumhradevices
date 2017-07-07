@@ -96,6 +96,24 @@ public class CFSSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.registeredStatus, "registered");
     }
 
+    @When("^I enter cfs order for a country with following data without submitting$")
+    public void i_order_cfs_for_a_country_with_following_data_without_submitting(Map<String, String> dataSets) throws Throwable {
+        //Data
+        String countryName = dataSets.get("countryName");
+        String noOfCFS = dataSets.get("noOfCFS");
+
+        //Order CFS for a random device
+        deviceDetails = manufacturerDetails.clickOrderCFSButton();
+        //deviceDetails = deviceDetails.selectAGMDNTerm("Blood weighing");
+        deviceDetails = deviceDetails.selectARandomGMDNTerm();
+        deviceDetails = deviceDetails.selectADevices();
+        deviceDetails = deviceDetails.enterACertificateDetails(countryName, noOfCFS, false);
+
+        //Store data to be verified later
+        scenarioSession.putData(SessionKey.organisationCountry, countryName);
+        scenarioSession.putData(SessionKey.numberOfCertificates, noOfCFS);
+    }
+
     @When("^I order cfs for a country with following data$")
     public void i_order_cfs_for_a_country_with_following_data(Map<String, String> dataSets) throws Throwable {
         //Data
@@ -107,7 +125,7 @@ public class CFSSteps extends CommonSteps {
         //deviceDetails = deviceDetails.selectAGMDNTerm("Blood weighing");
         deviceDetails = deviceDetails.selectARandomGMDNTerm();
         deviceDetails = deviceDetails.selectADevices();
-        deviceDetails = deviceDetails.enterACertificateDetails(countryName, noOfCFS);
+        deviceDetails = deviceDetails.enterACertificateDetails(countryName, noOfCFS, true);
 
         //Store data to be verified later
         scenarioSession.putData(SessionKey.organisationCountry, countryName);
@@ -175,7 +193,7 @@ public class CFSSteps extends CommonSteps {
         } while (!atLeast1DeviceFound);
 
         deviceDetails = deviceDetails.selectADevices();
-        deviceDetails = deviceDetails.enterACertificateDetails(countryName, noOfCFS);
+        deviceDetails = deviceDetails.enterACertificateDetails(countryName, noOfCFS, true);
 
         //Store data to be verified later
         scenarioSession.putData(SessionKey.organisationCountry, countryName);

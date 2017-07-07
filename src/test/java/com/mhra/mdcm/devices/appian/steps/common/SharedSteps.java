@@ -55,8 +55,6 @@ public class SharedSteps extends CommonSteps {
 				//log.info("\n==================================");
 
 			}
-		}catch (Exception e){
-			e.printStackTrace();
 		}finally {
 			//This is added because of SSO: 26/06/2017
 			if (driver != null) {

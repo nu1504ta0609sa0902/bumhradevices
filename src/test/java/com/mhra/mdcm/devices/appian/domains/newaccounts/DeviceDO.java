@@ -83,7 +83,10 @@ public class DeviceDO {
         docType = "pdf";
         certificateType = "Full Quality Assurance";
         monthsInFutureOrPast = 12;
+
+        //Not sure if needed for other types of devices apart from GMD
         riskClassification = "class1";
+        notifiedBody = "NB 0086 BSI";
     }
 
     public String getGMDN() {

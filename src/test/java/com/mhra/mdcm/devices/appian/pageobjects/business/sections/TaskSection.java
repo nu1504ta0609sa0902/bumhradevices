@@ -109,6 +109,8 @@ public class TaskSection extends _Page {
     WebElement aApplicationReference;
     @FindBy(xpath = ".//*[text()='Priority']/following::tr/td[4]")
     WebElement applicationStatus;
+    @FindBy(xpath = ".//*[text()='Priority']/following::tr/td[2]")
+    WebElement applicationType;
     @FindBy(xpath = ".//*[text()='Priority']/following::tr/td[5]")
     WebElement applicationAssignedTo;
     @FindBy(xpath = ".//*[text()='Priority']/following::tr")
@@ -592,9 +594,14 @@ public class TaskSection extends _Page {
 
 
     public boolean isAWIPTaskStatusCorrect(String status) {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, applicationStatus, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, aApplicationReference, TIMEOUT_10_SECOND);
         boolean contains = applicationStatus.getText().contains(status);
+        return contains;
+    }
+
+    public boolean isAWIPApplicationTypeCorrect(String applicationTypeTxt) {
+        WaitUtils.waitForElementToBeClickable(driver, aApplicationReference, TIMEOUT_10_SECOND);
+        boolean contains = applicationType.getText().contains(applicationTypeTxt);
         return contains;
     }
 

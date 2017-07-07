@@ -465,7 +465,7 @@ Automated Issues:
                 -   Verify email content
         - @4767 -   CFS @todo List of devices awaiting documentation and products
         - @5959 -   CFS @todo Add alternative address
-        - @6024 -   CFS @todo View CFS order
+        - @6024 -   DONE ISH CFS @todo View CFS tasks in the AWIP page
 
 
     Sprint 25: @_sprint25
@@ -473,15 +473,15 @@ Automated Issues:
         - @1950 -   CFS @todo view sample CFS certificate
         - @1975 -   View and print a standard schedule
         - @1976 -   CFS @todo View and print standard CFS cert for order
-        - @6316 -   submit and view submitted amend devices application
-        - @6806 -   View devices to manage
-        - @6807 -   Select a device to manage
-        - @6808 -   Select a device with an amendment in progress
-        - @6809 -   Indicate missing device information
-        - @6810 -   Edit CE information
-        - @6811 -   Edit product information
-        - @6812 -   Delete a device
-        - @6813 -   Delete device in bulk/multiple
+        - @6316 -   CFS @todo submit and view submitted amend devices application
+        - @6806 -   CFS @todo View devices to manage
+        - @6807 -   CFS @todo Select a device to manage
+        - @6808 -   CFS @todo Select a device with an amendment in progress
+        - @6809 -   CFS @todo Indicate missing device information
+        - @6810 -   CFS @todo Edit CE information
+        - @6811 -   CFS @todo Edit product information
+        - @6812 -   CFS @todo Delete a device
+        - @6813 -   CFS @todo Delete device in bulk/multiple
         - @3791 -   Expire password
         - @6318 -   Profile page organisation tab
         - @6324 -   Selected org from profile view
