@@ -93,7 +93,7 @@ Feature: Aa a user I would like to verify features which are not related to devi
       | businessAuto | Organisations | ManufacturerRT  | name=Optout,address=Optout | address                 | Do not publish name or address |
 
 
-  @4711 @_sprint16 @readonly
+  @4090 @_sprint13 @4088 @_sprint11 @4711 @_sprint16 @readonly
   Scenario Outline: Users should be able to filter tasks in application WIP page
     Given I am logged into appian as "<user>" user
     And I go to application WIP page
@@ -108,7 +108,7 @@ Feature: Aa a user I would like to verify features which are not related to devi
       | businessAuto | byApplicationAssignedTo | Auto               |
 
 
-  @4711 @_sprint16 @readonly
+  @4090 @_sprint13 @4088 @_sprint11 @4711 @_sprint16 @readonly
   Scenario Outline: Users should be able to filter tasks with multiple filters in application WIP page
     Given I am logged into appian as "<user>" user
     And I go to application WIP page
