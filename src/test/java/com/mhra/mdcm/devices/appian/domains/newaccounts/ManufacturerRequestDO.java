@@ -33,6 +33,11 @@ public class ManufacturerRequestDO {
     public String fax;
     public String website;
 
+    //Optional address fields
+    public String address3;
+    public String address4;
+    public String stateCountyOrProvince;
+
     //Contact Person Details
     public String title;
     public String firstName;

@@ -33,6 +33,11 @@ public class AccountRequestDO {
     public String website;
     public boolean addressType;
 
+    //Optional address fields
+    public String address3;
+    public String address4;
+    public String stateCountyOrProvince;
+
     //Organisation type
     public String organisationType;
     public String vatRegistrationNumber;

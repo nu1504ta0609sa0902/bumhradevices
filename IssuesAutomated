@@ -286,7 +286,7 @@ Automated Issues:
         - @5218 -           DONE ISH    covered
         - @4830 -           DONE ISH    covered
         - @4743 -           DONE ISH    covered
-        - @4711 -   @todo   filter by due date
+        - @4711 -           DONE ISH
         - @4628 -           DONE ISH    covered
         - @4715 -           DONE ISH    covered
         - @4560 -           DONE ISH    covered
@@ -317,7 +317,8 @@ Automated Issues:
                 -   Lots of scenarios
         - @5571 -   DONE ISH    @todo  back button added to cfs add new manufacturer process
         - @5578 -   DONE ISH    @todo order cfs for country and quantity
-        - @3810 -   @todo DR    notification to manufacturers if registration is withdrawn
+        - @3810 -   DONE ISH    @todo DR    Email notification to manufacturers if registration is withdrawn
+                -   Email content needs to be verified
         - @5583 -   DONE ISH    @todo add notified body to ce certificates
         - @5541 -   @todo   bug
         - @5542 -   @todo   bug
@@ -333,8 +334,10 @@ Automated Issues:
         - @5680 -   DONE ISH CFS @todo business user view device summary
         - @5681 -   DONE ISH CFS @todo business user bulk approve devices
         - @5670 -   DR  @todo SSO for internal users
-        - @5671 -   DR  @todo External user authentication
-        - @2222 -   DR  @todo review address details
+                -   N/A
+        - @5671 -   DONE ISH DR  @todo External user authentication
+        - @2222 -   DONE ISH DR  @todo review address details
+                -   @bug
         - @2289 -   DR  @todo lookup addresses
         - @2328 -   DR  @todo request access to online services
         - @4645 -   DR  @todo reset forgotten password

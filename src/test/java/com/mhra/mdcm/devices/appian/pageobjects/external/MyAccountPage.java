@@ -68,6 +68,12 @@ public class MyAccountPage extends _Page {
     WebElement orgAddressLine1;
     @FindBy(xpath = ".//span[contains(text(),'line 2')]//following::p[1]")
     WebElement orgAddressLine2;
+    @FindBy(xpath = ".//span[contains(text(),'line 3')]//following::p[1]")
+    WebElement orgAddressLine3;
+    @FindBy(xpath = ".//span[contains(text(),'line 4')]//following::p[1]")
+    WebElement orgAddressLine4;
+    @FindBy(xpath = ".//span[contains(text(),'line 4')]//following::p[2]")
+    WebElement stateCountyOrProvince;
     @FindBy(xpath = ".//span[contains(text(),'Town')]//following::p[1]")
     WebElement orgCity;
     @FindBy(xpath = ".//span[contains(text(),'Postcode')]//following::p[1]")
@@ -173,6 +179,12 @@ public class MyAccountPage extends _Page {
                 allChangesDisplayed = AssertUtils.areChangesDisplayed(orgAddressLine1, updatedData.address1);
             } else if (key.equals("org.address2")) {
                 allChangesDisplayed = AssertUtils.areChangesDisplayed(orgAddressLine2, updatedData.address2);
+            } else if (key.equals("org.address3")) {
+                allChangesDisplayed = AssertUtils.areChangesDisplayed(orgAddressLine3, updatedData.address1);
+            }  else if (key.equals("org.address4")) {
+                allChangesDisplayed = AssertUtils.areChangesDisplayed(orgAddressLine4, updatedData.address1);
+            } else if (key.equals("org.state.county.province")) {
+                allChangesDisplayed = AssertUtils.areChangesDisplayed(stateCountyOrProvince, updatedData.address2);
             } else if (key.equals("org.city")) {
                 allChangesDisplayed = AssertUtils.areChangesDisplayed(orgCity, updatedData.townCity);
             } else if (key.equals("org.postcode")) {

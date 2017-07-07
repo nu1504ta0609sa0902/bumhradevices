@@ -27,6 +27,12 @@ public class OrganisationDetails extends _Page {
     WebElement orgAddressLine1;
     @FindBy(xpath = ".//label[contains(text(),'Address line 2')]//following::input[1]")
     WebElement orgAddressLine2;
+    @FindBy(xpath = ".//label[contains(text(),'Address line 3')]//following::input[1]")
+    WebElement orgAddressLine3;
+    @FindBy(xpath = ".//label[contains(text(),'Address line 4')]//following::input[1]")
+    WebElement orgAddressLine4;
+    @FindBy(xpath = ".//label[contains(text(),'Address line 4')]//following::input[2]")
+    WebElement stateCountyOrProvince;
     @FindBy(xpath = ".//label[contains(text(),'City')]//following::input[1]")
     WebElement orgCityTown;
     @FindBy(xpath = ".//label[.='Postcode']//following::input[1]")
@@ -82,6 +88,12 @@ public class OrganisationDetails extends _Page {
                 PageUtils.updateElementValue(driver, orgAddressLine1, updatedData.address1, TIMEOUT_5_SECOND);
             }else if (key.equals("org.address2")) {
                 PageUtils.updateElementValue(driver, orgAddressLine2, updatedData.address2, TIMEOUT_5_SECOND);
+            }else if (key.equals("org.address3")) {
+                PageUtils.updateElementValue(driver, orgAddressLine3, updatedData.address3, TIMEOUT_5_SECOND);
+            }else if (key.equals("org.address4")) {
+                PageUtils.updateElementValue(driver, orgAddressLine3, updatedData.address4, TIMEOUT_5_SECOND);
+            }else if (key.equals("org.state.county.province")) {
+                PageUtils.updateElementValue(driver, stateCountyOrProvince, updatedData.stateCountyOrProvince, TIMEOUT_5_SECOND);
             }else if (key.equals("org.city")) {
                 PageUtils.updateElementValue(driver, orgCityTown, updatedData.townCity, TIMEOUT_5_SECOND);
             }else if (key.equals("org.postcode")) {

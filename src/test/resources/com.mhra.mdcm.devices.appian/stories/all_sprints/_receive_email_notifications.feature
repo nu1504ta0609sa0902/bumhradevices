@@ -34,7 +34,7 @@ Feature: As a customer I want to receive email notifications when ever a account
       | businessNoor | authorisedRep | Estonia     | No authorisation evidence provided | New Account Request for |
 
 
-  @regression @2191 @2193 @2190 @_sprint10 @3207 @2151 @_sprint21
+  @regression @2191 @2193 @2190 @_sprint10 @3207 @2151 @_sprint21 @2222 @_sprint19
   Scenario Outline: Email should be generated for newly created manufacturers and authorisedReps
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page

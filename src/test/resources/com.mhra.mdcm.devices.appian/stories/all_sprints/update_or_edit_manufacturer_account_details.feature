@@ -72,7 +72,7 @@ Feature: As a business user, I want to be able to update party details associate
       | manufacturerAuto  | contact.job.title,contact.email,contact.telephone,contact.firstname,contact.lastname               |
 
 
-  @mdcm-13 @mdcm-171 @2269 @mdcm-162 @2275 @mdcm-164 @2274 @_sprint4 @_sprint5 @_sprint6 @6089 @_sprint22 @wip @bug
+  @mdcm-13 @mdcm-171 @2269 @mdcm-162 @2275 @mdcm-164 @2274 @_sprint4 @_sprint5 @_sprint6 @6089 @_sprint22 @2222 @_sprint19 @wip @bug
   Scenario Outline: Manufacturer and authorisedRep user should be able to update organisation details
     Given I am logged into appian as "<user>" user
     When I go to my accounts page
@@ -83,8 +83,8 @@ Feature: As a business user, I want to be able to update party details associate
       | user              | keyValuePairs                                                             |
       | authorisedRepAuto | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website |
       | manufacturerAuto  | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website |
-      | authorisedRepAuto | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website |
-      | manufacturerAuto  | org.address1,org.address2,org.city,org.postcode,org.telephone,org.website |
+      | authorisedRepAuto | org.address3,org.address3,org.state.county.province |
+      | manufacturerAuto | org.address3,org.address3,org.state.county.province |
 
 
   @readonly @mdcm-171 @2269 @mdcm-261 @2199 @mdcm-277 @_sprint4 @_sprint5 @bug
