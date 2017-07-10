@@ -119,3 +119,14 @@ Feature: Aa a user I would like to verify features which are not related to devi
       | businessAuto | byService=Device Registration,byApplicationStatus=Accepted,byApplicationStatus=In Progress,byPriority=Amber             |
       | businessAuto | byService=CFS,byApplicationStatus=Rejected,byApplicationRole=Manufacturer,byPriority=Green,byApplicationRole=Authorised |
 
+
+  @regression @2289 @_sprint19 @readonly @wip
+  Scenario Outline: Users able to lookup UK based address using postcode lookup functionality
+    Given I am logged into appian as "<user>" user
+    When I look up for postcode "<postCode>" and select road "<road>"
+    Then I should see correct postcode and address populated in the fields
+    Examples:
+      | user         | postCode | road        |
+      | businessAuto | N17 6RH  | 17 ,Radley Road |
+      | businessAuto | BA1 3AE  | Upper Bristol Road |
+

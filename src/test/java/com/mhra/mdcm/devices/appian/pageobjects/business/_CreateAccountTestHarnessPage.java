@@ -2,12 +2,10 @@ package com.mhra.mdcm.devices.appian.pageobjects.business;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequestDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
-import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -106,6 +104,14 @@ public class _CreateAccountTestHarnessPage extends _Page {
     WebElement submit;
     @FindBy(xpath = ".//button[.='Cancel']")
     WebElement cancel;
+
+    //Post code lookup
+    @FindBy(xpath = ".//label[contains(text(),'Postcode lookup')]//following::input[1]")
+    WebElement postCodeLookup;
+    @FindBy(xpath = ".//button[contains(text(),'Find UK')]")
+    WebElement btnFindUKAddress;
+    @FindBy(xpath = ".//*[contains(text(),'Pick an address')]//following::div[1]")
+    WebElement pickAnAddressDD;
 
 
     @Autowired
@@ -271,5 +277,25 @@ public class _CreateAccountTestHarnessPage extends _Page {
         List<String> matchesFromAutoSuggests = PageUtils.getListOfMatchesFromAutoSuggests(driver, By.cssSelector(".PickerWidget---picker_value"), searchTerm);
         System.out.println(matchesFromAutoSuggests);
         return matchesFromAutoSuggests;
+    }
+
+    public _CreateAccountTestHarnessPage lookUpAddressViaPostCode(String postCode, String expectedRoad) {
+        WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_15_SECOND);
+        postCodeLookup.sendKeys(postCode);
+        WaitUtils.waitForElementToBeClickable(driver, btnFindUKAddress, TIMEOUT_15_SECOND);
+        btnFindUKAddress.click();
+        WaitUtils.waitForElementToBeClickable(driver, pickAnAddressDD, TIMEOUT_15_SECOND);
+        PageUtils.selectFromDropDown(driver, pickAnAddressDD, expectedRoad, true);
+        return new _CreateAccountTestHarnessPage(driver);
+    }
+
+    public boolean isAddressLookupDataCorrect(String addressExpected, String postCodeExpected) {
+        WaitUtils.waitForElementToBeClickable(driver, postCode, TIMEOUT_15_SECOND);
+        String addressVal = addressLine1.getText() + ", " + addressLine2.getText();
+        String postCodeVal = postCode.getText();
+
+        boolean postCodeFound = postCodeVal.contains(postCodeExpected);
+        boolean addressFound = addressVal.contains(addressExpected);
+        return postCodeFound && addressFound;
     }
 }
