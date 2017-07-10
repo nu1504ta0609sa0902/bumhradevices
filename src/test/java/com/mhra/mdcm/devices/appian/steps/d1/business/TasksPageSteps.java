@@ -645,6 +645,7 @@ public class TasksPageSteps extends CommonSteps {
         tasksPage = mainNavigationBar.clickTasks();
         taskSection = tasksPage.gotoApplicationWIPPage();
         taskSection = taskSection.searchAWIPPageForAccount(accountNameOrReference);
+        taskSection.isSearchingCompleted();
     }
 
     @Then("^I search for task in AWIP page for the manufacturer$")
