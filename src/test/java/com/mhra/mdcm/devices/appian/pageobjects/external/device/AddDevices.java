@@ -112,6 +112,12 @@ public class AddDevices extends _Page {
     @FindBy(xpath = ".//span[contains(text(),'Notified Body')]//following::label[6]")
     WebElement nbOther;
 
+    //New EU medical device rules
+    @FindBy(xpath = ".//span[contains(text(),'new medical device regulation')]//following::label[1]")
+    WebElement radioEURuleYes;
+    @FindBy(xpath = ".//span[contains(text(),'new medical device regulation')]//following::label[2]")
+    WebElement radioEURuleNo;
+
     //List of notified bodies
     @FindBy(xpath = ".//span[contains(text(),'Notified Body')]//following::input[@type='radio']//following::label")
     List<WebElement> listOfNotifiedBodies;
@@ -383,6 +389,7 @@ public class AddDevices extends _Page {
 
     private void addActiveImplantableDevice(DeviceDO dd) {
         searchByGMDN(dd);
+        compliesWithEUDeviceRequirements(true);
         customMade(dd);
 
         if(dd.isCustomMade) {
@@ -410,6 +417,8 @@ public class AddDevices extends _Page {
 
     private void addProcedurePackDevice(DeviceDO dd) {
         searchByGMDN(dd);
+        compliesWithEUDeviceRequirements(true);
+
         addProductNew(dd);
         deviceSterile(dd);
 
@@ -421,6 +430,7 @@ public class AddDevices extends _Page {
 
     private void addVitroDiagnosticDevice(DeviceDO dd) {
         searchByGMDN(dd);
+        compliesWithEUDeviceRequirements(true);
         riskClassificationIVD(dd);
 
         //No product needs to be added when Risk Classification = IVD General
@@ -475,6 +485,7 @@ public class AddDevices extends _Page {
     private void addGeneralMedicalDevice(DeviceDO dd) {
         searchByGMDN(dd);
         customMade(dd);
+        compliesWithEUDeviceRequirements(true);
 
         if (!dd.isCustomMade) {
             deviceSterile(dd);
@@ -492,6 +503,17 @@ public class AddDevices extends _Page {
             saveProduct(dd);
         }
     }
+
+    private void compliesWithEUDeviceRequirements(boolean compliesWitEU) {
+
+        WaitUtils.waitForElementToBeClickable(driver, radioEURuleYes, TIMEOUT_15_SECOND);
+        if (compliesWitEU) {
+            PageUtils.doubleClick(driver, radioEURuleYes);
+        } else {
+            PageUtils.doubleClick(driver, radioEURuleNo);
+        }
+    }
+
 
     private void productLabelName(DeviceDO dd) {
         PageUtils.clickOneOfTheFollowing(driver, addProduct, addProduct2, TIMEOUT_1_SECOND);

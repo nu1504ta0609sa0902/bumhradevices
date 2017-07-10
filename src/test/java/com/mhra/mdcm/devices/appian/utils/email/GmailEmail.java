@@ -105,7 +105,7 @@ public class GmailEmail {
                                     bodyText = body;
                                     break;
                                 }
-                            } else if (isRecent && subject.toLowerCase().contains("free sale")) {
+                            } else if (isRecent && (subject.toLowerCase().contains("free sale") || subject.toLowerCase().contains("account rejected for"))) {
                                 log.warn("---------------------------------");
                                 log.warn("Recent email received : " + subject);
                                 log.warn("---------------------------------");
