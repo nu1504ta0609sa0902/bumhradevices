@@ -7,9 +7,10 @@ import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.hamcrest.Matchers;
+import static org.hamcrest.Matchers.*;
 import org.junit.Assert;
 import org.springframework.context.annotation.Scope;
 
@@ -46,7 +47,7 @@ public class ActionsPageSteps extends CommonSteps {
     public void i_should_see_following_returned_by_autosuggests(String commaDelimitedExpectedMatches) throws Throwable {
         List<String> listOfMatches = (List<String>) scenarioSession.getData(SessionKey.autoSuggestResults);
         boolean isResultMatchingExpectation = AssertUtils.areAllDataInAutosuggestCorrect(listOfMatches, commaDelimitedExpectedMatches);
-        Assert.assertThat("Expected to see : " + commaDelimitedExpectedMatches + ", in auto suggested list : " + listOfMatches, isResultMatchingExpectation, Matchers.is(true));
+        Assert.assertThat("Expected to see : " + commaDelimitedExpectedMatches + ", in auto suggested list : " + listOfMatches, isResultMatchingExpectation, is(true));
     }
 
 
@@ -124,4 +125,24 @@ public class ActionsPageSteps extends CommonSteps {
 
     }
 
+    @When("^I look up for postcode \"([^\"]*)\" and select road \"([^\"]*)\"$")
+    public void iLookUpForPostcode(String postCode, String expectedRoad) throws Throwable {
+        actionsTabPage = mainNavigationBar.clickActions();
+        createTestsData = actionsTabPage.gotoTestsHarnessPage();
+
+        //Search for postcode and select an address and verify address is correct
+        createTestsData = createTestsData.lookUpAddressViaPostCode(postCode, expectedRoad);
+        scenarioSession.putData(SessionKey.address, expectedRoad);
+        scenarioSession.putData(SessionKey.postCode, postCode);
+    }
+
+
+    @Then("^I should see correct postcode and address populated in the fields$")
+    public void i_should_see_correct_postcode_and_address_populated_in_the_fields() throws Throwable {
+        String address = (String) scenarioSession.getData(SessionKey.address);
+        String postCode = (String) scenarioSession.getData(SessionKey.postCode);
+
+        boolean isFieldDataCorrect = createTestsData.isAddressLookupDataCorrect(address, postCode);
+        Assert.assertThat("Expected address : " + address, isFieldDataCorrect, is(true));
+    }
 }
