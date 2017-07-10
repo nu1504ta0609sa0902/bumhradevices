@@ -2,7 +2,7 @@ Feature: As a user, I want to view devices and product details associated with a
   so that I can quickly verify correct device and related product information is correct
 
 
-  @regression @mdcm-126 @2292 @readonly @_sprint1 @mdcm-125 @2293 @_sprint6
+  @regression @smoke_test_dr @mdcm-126 @2292 @readonly @_sprint1 @mdcm-125 @2293 @_sprint6
   Scenario Outline: As a business user I should be able to view specific account in all accounts page
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
