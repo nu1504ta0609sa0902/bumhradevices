@@ -1,7 +1,7 @@
 Feature: As a business user, I want to be able to update party details associated with an account
   so that customers unable to use the portal can still provide the latest information on the account, and I can correct minor errors made by the customer
 
-  @regression @mdcm-175 @2265 @_sprint2
+  @regression @smoke_test_dr @mdcm-175 @2265 @_sprint2
   Scenario Outline: Business users should be able to edit and update manufacturer account details
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
@@ -16,7 +16,7 @@ Feature: As a business user, I want to be able to update party details associate
       #| businessAuto | Accounts | ManufacturerAccountRT00 | org.name                                               |
 
 
-  @regression @mdcm-175 @2265 @_sprint2
+  @regression @smoke_test_dr @mdcm-175 @2265 @_sprint2
   Scenario Outline: Business users should be able to edit and update authorisedRep account details
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
