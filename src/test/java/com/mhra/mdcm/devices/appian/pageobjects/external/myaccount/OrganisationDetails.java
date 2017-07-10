@@ -3,6 +3,7 @@ package com.mhra.mdcm.devices.appian.pageobjects.external.myaccount;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequestDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.external.MyAccountPage;
+import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import org.openqa.selenium.By;
@@ -89,10 +90,13 @@ public class OrganisationDetails extends _Page {
             }else if (key.equals("org.address2")) {
                 PageUtils.updateElementValue(driver, orgAddressLine2, updatedData.address2, TIMEOUT_5_SECOND);
             }else if (key.equals("org.address3")) {
+                updatedData.address3 = RandomDataUtils.getRandomTestNameStartingWith("Address3", 5);
                 PageUtils.updateElementValue(driver, orgAddressLine3, updatedData.address3, TIMEOUT_5_SECOND);
             }else if (key.equals("org.address4")) {
+                updatedData.address3 = RandomDataUtils.getRandomTestNameStartingWith("Address4", 5);
                 PageUtils.updateElementValue(driver, orgAddressLine3, updatedData.address4, TIMEOUT_5_SECOND);
             }else if (key.equals("org.state.county.province")) {
+                updatedData.stateCountyOrProvince = "OHIO";
                 PageUtils.updateElementValue(driver, stateCountyOrProvince, updatedData.stateCountyOrProvince, TIMEOUT_5_SECOND);
             }else if (key.equals("org.city")) {
                 PageUtils.updateElementValue(driver, orgCityTown, updatedData.townCity, TIMEOUT_5_SECOND);

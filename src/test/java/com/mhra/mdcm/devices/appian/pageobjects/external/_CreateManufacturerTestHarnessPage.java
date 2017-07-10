@@ -29,8 +29,14 @@ public class _CreateManufacturerTestHarnessPage extends _Page {
     WebElement orgName;
     @FindBy(xpath = ".//*[contains(text(),'Address Details')]//following::input[1]")
     WebElement addressLine1;
-    @FindBy(xpath = ".//*[contains(text(),'Address Details')]//following::input[1]")
+    @FindBy(xpath = ".//*[contains(text(),'Address Details')]//following::input[2]")
     WebElement addressLine2;
+    @FindBy(xpath = ".//*[contains(text(),'Address Details')]//following::input[3]")
+    WebElement addressLine3;
+    @FindBy(xpath = ".//*[contains(text(),'Address Details')]//following::input[4]")
+    WebElement addressLine4;
+    @FindBy(xpath = ".//*[contains(text(),'Address Details')]//following::input[5]")
+    WebElement stateCountyOrProvince;
     @FindBy(xpath = ".//label[contains(text(),'City')]//following::input[1]")
     WebElement townCity;
     @FindBy(xpath = ".//label[contains(text(),'Post')]//following::input[1]")
