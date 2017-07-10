@@ -112,7 +112,7 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
     Examples:
       | user              | searchTerm | docType                  | addDevices | addCertificate | addProducts | notifiedBody | deviceType                | gmdnDefinition       | customMade | riskClassification | relatedDeviceSterile | listOfProductNames |
       | manufacturerAuto  | RT01Test   | pdf, jpg,png , tif ,docx | true       | true           | false       | Amtac        | General Medical Device    | Blood weighing scale | false      | Class2B            | true                 | Product1,Product2  |
-      | authorisedRepNoor | RT01Test   | jpg                      | true       | true           | false       | SGS          | Active Implantable Device | Desiccating chamber  | false      |                    |                      | Product1,Product2  |
+      | authorisedRepAuto | RT01Test   | jpg                      | true       | true           | false       | SGS          | Active Implantable Device | Desiccating chamber  | false      |                    |                      | Product1,Product2  |
 
 
   @5583 @5578 @_sprint18 @1958 @1960 @_sprint22 @4207 @_sprint23 @wip
@@ -229,6 +229,7 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
     And I submit the cfs application for approval
     When I logout and log back into appian as "businessAuto" user
     And I go to application WIP page
+    And I search for task in AWIP page for the manufacturer
     Then Check the application reference number format is valid
 
 

@@ -90,9 +90,9 @@ public class CFSSteps extends CommonSteps {
         String name = cfsManufacturerList.getARandomOrganisationName(orgName);
         log.info("Manufacturer selected : " + name);
         manufacturerDetails = cfsManufacturerList.viewManufacturer(name);
-        scenarioSession.putData(SessionKey.organisationName, name);
 
         //CFS list displays only registered organisations
+        scenarioSession.putData(SessionKey.organisationName, name);
         scenarioSession.putData(SessionKey.registeredStatus, "registered");
     }
 
@@ -477,6 +477,9 @@ public class CFSSteps extends CommonSteps {
     public void i_submit_the_cfs_application_for_approval() throws Throwable {
         cfsManufacturerList = cfsAddDevices.submitApplicationForApproval();
         //cfsManufacturerList.isManufacturerListDisplayed();
+        String reference = cfsAddDevices.getApplicationReferenceNumber();
+        log.info("New Applicaiton reference number : " + reference);
+        scenarioSession.putData(SessionKey.newApplicationReferenceNumber, reference);
     }
 
     @Then("^Check the application reference number format is valid$")

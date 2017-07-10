@@ -263,6 +263,12 @@ public class CFSAddDevices extends _Page {
     @FindBy(xpath = ".//*[contains(text(), 'Devices')]/following::button[text()='Delete Application']")
     WebElement deleteApplicationButtons;
 
+    //Application completed: reference number
+    @FindBy(xpath = ".//*[contains(text(), 'successfully submitted')]/following::strong[1]")
+    WebElement txtApplicationReference;
+    @FindBy(partialLinkText = "Back to ")
+    WebElement linkBackToManufacturersDetails;
+
 
     @Autowired
     public CFSAddDevices(WebDriver driver) {
@@ -297,6 +303,7 @@ public class CFSAddDevices extends _Page {
     public boolean isErrorMessageDisplayed(String message) {
         try {
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+            WaitUtils.waitForElementToBeClickable(driver, errMessage, TIMEOUT_1_SECOND);
             boolean isDisplayed = false;
             for (WebElement msg : alreadyExistsErrorMessages) {
                 String txt = msg.getText();
@@ -869,5 +876,11 @@ public class CFSAddDevices extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, btnSaveAndExit, TIMEOUT_10_SECOND);
         btnSaveAndExit.click();
         return new ManufacturerDetails(driver);
+    }
+
+    public String getApplicationReferenceNumber() {
+        WaitUtils.waitForElementToBeClickable(driver, linkBackToManufacturersDetails, TIMEOUT_15_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, txtApplicationReference, TIMEOUT_15_SECOND);
+        return txtApplicationReference.getText();
     }
 }
