@@ -27,11 +27,11 @@ Feature: As a customer I want to receive email notifications when ever a account
     Then I search and view new task in AWIP page for the new account
     When I assign the AWIP page task to me and "reject" with following "<reason>"
     Then The task status in AWIP page should be "Completed" for the new account
-    And I should received an email for stored account with heading "New Account Rejected"
+    And I should received an email for stored account with heading "<emailSubject>"
     Examples:
-      | user         | accountType   | countryName | reason                             | link                    |
-      | businessNoor | manufacturer  | Turkey      | Account already exists             | New Account Request for |
-      | businessNoor | authorisedRep | Estonia     | No authorisation evidence provided | New Account Request for |
+      | user         | accountType   | countryName | reason                             | emailSubject                    |
+      | businessNoor | manufacturer  | Turkey      | Account already exists             | Account rejected for application |
+      | businessNoor | authorisedRep | Estonia     | No authorisation evidence provided | Account rejected for application |
 
 
   @regression @smoke_test_dr @2191 @2193 @2190 @_sprint10 @3207 @2151 @_sprint21 @2222 @_sprint19

@@ -159,7 +159,7 @@ public class PageUtils {
 
     public static void setBrowserZoom(WebDriver driver, String currentBrowser) {
         String selectedProfile = System.getProperty("current.browser");
-        System.out.println(currentBrowser);
+        System.out.println("Current browser to tests on : " + currentBrowser);
         if (currentBrowser != null && currentBrowser.equals("ie")) {
             Actions action = new Actions(driver);
             action.keyDown(Keys.CONTROL).sendKeys(String.valueOf(0)).perform();
@@ -228,7 +228,7 @@ public class PageUtils {
         WebElement element = null;
         for (WebElement el : listOfElements) {
             String txt = el.getText();
-            System.out.println(txt);
+            //System.out.println(txt);
             if (txt.toLowerCase().contains(textToMatch.toLowerCase())) {
                 element = el;
                 break;
@@ -244,7 +244,7 @@ public class PageUtils {
         boolean allFound = true;
         for (WebElement el : listOfTableHeadings) {
             String heading = el.getText().toLowerCase();
-            System.out.println(heading);
+            //System.out.println(heading);
             if (!lowerCaseHeadings.contains(heading)) {
                 allFound = false;
                 break;
@@ -262,7 +262,7 @@ public class PageUtils {
         for (WebElement el : listOfTableHeadings) {
             if (position >= headingFrom && position <= headingTo) {
                 String heading = el.getText().toLowerCase();
-                System.out.println(heading);
+                //System.out.println(heading);
                 if (!lowerCaseHeadings.contains(heading)) {
                     allFound = false;
                     break;

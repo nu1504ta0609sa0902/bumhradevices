@@ -275,7 +275,7 @@ public class _CreateAccountTestHarnessPage extends _Page {
         enterAddressManually();
         WaitUtils.waitForElementToBeClickable(driver, country, TIMEOUT_10_SECOND);
         List<String> matchesFromAutoSuggests = PageUtils.getListOfMatchesFromAutoSuggests(driver, By.cssSelector(".PickerWidget---picker_value"), searchTerm);
-        System.out.println(matchesFromAutoSuggests);
+        System.out.println("Matches from autosuggests : " + matchesFromAutoSuggests);
         return matchesFromAutoSuggests;
     }
 
