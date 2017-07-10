@@ -42,14 +42,13 @@ public class EmailSteps extends CommonSteps {
 
     @And("^I should received an email for stored manufacturer with heading \"([^\"]*)\" and stored application identifier$")
     public void iShouldReceivedAnEmailForStoredManufacturerWithHeadingAndApplicationIdentifier(String emailHeading) throws Throwable {
-        String org = (String) scenarioSession.getData(SessionKey.organisationName);
         String accountNameOrReference = (String) scenarioSession.getData(SessionKey.newApplicationReferenceNumber);
 
         boolean foundMessage = false;
         String messageBody = null;
         int attempt = 0;
         do {
-            messageBody = GmailEmail.getMessageReceivedWithHeadingAndIdentifier(7, 10, emailHeading, accountNameOrReference);
+            messageBody = GmailEmail.getMessageReceivedWithHeadingAndBodyContainsIdentifier(7, 10, emailHeading, accountNameOrReference);
 
             //Break from loop if invoices read from the email server
             if (messageBody!=null) {
@@ -75,7 +74,7 @@ public class EmailSteps extends CommonSteps {
         String messageBody = null;
         int attempt = 0;
         do {
-            messageBody = GmailEmail.getMessageReceivedWithHeadingAndIdentifier(7, 10, emailHeading, userName);
+            messageBody = GmailEmail.getMessageReceivedWithHeadingAndBodyContainsIdentifier(7, 10, emailHeading, userName);
 
             //Break from loop if invoices read from the email server
             if (messageBody!=null) {

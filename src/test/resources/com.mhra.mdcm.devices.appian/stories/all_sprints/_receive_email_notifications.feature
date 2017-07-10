@@ -27,7 +27,7 @@ Feature: As a customer I want to receive email notifications when ever a account
     Then I search and view new task in AWIP page for the new account
     When I assign the AWIP page task to me and "reject" with following "<reason>"
     Then The task status in AWIP page should be "Completed" for the new account
-    And I should received an email for stored account with heading "<emailSubject>"
+    And I should received an email for stored manufacturer with heading "<emailSubject>" and stored application identifier
     Examples:
       | user         | accountType   | countryName | reason                             | emailSubject                    |
       | businessNoor | manufacturer  | Turkey      | Account already exists             | Account rejected for |

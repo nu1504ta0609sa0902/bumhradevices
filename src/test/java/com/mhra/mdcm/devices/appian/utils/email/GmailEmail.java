@@ -68,56 +68,71 @@ public class GmailEmail {
 
                             //If recent
                             boolean isRecent = receivedInLast(min, sentDate);
-                            //isRecent = true;
-                            if (isRecent && subject.toLowerCase().contains("manufacturer registration")) {
-                                log.warn("---------------------------------");
-                                log.warn("Recent email received : " + subject);
-                                log.warn("---------------------------------");
-                                String body = getTextFromMessage(message);
-                                //log.warn("Body Text : " + body);
+                            if(isRecent){
+                                if (isRecent && subject.contains(subjectHeading)) {
+                                    log.warn("---------------------------------");
+                                    log.warn("Recent email received : " + subject);
+                                    log.warn("---------------------------------");
+                                    String body = getTextFromMessage(message);
+                                    //log.warn("Body Text : " + body);
 
-                                if (body.contains(organisationIdentifier)) {
-                                    log.info("Message RECEIVED");
-                                    bodyText = body;
-                                    break;
-                                }
-                            } else if (isRecent && subject.toLowerCase().contains("new account request")) {
-                                log.warn("---------------------------------");
-                                log.warn("Recent email received : " + subject);
-                                log.warn("---------------------------------");
-                                String body = getTextFromMessage(message);
-                                //log.warn("Body Text : " + body);
-
-                                if (body.contains(organisationIdentifier)) {
-                                    log.info("Message RECEIVED");
-                                    bodyText = body;
-                                    break;
-                                }
-                            } else if (isRecent && subject.toLowerCase().contains("request approved for")) {
-                                log.warn("---------------------------------");
-                                log.warn("Recent email received : " + subject);
-                                log.warn("---------------------------------");
-                                String body = getTextFromMessage(message);
-                                //log.warn("Body Text : " + body);
-
-                                if (body.contains(organisationIdentifier)) {
-                                    log.info("Message RECEIVED");
-                                    bodyText = body;
-                                    break;
-                                }
-                            } else if (isRecent && (subject.toLowerCase().contains("free sale") || subject.toLowerCase().contains("account rejected for"))) {
-                                log.warn("---------------------------------");
-                                log.warn("Recent email received : " + subject);
-                                log.warn("---------------------------------");
-                                String body = getTextFromMessage(message);
-                                //log.warn("Body Text : " + body);
-
-                                if (body.contains(organisationIdentifier)) {
-                                    log.info("Message RECEIVED");
-                                    bodyText = body;
-                                    break;
+                                    if (body.contains(organisationIdentifier)) {
+                                        log.info("Message RECEIVED");
+                                        bodyText = body;
+                                        break;
+                                    }
                                 }
                             }
+                            //isRecent = true;
+//                            if (isRecent && subject.toLowerCase().contains("manufacturer registration")) {
+//                                log.warn("---------------------------------");
+//                                log.warn("Recent email received : " + subject);
+//                                log.warn("---------------------------------");
+//                                String body = getTextFromMessage(message);
+//                                //log.warn("Body Text : " + body);
+//
+//                                if (body.contains(organisationIdentifier)) {
+//                                    log.info("Message RECEIVED");
+//                                    bodyText = body;
+//                                    break;
+//                                }
+//                            } else if (isRecent && subject.toLowerCase().contains("new account request")) {
+//                                log.warn("---------------------------------");
+//                                log.warn("Recent email received : " + subject);
+//                                log.warn("---------------------------------");
+//                                String body = getTextFromMessage(message);
+//                                //log.warn("Body Text : " + body);
+//
+//                                if (body.contains(organisationIdentifier)) {
+//                                    log.info("Message RECEIVED");
+//                                    bodyText = body;
+//                                    break;
+//                                }
+//                            } else if (isRecent && subject.toLowerCase().contains("request approved for")) {
+//                                log.warn("---------------------------------");
+//                                log.warn("Recent email received : " + subject);
+//                                log.warn("---------------------------------");
+//                                String body = getTextFromMessage(message);
+//                                //log.warn("Body Text : " + body);
+//
+//                                if (body.contains(organisationIdentifier)) {
+//                                    log.info("Message RECEIVED");
+//                                    bodyText = body;
+//                                    break;
+//                                }
+//                            } else if (isRecent && (subject.toLowerCase().contains("free sale") || subject.toLowerCase().contains("account rejected for"))) {
+//                                log.warn("---------------------------------");
+//                                log.warn("Recent email received : " + subject);
+//                                log.warn("---------------------------------");
+//                                String body = getTextFromMessage(message);
+//                                //log.warn("Body Text : " + body);
+//
+//                                if (body.contains(organisationIdentifier)) {
+//                                    log.info("Message RECEIVED");
+//                                    bodyText = body;
+//                                    break;
+//                                }
+//                            }
                         } else {
                             //log.warn("Message is old or not relevant" );
                         }
@@ -175,7 +190,7 @@ public class GmailEmail {
         }
     }
 
-    public static String getMessageReceivedWithHeadingAndIdentifier(double min, int numberOfMessgesToCheck, String subjectHeading, String organisationIdentifier) {
+    public static String getMessageReceivedWithHeadingAndBodyContainsIdentifier(double min, int numberOfMessgesToCheck, String subjectHeading, String organisationIdentifier) {
 
         log.info("Waiting for email with heading : " + subjectHeading);
         String bodyText = null;
@@ -199,7 +214,7 @@ public class GmailEmail {
 
                         //If received today and subject contains the correct text
                         boolean isMessageReceivedToday = isMessageReceivedToday(subject, subjectHeading, sentDate);
-                        if (isMessageReceivedToday && ((subject.contains(subjectHeading) && subject.contains(organisationIdentifier)) || subject.contains("account creation"))) {
+                        if (isMessageReceivedToday && ((subject.contains(subjectHeading) && subject.contains(organisationIdentifier)) || subject.contains("account creation") || subject.contains("account rejected for"))) {
 
                             //If message is received in the last X min
                             boolean isRecent = receivedInLast(min, sentDate);
