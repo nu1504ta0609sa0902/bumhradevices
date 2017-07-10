@@ -37,4 +37,6 @@ public class SessionKey {
     public static String listOfAllCertificatesAddedToApplication = "All the certificates added to application";
     public static String taskAssignedTo = "Task can be assigned to a colleague or Nobody";
     public static String temporaryReference = "Temporary reference created when an application is saved";
+    public static String address = "Address we expect";
+    public static String postCode = "Postcode we expect";
 }

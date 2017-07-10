@@ -497,8 +497,6 @@ public class TaskSection extends _Page {
         } else if(filterBy.contains("byApplicationRole")){
             PageUtils.selectFromDropDown(driver, byApplicationRoleDD, value, true);
         } else if(filterBy.contains("byApplicationAssignedTo")){
-            //byApplicationAssignedTo.sendKeys(value);
-            //PageUtils.selectFromDropDown(driver, byApplicationAssignedTo, value, true);
             try {
                 PageUtils.selectFromAutoSuggestedListItemsManufacturers(driver, ".PickerWidget---picker_value", value, true);
             } catch (Exception e) {
