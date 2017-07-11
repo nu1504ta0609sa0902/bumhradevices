@@ -48,6 +48,7 @@ public class GMDNDevices extends _Page {
 
 
     public boolean isHeadingCorrect(String expectedHeadings) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         By by = By.xpath(".//h1[.='" + expectedHeadings + "']");
         WaitUtils.waitForElementToBeClickable(driver, by , TIMEOUT_DEFAULT);
         WebElement heading = driver.findElement(by);

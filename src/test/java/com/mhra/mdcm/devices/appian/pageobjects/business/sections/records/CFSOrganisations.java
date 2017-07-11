@@ -7,13 +7,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
  * Created by TPD_Auto 
  */
-
+@Component
 public class CFSOrganisations extends _Page {
 
     @FindBy(xpath = ".//div[contains(text(),'CFS Organisations ')]//following::a")
@@ -24,6 +26,7 @@ public class CFSOrganisations extends _Page {
     WebElement searchBox;
 
 
+    @Autowired
     public CFSOrganisations(WebDriver driver) {
         super(driver);
     }

@@ -50,7 +50,7 @@ Feature: As a business user, I want to navigate to different sections like Accou
       | businessAuto | Accounts      | Accounts      |
 
 
-  @regression @mdcm-126 @2292 @mdcm-23 @2321 @1937 @3837 @3895 @_sprint10 @readonly @_sprint1 @_sprint6
+  @regression @mdcm-126 @2292 @mdcm-23 @2321 @1937 @3837 @3895 @_sprint10 @readonly @_sprint1 @_sprint6 @bug
   Scenario Outline: Business users should be able to filter search and sort by headings
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
@@ -90,11 +90,11 @@ Feature: As a business user, I want to navigate to different sections like Accou
     Then I should see items and heading "<pageHeading>" for link "<link>"
     Examples:
       | user         | pageHeading         | link                |
+      | businessAuto | Registered Devices  | Registered Devices  |
+      | businessAuto | Accounts            | Accounts            |
       | businessAuto | Applications        | Applications        |
       | businessAuto | Organisations       | Organisations       |
       | businessAuto | Registered Products | Registered Products |
-      | businessAuto | Registered Devices  | Registered Devices  |
-      | businessAuto | Accounts            | Accounts            |
       | businessAuto | GMDN Devices        | GMDN Devices        |
 
 
@@ -109,6 +109,7 @@ Feature: As a business user, I want to navigate to different sections like Accou
       | businessAuto | Organisations       | 1     |
       | businessAuto | GMDN Devices        | 1     |
       | businessAuto | Registered Products | 1     |
+
 
   @2797 @mdcm-626 @1928 @readonly @_sprint7
   Scenario Outline: As a business user I should be able to perform SPECIFIC search for an existing organisation products devices and accounts

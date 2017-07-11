@@ -62,18 +62,30 @@ public class RecordsPageSteps extends CommonSteps {
         if (page.equals(LinksRecordPage.LINK_ACCOUNTS.link)) {
             isHeadingVisibleAndCorrect = accounts.isHeadingCorrect(expectedHeadings);
             isItemsDisplayedAndCorrect = accounts.isItemsDisplayed(expectedHeadings);
-        } else if (page.equals(LinksRecordPage.LINK_REGISTERED_DEVICES.link)) {
-            isHeadingVisibleAndCorrect = registeredDevices.isHeadingCorrect(expectedHeadings);
-            isItemsDisplayedAndCorrect = registeredDevices.isItemsDisplayed(expectedHeadings);
-        } else if (page.equals(LinksRecordPage.LINK_ORGANISATIONS.link)) {
+
+        }else if (page.equals(LinksRecordPage.LINK_ORGANISATIONS.link)) {
             isHeadingVisibleAndCorrect = organisations.isHeadingCorrect(expectedHeadings);
             isItemsDisplayedAndCorrect = organisations.isItemsDisplayed(expectedHeadings);
+
         } else if (page.equals(LinksRecordPage.LINK_GMDN_DEVICES.link)) {
             isHeadingVisibleAndCorrect = devicesGMDN.isHeadingCorrect(expectedHeadings);
             isItemsDisplayedAndCorrect = devicesGMDN.isItemsDisplayed(expectedHeadings);
-        } else if (page.equals(LinksRecordPage.LINK_REGISTERED_PRODUCTS.link)) {
+
+        } else if (page.equals(LinksRecordPage.LINK_REGISTERED_DEVICES.link)) {
+            isHeadingVisibleAndCorrect = registeredDevices.isHeadingCorrect(expectedHeadings);
+            isItemsDisplayedAndCorrect = registeredDevices.isItemsDisplayed(expectedHeadings);
+
+        }  else if (page.equals(LinksRecordPage.LINK_REGISTERED_PRODUCTS.link)) {
             isHeadingVisibleAndCorrect = registeredProducts.isHeadingCorrect(expectedHeadings);
             isItemsDisplayedAndCorrect = registeredProducts.isItemsDisplayed(expectedHeadings);
+
+        } else if (page.equals(LinksRecordPage.LINK_APPLICATIONS.link)) {
+            isHeadingVisibleAndCorrect = applications.isHeadingCorrect(expectedHeadings);
+            isItemsDisplayedAndCorrect = applications.isItemsDisplayed(expectedHeadings);
+
+        } else if (page.equals(LinksRecordPage.LINK_CFS_ORGANISATIONS.link)) {
+            isHeadingVisibleAndCorrect = cfsOrganisations.isHeadingCorrect(expectedHeadings);
+            isItemsDisplayedAndCorrect = cfsOrganisations.isItemsDisplayed(expectedHeadings);
         }
 
         //Verify results
@@ -135,6 +147,10 @@ public class RecordsPageSteps extends CommonSteps {
         } else if (page.equals(LinksRecordPage.LINK_ORGANISATIONS.link)) {
             searchTerm = organisations.getRandomOrganisation(true);
             organisations = organisations.searchForAllOrganisation(searchTerm);
+        } else if (page.equals(LinksRecordPage.LINK_APPLICATIONS.link)) {
+            //applications = applications.searchForApplication(searchTerm);
+        } else if (page.equals(LinksRecordPage.LINK_CFS_ORGANISATIONS.link)) {
+            //cfsOrganisations = cfsOrganisations.searchForCFSOrganisations();
         }
 
         scenarioSession.putData(SessionKey.searchTerm, searchTerm);
@@ -238,6 +254,10 @@ public class RecordsPageSteps extends CommonSteps {
             atLeast1Match = registeredProducts.atLeast1MatchFound(searchTerm);
         } else if (page.equals(LinksRecordPage.LINK_ORGANISATIONS.link)) {
             atLeast1Match = organisations.atLeast1MatchFound(searchTerm);
+        } else if (page.equals(LinksRecordPage.LINK_APPLICATIONS.link)) {
+
+        } else if (page.equals(LinksRecordPage.LINK_CFS_ORGANISATIONS.link)) {
+
         }
 
         //Assert the expected results

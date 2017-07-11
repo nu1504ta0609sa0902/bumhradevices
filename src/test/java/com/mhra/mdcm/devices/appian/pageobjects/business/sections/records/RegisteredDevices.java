@@ -20,7 +20,7 @@ import java.util.List;
 public class RegisteredDevices extends _Page {
 
     //List of all devices and types
-    @FindBy(xpath = ".//h2[.='Device Id']//following::a")
+    @FindBy(xpath = ".//*[.='Device Id']//following::a")
     List<WebElement> listOfDevices;
     @FindBy(xpath = ".//th[@abbr='Device Id']//following::tr//td[1]")
     List<WebElement> listOfDeviceTypes;
@@ -38,6 +38,7 @@ public class RegisteredDevices extends _Page {
 
 
     public boolean isHeadingCorrect(String expectedHeadings) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         By by = By.xpath(".//h1[.='" + expectedHeadings + "']");
         WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_DEFAULT);
         WebElement heading = driver.findElement(by);

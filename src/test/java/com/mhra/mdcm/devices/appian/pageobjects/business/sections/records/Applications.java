@@ -6,13 +6,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
  * Created by TPD_Auto 
  */
-
+@Component
 public class Applications extends _Page {
 
     @FindBy(xpath = ".//div[contains(text(),'Application ')]//following::a")
@@ -23,6 +25,7 @@ public class Applications extends _Page {
     WebElement searchBox;
 
 
+    @Autowired
     public Applications(WebDriver driver) {
         super(driver);
     }

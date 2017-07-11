@@ -55,6 +55,7 @@ public class RegisteredProducts extends _Page {
     }
 
     public boolean isHeadingCorrect(String expectedHeadings) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         By by = By.xpath(".//h1[.='" + expectedHeadings + "']");
         WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_10_SECOND);
         WebElement heading = driver.findElement(by);
@@ -103,7 +104,7 @@ public class RegisteredProducts extends _Page {
 
     public String getARandomProductEntry() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//td[6]"), TIMEOUT_5_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//td[6]"), TIMEOUT_15_SECOND);
 
         int position = RandomDataUtils.getSimpleRandomNumberBetween(1, listOfAllManufacturerNames.size() - 1, false);
         WebElement manufacaturerNameLink = listOfAllManufacturerNames.get(position);
