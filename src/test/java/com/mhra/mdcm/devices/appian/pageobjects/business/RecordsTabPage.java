@@ -4,6 +4,7 @@ import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.business.sections.records.*;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -18,6 +19,10 @@ public class RecordsTabPage extends _Page {
 
     @FindBy(linkText = "Accounts")
     WebElement linkAccounts;
+    @FindBy(linkText = "Applications")
+    WebElement linkApplications;
+    @FindBy(linkText = "CFS Organisations")
+    WebElement linkCFSOrganisations;
     @FindBy(linkText = "Organisations")
     WebElement linkOrganisations;
     @FindBy(linkText = "GMDN Devices")
@@ -79,5 +84,20 @@ public class RecordsTabPage extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, linkRegisteredProducts, TIMEOUT_10_SECOND);
         linkRegisteredProducts.click();
         return new RegisteredProducts(driver);
+    }
+
+
+    public Applications clickOnApplications() {
+        WaitUtils.waitForElementToBeVisible(driver, linkApplications, TIMEOUT_20_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, linkApplications, TIMEOUT_10_SECOND);
+        linkApplications.click();
+        return new Applications(driver);
+    }
+
+    public CFSOrganisations clickOnCFSOrganisations() {
+        WaitUtils.waitForElementToBeVisible(driver, linkCFSOrganisations, TIMEOUT_20_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, linkCFSOrganisations, TIMEOUT_10_SECOND);
+        linkCFSOrganisations.click();
+        return new CFSOrganisations(driver);
     }
 }

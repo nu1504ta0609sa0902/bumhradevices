@@ -41,6 +41,10 @@ public class RecordsPageSteps extends CommonSteps {
             registeredDevices = recordsPage.clickOnGMDNDevices();
         } else if (page.equals(LinksRecordPage.LINK_REGISTERED_PRODUCTS.link)) {
             registeredProducts = recordsPage.clickOnRegisteredProducts();
+        } else if (page.equals(LinksRecordPage.LINK_APPLICATIONS.link)) {
+            applications = recordsPage.clickOnApplications();
+        } else if (page.equals(LinksRecordPage.LINK_CFS_ORGANISATIONS.link)) {
+            cfsOrganisations = recordsPage.clickOnCFSOrganisations();
         }
     }
 

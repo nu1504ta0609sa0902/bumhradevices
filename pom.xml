@@ -55,34 +55,62 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
+
+            <!-- JACOCO code coverage integration -->
             <!--<plugin>-->
                 <!--<groupId>org.jacoco</groupId>-->
                 <!--<artifactId>jacoco-maven-plugin</artifactId>-->
                 <!--<version>${jacoco.maven.plugin.version}</version>-->
                 <!--<executions>-->
                     <!--<execution>-->
-                        <!--<id>pre-integration-test</id>-->
-                        <!--<phase>pre-integration-test</phase>-->
+                        <!--<id>jacoco-initialize</id>-->
                         <!--<goals>-->
-                            <!--<goal>prepare-agent-integration</goal>-->
+                            <!--<goal>prepare-agent</goal>-->
                         <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<destFile>target/coverage-reports/jacoco-it.exec</destFile>-->
-                            <!--<propertyName>failsafeArgLine</propertyName>-->
-                        <!--</configuration>-->
                     <!--</execution>-->
                     <!--<execution>-->
-                        <!--<id>post-integration-test</id>-->
-                        <!--<phase>post-integration-test</phase>-->
+                        <!--<id>jacoco-report</id>-->
+                        <!--<phase>test</phase>-->
                         <!--<goals>-->
                             <!--<goal>report</goal>-->
                         <!--</goals>-->
                         <!--<configuration>-->
-                            <!--<dataFile>target/coverage-reports/jacoco-it.exec</dataFile>-->
-                            <!--<outputDirectory>target/site/jacoco</outputDirectory>-->
+                            <!--<dataFile>target/jacoco.exec</dataFile>-->
+                            <!--<outputDirectory>target/jacoco</outputDirectory>-->
                         <!--</configuration>-->
                     <!--</execution>-->
                 <!--</executions>-->
+            <!--</plugin>-->
+
+
+            <!--<plugin>-->
+            <!--<groupId>org.jacoco</groupId>-->
+            <!--<artifactId>jacoco-maven-plugin</artifactId>-->
+            <!--<version>${jacoco.maven.plugin.version}</version>-->
+            <!--<executions>-->
+            <!--<execution>-->
+            <!--<id>pre-integration-test</id>-->
+            <!--<phase>pre-integration-test</phase>-->
+            <!--<goals>-->
+            <!--<goal>prepare-agent-integration</goal>-->
+            <!--</goals>-->
+            <!--<configuration>-->
+            <!--<destFile>target/coverage-reports/jacoco-it.exec</destFile>-->
+            <!--<propertyName>failsafeArgLine</propertyName>-->
+            <!--</configuration>-->
+            <!--</execution>-->
+            <!--<execution>-->
+            <!--<id>post-integration-test</id>-->
+            <!--<phase>post-integration-test</phase>-->
+            <!--<goals>-->
+            <!--<goal>report</goal>-->
+            <!--</goals>-->
+            <!--<configuration>-->
+            <!--<dataFile>target/coverage-reports/jacoco-it.exec</dataFile>-->
+            <!--<outputDirectory>target/site/jacoco</outputDirectory>-->
+            <!--</configuration>-->
+            <!--</execution>-->
+            <!--</executions>-->
             <!--</plugin>-->
 
         </plugins>

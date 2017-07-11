@@ -10,6 +10,7 @@ public enum LinksRecordPage {
     LINK_ORGANISATIONS("Organisations"),
     LINK_REGISTERED_DEVICES("Registered Devices"),
     LINK_REGISTERED_PRODUCTS("Registered Products"),
+    LINK_CFS_ORGANISATIONS("CFS Organisations"),
     LINK_APPLICATIONS("Applications");
 
     public String link;

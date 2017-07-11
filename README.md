@@ -32,6 +32,9 @@ mvn archetype:generate\
  -- Requires VM arguments
  -Dspring.profiles.active=one of mhradev, mhratest, live
 
+ -- Run with JACOCO
+mvn clean test -Dtest=RunAllTest -Dcurrent.browser=gc -Dspring.profiles.active=mhratest -Dgenerate.report=false -Dcucumber.options="--tags @jacoco --format json:target/cucumber-report-jacocoReport.json"
+
  -- Example running
 mvn clean test -Dtest=RunAllTest -Dcurrent.browser=gc -Dspring.profiles.active=mhratest -Dgenerate.report=true -Dcucumber.options="--tags @poc --tags ~@ignore --format json:target/cucumber-report-myReport.json"
 

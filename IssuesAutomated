@@ -315,9 +315,9 @@ Automated Issues:
                 -   Lots of scenarios
         - @4368 -   @todo DR    unregister manufacturer
                 -   Lots of scenarios
-        - @5571 -   DONE ISH    @todo  back button added to cfs add new manufacturer process
+        - @5571 -   DONE ISH    @todo back button added to cfs add new manufacturer process
         - @5578 -   DONE ISH    @todo order cfs for country and quantity
-        - @3810 -   DONE ISH    @todo DR    Email notification to manufacturers if registration is withdrawn
+        - @3810 -   DONE ISH    @todo DR Email notification to manufacturers if registration is withdrawn
                 -   Email content needs to be verified
         - @5583 -   DONE ISH    @todo add notified body to ce certificates
         - @5541 -   @todo   bug
@@ -339,10 +339,14 @@ Automated Issues:
         - @2222 -   DONE ISH DR  @todo review address details
                 -   @bug
         - @2289 -   DONE ISH DR  @todo lookup addresses
-        - @2328 -   DR  @todo request access to online services
+        - @2328 -   DONE ISH DR  @todo request access to online services
+                -   @TODO no CMS not available
         - @4645 -   DR  @todo reset forgotten password
-        - @2278 -   DR  @todo confirm successful request to access services
-        - @2266 -   DR  @todo confirm unsuccessful request to access services
+                -   @TODO no CMS not available
+        - @2278 -   DONE ISH DR  @todo Email confirm successful request to access services
+                -   Email content needs verification
+        - @2266 -   DONE ISH DR  @todo Email confirm unsuccessful request to access services
+                -   Email content needs verification
         - @2047 -   DR  @todo associate an email to application
         - @3910 -   Payment reconciliation  @todo
         - @3912 -   Payment reconciliation  @todo
@@ -371,7 +375,7 @@ Automated Issues:
         - @2272 -   DR  @todo reset forgotten password
                 -   @TODO NO web cms yet
                 -   change password link is not visible
-        - @2151 -   DONE ISH DR  @todo confirmation email for registering a manufacturer
+        - @2151 -   DONE ISH DR  @todo Email confirmation for registering a manufacturer
                 -   Content need to be verified in more details
         - @5349 -   DONE ISH DR  @todo capture device and product details
         - @2294 -   DR  @todo calculate amount to pay for manufacturer registration (payments page)
@@ -424,7 +428,8 @@ Automated Issues:
         - @2091 -   CFS @todo Email for further information
         - @2096 -   DR @todo Email for unregistering a manufacturer
         - @2150 -   CFS @todo Email reminder to customers more information required
-        - @2190 -   DR @todo Email notification for unsuccessful manufacturer registration
+        - @2190 -   DONE ISH DR @todo Email notification for unsuccessful manufacturer registration
+                -   Content needs to be verified
         - @4546 -   DR @todo Email notification for confirming request received for unregistering
         - @5752 -   DONE ISH DR @todo Enter Worldpay card holder details
                 -   CAPTCHA step is missing at the moment

@@ -70,6 +70,10 @@ public class CommonSteps {
     @Autowired
     public Accounts accounts;
     @Autowired
+    public Applications applications;
+    @Autowired
+    public CFSOrganisations cfsOrganisations;
+    @Autowired
     public RegisteredDevices registeredDevices;
     @Autowired
     public Organisations organisations;

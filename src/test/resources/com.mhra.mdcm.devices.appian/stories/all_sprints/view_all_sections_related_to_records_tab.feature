@@ -83,13 +83,15 @@ Feature: As a business user, I want to navigate to different sections like Accou
       | businessAuto | Organisations | non existing | 0     |
 
 
-  @mdcm-2797 @readonly @mdcm-626 @1928 @3895 @_sprint7 @_sprint10
+  @smoke_test_dr @mdcm-2797 @readonly @mdcm-626 @1928 @3895 @_sprint7 @_sprint10
   Scenario Outline: As a business user I should be able to view accounts, devices, all organisations and products page
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<link>"
     Then I should see items and heading "<pageHeading>" for link "<link>"
     Examples:
       | user         | pageHeading         | link                |
+      | businessAuto | Applications        | Applications        |
+      | businessAuto | Organisations       | Organisations       |
       | businessAuto | Registered Products | Registered Products |
       | businessAuto | Registered Devices  | Registered Devices  |
       | businessAuto | Accounts            | Accounts            |
