@@ -2,7 +2,7 @@
 Feature: As a customer I want to receive email notifications when ever a account or manufacturer is created or updated
   So that I am aware of what is going on
 
-  @regression @smoke_test_dr @2191 @_sprint10
+  @regression @smoke_test_dr @2191 @_sprint10 @2328 @2278 @_sprint19
   Scenario Outline: Email should be generated for newly created account for business user
     Given I am logged into appian as "<user>" user
     When I create a new account using business test harness page with following data
@@ -18,7 +18,7 @@ Feature: As a customer I want to receive email notifications when ever a account
       | businessNoor | authorisedRep | approve       | Netherland     | Account request approved for |
 
 
-  @regression @2192 @_sprint10 @bug
+  @regression @2192 @_sprint10 @2328 @2278 @_sprint19 @bug
   Scenario Outline: Email should be generated for new business accounts which are rejected
     Given I am logged into appian as "<user>" user
     When I create a new account using business test harness page with following data
