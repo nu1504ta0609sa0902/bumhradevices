@@ -588,4 +588,13 @@ public class CFSSteps extends CommonSteps {
         String name = cfsManufacturerList.getARandomOrganisationName();
         manufacturerDetails = cfsManufacturerList.viewManufacturer(name);
     }
+
+    @Then("^I should see the correct addresses displayed$")
+    public void iShouldSeeTheCorrectAddressesDisplayed() throws Throwable {
+        boolean isRAVisible = deviceDetails.isRegisteredAddressVisible();
+        boolean isSAVisible = deviceDetails.isSiteAddressVisible();
+        boolean isARAVisible = deviceDetails.isAuthorisedRepAddressVisible();
+        boolean isDAVisible = deviceDetails.isDistributorAddressVisible();
+        boolean isDeliveryAddVisible = deviceDetails.isDeliveryAddressVisible();
+    }
 }

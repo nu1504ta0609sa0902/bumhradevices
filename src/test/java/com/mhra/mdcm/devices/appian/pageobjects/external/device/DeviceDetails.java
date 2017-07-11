@@ -519,4 +519,23 @@ public class DeviceDetails extends _Page {
         return new AddDevices(driver);
     }
 
+    public boolean isRegisteredAddressVisible() {
+        return false;
+    }
+
+    public boolean isSiteAddressVisible() {
+        return false;
+    }
+
+    public boolean isAuthorisedRepAddressVisible() {
+        return false;
+    }
+
+    public boolean isDistributorAddressVisible() {
+        return false;
+    }
+
+    public boolean isDeliveryAddressVisible() {
+        return false;
+    }
 }

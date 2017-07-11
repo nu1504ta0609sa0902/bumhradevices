@@ -1,54 +1,6 @@
 @cfs
-Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE to export medical devices to non-EU countries
-
-  @1845 @1945 @_sprint18
-  Scenario: Check application reference is correct format
-    Given I am logged into appian as "businessAuto" user
-    And I go to application WIP page
-    Then Check the application reference number format is valid
-
-
-  @1974 @_sprint15
-  Scenario: Users should be able to go to cfs page
-    Given I am logged into appian as "manufacturerAuto" user
-    And I go to device certificate of free sale page
-    Then I should see a list of manufacturers available for CFS
-
-
-  @5571 @3856 @_sprint18
-  Scenario: Users should be able to go to BACK from the application
-    Given I am logged into appian as "manufacturerAuto" user
-    And I go to device certificate of free sale page
-    And I fill out the form called tell us about your organisation
-    And I click on the back button
-    Then I should see an alert box asking for confirmation
-    When I click "yes" on the alert box
-    Then I should see a list of manufacturers available for CFS
-
-
-  @5571 @4203 @4698 @_sprint15 @_sprint18
-  Scenario Outline: Users should be able to go to BACK from the application 2
-    Given I am logged into appian as "<user>" user
-    And I go to device certificate of free sale page
-    Then I should see a list of manufacturers available for CFS
-    When I goto add a new cfs manufacturer page
-    And I click on the back button
-    Then I should see an alert box asking for confirmation
-    When I click "<alertOption>" on the alert box
-    Then I should see a list of manufacturers available for CFS
-    Examples:
-      | user             | alertOption |
-      | manufacturerAuto | Yes         |
-      | manufacturerAuto | No          |
-
-
-  @4330 @4203 @_sprint15 @_sprint16
-  Scenario: Users should be able to tell what stage of device registration they are in
-    Given I am logged into appian as "manufacturerAuto" user
-    And I go to device certificate of free sale page
-    Then I should see a list of manufacturers available for CFS
-    When I goto add a new cfs manufacturer page
-    Then I should see current stage of indication
+Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE
+  So that I can export medical devices to non-EU countries
 
 
   @5207 @5578 @_sprint16 @_sprint18
@@ -64,12 +16,12 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | riskClassification | <riskClassification> |
     Then I should see the following "<errorMsg>" error message
     Examples:
-      | user             | searchTerm | errorMsg                                 | deviceType                 | gmdnDefinition       | customMade | riskClassification |
-      | manufacturerAuto | AccountST  | This device must be registered with MHRA | General Medical Device     | Blood weighing scale | true       |                    |
-      | manufacturerAuto | AccountST  | This device must be registered with MHRA | General Medical Device     | Blood weighing scale | false      | class1             |
-      | manufacturerAuto | AccountST  | This device must be registered with MHRA | Active Implantable Device  | Blood weighing scale | true       |                    |
-      | manufacturerAuto | AccountST  | This device must be registered with MHRA | In Vitro Diagnostic Device |                      |            |                    |
-      | manufacturerAuto | AccountST  | This device must be registered with MHRA | System or Procedure Pack   |                      |            |                    |
+      | user             | searchTerm       | errorMsg                                 | deviceType                 | gmdnDefinition       | customMade | riskClassification |
+      | manufacturerAuto | ManufacturerRT01 | This device must be registered with MHRA | General Medical Device     | Blood weighing scale | true       |                    |
+      | manufacturerAuto | ManufacturerRT01 | This device must be registered with MHRA | General Medical Device     | Blood weighing scale | false      | class1             |
+      | manufacturerAuto | ManufacturerRT01 | This device must be registered with MHRA | Active Implantable Device  | Blood weighing scale | true       |                    |
+      | manufacturerAuto | ManufacturerRT01 | This device must be registered with MHRA | In Vitro Diagnostic Device |                      |            |                    |
+      | manufacturerAuto | ManufacturerRT01 | This device must be registered with MHRA | System or Procedure Pack   |                      |            |                    |
 
 
   @1974 @1978 @4704 @_sprint15 @5749 @_sprint21 @1952 @_sprint23
@@ -139,7 +91,8 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | Bangladesh=5,Brazil=2,United States=3                      |
       | Turkey=5,Iceland=10,United States=20,Liechtenstein=20      |
 
-  @1992 @5960  @5749 @_sprint21 @6012 @_sprint22 @1952 @_sprint23
+
+  @1992 @5960  @5749 @_sprint21 @6012 @_sprint22 @1952 @_sprint23 @6024 @_sprint24
   Scenario Outline: Users can search for products and order CFS for already registered manufacturers
     Given I am logged into appian as "<logInAs>" user
     And I go to device certificate of free sale page
@@ -154,10 +107,14 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
     Then I should see the correct details in cfs order review page
     When I submit payment for the CFS
     And I should received an email with subject heading "WorldPay Payment"
+    When I logout and log back into appian as "businessAuto" user
+    And I search for task in AWIP page for the manufacturer
+    Then Verify the AWIP entry details for the new cfs order application
     Examples:
       | country    | noCFS | logInAs           | searchTerm            |
       | Brazil     | 15    | manufacturerAuto  | ManufacturerRT01Test  |
       | Bangladesh | 10    | authorisedRepAuto | AuthorisedRepRT01Test |
+
 
   @1992 @5349 @_sprint21 @6012 @_sprint22
   Scenario Outline: Users should be able to search and filter for products and devices
@@ -202,3 +159,14 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE 
       | Bangladesh | 10    | authorisedRepAuto | gmdn term           | Blood weighing scale | 1     |
       | Brazil     | 15    | manufacturerAuto  | medical device name | Product              | 2     |
 
+
+  @5959 @_sprint24 @wip
+  Scenario: CFS certificate details page should display other details like addresses and links
+    Given I am logged into appian as "authorisedRepAuto" user
+    And I go to device certificate of free sale page
+    Then I should see a list of manufacturers available for CFS
+    When I click on a random organisation which needs cfs
+    And I enter cfs order for a country with following data without submitting
+      | countryName | Brazil |
+      | noOfCFS     | 10     |
+    Then I should see the correct addresses displayed
