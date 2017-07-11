@@ -338,7 +338,7 @@ Automated Issues:
         - @5671 -   DONE ISH DR  @todo External user authentication
         - @2222 -   DONE ISH DR  @todo review address details
                 -   @bug
-        - @2289 -   DR  @todo lookup addresses
+        - @2289 -   DONE ISH DR  @todo lookup addresses
         - @2328 -   DR  @todo request access to online services
         - @4645 -   DR  @todo reset forgotten password
         - @2278 -   DR  @todo confirm successful request to access services

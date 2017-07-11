@@ -81,7 +81,7 @@ public class PaymentDetails extends _Page {
 
         try {
             //Enter payment details
-            WaitUtils.waitForElementToBeClickable(driver, cardNumber, TIMEOUT_10_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, cardNumber, TIMEOUT_20_SECOND);
             cardNumber.sendKeys("4444333322221111");
             cardholderName.sendKeys("AUTHORISED");
             PageUtils.selectByIndex(expiryMonth, RandomDataUtils.getRandomNumberBetween(1, 12));
@@ -101,6 +101,11 @@ public class PaymentDetails extends _Page {
                 throw new RuntimeException("Email is not valid, it should be : " + manufacaturerData.email);
             }
 
+            //Before submitting: check length of security key is correct
+            if(!PageUtils.isElementClickable(driver, btnMakePayment, TIMEOUT_2_SECOND) && securityCode.getText().length() != 3){
+                securityCode.clear();
+                securityCode.sendKeys("555");
+            }
 
             //Submit for payment
             WaitUtils.waitForElementToBeClickable(driver, btnMakePayment, TIMEOUT_5_SECOND);

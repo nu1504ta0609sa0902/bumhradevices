@@ -667,7 +667,7 @@ public class TasksPageSteps extends CommonSteps {
         taskSection = taskSection.searchAWIPPageForAccount(accountNameOrReference);
         taskSection.isSearchingCompleted();
 
-        boolean isStatusCorrect = taskSection.isAWIPTaskStatusCorrect(status);
+        //boolean isStatusCorrect = taskSection.isAWIPTaskStatusCorrect(status);
         //Assert.assertThat("Expected Status in Application WIP page : " + status, isStatusCorrect, is(true));
     }
 

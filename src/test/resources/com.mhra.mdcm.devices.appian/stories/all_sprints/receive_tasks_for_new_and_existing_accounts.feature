@@ -20,7 +20,7 @@ Feature: As a business user, I want a task to be created when new account reques
       | businessNoor | authorisedRep | approve       | 1     | Netherland     |
 
 
-  @regression @mdcm-41 @2311 @mdcm-178 @2263 @_sprint2 @bug
+  @regression @mdcm-41 @2311 @mdcm-178 @2263 @_sprint2
   Scenario Outline: Create new account as business user and reject tasks
     Given I am logged into appian as "<user>" user
     When I create a new account using business test harness page with following data
@@ -30,11 +30,11 @@ Feature: As a business user, I want a task to be created when new account reques
     And I assign the AWIP page task to me and "reject" with following "<reason>"
     Then The task status in AWIP page should be "Completed" for the new account
     When I search accounts for the stored organisation name
-    Then I should see no account matches
+    Then I should see at least <count> account matches
     Examples:
       | user         | accountType   | count | countryName | reason                             | link                |
-      | businessNoor | manufacturer  | 0     | Turkey      | Account already exists             | New Account Request |
-      | businessNoor | authorisedRep | 0     | Estonia     | No authorisation evidence provided | New Account Request |
+      | businessNoor | manufacturer  | 1     | Turkey      | Account already exists             | New Account Request |
+      | businessNoor | authorisedRep | 1     | Estonia     | No authorisation evidence provided | New Account Request |
 
   @3761 @_sprint9 @ignore @bug
   Scenario Outline: Register my organisation button is displayed to UK Manufacturers who are not registered yet
@@ -55,7 +55,7 @@ Feature: As a business user, I want a task to be created when new account reques
       | businessNoor | authorisedRep | authorisedRepNoor | approve       | 1     | Netherland     | New Account Request |
 
 
-  @regression @mdcm-41 @2311 @_sprint2 @3365 @_sprint7 @2833 @_sprint14 @bug
+  @regression @mdcm-41 @2311 @_sprint2 @3365 @_sprint7 @2833 @_sprint14
   Scenario Outline: Verify WIP section shows newly created tasks and users can approve reject tasks
     Given I am logged into appian as "<user>" user
     When I create a new account using business test harness page with following data
@@ -70,8 +70,8 @@ Feature: As a business user, I want a task to be created when new account reques
       | user         | accountType   | approveReject | count | countryName    |
       | businessNoor | authorisedRep | approve       | 1     | Netherland     |
       | businessNoor | manufacturer  | approve       | 1     | United Kingdom |
-      | businessNoor | manufacturer  | reject        | 0     | Turkey         |
-      | businessNoor | authorisedRep | reject        | 0     | Estonia        |
+      | businessNoor | manufacturer  | reject        | 1     | Turkey         |
+      | businessNoor | authorisedRep | reject        | 1     | Estonia        |
 
 
   @regression @mdcm-178 @2263 @_sprint2 @bug
@@ -104,7 +104,7 @@ Feature: As a business user, I want a task to be created when new account reques
       | businessNoor | manufacturer  | approve       | 1     | United Kingdom |
       | businessNoor | authorisedRep | approve       | 1     | Netherland     |
 
-  @1945 @_sprint18 @wip
+  @1945 @_sprint18
   Scenario Outline: Create new account as business user and reject AWIP tasks
     Given I am logged into appian as "<user>" user
     When I create a new account using business test harness page with following data
@@ -117,8 +117,8 @@ Feature: As a business user, I want a task to be created when new account reques
     Then I should see at least <count> account matches
     Examples:
       | user         | accountType   | approveReject | count | countryName    |
-      | businessNoor | manufacturer  | reject        | 0     | United Kingdom |
-      | businessNoor | authorisedRep | reject        | 0     | Netherland     |
+      | businessNoor | manufacturer  | reject        | 1     | United Kingdom |
+      | businessNoor | authorisedRep | reject        | 1     | Netherland     |
 
   @1945 @_sprint18
   Scenario Outline: Verify application reference number format in AWIP tasks page is correct

@@ -228,11 +228,13 @@ public class BusinessManufacturerDetails extends _Page {
     }
 
     public BusinessManufacturerDetails confirmAWIPIAssignment(boolean clickYes) {
-        WaitUtils.waitForElementToBeClickable(driver, btnConfirmYesAssignToMe, TIMEOUT_10_SECOND);
-        if (clickYes) {
-            btnConfirmYesAssignToMe.click();
-        } else {
-            btnConfirmNoAssignToMe.click();
+        if(PageUtils.isElementClickable(driver, btnConfirmYesAssignToMe, TIMEOUT_3_SECOND)) {
+            WaitUtils.waitForElementToBeClickable(driver, btnConfirmYesAssignToMe, TIMEOUT_10_SECOND);
+            if (clickYes) {
+                btnConfirmYesAssignToMe.click();
+            } else {
+                btnConfirmNoAssignToMe.click();
+            }
         }
         return new BusinessManufacturerDetails(driver);
     }

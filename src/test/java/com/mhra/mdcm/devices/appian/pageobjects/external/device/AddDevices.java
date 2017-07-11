@@ -387,18 +387,6 @@ public class AddDevices extends _Page {
         return new AddDevices(driver);
     }
 
-    private void addActiveImplantableDevice(DeviceDO dd) {
-        searchByGMDN(dd);
-        compliesWithEUDeviceRequirements(true);
-        customMade(dd);
-
-        if(dd.isCustomMade) {
-            for (String x : dd.listOfProductName) {
-                productDetailsAIMD(x);
-            }
-        }
-    }
-
 
     private void productDetailsAIMD(String deviceName) {
         PageUtils.clickOneOfTheFollowing(driver, addProduct, addProduct2, TIMEOUT_1_SECOND);
@@ -413,6 +401,41 @@ public class AddDevices extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, saveProduct2, TIMEOUT_5_SECOND);
         saveProduct2.click();
 
+    }
+
+    private void addGeneralMedicalDevice(DeviceDO dd) {
+        searchByGMDN(dd);
+        customMade(dd);
+        compliesWithEUDeviceRequirements(true);
+
+        if (!dd.isCustomMade) {
+            deviceSterile(dd);
+            deviceMeasuring(dd);
+            if (!dd.isCustomMade) {
+                riskClassification(dd);
+                notifiedBody(dd);
+            }
+        }
+
+        if(dd.productName!=null) {
+            WaitUtils.waitForElementToBeClickable(driver, addProduct, TIMEOUT_5_SECOND);
+            PageUtils.singleClick(driver, addProduct);
+            addProductNew(dd);
+            saveProduct(dd);
+        }
+    }
+
+
+    private void addActiveImplantableDevice(DeviceDO dd) {
+        searchByGMDN(dd);
+        compliesWithEUDeviceRequirements(true);
+        customMade(dd);
+
+        if(dd.isCustomMade) {
+            for (String x : dd.listOfProductName) {
+                productDetailsAIMD(x);
+            }
+        }
     }
 
     private void addProcedurePackDevice(DeviceDO dd) {
@@ -481,28 +504,6 @@ public class AddDevices extends _Page {
         return allHeadingCorrect;
     }
 
-
-    private void addGeneralMedicalDevice(DeviceDO dd) {
-        searchByGMDN(dd);
-        customMade(dd);
-        compliesWithEUDeviceRequirements(true);
-
-        if (!dd.isCustomMade) {
-            deviceSterile(dd);
-            deviceMeasuring(dd);
-            if (!dd.isCustomMade) {
-                riskClassification(dd);
-                notifiedBody(dd);
-            }
-        }
-
-        if(dd.productName!=null) {
-            WaitUtils.waitForElementToBeClickable(driver, addProduct, TIMEOUT_5_SECOND);
-            PageUtils.singleClick(driver, addProduct);
-            addProductNew(dd);
-            saveProduct(dd);
-        }
-    }
 
     private void compliesWithEUDeviceRequirements(boolean compliesWitEU) {
 
@@ -713,6 +714,7 @@ public class AddDevices extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, radioDeviceSterileYes, TIMEOUT_5_SECOND);
         if (dd.isDeviceSterile) {
             PageUtils.clickIfVisible(driver, radioDeviceSterileYes);
+            notifiedBody(dd);
         } else {
             PageUtils.clickIfVisible(driver, radioDeviceSterileNo);
         }
@@ -1112,7 +1114,7 @@ public class AddDevices extends _Page {
     }
 
     public AddDevices enterPaymentDetails(String paymentMethod, ScenarioSession scenarioSession) {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, ddAddressBox, TIMEOUT_15_SECOND);
 
         //Select billing address:

@@ -25,8 +25,8 @@ Feature: As a customer I want to register new manufacturers with devices
     Examples:
       | user              | accountType   | countryName | paymentType | deviceType               | customMade | deviceSterile | deviceMeasuring | riskClassification | notifiedBody |
       | manufacturerAuto  | manufacturer  | Brazil      | Worldpay    | System or Procedure Pack |            | true          |                 | class1             | NB 0086 BSI  |
-      | authorisedRepAuto | authorisedRep | Bangladesh  | BACS        | System or Procedure Pack |            | false         |                 | class1             | NB 0086 BSI  |
-      | manufacturerAuto  | manufacturer  | Brazil      | Worldpay    | General Medical Device   | true       |               |                 |                    |              |
+      | manufacturerAuto  | manufacturer  | Brazil      | BACS        | General Medical Device   | true       |               |                 |                    |              |
+      | authorisedRepAuto | authorisedRep | Bangladesh  | Worldpay    | System or Procedure Pack |            | false         |                 | class1             | NB 0086 BSI  |
       | authorisedRepAuto | authorisedRep | Bangladesh  | BACS        | General Medical Device   | false      | true          | true            | class1             | NB 0086 BSI  |
 
 

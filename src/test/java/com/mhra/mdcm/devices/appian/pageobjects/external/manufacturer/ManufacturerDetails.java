@@ -93,7 +93,7 @@ public class ManufacturerDetails extends _Page {
     WebElement webSite;
 
     //Links to other sections like devices, documents
-    @FindBy(partialLinkText = "product details")
+    @FindBy(partialLinkText = "Devices & ")
     WebElement devicesAndProductDetailsTab;
 
     //Tabs: Summary, Applications etc
