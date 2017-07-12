@@ -42,20 +42,24 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE
       | Bangladesh | 10    |
 
 
-  @1974 @1978 @4704 @_sprint15 @5499 @_sprint17 @5980 @1958 @1960 @_sprint22 @4207 @_sprint23 @wip
-  Scenario: Users should be able to go to edit list of devices added for initial CFS process
-    Given I am logged into appian as "manufacturerAuto" user
+  @1974 @1978 @4704 @_sprint15 @5499 @_sprint17 @1949 @5980 @1958 @1960 @_sprint22 @4207 @_sprint23 @wip
+  Scenario Outline: Users should be able to go to edit list of devices added for initial CFS process
+    Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
     Then I should see a list of manufacturers available for CFS
     When I click on a random organisation which needs cfs
     And I order cfs for a country with following data
-      | countryName | Brazil |
-      | noOfCFS     | 10     |
+      | countryName | <country> |
+      | noOfCFS     | <noOfCFS> |
     Then I should see the correct details in cfs order review page
     When I edit the list of devices added for CFS
     Then I should see the correct details in cfs order review page
     When I save cfs order application for later
     Then I should see application tab showing my application with correct details
+    Examples:
+      | user              | country | noOfCFS |
+      | authorisedRepAuto |         | 15      |
+      #| manufacturerAuto  | Brazil  | 10      |
 
 
   @1974 @1978 @_sprint15 @5499 @_sprint17 @5980 @1958 @1960 @_sprint22 @4207 @_sprint23
