@@ -108,6 +108,8 @@ public class LoginPage extends _Page {
             pword = props.getProperty(selectedProfile + ".password." + unameKeyValue);
         }
 
+        log.info("Login as : " + un);
+
         //login
         username.sendKeys(un);
         password.sendKeys(pword);

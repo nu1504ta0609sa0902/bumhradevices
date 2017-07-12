@@ -25,7 +25,7 @@ public class ProductDetails extends _Page {
     WebElement gmdnTermDefinition;
     @FindBy(xpath = ".//span[.='Risk classification']//following::p[1]")
     WebElement riskClassification;
-    @FindBy(xpath = ".//span[.='Custom made']//following::p[1]")
+    @FindBy(xpath = ".//*[contains(text(),'ustom made')]//following::p[1]")
     WebElement customMade;
     @FindBy(xpath = ".//span[contains(text(),'Sterile')]//following::p[1]")
     WebElement sterile;

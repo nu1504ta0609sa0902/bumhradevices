@@ -35,9 +35,11 @@ public class AddDevices extends _Page {
 
     @FindBy(css = ".RadioButtonGroup---choice_pair>label")
     List<WebElement> listOfDeviceTypes;
-    @FindBy(xpath = ".//label[contains(text(),'GMDN Code')]//following::a[string-length(text()) > 0]")
+    //@FindBy(xpath = ".//label[contains(text(),'GMDN Code')]//following::a[string-length(text()) > 0]")
+    @FindBy(xpath = ".//label[contains(text(),'GMDN Code')]//following::tr/td")
     WebElement aGmdnMatchesReturnedBySearch;
-    @FindBy(xpath = ".//label[contains(text(),'GMDN Code')]//following::a[string-length(text()) > 0]")
+    //@FindBy(xpath = ".//label[contains(text(),'GMDN Code')]//following::a[string-length(text()) > 0]")
+    @FindBy(xpath = ".//label[contains(text(),'GMDN Code')]//following::tr/td")
     List<WebElement> listOfGmdnMatchesReturnedBySearch;
     @FindBy(css = ".ParagraphText---richtext_paragraph .StrongText---richtext_strong")
     WebElement labelValidGMDNCodeMessage;
@@ -765,9 +767,11 @@ public class AddDevices extends _Page {
                 WaitUtils.waitForElementToBeClickable(driver, aGmdnMatchesReturnedBySearch, TIMEOUT_DEFAULT);
                 int noi = CommonUtils.getNumberOfItemsInList(driver, listOfGmdnMatchesReturnedBySearch);
                 int randomPosition = RandomDataUtils.getARandomNumberBetween(0, noi-1);
-
-                //Click gmdn from search results
                 WebElement element = CommonUtils.getElementFromList(listOfGmdnMatchesReturnedBySearch, randomPosition);
+
+                //Wait for it to be clickable
+                WaitUtils.waitForElementToBeClickable(driver, element, TIMEOUT_5_SECOND);
+                element = element.findElement(By.tagName("a"));
                 element.click();
 
                 //Set device name for later verification
@@ -1145,6 +1149,7 @@ public class AddDevices extends _Page {
         }
 
         //Complete the application
+        WaitUtils.waitForElementToBeVisible(driver, btnCompleteApplication, TIMEOUT_10_SECOND);
         WaitUtils.waitForElementToBeClickable(driver, btnCompleteApplication, TIMEOUT_10_SECOND);
         btnCompleteApplication.click();
         return new AddDevices(driver);

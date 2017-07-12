@@ -19,7 +19,7 @@ Feature: As a user, I want to be able to unregister manufacturers when they are 
       | businessAuto | Organisations | Organisations | Registered status | Registered  | ManufacturerRT01  | No Longer Represented |
 
 
-  @4368 @2268 @3810 @_sprint18 @2096 @6430 @_sprint23 @4546 @_sprint24 @wip @bug
+  @4368 @2268 @3810 @_sprint18 @2096 @6430 @_sprint23 @4546 @_sprint24 @wip
   Scenario Outline: As a manufacturer and authorisedRep users I should be able to unregister organisations
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -31,13 +31,18 @@ Feature: As a user, I want to be able to unregister manufacturers when they are 
       | deviceType     | General Medical Device |
       | gmdnDefinition | Blood weighing scale   |
       | customMade     | true                   |
+    And I add another device to SELECTED manufacturer with following data
+      | deviceType     | Active Implantable Device |
+      | gmdnDefinition | Sinus                     |
+      | customMade     | true                      |
+      | productName    | Product1                  |
     And Proceed to payment and confirm submit device details
     When I logout and log back into appian as "<logBackInAs>" user
     Then I search and view new task in AWIP page for the newly created manufacturer
     When I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email for stored manufacturer with heading "Request for manufacturer registration" and stored application identifier
-    And I should received an email for stored manufacturer with heading "has been Approved" and stored application identifier
+    And I should received an email for stored manufacturer with heading "was completed" and stored application identifier
     When I logout and log back into appian as "<user>" user
     When I go to list of manufacturers page and click on stored manufacturer
     Then I should option to unregister the manufacturer

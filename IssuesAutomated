@@ -387,8 +387,7 @@ Automated Issues:
                 -   Takes me to a intermediary page where I have to click "Click here" link to go back to manufacturer lists
         - @1957 -   DR  @todo bug/issue : resume application for manufacturer registration
         - @5997 -   DR  @todo bug/issue : resume application behaviour not correct
-        - @5749 -   DR  @todo payment section
-                -   DONE ISH
+        - @5749 -   DONE ISH DR  @todo payment section
 
     Sprint 22: @_sprint22
         - @5993 -   DR  @todo saving application and viewing it appear in the "applications tab"
@@ -401,7 +400,6 @@ Automated Issues:
         - @6012 -   DONE ISH CFS @todo search view all products related to devices
         - @1949 -   DONE ISH CFS @todo review order before submitting
                 -   Add without country
-                -   Verify address
         - @5980 -   DONE ISH CFS @todo update CFS order after reviewing it
                 -   Add/remove product or device
         - @1958 -   DONE ISH CFS @todo save application and resume later
@@ -414,9 +412,7 @@ Automated Issues:
         - @1946 -   CFS @todo Customer cancellation of a draft CFS application
         - @1952 -   DONE ISH CFS @todo Payment for CFS
                 -   Able to select billing address from dropdown
-        - @1962 -   CFS @todo Add devices to an existing manufacturer
-                -   It has other tests not related to adding devices
-                -   Lots of them
+        - @1962 -   DONE ISH CFS @todo Add devices to an existing manufacturer
         - @3831 -   CFS @todo Display list of manufacturer within CFS
         - @4207 -   DONE ISH CFS @todo view draft or submitted CFS application
                 -   View application after saving
@@ -427,6 +423,8 @@ Automated Issues:
                 -   Add a manufacturer via DR and verify the message
         - @2091 -   CFS @todo Email for further information
         - @2096 -   DR @todo Email for unregistering a manufacturer
+                -   Register manufacturer with 2 contacts and than check they all receive the same email
+                -   Verify email contents
         - @2150 -   CFS @todo Email reminder to customers more information required
         - @2190 -   DONE ISH DR @todo Email notification for unsuccessful manufacturer registration
                 -   Content needs to be verified
@@ -435,10 +433,12 @@ Automated Issues:
                 -   CAPTCHA step is missing at the moment
         - @6343 -   DR @todo News feed notification of registration event
         - @6345 -   DR @todo News feed change event notification
-        - @6539 -   DR @todo Manage contacts page
-        - @5750 -   DR @todo Worldpay more details
+        - @6539 -   DONE ISH DR @todo Manage contacts page
+        - @5750 -   DONE ISH DR @todo Worldpay more details
                 -   Verify Merchant code is MHRAM5, description are correct
-        - @6430 -   DR @todo Email unregister rep org from authorisedRep
+        - @6430 -   DONE ISH DR @todo Email unregister rep org from authorisedRep
+                -   Register manufacturer with 2 contacts and than check they all receive the same email
+                -   Verify email contents
 
 
     Sprint 24: @_sprint24
@@ -469,7 +469,7 @@ Automated Issues:
         - @6360 -   DR @todo Customer news feed other events
         - @5673 -   CFS @todo Email customer about rejection
                 -   Verify email content
-        - @5674 -   CFS @todo Email customer about the outcome of an application
+        - @5674 -   DONE ISH CFS @todo Email customer about the outcome of an application
                 -   Verify email content
         - @4767 -   CFS @todo List of devices awaiting documentation and products
         - @5959 -   CFS @todo Add alternative address

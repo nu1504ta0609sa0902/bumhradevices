@@ -30,9 +30,9 @@ public class DeviceDetails extends _Page {
 
 
     //All GMDN definition table data
-    @FindBy(xpath = ".//*[contains(text(),'Risk classification')]//following::tr/td[2]")
+    @FindBy(xpath = ".//*[contains(text(),'GMDN code')]//following::tr/td[2]")
     List<WebElement> listOfGMDNDefinitions;
-    @FindBy(xpath = ".//*[text()='Risk classification']//following::tr/td[2]")
+    @FindBy(xpath = ".//*[text()='GMDN code']//following::tr/td[2]")
     WebElement firstGMDNDefinition;
 
     //Table headers for each device types
@@ -79,10 +79,12 @@ public class DeviceDetails extends _Page {
     WebElement txtTotalPriceOfCertificates;
     @FindBy(xpath = ".//*[contains(text(),'Number of')]//following::input")
     WebElement tbxNumberOfCFS;
+    @FindBy(xpath = ".//*[contains(text(),'Number of')]//following::input[2]")
+    WebElement tbxNumberOfCFSNoCountry;
+    @FindBy(xpath = ".//*[contains(text(),'specify a country')]")
+    WebElement cbxDonotSpecifyACountry;
     @FindBy(css = "th.GridWidget---checkbox")
     WebElement cbxSelectAllDevices;
-    @FindBy(css = ".GridWidget---checkbox")
-    WebElement cbxDonotSpecifyACountry;
     @FindBy(xpath = ".//div[contains(text(),'Number of certificates')]//following::p[2]")
     WebElement txtNumberOfCertificates;
     @FindBy(partialLinkText = "Add country")
@@ -212,7 +214,7 @@ public class DeviceDetails extends _Page {
     }
 
     public DeviceDetails selectADevices() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD );
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, cbxSelectAllDevices, TIMEOUT_10_SECOND);
         WebElement cbx = PageUtils.getRandomElementFromList(listOfDeviceProductCheckbox);
         PageUtils.singleClick(driver, cbx);
@@ -235,18 +237,27 @@ public class DeviceDetails extends _Page {
 
     public DeviceDetails enterACertificateDetails(String countryName, String noOfCFS, boolean continueToNextStep) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".PickerWidget---picker_value"), TIMEOUT_10_SECOND);
-        try {
-            PageUtils.selectFromAutoSuggestedListItemsManufacturers(driver, ".PickerWidget---picker_value", countryName, true);
-        } catch (Exception e) {
+
+        if (countryName == null || countryName.equals("")) {
+            WaitUtils.waitForElementToBeClickable(driver, cbxDonotSpecifyACountry, TIMEOUT_10_SECOND);
+            //Enter number of certificates
+            WaitUtils.waitForElementToBeClickable(driver, tbxNumberOfCFSNoCountry, TIMEOUT_5_SECOND);
+            tbxNumberOfCFSNoCountry.sendKeys(noOfCFS);
+            cbxDonotSpecifyACountry.click();
+        } else {
+            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".PickerWidget---picker_value"), TIMEOUT_10_SECOND);
+            try {
+                PageUtils.selectFromAutoSuggestedListItemsManufacturers(driver, ".PickerWidget---picker_value", countryName, true);
+            } catch (Exception e) {
+            }
+            //Enter number of certificates
+            WaitUtils.waitForElementToBeClickable(driver, tbxNumberOfCFS, TIMEOUT_5_SECOND);
+            tbxNumberOfCFS.sendKeys(noOfCFS);
         }
-        //Enter number of certificates
-        WaitUtils.waitForElementToBeClickable(driver, tbxNumberOfCFS, TIMEOUT_5_SECOND);
-        tbxNumberOfCFS.sendKeys(noOfCFS);
 
         //Submit
-        if(continueToNextStep)
-        btnContinue.click();
+        if (continueToNextStep)
+            btnContinue.click();
         return new DeviceDetails(driver);
 
     }
@@ -261,12 +272,12 @@ public class DeviceDetails extends _Page {
             String noOfCFS = values[1];
             try {
                 //Select a country
-                PageUtils.selectFromAutoSuggestedListItemsManufacturers(driver, listOfCountryPickers.get(whichLine-1), countryName);
+                PageUtils.selectFromAutoSuggestedListItemsManufacturers(driver, listOfCountryPickers.get(whichLine - 1), countryName);
             } catch (Exception e) {
             }
 
             //Enter number of certificates
-            listOfTbxNumberOfCFS.get(whichLine-1).sendKeys(noOfCFS);
+            listOfTbxNumberOfCFS.get(whichLine - 1).sendKeys(noOfCFS);
 
             if (clickAddCountryLink)
                 linkAddCountry.click();
@@ -314,7 +325,7 @@ public class DeviceDetails extends _Page {
 
     public boolean isNumberOfCertificatesCorrect(String number) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, txtNumberOfCertificates, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, txtNumberOfCertificates, TIMEOUT_15_SECOND);
         String txt = txtNumberOfCertificates.getText().trim();
         return number.equals(txt);
     }
@@ -333,8 +344,8 @@ public class DeviceDetails extends _Page {
         System.out.println("List of countries displayed : " + listOfTexts);
 
         boolean isCorrect = true;
-        for(String country: countries){
-            if(!listOfTexts.contains(country.trim())){
+        for (String country : countries) {
+            if (!listOfTexts.contains(country.trim())) {
                 log.error("Country name not found : " + country);
                 isCorrect = false;
                 break;
@@ -350,12 +361,12 @@ public class DeviceDetails extends _Page {
         int count = 0;
         boolean isDataCorrect = true;
 
-        for(WebElement el: listOfCountryNames){
+        for (WebElement el : listOfCountryNames) {
             String countryAtPositionX = listOfCountryNames.get(count).getText();
             String numberOfCertAtPositionX = listOfNumberOfCertificates.get(count).getText();
             String toCheck = countryAtPositionX + "=" + numberOfCertAtPositionX;
 
-            if(!listOfData.contains(toCheck)){
+            if (!listOfData.contains(toCheck)) {
                 isDataCorrect = false;
                 break;
             }
@@ -384,7 +395,7 @@ public class DeviceDetails extends _Page {
     public boolean isTotalNumberOfCertificatesCorrect(String[] data) {
         List<String> counts = CommonUtils.getListOfCertificateCounts(data);
         int total = 0;
-        for(String c: counts){
+        for (String c : counts) {
             total = total + Integer.parseInt(c);
         }
         boolean valid = txtTotalNumberOfCertificates.getText().contains(Integer.toString(total));
@@ -454,9 +465,9 @@ public class DeviceDetails extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, ddAddressBox, TIMEOUT_15_SECOND);
 
         //Select billing address:
-        PageUtils.selectFromDropDown(driver, ddAddressBox , "Registered Address", false);
+        PageUtils.selectFromDropDown(driver, ddAddressBox, "Registered Address", false);
 
-        if(paymentMethod.toLowerCase().contains("world")){
+        if (paymentMethod.toLowerCase().contains("world")) {
             WaitUtils.waitForElementToBeClickable(driver, paymentWorldPay, TIMEOUT_15_SECOND);
             paymentWorldPay.click();
             //Click "here" link
@@ -472,10 +483,10 @@ public class DeviceDetails extends _Page {
 
             //When completed
             WaitUtils.waitForElementToBeClickable(driver, linkHereToInitiateWorldpay, TIMEOUT_10_SECOND);
-            PageFactory.initElements(driver,this);
+            PageFactory.initElements(driver, this);
             linkHereToInitiateWorldpay.click();
 
-        }else if(paymentMethod.toLowerCase().contains("bacs")){
+        } else if (paymentMethod.toLowerCase().contains("bacs")) {
             paymentBACS.click();
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
             PageUtils.uploadDocument(fileUpload, "CompletionOfTransfer1.pdf", 1, 3);
@@ -510,7 +521,7 @@ public class DeviceDetails extends _Page {
     public boolean isNumberOfProductsDisplayedCorrect(int expected) {
         //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnSearch, TIMEOUT_10_SECOND);
-        return listOfDeviceProductCheckbox.size() ==  expected;
+        return listOfDeviceProductCheckbox.size() == expected;
     }
 
     public AddDevices clickAddDeviceBtn() {
