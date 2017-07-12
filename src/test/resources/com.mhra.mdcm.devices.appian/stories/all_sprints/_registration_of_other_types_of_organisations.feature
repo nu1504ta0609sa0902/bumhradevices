@@ -13,12 +13,11 @@ Feature: As a customer I want to register other types of organisations such as D
     Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email with password for new account with heading "account creation" and stored username
     When I logout and logback in with newly created account and update the password to "MHRA12345A"
-    #When I logout and log back into appian as "<logBackInAs>" user
     And I go to list of manufacturers page
     Then I should see error message "<errorMessage>" in instead of list of manufacturers
     Examples:
-      | user         | accountType | count | countryName | link                | logBackInAs      | errorMessage                                                                                        |
-      | businessNoor | distributor | 1     | Turkey      | New Account Request | manufacturerNoor | Unfortunately, you are not eligible for registering the devices. Only manufacturers based in the UK |
+      | user         | accountType | count | countryName | errorMessage                                                                                        |
+      | businessNoor | distributor | 1     | Turkey      | Unfortunately, you are not eligible for registering the devices. Only manufacturers based in the UK |
 
 
   @regression @1996 @_sprint9 @2833 @_sprint14 @wip @bug
@@ -37,6 +36,6 @@ Feature: As a customer I want to register other types of organisations such as D
     And I perform a search for "<searchFor>" in "<pageHeading>" page
     Then I should see at least <count> matches in "<pageHeading>" page search results
     Examples:
-      | user         | accountType | count | countryName | link                | pageHeading   | searchFor   |
-      | businessNoor | distributor | 1     | Turkey      | New Account Request | Organisations | Distributor |
+      | user         | accountType | count | countryName | pageHeading   | searchFor   |
+      | businessNoor | distributor | 1     | Turkey      | Organisations | Distributor |
 
