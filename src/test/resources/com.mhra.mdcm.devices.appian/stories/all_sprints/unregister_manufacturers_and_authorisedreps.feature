@@ -19,7 +19,7 @@ Feature: As a user, I want to be able to unregister manufacturers when they are 
       | businessAuto | Organisations | Organisations | Registered status | Registered  | ManufacturerRT01  | No Longer Represented |
 
 
-  @4368 @2268 @3810 @_sprint18 @4546 @2096 @_sprint24 @wip @bug
+  @4368 @2268 @3810 @_sprint18 @2096 @6430 @_sprint23 @4546 @_sprint24 @wip @bug
   Scenario Outline: As a manufacturer and authorisedRep users I should be able to unregister organisations
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
