@@ -212,11 +212,11 @@ public class ManufacturerList extends _Page {
 
 
     public ManufacturerList sortBy(String sortBy, int numberOfTimesToClick) {
-        WaitUtils.waitForElementToBeClickable(driver, thManufacturerRegistrationStatus, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, thManufacturerRegistrationStatus, TIMEOUT_10_SECOND);
         if(sortBy.equals("Registration status")){
             for(int c = 0; c < numberOfTimesToClick; c++) {
                 thManufacturerRegistrationStatus.click();
-                WaitUtils.waitForElementToBeClickable(driver, thManufacturerRegistrationStatus, TIMEOUT_DEFAULT);
+                WaitUtils.waitForElementToBeClickable(driver, thManufacturerRegistrationStatus, TIMEOUT_5_SECOND);
             }
         }
 
@@ -239,6 +239,7 @@ public class ManufacturerList extends _Page {
     }
 
     public String getARandomManufacturerNameWithStatus(String status) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         String name = null;
         boolean found = false;
         int attempts = 1;

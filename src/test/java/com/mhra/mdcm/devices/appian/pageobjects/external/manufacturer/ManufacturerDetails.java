@@ -354,6 +354,7 @@ public class ManufacturerDetails extends _Page {
     }
 
     public boolean isDevicesAndProductTabVisible(){
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         return PageUtils.isVisible(driver, devicesAndProductDetailsTab, TIMEOUT_3_SECOND);
     }
 

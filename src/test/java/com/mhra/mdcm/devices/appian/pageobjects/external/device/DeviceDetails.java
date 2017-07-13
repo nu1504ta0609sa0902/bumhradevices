@@ -136,6 +136,8 @@ public class DeviceDetails extends _Page {
     WebElement btnEditDevicesList;
     @FindBy(xpath = ".//button[contains(text(),'Add devices')]")
     WebElement addADevice;
+    @FindBy(xpath = ".//button[contains(text(),'Manage devices')]")
+    WebElement manageDevice;
 
 
     @Autowired
@@ -530,6 +532,12 @@ public class DeviceDetails extends _Page {
         return new AddDevices(driver);
     }
 
+    public DeviceDetails clickManageDevices() {
+        WaitUtils.waitForElementToBeClickable(driver, manageDevice, TIMEOUT_15_SECOND);
+        manageDevice.click();
+        return new DeviceDetails(driver);
+    }
+
     public boolean isRegisteredAddressVisible() {
         return false;
     }
@@ -549,4 +557,5 @@ public class DeviceDetails extends _Page {
     public boolean isDeliveryAddressVisible() {
         return false;
     }
+
 }

@@ -247,7 +247,9 @@ public class ExternalHomePageSteps extends CommonSteps {
 
         //If registered we need to click on a button, else devices page is displayed
         String registeredStatus = (String) scenarioSession.getData(SessionKey.registeredStatus);
-        //addDevices = manufacturerDetails.gotoAddDevicesPage(registeredStatus);
+        deviceDetails = manufacturerDetails.clickOnDevicesAndProductDetailsLink();
+        deviceDetails = deviceDetails.clickManageDevices();
+        addDevices = deviceDetails.clickAddDeviceBtn();
 
         //Assumes we are in add device page
         DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
@@ -267,7 +269,9 @@ public class ExternalHomePageSteps extends CommonSteps {
 
         //If registered we need to click on a button, else devices page is displayed
         String registeredStatus = (String) scenarioSession.getData(SessionKey.registeredStatus);
-        //addDevices = manufacturerDetails.gotoAddDevicesPage(registeredStatus);
+        deviceDetails = manufacturerDetails.clickOnDevicesAndProductDetailsLink();
+        deviceDetails = deviceDetails.clickManageDevices();
+        addDevices = deviceDetails.clickAddDeviceBtn();
 
         //Assumes we are in add device page
         DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
@@ -298,7 +302,9 @@ public class ExternalHomePageSteps extends CommonSteps {
     public void i_add_multiple_devices_to_selected_manufactuerer_of_type_with_following_data(Map<String, String> dataSets) throws Throwable {
         //If registered we need to click on a button, else devices page is displayed
         String registeredStatus = (String) scenarioSession.getData(SessionKey.registeredStatus);
-        //addDevices = manufacturerDetails.gotoAddDevicesPage(registeredStatus);
+        deviceDetails = manufacturerDetails.clickOnDevicesAndProductDetailsLink();
+        deviceDetails = deviceDetails.clickManageDevices();
+        addDevices = deviceDetails.clickAddDeviceBtn();
 
         DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
         if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
@@ -346,10 +352,6 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     @Then("^I should see correct device types$")
     public void iShouldSeeCorrectDeviceTypes() throws Throwable {
-        //If registered we need to click on a button, else devices page is displayed
-        String registeredStatus = (String) scenarioSession.getData(SessionKey.registeredStatus);
-        //addDevices = manufacturerDetails.gotoAddDevicesPage(registeredStatus);
-
         boolean isCorrect = addDevices.isDeviceTypeCorrect();
         Assert.assertThat("Expected 4 different device types ", isCorrect, Matchers.is(true));
     }
@@ -373,12 +375,13 @@ public class ExternalHomePageSteps extends CommonSteps {
         log.info("Manufacturer selected : " + name + ", is " + registered);
         manufacturerDetails = manufacturerList.viewAManufacturer(name);
 
-        if(manufacturerDetails.isDevicesAndProductTabVisible()){
-            deviceDetails = manufacturerDetails.clickOnDevicesAndProductDetailsLink();
-            addDevices = deviceDetails.clickAddDeviceBtn();
-        }else {
-            addDevices = manufacturerDetails.clickContinueToAddDevices(registered);
-        }
+//        if(manufacturerDetails.isDevicesAndProductTabVisible()){
+//            deviceDetails = manufacturerDetails.clickOnDevicesAndProductDetailsLink();
+//            deviceDetails = deviceDetails.clickManageDevices();
+//            addDevices = deviceDetails.clickAddDeviceBtn();
+//        }else {
+//            addDevices = manufacturerDetails.clickContinueToAddDevices(registered);
+//        }
 
         scenarioSession.putData(SessionKey.organisationName, name);
         scenarioSession.putData(SessionKey.registeredStatus, registered);
@@ -481,6 +484,9 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     @When("^I click on random manufacturer with status \"([^\"]*)\" to add device$")
     public void i_click_on_random_manufacturer_with_status_to_add_device(String status) throws Throwable {
+        if(status.equals("Registered")){
+            manufacturerList = manufacturerList.sortBy("Registration status", 2);
+        }
 
         String name = manufacturerList.getARandomManufacturerNameWithStatus(status);
         String registered = manufacturerList.getRegistrationStatus(name);
@@ -507,13 +513,14 @@ public class ExternalHomePageSteps extends CommonSteps {
 
         log.info("Manufacturer selected : " + name + ", is " + registered);
         manufacturerDetails = manufacturerList.viewAManufacturer(name);
-
-        if(manufacturerDetails.isDevicesAndProductTabVisible()){
-            deviceDetails = manufacturerDetails.clickOnDevicesAndProductDetailsLink();
-            addDevices = deviceDetails.clickAddDeviceBtn();
-        }else {
-            addDevices = manufacturerDetails.clickContinueToAddDevices(registered);
-        }
+//
+//        if(manufacturerDetails.isDevicesAndProductTabVisible()){
+//            deviceDetails = manufacturerDetails.clickOnDevicesAndProductDetailsLink();
+//            deviceDetails = deviceDetails.clickManageDevices();
+//            addDevices = deviceDetails.clickAddDeviceBtn();
+//        }else {
+//            addDevices = manufacturerDetails.clickContinueToAddDevices(registered);
+//        }
 
         scenarioSession.putData(SessionKey.organisationName, name);
         scenarioSession.putData(SessionKey.organisationCountry, country);
@@ -721,7 +728,6 @@ public class ExternalHomePageSteps extends CommonSteps {
     public void i_search_for_device_type_General_Medical_Device_with_gmdn_gmdnCode(String deviceType, String gmdnTermCodeOrDefinition) throws Throwable {
         //If registered we need to click on a button, else devices page is displayed
         String registeredStatus = (String) scenarioSession.getData(SessionKey.registeredStatus);
-        //addDevices = manufacturerDetails.gotoAddDevicesPage(registeredStatus);
 
         //Search for specific device of a specific type
         DeviceDO dd = TestHarnessUtils.updateDeviceData(null, scenarioSession);

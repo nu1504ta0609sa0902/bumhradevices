@@ -355,8 +355,10 @@ public class AddDevices extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
 
         if(isRegistered){
-            WaitUtils.waitForElementToBeClickable(driver, btnReviewYourOrder, TIMEOUT_10_SECOND);
-            PageUtils.doubleClick(driver, btnReviewYourOrder);
+            //WaitUtils.waitForElementToBeClickable(driver, btnReviewYourOrder, TIMEOUT_10_SECOND);
+            //PageUtils.doubleClick(driver, btnReviewYourOrder);
+            WaitUtils.waitForElementToBeClickable(driver, btnSaveProgress, TIMEOUT_10_SECOND);
+            PageUtils.doubleClick(driver, btnSaveProgress);
         }else {
             WaitUtils.waitForElementToBeClickable(driver, btnSaveProgress, TIMEOUT_10_SECOND);
             PageUtils.doubleClick(driver, btnSaveProgress);
@@ -413,8 +415,8 @@ public class AddDevices extends _Page {
         if (!dd.isCustomMade) {
             deviceSterile(dd);
             deviceMeasuring(dd);
-            if (!dd.isCustomMade) {
-                riskClassification(dd);
+            riskClassification(dd);
+            if (dd.isDeviceSterile) {
                 notifiedBody(dd);
             }
         }
@@ -446,6 +448,9 @@ public class AddDevices extends _Page {
 
         addProductNew(dd);
         deviceSterile(dd);
+        if(dd.isDeviceSterile){
+            notifiedBody(dd);
+        }
 
         isBearingCEMarking(dd);
         devicesCompatible(dd);
@@ -656,7 +661,7 @@ public class AddDevices extends _Page {
         try{
             WaitUtils.waitForElementToBeClickable(driver, linkChangeNotifiedBody, TIMEOUT_1_SECOND);
             linkChangeNotifiedBody.click();
-            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+            //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         }catch (Exception e){
             //Bug which maintains previous selection of notified body
         }
@@ -716,7 +721,6 @@ public class AddDevices extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, radioDeviceSterileYes, TIMEOUT_5_SECOND);
         if (dd.isDeviceSterile) {
             PageUtils.clickIfVisible(driver, radioDeviceSterileYes);
-            notifiedBody(dd);
         } else {
             PageUtils.clickIfVisible(driver, radioDeviceSterileNo);
         }
