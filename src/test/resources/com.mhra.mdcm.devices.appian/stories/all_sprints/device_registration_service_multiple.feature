@@ -1,7 +1,7 @@
 Feature: As a customer I want to be able to enter more than one device at the point of registration
   So that I don't have to return to add further devices post-registration
 
-  @3104 @_sprint8 @ignore
+  @3104 @_sprint8 @ignore @create_new_org
   Scenario Outline: Users should be able to add all 4 device type to NEWLY registered organisations
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page

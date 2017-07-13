@@ -391,7 +391,7 @@ Automated Issues:
 
     Sprint 22: @_sprint22
         - @5993 -   DR  @todo saving application and viewing it appear in the "applications tab"
-        - @6086 -   DONE ISH    DR  @todo add new contact at my organisation level
+        - @6086 -   DONE ISH DR  @todo add new contact at my organisation level
                 -   Represented organisation page does not show "Manage contacts"
         - @6089 -   DONE ISH DR  @todo edit and amend contact at my organisation level
         - @6091 -   DONE ISH DR  @todo remove contacts at my organisation level

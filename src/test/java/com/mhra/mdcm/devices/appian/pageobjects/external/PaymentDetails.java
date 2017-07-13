@@ -96,14 +96,17 @@ public class PaymentDetails extends _Page {
 
 
             //Verify descriptions and emails are correct
-            boolean contains = contactDetailscontactEmailRo.getText().contains(manufacaturerData.email);
-            if(!contains){
-                throw new RuntimeException("Email is not valid, it should be : " + manufacaturerData.email);
+            if(manufacaturerData!=null) {
+                boolean contains = contactDetailscontactEmailRo.getText().contains(manufacaturerData.email);
+                if (!contains) {
+                    throw new RuntimeException("Email is not valid, it should be : " + manufacaturerData.email);
+                }
             }
 
             //Before submitting: check length of security key is correct
             if(!PageUtils.isElementClickable(driver, btnMakePayment, TIMEOUT_2_SECOND) && securityCode.getText().length() != 3){
                 securityCode.clear();
+                WaitUtils.nativeWaitInSeconds(1);
                 securityCode.sendKeys("555");
             }
 

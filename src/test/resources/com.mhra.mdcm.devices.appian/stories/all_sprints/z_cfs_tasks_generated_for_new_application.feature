@@ -3,7 +3,7 @@ Feature: Tasks will need to be generated for CFS application
   So that business users can verify, approve and reject them accordingly
 
 
-  @5679 @_sprint20
+  @5679 @_sprint20 @create_new_org
   Scenario: Users should be shown correct options at different stages of approving a task
     Given I am logged into appian as "manufacturerAuto" user
     And I go to device certificate of free sale page
@@ -28,7 +28,7 @@ Feature: Tasks will need to be generated for CFS application
     Then The task status in AWIP page should be "Assigned" for the newly created manufacturer
 
 
-  @5679 @_sprint20 @5673 @5674 @_sprint22 @_sprint24
+  @5679 @_sprint20 @5673 @5674 @_sprint22 @_sprint24 @create_new_org
   Scenario Outline: Users should be able to approve and reject a cfs application
     Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
@@ -56,7 +56,7 @@ Feature: Tasks will need to be generated for CFS application
       | authorisedRepAuto | Completed      | reject        |
 
 
-  @smoke_test_cfs @5666 @_sprint20
+  @smoke_test_cfs @5666 @_sprint20 @create_new_org
   Scenario Outline: Users should be able to go to assign the cfs application to someone else
     Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page

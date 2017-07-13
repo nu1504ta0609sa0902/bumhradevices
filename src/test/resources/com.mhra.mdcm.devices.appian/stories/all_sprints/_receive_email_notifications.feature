@@ -2,7 +2,7 @@
 Feature: As a customer I want to receive email notifications when ever a account or manufacturer is created or updated
   So that I am aware of what is going on
 
-  @regression @smoke_test_dr @2191 @_sprint10 @2328 @2278 @_sprint19
+  @regression @smoke_test_dr @2191 @_sprint10 @2328 @2278 @_sprint19 @create_new_org
   Scenario Outline: Email should be generated for newly created account for business user
     Given I am logged into appian as "<user>" user
     When I create a new account using business test harness page with following data
@@ -18,7 +18,7 @@ Feature: As a customer I want to receive email notifications when ever a account
       | businessNoor | authorisedRep | approve       | Netherland     | Account request approved for |
 
 
-  @regression @2192 @_sprint10 @2328 @2278 @_sprint19 @bug
+  @regression @2192 @_sprint10 @2328 @2278 @_sprint19 @create_new_org @bug
   Scenario Outline: Email should be generated for new business accounts which are rejected
     Given I am logged into appian as "<user>" user
     When I create a new account using business test harness page with following data
@@ -34,7 +34,7 @@ Feature: As a customer I want to receive email notifications when ever a account
       | businessNoor | authorisedRep | Estonia     | No authorisation evidence provided | Account rejected for |
 
 
-  @regression @smoke_test_dr @2191 @2193 @2190 @_sprint10 @3207 @2151 @_sprint21 @2222 @_sprint19
+  @regression @smoke_test_dr @2191 @2193 @2190 @_sprint10 @3207 @2151 @_sprint21 @2222 @_sprint19 @create_new_org
   Scenario Outline: Email should be generated for newly created manufacturers and authorisedReps
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -59,7 +59,7 @@ Feature: As a customer I want to receive email notifications when ever a account
       | manufacturerAuto  | businessAuto | manufacturer  | approve       | Brazil      | Request for manufacturer registration |
       | authorisedRepAuto | businessAuto | authorisedRep | approve       | Belarus     | Request for manufacturer registration |
 
-  @regression @2192 @2190 @_sprint10 @2151 @3207 @_sprint21 @wip @bug
+  @regression @2192 @2190 @_sprint10 @2151 @3207 @_sprint21 @create_new_org @wip @bug
   Scenario Outline: Email should be generated for newly created manufacturers and authorisedReps which are rejected
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -84,7 +84,7 @@ Feature: As a customer I want to receive email notifications when ever a account
       | authorisedRepAuto | businessAuto | authorisedRep | Rejected because I can | Belarus     |
 
 
-  @regression @1836 @_sprint8 @2193 @2190 @2192 @_sprint10 @bug
+  @regression @1836 @_sprint8 @2193 @2190 @2192 @_sprint10 @create_new_org @bug
   Scenario Outline: Email notification should be generated when organisation is approved for registration service
     Given I am logged into appian as "<user>" user
     When I create a new account using business test harness page with following data
@@ -121,7 +121,7 @@ Feature: As a customer I want to receive email notifications when ever a account
       | businessNoor | authorisedRep | reject        | authorisedRepNoor | United States | AuthorisedRepAccountRT00 |
 
 
-  @2272 @_sprint19 @4645 @_sprint20 @4648 @_sprint24 @wip
+  @2272 @_sprint19 @4645 @_sprint20 @4648 @_sprint24 @create_new_org @wip
   Scenario Outline: Email notification should be generated for fogotten password
     Given I am logged into appian as "<user>" user
     When I create a new account using business test harness page with following data
@@ -146,11 +146,11 @@ Feature: As a customer I want to receive email notifications when ever a account
       | businessNoor | authorisedRep | reject        | AuthorisedRepAccountRT00 |
 
 
-  Scenario: Remove me
-    Given I am in login page
-    When I request a new password for stored user
-    Then I should received an email with subject heading "Password Reset"
-    When I click on the password reset link
-    Then I should see the correct username
-    When I update the password to "MHRA12345B"
-    And I logout and logback in with new password
+#  Scenario: Remove me
+#    Given I am in login page
+#    When I request a new password for stored user
+#    Then I should received an email with subject heading "Password Reset"
+#    When I click on the password reset link
+#    Then I should see the correct username
+#    When I update the password to "MHRA12345B"
+#    And I logout and logback in with new password

@@ -120,7 +120,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE
       | Bangladesh | 10    | authorisedRepAuto | AuthorisedRepRT01Test |
 
 
-  @1992 @5349 @_sprint21 @6012 @_sprint22
+  @1992 @5349 @_sprint21 @6012 @_sprint22 @create_new_org
   Scenario Outline: Users should be able to search and filter for products and devices
     Given I am logged into appian as "<logInAs>" user
 # Submit a new CFS manufacturer application

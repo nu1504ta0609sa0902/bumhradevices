@@ -19,19 +19,19 @@ import org.springframework.stereotype.Component;
 public class ProductDetails extends _Page {
 
     //General Medical Device Data
-    @FindBy(xpath = ".//span[.='GMDN code']//following::p[1]")
+    @FindBy(xpath = ".//*[contains(text(),'GMDN ')]//following::p[1]")
     WebElement gmdnCode;
-    @FindBy(xpath = ".//span[.='GMDN term']//following::p[1]")
+    @FindBy(xpath = ".//*[contains(text(),'GMDN ')]//following::p[1]")
     WebElement gmdnTermDefinition;
     @FindBy(xpath = ".//span[.='Risk classification']//following::p[1]")
     WebElement riskClassification;
     @FindBy(xpath = ".//*[contains(text(),'ustom made')]//following::p[1]")
     WebElement customMade;
-    @FindBy(xpath = ".//span[contains(text(),'Sterile')]//following::p[1]")
+    @FindBy(xpath = ".//span[contains(text(),'sterile')]//following::p[1]")
     WebElement sterile;
-    @FindBy(xpath = ".//span[contains(text(),'Measuring')]//following::p[1]")
+    @FindBy(xpath = ".//span[contains(text(),'measuring')]//following::p[1]")
     WebElement measuring;
-    @FindBy(xpath = ".//span[contains(text(),'Notified')]//following::p[1]")
+    @FindBy(xpath = ".//span[contains(text(),'Notified Body')]//following::p[1]")
     WebElement notifiedBody;
 
 

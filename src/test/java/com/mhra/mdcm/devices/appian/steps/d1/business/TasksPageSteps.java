@@ -522,8 +522,10 @@ public class TasksPageSteps extends CommonSteps {
                 businessManufacturerDetails = businessManufacturerDetails.approveAWIPManufacturerTask();
                 businessManufacturerDetails = businessManufacturerDetails.approveAWIPAllDevices();
                 businessManufacturerDetails = businessManufacturerDetails.completeTheApplication();
-            }else if(taskType!=null && taskType.contains("Update Manufacturer Registration Request")){
-                tasksPage = taskSection.approveTask();
+            }else if(taskType!=null && taskType.contains("Update Manufacturer")){
+                businessManufacturerDetails = businessManufacturerDetails.approveAWIPManufacturerTask();
+                businessManufacturerDetails = businessManufacturerDetails.approveAWIPAllDevices();
+                businessManufacturerDetails = businessManufacturerDetails.completeTheApplication();
             }else{
                 //Assume New Manufacturer
                 tasksPage = taskSection.acceptRegistrationTask();

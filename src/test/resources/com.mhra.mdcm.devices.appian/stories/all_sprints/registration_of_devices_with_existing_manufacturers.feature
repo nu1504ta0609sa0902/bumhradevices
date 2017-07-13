@@ -135,25 +135,26 @@ Feature: As an account holder, I should be able to add devices to existing manuf
       | customMade             | <customMade>         |
       | relatedDeviceSterile   | <deviceSterile>      |
       | relatedDeviceMeasuring | <deviceMeasuring>    |
+      | isBearingCEMarking     | <isBearingCEMarking> |
     And Proceed to payment and confirm submit device details
     When I logout and log back into appian as "<logBackInAs>" user
     Then I search and view new task in AWIP page for the new account
     Then Check task contains correct devices "<gmdn>" and other details
     When I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
+    And I should received an email for stored manufacturer with heading "was completed" and stored application identifier
     When I logout of the application
     And I am logged into appian as "<user>" user
     When I go to list of manufacturers page and click on stored manufacturer
     Then Verify devices displayed and GMDN details are correct
-    #Then The gmdn code or term is "displayed" in summary section
     And I should be able to view stored device details
     Examples:
-      | user              | logBackInAs  | deviceType                | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
-      | authorisedRepAuto | businessAuto | General Medical Device    | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
-      | authorisedRepAuto | businessAuto | Active Implantable Device | true       |               |                 | Registered | Desiccating chamber  |                    |              |
-      | manufacturerAuto  | businessAuto | General Medical Device    | true       |               |                 | Registered | Blood weighing scale |                    |              |
-      | manufacturerAuto  | businessAuto | System or Procedure Pack  |            | true          | true            | Registered | Desiccating chanber  | class1             | NB 0086 BSI  |
-      | manufacturerAuto  | businessAuto | System or Procedure Pack  |            | false         | true            | Registered | Desiccating chanber  | class1             | NB 0086 BSI  |
+      | user              | logBackInAs  | deviceType                | isBearingCEMarking | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
+      | authorisedRepAuto | businessAuto | General Medical Device    |                    | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
+      | authorisedRepAuto | businessAuto | Active Implantable Device |                    | true       |               |                 | Registered | Desiccating chamber  |                    |              |
+      | manufacturerAuto  | businessAuto | General Medical Device    |                    | true       |               |                 | Registered | Blood weighing scale |                    |              |
+      | manufacturerAuto  | businessAuto | System or Procedure Pack  | false              |            | true          | true            | Registered | Desiccating chamber  | class1             | NB 0086 BSI  |
+      | manufacturerAuto  | businessAuto | System or Procedure Pack  | false              |            | false         | true            | Registered | Desiccating chamber  | class1             | NB 0086 BSI  |
 
 
   @regression @readonly @mdcm-485 @2030 @_sprint5 @wip

@@ -3,7 +3,7 @@ Feature: As a customer I want to register new manufacturers with devices
   so that I am granted access to that and can then register overseas manufacturers on their behalf
 
 
-  @mdcm-14 @2325 @mdcm-39 @2312 @mdcm-496 @_sprint3 @_sprint5 @2185 @_sprint8 @1956 @_sprint9 @3343 @5749 @_sprint21 @5752 @5750 @_sprint23
+  @mdcm-14 @2325 @mdcm-39 @2312 @mdcm-496 @_sprint3 @_sprint5 @2185 @_sprint8 @1956 @_sprint9 @3343 @5749 @_sprint21 @5752 @5750 @_sprint23 @create_new_org
   Scenario Outline: Users should be able to register new manufacturers with devices
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -30,7 +30,7 @@ Feature: As a customer I want to register new manufacturers with devices
       | authorisedRepAuto | authorisedRep | Bangladesh  | BACS        | General Medical Device   | false      | true          | true            | class1             | NB 0086 BSI  |
 
 
-  @regression @mdcm-485 @2030 @mdcm-374 @2112 @mdcm-186 @2258 @_sprint2 @1838 @3777 @1924 @_sprint8 @_sprint9 @_sprint13 @_sprint5
+  @regression @mdcm-485 @2030 @mdcm-374 @2112 @mdcm-186 @2258 @_sprint2 @1838 @3777 @1924 @_sprint8 @_sprint9 @_sprint13 @_sprint5 @create_new_org
   Scenario Outline: Users should be able to register new manufacturers with devices and verify devices are added
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -73,7 +73,7 @@ Feature: As a customer I want to register new manufacturers with devices
       | authorisedRepAuto |
 
 
-  @regression @mdcm-374 @2112 @mdcm-134 @2290 @_sprint5 @3762 @_sprint9 @mdcm-164 @2274 @_sprint6 @1956 @_sprint9 @bug
+  @regression @mdcm-374 @2112 @mdcm-134 @2290 @_sprint5 @3762 @_sprint9 @mdcm-164 @2274 @_sprint6 @1956 @_sprint9 @create_new_org @bug
   Scenario Outline: Users should be able to add and remove devices from a newly created manufacturers and submit for approval
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -99,7 +99,7 @@ Feature: As a customer I want to register new manufacturers with devices
       | authorisedRepAuto | authorisedRep | Bangladesh  | General Medical Device | Blood weighing scale | Autopsy measure |
 
 
-  @regression @mdcm-161 @2276 @mdcm-21 @2323 @mdcm-232 @2221 @mdcm-496 @_sprint4 @_sprint5
+  @regression @mdcm-161 @2276 @mdcm-21 @2323 @mdcm-232 @2221 @mdcm-496 @_sprint4 @_sprint5 @create_new_org
   Scenario Outline: Users should be able to upload proof they are authorised reps
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -125,7 +125,7 @@ Feature: As a customer I want to register new manufacturers with devices
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  |
 
 
-  @mdcm-292 @2177 @mdcm-496 @mdcm-21 @2323 @_sprint3 @_sprint5 @mdcm-134 @2290 @mdcm-164 @2274 @_sprint6 @mdcm-490 @2026 @_sprint7 @wip @bug
+  @mdcm-292 @2177 @mdcm-496 @mdcm-21 @2323 @_sprint3 @_sprint5 @mdcm-134 @2290 @mdcm-164 @2274 @_sprint6 @mdcm-490 @2026 @_sprint7 @create_new_org @wip @bug
   Scenario Outline: Verify new product id is generated for each product submitted by manufacturer
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page

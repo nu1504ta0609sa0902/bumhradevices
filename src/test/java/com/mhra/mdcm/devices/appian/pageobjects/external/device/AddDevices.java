@@ -765,10 +765,10 @@ public class AddDevices extends _Page {
                 WaitUtils.waitForElementToBeClickable(driver, tbxGMDNDefinitionOrTerm, TIMEOUT_5_SECOND);
                 tbxGMDNDefinitionOrTerm.clear();
                 tbxGMDNDefinitionOrTerm.sendKeys(searchFor);
-                WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+                WaitUtils.nativeWaitInSeconds(1);
 
                 //Wait for list of items to appear and add it only if its not a duplicate
-                WaitUtils.waitForElementToBeClickable(driver, aGmdnMatchesReturnedBySearch, TIMEOUT_DEFAULT);
+                WaitUtils.waitForElementToBeClickable(driver, aGmdnMatchesReturnedBySearch, TIMEOUT_10_SECOND);
                 int noi = CommonUtils.getNumberOfItemsInList(driver, listOfGmdnMatchesReturnedBySearch);
                 int randomPosition = RandomDataUtils.getARandomNumberBetween(0, noi-1);
                 WebElement element = CommonUtils.getElementFromList(listOfGmdnMatchesReturnedBySearch, randomPosition);

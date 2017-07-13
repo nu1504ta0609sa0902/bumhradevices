@@ -3,7 +3,7 @@ Feature: Able to add CFS for products and devices that are already registered
   So that manufacturers can export products outside EU without going through MHRA again
 
 
-  @1974 @4330 @5141 @3979 @5212 @5126 @1845 @5128 @5349 @_sprint21 @_sprint15 @_sprint17 @_sprint18
+  @1974 @4330 @5141 @3979 @5212 @5126 @1845 @5128 @5349 @_sprint21 @_sprint15 @_sprint17 @_sprint18 @create_new_org
   Scenario: Users should be able to add a new cfs application with multiple devices
     Given I am logged into appian as "manufacturerAuto" user
     And I go to device certificate of free sale page
@@ -41,7 +41,7 @@ Feature: Able to add CFS for products and devices that are already registered
     And I should received an email for stored manufacturer with heading "Free Sale"
 
 
-  @smoke_test_cfs @1961 @_sprint21
+  @smoke_test_cfs @1961 @_sprint21 @create_new_org
   Scenario Outline: Users should be able to approve and reject a cfs application
     Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
@@ -69,7 +69,7 @@ Feature: Able to add CFS for products and devices that are already registered
       | authorisedRepAuto | Completed      | reject        |
 
 
-  @5679 @1954 @5680 @5681 @_sprint20 @5593 @5665 @5349 @_sprint21 @5674 @5674 @_sprint22 @6024 @_sprint24
+  @5679 @1954 @5680 @5681 @_sprint20 @5593 @5665 @5349 @_sprint21 @5674 @5674 @_sprint22 @6024 @_sprint24 @create_new_org
   Scenario: Business users should be able to view cfs new manufacturer and its devices and complete application
     Given I am logged into appian as "manufacturerAuto" user
     And I go to device certificate of free sale page
@@ -101,7 +101,7 @@ Feature: Able to add CFS for products and devices that are already registered
     And I should received an email for stored manufacturer with heading "Free Sale"
 
 
-  @5682 @5664 @_sprint21 @5673 @5674 @_sprint22 @_sprint23
+  @5682 @5664 @_sprint21 @5673 @5674 @_sprint22 @_sprint23 @create_new_org
   Scenario Outline: Business users should be able approve or reject individual devices for cfs new application
     Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
@@ -134,7 +134,7 @@ Feature: Able to add CFS for products and devices that are already registered
       | manufacturerAuto  | approve         | Approved |                  |
 
 
-  @5682 @5664 @_sprint21 @5673 @5674 @_sprint22 @_sprint23
+  @5682 @5664 @_sprint21 @5673 @5674 @_sprint22 @_sprint23 @create_new_org
   Scenario Outline: Business users should be able approve or reject BULK devices for cfs new application
     Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
@@ -173,7 +173,7 @@ Feature: Able to add CFS for products and devices that are already registered
       | manufacturerAuto  | approve         | Approved |                        |
 
 
-  @6024 @_sprint24 @wip
+  @6024 @_sprint24 @create_new_org @wip
   Scenario Outline: Verify Application WIP page entry data is correct for new CFS applications
     Given I am logged into appian as "<logInAs>" user
     And I go to device certificate of free sale page
@@ -198,7 +198,7 @@ Feature: Able to add CFS for products and devices that are already registered
       | authorisedRepAuto |
 
 
-  @4744 @_sprint23 @wip
+  @4744 @_sprint23 @create_new_org @wip
   Scenario Outline: Register a manufacturer for CFS and verify it appears in the registered manufacturers list with correct devices
     Given I am logged into appian as "<logInAs>" user
     And I go to device certificate of free sale page

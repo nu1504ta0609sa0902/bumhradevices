@@ -24,7 +24,7 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
     Then I should see correct device data in the review page
     And I submit the cfs application for approval
 
-  @5748 @_sprint23
+  @5748 @_sprint23 @create_new_org
   Scenario: Error message should be displayed when we try to add a duplicate device to a new cfs manufacturer
     Given I am logged into appian as "manufacturerAuto" user
     And I go to device certificate of free sale page
@@ -233,7 +233,7 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
     Then Check the application reference number format is valid
 
 
-  @5672 @_sprint20
+  @5672 @_sprint20 @create_new_org
   Scenario Outline: Manufacturers should be able to remove devices from a CFS application
     Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
@@ -266,7 +266,7 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
       | authorisedRepAuto | Blood weighing scale |
 
 
-  @1986 @5593 @_sprint21 @5673 @5674 @_sprint22 @_sprint23
+  @1986 @5593 @_sprint21 @5673 @5674 @_sprint22 @_sprint23 @create_new_org
   Scenario: Business users should be able to view cfs new manufacturer and its devices and able to change approval decisions
     Given I am logged into appian as "manufacturerAuto" user
     And I go to device certificate of free sale page

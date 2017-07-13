@@ -19,7 +19,7 @@ Feature: As a user, I want to view devices and product details associated with a
       | businessAuto | AuthorisedRepAccount | Accounts | Accounts    | Organisation name,Account number,Organisation role,Contact name,Organisation address,Organisation country,Status |
 
 
-  @regression @1924 @3271 @_sprint8 @wip
+  @regression @1924 @3271 @_sprint8 @create_new_org @wip
   Scenario Outline: As a user I should be able to create new manufacturers and verify device and product details related to a manufacturer
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -65,7 +65,7 @@ Feature: As a user, I want to view devices and product details associated with a
       | businessAuto | Organisations | AuthorisedRepRT | Active Implantable Device |
 
 
-  @regression @mdcm-125 @2293 @_sprint6 @wip
+  @regression @mdcm-125 @2293 @_sprint6 @create_new_org @wip
   Scenario Outline: Business users should be able to search and view newly registered organisations
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
