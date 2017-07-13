@@ -42,8 +42,9 @@ Feature: As an account holder, I should be able to add devices to existing manuf
       | devicesCompatible      | <devicesCompatible>  |
     Then I should see option to add another device
     And The gmdn code or term is "displayed" in summary section
-    When I save the application and confirm to exit
-    Then I should see stored manufacturer appear in the registration in progress list
+    And Verify save the application button is not displayed
+#    Then I should see stored manufacturer appear in the registration in progress list
+    Then I should see stored manufacturer appear in the manufacturers list
     Examples:
       | user              | status     | deviceType                 | gmdnDefinition                    | customMade | deviceSterile | deviceMeasuring | riskClassification | notifiedBody | isBearingCEMarking | devicesCompatible |
       | authorisedRepAuto | Registered | General Medical Device     | Blood weighing scale              | false      | true          | true            | class1             | NB 0086 BSI  |                    |                   |

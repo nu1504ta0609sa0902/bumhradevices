@@ -9,7 +9,7 @@ Feature: As a customer I want to be able to enter more than one device at the po
     When I create a new manufacturer using manufacturer test harness page with following data
       | accountType | <accountType> |
       | countryName | <countryName> |
-    When I add a device to SELECTED manufacturer with following data
+    And I add devices to NEWLY created manufacturer with following data
       | deviceType     | General Medical Device |
       | gmdnDefinition | <device1>              |
       | customMade     | true                   |

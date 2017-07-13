@@ -27,7 +27,7 @@ Feature: As a user, I want to be able to unregister manufacturers when they are 
     When I create a new manufacturer using manufacturer test harness page with following data
       | accountType | <accountType> |
       | countryName | Bangladesh    |
-    When I add a device to SELECTED manufacturer with following data
+    And I add devices to NEWLY created manufacturer with following data
       | deviceType     | General Medical Device |
       | gmdnDefinition | Blood weighing scale   |
       | customMade     | true                   |

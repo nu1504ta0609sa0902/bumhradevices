@@ -13,6 +13,7 @@ import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -163,6 +164,13 @@ public class ExternalHomePageSteps extends CommonSteps {
     public void iShouldSeeTheManufacturerAppearInTheManufacturersList() throws Throwable {
         externalHomePage = mainNavigationBar.clickExternalHOME();
         manufacturerList = externalHomePage.gotoListOfManufacturerPage();
+
+        String status = (String) scenarioSession.getData(SessionKey.registeredStatus);
+        if(status.equals("Registered")){
+            manufacturerList = manufacturerList.sortBy("Registration status", 2);
+        }else{
+            manufacturerList = manufacturerList.sortBy("Registration status", 1);
+        }
 
         String name = (String) scenarioSession.getData(SessionKey.organisationName);
         int nop = manufacturerList.getNumberOfPages(1);
@@ -448,6 +456,8 @@ public class ExternalHomePageSteps extends CommonSteps {
 
         if(status.equals("Registered")){
             manufacturerList = manufacturerList.sortBy("Registration status", 2);
+        }else{
+            manufacturerList = manufacturerList.sortBy("Registration status", 1);
         }
 
         String name = manufacturerList.getARandomManufacturerNameWithStatus(status);
@@ -484,8 +494,11 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     @When("^I click on random manufacturer with status \"([^\"]*)\" to add device$")
     public void i_click_on_random_manufacturer_with_status_to_add_device(String status) throws Throwable {
+
         if(status.equals("Registered")){
             manufacturerList = manufacturerList.sortBy("Registration status", 2);
+        }else{
+            manufacturerList = manufacturerList.sortBy("Registration status", 1);
         }
 
         String name = manufacturerList.getARandomManufacturerNameWithStatus(status);
@@ -799,6 +812,12 @@ public class ExternalHomePageSteps extends CommonSteps {
         addDevices = addDevices.saveAndExit();
         manufacturerList = addDevices.confirmSaveApplication(true);
         manufacturerList = manufacturerList.clickOnLinkToDisplayManufacturers();
+    }
+
+    @And("^Verify save the application button is not displayed$")
+    public void iSaveTheApplicationButtonShouldNotBeDisplayed() throws Throwable {
+        boolean isVisible = addDevices.isSaveAndExitButtonVisible();
+        Assert.assertThat("Save and exit button should only be displayed for new applications", isVisible, is(false));
     }
 
     @Then("^I should option to unregister the manufacturer$")

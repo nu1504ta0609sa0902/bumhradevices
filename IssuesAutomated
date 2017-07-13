@@ -290,7 +290,7 @@ Automated Issues:
         - @4628 -           DONE ISH    covered
         - @4715 -           DONE ISH    covered
         - @4560 -           DONE ISH    covered
-        - @4961 -   @todo   resume saved application
+        - @4961 -   @todo   @bug resume saved application
 
     Sprint 17: @_sprint17       CFS RELATED
         - @1944 -   DONE ISH    @todo upload CE certificate for a devices
@@ -385,8 +385,8 @@ Automated Issues:
                 -   change password link is not visible
         - @5995 -   DONE ISH DR  @todo saving and exiting not navigating to DR landing page
                 -   Takes me to a intermediary page where I have to click "Click here" link to go back to manufacturer lists
-        - @1957 -   DR  @todo bug/issue : resume application for manufacturer registration
-        - @5997 -   DR  @todo bug/issue : resume application behaviour not correct
+        - @1957 -   DR  @todo resume application for manufacturer registration
+        - @5997 -   DR  @todo issue : resume application behaviour not correct
         - @5749 -   DONE ISH DR  @todo payment section
 
     Sprint 22: @_sprint22

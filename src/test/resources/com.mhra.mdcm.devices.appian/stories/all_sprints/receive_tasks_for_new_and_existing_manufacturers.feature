@@ -88,7 +88,7 @@ Feature: As a business user, I want a task to be created each time a customer su
     When I create a new manufacturer using manufacturer test harness page with following data
       | accountType | <accountType> |
       | countryName | <countryName> |
-    When I add a device to SELECTED manufacturer with following data
+    And I add devices to NEWLY created manufacturer with following data
       | deviceType     | <deviceType> |
       | gmdnDefinition | <gmdn1>      |
       | customMade     | true         |

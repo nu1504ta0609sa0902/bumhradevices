@@ -1190,4 +1190,8 @@ public class AddDevices extends _Page {
         }
         return new ManufacturerList(driver);
     }
+
+    public boolean isSaveAndExitButtonVisible() {
+        return PageUtils.isElementClickable(driver, btnSaveAndExit, TIMEOUT_2_SECOND);
+    }
 }
