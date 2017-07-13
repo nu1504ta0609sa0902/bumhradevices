@@ -2,24 +2,6 @@
 Feature: Tasks will need to be generated for CFS application
   So that business users can verify, approve and reject them accordingly
 
-#  Scenario: Remove me
-#    When I logout and log back into appian as "businessAuto" user
-#    And I search and view "ManufacturerRT01Test_20_6_877745" in AWIP page for the newly created manufacturer
-    #Without approving
-#    Then I should see the option to "Assign to myself"
-#    And I should not see any option related to approving reject and completing the application
-#    And I assign the generated AWIP page task to me
-#    Then The task status in AWIP page should be "Assigned" for the newly created manufacturer
-    #Complete application
-#    And I assign the AWIP page task to me and "approve" the generated task
-#    Then The task status in AWIP page should be "Completed" for the newly created manufacturer
-#    And I should received an email for stored manufacturer with heading "Application"
-    #Assign to someone else
-#    And I assign the task to another user called "Nobody"
-#    When I search for task in AWIP page for the manufacturer
-#    Then Verify the task is assigned to the correct user
-#    And The task status in AWIP page should be "In Progress" for the newly created manufacturer
-
 
   @5679 @_sprint20
   Scenario: Users should be shown correct options at different stages of approving a task

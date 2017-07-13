@@ -7,8 +7,12 @@ import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
+import cucumber.api.PendingException;
+import cucumber.api.java.en.And;
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import static org.hamcrest.CoreMatchers.*;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.springframework.context.annotation.Scope;
@@ -19,6 +23,10 @@ import org.springframework.context.annotation.Scope;
 @Scope("cucumber-glue")
 public class LoginPageSteps extends CommonSteps {
 
+    @Given("^I am in login page$")
+    public void i_am_in_login_page() throws Throwable {
+        loginPage = loginPage.loadPage(baseUrl);
+    }
 
     @When("^I am logged into appian as \"([^\"]*)\" user$")
     public void i_am_logged_into_appian_as_user(String username) throws Throwable {
@@ -28,12 +36,13 @@ public class LoginPageSteps extends CommonSteps {
             PageUtils.acceptAlert(driver, "accept", 1);
             mainNavigationBar = loginPage.login(username);
             scenarioSession.putData(SessionKey.loggedInUser, username);
-        }catch(Exception e) {
+        } catch (Exception e) {
             PageUtils.acceptAlert(driver, "accept", 1);
             try {
                 mainNavigationBar = loginPage.reloginUsing(username);
                 scenarioSession.putData(SessionKey.loggedInUser, username);
-            }catch (Exception e2){}
+            } catch (Exception e2) {
+            }
         }
     }
 
@@ -44,12 +53,13 @@ public class LoginPageSteps extends CommonSteps {
             PageUtils.acceptAlert(driver, "accept", 1);
             mainNavigationBar = loginPage.login(username);
             scenarioSession.putData(SessionKey.loggedInUser, username);
-        }catch(Exception e) {
+        } catch (Exception e) {
             PageUtils.acceptAlert(driver, "accept", 1);
             try {
                 mainNavigationBar = loginPage.reloginUsing(username);
                 scenarioSession.putData(SessionKey.loggedInUser, username);
-            }catch (Exception e2){}
+            } catch (Exception e2) {
+            }
         }
     }
 
@@ -81,12 +91,12 @@ public class LoginPageSteps extends CommonSteps {
         String currentLoggedInUser = (String) scenarioSession.getData(SessionKey.loggedInUser);
 
         //Note page displayed to Business user is different from Manufacturer and AuthorisedRep
-        if(currentLoggedInUser!=null){
-            if(currentLoggedInUser.toLowerCase().contains("business")){
+        if (currentLoggedInUser != null) {
+            if (currentLoggedInUser.toLowerCase().contains("business")) {
                 loginPage = loginPage.logoutIfLoggedIn();
-            }else if(currentLoggedInUser.toLowerCase().contains("manufacturer")){
+            } else if (currentLoggedInUser.toLowerCase().contains("manufacturer")) {
                 loginPage = loginPage.logoutIfLoggedInOthers();
-            }else if(currentLoggedInUser.toLowerCase().contains("authorised")){
+            } else if (currentLoggedInUser.toLowerCase().contains("authorised")) {
                 loginPage = loginPage.logoutIfLoggedInOthers();
             }
         }
@@ -100,16 +110,16 @@ public class LoginPageSteps extends CommonSteps {
 
     @When("^I go to \"([^\"]*)\" page$")
     public void iGoToPage(String page) throws Throwable {
-        if(page.equals("News")){
+        if (page.equals("News")) {
             newsPage = mainNavigationBar.clickNews();
-        }else if(page.equals("Tasks")){
+        } else if (page.equals("Tasks")) {
             tasksPage = mainNavigationBar.clickTasks();
-        }else if(page.equals("Records")){
+        } else if (page.equals("Records")) {
             recordsPage = mainNavigationBar.clickRecords();
             recordsPage.isCorrectPage();
-        }else if(page.equals("Reports")){
+        } else if (page.equals("Reports")) {
             reportsPage = mainNavigationBar.clickReports();
-        }else if(page.equals("Actions")){
+        } else if (page.equals("Actions")) {
             actionsTabPage = mainNavigationBar.clickActions();
         }
     }
@@ -138,5 +148,45 @@ public class LoginPageSteps extends CommonSteps {
         String userName = (String) scenarioSession.getData(SessionKey.newUserName);
         String password = (String) scenarioSession.getData(SessionKey.temporaryPassword);
         i_am_logged_into_appian_as_user(userName, password);
+    }
+
+    @When("^I request a new password for stored user$")
+    public void iRequestANewPasswordForStoredUser() throws Throwable {
+        String userName = (String) scenarioSession.getData(SessionKey.newUserName);
+        //userName = "Manufacturer1307_50598";
+        loginPage = loginPage.gotoForgottenPassword();
+        loginPage = loginPage.enterUsername(userName);
+    }
+
+    @When("^I click on the password reset link$")
+    public void iClickOnThePasswordResetLink() throws Throwable {
+        String messageBody = (String) scenarioSession.getData(SessionKey.emailBody);
+        if(messageBody!=null){
+            String link = messageBody.substring(messageBody.indexOf("low:")+5, messageBody.indexOf("This l")-1);
+            loginPage = loginPage.loadPage(link);
+        }
+    }
+
+    @Then("^I should see the correct username in change password page$")
+    public void iShouldSeeTheCorrectUsername() throws Throwable {
+        String userNameTxt = (String) scenarioSession.getData(SessionKey.newUserName);
+        //userNameTxt = "Manufacturer1307_50598";
+        boolean isCorrect = loginPage.isChangePasswordUsernameCorrect(userNameTxt);
+        Assert.assertThat("Expected username : " + userNameTxt, isCorrect, is(true));
+    }
+
+    @When("^I update the password to \"([^\"]*)\"$")
+    public void iUpdateThePasswordTo(String newPassword) throws Throwable {
+        mainNavigationBar = loginPage.updateThePasswordTo(newPassword);
+        scenarioSession.putData(SessionKey.updatedPassword, newPassword);
+    }
+
+    @And("^I should be able to logout and logback in with new password$")
+    public void iLogoutAndLogbackInWithNewPassword() throws Throwable {
+        String userNameTxt = (String) scenarioSession.getData(SessionKey.newUserName);
+        String updatedPassword = (String) scenarioSession.getData(SessionKey.updatedPassword);
+        //userNameTxt = "Manufacturer1307_50598";
+        iLogoutOfTheApplication();
+        i_am_logged_into_appian_as_user(userNameTxt, updatedPassword);
     }
 }

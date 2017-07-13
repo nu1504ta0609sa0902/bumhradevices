@@ -1153,6 +1153,7 @@ public class AddDevices extends _Page {
         }
 
         //Complete the application
+        PageFactory.initElements(driver,this);
         WaitUtils.waitForElementToBeVisible(driver, btnCompleteApplication, TIMEOUT_10_SECOND);
         WaitUtils.waitForElementToBeClickable(driver, btnCompleteApplication, TIMEOUT_10_SECOND);
         btnCompleteApplication.click();

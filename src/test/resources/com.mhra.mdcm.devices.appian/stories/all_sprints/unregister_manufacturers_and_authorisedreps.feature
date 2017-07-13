@@ -51,6 +51,6 @@ Feature: As a user, I want to be able to unregister manufacturers when they are 
     Then I should see application reference number generated
     And I should received an email for stored manufacturer with heading "MHRA device registration service" and stored application identifier
     Examples:
-      | user              | logBackInAs  | status     | accountType   | unregisteredReason    |
-      | manufacturerNoor  | businessAuto | Registered | manufacturer  | No Longer Represented |
-      | authorisedRepNoor | businessAuto | Registered | authorisedRep | Ceased Trading        |
+      | user              | logBackInAs  | accountType   | unregisteredReason    |
+      | manufacturerNoor  | businessAuto | manufacturer  | No Longer Represented |
+      | authorisedRepNoor | businessAuto | authorisedRep | Ceased Trading        |

@@ -29,7 +29,7 @@ Feature: As a customer I want to receive email notifications when ever a account
     Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email for stored manufacturer with heading "<emailSubject>" and stored application identifier
     Examples:
-      | user         | accountType   | countryName | reason                             | emailSubject                    |
+      | user         | accountType   | countryName | reason                             | emailSubject         |
       | businessNoor | manufacturer  | Turkey      | Account already exists             | Account rejected for |
       | businessNoor | authorisedRep | Estonia     | No authorisation evidence provided | Account rejected for |
 
@@ -69,7 +69,7 @@ Feature: As a customer I want to receive email notifications when ever a account
     And I add devices to NEWLY created manufacturer with following data
       | deviceType     | General Medical Device |
       | gmdnDefinition | Blood weighing scale   |
-      | customMade     | false                   |
+      | customMade     | false                  |
       | productName    | Product1               |
     And Proceed to payment and confirm submit device details
     When I logout and log back into appian as "<logBackInAs>" user
@@ -119,3 +119,38 @@ Feature: As a customer I want to receive email notifications when ever a account
       | user         | accountType   | approveReject | logBackInAs       | countryName   | accountNameBeginsWith    |
       | businessNoor | manufacturer  | approve       | manufacturerNoor  | Bangladesh    | ManufacturerAccountRT00  |
       | businessNoor | authorisedRep | reject        | authorisedRepNoor | United States | AuthorisedRepAccountRT00 |
+
+
+  @2272 @_sprint19 @4645 @_sprint20 @4648 @_sprint24 @wip
+  Scenario Outline: Email notification should be generated for fogotten password
+    Given I am logged into appian as "<user>" user
+    When I create a new account using business test harness page with following data
+      | accountType           | <accountType>           |
+      | accountNameBeginsWith | <accountNameBeginsWith> |
+      | countryName           | United Kingdom          |
+    Then I search and view new task in AWIP page for the new account
+    When I assign the AWIP page task to me and "<approveReject>" the generated task
+    Then The task status in AWIP page should be "Completed" for the new account
+    And I should received an email with password for new account with heading "account creation" and stored username
+    When I logout and logback in with newly created account and update the password to "MHRA12345A"
+    And I logout of the application
+    When I request a new password for stored user
+    Then I should received an email with subject heading "Password Reset"
+    When I click on the password reset link
+    Then I should see the correct username in change password page
+    When I update the password to "MHRA12345B"
+    Then I should be able to logout and logback in with new password
+    Examples:
+      | user         | accountType   | approveReject | accountNameBeginsWith    |
+      | businessNoor | manufacturer  | approve       | ManufacturerAccountRT00  |
+      | businessNoor | authorisedRep | reject        | AuthorisedRepAccountRT00 |
+
+
+  Scenario: Remove me
+    Given I am in login page
+    When I request a new password for stored user
+    Then I should received an email with subject heading "Password Reset"
+    When I click on the password reset link
+    Then I should see the correct username
+    When I update the password to "MHRA12345B"
+    And I logout and logback in with new password

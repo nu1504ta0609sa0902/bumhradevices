@@ -49,9 +49,23 @@ public class LoginPage extends _Page {
     @FindBy(name = "oldPw")
     WebElement passwordTemporary;
     @FindBy(name = "newPw")
-    WebElement passwordNew;
+    WebElement changePasswordNew;
     @FindBy(name = "confirmNewPw")
-    WebElement passwordNewConfirm;
+    WebElement changePasswordNewConfirm;
+
+    //Forgotten password or change password
+    @FindBy(id = "forgotPasswordLink")
+    WebElement linkForgottenPassword;
+    @FindBy(id = "back_link")
+    WebElement linkBackToSignInPage;
+    @FindBy(name = "username")
+    WebElement fpUserName;
+    @FindBy(css = ".confirmValue")
+    WebElement confirmUserName;
+    @FindBy(name = "newPw")
+    WebElement tbxNewPassword;
+    @FindBy(name = "confirmNewPw")
+    WebElement tbxConfirmNewPassword;
 
     @FindBy(xpath = ".//input[@value='Log in']")
     WebElement btnLogin;
@@ -275,8 +289,8 @@ public class LoginPage extends _Page {
     public MainNavigationBar changePasswordTo(String tempPassword, String updatePasswordTo) {
         WaitUtils.waitForElementToBeClickable(driver, btnSubmit, TIMEOUT_10_SECOND);
         passwordTemporary.sendKeys(tempPassword);
-        passwordNew.sendKeys(updatePasswordTo);
-        passwordNewConfirm.sendKeys(updatePasswordTo);
+        changePasswordNew.sendKeys(updatePasswordTo);
+        changePasswordNewConfirm.sendKeys(updatePasswordTo);
         btnSubmit.click();
         return new MainNavigationBar(driver);
     }
@@ -293,5 +307,31 @@ public class LoginPage extends _Page {
             }
         }
         PageUtils.acceptAlert(driver, true, 1);
+    }
+
+    public LoginPage gotoForgottenPassword() {
+        WaitUtils.waitForElementToBeClickable(driver, linkForgottenPassword, TIMEOUT_10_SECOND);
+        linkForgottenPassword.click();
+        return new LoginPage(driver);
+    }
+
+    public LoginPage enterUsername(String userName) {
+        WaitUtils.waitForElementToBeClickable(driver, fpUserName, TIMEOUT_10_SECOND);
+        fpUserName.sendKeys(userName);
+        fpUserName.submit();
+        return new LoginPage(driver);
+    }
+
+    public boolean isChangePasswordUsernameCorrect(String userNameTxt) {
+        WaitUtils.waitForElementToBeClickable(driver, confirmUserName, TIMEOUT_10_SECOND);
+        return confirmUserName.getText().contains(userNameTxt);
+    }
+
+    public MainNavigationBar updateThePasswordTo(String newPassword) {
+        WaitUtils.waitForElementToBeClickable(driver, tbxNewPassword, TIMEOUT_10_SECOND);
+        tbxNewPassword.sendKeys(newPassword);
+        tbxConfirmNewPassword.sendKeys(newPassword);
+        tbxConfirmNewPassword.submit();
+        return new MainNavigationBar(driver);
     }
 }

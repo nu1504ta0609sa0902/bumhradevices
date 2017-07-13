@@ -74,7 +74,7 @@ public class EmailSteps extends CommonSteps {
         String messageBody = null;
         int attempt = 0;
         do {
-            messageBody = GmailEmail.getMessageReceivedWithHeadingAndBodyContainsIdentifier(7, 10, emailHeading, userName);
+            messageBody = GmailEmail.getMessageReceivedWithHeadingAndBodyContainsIdentifier(2, 10, emailHeading, userName);
 
             //Break from loop if invoices read from the email server
             if (messageBody!=null) {
@@ -134,7 +134,7 @@ public class EmailSteps extends CommonSteps {
 
             //Break from loop if invoices read from the email server
             if (messageBody!=null) {
-                foundMessage = true;
+                scenarioSession.putData(SessionKey.emailBody, messageBody);
                 break;
             } else {
                 //Wait for 10 seconds and try again, Thread.sleep required because this is checking email

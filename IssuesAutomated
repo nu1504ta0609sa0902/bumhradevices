@@ -341,7 +341,7 @@ Automated Issues:
         - @2289 -   DONE ISH DR  @todo lookup addresses
         - @2328 -   DONE ISH DR  @todo request access to online services
                 -   @TODO no CMS not available
-        - @4645 -   DR  @todo reset forgotten password
+        - @4645 -   DONE ISH DR  @todo reset forgotten password
                 -   @TODO no CMS not available
         - @2278 -   DONE ISH DR  @todo Email confirm successful request to access services
                 -   Email content needs verification
@@ -372,7 +372,7 @@ Automated Issues:
                 -   Custom made or risk classification of class 1 not shown
         - @3207 -   DONE ISH DR  @todo specify products for GMD and IVD (low risks)
                 -   Custom made question not displayed for IVD
-        - @2272 -   DR  @todo reset forgotten password
+        - @2272 -   DONE ISH DR  @todo reset forgotten password
                 -   @TODO NO web cms yet
                 -   change password link is not visible
         - @2151 -   DONE ISH DR  @todo Email confirmation for registering a manufacturer
@@ -450,13 +450,16 @@ Automated Issues:
                 -   Application reference number not generated
         - @2229 -   DR @todo Respond to multiple registration request
         - @6625 -   DR @todo Apply agency password
-        - @4546 -   DR @todo Email notification receipt of an application wanting to unregister
-                -
+        - @4546 -   DONE ISH DR @todo Email notification receipt of an application wanting to unregister
+                -   Email content needs to be verified
         - @5345 -   DR @todo View a list of all users
+                -   No link
         - @2154 -   DR @todo View payment details for an applicaton
+                -   No link
         - @2107 -   DR @todo Receive review and process request for manufacturer registration
 
-        - @4648 -   DR @todo Email link for password reset
+        - @4648 -   DONE ISH DR @todo Email link for forgotten password reset
+                -   Email content needs to be verified
         - @4378 -   DR @todo Email notification to customer when processing has begun
         - @6341 -   DR @todo Organisation page edit org details
         - @6632 -   DR @todo Organisation page summary tab view details
