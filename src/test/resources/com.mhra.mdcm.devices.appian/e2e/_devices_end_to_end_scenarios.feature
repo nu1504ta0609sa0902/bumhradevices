@@ -1,7 +1,7 @@
 @e2e
 Feature: End 2 End Scenarios to verify system is behaving correctly from a high level view
 
-  @1836 @1929 @2327 @2278 @2260 @2193 @2290 @2273 @2324 @2191 @2190 @2311 @2263 @2292 @2258 @2197 @2833
+  @1836 @1929 @2222 @2327 @2278 @2260 @2193 @2191 @2190 @2289 @2290 @2273 @2324 @2311 @2328 @2263 @2278 @2292 @2258 @2197 @2833
   Scenario Outline: S1 Manufacturer account registration
 #Register new manufacturer account, approve the task and check MHRA approval email received
     Given I am logged into appian as "<businessUser>" user
@@ -38,7 +38,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | businessNoor | manufacturerNoor | manufacturer | approve       | United Kingdom | Bangladesh       |
 
 
-  @1836 @1929 @2327 @2278 @2260 @2193 @2290 @2273 @2324 @2191 @2190 @2311 @2263 @2292 @2258 @2197 @2216 @2833
+  @1836 @1929 @2222 @2327 @2278 @2260 @2193 @2289 @2290 @2273 @2324 @2191 @2190 @2311 @2263 @2328 @2278 @2292 @2258 @2197 @2216 @2833
   Scenario Outline: S2 AuthorisedRep account registration for non uk manufacturers
 #Register new manufacturer account, approve the task and check MHRA approval email received
     Given I am logged into appian as "<businessUser>" user
@@ -118,7 +118,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | Bangladesh | 10    |
 
 
-  @1845 @1974 @1952  @1962 @1971 @3979 @4330 @5141 @5212 @5126 @5128 @5673 @5674 @5583
+  @1845 @1974 @1952 @1962 @1971 @3979 @4330 @5141 @5212 @5126 @5128 @5673 @5674 @5583
   Scenario Outline: S4b Register and approve Non UK based manufacturers for CFS
     Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
@@ -137,13 +137,13 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And I submit the cfs application for approval
     When I logout and log back into appian as "<businessUser>" user
     And I search and view new task in AWIP page for the newly created manufacturer
-    And I assign the AWIP page task to me and "approve" the generated task
+    And I assign the AWIP page task to me and "<approveReject>" the generated task
     Then The task status in AWIP page should be "Completed" for the newly created manufacturer
     And I should received an email for stored manufacturer with heading "Free Sale"
     Examples:
       | user              | businessUser | accountType  | country       | approveReject | status    |
       | authorisedRepAuto | businessAuto | authorisedRep | United States | approve       | Completed |
-      | manufacturerAuto  | businessAuto | manufacturer | Brazil        | approve       | Completed |
+      | manufacturerAuto  | businessAuto | manufacturer | Brazil        | reject       | Completed |
 
   @1992 @1845 @1974 @1952 @1962 @1971 @3979 @4330 @5141 @5212 @5126 @5128 @5673 @5674 @5583 @2833 @cfs_e2e
   Scenario Outline: S4c Register and approve Non UK based manufacturers with multiple devices for CFS
