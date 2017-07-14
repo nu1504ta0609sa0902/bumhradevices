@@ -473,7 +473,7 @@ public class TasksPageSteps extends CommonSteps {
     @When("^I filter WIP tasks by multiple filters \"([^\"]*)\"$")
     public void i_filter_WIP_tasks_by_multiple_filters(String multipleFilters) throws Throwable {
         String[] filters = multipleFilters.split(",");
-
+        boolean expandedFilterSection = false;
         for(String filterByAndValue: filters) {
             String[] dataPair = filterByAndValue.split("=");
             String filterBy = dataPair[0];
@@ -487,7 +487,10 @@ public class TasksPageSteps extends CommonSteps {
                 taskSection = taskSection.filterWIPTasksBy(filterBy, value);
             } else {
                 //Its hidden behind a link: so expand it
-                taskSection = taskSection.expandFilterSection(true);
+                if(!expandedFilterSection) {
+                    taskSection = taskSection.expandFilterSection(true);
+                    expandedFilterSection = true;
+                }
                 taskSection = taskSection.filterWIPTasksBy(filterBy, value);
             }
         }

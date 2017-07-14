@@ -139,9 +139,9 @@ public class TaskSection extends _Page {
     WebElement byApplicationTypeDD;
     @FindBy(xpath = ".//*[.='Application status']//following::div[1]")
     WebElement byApplicationStatusDD;
-    @FindBy(xpath = ".//*[.='Application status']//following::div[1]")
+    @FindBy(xpath = ".//*[.='Applicant role']//following::div[1]")
     WebElement byApplicationRoleDD;
-    @FindBy(xpath = ".//*[.='Application status']//following::div[1]")
+    @FindBy(xpath = ".//*[.='Priority']//following::div[1]")
     WebElement byPriorityDD;
     @FindBy(partialLinkText = "Show Filter application")
     WebElement linkShowFilters;
