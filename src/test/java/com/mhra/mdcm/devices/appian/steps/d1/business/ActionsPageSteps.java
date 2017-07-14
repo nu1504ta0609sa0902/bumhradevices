@@ -142,6 +142,7 @@ public class ActionsPageSteps extends CommonSteps {
         String address = (String) scenarioSession.getData(SessionKey.address);
         String postCode = (String) scenarioSession.getData(SessionKey.postCode);
 
+        String fullAddress = address + ", " + postCode;
         boolean isFieldDataCorrect = createTestsData.isAddressLookupDataCorrect(address, postCode);
         Assert.assertThat("Expected address : " + address, isFieldDataCorrect, is(true));
     }

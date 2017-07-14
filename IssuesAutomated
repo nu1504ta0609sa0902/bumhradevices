@@ -269,7 +269,7 @@ Automated Issues:
         - @1989 -   @todo Guidance text for types of certificates
         - @5207 -   DONE ISH    @todo error messaage checks
         - @5463 -   UX changes
-        - @4908 -   DONE ISH    covered
+        - @4908 -   DR DONE ISH   covered
         - @5450 -   Document row removed so no paper clip image
         - @4324 -   @todo   field validation
         - @4356 -   @todo   bug error messages and validations
@@ -326,7 +326,7 @@ Automated Issues:
 
 
     Sprint 19/20: @_sprint19/20
-        - @5668 -
+        - @5668 -   DONE ISH DR @todo Filter WIP tasks
         - @5672 -   DONE ISH CFS @todo customers able to remove devices from application
         - @5666 -   DONE ISH CFS @todo business user to assign application to someone else
         - @5679 -   DONE ISH CFS @todo business user assign application to myself
@@ -422,7 +422,7 @@ Automated Issues:
         - @5748 -   DONE ISH CFS @todo display error message for duplicate devices
                 -   Add a manufacturer via DR and verify the message
         - @2091 -   CFS @todo Email for further information
-        - @2096 -   DR @todo Email for unregistering a manufacturer
+        - @2096 -   DR DONE ISH @todo Email for unregistering a manufacturer
                 -   Register manufacturer with 2 contacts and than check they all receive the same email
                 -   Verify email contents
         - @2150 -   CFS @todo Email reminder to customers more information required

@@ -46,7 +46,7 @@ public class ManufacturerList extends _Page {
     @FindBy(css = ".elements---global_p .elements---global_a")
     WebElement manufacturerName;
 
-    //
+    //Pagination
     @FindBy(css = ".GridWidget---count")
     WebElement itemCount;
     @FindBy(css = ".GridWidget---count")

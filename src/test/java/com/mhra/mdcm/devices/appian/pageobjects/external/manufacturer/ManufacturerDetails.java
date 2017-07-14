@@ -481,4 +481,11 @@ public class ManufacturerDetails extends _Page {
         btnUnregister.click();
         return new ManufacturerDetails(driver);
     }
+
+    public AddDevices clickContinueButton() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, btnContinue, TIMEOUT_10_SECOND);
+        btnContinue.click();
+        return new AddDevices(driver);
+    }
 }

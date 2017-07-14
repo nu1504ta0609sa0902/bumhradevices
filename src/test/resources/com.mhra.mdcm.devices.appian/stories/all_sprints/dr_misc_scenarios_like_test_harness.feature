@@ -9,9 +9,9 @@ Feature: Aa a user I would like to verify features which are not related to devi
     Then I should see following "<matches>" returned by autosuggests
     Examples:
       | user         | searchTerm | matches          |
-      | businessNoor | ZZZ        | No results found |
-      | businessNoor | Ban        | Bangladesh       |
-      | businessNoor | Aus        | Australia        |
+      | businessAuto | ZZZ        | No results found |
+      | businessAuto | Ban        | Bangladesh       |
+      | businessAuto | Aus        | Australia        |
 
   @regression @2399 @3365 @readonly @_sprint7
   Scenario Outline: Verify the new countries list in MANUFACTURER test harness uses autosuggestion
@@ -28,7 +28,7 @@ Feature: Aa a user I would like to verify features which are not related to devi
 
 
   @regression @mdcm-465 @mdcm-164 @2274 @readonly @_sprint5 @_sprint6
-  Scenario Outline: Verify no EU countries are displayed to authorisedReps
+  Scenario Outline: Verify no EU countries are displayed when registering manufacturer as authorisedReps
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
     And I get a list of countries matching searchterm "<searchTerm>" from manufacturer test harness
@@ -40,39 +40,72 @@ Feature: Aa a user I would like to verify features which are not related to devi
 
 
   @1838 @_sprint13 @readonly
-  Scenario Outline: Users should be able to search using  GMDN code or term
+  Scenario Outline: Users should be able to search using GMDN TERM
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on random manufacturer with status "Registered" to add device
+    And I click on a random manufacturer
+    And I go to add devices page
     When I search for device type "<deviceType>" with gmdn "<gmdn>"
     Then I should see at least <count> devices matches
     Examples:
       | user              | deviceType             | gmdn      | count |
       | authorisedRepAuto | General Medical Device | Blood     | 1     |
-      | authorisedRepAuto | General Medical Device | 10014     | 1     |
       | authorisedRepAuto | General Medical Device | HllNBlood | 0     |
-      | authorisedRepAuto | General Medical Device | 181481    | 0     |
-      | manufacturerAuto  | General Medical Device | Blood     | 1     |
-      | manufacturerAuto  | General Medical Device | 10014     | 1     |
+
+
+  @regression @1838 @_sprint13 @readonly
+  Scenario Outline: Users should be able to search for multiple device types
+    Given I am logged into appian as "<user>" user
+    And I go to list of manufacturers page
+    And I click on a random manufacturer
+    And I go to add devices page
+    When I search for device type "<deviceType1>" with gmdn "<gmdn>"
+    Then I should see at least <count> devices matches
+    When I search for device type "<deviceType2>" with gmdn "<gmdn>"
+    Then I should see at least <count> devices matches
+    When I search for device type "<deviceType3>" with gmdn "<gmdn>"
+    Then I should see at least <count> devices matches
+    When I search for device type "<deviceType4>" with gmdn "<gmdn>"
+    Then I should see at least <count> devices matches
+    Examples:
+      | user              | deviceType1            | deviceType2                | deviceType3               | deviceType4              | gmdn          | count |
+      | authorisedRepAuto | General Medical Device | In Vitro Diagnostic Device | Active Implantable Device | System or Procedure Pack | KIT           | 1     |
+      | manufacturerAuto  | General Medical Device | In Vitro Diagnostic Device | Active Implantable Device | System or Procedure Pack | MAGAHllNBlood | 0     |
+
+
+  @1838 @_sprint13 @readonly
+  Scenario Outline: Users should be able to search using GMDN CODE
+    Given I am logged into appian as "<user>" user
+    And I go to list of manufacturers page
+    And I click on a random manufacturer
+    And I go to add devices page
+    When I search for device type "<deviceType>" with gmdn "<gmdn>"
+    Then I should "<errorMessage>" validation error message in devices page
+    Examples:
+      | user             | deviceType             | gmdn   | errorMessage |
+      | manufacturerAuto | General Medical Device | 181481 | see          |
+      | manufacturerAuto | General Medical Device | 13459  | Not see      |
+
 
   @regression @1838 @4211 @_sprint12 @_sprint13 @readonly
   Scenario Outline: Users should be able to view all gmdn terms or definitions
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on random manufacturer with status "Registered" to add device
+    And I click on a random manufacturer
+    And I go to add devices page
     When I click on view all gmdn term or definitions for device type "<deviceType>"
     And I search for gmdn "<gmdn>"
     Then I should see at least <count> devices matches
     Examples:
-      | user              | deviceType                        | gmdn  | count |
-      | authorisedRepAuto | General Medical Device            | Air   | 1     |
-      | authorisedRepAuto | In Vitro Diagnostic Device        | Blood | 1     |
-      | authorisedRepAuto | Active Implantable Medical Device | Blood | 1     |
-      | authorisedRepAuto | System or Procedure Pack          | Blood | 1     |
-      | manufacturerAuto  | General Medical Device            | Air   | 1     |
-      | manufacturerAuto  | In Vitro Diagnostic Device        | Blood | 1     |
-      | manufacturerAuto  | Active Implantable Medical Device | Blood | 1     |
-      | manufacturerAuto  | System or Procedure Pack          | Blood | 1     |
+      | user              | deviceType                 | gmdn  | count |
+      | authorisedRepAuto | General Medical Device     | Air   | 1     |
+      | authorisedRepAuto | In Vitro Diagnostic Device | Blood | 1     |
+      | authorisedRepAuto | Active Implantable Device  | Blood | 1     |
+      | authorisedRepAuto | System or Procedure Pack   | Blood | 1     |
+      | manufacturerAuto  | General Medical Device     | Air   | 1     |
+      | manufacturerAuto  | In Vitro Diagnostic Device | Blood | 1     |
+      | manufacturerAuto  | Active Implantable Device  | Blood | 1     |
+      | manufacturerAuto  | System or Procedure Pack   | Blood | 1     |
 
 
   @regression @2097 @_sprint8
@@ -93,7 +126,7 @@ Feature: Aa a user I would like to verify features which are not related to devi
       | businessAuto | Organisations | ManufacturerRT  | name=Optout,address=Optout | address                 | Do not publish name or address |
 
 
-  @4090 @_sprint13 @4088 @_sprint11 @4711 @_sprint16 @readonly
+  @regression @4090 @_sprint13 @4088 @_sprint11 @4711 @_sprint16 @5668 @_sprint20 @readonly
   Scenario Outline: Users should be able to filter tasks in application WIP page
     Given I am logged into appian as "<user>" user
     And I go to application WIP page
@@ -108,7 +141,7 @@ Feature: Aa a user I would like to verify features which are not related to devi
       | businessAuto | byApplicationAssignedTo | Auto               |
 
 
-  @4090 @_sprint13 @4088 @_sprint11 @4711 @_sprint16 @readonly
+  @4090 @_sprint13 @4088 @_sprint11 @4711 @_sprint16 @5668 @_sprint20 @readonly
   Scenario Outline: Users should be able to filter tasks with multiple filters in application WIP page
     Given I am logged into appian as "<user>" user
     And I go to application WIP page
@@ -126,7 +159,7 @@ Feature: Aa a user I would like to verify features which are not related to devi
     When I look up for postcode "<postCode>" and select road "<road>"
     Then I should see correct postcode and address populated in the fields
     Examples:
-      | user         | postCode | road        |
-      | businessAuto | N17 6RH  | 17 ,Radley Road |
+      | user         | postCode | road               |
+      | businessAuto | N17 6RH  | 17 ,Radley Road    |
       | businessAuto | BA1 3AE  | Upper Bristol Road |
 

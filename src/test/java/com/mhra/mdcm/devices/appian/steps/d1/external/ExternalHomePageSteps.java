@@ -358,6 +358,16 @@ public class ExternalHomePageSteps extends CommonSteps {
         Assert.assertThat("Expected to see validation error message to contain : " + message, errorMessageDisplayed, Matchers.is(true));
     }
 
+    @Then("^I should \"([^\"]*)\" validation error message in devices page$")
+    public void i_should_see_validation_error_message_in_devices_page(String isErrorMessaageDisplayed) throws Throwable {
+        boolean errorMessageDisplayed = addDevices.isValidationErrorMessageVisible();
+        if(isErrorMessaageDisplayed.toLowerCase().equals("not see")){
+            Assert.assertThat("Error messages should not be displayed " , errorMessageDisplayed, Matchers.is(false));
+        }else{
+            Assert.assertThat("Error messages SHOULD BE displayed " , errorMessageDisplayed, Matchers.is(true));
+        }
+    }
+
     @Then("^I should see correct device types$")
     public void iShouldSeeCorrectDeviceTypes() throws Throwable {
         boolean isCorrect = addDevices.isDeviceTypeCorrect();
@@ -767,9 +777,25 @@ public class ExternalHomePageSteps extends CommonSteps {
         }
     }
 
+    @Then("^I go to add devices page$")
+    public void i_go_to_add_devices_page() throws Throwable {
+        boolean tabDisplayed = false;
+        try {
+            //Go to add devices
+            deviceDetails = manufacturerDetails.clickOnDevicesAndProductDetailsLink();
+            tabDisplayed = true;
+            deviceDetails = deviceDetails.clickManageDevices();
+            addDevices = deviceDetails.clickAddDeviceBtn();
+        }catch (Exception e){
+            if(!tabDisplayed)
+            addDevices = manufacturerDetails.clickContinueButton();
+        }
+    }
 
-    @When("^I click on view all gmdn term or definitions for device type \"([^\"]*)\"$")
+
+        @When("^I click on view all gmdn term or definitions for device type \"([^\"]*)\"$")
     public void i_click_on_view_all_gmdn_term_or_definitions(String deviceType) throws Throwable {
+
         //View all gmdn
         DeviceDO dd = TestHarnessUtils.updateDeviceData(null, scenarioSession);
         addDevices = addDevices.viewAllGmdnTermDefinitions(dd, deviceType);

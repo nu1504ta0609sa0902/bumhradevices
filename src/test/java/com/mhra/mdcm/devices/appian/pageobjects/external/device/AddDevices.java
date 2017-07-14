@@ -332,6 +332,10 @@ public class AddDevices extends _Page {
         return contains;
     }
 
+    public boolean isErrorMessageDisplayed() {
+        return PageUtils.isElementClickable(driver, errMessage, TIMEOUT_2_SECOND);
+    }
+
     public AddDevices addFollowingDevice(DeviceDO dd, boolean isRegistered) {
         //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_15_SECOND);
@@ -1014,7 +1018,7 @@ public class AddDevices extends _Page {
         boolean isNumber = CommonUtils.isNumericValue(searchTerm);
         if(!isNumber) {
             try {
-                WaitUtils.waitForElementToBeClickable(driver, listOfGmdnMatchesReturnedBySearch.get(0), TIMEOUT_3_SECOND);
+                WaitUtils.waitForElementToBeClickable(driver, aGmdnMatchesReturnedBySearch, TIMEOUT_5_SECOND);
                 int noi = CommonUtils.getNumberOfItemsInList(driver, listOfGmdnMatchesReturnedBySearch);
                 boolean atLeast1Match = noi >= 1 ? true : false;
                 return atLeast1Match;
