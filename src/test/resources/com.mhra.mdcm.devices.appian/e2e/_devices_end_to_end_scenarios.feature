@@ -32,7 +32,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     When I assign the AWIP page task to me and "<approveReject>" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email for stored manufacturer with heading "Request for manufacturer registration" and stored application identifier
-    And I should received an email for stored manufacturer with heading "has been Approved" and stored application identifier
+    And I should received an email for stored manufacturer with heading "was completed" and stored application identifier
     Examples:
       | businessUser | logBackInAs     | accountType  | approveReject | countryName    | countryNameNonEU |
       | businessNoor | manufacturerNoor | manufacturer | approve       | United Kingdom | Bangladesh       |
@@ -76,7 +76,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     When I assign the AWIP page task to me and "<approveReject>" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email for stored manufacturer with heading "Request for manufacturer registration" and stored application identifier
-    And I should received an email for stored manufacturer with heading "has been Approved" and stored application identifier
+    And I should received an email for stored manufacturer with heading "was completed" and stored application identifier
     Examples:
       | businessUser | logBackInAs     | accountType   | approveReject | countryName    | countryNameEU |
       | businessNoor | manufacturerNoor | authorisedRep | approve       | United Kingdom | Netherland    |
