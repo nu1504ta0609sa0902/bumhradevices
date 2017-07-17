@@ -35,7 +35,6 @@ public class AddDevices extends _Page {
 
     @FindBy(css = ".RadioButtonGroup---choice_pair>label")
     List<WebElement> listOfDeviceTypes;
-    //@FindBy(xpath = ".//label[contains(text(),'GMDN Code')]//following::a[string-length(text()) > 0]")
     @FindBy(xpath = ".//label[contains(text(),'GMDN Code')]//following::tr/td")
     WebElement aGmdnMatchesReturnedBySearch;
     //@FindBy(xpath = ".//label[contains(text(),'GMDN Code')]//following::a[string-length(text()) > 0]")
@@ -188,6 +187,8 @@ public class AddDevices extends _Page {
     //Option to add other devices
     @FindBy(xpath = ".//button[contains(text(),'Add another device')]")
     WebElement btnAddAnotherDevice;
+    @FindBy(css = ".MilestoneWidget---current")
+    WebElement currentStageOfApplication;
 
     //File upload buttons
     @FindBy(css = ".FileUploadWidget---ui-inaccessible")
@@ -698,7 +699,7 @@ public class AddDevices extends _Page {
     }
 
     private void selectDeviceType(DeviceDO dd) {
-        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_20_SECOND);
         WaitUtils.waitForElementToBeClickable(driver, systemOrProcedurePack, TIMEOUT_10_SECOND);
         String lcDeviceType = dd.deviceType.toLowerCase();
         if (lcDeviceType.contains("general medical device")) {
@@ -814,7 +815,7 @@ public class AddDevices extends _Page {
         tbxGMDNDefinitionOrTerm.sendKeys(searchTerm);
 
         //Wait for list of items to appear and add it only if its not a duplicate
-        //WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//div[contains(text(),'Term')]//following::td"), TIMEOUT_DEFAULT);
+        currentStageOfApplication.click();
 
     }
 
@@ -1074,7 +1075,7 @@ public class AddDevices extends _Page {
     public boolean isValidationErrorMessageVisible() {
         boolean isErrorMessageDisplayed = true;
         try{
-            WaitUtils.waitForElementToBeClickable(driver, validationErrMessage, TIMEOUT_3_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, validationErrMessage, TIMEOUT_2_SECOND);
         }catch (Exception e){
             isErrorMessageDisplayed = false;
         }

@@ -30,9 +30,9 @@ public class DeviceDetails extends _Page {
 
 
     //All GMDN definition table data
-    @FindBy(xpath = ".//*[contains(text(),'GMDN code')]//following::tr/td[2]")
+    @FindBy(xpath = ".//*[contains(text(),'GMDN Code')]//following::tr/td[3]")
     List<WebElement> listOfGMDNDefinitions;
-    @FindBy(xpath = ".//*[text()='GMDN code']//following::tr/td[2]")
+    @FindBy(xpath = ".//*[text()='GMDN Code']//following::tr/td[3]")
     WebElement firstGMDNDefinition;
 
     //Table headers for each device types

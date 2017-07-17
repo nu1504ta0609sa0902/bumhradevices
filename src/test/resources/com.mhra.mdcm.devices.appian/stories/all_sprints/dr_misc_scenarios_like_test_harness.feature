@@ -43,55 +43,59 @@ Feature: Aa a user I would like to verify features which are not related to devi
   Scenario Outline: Users should be able to search using GMDN TERM
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on a random manufacturer
+    #And I click on a random manufacturer
+    And I click on random manufacturer with status "Registered"
     And I go to add devices page
     When I search for device type "<deviceType>" with gmdn "<gmdn>"
     Then I should see at least <count> devices matches
     Examples:
       | user              | deviceType             | gmdn      | count |
       | authorisedRepAuto | General Medical Device | Blood     | 1     |
-      | authorisedRepAuto | General Medical Device | HllNBlood | 0     |
+      | authorisedRepAuto | General Medical Device | H2SMAGAllNBlood | 0     |
 
 
   @regression @1838 @_sprint13 @readonly
   Scenario Outline: Users should be able to search for multiple device types
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on a random manufacturer
+    #And I click on a random manufacturer
+    And I click on random manufacturer with status "Registered"
     And I go to add devices page
     When I search for device type "<deviceType1>" with gmdn "<gmdn>"
-    Then I should see at least <count> devices matches
-    When I search for device type "<deviceType2>" with gmdn "<gmdn>"
     Then I should see at least <count> devices matches
     When I search for device type "<deviceType3>" with gmdn "<gmdn>"
     Then I should see at least <count> devices matches
     When I search for device type "<deviceType4>" with gmdn "<gmdn>"
     Then I should see at least <count> devices matches
+    When I search for device type "<deviceType2>" with gmdn "<gmdn>"
+    Then I should see at least <count> devices matches
     Examples:
-      | user              | deviceType1            | deviceType2                | deviceType3               | deviceType4              | gmdn          | count |
-      | authorisedRepAuto | General Medical Device | In Vitro Diagnostic Device | Active Implantable Device | System or Procedure Pack | KIT           | 1     |
-      | manufacturerAuto  | General Medical Device | In Vitro Diagnostic Device | Active Implantable Device | System or Procedure Pack | MAGAHllNBlood | 0     |
+      | user              | deviceType1            | deviceType2                | deviceType3               | deviceType4              | gmdn             | count |
+      | authorisedRepAuto | General Medical Device | In Vitro Diagnostic Device | Active Implantable Device | System or Procedure Pack | KIT              | 1     |
+      | manufacturerAuto  | General Medical Device | In Vitro Diagnostic Device | Active Implantable Device | System or Procedure Pack | H2SMAGAllNBlood | 0     |
 
 
   @1838 @_sprint13 @readonly
   Scenario Outline: Users should be able to search using GMDN CODE
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on a random manufacturer
+    #And I click on a random manufacturer
+    And I click on random manufacturer with status "Registered"
     And I go to add devices page
     When I search for device type "<deviceType>" with gmdn "<gmdn>"
     Then I should "<errorMessage>" validation error message in devices page
     Examples:
       | user             | deviceType             | gmdn   | errorMessage |
       | manufacturerAuto | General Medical Device | 181481 | see          |
-      | manufacturerAuto | General Medical Device | 13459  | Not see      |
+      | manufacturerAuto | General Medical Device | 13459  | not see      |
 
 
   @regression @1838 @4211 @_sprint12 @_sprint13 @readonly
   Scenario Outline: Users should be able to view all gmdn terms or definitions
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on a random manufacturer
+    #And I click on a random manufacturer
+    And I click on random manufacturer with status "Registered"
     And I go to add devices page
     When I click on view all gmdn term or definitions for device type "<deviceType>"
     And I search for gmdn "<gmdn>"
@@ -108,11 +112,13 @@ Feature: Aa a user I would like to verify features which are not related to devi
       | manufacturerAuto  | System or Procedure Pack   | Blood | 1     |
 
 
-  @regression @2097 @_sprint8
+  @regression @2097 @_sprint8 @wip @bug
   Scenario Outline: Business users can override PARD preferences when reviewing a manufacturer registration
     Given I am logged into appian as "<user>" user
     When I go to records page and click on "<page>"
     And I perform a search for "<searchTerm>" in "<page>" page
+    And I filter by "Registered Status" for the value "Registered" in "<page>" page
+    Then I should see table column "Status" displaying only "Registered" in "<page>" page
     And I click on a random organisation link "<searchTerm>" in "<page>" page
     When I click on edit account information
     And I update PARD options to "<pardOptions>" for both name and address
@@ -121,9 +127,9 @@ Feature: Aa a user I would like to verify features which are not related to devi
     Examples:
       | user         | page          | searchTerm      | pardOptions                | updateNameOrAddressPard | PARDUpdateMessage              |
       | businessAuto | Organisations | AuthorisedRepRT | name=Optin,address=Optin   | name                    | Publish name & address         |
-      | businessAuto | Organisations | ManufacturerRT  | name=Optin,address=Optout  | address                 | Publish name only              |
-      | businessAuto | Organisations | AuthorisedRepRT | name=Optout,address=Optin  | name                    | Publish address only           |
-      | businessAuto | Organisations | ManufacturerRT  | name=Optout,address=Optout | address                 | Do not publish name or address |
+#      | businessAuto | Organisations | ManufacturerRT  | name=Optin,address=Optout  | address                 | Publish name only              |
+#      | businessAuto | Organisations | AuthorisedRepRT | name=Optout,address=Optin  | name                    | Publish address only           |
+#      | businessAuto | Organisations | ManufacturerRT  | name=Optout,address=Optout | address                 | Do not publish name or address |
 
 
   @regression @4090 @_sprint13 @4088 @_sprint11 @4711 @_sprint16 @5668 @_sprint20 @readonly
@@ -159,7 +165,7 @@ Feature: Aa a user I would like to verify features which are not related to devi
     When I look up for postcode "<postCode>" and select road "<road>"
     Then I should see correct postcode and address populated in the fields
     Examples:
-      | user         | postCode | road               |
-      | businessAuto | N17 6RH  | 17 ,Radley Road    |
-      | businessAuto | BA1 3AE  | Upper Bristol Road |
+      | user         | postCode | road                  |
+      | businessAuto | N17 6RH  | 17 ,Radley Road       |
+      | businessAuto | N17 8NL  | 11 ,Bruce Castle Road |
 
