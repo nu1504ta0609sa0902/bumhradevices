@@ -119,6 +119,7 @@ Feature: As a customer I want to receive email notifications when ever a account
       | user         | accountType   | approveReject | logBackInAs       | countryName   | accountNameBeginsWith    |
       | businessNoor | manufacturer  | approve       | manufacturerNoor  | Bangladesh    | ManufacturerAccountRT00  |
       | businessNoor | authorisedRep | reject        | authorisedRepNoor | United States | AuthorisedRepAccountRT00 |
+#      | businessNoor | distributor   | approve       | distributorNoor   | United States | AuthorisedRepAccountRT00 |
 
 
   @regression @2272 @_sprint19 @4645 @_sprint20 @4648 @_sprint24 @create_new_org @wip
