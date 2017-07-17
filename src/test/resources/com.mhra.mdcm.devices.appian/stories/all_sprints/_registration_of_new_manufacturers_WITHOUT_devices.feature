@@ -10,8 +10,7 @@ Feature: As a customer I want to register new manufacturers WITHOUT devices
       | accountType | <accountType> |
       | countryName | <countryName> |
     And  I goto list of manufacturers page again
-#    Then I should see stored manufacturer appear in the registration in progress list
-    Then I should see stored manufacturer appear in the manufacturers list
+    Then I should see stored manufacturer appear in the registration in progress list
     Examples:
       | user              | accountType   | countryName |
       | manufacturerAuto  | manufacturer  | Brazil      |
