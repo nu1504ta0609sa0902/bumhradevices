@@ -34,7 +34,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And I should received an email for stored manufacturer with heading "Request for manufacturer registration" and stored application identifier
     And I should received an email for stored manufacturer with heading "was completed" and stored application identifier
     Examples:
-      | businessUser | logBackInAs     | accountType  | approveReject | countryName    | countryNameNonEU |
+      | businessUser | logBackInAs      | accountType  | approveReject | countryName    | countryNameNonEU |
       | businessNoor | manufacturerNoor | manufacturer | approve       | United Kingdom | Bangladesh       |
 
 
@@ -65,7 +65,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And I add another device to SELECTED CFS manufacturer with following data
       | deviceType     | Active Implantable Device |
       | gmdnDefinition | Desiccating chamber       |
-      | customMade     | true                     |
+      | customMade     | true                      |
       | notifiedBody   | NB 0086 BSI               |
       | productName    | FordHybrid                |
       | productModel   | FocusYeah                 |
@@ -78,7 +78,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And I should received an email for stored manufacturer with heading "Request for manufacturer registration" and stored application identifier
     And I should received an email for stored manufacturer with heading "was completed" and stored application identifier
     Examples:
-      | businessUser | logBackInAs     | accountType   | approveReject | countryName    | countryNameEU |
+      | businessUser | logBackInAs      | accountType   | approveReject | countryName    | countryNameEU |
       | businessNoor | manufacturerNoor | authorisedRep | approve       | United Kingdom | Netherland    |
 
 
@@ -141,9 +141,9 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     Then The task status in AWIP page should be "Completed" for the newly created manufacturer
     And I should received an email for stored manufacturer with heading "Free Sale"
     Examples:
-      | user              | businessUser | accountType  | country       | approveReject | status    |
+      | user              | businessUser | accountType   | country       | approveReject | status    |
       | authorisedRepAuto | businessAuto | authorisedRep | United States | approve       | Completed |
-      | manufacturerAuto  | businessAuto | manufacturer | Brazil        | reject       | Completed |
+      | manufacturerAuto  | businessAuto | manufacturer  | Brazil        | reject        | Completed |
 
   @1992 @1845 @1974 @1952 @1962 @1971 @3979 @4330 @5141 @5212 @5126 @5128 @5673 @5674 @5583 @2833 @cfs_e2e
   Scenario Outline: S4c Register and approve Non UK based manufacturers with multiple devices for CFS
@@ -217,11 +217,11 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And Check task contains correct devices "<gmdn>" and other details
     When I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
-    And I should received an email for stored manufacturer with heading "<newOrganisationEmail>"
+    And I should received an email for stored manufacturer with heading "<emailSubjectHeading>"
     Examples:
-      | user              | logBackInAs  | deviceType             | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody |
-      | authorisedRepAuto | businessAuto | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
-      | manufacturerAuto  | businessAuto | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |
+      | user              | logBackInAs  | deviceType             | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody | emailSubjectHeading |
+      | authorisedRepAuto | businessAuto | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |                     |
+      | manufacturerAuto  | businessAuto | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |                     |
 
 
   @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149 @2325
@@ -250,11 +250,11 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     Then The task status in AWIP page should be "Completed" for the new account
     When I search accounts for the stored organisation name
     Then I should see at least 0 account matches
-    And I should received an email for stored manufacturer with heading "<newOrganisationEmail>"
+    And I should received an email for stored manufacturer with heading "<emailSubjectHeading>"
     Examples:
-      | user             | logBackInAs  | gmdn1                | gmdn2           | approveReject | deviceType             |
-      | manufacturerAuto | businessAuto | Blood weighing scale | Autopsy measure | approve       | General Medical Device |
-      | manufacturerAuto | businessAuto | Blood weighing scale | Autopsy measure | reject        | General Medical Device |
+      | user             | logBackInAs  | gmdn1                | gmdn2           | approveReject | deviceType             | emailSubjectHeading |
+      | manufacturerAuto | businessAuto | Blood weighing scale | Autopsy measure | approve       | General Medical Device |                     |
+      | manufacturerAuto | businessAuto | Blood weighing scale | Autopsy measure | reject        | General Medical Device |                     |
 
 
   @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149 @2216 @2325
@@ -280,10 +280,10 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     Then The task status in AWIP page should be "Completed" for the new account
     When I search accounts for the stored organisation name
     Then I should see at least 0 account matches
-    And I should received an email for stored manufacturer with heading "<newOrganisationEmail>"
+    And I should received an email for stored manufacturer with heading "<emailSubjectHeading>"
     Examples:
-      | user              | logBackInAs  | deviceType                | gmdnDefinition      | customMade | productName |
-      | authorisedRepAuto | businessAuto | Active Implantable Device | Desiccating chamber | true       | ford focus  |
+      | user              | logBackInAs  | deviceType                | gmdnDefinition      | customMade | productName |emailSubjectHeading|
+      | authorisedRepAuto | businessAuto | Active Implantable Device | Desiccating chamber | true       | ford focus  |                   |
 
   @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149 @2325
   Scenario Outline: S6a Update manufacturer for authorised rep which is already registered by adding devices
@@ -307,7 +307,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email for stored account with heading "<emailHeader>"
     Examples:
-      | user              | logBackInAs | deviceType                | customMade | status     | gmdnDefinition       | productName |
+      | user              | logBackInAs  | deviceType                | customMade | status     | gmdnDefinition       | productName |
       | authorisedRepAuto | businessAuto | Active Implantable Device | false      | Registered | Blood weighing scale | ford focus  |
 
 

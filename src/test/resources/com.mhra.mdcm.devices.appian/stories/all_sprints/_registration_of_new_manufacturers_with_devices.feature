@@ -80,7 +80,7 @@ Feature: As a customer I want to register new manufacturers with devices
     When I create a new manufacturer using manufacturer test harness page with following data
       | accountType | <accountType> |
       | countryName | <countryName> |
-    When I add a device to SELECTED manufacturer with following data
+    And I add devices to NEWLY created manufacturer with following data
       | deviceType     | <deviceType> |
       | gmdnDefinition | <gmdn1>      |
       | customMade     | true         |
@@ -159,3 +159,29 @@ Feature: As a customer I want to register new manufacturers with devices
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Registered Products | In Vitro Diagnostic Device | Androgen receptor IVD |            | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
       | manufacturerAuto  | businessAuto | manufacturer  | Brazil      | Registered Products | Active Implantable Device  | Desiccating chamber   | true       |                    | ford focus  |             |              |              |                   |            |               |
 
+  @create_new_org @1957 @5997 @5995 @_sprint21 @bug @wip
+  Scenario Outline: Users should be able to save and resume newly created application
+    Given I am logged into appian as "<user>" user
+    And I go to register a new manufacturer page
+    When I create a new manufacturer using manufacturer test harness page with following data
+      | accountType | <accountType> |
+      | countryName | <countryName> |
+    And I add devices to NEWLY created manufacturer with following data
+      | deviceType         | <deviceType>         |
+      | customMade         | <customMade>         |
+      | gmdnDefinition     | <gmdnDefinition>     |
+      | riskClassification | <riskClassification> |
+      | notifiedBody       | <notifiedBody>       |
+      | productName        | <productName>        |
+      | productMake        | <productMake>        |
+      | productModel       | <productModel>       |
+      | subjectToPerfEval  | <subjectToPerfEval>  |
+      | newProduct         | <newProduct>         |
+      | conformsToCTS      | <conformsToCTS>      |
+    When I save the application and confirm to exit
+    And Proceed to payment and confirm submit device details
+    Then I should be returned to the manufacturers list page
+    Examples:
+      | user              | logBackInAs  | accountType   | countryName | page                | deviceType                 | gmdnDefinition        | customMade | riskClassification | productName | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
+      | manufacturerAuto  | businessAuto | manufacturer  | Brazil      | Registered Products | Active Implantable Device  | Desiccating chamber   | true       |                    | ford focus  |             |              |              |                   |            |               |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Registered Products | In Vitro Diagnostic Device | Androgen receptor IVD |            | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
