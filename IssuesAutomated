@@ -378,11 +378,11 @@ Automated Issues:
         - @2151 -   DONE ISH DR  @todo Email confirmation for registering a manufacturer
                 -   Content need to be verified in more details
         - @5349 -   DONE ISH DR  @todo capture device and product details
-        - @2294 -   DR  @todo calculate amount to pay for manufacturer registration (payments page)
+        - @2294 -   DONE ISH DR  @todo calculate amount to pay for manufacturer registration (payments page)
         - @2224 -   DR  @todo change a known password in appian
-                -   change password link is not visible
+                -   @BUG change password link is not visible
         - @5765 -   DR  @todo email notification for password change
-                -   change password link is not visible
+                -   @BUG change password link is not visible
         - @5995 -   DONE ISH DR  @todo saving and exiting not navigating to DR landing page
                 -   Takes me to a intermediary page where I have to click "Click here" link to go back to manufacturer lists
         - @1957 -   DR  @todo resume application for manufacturer registration
@@ -427,7 +427,8 @@ Automated Issues:
         - @2150 -   CFS @todo Email reminder to customers more information required
         - @2190 -   DONE ISH DR @todo Email notification for unsuccessful manufacturer registration
                 -   Content needs to be verified
-        - @4546 -   DR @todo Email notification for confirming request received for unregistering
+        - @4546 -   DONE ISH DR @todo Email notification for confirming request received for unregistering
+                -   Content needs to be verified
         - @5752 -   DONE ISH DR @todo Enter Worldpay card holder details
                 -   CAPTCHA step is missing at the moment
         - @5753 -   DONE ISH DR @todo Worldpay payment submission confirmation email
