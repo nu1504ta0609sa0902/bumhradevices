@@ -12,7 +12,8 @@ Feature: As a business user, I want a task to be created when new account reques
     Then I search and view new task in AWIP page for the new account
     When I assign the AWIP page task to me and "<approveReject>" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
-    When I search accounts for the stored organisation name
+    When I go to records page and click on "Accounts"
+    When I search for stored organisation in "Accounts" page
     Then I should see at least <count> account matches
     Examples:
       | user         | accountType   | approveReject | count | countryName    |
@@ -29,12 +30,14 @@ Feature: As a business user, I want a task to be created when new account reques
     When I search and view new task in AWIP page for the new account
     And I assign the AWIP page task to me and "reject" with following "<reason>"
     Then The task status in AWIP page should be "Completed" for the new account
-    When I search accounts for the stored organisation name
+    When I go to records page and click on "Accounts"
+    When I search for stored organisation in "Accounts" page
     Then I should see at least <count> account matches
     Examples:
       | user         | accountType   | count | countryName | reason                             | link                |
       | businessNoor | manufacturer  | 1     | Turkey      | Account already exists             | New Account Request |
       | businessNoor | authorisedRep | 1     | Estonia     | No authorisation evidence provided | New Account Request |
+
 
   @3761 @_sprint9 @create_new_org @ignore @bug
   Scenario Outline: Register my organisation button is displayed to UK Manufacturers who are not registered yet
@@ -45,8 +48,9 @@ Feature: As a business user, I want a task to be created when new account reques
     When I search and view new task in AWIP page for the new account
     And I assign the AWIP page task to me and "<approveReject>" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
-    When I logout of the application
-    And I am logged into appian as "<logBackInAs>" user
+    And I should received an email with password for new account with heading "account creation" and stored username
+    When I logout and logback in with newly created account and update the password to "MHRA12345A"
+    And I go to list of manufacturers page
     And Provide indication of devices made
     Then I should see stored manufacturer appear in the manufacturers list
     Examples:
@@ -64,7 +68,8 @@ Feature: As a business user, I want a task to be created when new account reques
     Then I search and view new task in AWIP page for the new account
     When I assign the AWIP page task to me and "<approveReject>" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
-    When I search accounts for the stored organisation name
+    When I go to records page and click on "Accounts"
+    When I search for stored organisation in "Accounts" page
     Then I should see at least <count> account matches
     Examples:
       | user         | accountType   | approveReject | count | countryName    |
@@ -97,7 +102,8 @@ Feature: As a business user, I want a task to be created when new account reques
     Then I search and view new task in AWIP page for the new account
     When I assign the AWIP page task to me and "<approveReject>" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
-    When I search accounts for the stored organisation name
+    When I go to records page and click on "Accounts"
+    When I search for stored organisation in "Accounts" page
     Then I should see at least <count> account matches
     Examples:
       | user         | accountType   | approveReject | count | countryName    |
@@ -113,7 +119,8 @@ Feature: As a business user, I want a task to be created when new account reques
     Then I search and view new task in AWIP page for the new account
     When I assign the AWIP page task to me and "<approveReject>" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
-    When I search accounts for the stored organisation name
+    When I go to records page and click on "Accounts"
+    When I search for stored organisation in "Accounts" page
     Then I should see at least <count> account matches
     Examples:
       | user         | accountType   | approveReject | count | countryName    |

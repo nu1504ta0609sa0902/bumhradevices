@@ -119,6 +119,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.organisationName, newAccount.organisationName);
         scenarioSession.putData(SessionKey.manufacturerData, newAccount);
         scenarioSession.putData(SessionKey.taskType, "New Manufacturer");
+        scenarioSession.putData(SessionKey.registeredStatus, "Not registered");
     }
 
 
@@ -476,20 +477,31 @@ public class ExternalHomePageSteps extends CommonSteps {
 
         int nop = manufacturerList.getNumberOfPages(1);
         int count = 0;
-        while (registered != null && !registered.toLowerCase().equals(status.toLowerCase())) {
-            count++;
-            if (count > nop) {
-                break;
-            } else {
-                //Go to next page and try again
-                manufacturerList = manufacturerList.clickNext();
+//        while (registered != null && !registered.toLowerCase().equals(status.toLowerCase())) {
+//            count++;
+//            if (count > nop) {
+//                break;
+//            } else {
+//                //Go to next page and try again
+//                manufacturerList = manufacturerList.clickNext();
+//
+//                //Try again
+//                name = manufacturerList.getARandomManufacturerNameWithStatus(status);
+//                registered = manufacturerList.getRegistrationStatus(name);
+//                country = manufacturerList.getOrganisationCountry(name);
+//            }
+//        }
 
-                //Try again
-                name = manufacturerList.getARandomManufacturerNameWithStatus(status);
-                registered = manufacturerList.getRegistrationStatus(name);
-                country = manufacturerList.getOrganisationCountry(name);
+        boolean isFoundInManufacturerList = false;
+        do {
+            count++;
+            isFoundInManufacturerList = manufacturerList.isManufacturerDisplayedInList(name);
+            if (!isFoundInManufacturerList) {
+                manufacturerList = manufacturerList.clickNext();
+            } else {
+                manufacturerDetails = manufacturerList.viewAManufacturer(name);
             }
-        }
+        } while (!isFoundInManufacturerList && count <= nop);
 
         Assert.assertThat("Status of organisation should be : " + status, status.toLowerCase().equals(registered.toLowerCase()), Matchers.is(true));
 
@@ -517,20 +529,31 @@ public class ExternalHomePageSteps extends CommonSteps {
 
         int nop = manufacturerList.getNumberOfPages(1);
         int count = 0;
-        while (registered != null && !registered.toLowerCase().equals(status.toLowerCase())) {
-            count++;
-            if (count > nop) {
-                break;
-            } else {
-                //Go to next page and try again
-                manufacturerList = manufacturerList.clickNext();
+//        while (registered != null && !registered.toLowerCase().equals(status.toLowerCase())) {
+//            count++;
+//            if (count > nop) {
+//                break;
+//            } else {
+//                //Go to next page and try again
+//                manufacturerList = manufacturerList.clickNext();
+//
+//                //Try again
+//                name = manufacturerList.getARandomManufacturerNameWithStatus(status);
+//                registered = manufacturerList.getRegistrationStatus(name);
+//                country = manufacturerList.getOrganisationCountry(name);
+//            }
+//        }
 
-                //Try again
-                name = manufacturerList.getARandomManufacturerNameWithStatus(status);
-                registered = manufacturerList.getRegistrationStatus(name);
-                country = manufacturerList.getOrganisationCountry(name);
+        boolean isFoundInManufacturerList = false;
+        do {
+            count++;
+            isFoundInManufacturerList = manufacturerList.isManufacturerDisplayedInList(name);
+            if (!isFoundInManufacturerList) {
+                manufacturerList = manufacturerList.clickNext();
+            } else {
+                manufacturerDetails = manufacturerList.viewAManufacturer(name);
             }
-        }
+        } while (!isFoundInManufacturerList && count <= nop);
 
         Assert.assertThat("Status of organisation should be : " + status, status.toLowerCase().equals(registered.toLowerCase()), Matchers.is(true));
 

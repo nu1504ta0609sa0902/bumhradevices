@@ -17,7 +17,8 @@ Feature: As an account holder, I should be able to add devices to existing manuf
   Scenario Outline: Verify correct device type options are displayed on add devices page
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on a random manufacturer to add devices
+    #And I click on a random manufacturer
+    And I click on random manufacturer with status "Registered"
     Then I should see correct device types
     Examples:
       | user              |

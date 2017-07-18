@@ -131,7 +131,7 @@ public class WaitUtils {
     private static boolean isWaitingMessageDisplayed(WebDriver driver) {
         boolean isDisplayed = true;
         try{
-            waitForElementToBeClickable(driver, By.xpath(".//div[@class='appian-indicator-message' and @style='display: none;']"), _Page.TIMEOUT_1_SECOND);
+            waitForElementToBeClickable(driver, By.xpath(".//div[@class='appian-indicator-message' and @style='display: none;']"), _Page.TIMEOUT_2_SECOND);
             System.out.println("Waiting message is displayed");
         }catch (Exception e){
             isDisplayed = false;

@@ -127,9 +127,9 @@ Feature: Aa a user I would like to verify features which are not related to devi
     Examples:
       | user         | page          | searchTerm      | pardOptions                | updateNameOrAddressPard | PARDUpdateMessage              |
       | businessAuto | Organisations | AuthorisedRepRT | name=Optin,address=Optin   | name                    | Publish name & address         |
-#      | businessAuto | Organisations | ManufacturerRT  | name=Optin,address=Optout  | address                 | Publish name only              |
-#      | businessAuto | Organisations | AuthorisedRepRT | name=Optout,address=Optin  | name                    | Publish address only           |
-#      | businessAuto | Organisations | ManufacturerRT  | name=Optout,address=Optout | address                 | Do not publish name or address |
+      | businessAuto | Organisations | ManufacturerRT  | name=Optin,address=Optout  | address                 | Publish name only              |
+      | businessAuto | Organisations | AuthorisedRepRT | name=Optout,address=Optin  | name                    | Publish address only           |
+      | businessAuto | Organisations | ManufacturerRT  | name=Optout,address=Optout | address                 | Do not publish name or address |
 
 
   @regression @4090 @_sprint13 @4088 @_sprint11 @4711 @_sprint16 @5668 @_sprint20 @readonly

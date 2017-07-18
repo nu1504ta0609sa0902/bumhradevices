@@ -349,7 +349,7 @@ public class ManufacturerDetails extends _Page {
     public DeviceDetails clickOnDevicesAndProductDetailsLink() {
         //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, devicesAndProductDetailsTab, TIMEOUT_15_SECOND);
-        devicesAndProductDetailsTab.click();
+        PageUtils.singleClick(driver,devicesAndProductDetailsTab);
         return new DeviceDetails(driver);
     }
 

@@ -20,9 +20,9 @@ public class _CreateAccountTestHarnessPage extends _Page {
     //Organisation details
     @FindBy(xpath = ".//label[.='Organisation name']//following::input[1]")
     WebElement orgName;
-    @FindBy(xpath = ".//label[contains(text(),'Address line 1')]//following::input[1]")
+    @FindBy(xpath = ".//*[contains(text(),'Address line 1')]//following::input[1]")
     WebElement addressLine1;
-    @FindBy(xpath = ".//label[contains(text(),'Address line 2')]//following::input[1]")
+    @FindBy(xpath = ".//*[contains(text(),'Address line 2')]//following::input[1]")
     WebElement addressLine2;
     @FindBy(xpath = ".//label[contains(text(),'City')]//following::input[1]")
     WebElement townCity;
@@ -40,6 +40,8 @@ public class _CreateAccountTestHarnessPage extends _Page {
     WebElement country;
     @FindBy(xpath = ".//a/u[contains(text(), 'Enter address')]")
     WebElement linkEnterAddressManually;
+    @FindBy(xpath = ".//a/u[contains(text(), 'Add Line')]")
+    WebElement linkAddLine;
 
     //Organisation Type
     @FindBy(xpath = ".//label[contains(text(),'Limited Company')]")
@@ -290,12 +292,15 @@ public class _CreateAccountTestHarnessPage extends _Page {
     }
 
     public boolean isAddressLookupDataCorrect(String addressExpected, String postCodeExpected) {
-        WaitUtils.waitForElementToBeClickable(driver, postCode, TIMEOUT_15_SECOND);
-        String addressVal = addressLine1.getText() + ", " + addressLine2.getText();
-        String postCodeVal = postCode.getText();
+        WaitUtils.isPageLoadingComplete(driver,TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, linkAddLine, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, addressLine2, TIMEOUT_5_SECOND);
 
-        boolean postCodeFound = postCodeVal.contains(postCodeExpected);
-        boolean addressFound = addressVal.contains(addressExpected);
+        String addressVal = PageUtils.getText(addressLine1) + "," + PageUtils.getText(addressLine2);
+        String postCodeVal = PageUtils.getText(postCode);
+
+        boolean postCodeFound = postCodeExpected.contains(postCodeVal);
+        boolean addressFound = addressExpected.contains(addressVal);
         return postCodeFound && addressFound;
     }
 }

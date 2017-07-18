@@ -431,6 +431,8 @@ Automated Issues:
         - @4546 -   DR @todo Email notification for confirming request received for unregistering
         - @5752 -   DONE ISH DR @todo Enter Worldpay card holder details
                 -   CAPTCHA step is missing at the moment
+        - @5753 -   Worldpay payment submission confirmation email
+        - @5939 -   Worldpay payment acknowledgement
         - @6343 -   DR @todo News feed notification of registration event
         - @6345 -   DR @todo News feed change event notification
         - @6539 -   DONE ISH DR @todo Manage contacts page
@@ -439,6 +441,7 @@ Automated Issues:
         - @6430 -   DONE ISH DR @todo Email unregister rep org from authorisedRep
                 -   Register manufacturer with 2 contacts and than check they all receive the same email
                 -   Verify email contents
+
 
 
     Sprint 24: @_sprint24
@@ -457,7 +460,6 @@ Automated Issues:
         - @2154 -   DR @todo View payment details for an applicaton
                 -   No link
         - @2107 -   DR @todo Receive review and process request for manufacturer registration
-
         - @4648 -   DONE ISH DR @todo Email link for forgotten password reset
                 -   Email content needs to be verified
         - @4378 -   DR @todo Email notification to customer when processing has begun
@@ -470,7 +472,7 @@ Automated Issues:
         - @6128 -   DR @todo Summary tab on profile page
         - @6351 -   DR @todo Customer news feed registration of events notification
         - @6360 -   DR @todo Customer news feed other events
-        - @5673 -   CFS @todo Email customer about rejection
+        - @5673 -   DONE ISH CFS @todo Email customer about rejection
                 -   Verify email content
         - @5674 -   DONE ISH CFS @todo Email customer about the outcome of an application
                 -   Verify email content
