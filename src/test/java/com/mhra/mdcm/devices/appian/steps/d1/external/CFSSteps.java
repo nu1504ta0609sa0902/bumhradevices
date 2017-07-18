@@ -10,6 +10,7 @@ import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.*;
 import cucumber.api.PendingException;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.Assert;
@@ -329,6 +330,18 @@ public class CFSSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.newApplicationReferenceNumber, reference);
     }
 
+
+    @And("^I submit payment via \"([^\"]*)\" and confirm submit device details$")
+    public void proceedToPaymentAndConfirmSubmitDeviceDetails(String method) throws Throwable {
+        deviceDetails = deviceDetails.continueToPaymentAfterReviewFinished();
+        deviceDetails = deviceDetails.enterPaymentDetails(method, scenarioSession);
+        String reference = deviceDetails.getApplicationReferenceNumber();
+        log.info("New Applicaiton reference number : " + reference);
+
+        deviceDetails = deviceDetails.finishPayment();
+        scenarioSession.putData(SessionKey.newApplicationReferenceNumber, reference);
+    }
+
     @When("^I save cfs order application for later$")
     public void i_save_cfs_application_for_later() throws Throwable {
         manufacturerDetails = deviceDetails.saveAndExitCFSOrderApplication();
@@ -591,10 +604,14 @@ public class CFSSteps extends CommonSteps {
 
     @Then("^I should see the correct addresses displayed$")
     public void iShouldSeeTheCorrectAddressesDisplayed() throws Throwable {
-        boolean isRAVisible = deviceDetails.isRegisteredAddressVisible();
+        boolean isRAVisible = deviceDetails.isAddressToBePrintedOnCFSVisible();
+        boolean isDeliveryAddVisible = deviceDetails.isDeliveryAddressVisible();
+        Assert.assertThat("Printed address should be displayed", isRAVisible, is(true));
+        Assert.assertThat("Delivery address should be displayed", isDeliveryAddVisible, is(true));
+
+        //These below need to be verified when story 5959 is updated
         boolean isSAVisible = deviceDetails.isSiteAddressVisible();
         boolean isARAVisible = deviceDetails.isAuthorisedRepAddressVisible();
         boolean isDAVisible = deviceDetails.isDistributorAddressVisible();
-        boolean isDeliveryAddVisible = deviceDetails.isDeliveryAddressVisible();
     }
 }

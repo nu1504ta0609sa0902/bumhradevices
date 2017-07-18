@@ -24,7 +24,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE
       | manufacturerAuto | ManufacturerRT01 | This device must be registered with MHRA | System or Procedure Pack   |                      |            |                    |
 
 
-  @1974 @1978 @4704 @_sprint15 @5749 @_sprint21 @1952 @_sprint23
+  @1974 @1978 @4704 @_sprint15 @5749 @_sprint21 @1952 @5753 @_sprint23
   Scenario Outline: Users should be able to go to cfs page and add to a random manufacturer from the list
     Given I am logged into appian as "manufacturerAuto" user
     And I go to device certificate of free sale page
@@ -59,7 +59,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE
     Examples:
       | user              | country | noOfCFS |
       | authorisedRepAuto |         | 15      |
-      #| manufacturerAuto  | Brazil  | 10      |
+      | manufacturerAuto  | Brazil  | 10      |
 
 
   @1974 @1978 @_sprint15 @5499 @_sprint17 @5980 @1958 @1960 @_sprint22 @4207 @_sprint23
@@ -164,13 +164,19 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE
       | Brazil     | 15    | manufacturerAuto  | medical device name | Product              | 2     |
 
 
-  @5959 @_sprint24 @wip
-  Scenario: CFS certificate details page should display other details like addresses and links
-    Given I am logged into appian as "authorisedRepAuto" user
+  @5959 @_sprint24
+  Scenario Outline: : CFS certificate details page should display other details like addresses and links
+    Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
     Then I should see a list of manufacturers available for CFS
+    When I click on a organisation name begins with "RT01" which needs cfs
     When I click on a random organisation which needs cfs
     And I enter cfs order for a country with following data without submitting
       | countryName | Brazil |
       | noOfCFS     | 10     |
     Then I should see the correct addresses displayed
+    Examples:
+      | user              |
+      | authorisedRepAuto |
+      | manufacturerAuto  |
+#      | distributorAuto   |
