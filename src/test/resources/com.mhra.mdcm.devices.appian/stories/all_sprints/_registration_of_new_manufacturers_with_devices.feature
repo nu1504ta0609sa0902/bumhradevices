@@ -185,3 +185,42 @@ Feature: As a customer I want to register new manufacturers with devices
       | user              | accountType   | countryName | page                | deviceType                 | gmdnDefinition        | customMade | riskClassification | productName | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
       | manufacturerAuto  | manufacturer  | Brazil      | Registered Products | Active Implantable Device  | Desiccating chamber   | true       |                    | ford focus  |             |              |              |                   |            |               |
       | authorisedRepAuto | authorisedRep | Bangladesh  | Registered Products | In Vitro Diagnostic Device | Androgen receptor IVD |            | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+
+  @2294 @_sprint21
+  Scenario Outline: Check correct application fee amount to pay is displayed
+    Given I am logged into appian as "<user>" user
+    And I go to register a new manufacturer page
+    When I create a new manufacturer using manufacturer test harness page with following data
+      | accountType | <accountType> |
+      | countryName | <countryName> |
+    And I add devices to NEWLY created manufacturer with following data
+      | deviceType         | <deviceType1>        |
+      | customMade         | <customMade>         |
+      | gmdnDefinition     | <gmdn1>              |
+      | riskClassification | <riskClassification> |
+      | notifiedBody       | <notifiedBody>       |
+      | productName        | <productName>        |
+      | productMake        | <productMake>        |
+      | productModel       | <productModel>       |
+      | subjectToPerfEval  | <subjectToPerfEval>  |
+      | newProduct         | <newProduct>         |
+      | conformsToCTS      | <conformsToCTS>      |
+    And I add another device to SELECTED manufacturer with following data
+      | deviceType         | <deviceType2>        |
+      | customMade         | <customMade>         |
+      | gmdnDefinition     | <gmdn2>              |
+      | riskClassification | <riskClassification> |
+      | notifiedBody       | <notifiedBody>       |
+      | productName        | <productName>        |
+      | productMake        | <productMake>        |
+      | productModel       | <productModel>       |
+      | subjectToPerfEval  | <subjectToPerfEval>  |
+      | newProduct         | <newProduct>         |
+      | conformsToCTS      | <conformsToCTS>      |
+    Then I should see option to add another device
+    And Proceed to payment page
+    Then I should total charge of "<price>" pound for the application
+    Examples:
+      | user              | accountType   | countryName | price | deviceType1                | deviceType2               | gmdn1                 | gmdn2               | customMade | riskClassification | productName | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
+      | manufacturerAuto  | manufacturer  | Belarus     | 100   | General Medical Device     | Active Implantable Device | Blood weighing scale  | Autopsy measure     | true       |                    | ford focus  |             |              |              |                   |            |               |
+      | authorisedRepAuto | authorisedRep | Bangladesh  | 200   | In Vitro Diagnostic Device | General Medical Device    | Androgen receptor IVD | Desiccating chamber |            | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |

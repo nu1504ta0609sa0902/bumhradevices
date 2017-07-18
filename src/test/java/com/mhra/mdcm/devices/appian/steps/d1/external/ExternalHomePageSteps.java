@@ -225,6 +225,17 @@ public class ExternalHomePageSteps extends CommonSteps {
         StepsUtils.addToDeviceDataList(scenarioSession, dd);
     }
 
+    @And("^Proceed to payment page$")
+    public void proceedToPaymentPage() throws Throwable {
+        addDevices = addDevices.proceedToReview();
+        addDevices = addDevices.proceedToPayment();
+    }
+
+    @Then("^I should total charge of \"([^\"]*)\" pound for the application$")
+    public void iShouldTotalChargeOfPoundForTheApplication(String amount) throws Throwable {
+        boolean isTotalFeeCorrect = addDevices.isTotalFeeCorrect(amount);
+        Assert.assertThat("Total fee for application did not match the amount of £" + amount, isTotalFeeCorrect, Matchers.is(true));
+    }
 
     @And("^Proceed to payment and confirm submit device details$")
     public void proceedToPaymentAndConfirmSubmitDeviceDetails() throws Throwable {

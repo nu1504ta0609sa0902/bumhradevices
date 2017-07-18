@@ -248,7 +248,7 @@ public class AddDevices extends _Page {
     @FindBy(partialLinkText = "Back to service")
     WebElement linkBackToService;
 
-    //Payment methods
+    //Payment methods and fee details
     @FindBy(xpath = ".//label[contains(text(),'Worldpay')]")
     WebElement paymentWorldPay;
     @FindBy(xpath = ".//a[contains(text(),'here')]")
@@ -261,6 +261,8 @@ public class AddDevices extends _Page {
     WebElement btnCompleteApplication;
     @FindBy(xpath = ".//div[@role='listbox']")
     WebElement ddAddressBox;
+    @FindBy(xpath = ".//*[contains(text(), 'Payment details')]/following::strong[@class='StrongText---richtext_strong']")
+    WebElement feeTotalAmount;
 
     //Product details : New Medical device names
     @FindBy(xpath = ".//*[contains(text(),'Medical device name')]//following::input[1]")
@@ -1198,5 +1200,10 @@ public class AddDevices extends _Page {
 
     public boolean isSaveAndExitButtonVisible() {
         return PageUtils.isElementClickable(driver, btnSaveAndExit, TIMEOUT_2_SECOND);
+    }
+
+    public boolean isTotalFeeCorrect(String amount) {
+        WaitUtils.waitForElementToBeClickable(driver, ddAddressBox, TIMEOUT_15_SECOND);
+        return feeTotalAmount.getText().contains(amount);
     }
 }
