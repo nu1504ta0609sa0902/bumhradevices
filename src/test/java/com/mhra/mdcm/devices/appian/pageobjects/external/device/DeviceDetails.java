@@ -29,6 +29,12 @@ import java.util.List;
 public class DeviceDetails extends _Page {
 
 
+    /**
+     * --------------------------------------------
+     * DR (DEVICE REGISTRATION) RELATED
+     * ---------------------------------------------
+     */
+
     //All GMDN definition table data
     @FindBy(xpath = ".//*[contains(text(),'GMDN Code')]//following::tr/td[3]")
     List<WebElement> listOfGMDNDefinitions;
@@ -111,6 +117,16 @@ public class DeviceDetails extends _Page {
     WebElement fileUpload;
     @FindBy(xpath = ".//*[contains(text(), 'Confirmation')]/following::p[1]")
     WebElement txtApplicationReference;
+
+    //Address fields
+    @FindBy(xpath = ".//*[contains(text(), 'printed on CFS')]/following::p[2]")
+    WebElement addressToBePrintedOnCFS;
+    @FindBy(xpath = ".//*[contains(text(), 'Certificate delivery address')]/following::p[2]")
+    WebElement addressCertificateDelivery;
+    @FindBy(xpath = ".//*[contains(text(), 'additional address on cert')]//following::div[1]")
+    WebElement additionalAddressDD;
+    @FindBy(xpath = ".//*[contains(text(), 'addresses on schedule')]//following::div[1]")
+    WebElement moreAddressOnScheduleDD;
 
     //Search and filter CFS devices
     @FindBy(xpath = ".//*[contains(text(), 'Search by medical')]/following::input[1]")
@@ -257,6 +273,7 @@ public class DeviceDetails extends _Page {
             tbxNumberOfCFS.sendKeys(noOfCFS);
         }
 
+        txtTotalNumberOfCertificates.click();
         //Submit
         if (continueToNextStep)
             btnContinue.click();
@@ -538,13 +555,19 @@ public class DeviceDetails extends _Page {
         return new DeviceDetails(driver);
     }
 
-    public boolean isRegisteredAddressVisible() {
-        return false;
+    public boolean isAddressToBePrintedOnCFSVisible() {
+        return PageUtils.isElementClickable(driver, addressToBePrintedOnCFS, TIMEOUT_10_SECOND);
     }
 
-    public boolean isSiteAddressVisible() {
-        return false;
+    public boolean isAdditionalAddressVisible() {
+        return PageUtils.isElementClickable(driver, additionalAddressDD, TIMEOUT_10_SECOND);
     }
+
+    public boolean isMoreAddressesOnScheduleVisible() {
+        return PageUtils.isElementClickable(driver, moreAddressOnScheduleDD, TIMEOUT_10_SECOND);
+    }
+
+    public boolean isSiteAddressVisible() { return false; }
 
     public boolean isAuthorisedRepAddressVisible() {
         return false;
@@ -555,7 +578,7 @@ public class DeviceDetails extends _Page {
     }
 
     public boolean isDeliveryAddressVisible() {
-        return false;
+        return PageUtils.isElementClickable(driver, addressCertificateDelivery, TIMEOUT_10_SECOND);
     }
 
 }

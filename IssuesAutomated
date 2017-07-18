@@ -399,7 +399,6 @@ Automated Issues:
         - @5674 -   DONE ISH CFS @todo email if cfs new application is successful
         - @6012 -   DONE ISH CFS @todo search view all products related to devices
         - @1949 -   DONE ISH CFS @todo review order before submitting
-                -   Add without country
         - @5980 -   DONE ISH CFS @todo update CFS order after reviewing it
                 -   Add/remove product or device
         - @1958 -   DONE ISH CFS @todo save application and resume later
@@ -431,8 +430,9 @@ Automated Issues:
         - @4546 -   DR @todo Email notification for confirming request received for unregistering
         - @5752 -   DONE ISH DR @todo Enter Worldpay card holder details
                 -   CAPTCHA step is missing at the moment
-        - @5753 -   Worldpay payment submission confirmation email
+        - @5753 -   DONE ISH DR @todo Worldpay payment submission confirmation email
         - @5939 -   Worldpay payment acknowledgement
+                    NA : No acceptance criteria
         - @6343 -   DR @todo News feed notification of registration event
         - @6345 -   DR @todo News feed change event notification
         - @6539 -   DONE ISH DR @todo Manage contacts page
@@ -477,7 +477,8 @@ Automated Issues:
         - @5674 -   DONE ISH CFS @todo Email customer about the outcome of an application
                 -   Verify email content
         - @4767 -   CFS @todo List of devices awaiting documentation and products
-        - @5959 -   CFS @todo Add alternative address
+        - @5959 -   DONE ISH CFS @todo Add alternative address
+                -   Distributor tests needs to be added
         - @6024 -   DONE ISH CFS @todo View CFS tasks in the AWIP page
 
 
