@@ -49,8 +49,25 @@ Feature: As a user, I want to be able to unregister manufacturers when they are 
     When I unregister the manufacturer with the following reasons "<unregisteredReason>"
     And I confirm "Yes" to unregister the manufacturer
     Then I should see application reference number generated
-    And I should received an email for stored manufacturer with heading "MHRA device registration service" and stored application identifier
+    And I should received an email for stored manufacturer with heading "MHRA Devices registration service" and stored application identifier
     Examples:
       | user              | logBackInAs  | accountType   | unregisteredReason    |
-      | manufacturerNoor  | businessAuto | manufacturer  | No Longer Represented |
-      | authorisedRepNoor | businessAuto | authorisedRep | Ceased Trading        |
+      | manufacturerAuto  | businessAuto | manufacturer  | No Longer Represented |
+      | authorisedRepAuto | businessAuto | authorisedRep | Ceased Trading        |
+
+
+#This tests should be ignored because we need as many Registered manufacturers as possible
+  @4368 @2268 @3810 @_sprint18 @2096 @6430 @_sprint23 @4546 @_sprint24 @ignore
+  Scenario Outline: Unregister already registered manufacturers
+    Given I am logged into appian as "<user>" user
+    And I go to list of manufacturers page
+    And I view a random manufacturer with status "Registered"
+    Then I should option to unregister the manufacturer
+    When I unregister the manufacturer with the following reasons "<unregisteredReason>"
+    And I confirm "Yes" to unregister the manufacturer
+    Then I should see application reference number generated
+    And I should received an email for stored manufacturer with heading "MHRA device registration service" and stored application identifier
+    Examples:
+      | user              | unregisteredReason    |
+      | manufacturerAuto  | No Longer Represented |
+      | authorisedRepAuto | Ceased Trading        |

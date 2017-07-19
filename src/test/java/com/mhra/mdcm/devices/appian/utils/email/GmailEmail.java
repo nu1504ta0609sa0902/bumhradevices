@@ -21,10 +21,10 @@ public class GmailEmail {
     public static final String ANNUAL_INVOICED_NOTIFICATIONS = "Annual Notification Invoices";
 
     public static void main(String[] args) {
-        String eb = "Dear Noor Uddin.Manufacturer, We recently received a request to reset your password. If you would still like to reset your password, please follow the link below: https://mhratest.appiancloud.com/suite/forgotpassword/?token=jA0EAwMCgjjxWXv4KiEB0nkB1B9TUjlu0DpyrInke4vudEqSSJvzPaw58fxP_yOPw0kX_cLa--g-Av5B5SQKYbiyAXj_9bQ2cJbhzCF78LYJDf_KE1nckc6_SIsGgOUp0S-W__opLgF7Pug3Ygmunpo5hhQl_yxZ8-J90ksn78DBSq0U7Av8ulyz This link expires in 1,440 minutes. If you did not request for your password to be reset, please contact your administrator. Your password will not be reset unless you follow the above link and complete the password reset form. Thank you, Appian for MHRA (TEST) This email and any files transmitted with it are confidential. If you are not the intended recipient, any reading, printing, storage, disclosure, copying or any other action taken in respect of this email is prohibited and may be unlawful. If you are not the intended recipient, please notify the sender immediately by using the reply function and then permanently delete what you have received. Incoming and outgoing email messages are routinely monitored for compliance with the Department of Health's policy on the use of electronic communications. For more information on the Department of Health's email policy, click DHTermsAndConditions\n" +
-                "13/07/17 11:39:19 - Scenario Passed";
-        String link = eb.substring(eb.indexOf("low:")+5, eb.indexOf("This l")-1);
-        System.out.println(link);
+        String eb = "ber is\n20170718013324";
+        int start = eb.indexOf("ber is");
+        String ref = eb.substring(start+7, start+21);
+        System.out.println(ref);
         String name = "ManufacturerRT01Test_2_5_";
         String body = GmailEmail.readMessageForSpecifiedOrganisations(15, 10, "Manufacturer Registration Request for ", name);
         log.warn(body);

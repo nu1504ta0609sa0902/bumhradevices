@@ -58,6 +58,11 @@ public class BusinessManufacturerDetails extends _Page {
     @FindBy(xpath = ".//h2[contains(text(),'Send unregisteration')]//following::label[2]")
     WebElement cbToManufacturer;
 
+    //Unregister reference number
+    @FindBy(xpath = ".//*[contains(text(),'Application complete')]//following::p[1]")
+    WebElement txtApplicationReferenceNumber;
+
+
     //Rejection reason
     @FindBy(xpath = ".//*[.='Reasons']//following::input[1]")
     WebElement reasonAccountAlreadyExists;
@@ -447,5 +452,13 @@ public class BusinessManufacturerDetails extends _Page {
     public boolean isDesignationLetterAttached() {
         boolean clickable = PageUtils.isElementClickable(driver, linkLetterOfDesignation, TIMEOUT_5_SECOND);
         return clickable;
+    }
+
+    public String getApplicationReferenceNumber() {
+        WaitUtils.waitForElementToBeClickable(driver, txtApplicationReferenceNumber, TIMEOUT_5_SECOND);
+        String text = txtApplicationReferenceNumber.getText();
+        int start = text.indexOf("ber is");
+        String ref = text.substring(start+7, start+21);
+        return ref;
     }
 }

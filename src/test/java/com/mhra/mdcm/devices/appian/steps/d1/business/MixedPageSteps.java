@@ -121,10 +121,18 @@ public class MixedPageSteps extends CommonSteps {
         businessManufacturerDetails = businessManufacturerDetails.submitUnRegistrationWithReason(reason, true);
     }
 
+
+    @Then("^I should see application reference number generated$")
+    public void i_should_see_application_reference_number_generated() throws Throwable {
+        String reference = businessManufacturerDetails.getApplicationReferenceNumber();
+        log.info("Application reference : " + reference);
+        scenarioSession.putData(SessionKey.newApplicationReferenceNumber, reference);
+        Assert.assertThat("Application reference number length should be 14 digits long", reference.length() == 14, is(true));
+    }
+
     @Then("^The manufacturer should no longer be registered$")
     public void the_manufacturer_should_no_longer_be_registered() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
-
 }

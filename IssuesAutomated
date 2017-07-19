@@ -447,9 +447,9 @@ Automated Issues:
 
     Sprint 24: @_sprint24
         - @6626 -   DR @todo Manage customer user sessions
-                -   CANT automate needs to be tested manually
+                -   NA : CANT automate needs to be tested manually
         - @3793 -   DR @todo Auto logout after idle session
-                -   CANT automate needs to be tested manually
+                -   NA : CANT automate needs to be tested manually
         - @6619 -   DONE ISH DR @todo Create application number for unregistering
                 -   Application reference number not generated
         - @2229 -   DR @todo Respond to multiple registration request
