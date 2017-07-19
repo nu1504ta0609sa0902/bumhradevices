@@ -704,6 +704,17 @@ public class ExternalHomePageSteps extends CommonSteps {
         addDevices = addDevices.removeAllDevices(listOfDeviceData);
     }
 
+
+    @Then("^I should see the correct details in the summary tab$")
+    public void iShouldSeeTheCorrectDetailsInTheSummaryTab() throws Throwable {
+        ManufacturerRequestDO manufacaturerData = (ManufacturerRequestDO) scenarioSession.getData(SessionKey.manufacturerData);
+        //deviceDetails = manufacturerDetails.clickOnSummaryLink();
+        boolean isCorrect = manufacturerDetails.isDisplayingCorrectData(manufacaturerData);
+        Assert.assertThat("Expected to see following data : " + manufacaturerData , isCorrect, Matchers.is(true));
+
+    }
+
+
     @Then("^Verify devices displayed and GMDN details are correct$")
     public void verifyDevicesDisplayedAndOtherDetailsAreCorrect() throws Throwable {
         ManufacturerRequestDO manufacaturerData = (ManufacturerRequestDO) scenarioSession.getData(SessionKey.manufacturerData);

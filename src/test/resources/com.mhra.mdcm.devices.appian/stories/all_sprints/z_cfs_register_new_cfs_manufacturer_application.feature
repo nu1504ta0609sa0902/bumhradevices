@@ -47,8 +47,8 @@ Feature: Able to add CFS for products and devices that are already registered
     And I go to device certificate of free sale page
     Then I should see a list of manufacturers available for CFS
     When I create a new manufacturer using CFS manufacturer test harness page with following data
-      | accountType | manufacturer |
-      | countryName | Brazil       |
+      | accountType | <accountType> |
+      | countryName | Brazil        |
     And I add devices to NEWLY created CFS manufacturer with following data
       | deviceType           | General Medical Device |
       | gmdnDefinition       | Blood weighing scale   |
@@ -64,9 +64,9 @@ Feature: Able to add CFS for products and devices that are already registered
     Then The task status in AWIP page should be "<expectedStatus>" for the newly created manufacturer
     And I should received an email for stored manufacturer with heading "Free Sale"
     Examples:
-      | user              | expectedStatus | approveReject |
-      | manufacturerAuto  | Completed      | approve       |
-      | authorisedRepAuto | Completed      | reject        |
+      | user              | expectedStatus | approveReject | accountType   |
+      | manufacturerAuto  | Completed      | approve       | manufacturer  |
+      | authorisedRepAuto | Completed      | reject        | authorisedRep |
 
 
   @5679 @1954 @5680 @5681 @_sprint20 @5593 @5665 @5349 @_sprint21 @5674 @5674 @_sprint22 @6024 @_sprint24 @create_new_org
@@ -107,8 +107,8 @@ Feature: Able to add CFS for products and devices that are already registered
     And I go to device certificate of free sale page
     Then I should see a list of manufacturers available for CFS
     When I create a new manufacturer using CFS manufacturer test harness page with following data
-      | accountType | manufacturer |
-      | countryName | Brazil       |
+      | accountType | <accountType> |
+      | countryName | Brazil        |
     And I add devices to NEWLY created CFS manufacturer with following data
       | deviceType           | General Medical Device |
       | gmdnDefinition       | Blood weighing scale   |
@@ -129,9 +129,9 @@ Feature: Able to add CFS for products and devices that are already registered
     Then The task status in AWIP page should be "Completed" for the newly created manufacturer
     And I should received an email for stored manufacturer with heading "Free Sale"
     Examples:
-      | user              | approveOrReject | status   | reasons          |
-      | authorisedRepAuto | reject          | Rejected | Registered twice |
-      | manufacturerAuto  | approve         | Approved |                  |
+      | user              | approveOrReject | status   | reasons          | accountType   |
+      | authorisedRepAuto | reject          | Rejected | Registered twice | authorisedRep |
+      | manufacturerAuto  | approve         | Approved |                  | manufacturer  |
 
 
   @5682 @5664 @_sprint21 @5673 @5674 @_sprint22 @_sprint23 @create_new_org
@@ -140,8 +140,8 @@ Feature: Able to add CFS for products and devices that are already registered
     And I go to device certificate of free sale page
     Then I should see a list of manufacturers available for CFS
     When I create a new manufacturer using CFS manufacturer test harness page with following data
-      | accountType | manufacturer |
-      | countryName | Brazil       |
+      | accountType | <accountType> |
+      | countryName | Brazil        |
     And I add devices to NEWLY created CFS manufacturer with following data
       | deviceType     | Active Implantable Device |
       | gmdnDefinition | Desiccating chamber       |
@@ -168,9 +168,9 @@ Feature: Able to add CFS for products and devices that are already registered
     Then The task status in AWIP page should be "Completed" for the newly created manufacturer
     And I should received an email for stored manufacturer with heading "Free Sale"
     Examples:
-      | user              | approveOrReject | status   | reasons                |
-      | authorisedRepAuto | reject          | Rejected | Other,Registered twice |
-      | manufacturerAuto  | approve         | Approved |                        |
+      | user              | approveOrReject | status   | reasons                | accountType   |
+      | authorisedRepAuto | reject          | Rejected | Other,Registered twice | authorisedRep |
+      | manufacturerAuto  | approve         | Approved |                        | manufacturer  |
 
 
   @6024 @_sprint24 @create_new_org @wip
@@ -179,8 +179,8 @@ Feature: Able to add CFS for products and devices that are already registered
     And I go to device certificate of free sale page
     Then I should see a list of manufacturers available for CFS
     When I create a new manufacturer using CFS manufacturer test harness page with following data
-      | accountType | manufacturer |
-      | countryName | Brazil       |
+      | accountType | <accountType> |
+      | countryName | Brazil        |
     And I add devices to NEWLY created CFS manufacturer with following data
       | deviceType           | General Medical Device |
       | gmdnDefinition       | Blood weighing scale   |
@@ -193,19 +193,18 @@ Feature: Able to add CFS for products and devices that are already registered
     And I search for task in AWIP page for the manufacturer
     Then Verify the AWIP entry details for the new cfs manufacturer application
     Examples:
-      | logInAs           |
-      | manufacturerAuto  |
-      | authorisedRepAuto |
+      | logInAs           | accountType   |
+      | manufacturerAuto  | manufacturer  |
+      | authorisedRepAuto | authorisedRep |
 
-
-  @4744 @_sprint23 @create_new_org @wip
+  @4329 @4744 @_sprint23 @create_new_org @wip
   Scenario Outline: Register a manufacturer for CFS and verify it appears in the registered manufacturers list with correct devices
     Given I am logged into appian as "<logInAs>" user
     And I go to device certificate of free sale page
     Then I should see a list of manufacturers available for CFS
     When I create a new manufacturer using CFS manufacturer test harness page with following data
-      | accountType | manufacturer |
-      | countryName | Brazil       |
+      | accountType | <accountType> |
+      | countryName | Brazil        |
     And I add devices to NEWLY created CFS manufacturer with following data
       | deviceType           | General Medical Device |
       | gmdnDefinition       | Blood weighing scale   |
@@ -213,7 +212,6 @@ Feature: Able to add CFS for products and devices that are already registered
       | riskClassification   | Class2A                |
       | relatedDeviceSterile | true                   |
       | notifiedBody         | NB 0086 BSI            |
-#    Then I should see correct device data in the review page
     And I submit the cfs application for approval
     When I logout and log back into appian as "businessAuto" user
     And I search and view new task in AWIP page for the newly created manufacturer
@@ -223,8 +221,9 @@ Feature: Able to add CFS for products and devices that are already registered
     And I go to device certificate of free sale page
     Then I should see a list of manufacturers available for CFS
     When I search and view for the newly created cfs manufacturer
-    Then Verify devices displayed and GMDN details are correct
+    Then I should see the correct details in the summary tab
+    And Verify devices displayed and GMDN details are correct
     Examples:
-      | logInAs          | searchTerm |
-      | manufacturerAuto |            |
-# | authorisedRepAuto |            |
+      | logInAs           | accountType   |
+      | manufacturerAuto  | manufacturer  |
+      | authorisedRepAuto | authorisedRep |

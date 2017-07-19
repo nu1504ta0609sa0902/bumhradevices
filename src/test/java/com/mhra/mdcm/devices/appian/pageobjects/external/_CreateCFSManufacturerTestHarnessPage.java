@@ -60,6 +60,10 @@ public class _CreateCFSManufacturerTestHarnessPage extends _Page {
     WebElement phoneNumber;
 
     //Letter of designation
+    @FindBy(xpath = ".//label[contains(text(),'Authorised representative')]")
+    WebElement authorisedRep;
+    @FindBy(xpath = ".//label[contains(text(),'Distributor')]")
+    WebElement distributor;
     @FindBy(css = ".FileUploadWidget---ui-inaccessible")
     WebElement fileUpload;
 
@@ -142,10 +146,15 @@ public class _CreateCFSManufacturerTestHarnessPage extends _Page {
         }
 
         //Upload letter of designation
+        if(ar.isManufacturer){
+            PageUtils.singleClick(driver, authorisedRep);
+        }
         String fileName = "DesignationLetter1.pdf";
         if(!ar.isManufacturer){
             fileName = "DesignationLetter2.pdf";
         }
+
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         PageUtils.uploadDocument(fileUpload, fileName, 1, 2);
 
         //Submit form : remember to verify

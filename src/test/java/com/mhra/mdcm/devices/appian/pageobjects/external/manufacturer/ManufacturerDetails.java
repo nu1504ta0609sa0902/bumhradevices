@@ -2,6 +2,7 @@ package com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequestDO;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
+import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.business.sections.records.BusinessManufacturerDetails;
 import com.mhra.mdcm.devices.appian.pageobjects.external.cfs.CFSAddDevices;
@@ -95,6 +96,8 @@ public class ManufacturerDetails extends _Page {
     //Links to other sections like devices, documents
     @FindBy(partialLinkText = "Devices & ")
     WebElement devicesAndProductDetailsTab;
+    @FindBy(partialLinkText = "Summary")
+    WebElement summaryTab;
 
     //Tabs: Summary, Applications etc
     @FindBy(partialLinkText = "Applications")
@@ -347,9 +350,14 @@ public class ManufacturerDetails extends _Page {
     }
 
     public DeviceDetails clickOnDevicesAndProductDetailsLink() {
-        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, devicesAndProductDetailsTab, TIMEOUT_15_SECOND);
         PageUtils.singleClick(driver,devicesAndProductDetailsTab);
+        return new DeviceDetails(driver);
+    }
+
+    public DeviceDetails clickOnSummaryLink() {
+        WaitUtils.waitForElementToBeClickable(driver, summaryTab, TIMEOUT_15_SECOND);
+        PageUtils.singleClick(driver,summaryTab);
         return new DeviceDetails(driver);
     }
 
@@ -487,5 +495,23 @@ public class ManufacturerDetails extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, btnContinue, TIMEOUT_10_SECOND);
         btnContinue.click();
         return new AddDevices(driver);
+    }
+
+    public boolean isDisplayingCorrectData(ManufacturerRequestDO manufacaturerData) {
+        WaitUtils.waitForElementToBeClickable(driver, fullName, TIMEOUT_10_SECOND);
+        String fullNameText = fullName.getText();
+        boolean isCorrect = fullNameText.contains(manufacaturerData.firstName);
+        if(isCorrect){
+            isCorrect = fullNameText.contains(manufacaturerData.lastName);
+        }
+
+        if(isCorrect){
+            isCorrect = email.getText().contains(manufacaturerData.email);
+        }
+
+        if(isCorrect){
+            isCorrect = orgAddressFull.getText().contains(manufacaturerData.address1);
+        }
+        return isCorrect;
     }
 }

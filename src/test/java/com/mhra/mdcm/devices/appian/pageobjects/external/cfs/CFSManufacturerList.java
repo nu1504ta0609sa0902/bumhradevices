@@ -92,8 +92,8 @@ public class CFSManufacturerList extends _Page {
     }
 
     public CFSManufacturerList tellUsAboutYourOrganisation() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        boolean isVisble = PageUtils.isVisible(driver, rbtExportsMedicinalProducts, TIMEOUT_3_SECOND);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        boolean isVisble = PageUtils.isVisible(driver, rbtExportsMedicinalProducts, TIMEOUT_15_SECOND);
         if(isVisble) {
             WaitUtils.waitForElementToBeClickable(driver, rbtExportOutsideOfEUYes, TIMEOUT_5_SECOND);
             rbtExportOutsideOfEUYes.click();
@@ -110,8 +110,8 @@ public class CFSManufacturerList extends _Page {
     }
 
     public _CreateCFSManufacturerTestHarnessPage addNewManufacturer() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, btnAddNewManufacturer, TIMEOUT_5_SECOND);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, btnAddNewManufacturer, TIMEOUT_15_SECOND);
         btnAddNewManufacturer.click();
         return new _CreateCFSManufacturerTestHarnessPage(driver);
     }

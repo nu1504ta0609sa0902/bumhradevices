@@ -34,24 +34,6 @@ public class CFSAddDevices extends _Page {
     @FindBy(css = ".ParagraphText---richtext_paragraph .StrongText---richtext_strong")
     WebElement labelValidGMDNCodeMessage;
 
-//    //Product details verification : After adding a product (IVD and AIMD)
-//    @FindBy(xpath = ".//div[contains(text(), 'Product code')]//following::tr/td[1]")
-//    List<WebElement> listOfProductNames;
-//    @FindBy(xpath = ".//div[contains(text(), 'Product code')]//following::tr/td[2]")
-//    List<WebElement> listOfProductMake;
-//    @FindBy(xpath = ".//div[contains(text(), 'Product code')]//following::tr/td[3]")
-//    List<WebElement> listOfProductModel;
-//
-//    //Product details form inputs
-//    @FindBy(xpath = ".//*[contains(text(),'Enter name')]//following::input[1]")
-//    WebElement txtProductName;
-//    @FindBy(xpath = ".//*[contains(text(),'and model')]//following::input[1]")
-//    WebElement txtProductMake;
-//    @FindBy(xpath = ".//*[contains(text(),'and model')]//following::input[2]")
-//    WebElement txtProductModel;
-//    @FindBy(xpath = ".//*[.='Product details']//following::th/a")
-//    List<WebElement> listOfProductDetailsTable;
-
     //Device types radio buttons
     @FindBy(xpath = ".//label[contains(text(),'General Medical')]")
     WebElement generalMedicalDevice;
@@ -108,66 +90,15 @@ public class CFSAddDevices extends _Page {
     @FindBy(xpath = ".//span[contains(text(),'Notified Body')]//following::input[@type='radio']//following::label")
     List<WebElement> listOfNotifiedBodies;
 
-//    //IVD risk classification
-//    @FindBy(xpath = ".//label[contains(text(),'List A')]")
-//    WebElement ivdListA;
-//    @FindBy(xpath = ".//label[contains(text(),'List B')]")
-//    WebElement ivdListB;
-//    @FindBy(xpath = ".//label[contains(text(),'Self-Test')]")
-//    WebElement ivdSelfTest;
-//    @FindBy(xpath = ".//label[contains(text(),'IVD General')]")
-//    WebElement ivdIVDGeneral;
-//
-//    //Procedure pack
-//    @FindBy(xpath = ".//span[contains(text(),'pack incorporate')]//following::label[1]")
-//    WebElement ppIsBearingCEMarkingYes;
-//    @FindBy(xpath = ".//span[contains(text(),'pack incorporate')]//following::label[2]")
-//    WebElement ppIsBearingCEMarkingNo;
-//    @FindBy(xpath = ".//span[contains(text(),'devices compatible')]//following::label[1]")
-//    WebElement ppDevicesCompatibleYes;
-//    @FindBy(xpath = ".//span[contains(text(),'devices compatible')]//following::label[2]")
-//    WebElement ppDevicesCompatibleNo;
-
     //Add product
     @FindBy(xpath = ".//button[.='Add product']")
     WebElement addProduct;
     @FindBy(xpath = ".//button[contains(text(),'Add Product')]")
     WebElement addProduct2;
-    //    @FindBy(xpath = ".//button[.='Save Product']")
-//    WebElement saveProduct;
-//    @FindBy(xpath = ".//button[.='Save product']")
-//    WebElement saveProduct2;
-//    @FindBy(xpath = ".//label[.='Enter name']")
-//    WebElement cbxProductName;
     @FindBy(xpath = ".//*[contains(text(),'Medical Device Name')]//following::input[1]")
     WebElement pdProductName;
-    //    @FindBy(xpath = ".//label[contains(text(),'Model')]")
-//    WebElement cbxMakeAndModel;
-//    @FindBy(xpath = ".//*[contains(text(),'and model')]//following::input[1]")
-//    WebElement pdProductMake;
     @FindBy(xpath = ".//*[contains(text(),'and model')]//following::input[2]")
     WebElement pdProductModel;
-
-//    @FindBy(xpath = ".//*[contains(text(),'performance eval')]//following::label[1]")
-//    WebElement radioSubjectToPerformanceEvalYes;
-//    @FindBy(xpath = ".//*[contains(text(),'performance eval')]//following::label[2]")
-//    WebElement radioSubjectToPerformanceEvalNo;
-//    @FindBy(xpath = ".//*[contains(text(),'product new')]//following::label[1]")
-//    WebElement radioProductNewYes;
-//    @FindBy(xpath = ".//*[contains(text(),'product new')]//following::label[2]")
-//    WebElement radioProductNewNo;
-//    @FindBy(xpath = ".//*[contains(text(),'product conform to')]//following::label[1]")
-//    WebElement radioConformsToCTSYes;
-//    @FindBy(xpath = ".//*[contains(text(),'product conform to')]//following::label[2]")
-//    WebElement radioConformsToCTSNo;
-//    @FindBy(xpath = ".//*[contains(text(),'provide the CTS')]//following::input[1]")
-//    WebElement txtCTSReference;
-//    @FindBy(xpath = ".//*[contains(text(),'demonstrated compliance')]//following::textarea[1]")
-//    WebElement txtDemonstratedCompliance;
-//    @FindBy(xpath = ".//*[contains(text(),'testing method')]//following::textarea[1]")
-//    WebElement txtTestingMethod;
-//    @FindBy(xpath = ".//*[contains(text(),'product name as it appears')]//following::input[1]")
-//    WebElement txtProductNameLabel;
 
     //Option to add other devices
     @FindBy(xpath = ".//button[contains(text(),'Add another device')]")
@@ -208,22 +139,12 @@ public class CFSAddDevices extends _Page {
     WebElement imgClearFileSelected;
 
     //Confirm and btnDeclareDevices
-    @FindBy(xpath = ".//button[contains(text(),'Review your order')]")
-    WebElement btnReviewYourOrder;
-    @FindBy(xpath = ".//button[.='Continue']")
-    WebElement btnProceedToReview;
-    @FindBy(xpath = ".//button[contains(text(),'Finish')]")
-    WebElement btnFinish;
-    @FindBy(xpath = ".//button[contains(text(),'Remove')]")
-    WebElement btnRemove;
-    @FindBy(css = ".Button---primary")
-    WebElement submitConfirm;
-    @FindBy(css = ".Button---primary")
-    WebElement btnSubmitConfirm;
     @FindBy(xpath = ".//button[.='Continue']")
     WebElement btnProceedToPayment;
     @FindBy(css = ".CheckboxGroup---choice_pair>label")
     WebElement cbxConfirmInformation;
+    @FindBy(xpath = ".//label[contains(text(),'understand the requirements')]")
+    WebElement cbxConfirmTermsAndConditions;
 
     //Submit and save buttons
     @FindBy(xpath = ".//button[.='Add device']")
@@ -793,8 +714,14 @@ public class CFSAddDevices extends _Page {
     }
 
 
+    public CFSAddDevices agreeToTandC() {
+        WaitUtils.waitForElementToBeClickable(driver, cbxConfirmInformation, TIMEOUT_20_SECOND);
+        cbxConfirmInformation.click();
+        return new CFSAddDevices(driver);
+    }
+
     public CFSManufacturerList submitApplicationForApproval() {
-        WaitUtils.waitForElementToBeClickable(driver, btnSubmitForApproval, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, btnSubmitForApproval, TIMEOUT_20_SECOND);
         btnSubmitForApproval.click();
         return new CFSManufacturerList(driver);
     }

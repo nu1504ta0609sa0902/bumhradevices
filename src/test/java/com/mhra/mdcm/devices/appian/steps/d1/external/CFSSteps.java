@@ -497,6 +497,7 @@ public class CFSSteps extends CommonSteps {
 
     @When("^I submit the cfs application for approval$")
     public void i_submit_the_cfs_application_for_approval() throws Throwable {
+        cfsAddDevices = cfsAddDevices.agreeToTandC();
         cfsManufacturerList = cfsAddDevices.submitApplicationForApproval();
         //cfsManufacturerList.isManufacturerListDisplayed();
         String reference = cfsAddDevices.getApplicationReferenceNumber();

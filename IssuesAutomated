@@ -415,7 +415,7 @@ Automated Issues:
         - @3831 -   DONE ISH CFS @todo Display list of manufacturer within CFS
         - @4207 -   DONE ISH CFS @todo view draft or submitted CFS application
                 -   View application after saving
-        - @4329 -   CFS @todo display manufacturer and device details
+        - @4329 -   DONE ISH CFS @todo display manufacturer and device details
         - @4744 -   DONE ISH CFS @todo display approved devices for cfs
         - @5743 -   CFS @todo display existing certificates for manufacturer
         - @5748 -   DONE ISH CFS @todo display error message for duplicate devices
