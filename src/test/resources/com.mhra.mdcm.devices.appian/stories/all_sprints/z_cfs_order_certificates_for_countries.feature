@@ -96,7 +96,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE
       | Turkey=5,Iceland=10,United States=20,Liechtenstein=20      |
 
 
-  @1992 @5960  @5749 @_sprint21 @6012 @_sprint22 @1952 @_sprint23 @6024 @_sprint24
+  @1992 @5960  @5749 @_sprint21 @6012 @_sprint22 @1952 @3831 @_sprint23 @6024 @_sprint24
   Scenario Outline: Users can search for products and order CFS for already registered manufacturers
     Given I am logged into appian as "<logInAs>" user
     And I go to device certificate of free sale page

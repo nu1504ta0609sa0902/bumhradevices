@@ -2,6 +2,7 @@ package com.mhra.mdcm.devices.appian.steps.d1.external;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
+import com.mhra.mdcm.devices.appian.enums.LinksRecordPage;
 import com.mhra.mdcm.devices.appian.pageobjects.external.cfs.CFSAddDevices;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.AddDevices;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
@@ -76,6 +77,14 @@ public class CFSSteps extends CommonSteps {
     public void i_should_see_a_list_of_manufacturers_available_for_CFS() throws Throwable {
         boolean isListVisible = cfsManufacturerList.isManufacturerListDisplayed();
         Assert.assertThat("Expected to see a list of manufacturers", isListVisible, is(true));
+    }
+
+
+    @Then("^I should see the following columns for CFS manufacturer list page$")
+    public void i_should_see_the_following_columns(Map<String, String> dataValues) throws Throwable {
+        String tableColumnsNotFound = dataValues.get("columns");
+        boolean isCorrect = cfsManufacturerList.isTableHeadingCorrect(tableColumnsNotFound);
+        Assert.assertThat("Following columns not found : " + tableColumnsNotFound, isCorrect, is(true));
     }
 
     @When("^I click on a random organisation which needs cfs$")

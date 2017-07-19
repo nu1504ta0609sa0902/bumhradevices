@@ -262,7 +262,7 @@ public class PageUtils {
         for (WebElement el : listOfTableHeadings) {
             if (position >= headingFrom && position <= headingTo) {
                 String heading = el.getText().toLowerCase();
-                //System.out.println(heading);
+                System.out.println(heading);
                 if (!lowerCaseHeadings.contains(heading)) {
                     allFound = false;
                     break;

@@ -32,7 +32,7 @@ public class CFSManufacturerList extends _Page {
     WebElement lastPage;
 
     //List of table data
-    @FindBy(xpath = ".//tr/th")
+    @FindBy(xpath = ".//*[contains(text(),'Manufacturers you represent')]//following::tbody[1]/tr/th")
     List<WebElement> listOfTableHeadings;
     @FindBy(xpath = ".//h2[contains(text(),'Manufacturers you represent')]//following::tbody[1]/tr/td[1]")
     List<WebElement> listOfOrganisationNames;
@@ -88,7 +88,7 @@ public class CFSManufacturerList extends _Page {
 
     public boolean isTableHeadingCorrect(String commaDelimitedHeading) {
         String lowerCaseHeadings = commaDelimitedHeading.toLowerCase();
-        return PageUtils.isTableHeadingCorrect(lowerCaseHeadings, listOfTableHeadings, 1, 4);
+        return PageUtils.isTableHeadingCorrect(lowerCaseHeadings, listOfTableHeadings, 1, 3);
     }
 
     public CFSManufacturerList tellUsAboutYourOrganisation() {

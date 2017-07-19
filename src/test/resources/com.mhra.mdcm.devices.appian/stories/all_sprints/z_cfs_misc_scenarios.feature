@@ -17,7 +17,7 @@ Feature: Aa a user I would like to verify CFS features which are not related to 
     Then I should see a list of manufacturers available for CFS
 
 
-  @5571 @3856 @_sprint18 @readonly
+  @5571 @3856 @_sprint18 @3831 @_sprint23 @readonly
   Scenario: Users should be able to go to BACK from the application
     Given I am logged into appian as "manufacturerAuto" user
     And I go to device certificate of free sale page
@@ -26,6 +26,8 @@ Feature: Aa a user I would like to verify CFS features which are not related to 
     Then I should see an alert box asking for confirmation
     When I click "yes" on the alert box
     Then I should see a list of manufacturers available for CFS
+    And I should see the following columns for CFS manufacturer list page
+      | columns | Name,Country,Devices |
 
 
   @5571 @4203 @4698 @_sprint15 @_sprint18 @readonly
@@ -44,10 +46,12 @@ Feature: Aa a user I would like to verify CFS features which are not related to 
       | manufacturerAuto | No          |
 
 
-  @4330 @4203 @_sprint15 @_sprint16 @readonly
+  @4330 @4203 @_sprint15 @_sprint16 @3831 @_sprint23 @readonly
   Scenario: Users should be able to tell what stage of device registration they are in
     Given I am logged into appian as "manufacturerAuto" user
     And I go to device certificate of free sale page
     Then I should see a list of manufacturers available for CFS
+    And I should see the following columns for CFS manufacturer list page
+      | columns | Name,Country,Devices |
     When I goto add a new cfs manufacturer page
     Then I should see current stage of indication

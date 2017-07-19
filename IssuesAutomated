@@ -412,7 +412,7 @@ Automated Issues:
         - @1952 -   DONE ISH CFS @todo Payment for CFS
                 -   Able to select billing address from dropdown
         - @1962 -   DONE ISH CFS @todo Add devices to an existing manufacturer
-        - @3831 -   CFS @todo Display list of manufacturer within CFS
+        - @3831 -   DONE ISH CFS @todo Display list of manufacturer within CFS
         - @4207 -   DONE ISH CFS @todo view draft or submitted CFS application
                 -   View application after saving
         - @4329 -   CFS @todo display manufacturer and device details

@@ -145,7 +145,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | authorisedRepAuto | businessAuto | authorisedRep | United States | approve       | Completed |
       | manufacturerAuto  | businessAuto | manufacturer  | Brazil        | reject        | Completed |
 
-  @1992 @1845 @1974 @1952 @1962 @1971 @3979 @4330 @5141 @5212 @5126 @5128 @5673 @5674 @5583 @2833 @cfs_e2e
+  @1992 @1845 @1974 @1952 @1962 @1971 @3831 @3979 @4330 @5141 @5212 @5126 @5128 @5673 @5674 @5583 @2833 @cfs_e2e
   Scenario Outline: S4c Register and approve Non UK based manufacturers with multiple devices for CFS
     Given I am logged into appian as "<logInAs>" user
 # Submit a new CFS manufacturer application
