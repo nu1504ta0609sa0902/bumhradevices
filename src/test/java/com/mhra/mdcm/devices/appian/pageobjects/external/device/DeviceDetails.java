@@ -171,10 +171,15 @@ public class DeviceDetails extends _Page {
      */
     public boolean isDisplayedDeviceDataCorrect(ManufacturerRequestDO manufacaturerData, DeviceDO deviceData) {
         //Check displayed devices are correct
-        String device = deviceData.gmdnTermOrDefinition;
+        String device = "General Medical Device"; //deviceData.gmdnTermOrDefinition;
         boolean allHeadingValid = isDeviceTableHeadingCorrect(deviceData);
         boolean allValid = isDevicesGMDNDisplayedCorrect(device);
         return allValid && allHeadingValid;
+    }
+
+
+    public boolean isDisplayedDeviceDataCorrectForCFS(DeviceDO deviceData) {
+        return false;
     }
 
     private boolean isDeviceTableHeadingCorrect(DeviceDO dd) {
@@ -580,5 +585,4 @@ public class DeviceDetails extends _Page {
     public boolean isDeliveryAddressVisible() {
         return PageUtils.isElementClickable(driver, addressCertificateDelivery, TIMEOUT_10_SECOND);
     }
-
 }

@@ -174,7 +174,7 @@ Feature: Able to add CFS for products and devices that are already registered
       | manufacturerAuto  | approve         | Approved |                        | manufacturer  |
 
 
-  @6024 @_sprint24 @create_new_org @wip
+  @6024 @_sprint24 @create_new_org
   Scenario Outline: Verify Application WIP page entry data is correct for new CFS applications
     Given I am logged into appian as "<logInAs>" user
     And I go to device certificate of free sale page
@@ -223,7 +223,7 @@ Feature: Able to add CFS for products and devices that are already registered
     Then I should see a list of manufacturers available for CFS
     When I search and view for the newly created cfs manufacturer
     Then I should see the correct details in the summary tab
-    And Verify devices displayed and GMDN details are correct
+    And Verify devices displayed and GMDN details are correct for CFS
     Examples:
       | logInAs           | accountType   |
       | manufacturerAuto  | manufacturer  |

@@ -108,7 +108,7 @@ public class TaskSection extends _Page {
     List<WebElement> listOfApplicationReferences;
     @FindBy(xpath = ".//*[text()='Priority']/following::tr/td[1]")
     WebElement aApplicationReference;
-    @FindBy(xpath = ".//*[text()='Priority']/following::tr/td[4]")
+    @FindBy(xpath = ".//*[text()='Priority']/following::tr/td[4]/div/img")
     WebElement applicationStatus;
     @FindBy(xpath = ".//*[text()='Priority']/following::tr/td[2]")
     WebElement applicationType;
@@ -627,7 +627,7 @@ public class TaskSection extends _Page {
 
     public boolean isAWIPTaskStatusCorrect(String status) {
         WaitUtils.waitForElementToBeClickable(driver, aApplicationReference, TIMEOUT_10_SECOND);
-        boolean contains = applicationStatus.getText().contains(status);
+        boolean contains = applicationStatus.getAttribute("aria-label").toLowerCase().contains(status);
         return contains;
     }
 

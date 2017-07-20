@@ -243,7 +243,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         addDevices = addDevices.proceedToPayment();
         addDevices = addDevices.enterPaymentDetails("Worldpay", scenarioSession);   //OR WorldPay
         String reference = addDevices.getApplicationReferenceNumber();
-        log.info("New Applicaiton reference number : " + reference);
+        log.info("New Application reference number : " + reference);
 
         manufacturerList = addDevices.backToService();
         scenarioSession.putData(SessionKey.newApplicationReferenceNumber, reference);
@@ -255,7 +255,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         addDevices = addDevices.proceedToPayment();
         addDevices = addDevices.enterPaymentDetails(method, scenarioSession);   //OR WorldPay
         String reference = addDevices.getApplicationReferenceNumber();
-        log.info("New Applicaiton reference number : " + reference);
+        log.info("New Application reference number : " + reference);
 
         manufacturerList = addDevices.backToService();
         scenarioSession.putData(SessionKey.newApplicationReferenceNumber, reference);
@@ -725,6 +725,20 @@ public class ExternalHomePageSteps extends CommonSteps {
 
         //Verify manufacturer details showing correct data
         boolean isAllDataCorrect = deviceDetails.isDisplayedDeviceDataCorrect(manufacaturerData, deviceData);
+        Assert.assertThat("Expected to see device : " + deviceData.gmdnTermOrDefinition, isAllDataCorrect, Matchers.is(true));
+    }
+
+
+    @Then("^Verify devices displayed and GMDN details are correct for CFS$")
+    public void verifyDevicesDisplayedAndOtherDetailsAreCorrectForCFS() throws Throwable {
+        ManufacturerRequestDO manufacaturerData = (ManufacturerRequestDO) scenarioSession.getData(SessionKey.manufacturerData);
+        DeviceDO deviceData = (DeviceDO) scenarioSession.getData(SessionKey.deviceData);
+
+        //Go to devices page by clicking on the "Devices and product details" link
+        deviceDetails = manufacturerDetails.clickOnDevicesAndProductDetailsLink();
+
+        //Verify manufacturer details showing correct data
+        boolean isAllDataCorrect = deviceDetails.isDisplayedDeviceDataCorrectForCFS(deviceData);
         Assert.assertThat("Expected to see device : " + deviceData.gmdnTermOrDefinition, isAllDataCorrect, Matchers.is(true));
     }
 

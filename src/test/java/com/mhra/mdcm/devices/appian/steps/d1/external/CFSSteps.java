@@ -333,7 +333,7 @@ public class CFSSteps extends CommonSteps {
         deviceDetails = deviceDetails.continueToPaymentAfterReviewFinished();
         deviceDetails = deviceDetails.enterPaymentDetails("Worldpay", scenarioSession);
         String reference = deviceDetails.getApplicationReferenceNumber();
-        log.info("New Applicaiton reference number : " + reference);
+        log.info("New Application reference number : " + reference);
 
         deviceDetails = deviceDetails.finishPayment();
         scenarioSession.putData(SessionKey.newApplicationReferenceNumber, reference);
@@ -345,7 +345,7 @@ public class CFSSteps extends CommonSteps {
         deviceDetails = deviceDetails.continueToPaymentAfterReviewFinished();
         deviceDetails = deviceDetails.enterPaymentDetails(method, scenarioSession);
         String reference = deviceDetails.getApplicationReferenceNumber();
-        log.info("New Applicaiton reference number : " + reference);
+        log.info("New Application reference number : " + reference);
 
         deviceDetails = deviceDetails.finishPayment();
         scenarioSession.putData(SessionKey.newApplicationReferenceNumber, reference);
@@ -513,7 +513,7 @@ public class CFSSteps extends CommonSteps {
         cfsManufacturerList = cfsAddDevices.submitApplicationForApproval();
         //cfsManufacturerList.isManufacturerListDisplayed();
         String reference = cfsAddDevices.getApplicationReferenceNumber();
-        log.info("New Applicaiton reference number : " + reference);
+        log.info("New Application reference number : " + reference);
         scenarioSession.putData(SessionKey.newApplicationReferenceNumber, reference);
     }
 

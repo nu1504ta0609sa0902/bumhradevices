@@ -318,7 +318,7 @@ public class TasksPageSteps extends CommonSteps {
      */
     @Then("^Verify the AWIP entry details for the new cfs manufacturer application$")
     public void verify_the_WIP_entry_details_for_the_new_account_is_correct() throws Throwable {
-        String status = "Not Assigned";
+        String status = "not assigned";
         String applicationType = "CFS New Manufacturer";
         boolean isApplicationTypeCorrect = taskSection.isAWIPApplicationTypeCorrect(applicationType);
         boolean isStatusCorrect = taskSection.isAWIPTaskStatusCorrect(status);
@@ -329,7 +329,7 @@ public class TasksPageSteps extends CommonSteps {
 
     @Then("^Verify the AWIP entry details for the new cfs order application$")
     public void verify_the_WIP_entry_details_for_the_new_ordert_is_correct() throws Throwable {
-        String status = "Not Assigned";
+        String status = "not assigned";
         String applicationType = "CFS New Order";
         boolean isApplicationTypeCorrect = taskSection.isAWIPApplicationTypeCorrect(applicationType);
         boolean isStatusCorrect = taskSection.isAWIPTaskStatusCorrect(status);
