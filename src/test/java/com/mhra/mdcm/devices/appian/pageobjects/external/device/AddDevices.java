@@ -734,7 +734,7 @@ public class AddDevices extends _Page {
     }
 
     private void customMade(DeviceDO dd) {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, radioCustomMadeYes, TIMEOUT_10_SECOND);
         if (dd.isCustomMade) {
             PageUtils.clickIfVisible(driver, radioCustomMadeYes);

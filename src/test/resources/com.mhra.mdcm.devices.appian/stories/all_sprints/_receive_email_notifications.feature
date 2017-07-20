@@ -122,8 +122,8 @@ Feature: As a customer I want to receive email notifications when ever a account
 #      | businessNoor | distributor   | approve       | distributorNoor   | United States | AuthorisedRepAccountRT00 |
 
 
-  @regression @2272 @_sprint19 @4645 @_sprint20 @4648 @_sprint24 @create_new_org @wip
-  Scenario Outline: Email notification should be generated for fogotten password
+  @regression @2272 @_sprint19 @4645 @_sprint20 @4648 @_sprint24 @create_new_org
+  Scenario Outline: Email notification should be generated for forgotten password
     Given I am logged into appian as "<user>" user
     When I create a new account using business test harness page with following data
       | accountType           | <accountType>           |
@@ -144,4 +144,4 @@ Feature: As a customer I want to receive email notifications when ever a account
     Examples:
       | user         | accountType   | approveReject | accountNameBeginsWith    |
       | businessNoor | manufacturer  | approve       | ManufacturerAccountRT00  |
-      | businessNoor | authorisedRep | reject        | AuthorisedRepAccountRT00 |
+      | businessNoor | authorisedRep | approve       | AuthorisedRepAccountRT00 |
