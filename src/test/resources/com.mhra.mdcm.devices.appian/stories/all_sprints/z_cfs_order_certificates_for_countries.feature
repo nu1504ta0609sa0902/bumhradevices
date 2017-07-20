@@ -150,7 +150,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE
     And I search and view new task in AWIP page for the newly created manufacturer
     And I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the newly created manufacturer
-    And I should received an email for stored manufacturer with heading "Free Sale"
+    And I should received an email for stored manufacturer with heading containing "Free Sale" and stored application identifier
 # Now verify search and filter functionalities
     Given I am logged into appian as "<logInAs>" user
     And I go to device certificate of free sale page

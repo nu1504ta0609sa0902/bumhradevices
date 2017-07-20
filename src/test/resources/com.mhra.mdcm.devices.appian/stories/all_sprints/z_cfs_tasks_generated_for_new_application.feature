@@ -49,7 +49,7 @@ Feature: Tasks will need to be generated for CFS application
     And I search and view new task in AWIP page for the newly created manufacturer
     And I assign the AWIP page task to me and "<approveReject>" the generated task
     Then The task status in AWIP page should be "<expectedStatus>" for the newly created manufacturer
-    And I should received an email for stored manufacturer with heading "Free Sale"
+    And I should received an email for stored manufacturer with heading containing "Free Sale" and stored application identifier
     Examples:
       | user              | expectedStatus | approveReject |
       | manufacturerAuto  | Completed      | approve       |

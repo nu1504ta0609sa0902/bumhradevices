@@ -139,7 +139,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And I search and view new task in AWIP page for the newly created manufacturer
     And I assign the AWIP page task to me and "<approveReject>" the generated task
     Then The task status in AWIP page should be "Completed" for the newly created manufacturer
-    And I should received an email for stored manufacturer with heading "Free Sale"
+    And I should received an email for stored manufacturer with heading containing "Free Sale" and stored application identifier
     Examples:
       | user              | businessUser | accountType   | country       | approveReject | status    |
       | authorisedRepAuto | businessAuto | authorisedRep | United States | approve       | Completed |
@@ -174,7 +174,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And I search and view new task in AWIP page for the newly created manufacturer
     And I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the newly created manufacturer
-    And I should received an email for stored manufacturer with heading "Free Sale"
+    And I should received an email for stored manufacturer with heading containing "Free Sale" and stored application identifier
 # Now apply for cfs
     Given I am logged into appian as "<logInAs>" user
     And I go to device certificate of free sale page
@@ -191,7 +191,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And I search and view new task in AWIP page for the newly created manufacturer
     And I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the newly created manufacturer
-    And I should received an email for stored manufacturer with heading "Free Sale"
+    And I should received an email for stored manufacturer with heading containing "Free Sale" and stored application identifier
     Examples:
       | country    | noCFS | logInAs           | searchTerm |
       | Brazil     | 15    | manufacturerAuto  |            |

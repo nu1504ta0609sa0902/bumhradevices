@@ -38,7 +38,8 @@ Feature: Able to add CFS for products and devices that are already registered
     And I search and view new task in AWIP page for the newly created manufacturer
     And I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the newly created manufacturer
-    And I should received an email for stored manufacturer with heading "Free Sale"
+    And I should received an email for stored manufacturer with heading containing "Free Sale" and stored application identifier
+
 
 
   @smoke_test_cfs @1961 @_sprint21 @create_new_org
@@ -62,7 +63,7 @@ Feature: Able to add CFS for products and devices that are already registered
     And I search and view new task in AWIP page for the newly created manufacturer
     And I assign the AWIP page task to me and "<approveReject>" the generated task
     Then The task status in AWIP page should be "<expectedStatus>" for the newly created manufacturer
-    And I should received an email for stored manufacturer with heading "Free Sale"
+    And I should received an email for stored manufacturer with heading containing "Free Sale" and stored application identifier
     Examples:
       | user              | expectedStatus | approveReject | accountType   |
       | manufacturerAuto  | Completed      | approve       | manufacturer  |
@@ -98,7 +99,7 @@ Feature: Able to add CFS for products and devices that are already registered
     Then All the device status should update to "Approved"
     When I complete the already assigned task
     Then The task status in AWIP page should be "Completed" for the newly created manufacturer
-    And I should received an email for stored manufacturer with heading "Free Sale"
+    And I should received an email for stored manufacturer with heading containing "Free Sale" and stored application identifier
 
 
   @5682 @5664 @_sprint21 @5673 @5674 @_sprint22 @_sprint23 @create_new_org
@@ -127,7 +128,7 @@ Feature: Able to add CFS for products and devices that are already registered
     Then All the device status should update to "<status>"
     When I complete the already assigned task
     Then The task status in AWIP page should be "Completed" for the newly created manufacturer
-    And I should received an email for stored manufacturer with heading "Free Sale"
+    And I should received an email for stored manufacturer with heading containing "Free Sale" and stored application identifier
     Examples:
       | user              | approveOrReject | status   | reasons          | accountType   |
       | authorisedRepAuto | reject          | Rejected | Registered twice | authorisedRep |
@@ -166,7 +167,7 @@ Feature: Able to add CFS for products and devices that are already registered
     Then All the device status should update to "<status>"
     When I complete the already assigned task
     Then The task status in AWIP page should be "Completed" for the newly created manufacturer
-    And I should received an email for stored manufacturer with heading "Free Sale"
+    And I should received an email for stored manufacturer with heading containing "Free Sale" and stored application identifier
     Examples:
       | user              | approveOrReject | status   | reasons                | accountType   |
       | authorisedRepAuto | reject          | Rejected | Other,Registered twice | authorisedRep |

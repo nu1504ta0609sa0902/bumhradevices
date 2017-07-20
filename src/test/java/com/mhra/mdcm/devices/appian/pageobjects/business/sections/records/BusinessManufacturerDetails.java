@@ -59,7 +59,7 @@ public class BusinessManufacturerDetails extends _Page {
     WebElement cbToManufacturer;
 
     //Unregister reference number
-    @FindBy(xpath = ".//*[contains(text(),'Application complete')]//following::p[1]")
+    @FindBy(xpath = ".//*[contains(text(),'successfully submitted to MHRA')]//following::p[1]")
     WebElement txtApplicationReferenceNumber;
 
 

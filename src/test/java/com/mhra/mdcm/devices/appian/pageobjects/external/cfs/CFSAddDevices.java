@@ -445,10 +445,10 @@ public class CFSAddDevices extends _Page {
     }
 
     private void uploadCECertificates(DeviceDO dd) {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         //PageFactory.initElements(driver, this);
 
-        WaitUtils.waitForElementToBeClickable(driver, datePicker, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, datePicker, TIMEOUT_15_SECOND);
         String docType = dd.docType;
         String[] docTypes = docType.split(",");
 
@@ -489,7 +489,7 @@ public class CFSAddDevices extends _Page {
 
 
     private void addProduct(DeviceDO dd) {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         //PageUtils.clickOneOfTheFollowing(driver, addProduct, addProduct2, TIMEOUT_5_SECOND);
 
         WaitUtils.waitForElementToBeClickable(driver, pdProductName, TIMEOUT_10_SECOND);
@@ -812,9 +812,14 @@ public class CFSAddDevices extends _Page {
     }
 
     public String getApplicationReferenceNumber() {
-        WaitUtils.waitForElementToBeClickable(driver, linkBackToManufacturersDetails, TIMEOUT_15_SECOND);
         WaitUtils.waitForElementToBeClickable(driver, txtApplicationReference, TIMEOUT_15_SECOND);
         return txtApplicationReference.getText();
+
+//        WaitUtils.waitForElementToBeClickable(driver, txtApplicationReference, TIMEOUT_5_SECOND);
+//        String text = txtApplicationReference.getText();
+//        int start = text.indexOf("ber is");
+//        String ref = text.substring(start+7, start+21);
+//        return ref;
     }
 
     public CFSAddDevices removeAddedDevice() {

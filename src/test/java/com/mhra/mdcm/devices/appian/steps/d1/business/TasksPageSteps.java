@@ -619,10 +619,9 @@ public class TasksPageSteps extends CommonSteps {
         boolean isCompleted = taskSection.isSearchingCompleted();
 
         //get the reference number
-        String reference = taskSection.getTheApplicationReferenceNumber();
-        log.info("Found Applicaiton reference number : " + reference);
-
-        scenarioSession.putData(SessionKey.newApplicationReferenceNumber, reference);
+        //String reference = taskSection.getTheApplicationReferenceNumber();
+        //log.info("Found Application reference number : " + reference);
+        //scenarioSession.putData(SessionKey.newApplicationReferenceNumber, reference);
         businessManufacturerDetails = taskSection.clickOnReferenceNumberReturnedBySearchResult(1);
     }
 
@@ -696,9 +695,9 @@ public class TasksPageSteps extends CommonSteps {
         //Assert.assertThat("Expected Status in Application WIP page : " + status + " for application : " + reference, isStatusCorrect, is(true));
 
         //get the reference number
-        String reference = taskSection.getTheApplicationReferenceNumber();
-        log.info("Found Applicaiton reference number : " + reference);
-        scenarioSession.putData(SessionKey.newApplicationReferenceNumber, reference);
+        //String reference = taskSection.getTheApplicationReferenceNumber();
+        //log.info("Found Application reference number : " + reference);
+        //scenarioSession.putData(SessionKey.newApplicationReferenceNumber, reference);
     }
 
     @Then("^I should see a button with the following text \"([^\"]*)\"$")

@@ -4,6 +4,7 @@ import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.email.GmailEmail;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
@@ -15,6 +16,34 @@ import org.springframework.context.annotation.Scope;
 @Scope("cucumber-glue")
 public class EmailSteps extends CommonSteps {
 
+
+    @And("^I should received an email for stored manufacturer with heading containing \"([^\"]*)\" and stored application identifier$")
+    public void iShouldReceivedAnEmailForStoredManufacturerWithHeadingContainingAndStoredApplicationIdentifier(String subjectHeading) throws Throwable {
+
+        String accountNameOrReference = (String) scenarioSession.getData(SessionKey.newApplicationReferenceNumber);
+        if(accountNameOrReference == null){
+            accountNameOrReference = (String) scenarioSession.getData(SessionKey.organisationName);
+        }
+
+        boolean foundMessage = false;
+        String messageBody = null;
+        int attempt = 0;
+        do {
+            messageBody = GmailEmail.readMessageSubjectHeadingContainsIdentifier(7, 10, subjectHeading, accountNameOrReference);
+
+            //Break from loop if invoices read from the email server
+            if (messageBody!=null) {
+                foundMessage = true;
+                break;
+            } else {
+                //Wait for 10 seconds and try again, Thread.sleep required because this is checking email
+                WaitUtils.nativeWaitInSeconds(10);
+            }
+            attempt++;
+        } while (!foundMessage && attempt < 15);
+
+        Assert.assertThat("Message should not be empty : " + messageBody, messageBody!=null, Matchers.is(true));
+    }
 
     @And("^I should received an email for stored account with heading \"([^\"]*)\"$")
     public void iShouldReceivedAnEmailForStoredAccountWithHeading(String emailHeading) throws Throwable {
@@ -147,5 +176,4 @@ public class EmailSteps extends CommonSteps {
         Assert.assertThat("Message should not be empty : " + messageBody, messageBody!=null, Matchers.is(true));
         Assert.assertThat("Found message with heading : " + emailHeading + ", And username : " + userName, foundMessage, Matchers.is(true));
     }
-
 }
