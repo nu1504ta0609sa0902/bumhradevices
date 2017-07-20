@@ -420,7 +420,7 @@ public class ManufacturerDetails extends _Page {
     }
 
     public CFSAddDevices clickAddDeviceCFS() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, addADeviceCFS, TIMEOUT_15_SECOND);
         addADeviceCFS.click();
         return new CFSAddDevices(driver);
@@ -428,14 +428,14 @@ public class ManufacturerDetails extends _Page {
 
 
     public DeviceDetails clickOrderCFSButton() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnOrderCFS, TIMEOUT_15_SECOND);
         btnOrderCFS.click();
         return new DeviceDetails(driver);
     }
 
     public ManufacturerDetails clickApplicationTab() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, tabApplicationDetails, TIMEOUT_15_SECOND);
         tabApplicationDetails.click();
         return new ManufacturerDetails(driver);

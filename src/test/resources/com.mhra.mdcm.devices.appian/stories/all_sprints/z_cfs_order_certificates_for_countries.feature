@@ -14,7 +14,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE
       | gmdnDefinition     | <gmdnDefinition>     |
       | customMade         | <customMade>         |
       | riskClassification | <riskClassification> |
-    Then I should see the following "<errorMsg>" error message
+    Then I should see the following MHRA error message "<errorMsg>"
     Examples:
       | user             | searchTerm       | errorMsg                                 | deviceType                 | gmdnDefinition       | customMade | riskClassification |
       | manufacturerAuto | ManufacturerRT01 | This device must be registered with MHRA | General Medical Device     | Blood weighing scale | true       |                    |
@@ -26,7 +26,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE
 
   @1974 @1978 @4704 @_sprint15 @5749 @_sprint21 @1952 @5753 @_sprint23
   Scenario Outline: Users should be able to go to cfs page and add to a random manufacturer from the list
-    Given I am logged into appian as "manufacturerAuto" user
+    Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
     Then I should see a list of manufacturers available for CFS
     When I click on a random organisation which needs cfs
@@ -37,9 +37,9 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE
     When I submit payment for the CFS
     And I should received an email with subject heading "WorldPay Payment"
     Examples:
-      | country    | noCFS |
-      | Brazil     | 15    |
-      | Bangladesh | 10    |
+      | country    | noCFS | user              |
+      | Brazil     | 15    | manufacturerAuto  |
+      | Bangladesh | 10    | authorisedRepAuto |
 
 
   @1974 @1978 @4704 @_sprint15 @5499 @_sprint17 @1949 @5980 @1958 @1960 @_sprint22 @4207 @_sprint23 @wip
@@ -80,7 +80,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE
 
   @smoke_test_cfs @1974 @1978 @5578 @_sprint15 @_sprint18 @5749 @_sprint21 @1952 @_sprint23
   Scenario Outline: Users should be able to order CFS for multiple countries
-    Given I am logged into appian as "manufacturerAuto" user
+    Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
     Then I should see a list of manufacturers available for CFS
     When I click on a random organisation which needs cfs
@@ -90,10 +90,10 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE
     When I submit payment for the CFS
     And I should received an email with subject heading "WorldPay Payment"
     Examples:
-      | countryAndCertificateNumber                                |
-      | Switzerland=5,Norway=10,British Virgin=15,British Indian=1 |
-      | Bangladesh=5,Brazil=2,United States=3                      |
-      | Turkey=5,Iceland=10,United States=20,Liechtenstein=20      |
+      | countryAndCertificateNumber                                | user              |
+      | Switzerland=5,Norway=10,British Virgin=15,British Indian=1 | manufacturerAuto  |
+      | Bangladesh=5,Brazil=2,United States=3                      | authorisedRepAuto |
+      | Turkey=5,Iceland=10,United States=20,Liechtenstein=20      | manufacturerAuto  |
 
 
   @1992 @5960  @5749 @_sprint21 @6012 @_sprint22 @1952 @3831 @_sprint23 @6024 @_sprint24
@@ -114,6 +114,7 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE
     When I logout and log back into appian as "businessAuto" user
     And I search for task in AWIP page for the manufacturer
     Then Verify the AWIP entry details for the new cfs order application
+    When I view the searched organisation in AWIP page
     Examples:
       | country    | noCFS | logInAs           | searchTerm            |
       | Brazil     | 15    | manufacturerAuto  | ManufacturerRT01Test  |
@@ -159,9 +160,9 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE
     And I search for product by "<searchBy>" for the value "<searchTerm>"
     Then I should see <count> products matching search results
     Examples:
-      | country    | noCFS | logInAs           | searchBy            | searchTerm           | count |
-      | Bangladesh | 10    | authorisedRepAuto | gmdn term           | Blood weighing scale | 1     |
-      | Brazil     | 15    | manufacturerAuto  | medical device name | Product              | 2     |
+      | logInAs           | searchBy            | searchTerm           | count |
+      | authorisedRepAuto | gmdn term           | Blood weighing scale | 1     |
+      | manufacturerAuto  | medical device name | Product              | 2     |
 
 
   @5959 @_sprint24

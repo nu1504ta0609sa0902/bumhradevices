@@ -115,6 +115,8 @@ public class CFSAddDevices extends _Page {
     List<WebElement> alreadyExistsErrorMessages;
     @FindBy(css = ".FieldLayout---field_error")
     WebElement errMessage;
+    @FindBy(css = ".MessageLayout---error")
+    WebElement mhrsErrorMessage;
     @FindBy(css = ".FieldLayout---field_error")
     List<WebElement> fieldErrorMessages;
     @FindBy(css = ".FieldLayout---field_error")
@@ -177,6 +179,8 @@ public class CFSAddDevices extends _Page {
     WebElement headingProductsPage;
     @FindBy(xpath = ".//h3[contains(text(),'Upload CE')]")
     WebElement headingCECertificatesPage;
+    @FindBy(xpath = ".//td[8]")
+    WebElement removeCertificate;
 
     //Delete device or application
     @FindBy(xpath = ".//*[contains(text(), 'Devices')]/following::button[text()='Delete Device']")
@@ -222,10 +226,10 @@ public class CFSAddDevices extends _Page {
 
 
     public boolean isErrorMessageDisplayed(String message) {
+        boolean isDisplayed = false;
         try {
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
             WaitUtils.waitForElementToBeClickable(driver, errMessage, TIMEOUT_1_SECOND);
-            boolean isDisplayed = false;
             for (WebElement msg : alreadyExistsErrorMessages) {
                 String txt = msg.getText();
                 System.out.println("Error message : " + txt);
@@ -234,10 +238,10 @@ public class CFSAddDevices extends _Page {
                     break;
                 }
             }
-            return isDisplayed;
         } catch (Exception e) {
-            return false;
+            isDisplayed = false;
         }
+        return isDisplayed;
     }
 
     public boolean isFieldErrorMessageDisplayed(String message) {
@@ -258,9 +262,9 @@ public class CFSAddDevices extends _Page {
         }
     }
 
-    public boolean isErrorMessageCorrect(String expectedErrorMsg) {
-        WaitUtils.waitForElementToBeVisible(driver, errMessage, 10);
-        boolean contains = errMessage.getText().contains(expectedErrorMsg);
+    public boolean isMHRAErrorMessageCorrect(String expectedErrorMsg) {
+        WaitUtils.waitForElementToBeVisible(driver, mhrsErrorMessage, 10);
+        boolean contains = mhrsErrorMessage.getText().contains(expectedErrorMsg);
         return contains;
     }
 
@@ -573,7 +577,7 @@ public class CFSAddDevices extends _Page {
     }
 
     private void customMade(DeviceDO dd) {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, radioCustomMadeYes, TIMEOUT_10_SECOND);
         if (dd.isCustomMade) {
             PageUtils.clickIfVisible(driver, radioCustomMadeYes);
@@ -727,13 +731,15 @@ public class CFSAddDevices extends _Page {
     }
 
     public boolean isContinueButtonEnabled() {
-        WaitUtils.waitForElementToBeVisible(driver, btnContinue, TIMEOUT_5_SECOND);
-        boolean enabled = btnContinue.isEnabled();
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeVisible(driver, btnContinue, TIMEOUT_10_SECOND);
+        boolean enabled = PageUtils.isElementClickable(driver, btnContinue, TIMEOUT_2_SECOND);
         return enabled;
     }
 
     public CFSAddDevices removeAttachedCertificate() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, removeCertificate, TIMEOUT_10_SECOND);
+        removeCertificate.click();
         return new CFSAddDevices(driver);
     }
 
@@ -809,5 +815,9 @@ public class CFSAddDevices extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, linkBackToManufacturersDetails, TIMEOUT_15_SECOND);
         WaitUtils.waitForElementToBeClickable(driver, txtApplicationReference, TIMEOUT_15_SECOND);
         return txtApplicationReference.getText();
+    }
+
+    public CFSAddDevices removeAddedDevice() {
+        return null;
     }
 }

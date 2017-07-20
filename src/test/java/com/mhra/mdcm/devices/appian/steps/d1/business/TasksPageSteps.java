@@ -639,6 +639,13 @@ public class TasksPageSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.organisationName, orgName);
     }
 
+    @Then("^I view the searched organisation in AWIP page$")
+    public void i_view_the_searched_org_in_AWIP_page_for_the_newly_created_manufacturer(String orgName) throws Throwable {
+        String accountNameOrReference = (String) scenarioSession.getData(SessionKey.newApplicationReferenceNumber);
+        businessManufacturerDetails = taskSection.viewAccountByReferenceNumber(accountNameOrReference);
+        scenarioSession.putData(SessionKey.organisationName, orgName);
+    }
+
 
     @Then("^I search for new task in AWIP page for the new account$")
     public void i_search_for_the_new_task_in_AWIP_page_for_the_new_account() throws Throwable {

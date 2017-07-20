@@ -461,6 +461,7 @@ Automated Issues:
         - @2154 -   DR @todo View payment details for an applicaton
                 -   No link
         - @2107 -   DR @todo Receive review and process request for manufacturer registration
+                -   No link
         - @4648 -   DONE ISH DR @todo Email link for forgotten password reset
                 -   Email content needs to be verified
         - @4378 -   DR @todo Email notification to customer when processing has begun
@@ -502,3 +503,5 @@ Automated Issues:
         - @6324 -   Selected org from profile view
         - @6557 -   Manage addresses from selected organisation page
         - @6793 -   DR @todo Model attribute mandatory for
+
+    Sprint 26: @_sprint26

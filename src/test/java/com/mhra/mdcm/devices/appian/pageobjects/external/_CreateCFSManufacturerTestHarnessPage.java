@@ -146,7 +146,8 @@ public class _CreateCFSManufacturerTestHarnessPage extends _Page {
         }
 
         //Upload letter of designation
-        if(ar.isManufacturer){
+        if(ar.isManufacturer || !ar.isManufacturer){
+            //Introduced in sprint 26, Not sure about this
             PageUtils.singleClick(driver, authorisedRep);
         }
         String fileName = "DesignationLetter1.pdf";
@@ -155,7 +156,7 @@ public class _CreateCFSManufacturerTestHarnessPage extends _Page {
         }
 
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        PageUtils.uploadDocument(fileUpload, fileName, 1, 2);
+        PageUtils.uploadDocument(fileUpload, fileName, 2, 2);
 
         //Submit form : remember to verify
         try{

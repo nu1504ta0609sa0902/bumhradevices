@@ -157,21 +157,21 @@ public class ExternalHomePage extends _Page {
     }
 
     public boolean isErrorMessageDsiplayed(String message) {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, errorMessage, TIMEOUT_3_SECOND);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, errorMessage, TIMEOUT_15_SECOND);
         boolean contains = errorMessage.getText().contains(message);
         return contains;
     }
 
     public ExternalHomePage clickBackButton() {
-        WaitUtils.waitForElementToBeClickable(driver, btnBackButton, TIMEOUT_3_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, btnBackButton, TIMEOUT_10_SECOND);
         btnBackButton.click();
         return new ExternalHomePage(driver);
     }
 
     public CFSManufacturerList gotoCFSPage() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, linkRegisterCFSForDevice, TIMEOUT_10_SECOND);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, linkRegisterCFSForDevice, TIMEOUT_15_SECOND);
         linkRegisterCFSForDevice.click();
         return new CFSManufacturerList(driver);
     }

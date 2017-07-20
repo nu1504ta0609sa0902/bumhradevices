@@ -402,13 +402,20 @@ public class CFSSteps extends CommonSteps {
         StepsUtils.addToDeviceDataList(scenarioSession, dd);
     }
 
+
+    @Then("^I click on add devices button for CFS$")
+    public void i_go_to_add_devices_page() throws Throwable {
+        cfsAddDevices = manufacturerDetails.clickAddDeviceCFS();
+    }
+
     @When("^I try to add a device to SELECTED CFS manufacturer with following data$")
     public void i_try_to_add_a_device_to_SELECTED_CFS_manufacturer_with_following_data(Map<String, String> dataSets) throws Throwable {
         DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
         String registeredStatus = (String) scenarioSession.getData(SessionKey.registeredStatus);
-        if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
+        if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered")) {
+            cfsAddDevices = manufacturerDetails.clickAddDeviceCFS();
             cfsAddDevices = cfsAddDevices.addPartiallyFilledDevices(dd);
-        else {
+        }else {
             cfsAddDevices = manufacturerDetails.clickContinue();
             cfsAddDevices = cfsAddDevices.addPartiallyFilledDevices(dd);
         }
@@ -445,10 +452,9 @@ public class CFSSteps extends CommonSteps {
         DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
         dd.setAnotherCertificate(true);
         if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered")) {
-            //cfsAddDevices = manufacturerDetails.clickAddDeviceCFS();
             cfsAddDevices = cfsAddDevices.addFollowingDevice(dd, true);
         } else {
-            cfsAddDevices = manufacturerDetails.clickContinue();
+            //cfsAddDevices = manufacturerDetails.clickContinue();
             cfsAddDevices = cfsAddDevices.addFollowingDevice(dd, false);
         }
 
@@ -489,6 +495,12 @@ public class CFSSteps extends CommonSteps {
         Assert.assertEquals("Expected error message : " + errorMessage, true, errorMessageDisplayed);
     }
 
+    @Then("^I should see the following MHRA error message \"([^\"]*)\"$")
+    public void i_should_see_the_following_MHRA_error_message(String errorMessage) throws Throwable {
+        boolean errorMessageDisplayed = cfsAddDevices.isMHRAErrorMessageCorrect(errorMessage);
+        Assert.assertEquals("Expected error message : " + errorMessage, true, errorMessageDisplayed);
+    }
+
     @Then("^I should see the following field \"([^\"]*)\" error message$")
     public void i_should_see_the_following_field_error_message(String errorMessage) throws Throwable {
         boolean errorMessageDisplayed = cfsAddDevices.isFieldErrorMessageDisplayed(errorMessage);
@@ -517,6 +529,12 @@ public class CFSSteps extends CommonSteps {
     public void i_remove_the_attached_certificate() throws Throwable {
         cfsAddDevices = cfsAddDevices.removeAttachedCertificate();
     }
+
+    @When("^I remove the attached product$")
+    public void i_remove_the_attached_product() throws Throwable {
+        cfsAddDevices = cfsAddDevices.removeAddedDevice();
+    }
+
 
 
     @Then("^I should not be able to proceed to the next step$")

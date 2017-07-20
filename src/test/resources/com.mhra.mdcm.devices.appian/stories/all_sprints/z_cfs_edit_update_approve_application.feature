@@ -164,6 +164,7 @@ Feature: Users should be able to add remove and edit for CFS new manufacturer ap
     Examples:
       | user             | searchTerm | addDevices | addCertificate | addProducts | notifiedBody | deviceType                | gmdnDefinition      | customMade | riskClassification | relatedDeviceSterile | listOfProductNames |
       | manufacturerAuto | RT01Test   | true       | true           | false       | SGS          | Active Implantable Device | Desiccating chamber | false      |                    |                      | Product1,Product2  |
+      | authorisedRepAuto | RT01Test   | true       | true           | false       | SGS          | Active Implantable Device | Desiccating chamber | false      |                    |                      | Product1,Product2  |
 
 
   @5126 @_sprint17 @wip
