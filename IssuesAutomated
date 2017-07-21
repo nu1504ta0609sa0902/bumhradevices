@@ -451,7 +451,6 @@ Automated Issues:
         - @3793 -   DR @todo Auto logout after idle session
                 -   NA : CANT automate needs to be tested manually
         - @6619 -   DONE ISH DR @todo Create application number for unregistering
-                -   Application reference number not generated
         - @2229 -   DR @todo Respond to multiple registration request
         - @6625 -   DR @todo Apply agency password
         - @4546 -   DONE ISH DR @todo Email notification receipt of an application wanting to unregister
@@ -485,9 +484,9 @@ Automated Issues:
 
 
     Sprint 25: @_sprint25
-        - @1943 -   View and print cover letter
+        - @1943 -   CFS @todo View and print cover letter
         - @1950 -   CFS @todo view sample CFS certificate
-        - @1975 -   View and print a standard schedule
+        - @1975 -   CFS @todo View and print a standard schedule
         - @1976 -   CFS @todo View and print standard CFS cert for order
         - @6316 -   CFS @todo submit and view submitted amend devices application
         - @6806 -   CFS @todo View devices to manage
@@ -504,4 +503,44 @@ Automated Issues:
         - @6557 -   Manage addresses from selected organisation page
         - @6793 -   DR @todo Model attribute mandatory for
 
+
     Sprint 26: @_sprint26
+        - @4189 -   DR  Manufacturer to indicate compliance with the new EU regulations
+        - @6798 -   DR  Impact message for new DR/CFS application
+        - @1936 -   DR  View and respond to request for further info by a business customer
+        - @2091 -   DR  Email notification to customer for further info
+        - @2150 -   DR  Email reminder to customer for further info required
+        - @2261 -   DR  Request further info in relation to registering device from business
+        - @2300 -   DR  Receive, review and process further information app
+        - @6624 -   DR  Invite an individual to join an existing org as a new user
+        - @6631 -   DR  Disable customer user account as another customer
+        - @6739 -   DR  Invitation to join has timeout - customer users
+        - @6743 -   DR  Accept invitation to join an existing organisation
+        - @6782 -   DR  Invite existing contacts to join as organisational user
+        - @6790 -   DR  Email invitation to join organisation user
+        - @6794 -   DR  Restrict customer username choices
+        - @6799 -   DR  Limit number of customer user account associated with an organisation
+        - @1967 -   CFS Business review of cfs ammed application
+        - @6859 -   CFS View cfs order summary
+        - @6867 -   CFS Assign cfs order to myself or someone else
+        - @6883 -   CFS View additional address and copy on the schedule
+        - @6880 -   CFS View and print receipt
+        - @6878 -   CFS Complete cfs order
+        - @6877 -   CFS Upload documents
+        - @6879 -   CFS New regulation text
+        - @6558 -   CFS Prevent further application if manufacturer change is in progress
+        - @6860 -   CFS View application submission aknowledgement screen
+
+
+    Sprint 27: @_sprint27
+        - @2083 -   Manage devices and products from manufacturer record as a customer
+        - @2085 -   Receive, review and process application to unregister
+        - @2107 -   Receive, review and process request to update manufacturer
+        - @4652 -   Record events in business news feed
+        - @5369 -   Business remove devices or products from manufacturer registration
+        - @5691 -   Confirm unsuccessful unregistration
+        - @6619 -   Create application number at unregistering a manufacturer by business
+        - @6840 -   Cater for authorisedReps and distributors
+        - @6825 -   Manage rep orgs update post update
+        - @6839 -   Process non-chargable changes separately to chargable changes for edit org
+        - @6873 -   Edit org details must be reflected immediately

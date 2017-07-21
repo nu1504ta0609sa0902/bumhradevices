@@ -812,6 +812,7 @@ public class AddDevices extends _Page {
     }
 
     public void searchForGMDN(String searchTerm){
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, tbxGMDNDefinitionOrTerm, TIMEOUT_5_SECOND);
         tbxGMDNDefinitionOrTerm.clear();
         tbxGMDNDefinitionOrTerm.sendKeys(searchTerm);
@@ -1077,6 +1078,7 @@ public class AddDevices extends _Page {
     public boolean isValidationErrorMessageVisible() {
         boolean isErrorMessageDisplayed = true;
         try{
+            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
             WaitUtils.waitForElementToBeClickable(driver, validationErrMessage, TIMEOUT_2_SECOND);
         }catch (Exception e){
             isErrorMessageDisplayed = false;

@@ -58,7 +58,6 @@ Feature: Aa a user I would like to verify features which are not related to devi
   Scenario Outline: Users should be able to search for multiple device types
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    #And I click on a random manufacturer
     And I click on random manufacturer with status "Registered"
     And I go to add devices page
     When I search for device type "<deviceType1>" with gmdn "<gmdn>"
@@ -75,11 +74,10 @@ Feature: Aa a user I would like to verify features which are not related to devi
       | manufacturerAuto  | General Medical Device | In Vitro Diagnostic Device | Active Implantable Device | System or Procedure Pack | H2SMAGAllNBlood | 0     |
 
 
-  @1838 @_sprint13 @readonly
+  @regression @1838 @_sprint13 @readonly
   Scenario Outline: Users should be able to search using GMDN CODE
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    #And I click on a random manufacturer
     And I click on random manufacturer with status "Registered"
     And I go to add devices page
     When I search for device type "<deviceType>" with gmdn "<gmdn>"
@@ -90,15 +88,14 @@ Feature: Aa a user I would like to verify features which are not related to devi
       | manufacturerAuto | General Medical Device | 13459  | not see      |
 
 
-  @regression @1838 @4211 @_sprint12 @_sprint13 @readonly
+  @1838 @4211 @_sprint12 @_sprint13 @readonly
   Scenario Outline: Users should be able to view all gmdn terms or definitions
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    #And I click on a random manufacturer
     And I click on random manufacturer with status "Registered"
     And I go to add devices page
     When I click on view all gmdn term or definitions for device type "<deviceType>"
-    And I search for gmdn "<gmdn>"
+    And I search for all gmdn "<gmdn>"
     Then I should see at least <count> devices matches
     Examples:
       | user              | deviceType                 | gmdn  | count |
@@ -132,7 +129,7 @@ Feature: Aa a user I would like to verify features which are not related to devi
       | businessAuto | Organisations | ManufacturerRT  | name=Optout,address=Optout | address                 | Do not publish name or address |
 
 
-  @regression @4090 @_sprint13 @4088 @_sprint11 @4711 @_sprint16 @5668 @_sprint20 @readonly
+  @4090 @_sprint13 @4088 @_sprint11 @4711 @_sprint16 @5668 @_sprint20 @readonly
   Scenario Outline: Users should be able to filter tasks in application WIP page
     Given I am logged into appian as "<user>" user
     And I go to application WIP page
@@ -147,7 +144,7 @@ Feature: Aa a user I would like to verify features which are not related to devi
       | businessAuto | byApplicationAssignedTo | Auto               |
 
 
-  @4090 @_sprint13 @4088 @_sprint11 @4711 @_sprint16 @5668 @_sprint20 @readonly
+  @regression @4090 @_sprint13 @4088 @_sprint11 @4711 @_sprint16 @5668 @_sprint20 @readonly
   Scenario Outline: Users should be able to filter tasks with multiple filters in application WIP page
     Given I am logged into appian as "<user>" user
     And I go to application WIP page

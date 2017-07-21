@@ -550,13 +550,15 @@ public class DeviceDetails extends _Page {
 
     public AddDevices clickAddDeviceBtn() {
         WaitUtils.waitForElementToBeClickable(driver, addADevice, TIMEOUT_15_SECOND);
-        addADevice.click();
+        PageUtils.doubleClick(driver, addADevice);
+        //addADevice.click();
         return new AddDevices(driver);
     }
 
     public DeviceDetails clickManageDevices() {
         WaitUtils.waitForElementToBeClickable(driver, manageDevice, TIMEOUT_15_SECOND);
-        manageDevice.click();
+        PageUtils.doubleClick(driver, manageDevice);
+        //manageDevice.click();
         return new DeviceDetails(driver);
     }
 

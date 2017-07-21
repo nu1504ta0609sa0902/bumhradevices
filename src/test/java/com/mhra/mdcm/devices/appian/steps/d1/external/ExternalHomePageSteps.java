@@ -817,8 +817,8 @@ public class ExternalHomePageSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.searchTerm, gmdnTermCodeOrDefinition);
     }
 
-    @When("^I search for gmdn \"([^\"]*)\"$")
-    public void i_search_for_gmdn_gmdnCode(String gmdnTermCodeOrDefinition) throws Throwable {
+    @When("^I search for all gmdn \"([^\"]*)\"$")
+    public void i_search_for_gmdn(String gmdnTermCodeOrDefinition) throws Throwable {
         //Search for specific device of a specific type
         DeviceDO dd = TestHarnessUtils.updateDeviceData(null, scenarioSession);
         addDevices = addDevices.searchForDevice(dd, null, gmdnTermCodeOrDefinition);
