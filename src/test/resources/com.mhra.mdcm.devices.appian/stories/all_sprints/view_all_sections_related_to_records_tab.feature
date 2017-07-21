@@ -1,6 +1,7 @@
 Feature: As a business user, I want to navigate to different sections like Accounts and organisations
   so that I can quickly confirm if they are known to the MHRA and retrieve key contact information
 
+
   @regression @smoke_test_dr @mdcm-23 @2321 @mdcm-126 @2292 @2797 @mdcm-626 @1928 @readonly @_sprint1 @_sprint6 @_sprint7
   Scenario Outline: As a business user I should be able to view all sections in records page and verify details
     Given I am logged into appian as "<user>" user

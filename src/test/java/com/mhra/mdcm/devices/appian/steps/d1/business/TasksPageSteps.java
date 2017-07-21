@@ -446,7 +446,7 @@ public class TasksPageSteps extends CommonSteps {
     @Then("^validate task is displaying correct new account details$")
     public void validate_new_account_details() throws Throwable {
         AccountRequestDO newAccount = (AccountRequestDO) scenarioSession.getData(SessionKey.manufacturerData);
-        log.info(newAccount.toString());
+        //log.info("New account details : " + newAccount.toString());
         List<String> listOfDetailsWhichAreIncorrect = taskSection.verifyDetailsAreCorrect(newAccount);
 
         assertThat("Following information was incorrect : " + listOfDetailsWhichAreIncorrect, listOfDetailsWhichAreIncorrect.size() == 0, is(equalTo(true)));

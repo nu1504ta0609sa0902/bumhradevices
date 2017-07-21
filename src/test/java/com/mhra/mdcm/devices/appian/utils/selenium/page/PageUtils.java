@@ -311,7 +311,7 @@ public class PageUtils {
                 String orgName = el.getText();
 
                 //
-                if (!orgName.equals("Next") && !orgName.equals("Previous"))
+                if (!orgName.equals("Next") && !orgName.equals("Previous") && !orgName.trim().equals(""))
                     listOfOrderedOrganisations.add(orgName);
             }
 
