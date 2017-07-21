@@ -17,8 +17,8 @@ Feature: As an account holder, I should be able to add devices to existing manuf
   Scenario Outline: Verify correct device type options are displayed on add devices page
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    #And I click on a random manufacturer
     And I click on random manufacturer with status "Registered"
+    And I go to add devices page
     Then I should see correct device types
     Examples:
       | user              |
@@ -30,7 +30,8 @@ Feature: As an account holder, I should be able to add devices to existing manuf
   Scenario Outline: Verify correct options are displayed on add devices page for different combinations
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on a random manufacturer to add devices
+    #And I click on a random manufacturer to add devices
+    And I click on random manufacturer with status "Registered"
     When I add a device to SELECTED manufacturer with following data
       | deviceType             | <deviceType>         |
       | gmdnDefinition         | <gmdnDefinition>     |
@@ -63,7 +64,7 @@ Feature: As an account holder, I should be able to add devices to existing manuf
   Scenario Outline: Users should be able to add devices to existing manufacturers
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on a random manufacturer to add devices
+    And I click on random manufacturer with status "Registered"
     When I add a device to SELECTED manufacturer with following data
       | deviceType     | <deviceType> |
       | gmdnDefinition | Blood        |
@@ -80,7 +81,8 @@ Feature: As an account holder, I should be able to add devices to existing manuf
   Scenario Outline: Users should be able to remove devices from manufacturers
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on a random manufacturer to add devices
+    #And I click on a random manufacturer to add devices
+    And I click on random manufacturer with status "Registered"
     When I add a device to SELECTED manufacturer with following data
       | deviceType     | <deviceType> |
       | gmdnDefinition | <gmdn1>      |
@@ -90,8 +92,8 @@ Feature: As an account holder, I should be able to add devices to existing manuf
       | gmdnDefinition | <gmdn2>      |
       | customMade     | true         |
     Then I should see option to add another device
-    When I remove ALL the stored device with gmdn code or definition
-    Then I should not see option to add another device
+    When I remove the device with gmdn "<gmdn1>" code
+    Then I should see option to add another device
     Examples:
       | user              | deviceType             | gmdn1                | gmdn2           |
       | authorisedRepAuto | General Medical Device | Blood weighing scale | Autopsy measure |
@@ -102,7 +104,8 @@ Feature: As an account holder, I should be able to add devices to existing manuf
   Scenario Outline: Users should be able to add and remove devices using GMDN code from existing manufacturers
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on a random manufacturer to add devices
+    #And I click on a random manufacturer to add devices
+    And I click on random manufacturer with status "Registered"
     When I add a device to SELECTED manufacturer with following data
       | deviceType     | <deviceType>       |
       | gmdnDefinition | <gmdnDefinitionD1> |
@@ -128,7 +131,8 @@ Feature: As an account holder, I should be able to add devices to existing manuf
   Scenario Outline: Users should be able to add devices to existing manufacturers and verify devices are added
     Given I am logged into appian as "<user>" user
     When I go to list of manufacturers page
-    And I click on random manufacturer with status "<status>" to add device
+    #And I click on random manufacturer with status "<status>" to add device
+    And I click on random manufacturer with status "Registered"
     And I add a device to SELECTED manufacturer with following data
       | deviceType             | <deviceType>         |
       | gmdnDefinition         | <gmdn>               |
@@ -168,5 +172,5 @@ Feature: As an account holder, I should be able to add devices to existing manuf
     And I should see contact person details
     Examples:
       | user              | status         |
-#      | manufacturerAuto  | Not Registered |
-      | authorisedRepAuto | Not Registered |
+      | manufacturerAuto  | Not Registered |
+      | authorisedRepAuto | Registered     |

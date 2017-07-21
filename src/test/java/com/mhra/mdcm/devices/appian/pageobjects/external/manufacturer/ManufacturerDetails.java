@@ -74,7 +74,7 @@ public class ManufacturerDetails extends _Page {
     //ORGANISATION DETAILS
     @FindBy(css = "div>h1")
     WebElement orgName;
-    @FindBy(xpath = ".//span[.='Registered address']//following::p[1]")
+    @FindBy(xpath = ".//span[.='Registered Address']//following::p[1]")
     WebElement orgAddressFull;
     @FindBy(xpath = ".//span[.='Address line 1']//following::p[1]")
     WebElement orgAddressLine1;
@@ -94,7 +94,7 @@ public class ManufacturerDetails extends _Page {
     WebElement webSite;
 
     //Links to other sections like devices, documents
-    @FindBy(partialLinkText = "Devices & ")
+    @FindBy(xpath = ".//*[contains(text(),'Devices &')]")
     WebElement devicesAndProductDetailsTab;
     @FindBy(partialLinkText = "Summary")
     WebElement summaryTab;
@@ -296,10 +296,10 @@ public class ManufacturerDetails extends _Page {
 
 
     public boolean isDisplayedOrgFieldsCorrect(String org, String status) {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean fieldsDisplayed = true;
         try {
-            WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_10_SECOND);
 //            if (status.toLowerCase().contains("not")) {
 //                WaitUtils.waitForElementToBeClickable(driver, orgAddressFull, TIMEOUT_3_SECOND);
 //            } else {
@@ -329,10 +329,10 @@ public class ManufacturerDetails extends _Page {
     }
 
     public boolean isDisplayedContactPersonFieldsCorrect(String org) {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean fieldsDisplayed = true;
         try {
-            WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_3_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, orgName, TIMEOUT_10_SECOND);
             try {
                 WaitUtils.waitForElementToBeClickable(driver, fullName, TIMEOUT_1_SECOND);
             }catch (Exception e){
@@ -351,7 +351,7 @@ public class ManufacturerDetails extends _Page {
 
     public DeviceDetails clickOnDevicesAndProductDetailsLink() {
         WaitUtils.waitForElementToBeClickable(driver, devicesAndProductDetailsTab, TIMEOUT_15_SECOND);
-        PageUtils.doubleClick(driver,devicesAndProductDetailsTab);
+        PageUtils.singleClick(driver,devicesAndProductDetailsTab);
         //devicesAndProductDetailsTab.click();
         return new DeviceDetails(driver);
     }

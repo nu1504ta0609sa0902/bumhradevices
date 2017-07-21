@@ -824,10 +824,8 @@ public class AddDevices extends _Page {
 
     public boolean isOptionToAddAnotherDeviceVisible() {
         try {
-            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
             WaitUtils.waitForElementToBeClickable(driver, btnAddAnotherDevice, TIMEOUT_10_SECOND);
-            boolean isVisible = btnAddAnotherDevice.isDisplayed() && btnAddAnotherDevice.isEnabled();
-            return isVisible;
+            return true;
         } catch (Exception e) {
             return false;
         }
@@ -913,10 +911,14 @@ public class AddDevices extends _Page {
     }
 
     public AddDevices removeSelectedDevice() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, btnRemove, TIMEOUT_5_SECOND);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, btnRemove, TIMEOUT_10_SECOND);
         btnRemove.click();
         return new AddDevices(driver);
+    }
+
+    public boolean isRemoveButtonClickable(){
+        return PageUtils.isElementClickable(driver, btnRemove, TIMEOUT_3_SECOND);
     }
 
     public boolean isProductDetailsCorrect(DeviceDO data) {
@@ -987,6 +989,7 @@ public class AddDevices extends _Page {
             String gmdnCode = data.getGMDN();
             viewDeviceWithGMDNValue(gmdnCode);
             removeSelectedDevice();
+            confirmRemovalOfDevice(true);
         }
 
         return new AddDevices(driver);

@@ -267,9 +267,7 @@ public class ExternalHomePageSteps extends CommonSteps {
 
         //If registered we need to click on a button, else devices page is displayed
         String registeredStatus = (String) scenarioSession.getData(SessionKey.registeredStatus);
-        deviceDetails = manufacturerDetails.clickOnDevicesAndProductDetailsLink();
-        deviceDetails = deviceDetails.clickManageDevices();
-        addDevices = deviceDetails.clickAddDeviceBtn();
+        i_go_to_add_devices_page();
 
         //Assumes we are in add device page
         DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
@@ -289,9 +287,7 @@ public class ExternalHomePageSteps extends CommonSteps {
 
         //If registered we need to click on a button, else devices page is displayed
         String registeredStatus = (String) scenarioSession.getData(SessionKey.registeredStatus);
-        deviceDetails = manufacturerDetails.clickOnDevicesAndProductDetailsLink();
-        deviceDetails = deviceDetails.clickManageDevices();
-        addDevices = deviceDetails.clickAddDeviceBtn();
+        i_go_to_add_devices_page();
 
         //Assumes we are in add device page
         DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
@@ -322,9 +318,7 @@ public class ExternalHomePageSteps extends CommonSteps {
     public void i_add_multiple_devices_to_selected_manufactuerer_of_type_with_following_data(Map<String, String> dataSets) throws Throwable {
         //If registered we need to click on a button, else devices page is displayed
         String registeredStatus = (String) scenarioSession.getData(SessionKey.registeredStatus);
-        deviceDetails = manufacturerDetails.clickOnDevicesAndProductDetailsLink();
-        deviceDetails = deviceDetails.clickManageDevices();
-        addDevices = deviceDetails.clickAddDeviceBtn();
+        i_go_to_add_devices_page();
 
         DeviceDO dd = TestHarnessUtils.updateDeviceData(dataSets, scenarioSession);
         if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
@@ -405,14 +399,6 @@ public class ExternalHomePageSteps extends CommonSteps {
         log.info("Manufacturer selected : " + name + ", is " + registered);
         manufacturerDetails = manufacturerList.viewAManufacturer(name);
 
-//        if(manufacturerDetails.isDevicesAndProductTabVisible()){
-//            deviceDetails = manufacturerDetails.clickOnDevicesAndProductDetailsLink();
-//            deviceDetails = deviceDetails.clickManageDevices();
-//            addDevices = deviceDetails.clickAddDeviceBtn();
-//        }else {
-//            addDevices = manufacturerDetails.clickContinueToAddDevices(registered);
-//        }
-
         scenarioSession.putData(SessionKey.organisationName, name);
         scenarioSession.putData(SessionKey.registeredStatus, registered);
         scenarioSession.putData(SessionKey.taskType, "Update Manufacturer");
@@ -488,20 +474,6 @@ public class ExternalHomePageSteps extends CommonSteps {
 
         int nop = manufacturerList.getNumberOfPages(1);
         int count = 0;
-//        while (registered != null && !registered.toLowerCase().equals(status.toLowerCase())) {
-//            count++;
-//            if (count > nop) {
-//                break;
-//            } else {
-//                //Go to next page and try again
-//                manufacturerList = manufacturerList.clickNext();
-//
-//                //Try again
-//                name = manufacturerList.getARandomManufacturerNameWithStatus(status);
-//                registered = manufacturerList.getRegistrationStatus(name);
-//                country = manufacturerList.getOrganisationCountry(name);
-//            }
-//        }
 
         boolean isFoundInManufacturerList = false;
         do {
@@ -540,20 +512,6 @@ public class ExternalHomePageSteps extends CommonSteps {
 
         int nop = manufacturerList.getNumberOfPages(1);
         int count = 0;
-//        while (registered != null && !registered.toLowerCase().equals(status.toLowerCase())) {
-//            count++;
-//            if (count > nop) {
-//                break;
-//            } else {
-//                //Go to next page and try again
-//                manufacturerList = manufacturerList.clickNext();
-//
-//                //Try again
-//                name = manufacturerList.getARandomManufacturerNameWithStatus(status);
-//                registered = manufacturerList.getRegistrationStatus(name);
-//                country = manufacturerList.getOrganisationCountry(name);
-//            }
-//        }
 
         boolean isFoundInManufacturerList = false;
         do {
@@ -570,14 +528,6 @@ public class ExternalHomePageSteps extends CommonSteps {
 
         log.info("Manufacturer selected : " + name + ", is " + registered);
         manufacturerDetails = manufacturerList.viewAManufacturer(name);
-//
-//        if(manufacturerDetails.isDevicesAndProductTabVisible()){
-//            deviceDetails = manufacturerDetails.clickOnDevicesAndProductDetailsLink();
-//            deviceDetails = deviceDetails.clickManageDevices();
-//            addDevices = deviceDetails.clickAddDeviceBtn();
-//        }else {
-//            addDevices = manufacturerDetails.clickContinueToAddDevices(registered);
-//        }
 
         scenarioSession.putData(SessionKey.organisationName, name);
         scenarioSession.putData(SessionKey.organisationCountry, country);
@@ -687,6 +637,7 @@ public class ExternalHomePageSteps extends CommonSteps {
     public void iRemoveTheDeviceWithGmdnCode(String gmdnCode) throws Throwable {
         addDevices = addDevices.viewDeviceWithGMDNValue(gmdnCode);
         addDevices = addDevices.removeSelectedDevice();
+        addDevices = addDevices.confirmRemovalOfDevice(true);
     }
 
     @When("^I remove the stored device with gmdn code or definition$")
@@ -842,6 +793,10 @@ public class ExternalHomePageSteps extends CommonSteps {
         try {
             //Go to add devices
             deviceDetails = manufacturerDetails.clickOnDevicesAndProductDetailsLink();
+            boolean isCorrectPage = deviceDetails.isInDeviceDetailsPage(_Page.TIMEOUT_2_SECOND);
+            if(!isCorrectPage){
+                deviceDetails = manufacturerDetails.clickOnDevicesAndProductDetailsLink();
+            }
             tabDisplayed = true;
             deviceDetails = deviceDetails.clickManageDevices();
             addDevices = deviceDetails.clickAddDeviceBtn();

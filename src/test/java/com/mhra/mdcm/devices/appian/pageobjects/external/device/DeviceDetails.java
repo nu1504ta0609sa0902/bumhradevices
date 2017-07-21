@@ -151,9 +151,9 @@ public class DeviceDetails extends _Page {
     @FindBy(xpath = ".//*[contains(text(),'Number of')]//following::button[1]")
     WebElement btnEditDevicesList;
     @FindBy(xpath = ".//button[contains(text(),'Add devices')]")
-    WebElement addADevice;
+    WebElement btnAddDevices;
     @FindBy(xpath = ".//button[contains(text(),'Manage devices')]")
-    WebElement manageDevice;
+    WebElement btnManageDevice;
 
 
     @Autowired
@@ -549,16 +549,16 @@ public class DeviceDetails extends _Page {
     }
 
     public AddDevices clickAddDeviceBtn() {
-        WaitUtils.waitForElementToBeClickable(driver, addADevice, TIMEOUT_15_SECOND);
-        PageUtils.doubleClick(driver, addADevice);
-        //addADevice.click();
+        WaitUtils.waitForElementToBeClickable(driver, btnAddDevices, TIMEOUT_15_SECOND);
+        PageUtils.singleClick(driver, btnAddDevices);
+        //btnAddDevices.click();
         return new AddDevices(driver);
     }
 
     public DeviceDetails clickManageDevices() {
-        WaitUtils.waitForElementToBeClickable(driver, manageDevice, TIMEOUT_15_SECOND);
-        PageUtils.doubleClick(driver, manageDevice);
-        //manageDevice.click();
+        WaitUtils.waitForElementToBeClickable(driver, btnManageDevice, TIMEOUT_15_SECOND);
+        PageUtils.doubleClick(driver, btnManageDevice);
+        //btnManageDevice.click();
         return new DeviceDetails(driver);
     }
 
@@ -586,5 +586,16 @@ public class DeviceDetails extends _Page {
 
     public boolean isDeliveryAddressVisible() {
         return PageUtils.isElementClickable(driver, addressCertificateDelivery, TIMEOUT_10_SECOND);
+    }
+
+
+    public boolean isInDeviceDetailsPage(int timeoutSecond) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, btnManageDevice, timeoutSecond);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

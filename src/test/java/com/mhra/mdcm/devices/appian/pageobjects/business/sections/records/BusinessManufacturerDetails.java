@@ -123,7 +123,7 @@ public class BusinessManufacturerDetails extends _Page {
     WebElement tbxColleagueSearchBox;
 
     //Tabs summary, devices and products, history
-    @FindBy(partialLinkText = "Devices & ")
+    @FindBy(xpath = ".//*[contains(text(),'Devices &')]")
     WebElement tabDevicesAndProductDetails;
     @FindBy(partialLinkText = "Summary")
     WebElement tabSummary;

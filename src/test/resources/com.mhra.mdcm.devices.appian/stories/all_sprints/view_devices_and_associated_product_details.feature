@@ -33,7 +33,7 @@ Feature: As a user, I want to view devices and product details associated with a
     And Proceed to payment and confirm submit device details
     When I logout and log back into appian as "<logBackInAs>" user
     Then I search and view new task in AWIP page for the newly created manufacturer
-    When I assign the AWIP page task to me and "approve" the generated task
+    When I assign the AWIP page task to me and "<approveReject>" the generated task
     When I go to records page and click on "<page>"
     And I search for stored organisation in "<page>" page
     And I click on a random organisation link "<searchTerm>" in "<page>" page

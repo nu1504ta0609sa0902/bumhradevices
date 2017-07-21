@@ -190,7 +190,7 @@ public class LoginPage extends _Page {
                     WaitUtils.nativeWaitInSeconds(2);
                     driver.get(baseUrl);
 
-                    WaitUtils.waitForElementToBeClickable(driver, remember, TIMEOUT_10_SECOND);
+                    WaitUtils.waitForElementToBeClickable(driver, linkForgottenPassword, TIMEOUT_10_SECOND);
                 }
             } catch (Exception e) {
                 //Probably not logged in
@@ -228,7 +228,7 @@ public class LoginPage extends _Page {
                     WaitUtils.nativeWaitInSeconds(2);
                     driver.get(baseUrl);
 
-                    WaitUtils.waitForElementToBeClickable(driver, remember, TIMEOUT_10_SECOND);
+                    WaitUtils.waitForElementToBeClickable(driver, linkForgottenPassword, TIMEOUT_10_SECOND);
                     //If logout and login is too fast, appian system shows 404 in some instance of automation
                     WaitUtils.nativeWaitInSeconds(2);
                 }

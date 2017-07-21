@@ -239,7 +239,7 @@ public class ManufacturerList extends _Page {
     }
 
     public String getARandomManufacturerNameWithStatus(String status) {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         String name = null;
         boolean found = false;
         int attempts = 1;

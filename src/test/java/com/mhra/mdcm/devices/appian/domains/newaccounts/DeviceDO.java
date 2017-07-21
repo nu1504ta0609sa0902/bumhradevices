@@ -87,6 +87,10 @@ public class DeviceDO {
         //Not sure if needed for other types of devices apart from GMD
         riskClassification = "class1";
         notifiedBody = "NB 0086 BSI";
+
+        if(deviceName!=null && deviceName.toLowerCase().contains("General Medical")){
+            productName = "Product1";
+        }
     }
 
     public String getGMDN() {
