@@ -72,7 +72,7 @@ Feature: As an account holder, I want to register manufacturers and declare high
       | manufacturerAuto  | System or Procedure Pack | Desiccating chamber |               |                    | NB 0086 BSI  | false              | false             | This System/procedure pack cannot be registered with us                                          |
 
 
-#    Apparently this is no longer required : bus testers will confirm
+#    Apparently this is no longer required : but testers will confirm
   @regression @3560 @_sprint10 @4908 @_sprint16 @bug @ignore
   Scenario Outline: Error message is displayed for AIMD devices with certain risk classification
     Given I am logged into appian as "<user>" user

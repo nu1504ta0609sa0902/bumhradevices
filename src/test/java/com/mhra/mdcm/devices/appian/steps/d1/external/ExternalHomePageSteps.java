@@ -795,7 +795,7 @@ public class ExternalHomePageSteps extends CommonSteps {
             try {
                 //Go to add devices
                 deviceDetails = manufacturerDetails.clickOnDevicesAndProductDetailsLink();
-                boolean isCorrectPage = deviceDetails.isInDeviceDetailsPage(_Page.TIMEOUT_3_SECOND);
+                boolean isCorrectPage = deviceDetails.isInDeviceDetailsPage(_Page.TIMEOUT_5_SECOND);
                 if (!isCorrectPage) {
                     deviceDetails = manufacturerDetails.clickOnDevicesAndProductDetailsLink();
                 }
