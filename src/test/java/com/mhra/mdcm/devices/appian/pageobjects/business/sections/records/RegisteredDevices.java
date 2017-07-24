@@ -40,7 +40,7 @@ public class RegisteredDevices extends _Page {
     public boolean isHeadingCorrect(String expectedHeadings) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         By by = By.xpath(".//h1[.='" + expectedHeadings + "']");
-        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_10_SECOND);
         WebElement heading = driver.findElement(by);
         boolean contains = heading.getText().contains(expectedHeadings);
         return contains;
@@ -49,7 +49,7 @@ public class RegisteredDevices extends _Page {
 
     public boolean isItemsDisplayed(String expectedHeadings) {
         boolean itemsDisplayed = false;
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h1[.='" + expectedHeadings + "']") , TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h1[.='" + expectedHeadings + "']") , TIMEOUT_10_SECOND);
 
         if(expectedHeadings.equals(PageHeaders.PAGE_HEADERS_REGISTERED_DEVICES.header)){
             itemsDisplayed = listOfDevices.size() > 0;

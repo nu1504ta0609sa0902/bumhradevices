@@ -72,7 +72,7 @@ public class ViewAccount extends _Page {
     public boolean isHeadingCorrect(String expectedHeadings) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         By by = By.xpath(".//h1[.='" + expectedHeadings + "']");
-        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_10_SECOND);
         WebElement heading = driver.findElement(by);
         boolean contains = heading.getText().contains(expectedHeadings);
         return contains;
@@ -80,7 +80,7 @@ public class ViewAccount extends _Page {
 
     public EditAccount gotoEditAccountInformation() {
         WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".gwt-Anchor.pull-down-toggle"), TIMEOUT_5_SECOND);
-        WaitUtils.waitForElementToBeClickable(driver, editAccountInfoLink, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, editAccountInfoLink, TIMEOUT_10_SECOND);
         PageUtils.doubleClick(driver, editAccountInfoLink);
         //editAccountInfoLink.click();
         return new EditAccount(driver);

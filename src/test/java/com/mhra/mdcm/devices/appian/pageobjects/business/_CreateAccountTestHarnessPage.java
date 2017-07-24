@@ -144,7 +144,7 @@ public class _CreateAccountTestHarnessPage extends _Page {
         }
 
         //Organisation details
-        WaitUtils.waitForElementToBeClickable(driver, addressLine1, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, addressLine1, TIMEOUT_10_SECOND);
         addressLine1.clear();
         addressLine1.sendKeys(ar.address1);
         addressLine2.sendKeys(ar.address2);
@@ -226,11 +226,11 @@ public class _CreateAccountTestHarnessPage extends _Page {
                 PageUtils.singleClick(driver, cfsCertification);
             }
             if (ar.clinicalInvestigation) {
-                WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//span[.='Selected Services']//following::input[3]"), TIMEOUT_DEFAULT);
+                WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//span[.='Selected Services']//following::input[3]"), TIMEOUT_10_SECOND);
                 PageUtils.singleClick(driver, clinicalInvestigation);
             }
             if (ar.aitsAdverseIncidentTrackingSystem) {
-                WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//span[.='Selected Services']//following::input[4]"), TIMEOUT_DEFAULT);
+                WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//span[.='Selected Services']//following::input[4]"), TIMEOUT_10_SECOND);
                 PageUtils.singleClick(driver, aitsAdverseIncidient);
             }
         }catch (Exception e){

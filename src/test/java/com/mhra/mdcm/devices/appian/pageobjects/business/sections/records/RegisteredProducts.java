@@ -75,13 +75,13 @@ public class RegisteredProducts extends _Page {
     }
 
     public List<String> isTableColumnCorrect(String[] columns) {
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th"), TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th"), TIMEOUT_10_SECOND);
         List<String> columnsNotFound = PageUtils.areTheColumnsCorrect(columns, listOfTableHeadings);
         return columnsNotFound;
     }
 
     public RegisteredProducts searchForAllProducts(String searchTerm) {
-        WaitUtils.waitForElementToBeClickable(driver, searchBox, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, searchBox, TIMEOUT_10_SECOND);
         PageUtils.searchPageFor(searchTerm, searchBox);
         return new RegisteredProducts(driver);
     }
@@ -89,7 +89,7 @@ public class RegisteredProducts extends _Page {
     public boolean atLeast1MatchFound(String searchText) {
         boolean atLeast1MatchFound = true;
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND);
         try {
             //WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(searchText), TIMEOUT_5_SECOND);
             int actualCount = (listOfAllProducts.size() - 1);

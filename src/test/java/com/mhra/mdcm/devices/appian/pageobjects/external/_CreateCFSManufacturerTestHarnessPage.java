@@ -116,7 +116,7 @@ public class _CreateCFSManufacturerTestHarnessPage extends _Page {
         }
 
         //Organisation details
-        WaitUtils.waitForElementToBeClickable(driver, addressLine1, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, addressLine1, TIMEOUT_10_SECOND);
         addressLine1.clear();
         addressLine1.sendKeys(ar.address1);
         addressLine2.sendKeys(ar.address2);

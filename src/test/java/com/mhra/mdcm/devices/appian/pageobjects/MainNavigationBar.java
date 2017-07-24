@@ -63,14 +63,14 @@ public class MainNavigationBar extends _Page {
 
 
     public NewsTabPage clickNews() {
-        WaitUtils.waitForElementToBeClickable(driver, news, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, news, TIMEOUT_10_SECOND);
         PageUtils.doubleClick(driver, news);
         return new NewsTabPage(driver);
     }
 
     public TasksTabPage clickTasks() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, tasks, TIMEOUT_DEFAULT);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, tasks, TIMEOUT_10_SECOND);
         tasks.click();
         PageUtils.acceptAlert(driver, true, 2);
         return new TasksTabPage(driver);
@@ -78,27 +78,27 @@ public class MainNavigationBar extends _Page {
 
     public RecordsTabPage clickRecords() {
         //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, records, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, records, TIMEOUT_10_SECOND);
         PageUtils.doubleClick(driver, records);
         return new RecordsTabPage(driver);
     }
 
     public ReportsTabPage clickReports() {
-        WaitUtils.waitForElementToBeClickable(driver, reports, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, reports, TIMEOUT_10_SECOND);
         reports.click();
         PageUtils.doubleClick(driver, reports);
         return new ReportsTabPage(driver);
     }
 
     public String getCurrentSelectedMenu() {
-        WaitUtils.waitForElementToBeClickable(driver, currentSelection, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, currentSelection, TIMEOUT_10_SECOND);
         String selectedMenu = currentSelection.getText();
         return selectedMenu;
     }
 
     public ActionsTabPage clickActions() {
         //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, actions, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, actions, TIMEOUT_10_SECOND);
         actions.click();
         PageUtils.doubleClick(driver, actions);
         return new ActionsTabPage(driver);

@@ -492,7 +492,7 @@ public class TaskSection extends _Page {
             PageUtils.selectFromDropDown(driver, byPriorityDD, value, true);
         }  else if(filterBy.contains("byApplicationType")){
             PageUtils.selectFromDropDown(driver, byApplicationTypeDD, value, true);
-        } else if(filterBy.contains("byApplicationStatus")){
+        } else if(filterBy.contains("byApplicationStatus") || filterBy.contains("Application status")){
             PageUtils.selectFromDropDown(driver, byApplicationStatusDD, value, true);
         } else if(filterBy.contains("byApplicationRole")){
             PageUtils.selectFromDropDown(driver, byApplicationRoleDD, value, true);
@@ -511,7 +511,7 @@ public class TaskSection extends _Page {
     List<WebElement> listOfTableColumns;
 
     public List<String> isTableColumnCorrect(String[] columns) {
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th"), TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th"), TIMEOUT_10_SECOND);
         List<String> columnsNotFound = PageUtils.areTheColumnsCorrect(columns, listOfTableColumns);
         return columnsNotFound;
     }

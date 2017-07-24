@@ -378,7 +378,7 @@ public class AddDevices extends _Page {
 
     public AddDevices addInvalidFollowingDevice(DeviceDO dd) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_10_SECOND);
         WaitUtils.waitForElementToBeClickable(driver, systemOrProcedurePack, TIMEOUT_3_SECOND);
         //Select device type
         selectDeviceType(dd);
@@ -589,8 +589,8 @@ public class AddDevices extends _Page {
 
     private void subjectToPerformanceEval(DeviceDO dd) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, radioSubjectToPerformanceEvalYes, TIMEOUT_DEFAULT);
-        WaitUtils.waitForElementToBeVisible(driver, radioSubjectToPerformanceEvalYes, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, radioSubjectToPerformanceEvalYes, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeVisible(driver, radioSubjectToPerformanceEvalYes, TIMEOUT_10_SECOND);
         if (dd.isSubjectToPerfEval) {
             PageUtils.clickIfVisible(driver, radioSubjectToPerformanceEvalYes);
         } else {

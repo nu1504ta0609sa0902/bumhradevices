@@ -82,7 +82,7 @@ public class EditAccount extends _Page {
 
     public Accounts editAccountInformation(String keyValuePairToUpdate, AccountRequestDO updatedData) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, submitBtn, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, submitBtn, TIMEOUT_10_SECOND);
 
         String[] dataPairs = keyValuePairToUpdate.split(",");
 
@@ -91,24 +91,24 @@ public class EditAccount extends _Page {
             String key = pairs;
 
             if(key.equals("job.title")){
-                PageUtils.updateElementValue(driver, jobTitle, updatedData.jobTitle, TIMEOUT_DEFAULT);
+                PageUtils.updateElementValue(driver, jobTitle, updatedData.jobTitle, TIMEOUT_10_SECOND);
             }else if(key.equals("org.name")){
-                PageUtils.updateElementValue(driver, orgName, updatedData.organisationName, TIMEOUT_DEFAULT);
+                PageUtils.updateElementValue(driver, orgName, updatedData.organisationName, TIMEOUT_10_SECOND);
             }else if(key.equals("address.line1")){
-                PageUtils.updateElementValue(driver, orgAddressLine1, updatedData.address1, TIMEOUT_DEFAULT);
+                PageUtils.updateElementValue(driver, orgAddressLine1, updatedData.address1, TIMEOUT_10_SECOND);
             }else if(key.equals("address.line2")){
-                PageUtils.updateElementValue(driver, orgAddressLine2, updatedData.address2, TIMEOUT_DEFAULT);
+                PageUtils.updateElementValue(driver, orgAddressLine2, updatedData.address2, TIMEOUT_10_SECOND);
             }else if(key.equals("city.town")){
-                PageUtils.updateElementValue(driver, orgCityTown, updatedData.townCity, TIMEOUT_DEFAULT);
+                PageUtils.updateElementValue(driver, orgCityTown, updatedData.townCity, TIMEOUT_10_SECOND);
             }else if(key.equals("country")){
                 //THIS NEEDS TO SELECT FROM AUTO SUGGESTS NOW
                 //PageUtils.selectFromDropDown(driver, orgCountry, updatedData.country);
             }else if(key.equals("postcode")){
-                PageUtils.updateElementValue(driver, orgPostCode, updatedData.postCode, TIMEOUT_DEFAULT);
+                PageUtils.updateElementValue(driver, orgPostCode, updatedData.postCode, TIMEOUT_10_SECOND);
             }else if(key.equals("org.telephone")){
-                PageUtils.updateElementValue(driver, orgTelephone, updatedData.telephone, TIMEOUT_DEFAULT);
+                PageUtils.updateElementValue(driver, orgTelephone, updatedData.telephone, TIMEOUT_10_SECOND);
             }else if(key.equals("org.fax")){
-                PageUtils.updateElementValue(driver, orgFax, updatedData.fax, TIMEOUT_DEFAULT);
+                PageUtils.updateElementValue(driver, orgFax, updatedData.fax, TIMEOUT_10_SECOND);
             }
         }
 
@@ -122,11 +122,11 @@ public class EditAccount extends _Page {
     }
 
     public void enterMissingData() {
-        WaitUtils.waitForElementToBeClickable(driver,phoneNumber,TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver,phoneNumber,TIMEOUT_10_SECOND);
         phoneNumber.clear();
         phoneNumber.sendKeys("01351" + (int) RandomDataUtils.getRandomDigits(7));
         PageUtils.singleClick(driver, addressType);
-        WaitUtils.waitForElementToBeClickable(driver,emailAddress,TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver,emailAddress,TIMEOUT_10_SECOND);
         emailAddress.clear();
         emailAddress.sendKeys("mhra.uat@gmail.com");
     }

@@ -52,7 +52,7 @@ public class Organisations extends _Page {
 
     public boolean isHeadingCorrect(String expectedHeadings) {
         By by = By.xpath(".//h1[.='" + expectedHeadings + "']");
-        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, by, TIMEOUT_10_SECOND);
         WebElement heading = driver.findElement(by);
         boolean contains = heading.getText().contains(expectedHeadings);
         return contains;
@@ -60,7 +60,7 @@ public class Organisations extends _Page {
 
     public boolean isItemsDisplayed(String expectedHeadings) {
         boolean itemsDisplayed = false;
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h1[.='" + expectedHeadings + "']"), TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h1[.='" + expectedHeadings + "']"), TIMEOUT_10_SECOND);
 
         if (expectedHeadings.contains(PageHeaders.PAGE_HEADERS_ORGANISATIONS.header)) {
             itemsDisplayed = listOfAllOrganisations.size() > 0;
@@ -69,7 +69,7 @@ public class Organisations extends _Page {
     }
 
     public List<String> isTableColumnCorrect(String[] columns) {
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th"), TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th"), TIMEOUT_10_SECOND);
         List<String> columnsNotFound = PageUtils.areTheColumnsCorrect(columns, listOfTableHeadings);
         return columnsNotFound;
     }
@@ -79,7 +79,7 @@ public class Organisations extends _Page {
 
         //Search for an existing name
         if (exists) {
-            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText("Manufacturer"), TIMEOUT_DEFAULT);
+            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText("Manufacturer"), TIMEOUT_10_SECOND);
             boolean found = false;
             do {
                 int randomNumberBetween = RandomDataUtils.getSimpleRandomNumberBetween(0, listOfAllOrganisationsNames.size() - 1, false);
@@ -96,7 +96,7 @@ public class Organisations extends _Page {
     }
 
     public Organisations searchForAllOrganisation(String searchTerm) {
-        WaitUtils.waitForElementToBeClickable(driver, searchBox, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, searchBox, TIMEOUT_10_SECOND);
         PageUtils.searchPageFor(searchTerm, searchBox);
         return new Organisations(driver);
     }
@@ -108,8 +108,8 @@ public class Organisations extends _Page {
      */
     public int getNumberOfMatches() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//th[@abbr='Status']//following::tr"), TIMEOUT_DEFAULT);
-        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//th[@abbr='Status']//following::tr"), TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND);
         int size = listOfAllOrganisations.size();
         return size;
     }

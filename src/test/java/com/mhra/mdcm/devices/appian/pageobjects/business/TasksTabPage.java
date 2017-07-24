@@ -71,22 +71,22 @@ public class TasksTabPage extends _Page {
 
     public TaskSection gotoWIPTasksPage() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeVisible(driver, workInProgress, TIMEOUT_DEFAULT);
-        WaitUtils.waitForElementToBeClickable(driver, workInProgress, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeVisible(driver, workInProgress, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, workInProgress, TIMEOUT_10_SECOND);
         workInProgress.click();
         return new TaskSection(driver);
     }
 
     public TaskSection gotoCompletedTasksPage() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeVisible(driver, completedTasks, TIMEOUT_DEFAULT);
-        WaitUtils.waitForElementToBeClickable(driver, completedTasks, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeVisible(driver, completedTasks, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, completedTasks, TIMEOUT_10_SECOND);
         completedTasks.click();
         return new TaskSection(driver);
     }
 
     public TaskSection clickOnLinkWithText(String orgName) {
-        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(orgName), TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(orgName), TIMEOUT_10_SECOND);
         WebElement taskLink = driver.findElement(By.partialLinkText(orgName));
         taskLink.click();
         return new TaskSection(driver);

@@ -50,7 +50,7 @@ public class GMDNDevices extends _Page {
     public boolean isHeadingCorrect(String expectedHeadings) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         By by = By.xpath(".//h1[.='" + expectedHeadings + "']");
-        WaitUtils.waitForElementToBeClickable(driver, by , TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, by , TIMEOUT_10_SECOND);
         WebElement heading = driver.findElement(by);
         boolean contains = heading.getText().contains(expectedHeadings);
         return contains;
@@ -59,7 +59,7 @@ public class GMDNDevices extends _Page {
 
     public boolean isItemsDisplayed(String expectedHeadings) {
         boolean itemsDisplayed = false;
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h1[.='" + expectedHeadings + "']") , TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h1[.='" + expectedHeadings + "']") , TIMEOUT_10_SECOND);
 
         if(expectedHeadings.contains(PageHeaders.PAGE_HEADERS_GMDN_DEVICES.header)){
             itemsDisplayed = listOfAllDevices.size() > 0;
@@ -69,7 +69,7 @@ public class GMDNDevices extends _Page {
     }
 
     public GMDNDevices searchForAllDevices(String searchTerm) {
-        WaitUtils.waitForElementToBeClickable(driver, searchBox, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, searchBox, TIMEOUT_10_SECOND);
         PageUtils.searchPageFor(searchTerm, searchBox);
         return new GMDNDevices(driver);
     }
@@ -88,7 +88,7 @@ public class GMDNDevices extends _Page {
     public boolean atLeast1MatchFound(String searchText) {
         boolean atLeast1MatchFound = true;
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, clearFilters, TIMEOUT_10_SECOND);
         try{
             //They have a hidden "a" tag in the page
             int actualCount = listOfAllDevices.size() - 1;
@@ -102,7 +102,7 @@ public class GMDNDevices extends _Page {
     }
 
     public List<String> isTableColumnCorrect(String[] columns) {
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th") , TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th") , TIMEOUT_10_SECOND);
         List<String> columnsNotFound = PageUtils.areTheColumnsCorrect(columns, listOfTableHeadings);
         return columnsNotFound;
     }
@@ -131,7 +131,7 @@ public class GMDNDevices extends _Page {
     }
 
     public boolean isListOfManufacturersUsingDeviceTableColumnCorrect(String[] columns) {
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th") , TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th") , TIMEOUT_10_SECOND);
         List<String> columnsNotFound = PageUtils.areTheColumnsCorrect(columns, listOfTableHeadings);
         return columnsNotFound.size() == 0;
     }

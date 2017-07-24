@@ -91,7 +91,7 @@ public class BusinessDeviceDetails extends _Page {
 
     public boolean isDeviceTableDisplayed() {
         //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//tr/th"), TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//tr/th"), TIMEOUT_10_SECOND);
         return listOfDeviceHeadings.size() > 0;
     }
 

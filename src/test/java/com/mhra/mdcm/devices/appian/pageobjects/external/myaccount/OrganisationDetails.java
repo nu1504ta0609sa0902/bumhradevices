@@ -129,7 +129,7 @@ public class OrganisationDetails extends _Page {
     }
 
     public OrganisationDetails confirmChanges(boolean confirm) {
-        WaitUtils.waitForElementToBeClickable(driver, confirmYes, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, confirmYes, TIMEOUT_10_SECOND);
         if(confirm){
             confirmYes.click();
         }else{
@@ -139,7 +139,7 @@ public class OrganisationDetails extends _Page {
     }
 
     public MyAccountPage saveChanges(boolean saveChanges) {
-        WaitUtils.waitForElementToBeClickable(driver, saveNo, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, saveNo, TIMEOUT_10_SECOND);
         if(saveChanges){
             saveYes.get(1).click();
         }else{

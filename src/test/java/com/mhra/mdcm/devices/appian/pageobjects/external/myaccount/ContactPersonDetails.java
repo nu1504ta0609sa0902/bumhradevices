@@ -69,7 +69,7 @@ public class ContactPersonDetails extends _Page {
 
 
     public ContactPersonDetails updateFollowingFields(String keyValuePairToUpdate, AccountRequestDO updatedData) {
-        WaitUtils.waitForElementToBeClickable(driver, saveBtn, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, saveBtn, TIMEOUT_10_SECOND);
 
         String[] dataPairs = keyValuePairToUpdate.split(",");
 
@@ -125,7 +125,7 @@ public class ContactPersonDetails extends _Page {
 
 
     public ContactPersonDetails confirmChangesRelateToOrganisation(boolean confirm) {
-        WaitUtils.waitForElementToBeClickable(driver, confirmYes, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, confirmYes, TIMEOUT_10_SECOND);
         if(confirm){
             confirmYes.click();
         }else{
@@ -135,7 +135,7 @@ public class ContactPersonDetails extends _Page {
     }
 
     public MyAccountPage saveChanges(boolean saveChanges) {
-        WaitUtils.waitForElementToBeClickable(driver, btnCancel, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, btnCancel, TIMEOUT_10_SECOND);
         if(saveChanges){
             btnSave.get(1).click();
         }else{

@@ -304,7 +304,7 @@ public class CFSAddDevices extends _Page {
 
     public CFSAddDevices addPartiallyFilledDevices(DeviceDO dd) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_10_SECOND);
         WaitUtils.waitForElementToBeClickable(driver, systemOrProcedurePack, TIMEOUT_3_SECOND);
         //Select device type
         selectDeviceType(dd);
@@ -327,7 +327,7 @@ public class CFSAddDevices extends _Page {
 
     public CFSAddDevices selectADeviceWithoutAddingOtherDetails(DeviceDO dd) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_10_SECOND);
         WaitUtils.waitForElementToBeClickable(driver, systemOrProcedurePack, TIMEOUT_3_SECOND);
         //Select device type
         selectDeviceType(dd);
@@ -621,7 +621,7 @@ public class CFSAddDevices extends _Page {
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
 
             //Wait for list of items to appear and add it only if its not a duplicate
-            WaitUtils.waitForElementToBeClickable(driver, aGmdnMatchesReturnedBySearch, TIMEOUT_DEFAULT);
+            WaitUtils.waitForElementToBeClickable(driver, aGmdnMatchesReturnedBySearch, TIMEOUT_10_SECOND);
             int noi = CommonUtils.getNumberOfItemsInList(driver, listOfGmdnMatchesReturnedBySearch);
             int randomPosition = RandomDataUtils.getARandomNumberBetween(0, noi - 1);
 
@@ -653,7 +653,7 @@ public class CFSAddDevices extends _Page {
                 WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
 
                 //Wait for list of items to appear and add it only if its not a duplicate
-                WaitUtils.waitForElementToBeClickable(driver, aGmdnMatchesReturnedBySearch, TIMEOUT_DEFAULT);
+                WaitUtils.waitForElementToBeClickable(driver, aGmdnMatchesReturnedBySearch, TIMEOUT_10_SECOND);
                 int noi = CommonUtils.getNumberOfItemsInList(driver, listOfGmdnMatchesReturnedBySearch);
                 int randomPosition = RandomDataUtils.getARandomNumberBetween(0, noi - 1);
 

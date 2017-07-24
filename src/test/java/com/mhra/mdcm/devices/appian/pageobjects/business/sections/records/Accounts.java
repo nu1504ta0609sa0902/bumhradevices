@@ -53,7 +53,7 @@ public class Accounts extends _Page {
     public boolean isHeadingCorrect(String expectedHeadings) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         By locator = By.xpath(".//h1[.='" + expectedHeadings + "']");
-        WaitUtils.waitForElementToBeClickable(driver, locator, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, locator, TIMEOUT_10_SECOND);
         WebElement heading = driver.findElement(locator);
         boolean contains = heading.getText().contains(expectedHeadings);
         return contains;
@@ -62,7 +62,7 @@ public class Accounts extends _Page {
 
     public boolean isItemsDisplayed(String expectedHeadings) {
         boolean itemsDisplayed = false;
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h1[.='" + expectedHeadings + "']"), TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h1[.='" + expectedHeadings + "']"), TIMEOUT_10_SECOND);
 
         if (expectedHeadings.contains(PageHeaders.PAGE_HEADERS_ACCOUNTS.header)) {
             itemsDisplayed = listOfAccounts.size() > 0;
@@ -72,7 +72,7 @@ public class Accounts extends _Page {
     }
 
     public List<String> isTableColumnCorrect(String[] columns) {
-        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th"), TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//table//th"), TIMEOUT_10_SECOND);
         List<String> columnsNotFound = PageUtils.areTheColumnsCorrect(columns, listOfTableColumns);
         return columnsNotFound;
     }
@@ -87,7 +87,7 @@ public class Accounts extends _Page {
     public boolean atLeast1MatchFound(String searchText) {
         boolean atLeast1MatchFound = true;
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, By.linkText("Clear Filters"), TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, By.linkText("Clear Filters"), TIMEOUT_10_SECOND);
         try {
             WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(searchText), TIMEOUT_5_SECOND);
             int actualCount = (listOfAccounts.size());
@@ -136,7 +136,7 @@ public class Accounts extends _Page {
     }
 
     public ViewAccount viewSpecifiedAccount(String randomAccountName) {
-        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(randomAccountName), TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText(randomAccountName), TIMEOUT_10_SECOND);
         WebElement accountLinks = driver.findElement(By.partialLinkText(randomAccountName));
         //accountLinks.click();
         PageUtils.doubleClick(driver, accountLinks);
@@ -168,7 +168,7 @@ public class Accounts extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         if (tableHeading.equals("Organisation name")) {
             for (int c = 0; c < numberOfTimesToClick; c++) {
-                WaitUtils.waitForElementToBeClickable(driver, thOrganisationName, TIMEOUT_DEFAULT);
+                WaitUtils.waitForElementToBeClickable(driver, thOrganisationName, TIMEOUT_10_SECOND);
                 thOrganisationName.click();
                 WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
             }

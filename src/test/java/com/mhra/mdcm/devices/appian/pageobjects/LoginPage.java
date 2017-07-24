@@ -136,7 +136,7 @@ public class LoginPage extends _Page {
         //dontRemember(); removed 26/06/2017
 
         //login
-        WaitUtils.waitForElementToBeClickable(driver, username, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, username, TIMEOUT_10_SECOND);
         username.sendKeys(usernameTxt);
         password.sendKeys(passwordTxt);
         username.submit();
@@ -149,7 +149,7 @@ public class LoginPage extends _Page {
         //dontRemember(); removed 26/06/2017
 
         //login
-        WaitUtils.waitForElementToBeClickable(driver, username, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, username, TIMEOUT_10_SECOND);
         username.sendKeys(usernameTxt);
         password.sendKeys(passwordTxt);
         username.submit();
@@ -164,7 +164,7 @@ public class LoginPage extends _Page {
     }
 
     public void dontRemember() {
-        WaitUtils.waitForElementToBeClickable(driver, remember, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, remember, TIMEOUT_10_SECOND);
         if (remember.getAttribute("checked") != null) {
             //remember.click();
             rememberLabel.click();

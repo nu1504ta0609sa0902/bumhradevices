@@ -221,7 +221,7 @@ public class ManufacturerDetails extends _Page {
     public boolean verifyManufacturerUpdatesDisplayedOnPage(String keyValuePairToUpdate, AccountRequestDO updatedData) {
 
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeVisible(driver, email, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeVisible(driver, email, TIMEOUT_10_SECOND);
         WaitUtils.waitForElementToBeVisible(driver, fullName, TIMEOUT_5_SECOND);
 
         boolean allChangesDisplayed = true;
@@ -468,14 +468,14 @@ public class ManufacturerDetails extends _Page {
     }
 
     public ManufacturerDetails clickUnregisterManufacturerBtn() {
-        WaitUtils.waitForElementToBeClickable(driver, btnUnRegisterManufactuerer, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, btnUnRegisterManufactuerer, TIMEOUT_10_SECOND);
         btnUnRegisterManufactuerer.click();
         return new ManufacturerDetails(driver);
     }
 
     public ManufacturerDetails submitUnregistrationWithReasons(String reason, boolean confirmUnregisttration) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeVisible(driver, btnUnregister, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeVisible(driver, btnUnregister, TIMEOUT_10_SECOND);
 
         //Select a reason
         if(reason.contains("Ceased Trading")){
@@ -486,7 +486,7 @@ public class ManufacturerDetails extends _Page {
         }
 
         //Click unregister button and confirm
-        WaitUtils.waitForElementToBeClickable(driver, btnUnregister, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, btnUnregister, TIMEOUT_10_SECOND);
         btnUnregister.click();
         return new ManufacturerDetails(driver);
     }
