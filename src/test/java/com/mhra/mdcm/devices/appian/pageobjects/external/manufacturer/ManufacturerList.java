@@ -22,9 +22,11 @@ public class ManufacturerList extends _Page {
 
     //Register new manufacturer buttons
     @FindBy(xpath = ".//button[contains(text(), 'Register new manufacturer')]")
-    WebElement linkRegisterNewManufacturer;
+    WebElement btnRegisterNewManufacturer;
+    @FindBy(xpath = ".//button[contains(text(), 'Add new manufacturer')]")
+    WebElement btnAddNewManufacturer;
     @FindBy(xpath = ".//button[.='Register My Organisation']")
-    WebElement linkRegisterMyNewOrganisation;
+    WebElement btnRegisterMyNewOrganisation;
     @FindBy(partialLinkText = "Click here")
     WebElement linkClickHere;
 
@@ -139,21 +141,28 @@ public class ManufacturerList extends _Page {
 
     public _CreateManufacturerTestHarnessPage registerNewManufacturer() {
         //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, linkRegisterNewManufacturer, TIMEOUT_DEFAULT);
-        linkRegisterNewManufacturer.click();
+        WaitUtils.waitForElementToBeClickable(driver, btnRegisterNewManufacturer, TIMEOUT_DEFAULT);
+        btnRegisterNewManufacturer.click();
+        return new _CreateManufacturerTestHarnessPage(driver);
+    }
+
+    public _CreateManufacturerTestHarnessPage addNewManufacturer() {
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, btnAddNewManufacturer, TIMEOUT_DEFAULT);
+        btnAddNewManufacturer.click();
         return new _CreateManufacturerTestHarnessPage(driver);
     }
 
     public _CreateManufacturerTestHarnessPage registerMyOrganisation() {
-        WaitUtils.waitForElementToBeClickable(driver, linkRegisterMyNewOrganisation, TIMEOUT_DEFAULT);
-        linkRegisterMyNewOrganisation.click();
+        WaitUtils.waitForElementToBeClickable(driver, btnRegisterMyNewOrganisation, TIMEOUT_DEFAULT);
+        btnRegisterMyNewOrganisation.click();
         return new _CreateManufacturerTestHarnessPage(driver);
     }
 
     public int getNumberOfPages(int whichPagination) {
         int index = whichPagination - 1;
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, linkRegisterNewManufacturer, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, btnAddNewManufacturer, TIMEOUT_15_SECOND);
         boolean isPaginationDisplayed = isPaginationDisplayed(index);
 
         if(isPaginationDisplayed) {
@@ -277,9 +286,8 @@ public class ManufacturerList extends _Page {
     }
 
     public boolean isSpecificTableHeadingCorrect(String commaDelimitedHeading) {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeVisible(driver, linkRegisterNewManufacturer, TIMEOUT_15_SECOND);
-        WaitUtils.waitForElementToBeClickable(driver,linkRegisterNewManufacturer, TIMEOUT_5_SECOND);
+        // WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, btnAddNewManufacturer, TIMEOUT_15_SECOND);
         String lowerCaseHeadings = commaDelimitedHeading.toLowerCase();
         return PageUtils.isSpecificTableHeadingCorrect(lowerCaseHeadings, listOfTableHeadings);
     }

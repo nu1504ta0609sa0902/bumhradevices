@@ -143,9 +143,9 @@ public class TaskSection extends _Page {
     WebElement byApplicationRoleDD;
     @FindBy(xpath = ".//*[.='Priority']//following::div[1]")
     WebElement byPriorityDD;
-    @FindBy(partialLinkText = "Show Filter application")
+    @FindBy(partialLinkText = "Show Filter")
     WebElement linkShowFilters;
-    @FindBy(partialLinkText = "Hide Filter application")
+    @FindBy(partialLinkText = "Hide Filter")
     WebElement linkHideFilters;
     @FindBy(xpath = ".//*[contains(text(),'Due date')]//following::input[1]")
     WebElement dueDate;
@@ -579,7 +579,7 @@ public class TaskSection extends _Page {
     }
 
     public List<String> isApplicationReferenceFormatCorrect(int lengthOfReference, String dateFormat) {
-        WaitUtils.waitForElementToBeClickable(driver, linkFilterApplication, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, linkShowFilters, TIMEOUT_10_SECOND);
         List<String> listOfInvalidReferences = new ArrayList<>();
         boolean isValid = true;
         for (WebElement el : listOfApplicationReferences) {

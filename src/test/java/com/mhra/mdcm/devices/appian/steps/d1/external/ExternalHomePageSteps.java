@@ -93,12 +93,12 @@ public class ExternalHomePageSteps extends CommonSteps {
     @And("^I go to register a new manufacturer page$")
     public void iGoToRegisterANewManufacturerPage() throws Throwable {
         manufacturerList = externalHomePage.gotoListOfManufacturerPage();
-        createNewManufacturer = manufacturerList.registerNewManufacturer();
+        createNewManufacturer = manufacturerList.addNewManufacturer();
     }
 
     @And("^I click on register new manufacturer$")
     public void iGoToRegisterANewAuthorisedRepPage() throws Throwable {
-        createNewManufacturer = manufacturerList.registerNewManufacturer();
+        createNewManufacturer = manufacturerList.addNewManufacturer();
     }
 
 
@@ -113,7 +113,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         if (createNewManufacturer.isErrorMessageDisplayed()) {
             externalHomePage = mainNavigationBar.clickExternalHOME();
             manufacturerList = externalHomePage.gotoListOfManufacturerPage();
-            createNewManufacturer = manufacturerList.registerNewManufacturer();
+            createNewManufacturer = manufacturerList.addNewManufacturer();
             addDevices = createNewManufacturer.createTestOrganisation(newAccount);
         }
         scenarioSession.putData(SessionKey.organisationName, newAccount.organisationName);

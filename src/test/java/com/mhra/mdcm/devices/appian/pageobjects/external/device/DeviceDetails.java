@@ -58,6 +58,9 @@ public class DeviceDetails extends _Page {
      * ---------------------------------------------
      */
 
+    @FindBy(xpath = ".//label[contains(text(),'understand the requirements')]")
+    WebElement cbxConfirmTermsAndConditions;
+
     @FindBy(css = ".GridWidget---checkbox")
     List<WebElement> listOfAllCheckbox;
     @FindBy(css = "td.GridWidget---checkbox")
@@ -105,6 +108,8 @@ public class DeviceDetails extends _Page {
     WebElement paymentWorldPay;
     @FindBy(xpath = ".//a[contains(text(),'here')]")
     WebElement linkHereToInitiateWorldpay;
+    @FindBy(partialLinkText = "Back to ")
+    WebElement linkBackToManufacturer;
     @FindBy(xpath = ".//a[contains(text(),'Proceed to worldpay')]")
     WebElement linkProceedToWorldpay;
     @FindBy(xpath = ".//label[contains(text(),'BACS')]")
@@ -115,7 +120,7 @@ public class DeviceDetails extends _Page {
     WebElement ddAddressBox;
     @FindBy(css = ".FileUploadWidget---ui-inaccessible")
     WebElement fileUpload;
-    @FindBy(xpath = ".//*[contains(text(), 'Confirmation')]/following::p[1]")
+    @FindBy(xpath = ".//*[contains(text(), 'successfully submitted')]/following::strong[1]")
     WebElement txtApplicationReference;
 
     //Address fields
@@ -319,8 +324,14 @@ public class DeviceDetails extends _Page {
         return new DeviceDetails(driver);
     }
 
+    public DeviceDetails agreeToTermsAndConditions() {
+        WaitUtils.waitForElementToBeClickable(driver, cbxConfirmTermsAndConditions, TIMEOUT_10_SECOND);
+        cbxConfirmTermsAndConditions.click();
+        return new DeviceDetails(driver);
+    }
+
     public DeviceDetails continueToPaymentAfterReviewFinished() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnContinueToPayment, TIMEOUT_10_SECOND);
         btnContinueToPayment.click();
         return new DeviceDetails(driver);
@@ -523,9 +534,9 @@ public class DeviceDetails extends _Page {
     }
 
     public String getApplicationReferenceNumber() {
-        WaitUtils.waitForElementToBeClickable(driver, btnFinish, TIMEOUT_15_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, linkBackToManufacturer, TIMEOUT_15_SECOND);
         WaitUtils.waitForElementToBeClickable(driver, txtApplicationReference, TIMEOUT_15_SECOND);
-        return txtApplicationReference.getText().split(":")[1];
+        return txtApplicationReference.getText();
     }
 
     public DeviceDetails searchByMedicalDeviceName(String searchTerm) {

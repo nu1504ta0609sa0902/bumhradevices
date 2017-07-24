@@ -105,13 +105,13 @@ public class BusinessManufacturerDetails extends _Page {
     WebElement btnCompleteTheApplication;
 
     //Reassign to someone
-    @FindBy(xpath = ".//button[text()='Assign to myself']")
+    @FindBy(xpath = ".//button[contains(text(), 'Assign to myself')]")
     WebElement btnAssignToMe;
     @FindBy(xpath = ".//button[text()='Yes']")
     WebElement btnConfirmYesAssignToMe;
     @FindBy(xpath = ".//label[contains(text(), 'Nobody')]")
     WebElement btnConfirmNoAssignToMe;
-    @FindBy(xpath = ".//button[text()='Assign to colleague']")
+    @FindBy(xpath = ".//button[contains(text(), 'Assign to colleague')]")
     WebElement btnAssignToColleague;
     @FindBy(xpath = ".//button[text()='Assign']")
     WebElement btnAssign;
@@ -221,13 +221,13 @@ public class BusinessManufacturerDetails extends _Page {
 
 
     public BusinessManufacturerDetails assignAWIPTaskToMe() {
-        WaitUtils.waitForElementToBeClickable(driver, btnAssignToMe, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, btnAssignToMe, TIMEOUT_20_SECOND);
         btnAssignToMe.click();
         return new BusinessManufacturerDetails(driver);
     }
 
     public BusinessManufacturerDetails assignAWIPTaskToColleague() {
-        WaitUtils.waitForElementToBeClickable(driver, btnAssignToColleague, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, btnAssignToColleague, TIMEOUT_20_SECOND);
         btnAssignToColleague.click();
         return new BusinessManufacturerDetails(driver);
     }
@@ -263,7 +263,7 @@ public class BusinessManufacturerDetails extends _Page {
 
     public BusinessManufacturerDetails approveAWIPManufacturerTask() {
         //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, btnApproveManufacturer, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, btnApproveManufacturer, TIMEOUT_30_SECOND);
         PageUtils.doubleClick(driver, btnApproveManufacturer);
         log.info("Approved the manufacturer");
         return new BusinessManufacturerDetails(driver);
