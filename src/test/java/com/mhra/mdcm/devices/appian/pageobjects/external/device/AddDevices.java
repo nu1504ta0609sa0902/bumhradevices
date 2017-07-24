@@ -1081,8 +1081,8 @@ public class AddDevices extends _Page {
     public boolean isValidationErrorMessageVisible() {
         boolean isErrorMessageDisplayed = true;
         try{
-            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-            WaitUtils.waitForElementToBeClickable(driver, validationErrMessage, TIMEOUT_2_SECOND);
+            //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+            WaitUtils.waitForElementToBeClickable(driver, validationErrMessage, TIMEOUT_5_SECOND);
         }catch (Exception e){
             isErrorMessageDisplayed = false;
         }

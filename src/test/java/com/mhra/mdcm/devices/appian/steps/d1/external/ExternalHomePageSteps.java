@@ -790,20 +790,24 @@ public class ExternalHomePageSteps extends CommonSteps {
     @Then("^I go to add devices page$")
     public void i_go_to_add_devices_page() throws Throwable {
         boolean tabDisplayed = false;
-        try {
-            //Go to add devices
-            deviceDetails = manufacturerDetails.clickOnDevicesAndProductDetailsLink();
-            boolean isCorrectPage = deviceDetails.isInDeviceDetailsPage(_Page.TIMEOUT_2_SECOND);
-            if(!isCorrectPage){
+        int count = 0;
+        do {
+            try {
+                //Go to add devices
                 deviceDetails = manufacturerDetails.clickOnDevicesAndProductDetailsLink();
+                boolean isCorrectPage = deviceDetails.isInDeviceDetailsPage(_Page.TIMEOUT_3_SECOND);
+                if (!isCorrectPage) {
+                    deviceDetails = manufacturerDetails.clickOnDevicesAndProductDetailsLink();
+                }
+                deviceDetails = deviceDetails.clickManageDevices();
+                addDevices = deviceDetails.clickAddDeviceBtn();
+                tabDisplayed = true;
+            } catch (Exception e) {
+                count++;
+                //if(!tabDisplayed)
+                //addDevices = manufacturerDetails.clickContinueButton();
             }
-            tabDisplayed = true;
-            deviceDetails = deviceDetails.clickManageDevices();
-            addDevices = deviceDetails.clickAddDeviceBtn();
-        }catch (Exception e){
-            if(!tabDisplayed)
-            addDevices = manufacturerDetails.clickContinueButton();
-        }
+        }while( count < 2 && !tabDisplayed);
     }
 
 

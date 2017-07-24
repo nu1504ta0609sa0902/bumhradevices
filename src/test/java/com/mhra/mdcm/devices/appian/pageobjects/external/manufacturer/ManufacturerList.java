@@ -37,7 +37,7 @@ public class ManufacturerList extends _Page {
     List<WebElement> listOfManufacturerStatuses;
     @FindBy(xpath = ".//h2[contains(text(),'Manufacturer')]//following::tbody[1]/tr")
     List<WebElement> listOfManufacturerRows;
-    @FindBy(xpath = ".//*[contains(text(), 'egistration status')]")
+    @FindBy(xpath = ".//*[contains(text(), 'Manufacturers you represent')]/following::th[@abbr='Registration status']")
     WebElement thManufacturerRegistrationStatus;
 
     //Registration in progress table

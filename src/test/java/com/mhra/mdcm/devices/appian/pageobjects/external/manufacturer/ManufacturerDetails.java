@@ -351,8 +351,8 @@ public class ManufacturerDetails extends _Page {
 
     public DeviceDetails clickOnDevicesAndProductDetailsLink() {
         WaitUtils.waitForElementToBeClickable(driver, devicesAndProductDetailsTab, TIMEOUT_15_SECOND);
-        PageUtils.singleClick(driver,devicesAndProductDetailsTab);
-        //devicesAndProductDetailsTab.click();
+        //PageUtils.singleClick(driver,devicesAndProductDetailsTab);
+        devicesAndProductDetailsTab.click();
         return new DeviceDetails(driver);
     }
 
