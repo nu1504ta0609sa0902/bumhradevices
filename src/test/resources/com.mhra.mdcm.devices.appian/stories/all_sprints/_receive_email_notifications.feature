@@ -84,7 +84,7 @@ Feature: As a customer I want to receive email notifications when ever a account
       | authorisedRepAuto | businessAuto | authorisedRep | Rejected because I can | Belarus     |
 
 
-  @regression @1836 @_sprint8 @2193 @2190 @2192 @_sprint10 @create_new_org @bug
+  @1836 @_sprint8 @2193 @2190 @2192 @_sprint10 @create_new_org @bug
   Scenario Outline: Email notification should be generated when organisation is approved for registration service
     Given I am logged into appian as "<user>" user
     When I create a new account using business test harness page with following data
@@ -94,7 +94,7 @@ Feature: As a customer I want to receive email notifications when ever a account
     Then I search and view new task in AWIP page for the new account
     When I assign the AWIP page task to me and "<approveReject>" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
-    And I should received an email for stored account with heading "Account request approved for"
+    And I should received an email for stored account with heading "<accountEmail>"
     And I should received an email with password for new account with heading "account creation" and stored username
     When I logout and logback in with newly created account and update the password to "MHRA12345A"
 #    Log back in as manufacturer/authorisedRep
@@ -116,9 +116,9 @@ Feature: As a customer I want to receive email notifications when ever a account
     And I should received an email for stored manufacturer with heading "Request for manufacturer registration" and stored application identifier
     And I should received an email for stored manufacturer with heading "was completed" and stored application identifier
     Examples:
-      | user         | accountType   | approveReject | logBackInAs       | countryName   | accountNameBeginsWith    |
-      | businessNoor | manufacturer  | approve       | manufacturerNoor  | Bangladesh    | ManufacturerAccountRT00  |
-      | businessNoor | authorisedRep | reject        | authorisedRepNoor | United States | AuthorisedRepAccountRT00 |
+      | user         | accountType   | approveReject | logBackInAs       | countryName   | accountNameBeginsWith    | accountEmail |
+      | businessNoor | manufacturer  | approve       | manufacturerNoor  | Bangladesh    | ManufacturerAccountRT00  | Account request approved for |
+      | businessNoor | authorisedRep | reject        | authorisedRepNoor | United States | AuthorisedRepAccountRT00 | Account rejected for                             |
 #      | businessNoor | distributor   | approve       | distributorNoor   | United States | AuthorisedRepAccountRT00 |
 
 

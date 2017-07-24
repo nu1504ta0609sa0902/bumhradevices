@@ -81,7 +81,7 @@ public class BusinessManufacturerDetails extends _Page {
 
 
     //Rejection reason CFS new manufacturer
-    @FindBy(xpath = ".//button[.='Reject CFS new manufacturer']")
+    @FindBy(xpath = ".//button[.='Reject new manufacturer']")
     WebElement rejectCFSNewManufacturer;
     @FindBy(xpath = ".//*[.='Select a rejection reason']//following::input[3]")
     WebElement cfsReasonOther;

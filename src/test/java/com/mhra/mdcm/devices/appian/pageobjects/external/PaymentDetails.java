@@ -91,7 +91,7 @@ public class PaymentDetails extends _Page {
             cardholderName.click();
             WaitUtils.waitForElementToBeClickable(driver, securityCode, TIMEOUT_3_SECOND);
             securityCode.sendKeys("555");
-            cardholderName.click();
+            PageUtils.selectByIndex(expiryYear, RandomDataUtils.getRandomNumberBetween(2, 7));
 
             //CAPTCHA
 
