@@ -73,7 +73,7 @@ Feature: As an account holder, I want to register manufacturers and declare high
 
 
 #    Apparently this is no longer required : but testers will confirm
-  @regression @3560 @_sprint10 @4908 @_sprint16 @bug @ignore
+  @3560 @_sprint10 @4908 @_sprint16 @bug @ignore
   Scenario Outline: Error message is displayed for AIMD devices with certain risk classification
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
