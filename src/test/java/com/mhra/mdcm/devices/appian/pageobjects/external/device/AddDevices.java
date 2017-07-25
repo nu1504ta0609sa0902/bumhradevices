@@ -44,11 +44,11 @@ public class AddDevices extends _Page {
     WebElement labelValidGMDNCodeMessage;
 
     //Product details verification : After adding a product (IVD and AIMD)
-    @FindBy(xpath = ".//div[contains(text(), 'Product code')]//following::tr/td[1]")
+    @FindBy(xpath = ".//div[contains(text(), 'Unique Device Identifier')]//following::tr/td[1]")
     List<WebElement> listOfProductNames;
-    @FindBy(xpath = ".//div[contains(text(), 'Product code')]//following::tr/td[2]")
+    @FindBy(xpath = ".//div[contains(text(), 'Unique Device Identifier')]//following::tr/td[1]")
     List<WebElement> listOfProductMake;
-    @FindBy(xpath = ".//div[contains(text(), 'Product code')]//following::tr/td[3]")
+    @FindBy(xpath = ".//div[contains(text(), 'Unique Device Identifier')]//following::tr/td[2]")
     List<WebElement> listOfProductModel;
 
     //Product details form inputs
@@ -967,7 +967,7 @@ public class AddDevices extends _Page {
 
         //Verify product make and models correct
         if (data.productName != null && !data.productName.equals("")) {
-            txt = PageUtils.getText(txtProductName);
+            txt = PageUtils.getText(pdMedicalDeviceName);
             allCorrect = txt.contains(data.productName);
         } else {
             txt = PageUtils.getText(txtProductMake); //txtProductMake.getText();
