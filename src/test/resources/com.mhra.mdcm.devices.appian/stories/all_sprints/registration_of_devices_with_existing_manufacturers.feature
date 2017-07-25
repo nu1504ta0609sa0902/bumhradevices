@@ -30,7 +30,6 @@ Feature: As an account holder, I should be able to add devices to existing manuf
   Scenario Outline: Verify correct options are displayed on add devices page for different combinations
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    #And I click on a random manufacturer to add devices
     And I click on random manufacturer with status "Registered"
     When I add a device to SELECTED manufacturer with following data
       | deviceType             | <deviceType>         |
@@ -81,7 +80,6 @@ Feature: As an account holder, I should be able to add devices to existing manuf
   Scenario Outline: Users should be able to remove devices from manufacturers
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    #And I click on a random manufacturer to add devices
     And I click on random manufacturer with status "Registered"
     When I add a device to SELECTED manufacturer with following data
       | deviceType     | <deviceType> |
@@ -104,7 +102,6 @@ Feature: As an account holder, I should be able to add devices to existing manuf
   Scenario Outline: Users should be able to add and remove devices using GMDN code from existing manufacturers
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    #And I click on a random manufacturer to add devices
     And I click on random manufacturer with status "Registered"
     When I add a device to SELECTED manufacturer with following data
       | deviceType     | <deviceType>       |
@@ -131,7 +128,6 @@ Feature: As an account holder, I should be able to add devices to existing manuf
   Scenario Outline: Users should be able to add devices to existing manufacturers and verify devices are added
     Given I am logged into appian as "<user>" user
     When I go to list of manufacturers page
-    #And I click on random manufacturer with status "<status>" to add device
     And I click on random manufacturer with status "Registered"
     And I add a device to SELECTED manufacturer with following data
       | deviceType             | <deviceType>         |
