@@ -458,6 +458,15 @@ public class ExternalHomePageSteps extends CommonSteps {
         Assert.assertThat("Organisation Name Expected In Manufacturer List : " + name, isFoundInManufacturerList, Matchers.is(true));
     }
 
+    @Then("^I go to list of manufacturers page and search and view stored manufacturer$")
+    public void i_go_to_list_of_manufacturer_and_search_and_view_stored_manufacturer() throws Throwable {
+        String name = (String) scenarioSession.getData(SessionKey.organisationName);
+        manufacturerList = externalHomePage.gotoListOfManufacturerPage();
+        manufacturerList = manufacturerList.searchForManufacturer(name);
+        manufacturerList.isSearchingCompleted(driver, 10);
+        manufacturerDetails = manufacturerList.viewAManufacturer(name);
+    }
+
 
     @When("^I click on random manufacturer with status \"([^\"]*)\"$")
     public void i_click_on_random_manufacturer(String status) throws Throwable {

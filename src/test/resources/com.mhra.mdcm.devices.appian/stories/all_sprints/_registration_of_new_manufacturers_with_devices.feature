@@ -53,7 +53,7 @@ Feature: As a customer I want to register new manufacturers with devices
     Then The task status in AWIP page should be "Completed" for the new account
     When I logout of the application
     And I am logged into appian as "<user>" user
-    When I go to list of manufacturers page and click on stored manufacturer
+    When I go to list of manufacturers page and search and view stored manufacturer
     Then Verify devices displayed and GMDN details are correct
     And I should be able to view stored device details
     Examples:
@@ -159,7 +159,7 @@ Feature: As a customer I want to register new manufacturers with devices
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Registered Products | In Vitro Diagnostic Device | Androgen receptor IVD |            | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
       | manufacturerAuto  | businessAuto | manufacturer  | Brazil      | Registered Products | Active Implantable Device  | Desiccating chamber   | true       |                    | ford focus  |             |              |              |                   |            |               |
 
-  @create_new_org @1957 @5997 @5995 @_sprint21 @bug @wip
+  @create_new_org @smoke_test_dr @1957 @5997 @5995 @_sprint21 @bug @wip
   Scenario Outline: Users should be able to save and resume newly created application
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -186,7 +186,7 @@ Feature: As a customer I want to register new manufacturers with devices
       | manufacturerAuto  | manufacturer  | Brazil      | Registered Products | Active Implantable Device  | Desiccating chamber   | true       |                    | ford focus  |             |              |              |                   |            |               |
       | authorisedRepAuto | authorisedRep | Bangladesh  | Registered Products | In Vitro Diagnostic Device | Androgen receptor IVD |            | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
-  @2294 @_sprint21
+  @regression @create_new_org @smoke_test_dr @2294 @_sprint21
   Scenario Outline: Check correct application fee amount to pay is displayed
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -223,4 +223,4 @@ Feature: As a customer I want to register new manufacturers with devices
     Examples:
       | user              | accountType   | countryName | price | deviceType1                | deviceType2               | gmdn1                 | gmdn2               | customMade | riskClassification | productName | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
       | manufacturerAuto  | manufacturer  | Belarus     | 100   | General Medical Device     | Active Implantable Device | Blood weighing scale  | Autopsy measure     | true       |                    | ford focus  |             |              |              |                   |            |               |
-      | authorisedRepAuto | authorisedRep | Bangladesh  | 200   | In Vitro Diagnostic Device | General Medical Device    | Androgen receptor IVD | Desiccating chamber |            | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+      | authorisedRepAuto | authorisedRep | Bangladesh  | 100   | In Vitro Diagnostic Device | General Medical Device    | Androgen receptor IVD | Desiccating chamber |            | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |

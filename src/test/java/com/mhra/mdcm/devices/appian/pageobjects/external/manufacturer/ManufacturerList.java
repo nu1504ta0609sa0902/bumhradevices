@@ -48,6 +48,12 @@ public class ManufacturerList extends _Page {
     @FindBy(css = ".elements---global_p .elements---global_a")
     WebElement manufacturerName;
 
+    //Search box
+    @FindBy(xpath = ".//*[contains(text(),'Search by manufacturer')]//following::input[1]")
+    WebElement searchBox;
+    @FindBy(xpath = ".//button[.='Search']")
+    WebElement btnSearch;
+
     //Pagination
     @FindBy(css = ".GridWidget---count")
     WebElement itemCount;
@@ -333,5 +339,16 @@ public class ManufacturerList extends _Page {
         WaitUtils.waitForElementToBeVisible(driver, linkClickHere, TIMEOUT_15_SECOND);
         linkClickHere.click();
         return new ManufacturerList(driver);
+    }
+
+    public ManufacturerList searchForManufacturer(String name) {
+        WaitUtils.waitForElementToBeVisible(driver, searchBox, TIMEOUT_15_SECOND);
+        searchBox.sendKeys(name);
+        btnSearch.click();
+        return new ManufacturerList(driver);
+
+    }
+    public boolean isSearchingCompleted(WebDriver driver, int timeout) {
+        return PageUtils.isElementNotVisible(driver, itemCount, timeout);
     }
 }

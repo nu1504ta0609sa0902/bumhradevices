@@ -191,6 +191,8 @@ public class AddDevices extends _Page {
     WebElement currentStageOfApplication;
 
     //File upload buttons
+    @FindBy(css = ".MultipleFileUploadWidget---ui-inaccessible")
+    WebElement multiFileUpload;
     @FindBy(css = ".FileUploadWidget---ui-inaccessible")
     WebElement fileUpload;
     @FindBy(css = ".FileUploadWidget---ui-inaccessible")
@@ -781,7 +783,7 @@ public class AddDevices extends _Page {
                 WebElement element = CommonUtils.getElementFromList(listOfGmdnMatchesReturnedBySearch, randomPosition);
 
                 //Wait for it to be clickable
-                WaitUtils.waitForElementToBeClickable(driver, element, TIMEOUT_5_SECOND);
+                WaitUtils.waitForElementToBeClickable(driver, element, TIMEOUT_10_SECOND);
                 element = element.findElement(By.tagName("a"));
                 element.click();
 
@@ -1161,13 +1163,13 @@ public class AddDevices extends _Page {
         }else if(paymentMethod.toLowerCase().contains("bacs")){
             paymentBACS.click();
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-            PageUtils.uploadDocument(fileUpload, "CompletionOfTransfer1.pdf", 1, 3);
+            PageUtils.uploadDocument(multiFileUpload, "CompletionOfTransfer1.pdf", 1, 3);
         }
 
         //Complete the application
-        PageFactory.initElements(driver,this);
-        WaitUtils.waitForElementToBeVisible(driver, btnCompleteApplication, TIMEOUT_10_SECOND);
-        WaitUtils.waitForElementToBeClickable(driver, btnCompleteApplication, TIMEOUT_10_SECOND);
+        //PageFactory.initElements(driver,this);
+        //WaitUtils.waitForElementToBeVisible(driver, btnCompleteApplication, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, btnCompleteApplication, TIMEOUT_15_SECOND);
         btnCompleteApplication.click();
         return new AddDevices(driver);
     }

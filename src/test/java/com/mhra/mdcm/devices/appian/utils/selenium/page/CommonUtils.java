@@ -185,4 +185,14 @@ public class CommonUtils {
         return calculateTotalCost(String.valueOf(total));
     }
 
+    public static String getTypeOfUsername(String loggedInUser) {
+        String type = "Business";
+        if(loggedInUser.toLowerCase().contains("manufacturer"))
+            type = "Manufacturer";
+        else if(loggedInUser.toLowerCase().contains("authorised"))
+            type = "AuthorisedRep";
+        else if(loggedInUser.toLowerCase().contains("distributor"))
+            type = "Distributor";
+        return type;
+    }
 }

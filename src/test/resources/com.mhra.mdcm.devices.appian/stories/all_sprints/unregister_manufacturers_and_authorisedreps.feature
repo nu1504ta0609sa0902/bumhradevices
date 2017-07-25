@@ -44,7 +44,7 @@ Feature: As a user, I want to be able to unregister manufacturers when they are 
     And I should received an email for stored manufacturer with heading "Request for manufacturer registration" and stored application identifier
     And I should received an email for stored manufacturer with heading "was completed" and stored application identifier
     When I logout and log back into appian as "<user>" user
-    When I go to list of manufacturers page and click on stored manufacturer
+    When I go to list of manufacturers page and search and view stored manufacturer
     Then I should option to unregister the manufacturer
     When I unregister the manufacturer with the following reasons "<unregisteredReason>"
     And I confirm "Yes" to unregister the manufacturer

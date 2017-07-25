@@ -152,7 +152,7 @@ public class ExternalHomePage extends _Page {
     }
 
     public boolean isCorrectUsernameDisplayed(String loggedInUser) {
-        String humanReadableUsername = CommonUtils.getHumanReadableUsername(loggedInUser);
+        String humanReadableUsername = CommonUtils.getTypeOfUsername(loggedInUser);
         return driver.getPageSource().contains(humanReadableUsername);
     }
 
