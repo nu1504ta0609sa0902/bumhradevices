@@ -186,7 +186,7 @@ Feature: As a customer I want to register new manufacturers with devices
       | manufacturerAuto  | manufacturer  | Brazil      | Registered Products | Active Implantable Device  | Desiccating chamber   | true       |                    | ford focus  |             |              |              |                   |            |               |
       | authorisedRepAuto | authorisedRep | Bangladesh  | Registered Products | In Vitro Diagnostic Device | Androgen receptor IVD |            | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
-  @regression @create_new_org @smoke_test_dr @2294 @_sprint21
+  @regression @create_new_org @smoke_test_dr @2294 @_sprint21 @7015 @_sprint28
   Scenario Outline: Check correct application fee amount to pay is displayed
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
