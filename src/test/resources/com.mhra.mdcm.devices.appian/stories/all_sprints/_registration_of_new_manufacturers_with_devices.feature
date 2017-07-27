@@ -3,7 +3,7 @@ Feature: As a customer I want to register new manufacturers with devices
   so that I am granted access to that and can then register overseas manufacturers on their behalf
 
 
-  @mdcm-14 @2325 @mdcm-39 @2312 @mdcm-496 @_sprint3 @_sprint5 @2185 @_sprint8 @1956 @_sprint9 @3343 @5749 @_sprint21 @5752 @5750 @5753 @_sprint23 @create_new_org
+  @mdcm-14 @2325 @mdcm-39 @2312 @mdcm-496 @_sprint3 @_sprint5 @2185 @_sprint8 @1956 @_sprint9 @3343 @5749 @_sprint21 @5752 @5750 @5753 @_sprint23 @4189 @_sprint26 @create_new_org
   Scenario Outline: Users should be able to register new manufacturers with devices
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -159,7 +159,7 @@ Feature: As a customer I want to register new manufacturers with devices
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Registered Products | In Vitro Diagnostic Device | Androgen receptor IVD |            | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
       | manufacturerAuto  | businessAuto | manufacturer  | Brazil      | Registered Products | Active Implantable Device  | Desiccating chamber   | true       |                    | ford focus  |             |              |              |                   |            |               |
 
-  @create_new_org @smoke_test_dr @1957 @5997 @5995 @_sprint21 @bug @wip
+  @create_new_org @smoke_test_dr @1957 @5997 @5995 @_sprint21 @4189 @_sprint26 @bug @wip
   Scenario Outline: Users should be able to save and resume newly created application
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -186,7 +186,7 @@ Feature: As a customer I want to register new manufacturers with devices
       | manufacturerAuto  | manufacturer  | Brazil      | Registered Products | Active Implantable Device  | Desiccating chamber   | true       |                    | ford focus  |             |              |              |                   |            |               |
       | authorisedRepAuto | authorisedRep | Bangladesh  | Registered Products | In Vitro Diagnostic Device | Androgen receptor IVD |            | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
 
-  @regression @create_new_org @smoke_test_dr @2294 @_sprint21 @7015 @_sprint28
+  @regression @create_new_org @smoke_test_dr @2294 @_sprint21 @4189 @_sprint26 @7015 @_sprint28
   Scenario Outline: Check correct application fee amount to pay is displayed
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page

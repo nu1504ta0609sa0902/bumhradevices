@@ -505,7 +505,7 @@ Automated Issues:
 
 
     Sprint 26: @_sprint26
-        - @4189 -   DR  Manufacturer to indicate compliance with the new EU regulations
+        - @4189 -   DONE ISH DR  Manufacturer to indicate compliance with the new EU regulations
         - @6798 -   DR  Impact message for new DR/CFS application
         - @1936 -   DR  View and respond to request for further info by a business customer
         - @2091 -   DR  Email notification to customer for further info
@@ -520,9 +520,9 @@ Automated Issues:
         - @6790 -   DR  Email invitation to join organisation user
         - @6794 -   DR  Restrict customer username choices
         - @6799 -   DR  Limit number of customer user account associated with an organisation
-        - @1967 -   CFS Business review of cfs ammed application
+        - @1967 -   CFS Business review of cfs ammend application
         - @6859 -   CFS View cfs order summary
-        - @6867 -   CFS Assign cfs order to myself or someone else
+        - @6867 -   DONE ISH CFS Assign cfs order to myself or someone else
         - @6883 -   CFS View additional address and copy on the schedule
         - @6880 -   CFS View and print receipt
         - @6878 -   CFS Complete cfs order
@@ -533,6 +533,7 @@ Automated Issues:
 
 
     Sprint 27: @_sprint27
+
         - @2083 -   Manage devices and products from manufacturer record as a customer
         - @2085 -   Receive, review and process application to unregister
         - @2107 -   Receive, review and process request to update manufacturer
@@ -544,3 +545,22 @@ Automated Issues:
         - @6825 -   Manage rep orgs update post update
         - @6839 -   Process non-chargable changes separately to chargable changes for edit org
         - @6873 -   Edit org details must be reflected immediately
+
+
+    Sprint 28: @_sprint28
+
+        - @1935 -   CFS Show activities in the news feeds
+        - @7044 -   CFS Formatting of CFS sample certificates
+        - @7015 -   DONE ISH DR @todo Fees of £100 for any application
+        - @6861 -   DR landing page for manufacturer view
+        - @6863 -   DR Global application view
+        - @6912 -   DR Prevent add devices/products to ongoing application
+        - @6913 -   DR Prevent edit organisations to ongoing application
+        - @6914 -   DR Prevent unregister on ongoing application
+        - @6943 -   DR Add new products to existing device
+        - @2047 -   DR Associate email automatically to an application
+        - @2191 -   DONE ISH DR Confirm successful manufacturer registration
+        - @5209 -   DR Receive and review request to change name/address of an autorisedRep
+        - @6633 -   DR Organisations page other address tab
+        - @6875 -   DR Accept payments via BACS/Chaps
+        - @6923 -   DR Delete draft application

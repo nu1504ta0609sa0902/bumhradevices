@@ -56,7 +56,7 @@ Feature: Tasks will need to be generated for CFS application
       | authorisedRepAuto | Completed      | reject        |
 
 
-  @smoke_test_cfs @5666 @_sprint20 @create_new_org
+  @smoke_test_cfs @5666 @5679 @_sprint20 @6867 @_sprint26 @create_new_org
   Scenario Outline: Users should be able to go to assign the cfs application to someone else
     Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
