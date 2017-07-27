@@ -239,14 +239,16 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     @And("^Proceed to payment and confirm submit device details$")
     public void proceedToPaymentAndConfirmSubmitDeviceDetails() throws Throwable {
+        String method = "Worldpay";
         addDevices = addDevices.proceedToReview();
         addDevices = addDevices.proceedToPayment();
-        addDevices = addDevices.enterPaymentDetails("Worldpay", scenarioSession);   //OR WorldPay
+        addDevices = addDevices.enterPaymentDetails(method, scenarioSession);   //OR WorldPay
         String reference = addDevices.getApplicationReferenceNumber();
         log.info("New Application reference number : " + reference);
 
         manufacturerList = addDevices.backToService();
         scenarioSession.putData(SessionKey.newApplicationReferenceNumber, reference);
+        scenarioSession.putData(SessionKey.paymentMethod, method);
     }
 
     @And("^Proceed to payment via \"([^\"]*)\" and confirm submit device details$")
@@ -259,6 +261,7 @@ public class ExternalHomePageSteps extends CommonSteps {
 
         manufacturerList = addDevices.backToService();
         scenarioSession.putData(SessionKey.newApplicationReferenceNumber, reference);
+        scenarioSession.putData(SessionKey.paymentMethod, method);
     }
 
 

@@ -330,14 +330,16 @@ public class CFSSteps extends CommonSteps {
 
     @When("^I submit payment for the CFS$")
     public void i_submit_payment_for_the_CFS() throws Throwable {
+        String method = "Worldpay";
         deviceDetails = deviceDetails.agreeToTermsAndConditions();
         deviceDetails = deviceDetails.continueToPaymentAfterReviewFinished();
-        deviceDetails = deviceDetails.enterPaymentDetails("Worldpay", scenarioSession);
+        deviceDetails = deviceDetails.enterPaymentDetails(method, scenarioSession);
         String reference = deviceDetails.getApplicationReferenceNumber();
         log.info("New Application reference number : " + reference);
 
         //deviceDetails = deviceDetails.finishPayment();
         scenarioSession.putData(SessionKey.newApplicationReferenceNumber, reference);
+        scenarioSession.putData(SessionKey.paymentMethod, method);
     }
 
 
@@ -350,6 +352,7 @@ public class CFSSteps extends CommonSteps {
 
         deviceDetails = deviceDetails.finishPayment();
         scenarioSession.putData(SessionKey.newApplicationReferenceNumber, reference);
+        scenarioSession.putData(SessionKey.paymentMethod, method);
     }
 
     @When("^I save cfs order application for later$")

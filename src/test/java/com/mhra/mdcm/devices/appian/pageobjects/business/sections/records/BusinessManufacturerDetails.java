@@ -2,8 +2,10 @@ package com.mhra.mdcm.devices.appian.pageobjects.business.sections.records;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
+import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -101,8 +103,19 @@ public class BusinessManufacturerDetails extends _Page {
     WebElement btnApproveAllDevices;
     @FindBy(xpath = ".//button[contains(text(), 'Change')]")
     WebElement btnChangeDecision;
+    @FindBy(xpath = ".//button[contains(text(), 'Save')]")
+    WebElement btnSave;
     @FindBy(xpath = ".//button[contains(text(), 'Complete the application')]")
     WebElement btnCompleteTheApplication;
+
+    //BACS confirm payment
+    @FindBy(xpath = ".//button[contains(text(), 'Confirm Payment')]")
+    WebElement btnConfirmPayment;
+    @FindBy(xpath = ".//*[contains(text(), 'Payment received')]/following::input[1]")
+    WebElement tbxPaymentDate;
+    @FindBy(xpath = ".//*[contains(text(), 'Payment received')]/following::input[2]")
+    WebElement tbxPaymentHour;
+
 
     //Reassign to someone
     @FindBy(xpath = ".//button[contains(text(), 'Assign to myself')]")
@@ -290,6 +303,23 @@ public class BusinessManufacturerDetails extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, btnCompleteTheApplication, TIMEOUT_DEFAULT);
         PageUtils.doubleClick(driver, btnCompleteTheApplication);
         log.info("Application completed");
+        return new BusinessManufacturerDetails(driver);
+    }
+    public BusinessManufacturerDetails confirmPayment() {
+        WaitUtils.waitForElementToBeClickable(driver, btnConfirmPayment, TIMEOUT_DEFAULT);
+        PageUtils.doubleClick(driver, btnConfirmPayment);
+        log.info("Confirm Payment");
+        return new BusinessManufacturerDetails(driver);
+    }
+
+    public BusinessManufacturerDetails enterDateAndTimeOfPayment() {
+        WaitUtils.waitForElementToBeClickable(driver, tbxPaymentDate, TIMEOUT_DEFAULT);
+        tbxPaymentDate.sendKeys(RandomDataUtils.getDateInFutureDays(0), Keys.TAB);
+        tbxPaymentHour.sendKeys("00:01", Keys.TAB);
+
+        WaitUtils.waitForElementToBeClickable(driver, btnSave, TIMEOUT_15_SECOND);
+        btnSave.click();
+
         return new BusinessManufacturerDetails(driver);
     }
 

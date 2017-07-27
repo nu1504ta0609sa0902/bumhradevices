@@ -507,6 +507,30 @@ public class TasksPageSteps extends CommonSteps {
         Assert.assertThat("Following columns not found : " + tableColumnsNotFound, tableColumnsNotFound.size() == 0, is(true));
     }
 
+    @When("^I \"([^\"]*)\" already assigned application$")
+    public void i_approve_already_assigned_application(String approveOrReject) throws Throwable {
+        String taskType = (String) scenarioSession.getData(SessionKey.taskType);
+        if (approveOrReject.equals("approve")) {
+            if(taskType!=null && taskType.contains("New Manufacturer")){
+                businessManufacturerDetails = businessManufacturerDetails.approveAWIPManufacturerTask();
+                businessManufacturerDetails = businessManufacturerDetails.approveAWIPAllDevices();
+                businessManufacturerDetails = businessManufacturerDetails.completeTheApplication();
+            }else if(taskType!=null && taskType.contains("Update Manufacturer")){
+                businessManufacturerDetails = businessManufacturerDetails.approveAWIPManufacturerTask();
+                businessManufacturerDetails = businessManufacturerDetails.approveAWIPAllDevices();
+                businessManufacturerDetails = businessManufacturerDetails.completeTheApplication();
+            }
+
+        } else {
+            if(taskType!=null && taskType.contains("New Account")) {
+                businessManufacturerDetails = businessManufacturerDetails.rejectAWIPNewAccountRegistration();
+                businessManufacturerDetails = businessManufacturerDetails.enterRejectionReason("Account already exists", RandomDataUtils.getRandomTestName("Account already exists "));
+            }else if(taskType!=null && taskType.contains("New Manufacturer")){
+                businessManufacturerDetails = businessManufacturerDetails.rejectAWIPManufacturerTask();
+                businessManufacturerDetails = businessManufacturerDetails.enterManufacturerRejectionReason("Submitted in error", RandomDataUtils.getRandomTestName("Account already exists "));
+            }
+        }
+    }
 
     @When("^I assign the AWIP page task to me and \"([^\"]*)\" the generated task$")
     public void i_assign_AWIP_task_and_accept_the_task_and_the_generated_task(String approveOrReject) throws Throwable {
@@ -680,7 +704,7 @@ public class TasksPageSteps extends CommonSteps {
         taskSection.filterWIPTasksBy("Application status", status);
         taskSection.isSearchingCompleted();
 
-        //boolean isStatusCorrect = taskSection.isAWIPTaskStatusCorrect(status);
+        boolean isStatusCorrect = taskSection.isAWIPTaskStatusCorrect(status);
         //Assert.assertThat("Expected Status in Application WIP page : " + status, isStatusCorrect, is(true));
     }
 
@@ -759,4 +783,19 @@ public class TasksPageSteps extends CommonSteps {
                 }
             }
         }
+
+    @When("^I assign the task to me confirm the date BACS payment was received$")
+    public void iAssignTheTaskToMeConfirmTheDateBACSPaymentWasReceived() throws Throwable {
+        String paymentMethod = (String) scenarioSession.getData(SessionKey.paymentMethod);
+
+        if(paymentMethod.toLowerCase().equals("bacs")) {
+            //accept the taskSection and approve or reject it
+            businessManufacturerDetails = businessManufacturerDetails.assignAWIPTaskToMe();
+            businessManufacturerDetails = businessManufacturerDetails.confirmAWIPIAssignment(true);
+
+            //Confirm payment : and select date of payment
+            businessManufacturerDetails = businessManufacturerDetails.confirmPayment();
+            businessManufacturerDetails = businessManufacturerDetails.enterDateAndTimeOfPayment();
+        }
+    }
 }

@@ -39,4 +39,5 @@ public class SessionKey {
     public static String temporaryReference = "Temporary reference created when an application is saved";
     public static String address = "Address we expect";
     public static String postCode = "Postcode we expect";
+    public static String paymentMethod = "Payment method WorldPay or BACS";
 }

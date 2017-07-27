@@ -30,6 +30,37 @@ Feature: As a customer I want to register new manufacturers with devices
       | authorisedRepAuto | authorisedRep | Bangladesh  | BACS        | General Medical Device   | false      | true          | true            | class1             | NB 0086 BSI  |
 
 
+  @5749 @_sprint21 @6875 @_sprint28
+  Scenario Outline: Business users need to confirm dates of payment received for BACS payment
+    Given I am logged into appian as "<user>" user
+    And I go to register a new manufacturer page
+    When I create a new manufacturer using manufacturer test harness page with following data
+      | accountType | <accountType> |
+      | countryName | <countryName> |
+    And I add devices to NEWLY created manufacturer with following data
+      | deviceType             | <deviceType>         |
+      | gmdnDefinition         | Blood                |
+      | riskClassification     | <riskClassification> |
+      | notifiedBody           | <notifiedBody>       |
+      | customMade             | <customMade>         |
+      | relatedDeviceSterile   | <deviceSterile>      |
+      | relatedDeviceMeasuring | <deviceMeasuring>    |
+      | isBearingCEMarking     | false                |
+      | productName            | Product1             |
+    And Proceed to payment via "<paymentType>" and confirm submit device details
+    Then I should be returned to the manufacturers list page
+    When I logout of the application
+    And I am logged into appian as "<logBackInAs>" user
+    And I search and view new task in AWIP page for the newly created manufacturer
+    When I assign the task to me confirm the date BACS payment was received
+    Then I should see a button with the following text "Approve manufacturer"
+    When I "approve" already assigned application
+    Then The task status in AWIP page should be "Completed" for the new account
+    Examples:
+      | user              | logBackInAs  | accountType   | countryName | paymentType | deviceType             | customMade | deviceSterile | deviceMeasuring | riskClassification | notifiedBody |
+      | manufacturerAuto  | businessAuto | manufacturer  | Brazil      | BACS        | General Medical Device | true       |               |                 |                    |              |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | BACS        | General Medical Device | false      | true          | true            | class1             | NB 0086 BSI  |
+
   @regression @mdcm-485 @2030 @mdcm-374 @2112 @mdcm-186 @2258 @_sprint2 @1838 @3777 @1924 @_sprint8 @_sprint9 @_sprint13 @_sprint5 @create_new_org
   Scenario Outline: Users should be able to register new manufacturers with devices and verify devices are added
     Given I am logged into appian as "<user>" user
