@@ -30,7 +30,7 @@ Feature: As a customer I want to register new manufacturers with devices
       | authorisedRepAuto | authorisedRep | Bangladesh  | BACS        | General Medical Device   | false      | true          | true            | class1             | NB 0086 BSI  |
 
 
-  @5749 @_sprint21 @6875 @_sprint28
+  @5749 @_sprint21 @6875 @_sprint28 @create_new_org
   Scenario Outline: Business users need to confirm dates of payment received for BACS payment
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
