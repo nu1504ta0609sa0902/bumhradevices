@@ -506,61 +506,64 @@ Automated Issues:
 
     Sprint 26: @_sprint26
         - @4189 -   DONE ISH DR  Manufacturer to indicate compliance with the new EU regulations
-        - @6798 -   DR  Impact message for new DR/CFS application
-        - @1936 -   DR  View and respond to request for further info by a business customer
-        - @2091 -   DR  Email notification to customer for further info
-        - @2150 -   DR  Email reminder to customer for further info required
-        - @2261 -   DR  Request further info in relation to registering device from business
-        - @2300 -   DR  Receive, review and process further information app
-        - @6624 -   DR  Invite an individual to join an existing org as a new user
-        - @6631 -   DR  Disable customer user account as another customer
-        - @6739 -   DR  Invitation to join has timeout - customer users
-        - @6743 -   DR  Accept invitation to join an existing organisation
-        - @6782 -   DR  Invite existing contacts to join as organisational user
-        - @6790 -   DR  Email invitation to join organisation user
-        - @6794 -   DR  Restrict customer username choices
-        - @6799 -   DR  Limit number of customer user account associated with an organisation
-        - @1967 -   CFS Business review of cfs ammend application
-        - @6859 -   CFS View cfs order summary
-        - @6867 -   DONE ISH CFS Assign cfs order to myself or someone else
-        - @6883 -   CFS View additional address and copy on the schedule
-        - @6880 -   CFS View and print receipt
-        - @6878 -   CFS Complete cfs order
-        - @6877 -   CFS Upload documents
-        - @6879 -   CFS New regulation text
-        - @6558 -   CFS Prevent further application if manufacturer change is in progress
-        - @6860 -   CFS View application submission aknowledgement screen
+        - @6798 -   DR  @todo Impact message for new DR/CFS application
+        - @1936 -   DR  @todo View and respond to request for further info by a business customer
+        - @2091 -   DR  @todo Email notification to customer for further info
+        - @2150 -   DR  @todo Email reminder to customer for further info required
+        - @2261 -   DR  @todo Request further info in relation to registering device from business
+        - @2300 -   DR  @todo Receive, review and process further information app
+        - @6624 -   DR  @todo Invite an individual to join an existing org as a new user
+        - @6631 -   DR  @todo Disable customer user account as another customer
+        - @6739 -   DR  @todo Invitation to join has timeout - customer users
+        - @6743 -   DR  @todo Accept invitation to join an existing organisation
+        - @6782 -   DR  @todo Invite existing contacts to join as organisational user
+        - @6790 -   DR  @todo Email invitation to join organisation user
+        - @6794 -   DR  @todo Restrict customer username choices
+        - @6799 -   DR  @todo Limit number of customer user account associated with an organisation
+        - @1967 -   CFS @todo Business review of cfs ammend application
+        - @6859 -   CFS @todo Business View cfs order summary
+        - @6867 -   DONE ISH CFS @todo Assign cfs order to myself or someone else
+        - @6883 -   CFS @todo View additional address and copy on the schedule
+        - @6880 -   CFS @todo View and print receipt
+        - @6878 -   DONE ISH CFS @todo Business user Complete cfs order
+        - @6877 -   CFS @todo Business user Upload documents
+        - @6879 -   CFS @todo New regulation text
+        - @6558 -   CFS @todo Prevent further application if manufacturer change is in progress
+        - @6860 -   CFS @todo View application submission aknowledgement screen
 
 
     Sprint 27: @_sprint27
 
-        - @2083 -   Manage devices and products from manufacturer record as a customer
-        - @2085 -   Receive, review and process application to unregister
-        - @2107 -   Receive, review and process request to update manufacturer
-        - @4652 -   Record events in business news feed
-        - @5369 -   Business remove devices or products from manufacturer registration
-        - @5691 -   Confirm unsuccessful unregistration
-        - @6619 -   Create application number at unregistering a manufacturer by business
-        - @6840 -   Cater for authorisedReps and distributors
-        - @6825 -   Manage rep orgs update post update
-        - @6839 -   Process non-chargable changes separately to chargable changes for edit org
-        - @6873 -   Edit org details must be reflected immediately
+        - @2083 -   @todo Manage devices and products from manufacturer record as a customer
+        - @2085 -   @todo Receive, review and process application to unregister
+        - @2107 -   @todo Receive, review and process request to update manufacturer
+        - @4652 -   @todo Record events in business news feed
+        - @5369 -   @todo Business remove devices or products from manufacturer registration
+        - @5691 -   @todo Confirm unsuccessful unregistration
+        - @6619 -   @todo Create application number at unregistering a manufacturer by business
+        - @6840 -   @todo Cater for authorisedReps and distributors
+        - @6825 -   @todo Manage rep orgs update post update
+        - @6839 -   @todo Process non-chargable changes separately to chargable changes for edit org
+        - @6873 -   @todo Edit org details must be reflected immediately
 
 
     Sprint 28: @_sprint28
 
-        - @1935 -   CFS Show activities in the news feeds
-        - @7044 -   CFS Formatting of CFS sample certificates
+        - @1935 -   CFS @todo Show activities in the news feeds
+        - @7044 -   CFS @todo Formatting of CFS sample certificates
+                -   Verify format is matching UX
         - @7015 -   DONE ISH DR @todo Fees of £100 for any application
-        - @6861 -   DR landing page for manufacturer view
-        - @6863 -   DR Global application view
-        - @6912 -   DR Prevent add devices/products to ongoing application
-        - @6913 -   DR Prevent edit organisations to ongoing application
-        - @6914 -   DR Prevent unregister on ongoing application
-        - @6943 -   DR Add new products to existing device
-        - @2047 -   DR Associate email automatically to an application
-        - @2191 -   DONE ISH DR Confirm successful manufacturer registration
-        - @5209 -   DR Receive and review request to change name/address of an autorisedRep
-        - @6633 -   DR Organisations page other address tab
-        - @6875 -   DR Accept payments via BACS/Chaps
-        - @6923 -   DR Delete draft application
+        - @6861 -   DR @todo landing page for manufacturer view
+                -   Click "Applications" and verify list of applications displayed
+                -   Users should be able to delete application
+        - @6863 -   DR @todo Global application view
+        - @6912 -   DONE ISH DR @todo Prevent add devices/products to ongoing application
+        - @6913 -   DR @todo Prevent edit organisations to ongoing application
+        - @6914 -   DONE ISH DR @todo Prevent unregister on ongoing application
+        - @6943 -   DR @todo Add new products to existing device
+        - @2047 -   DR @todo Associate email automatically to an application
+        - @2191 -   DONE ISH DR @todo Confirm successful manufacturer registration
+        - @5209 -   DR @todo Receive and review request to change name/address of an autorisedRep
+        - @6633 -   DR @todo Organisations page other address tab
+        - @6875 -   DONE ISH DR @todo Accept payments via BACS/Chaps
+        - @6923 -   DR @todo Delete draft application

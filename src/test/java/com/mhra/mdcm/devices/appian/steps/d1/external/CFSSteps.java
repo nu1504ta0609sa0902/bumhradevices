@@ -34,6 +34,11 @@ public class CFSSteps extends CommonSteps {
         createNewCFSManufacturer = cfsManufacturerList.addNewManufacturer();
         ManufacturerRequestDO newAccount = TestHarnessUtils.updateManufacturerDefaultsWithData(dataSets, scenarioSession);
 
+        //Identify which harness created the manufacturer
+        String orgName = newAccount.organisationName;
+        String manufacturerType = "CFS";
+        newAccount.organisationName = manufacturerType + "_" + orgName;
+
         //Setup data : Real address required NOW
         newAccount.lastName = RandomDataUtils.getRandomTestNameStartingWith(newAccount.lastName, 5);
         newAccount.address1 = "46 Drayton Gardens";
@@ -91,6 +96,7 @@ public class CFSSteps extends CommonSteps {
     public void i_click_on_a_random_organisation_which_needs_cfs() throws Throwable {
         String name = cfsManufacturerList.getARandomOrganisationName();
         manufacturerDetails = cfsManufacturerList.viewManufacturer(name);
+        log.info("CFS Manufacturer selected : " + name);
 
         scenarioSession.putData(SessionKey.organisationName, name);
     }

@@ -106,6 +106,11 @@ public class ExternalHomePageSteps extends CommonSteps {
     public void i_create_a_new_manufacturer_using_test_harness_page_with_following_data(Map<String, String> dataSets) throws Throwable {
 
         ManufacturerRequestDO newAccount = TestHarnessUtils.updateManufacturerDefaultsWithData(dataSets, scenarioSession);
+
+        //Identify which harness created the manufacturer
+        String orgName = newAccount.organisationName;
+        String manufacturerType = "CFS";
+        newAccount.organisationName = manufacturerType + "_" + orgName;
         log.info("New Manufacturer Account Requested With Following Data : \n" + newAccount);
 
         //Create new manufacturer data

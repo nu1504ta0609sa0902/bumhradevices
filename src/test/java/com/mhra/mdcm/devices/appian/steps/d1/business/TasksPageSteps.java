@@ -733,6 +733,13 @@ public class TasksPageSteps extends CommonSteps {
 
     }
 
+    @Then("^I should NOT see a button with the following text \"([^\"]*)\"$")
+    public void i_should_NOT_see_the_option_to(String button) throws Throwable {
+        boolean isVisible = businessManufacturerDetails.isButtonVisibleWithText(button, 5);
+        Assert.assertThat("Expected following button : " + button, isVisible, is(false));
+
+    }
+
     @Then("^I should not see any option related to approving reject and completing the application$")
     public void i_should_not_see_any_option_related_to_approving_reject_and_completing_the_application() throws Throwable {
         boolean isApproveManufacturerInVisible = businessManufacturerDetails.isButtonVisibleWithText("Approve manufacturer", 2);

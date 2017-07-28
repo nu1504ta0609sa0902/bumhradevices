@@ -83,3 +83,52 @@ Feature: Tasks will need to be generated for CFS application
       | user              | assignTo | expectedStatus |
       | manufacturerAuto  | Noor     | Assigned       |
       | authorisedRepAuto | Nobody   | In Progress    |
+
+    @6859 @6878 @_sprint26 @create_new_org @wip
+    Scenario Outline: Business to review and process CFS order application
+    Given I am logged into appian as "<logInAs>" user
+# Submit a new CFS manufacturer application
+    And I go to device certificate of free sale page
+    Then I should see a list of manufacturers available for CFS
+    When I create a new manufacturer using CFS manufacturer test harness page with following data
+      | accountType | manufacturer |
+      | countryName | Brazil       |
+    And I add devices to NEWLY created CFS manufacturer with following data
+      | deviceType           | General Medical Device |
+      | gmdnDefinition       | Blood weighing scale   |
+      | customMade           | false                  |
+      | riskClassification   | Class2A                |
+      | relatedDeviceSterile | true                   |
+      | notifiedBody         | NB 0086 BSI            |
+    Then I should see correct device data in the review page
+    And I submit the cfs application for approval
+    When I logout and log back into appian as "businessAuto" user
+    And I search and view new task in AWIP page for the newly created manufacturer
+    And I assign the AWIP page task to me and "approve" the generated task
+    Then The task status in AWIP page should be "Completed" for the newly created manufacturer
+    And I should received an email for stored manufacturer with heading containing "Free Sale" and stored application identifier
+# Now apply for cfs
+    Given I logout and log back into appian as "<logInAs>" user
+    And I go to device certificate of free sale page
+    Then I should see a list of manufacturers available for CFS
+    When I search for registered manufacturer ""
+    And I click on a random organisation which needs cfs
+    And I order cfs for a country with following data
+      | countryName | <country> |
+      | noOfCFS     | <noCFS>   |
+    Then I should see the correct details in cfs order review page
+    When I submit payment for the CFS
+    And I should received an email with subject heading "WorldPay Payment"
+    When I logout and log back into appian as "businessAuto" user
+    And I search and view new task in AWIP page for the newly created manufacturer
+    Then I should see the correct cfs manufacturer details
+    And I should see correct device details
+    When I view device with gmdn code "Blood weighing scale"
+    Then I should see all the correct product and certificate details
+    And I assign the AWIP page task to me and "approve" the generated task
+    Then The task status in AWIP page should be "Completed" for the newly created manufacturer
+    And I should received an email for stored manufacturer with heading containing "Free Sale" and stored application identifier
+    Examples:
+      | country    | noCFS | logInAs           | searchTerm |
+      | Brazil     | 15    | manufacturerAuto  |            |
+      | Bangladesh | 10    | authorisedRepAuto |            |

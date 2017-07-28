@@ -24,18 +24,28 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE
       | manufacturerAuto | ManufacturerRT01 | This device must be registered with MHRA | System or Procedure Pack   |                      |            |                    |
 
 
-  @1974 @1978 @4704 @_sprint15 @5749 @_sprint21 @1952 @5753 @_sprint23
+  @1974 @1978 @4704 @_sprint15 @5749 @_sprint21 @1952 @5753 @_sprint23 @wip
   Scenario Outline: Users should be able to go to cfs page and add to a random manufacturer from the list
     Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
     Then I should see a list of manufacturers available for CFS
-    When I click on a random organisation which needs cfs
+    When I click on a organisation name begins with "CFS_" which needs cfs
+#    When I click on a random organisation which needs cfs
     And I order cfs for a country with following data
       | countryName | <country> |
       | noOfCFS     | <noCFS>   |
     Then I should see the correct details in cfs order review page
     When I submit payment for the CFS
     And I should received an email with subject heading "WorldPay Payment"
+    When I logout and log back into appian as "businessAuto" user
+    And I search and view new task in AWIP page for the newly created manufacturer
+    Then I should see the correct cfs manufacturer details
+    And I should see correct device details
+    When I view device with gmdn code "Blood weighing scale"
+    Then I should see all the correct product and certificate details
+    And I assign the AWIP page task to me and "approve" the generated task
+    Then The task status in AWIP page should be "Completed" for the newly created manufacturer
+    And I should received an email for stored manufacturer with heading containing "Free Sale" and stored application identifier
     Examples:
       | country    | noCFS | user              |
       | Brazil     | 15    | manufacturerAuto  |
@@ -47,7 +57,8 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE
     Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
     Then I should see a list of manufacturers available for CFS
-    When I click on a random organisation which needs cfs
+    When I click on a organisation name begins with "CFS_" which needs cfs
+#    When I click on a random organisation which needs cfs
     And I order cfs for a country with following data
       | countryName | <country> |
       | noOfCFS     | <noOfCFS> |
@@ -67,7 +78,8 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE
     Given I am logged into appian as "manufacturerAuto" user
     And I go to device certificate of free sale page
     Then I should see a list of manufacturers available for CFS
-    When I click on a random organisation which needs cfs
+    When I click on a organisation name begins with "CFS_" which needs cfs
+#    When I click on a random organisation which needs cfs
     And I order cfs for a country with following data
       | countryName | Brazil |
       | noOfCFS     | 10     |
@@ -83,7 +95,8 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE
     Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
     Then I should see a list of manufacturers available for CFS
-    When I click on a random organisation which needs cfs
+    When I click on a organisation name begins with "CFS_" which needs cfs
+#    When I click on a random organisation which needs cfs
     And I order cfs for multiple countries with following data
       | listOfCFSCountryPair | <countryAndCertificateNumber> |
     Then I should see correct details for all the countries and certificate in cfs order review page
