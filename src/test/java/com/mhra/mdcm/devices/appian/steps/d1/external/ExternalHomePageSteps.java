@@ -109,7 +109,7 @@ public class ExternalHomePageSteps extends CommonSteps {
 
         //Identify which harness created the manufacturer
         String orgName = newAccount.organisationName;
-        String manufacturerType = "CFS";
+        String manufacturerType = "DR";
         newAccount.organisationName = manufacturerType + "_" + orgName;
         log.info("New Manufacturer Account Requested With Following Data : \n" + newAccount);
 

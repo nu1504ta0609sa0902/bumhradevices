@@ -61,7 +61,7 @@ public class _CreateManufacturerTestHarnessPage extends _Page {
     WebElement jobTitle;
     @FindBy(xpath = ".//label[.='Email']//following::input[1]")
     WebElement emailAddress;
-    @FindBy(xpath = ".//label[contains(text(),'Job title')]//following::input[2]")
+    @FindBy(xpath = ".//label[contains(text(),'Job ')]//following::input[2]")
     WebElement phoneNumber;
 
     //Letter of designation

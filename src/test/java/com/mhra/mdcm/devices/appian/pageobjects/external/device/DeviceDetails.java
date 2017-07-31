@@ -108,7 +108,7 @@ public class DeviceDetails extends _Page {
     WebElement paymentWorldPay;
     @FindBy(xpath = ".//*[contains(text(),'payment method')]/following::img[2]")
     WebElement paymentBACS;
-    @FindBy(xpath = ".//a[contains(text(),'here')]")
+    @FindBy(xpath = ".//*[contains(text(),'payment method')]/following::img[3]")
     WebElement linkHereToInitiateWorldpay;
     @FindBy(partialLinkText = "Back to ")
     WebElement linkBackToManufacturer;
@@ -508,18 +508,19 @@ public class DeviceDetails extends _Page {
             //Click "here" link
             WaitUtils.waitForElementToBeClickable(driver, linkHereToInitiateWorldpay, TIMEOUT_10_SECOND);
             linkHereToInitiateWorldpay.click();
+
             //Link "Proceed to worldpay"
-            WaitUtils.waitForElementToBeClickable(driver, linkProceedToWorldpay, TIMEOUT_10_SECOND);
-            linkProceedToWorldpay.click();
+            //WaitUtils.waitForElementToBeClickable(driver, linkProceedToWorldpay, TIMEOUT_10_SECOND);
+            //linkProceedToWorldpay.click();
 
             //Focus on different tab
             PaymentDetails payment = new PaymentDetails(driver);
             payment.performWorldPayPayment("Card Details", scenarioSession);
 
             //When completed
-            WaitUtils.waitForElementToBeClickable(driver, linkHereToInitiateWorldpay, TIMEOUT_10_SECOND);
-            PageFactory.initElements(driver, this);
-            linkHereToInitiateWorldpay.click();
+            //WaitUtils.waitForElementToBeClickable(driver, linkHereToInitiateWorldpay, TIMEOUT_10_SECOND);
+            //PageFactory.initElements(driver, this);
+            //linkHereToInitiateWorldpay.click();
 
         } else if (paymentMethod.toLowerCase().contains("bacs")) {
             paymentBACS.click();
