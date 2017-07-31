@@ -104,16 +104,16 @@ public class DeviceDetails extends _Page {
     WebElement linkEditCountryAndCertificates;
 
     //Payment methods
-    @FindBy(xpath = ".//label[contains(text(),'Worldpay')]")
+    @FindBy(xpath = ".//*[contains(text(),'payment method')]/following::img[1]")
     WebElement paymentWorldPay;
+    @FindBy(xpath = ".//*[contains(text(),'payment method')]/following::img[2]")
+    WebElement paymentBACS;
     @FindBy(xpath = ".//a[contains(text(),'here')]")
     WebElement linkHereToInitiateWorldpay;
     @FindBy(partialLinkText = "Back to ")
     WebElement linkBackToManufacturer;
     @FindBy(xpath = ".//a[contains(text(),'Proceed to worldpay')]")
     WebElement linkProceedToWorldpay;
-    @FindBy(xpath = ".//label[contains(text(),'BACS')]")
-    WebElement paymentBACS;
     @FindBy(xpath = ".//button[contains(text(),'Complete application')]")
     WebElement btnCompleteApplication;
     @FindBy(xpath = ".//div[@role='listbox']")
