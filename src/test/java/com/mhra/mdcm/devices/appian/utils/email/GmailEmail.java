@@ -1,6 +1,7 @@
 package com.mhra.mdcm.devices.appian.utils.email;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.sort.SortByMessageNumber;
+import com.mhra.mdcm.devices.appian.session.SessionKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,13 +22,71 @@ public class GmailEmail {
     public static final String ANNUAL_INVOICED_NOTIFICATIONS = "Annual Notification Invoices";
 
     public static void main(String[] args) {
-        String eb = "ber is\n20170718013324";
-        int start = eb.indexOf("ber is");
-        String ref = eb.substring(start+7, start+21);
-        System.out.println(ref);
-        String name = "ManufacturerRT01Test_2_5_";
-        String body = GmailEmail.readMessageSubjectHeadingContainsIdentifier(60, 20, "Free Sale", "20170720023446");
-        log.warn(body);
+        String tempPassword = null;
+
+        String messageBody = GmailEmail.accountCreatedInLastXDays(3600*7, 300, "Appian for MHRA (TEST) account creation");
+        log.warn(messageBody);
+    }
+
+    private static String accountCreatedInLastXDays(double min, int numberOfMessgesToCheck, String subjectHeading) {
+        log.info("Find all the accounts created in the specified time : " + subjectHeading);
+        String bodyText = null;
+        Properties props = getEmailServerConfiguration();
+
+        try {
+            Store store = null;
+            Folder inbox = null;
+            Message[] messages = getMessagesFromEmailServer(props, store, inbox);
+
+            for (int i = 0; i < messages.length; i++) {
+                Message message = messages[i];
+                Date sentDate = message.getSentDate();
+                String subject = message.getSubject();
+                //log.warn(subject);
+                Address[] froms = message.getFrom();
+
+                for (Address from : froms) {
+                    String emailAddress = froms == null ? null : ((InternetAddress) from).getAddress();
+                    if (emailAddress != null && (emailAddress.contains("appian") || emailAddress.contains("incessant") || emailAddress.contains("mhra.gov.uk"))) {
+
+                        boolean isMessageReceivedToday = isMessageReceivedToday(subject, subjectHeading, sentDate);
+
+                        //Ignore the ones created today
+                        if ((!isMessageReceivedToday && subject.contains(subjectHeading))) {
+
+                            //If recent
+                            boolean isRecent = receivedInLast(min, sentDate);
+                            if(isRecent){
+                                if (isRecent && subject.contains(subjectHeading)) {
+                                    String messageBody = getTextFromMessage(message);
+
+                                    String user = messageBody.substring(messageBody.indexOf("e:")+3, messageBody.indexOf("Temp")-1);
+                                    System.out.println(user);
+                                }
+                            }
+                        } else {
+                            //log.warn("Message is old or not relevant" );
+                        }
+                    }
+                }
+
+                if (i > numberOfMessgesToCheck || bodyText != null) {
+                    //Most likely no emails received yet
+                    log.info(bodyText);
+                    break;
+                }
+            }
+
+            if(inbox!=null)
+                inbox.close(true);
+            if(store!=null)
+                store.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return bodyText;
     }
 
 
