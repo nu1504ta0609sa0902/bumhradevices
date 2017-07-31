@@ -52,7 +52,7 @@ Feature: As a customer I want to receive email notifications when ever a account
     And I assign the AWIP page task to me and "<approveReject>" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email for stored manufacturer with heading "<emailHeading>" and stored application identifier
-    And I should received an email for stored manufacturer with heading "was completed" and stored application identifier
+    And I should received an email for stored manufacturer with heading "MHRA Devices registration service" and stored application identifier
     Examples:
       | user              | logBackInAs  | accountType   | approveReject | countryName | emailHeading                          |
       | manufacturerAuto  | businessAuto | manufacturer  | approve       | Brazil      | Request for manufacturer registration |
@@ -114,7 +114,7 @@ Feature: As a customer I want to receive email notifications when ever a account
     When I assign the AWIP page task to me and "<approveReject>" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email for stored manufacturer with heading "Request for manufacturer registration" and stored application identifier
-    And I should received an email for stored manufacturer with heading "was completed" and stored application identifier
+    And I should received an email for stored manufacturer with heading "MHRA Devices registration service" and stored application identifier
     Examples:
       | user         | accountType   | approveReject | logBackInAs       | countryName   | accountNameBeginsWith    | accountEmail |
       | businessNoor | manufacturer  | approve       | manufacturerNoor  | Bangladesh    | ManufacturerAccountRT00  | Account request approved for |
