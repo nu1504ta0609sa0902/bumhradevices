@@ -67,6 +67,11 @@ public class LoginPage extends _Page {
     @FindBy(name = "confirmNewPw")
     WebElement tbxConfirmNewPassword;
 
+    //Terms and conditions
+    @FindBy(css = "input[type='button']")
+    WebElement acceptTermsAndConditions;
+
+    //Buttons
     @FindBy(xpath = ".//input[@value='Log in']")
     WebElement btnLogin;
     @FindBy(xpath = ".//input[@type='submit']")
@@ -333,5 +338,12 @@ public class LoginPage extends _Page {
         tbxConfirmNewPassword.sendKeys(newPassword);
         tbxConfirmNewPassword.submit();
         return new MainNavigationBar(driver);
+    }
+
+    public LoginPage accetpTandC() {
+        if(PageUtils.isElementClickable(driver, acceptTermsAndConditions, TIMEOUT_5_SECOND)) {
+            acceptTermsAndConditions.click();
+        }
+        return new LoginPage(driver);
     }
 }

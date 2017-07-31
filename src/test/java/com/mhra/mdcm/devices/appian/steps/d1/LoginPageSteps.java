@@ -34,6 +34,7 @@ public class LoginPageSteps extends CommonSteps {
             //boolean alreadyLoggedInAsUser = loginPage.isAlreadyLoggedInAsUser(username);
             loginPage = loginPage.loadPage(baseUrl);
             PageUtils.acceptAlert(driver, "accept", 1);
+            loginPage = loginPage.accetpTandC();
             mainNavigationBar = loginPage.login(username);
             scenarioSession.putData(SessionKey.loggedInUser, username);
         } catch (Exception e) {
@@ -51,6 +52,7 @@ public class LoginPageSteps extends CommonSteps {
         loginPage = loginPage.loadPage(baseUrl);
         try {
             PageUtils.acceptAlert(driver, "accept", 1);
+            loginPage = loginPage.accetpTandC();
             mainNavigationBar = loginPage.login(username);
             scenarioSession.putData(SessionKey.loggedInUser, username);
         } catch (Exception e) {
@@ -66,6 +68,7 @@ public class LoginPageSteps extends CommonSteps {
     @When("^I try to login to appian as username \"([^\"]*)\" and password \"([^\"]*)\"$")
     public void i_am_logged_into_appian_as_user(String username, String password) throws Throwable {
         loginPage = loginPage.loadPage(baseUrl);
+        loginPage = loginPage.accetpTandC();
         mainNavigationBar = loginPage.loginWithSpecificUsernamePassword(username, password);
         log.info("Login as : " + username + "/" + password);
         scenarioSession.putData(SessionKey.loggedInUser, username);
