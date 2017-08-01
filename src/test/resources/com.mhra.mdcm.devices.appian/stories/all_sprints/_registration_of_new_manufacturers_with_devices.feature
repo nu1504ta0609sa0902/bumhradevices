@@ -255,3 +255,28 @@ Feature: As a customer I want to register new manufacturers with devices
       | user              | accountType   | countryName | price | deviceType1                | deviceType2               | gmdn1                 | gmdn2               | customMade | riskClassification | productName | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
       | manufacturerAuto  | manufacturer  | Belarus     | 100   | General Medical Device     | Active Implantable Device | Blood weighing scale  | Autopsy measure     | true       |                    | ford focus  |             |              |              |                   |            |               |
       | authorisedRepAuto | authorisedRep | Bangladesh  | 100   | In Vitro Diagnostic Device | General Medical Device    | Androgen receptor IVD | Desiccating chamber |            | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+
+
+  @create_new_org @6912 @6914 @_sprint28 @wip
+  Scenario Outline: Users should NOT be able to update devices or products for an ongoing application
+    Given I am logged into appian as "<user>" user
+    And I go to register a new manufacturer page
+    When I create a new manufacturer using manufacturer test harness page with following data
+      | accountType | <accountType> |
+      | countryName | <countryName> |
+    And I add devices to NEWLY created manufacturer with following data
+      | deviceType     | General Medical Device |
+      | gmdnDefinition | Blood weighing scale   |
+      | customMade     | true                   |
+    And Proceed to payment and confirm submit device details
+    Then I should be returned to the manufacturers list page
+    When I go to list of manufacturers page and search and view stored manufacturer
+    And I should NOT see a button with the following text "Unregister manufacturer"
+    Then Verify devices displayed and GMDN details are correct
+    And I should NOT see a button with the following text "Manage devices"
+    When Verify name make model and other details are correct
+    And I should NOT see a button with the following text "Manage products"
+    Examples:
+      | user              | logBackInAs  | accountType   | countryName |
+      | manufacturerAuto  | businessAuto | manufacturer  | Brazil      |
+      | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  |
