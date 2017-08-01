@@ -415,6 +415,7 @@ public class TaskSection extends _Page {
     }
 
     public List<String> verifyDetailsAreCorrect(AccountRequestDO accountDetails) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         List<String> listOfInvalidFields = new ArrayList<>();
 
         //Verify organisation details
