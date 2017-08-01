@@ -235,7 +235,7 @@ public class AddDevices extends _Page {
     WebElement validationErrMessage;
 
     //Device Summary
-    @FindBy(xpath = ".//div[contains(text(),'Term name')]//following::a")
+    @FindBy(xpath = ".//div[contains(text(),'Term ')]//following::a")
     List<WebElement> listOfGMDNLinksInSummary;
     @FindBy(partialLinkText = "Change Notified Body")
     WebElement linkChangeNotifiedBody;
@@ -998,7 +998,8 @@ public class AddDevices extends _Page {
     }
 
     public boolean isAllTheGMDNValueDisplayed(List<String> listOfGmdns) {
-        WaitUtils.isPageLoadingComplete(driver, 1);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, btnAddAnotherDevice, TIMEOUT_15_SECOND);
         boolean allDisplayed = true;
         for (String gmdn : listOfGmdns) {
             if(!gmdn.trim().equals("")) {
