@@ -34,9 +34,9 @@ Feature: As a business user, I want a task to be created when new account reques
     When I search for stored organisation in "Accounts" page
     Then I should see at least <count> account matches
     Examples:
-      | user         | accountType   | count | countryName | reason                             | link                |
-      | businessNoor | manufacturer  | 1     | Turkey      | Account already exists             | New Account Request |
-      | businessNoor | authorisedRep | 1     | Estonia     | No authorisation evidence provided | New Account Request |
+      | user         | accountType   | count | countryName | reason                             |
+      | businessNoor | manufacturer  | 1     | Turkey      | Account already exists             |
+      | businessNoor | authorisedRep | 1     | Estonia     | No authorisation evidence provided |
 
 
   @3761 @_sprint9 @create_new_org @ignore @bug
@@ -54,9 +54,9 @@ Feature: As a business user, I want a task to be created when new account reques
     And Provide indication of devices made
     Then I should see stored manufacturer appear in the manufacturers list
     Examples:
-      | user         | accountType   | logBackInAs       | approveReject | count | countryName    | link                |
-      | businessNoor | manufacturer  | manufacturerNoor  | approve       | 1     | United Kingdom | New Account Request |
-      | businessNoor | authorisedRep | authorisedRepNoor | approve       | 1     | Netherland     | New Account Request |
+      | user         | accountType   | logBackInAs       | approveReject | count | countryName    |
+      | businessNoor | manufacturer  | manufacturerNoor  | approve       | 1     | United Kingdom |
+      | businessNoor | authorisedRep | authorisedRepNoor | approve       | 1     | Netherland     |
 
 
   @regression @mdcm-41 @2311 @_sprint2 @3365 @_sprint7 @2833 @_sprint14 @create_new_org
@@ -88,9 +88,9 @@ Feature: As a business user, I want a task to be created when new account reques
     And I search and view new task in AWIP page for the new account
     Then validate task is displaying correct new account details
     Examples:
-      | user         | accountType   | count | countryName | reason                             | link                |
-      | businessNoor | manufacturer  | 0     | Turkey      | Account already exists             | New Account Request |
-      | businessNoor | authorisedRep | 0     | Estonia     | No authorisation evidence provided | New Account Request |
+      | user         | accountType   | count | countryName | reason                             |
+      | businessNoor | manufacturer  | 0     | Turkey      | Account already exists             |
+      | businessNoor | authorisedRep | 0     | Estonia     | No authorisation evidence provided |
 
 
   @1945 @_sprint18 @create_new_org
