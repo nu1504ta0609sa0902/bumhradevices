@@ -54,9 +54,9 @@ Feature: As a business user, I want a task to be created when new account reques
     And Provide indication of devices made
     Then I should see stored organisation appear in the organisation list
     Examples:
-      | user         | accountType   | approveReject | count | countryName    |
-      | businessNoor | manufacturer  | approve       | 1     | United Kingdom |
-      | businessNoor | authorisedRep | approve       | 1     | Netherland     |
+      | user         | accountType   | approveReject | countryName    |
+      | businessNoor | manufacturer  | approve       | United Kingdom |
+      | businessNoor | authorisedRep | approve       | Netherland     |
 
 
   @regression @mdcm-41 @2311 @_sprint2 @3365 @_sprint7 @2833 @_sprint14 @create_new_org
@@ -88,9 +88,9 @@ Feature: As a business user, I want a task to be created when new account reques
     And I search and view new task in AWIP page for the new account
     Then validate task is displaying correct new account details
     Examples:
-      | user         | accountType   | count | countryName | reason                             |
-      | businessNoor | manufacturer  | 0     | Turkey      | Account already exists             |
-      | businessNoor | authorisedRep | 0     | Estonia     | No authorisation evidence provided |
+      | user         | accountType   | countryName |
+      | businessNoor | manufacturer  | Turkey      |
+      | businessNoor | authorisedRep | Estonia     |
 
 
   @1945 @_sprint18 @create_new_org

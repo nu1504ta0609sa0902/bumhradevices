@@ -31,6 +31,8 @@ public class ManufacturerList extends _Page {
     WebElement linkClickHere;
 
     //Registered or completed manufactureres
+    @FindBy(xpath = ".//h2[contains(text(),'Your Organisation')]//following::tbody[1]/tr/td[1]")
+    WebElement yourOrganisation;
     @FindBy(xpath = ".//h2[contains(text(),'Manufacturer')]//following::tbody[1]/tr/td[1]")
     List<WebElement> listOfManufacturerNames;
     @FindBy(xpath = ".//h2[contains(text(),'Manufacturer')]//following::tbody[1]/tr/td[4]")
@@ -350,5 +352,11 @@ public class ManufacturerList extends _Page {
     }
     public boolean isSearchingCompleted(WebDriver driver, int timeout) {
         return PageUtils.isElementNotVisible(driver, itemCount, timeout);
+    }
+
+    public boolean isYourOrganisationCorrect(String name) {
+        WaitUtils.waitForElementToBeVisible(driver, yourOrganisation, TIMEOUT_15_SECOND);
+        boolean isCorrect = yourOrganisation.getText().contains(name);
+        return isCorrect;
     }
 }

@@ -212,6 +212,17 @@ public class ExternalHomePageSteps extends CommonSteps {
         Assert.assertThat("Organisation Name Expected In Manufacturer List : " + name, isFoundInManufacturerList, Matchers.is(true));
     }
 
+    @Then("^I should see stored organisation appear in the organisation list$")
+    public void iShouldSeeTheNewAccountInYourOrganisationList() throws Throwable {
+        externalHomePage = mainNavigationBar.clickExternalHOME();
+        manufacturerList = externalHomePage.gotoListOfManufacturerPage();
+
+        String name = (String) scenarioSession.getData(SessionKey.organisationName);
+        boolean yourOrgIsCorrect = manufacturerList.isYourOrganisationCorrect(name);
+
+        Assert.assertThat("Your Organisation Name Expected : " + name, yourOrgIsCorrect, Matchers.is(true));
+    }
+
 
     @When("^I add devices to NEWLY created manufacturer with following data$")
     public void iAddDevicesToNewlyCreatedManufacturerWithFollowingData(Map<String, String> dataSets) throws Throwable {
