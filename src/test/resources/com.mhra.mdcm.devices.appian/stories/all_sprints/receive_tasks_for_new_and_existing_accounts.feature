@@ -52,11 +52,11 @@ Feature: As a business user, I want a task to be created when new account reques
     When I logout and logback in with newly created account and update the password to "MHRA12345A"
     And I go to list of manufacturers page
     And Provide indication of devices made
-    Then I should see stored manufacturer appear in the manufacturers list
+    Then I should see stored organisation appear in the organisation list
     Examples:
-      | user         | accountType   | logBackInAs       | approveReject | count | countryName    |
-      | businessNoor | manufacturer  | manufacturerNoor  | approve       | 1     | United Kingdom |
-      | businessNoor | authorisedRep | authorisedRepNoor | approve       | 1     | Netherland     |
+      | user         | accountType   | approveReject | count | countryName    |
+      | businessNoor | manufacturer  | approve       | 1     | United Kingdom |
+      | businessNoor | authorisedRep | approve       | 1     | Netherland     |
 
 
   @regression @mdcm-41 @2311 @_sprint2 @3365 @_sprint7 @2833 @_sprint14 @create_new_org
