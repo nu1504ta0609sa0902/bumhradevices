@@ -34,152 +34,152 @@ public class TasksPageSteps extends CommonSteps {
         tasksPage = mainNavigationBar.clickTasks();
     }
 
-    @Then("^I should see a new task for the new account$")
-    public void i_should_see_a_new_task_for_the_new_account() throws Throwable {
-        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
-        String taskType = "New Account Request";
-
-        //Verify new taskSection generated and its the correct one
-        boolean contains = false;
-        boolean isCorrectTask = false;
-        int count2 = 0;
-        do {
-            mainNavigationBar = new MainNavigationBar(driver);
-            tasksPage = mainNavigationBar.clickTasks();
-
-            //Click on link number X
-            boolean isLinkVisible = tasksPage.isLinkVisible(orgName);
-            if (isLinkVisible) {
-                taskSection = tasksPage.clickOnLinkWithText(orgName);
-                isCorrectTask = taskSection.isCorrectTask(orgName, taskType);
-                if (isCorrectTask) {
-                    contains = true;
-                } else {
-                    count2++;
-                }
-            }else{
-                count2++;
-            }
-        } while (!contains && count2 <= 5);
-
-        //If its still not found than try the first 1 again
-        if (!contains) {
-            taskSection = tasksPage.clickOnLinkWithText(orgName);
-            isCorrectTask = taskSection.isCorrectTask(orgName, taskType);
-            if (isCorrectTask) {
-                contains = true;
-            }
-        }
-        scenarioSession.putData(SessionKey.taskType, taskType);
-        assertThat("Task not found for organisation : " + orgName, contains, is(equalTo(true)));
-
-    }
-
-
-    @Then("^I view new task with link \"([^\"]*)\" for the new account$")
-    public void i_view_new_task_for_the_new_account(String link) throws Throwable {
-        String registeredStatus = (String) scenarioSession.getData(SessionKey.registeredStatus);
-        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
-
-        if(registeredStatus!=null && registeredStatus.toLowerCase().equals("not registered")){
-            link = link.replace("Update","New");
-        }
-
-        //Go to tasks page
-        mainNavigationBar = new MainNavigationBar(driver);
-        //tasksPage = mainNavigationBar.clickTasks();
-
-        //Verify new taskSection generated and its the correct one
-        boolean contains = false;
-        boolean isCorrectTask = false;
-        int count = 0;
-
-        do {
-            //mainNavigationBar = new MainNavigationBar(driver);
-            tasksPage = mainNavigationBar.clickTasks();
-
-            //Click on link number X
-            boolean isLinkVisible = tasksPage.isLinkVisible(orgName);
-            if (isLinkVisible) {
-                taskSection = tasksPage.clickOnLinkWithText(orgName);
-                isCorrectTask = taskSection.isCorrectTask(orgName);
-                if (isCorrectTask) {
-                    contains = true;
-                } else {
-                    count++;
-                }
-            }else{
-                count++;
-            }
-        } while (!contains && count <= 2);
-
-        //If its still not found than try the first 1 again
-        if (!contains) {
-            taskSection = tasksPage.clickOnLinkWithText(orgName);
-            isCorrectTask = taskSection.isCorrectTask(orgName);
-            if (isCorrectTask) {
-                contains = true;
-            }
-        }
-
-        assertThat("Task not found for organisation : " + orgName, contains, is(equalTo(true)));
-
-    }
-
-    @When("^I assign the task to me and \"([^\"]*)\" the generated task$")
-    public void i_accept_the_task_and_the_generated_task(String approveOrReject) throws Throwable {
-        //accept the taskSection and approve or reject it
-        taskSection = taskSection.acceptTask();
-
-        //Approve or reject
-        String taskType = (String) scenarioSession.getData(SessionKey.taskType);
-        if (approveOrReject.equals("approve")) {
-            if(taskType!=null && taskType.contains("New Account")) {
-                tasksPage = taskSection.approveTaskNewAccount();
-            }else if(taskType!=null && taskType.contains("New Manufacturer")){
-                tasksPage = taskSection.acceptRegistrationTask();
-            }else if(taskType!=null && taskType.contains("Update Manufacturer Registration Request")){
-                tasksPage = taskSection.approveTask();
-            }else{
-                //Assume New Manufacturer
-                tasksPage = taskSection.acceptRegistrationTask();
-            }
-        } else {
-            //Rejection process is slightly different, you need to enter a rejection reason
-            taskSection = taskSection.rejectTask();
-            tasksPage = taskSection.enterRejectionReason("This may have been removed", RandomDataUtils.getRandomTestName("Account already exists "));
-        }
-    }
+//    @Then("^I should see a new task for the new account$")
+//    public void i_should_see_a_new_task_for_the_new_account() throws Throwable {
+//        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
+//        String taskType = "New Account Request";
+//
+//        //Verify new taskSection generated and its the correct one
+//        boolean contains = false;
+//        boolean isCorrectTask = false;
+//        int count2 = 0;
+//        do {
+//            mainNavigationBar = new MainNavigationBar(driver);
+//            tasksPage = mainNavigationBar.clickTasks();
+//
+//            //Click on link number X
+//            boolean isLinkVisible = tasksPage.isLinkVisible(orgName);
+//            if (isLinkVisible) {
+//                taskSection = tasksPage.clickOnLinkWithText(orgName);
+//                isCorrectTask = taskSection.isCorrectTask(orgName, taskType);
+//                if (isCorrectTask) {
+//                    contains = true;
+//                } else {
+//                    count2++;
+//                }
+//            }else{
+//                count2++;
+//            }
+//        } while (!contains && count2 <= 5);
+//
+//        //If its still not found than try the first 1 again
+//        if (!contains) {
+//            taskSection = tasksPage.clickOnLinkWithText(orgName);
+//            isCorrectTask = taskSection.isCorrectTask(orgName, taskType);
+//            if (isCorrectTask) {
+//                contains = true;
+//            }
+//        }
+//        scenarioSession.putData(SessionKey.taskType, taskType);
+//        assertThat("Task not found for organisation : " + orgName, contains, is(equalTo(true)));
+//
+//    }
 
 
-    @When("^I assign the task to me and reject the task for following reason \"([^\"]*)\"$")
-    public void i_reject_the_task_for_following_reasons(String reason) throws Throwable {
-        //accept the taskSection and approve or reject it
-        taskSection = taskSection.acceptTask();
+//    @Then("^I view new task with link \"([^\"]*)\" for the new account$")
+//    public void i_view_new_task_for_the_new_account(String link) throws Throwable {
+//        String registeredStatus = (String) scenarioSession.getData(SessionKey.registeredStatus);
+//        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
+//
+//        if(registeredStatus!=null && registeredStatus.toLowerCase().equals("not registered")){
+//            link = link.replace("Update","New");
+//        }
+//
+//        //Go to tasks page
+//        mainNavigationBar = new MainNavigationBar(driver);
+//        //tasksPage = mainNavigationBar.clickTasks();
+//
+//        //Verify new taskSection generated and its the correct one
+//        boolean contains = false;
+//        boolean isCorrectTask = false;
+//        int count = 0;
+//
+//        do {
+//            //mainNavigationBar = new MainNavigationBar(driver);
+//            tasksPage = mainNavigationBar.clickTasks();
+//
+//            //Click on link number X
+//            boolean isLinkVisible = tasksPage.isLinkVisible(orgName);
+//            if (isLinkVisible) {
+//                taskSection = tasksPage.clickOnLinkWithText(orgName);
+//                isCorrectTask = taskSection.isCorrectTask(orgName);
+//                if (isCorrectTask) {
+//                    contains = true;
+//                } else {
+//                    count++;
+//                }
+//            }else{
+//                count++;
+//            }
+//        } while (!contains && count <= 2);
+//
+//        //If its still not found than try the first 1 again
+//        if (!contains) {
+//            taskSection = tasksPage.clickOnLinkWithText(orgName);
+//            isCorrectTask = taskSection.isCorrectTask(orgName);
+//            if (isCorrectTask) {
+//                contains = true;
+//            }
+//        }
+//
+//        assertThat("Task not found for organisation : " + orgName, contains, is(equalTo(true)));
+//
+//    }
 
-        String taskType = (String) scenarioSession.getData(SessionKey.taskType);
-        if(taskType!=null && taskType.contains("New Account")) {
-            taskSection = taskSection.rejectTask();
-            reason = null;
-        }else if(taskType!=null && taskType.contains("New Manufacturer")){
-            taskSection = taskSection.rejectRegistrationTask();
-        }else{
-            //Assume New Manufacturer
-            taskSection = taskSection.rejectRegistrationTask();
-        }
+//    @When("^I assign the task to me and \"([^\"]*)\" the generated task$")
+//    public void i_accept_the_task_and_the_generated_task(String approveOrReject) throws Throwable {
+//        //accept the taskSection and approve or reject it
+//        taskSection = taskSection.acceptTask();
+//
+//        //Approve or reject
+//        String taskType = (String) scenarioSession.getData(SessionKey.taskType);
+//        if (approveOrReject.equals("approve")) {
+//            if(taskType!=null && taskType.contains("New Account")) {
+//                tasksPage = taskSection.approveTaskNewAccount();
+//            }else if(taskType!=null && taskType.contains("New Manufacturer")){
+//                tasksPage = taskSection.acceptRegistrationTask();
+//            }else if(taskType!=null && taskType.contains("Update Manufacturer Registration Request")){
+//                tasksPage = taskSection.approveTask();
+//            }else{
+//                //Assume New Manufacturer
+//                tasksPage = taskSection.acceptRegistrationTask();
+//            }
+//        } else {
+//            //Rejection process is slightly different, you need to enter a rejection reason
+//            taskSection = taskSection.rejectTask();
+//            tasksPage = taskSection.enterRejectionReason("This may have been removed", RandomDataUtils.getRandomTestName("Account already exists "));
+//        }
+//    }
 
-        //Enter a reason for rejection @bug : reason for rejection radio buttons no longer appearing
-        if(reason!=null) {
-            if (reason.equals("Other")) {
-                //Rejection process is slightly different, you need to enter a rejection reason
-                tasksPage = taskSection.enterRejectionReason("Other", RandomDataUtils.getRandomTestName("Comment Test"));
-            } else {
-                tasksPage = taskSection.enterRejectionReason(reason, RandomDataUtils.getRandomTestName("Reject task because : " + reason));
-            }
-        }else {
-            taskSection.enterRejectionReason(null, RandomDataUtils.getRandomTestName("Reject task because : " + reason));
-        }
-    }
+
+//    @When("^I assign the task to me and reject the task for following reason \"([^\"]*)\"$")
+//    public void i_reject_the_task_for_following_reasons(String reason) throws Throwable {
+//        //accept the taskSection and approve or reject it
+//        taskSection = taskSection.acceptTask();
+//
+//        String taskType = (String) scenarioSession.getData(SessionKey.taskType);
+//        if(taskType!=null && taskType.contains("New Account")) {
+//            taskSection = taskSection.rejectTask();
+//            reason = null;
+//        }else if(taskType!=null && taskType.contains("New Manufacturer")){
+//            taskSection = taskSection.rejectRegistrationTask();
+//        }else{
+//            //Assume New Manufacturer
+//            taskSection = taskSection.rejectRegistrationTask();
+//        }
+//
+//        //Enter a reason for rejection @bug : reason for rejection radio buttons no longer appearing
+//        if(reason!=null) {
+//            if (reason.equals("Other")) {
+//                //Rejection process is slightly different, you need to enter a rejection reason
+//                tasksPage = taskSection.enterRejectionReason("Other", RandomDataUtils.getRandomTestName("Comment Test"));
+//            } else {
+//                tasksPage = taskSection.enterRejectionReason(reason, RandomDataUtils.getRandomTestName("Reject task because : " + reason));
+//            }
+//        }else {
+//            taskSection.enterRejectionReason(null, RandomDataUtils.getRandomTestName("Reject task because : " + reason));
+//        }
+//    }
 
 
     @Then("^The task should be removed from tasks list$")
@@ -189,128 +189,128 @@ public class TasksPageSteps extends CommonSteps {
         assertThat("Task should be removed for organisation : " + orgName, linkVisible, is(equalTo(false)));
     }
 
-    @Then("^The task with link \"([^\"]*)\" should be removed from tasks list$")
-    public void theTaskWithLinkShouldBeRemovedFromTaskList(String link) {
-        String registeredStatus = (String) scenarioSession.getData(SessionKey.registeredStatus);
-        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
+//    @Then("^The task with link \"([^\"]*)\" should be removed from tasks list$")
+//    public void theTaskWithLinkShouldBeRemovedFromTaskList(String link) {
+//        String registeredStatus = (String) scenarioSession.getData(SessionKey.registeredStatus);
+//        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
+//
+//        if(registeredStatus!=null && registeredStatus.toLowerCase().equals("not registered")){
+//            link = link.replace("Update","New");
+//        }
+//
+//        //int position = (int) scenarioSession.getData(SessionKey.position);
+//        //taskSection = tasksPage.clickOnTaskNumber(position, link);
+//        boolean isVisible = tasksPage.isLinkVisible(orgName, 5);
+//        assertThat("Task should be removed for organisation : " + orgName, isVisible, is(equalTo(false)));
+//    }
 
-        if(registeredStatus!=null && registeredStatus.toLowerCase().equals("not registered")){
-            link = link.replace("Update","New");
-        }
+//    @When("^I go to WIP tasks page$")
+//    public void iGoToWIPTaksPage() throws Throwable {
+//        mainNavigationBar = new MainNavigationBar(driver);
+//        tasksPage = mainNavigationBar.clickTasks();
+//        taskSection = tasksPage.gotoWIPTasksPage();
+//
+//        //Sort by submitted, at the moment sorting by default not working as expected
+//        taskSection = taskSection.sortBy("Submitted", 2);
+//    }
 
-        //int position = (int) scenarioSession.getData(SessionKey.position);
-        //taskSection = tasksPage.clickOnTaskNumber(position, link);
-        boolean isVisible = tasksPage.isLinkVisible(orgName, 5);
-        assertThat("Task should be removed for organisation : " + orgName, isVisible, is(equalTo(false)));
-    }
-
-    @When("^I go to WIP tasks page$")
-    public void iGoToWIPTaksPage() throws Throwable {
-        mainNavigationBar = new MainNavigationBar(driver);
-        tasksPage = mainNavigationBar.clickTasks();
-        taskSection = tasksPage.gotoWIPTasksPage();
-
-        //Sort by submitted, at the moment sorting by default not working as expected
-        taskSection = taskSection.sortBy("Submitted", 2);
-    }
-
-    @When("^I go to WIP page and sort by submitted date (\\d+) times$")
-    public void iGoToWIPTaksPageAndSortXNumberOfTimes(int numberOfTimesToSort) throws Throwable {
-        mainNavigationBar = new MainNavigationBar(driver);
-        tasksPage = mainNavigationBar.clickTasks();
-        taskSection = tasksPage.gotoWIPTasksPage();
-
-        //Sort by submitted, at the moment sorting by default not working as expected
-        taskSection = taskSection.sortBy("Submitted", numberOfTimesToSort);
-    }
-
-
-    @When("^I wait for task to appear for stored manufacturer in WIP page$")
-    public void iWaitForTaskToAppearForStoredManufacturerInWIPPage() throws Throwable {
-        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
-        boolean isVisible = false;
-        int count = 0;
-        do {
-            isVisible = taskSection.isTaskVisibleWithName(orgName);
-            if(!isVisible){
-                tasksPage = mainNavigationBar.clickTasks();
-                taskSection = tasksPage.gotoWIPTasksPage();
-                //Sort by submitted, at the moment sorting by default not working as expected
-                taskSection = taskSection.sortBy("Submitted", 2);
-            }
-            count++;
-        }while(!isVisible && count < 5);
-    }
-
-    @Then("^I should see a new task for the new account in WIP page$")
-    public void i_should_see_a_new_task_for_the_new_account_in_WIP_page() throws Throwable {
-        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
-
-        boolean tasks = mainNavigationBar.isCorrectPage("Tasks");
-        if(!tasks) {
-            mainNavigationBar = new MainNavigationBar(driver);
-            tasksPage = mainNavigationBar.clickTasks();
-        }
-
-        taskSection = tasksPage.gotoWIPTasksPage();
-
-        //Sort by submitted, at the moment sorting doesn't work as expected
-        taskSection = taskSection.sortBy("Submitted", 2);
-
-        //Click on link number X
-        taskSection = taskSection.clickOnTaskName(orgName);
-        boolean isCorrectTask = taskSection.isCorrectTask(orgName);
-
-        String taskType = (String) scenarioSession.getData(SessionKey.taskType);
-        if(taskType == null)
-        scenarioSession.putData(SessionKey.taskType, "New Account");
-
-        assertThat("Task not found for organisation : " + orgName, isCorrectTask, is(equalTo(true)));
-
-    }
+//    @When("^I go to WIP page and sort by submitted date (\\d+) times$")
+//    public void iGoToWIPTaksPageAndSortXNumberOfTimes(int numberOfTimesToSort) throws Throwable {
+//        mainNavigationBar = new MainNavigationBar(driver);
+//        tasksPage = mainNavigationBar.clickTasks();
+//        taskSection = tasksPage.gotoWIPTasksPage();
+//
+//        //Sort by submitted, at the moment sorting by default not working as expected
+//        taskSection = taskSection.sortBy("Submitted", numberOfTimesToSort);
+//    }
 
 
-    @When("^I view task for the new account in WIP page$")
-    public void i_view_task_related_to_stored_account(){
-        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
+//    @When("^I wait for task to appear for stored manufacturer in WIP page$")
+//    public void iWaitForTaskToAppearForStoredManufacturerInWIPPage() throws Throwable {
+//        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
+//        boolean isVisible = false;
+//        int count = 0;
+//        do {
+//            isVisible = taskSection.isTaskVisibleWithName(orgName);
+//            if(!isVisible){
+//                tasksPage = mainNavigationBar.clickTasks();
+//                taskSection = tasksPage.gotoWIPTasksPage();
+//                //Sort by submitted, at the moment sorting by default not working as expected
+//                taskSection = taskSection.sortBy("Submitted", 2);
+//            }
+//            count++;
+//        }while(!isVisible && count < 5);
+//    }
 
-        //Click on link number X
-        taskSection = taskSection.clickOnTaskName(orgName);
-        boolean isCorrectTask = taskSection.isCorrectTask(orgName);
+//    @Then("^I should see a new task for the new account in WIP page$")
+//    public void i_should_see_a_new_task_for_the_new_account_in_WIP_page() throws Throwable {
+//        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
+//
+//        boolean tasks = mainNavigationBar.isCorrectPage("Tasks");
+//        if(!tasks) {
+//            mainNavigationBar = new MainNavigationBar(driver);
+//            tasksPage = mainNavigationBar.clickTasks();
+//        }
+//
+//        taskSection = tasksPage.gotoWIPTasksPage();
+//
+//        //Sort by submitted, at the moment sorting doesn't work as expected
+//        taskSection = taskSection.sortBy("Submitted", 2);
+//
+//        //Click on link number X
+//        taskSection = taskSection.clickOnTaskName(orgName);
+//        boolean isCorrectTask = taskSection.isCorrectTask(orgName);
+//
+//        String taskType = (String) scenarioSession.getData(SessionKey.taskType);
+//        if(taskType == null)
+//        scenarioSession.putData(SessionKey.taskType, "New Account");
+//
+//        assertThat("Task not found for organisation : " + orgName, isCorrectTask, is(equalTo(true)));
+//
+//    }
 
-        String taskType = (String) scenarioSession.getData(SessionKey.taskType);
-        if(taskType == null)
-            scenarioSession.putData(SessionKey.taskType, "New Account");
 
-        assertThat("Task not found for organisation : " + orgName, isCorrectTask, is(equalTo(true)));
-    }
-
-
-    @When("^I view task for the stored account in WIP page$")
-    public void i_view_task_for_the_stored_account(){
-        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
-
-        //Click on link number X
-        taskSection = taskSection.clickOnTaskName(orgName);
-        boolean isCorrectTask = taskSection.isCorrectTask(orgName);
-
-        String taskType = (String) scenarioSession.getData(SessionKey.taskType);
-        if(taskType == null)
-            scenarioSession.putData(SessionKey.taskType, "New Account");
-
-        assertThat("Task not found for organisation : " + orgName, isCorrectTask, is(equalTo(true)));
-    }
+//    @When("^I view task for the new account in WIP page$")
+//    public void i_view_task_related_to_stored_account(){
+//        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
+//
+//        //Click on link number X
+//        taskSection = taskSection.clickOnTaskName(orgName);
+//        boolean isCorrectTask = taskSection.isCorrectTask(orgName);
+//
+//        String taskType = (String) scenarioSession.getData(SessionKey.taskType);
+//        if(taskType == null)
+//            scenarioSession.putData(SessionKey.taskType, "New Account");
+//
+//        assertThat("Task not found for organisation : " + orgName, isCorrectTask, is(equalTo(true)));
+//    }
 
 
-    @Then("^The task should be removed from WIP tasks list$")
-    public void theTaskShouldBeRemovedFromWIPTaskList() {
-        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
+//    @When("^I view task for the stored account in WIP page$")
+//    public void i_view_task_for_the_stored_account(){
+//        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
+//
+//        //Click on link number X
+//        taskSection = taskSection.clickOnTaskName(orgName);
+//        boolean isCorrectTask = taskSection.isCorrectTask(orgName);
+//
+//        String taskType = (String) scenarioSession.getData(SessionKey.taskType);
+//        if(taskType == null)
+//            scenarioSession.putData(SessionKey.taskType, "New Account");
+//
+//        assertThat("Task not found for organisation : " + orgName, isCorrectTask, is(equalTo(true)));
+//    }
 
-        //Sort by submitted, at the moment sorting doesnt work as expected
-        taskSection = taskSection.sortBy("Submitted", 2);
-        boolean isTaskVisible = taskSection.isTaskVisibleWithName(orgName);
-        assertThat("Task not found for organisation : " + orgName, isTaskVisible, is(equalTo(false)));
-    }
+
+//    @Then("^The task should be removed from WIP tasks list$")
+//    public void theTaskShouldBeRemovedFromWIPTaskList() {
+//        String orgName = (String) scenarioSession.getData(SessionKey.organisationName);
+//
+//        //Sort by submitted, at the moment sorting doesnt work as expected
+//        taskSection = taskSection.sortBy("Submitted", 2);
+//        boolean isTaskVisible = taskSection.isTaskVisibleWithName(orgName);
+//        assertThat("Task not found for organisation : " + orgName, isTaskVisible, is(equalTo(false)));
+//    }
 
     /**
      * This is normally done after a search is performed to filter out the correct data
@@ -528,6 +528,9 @@ public class TasksPageSteps extends CommonSteps {
             }else if(taskType!=null && taskType.contains("New Manufacturer")){
                 businessManufacturerDetails = businessManufacturerDetails.rejectAWIPManufacturerTask();
                 businessManufacturerDetails = businessManufacturerDetails.enterManufacturerRejectionReason("Submitted in error", RandomDataUtils.getRandomTestName("Account already exists "));
+            }else if(taskType!=null && taskType.contains("CFS Order") ){
+                businessManufacturerDetails = businessManufacturerDetails.rejectAWIPManufacturerTask();
+                businessManufacturerDetails = businessManufacturerDetails.enterManufacturerRejectionReason("Submitted in error", RandomDataUtils.getRandomTestName("Account already exists "));
             }
         }
     }
@@ -553,15 +556,15 @@ public class TasksPageSteps extends CommonSteps {
                 businessManufacturerDetails = businessManufacturerDetails.approveAWIPManufacturerTask();
                 businessManufacturerDetails = businessManufacturerDetails.approveAWIPAllDevices();
                 businessManufacturerDetails = businessManufacturerDetails.completeTheApplication();
-            }else{
-                //Assume New Manufacturer
-                tasksPage = taskSection.acceptRegistrationTask();
             }
         } else {
             if(taskType!=null && taskType.contains("New Account")) {
                 businessManufacturerDetails = businessManufacturerDetails.rejectAWIPNewAccountRegistration();
                 businessManufacturerDetails = businessManufacturerDetails.enterRejectionReason("Account already exists", RandomDataUtils.getRandomTestName("Account already exists "));
             }else if(taskType!=null && taskType.contains("New Manufacturer")){
+                businessManufacturerDetails = businessManufacturerDetails.rejectAWIPManufacturerTask();
+                businessManufacturerDetails = businessManufacturerDetails.enterManufacturerRejectionReason("Submitted in error", RandomDataUtils.getRandomTestName("Account already exists "));
+            }else if(taskType!=null && taskType.contains("CFS Order") ){
                 businessManufacturerDetails = businessManufacturerDetails.rejectAWIPManufacturerTask();
                 businessManufacturerDetails = businessManufacturerDetails.enterManufacturerRejectionReason("Submitted in error", RandomDataUtils.getRandomTestName("Account already exists "));
             }
@@ -588,9 +591,12 @@ public class TasksPageSteps extends CommonSteps {
             if(taskType!=null && taskType.contains("New Account")) {
                 businessManufacturerDetails = businessManufacturerDetails.rejectAWIPNewAccountRegistration();
                 businessManufacturerDetails = businessManufacturerDetails.enterRejectionReason("Account already exists", RandomDataUtils.getRandomTestName("Account already exists "));
-            }else if(taskType!=null && taskType.contains("New Manufacturer")){
+            }else if(taskType!=null && taskType.contains("New Manufacturer") ){
                 businessManufacturerDetails = businessManufacturerDetails.rejectAWIPManufacturerTask();
                 businessManufacturerDetails = businessManufacturerDetails.enterManufacturerRejectionReason("Submitted in error", RandomDataUtils.getRandomTestName("Account already exists "));
+            }else if(taskType!=null && taskType.contains("CFS Order") ){
+                businessManufacturerDetails = businessManufacturerDetails.rejectAWIPCFSOrder();
+                businessManufacturerDetails = businessManufacturerDetails.enterCFSOrderRejectionReason(reason, RandomDataUtils.getRandomTestName("Account already exists "));
             }
         }
     }
@@ -717,13 +723,21 @@ public class TasksPageSteps extends CommonSteps {
         taskSection = taskSection.searchAWIPPageForAccount(accountNameOrReference);
         boolean isCompleted = taskSection.isSearchingCompleted();
 
-        //boolean isStatusCorrect = taskSection.isAWIPTaskStatusCorrect(status);
+        boolean isStatusCorrect = taskSection.isAWIPTaskStatusCorrect(status);
         //Assert.assertThat("Expected Status in Application WIP page : " + status + " for application : " + reference, isStatusCorrect, is(true));
+    }
 
-        //get the reference number
-        //String reference = taskSection.getTheApplicationReferenceNumber();
-        //log.info("Found Application reference number : " + reference);
-        //scenarioSession.putData(SessionKey.newApplicationReferenceNumber, reference);
+    @Then("^The task status in AWIP page should be \"([^\"]*)\" for the cfs task$")
+    public void the_task_status_in_AWIP_page_should_be_for_the_cfs_task(String status) throws Throwable {
+        String accountNameOrReference = (String) scenarioSession.getData(SessionKey.organisationName);
+        mainNavigationBar = new MainNavigationBar(driver);
+        tasksPage = mainNavigationBar.clickTasks();
+        taskSection = tasksPage.gotoApplicationWIPPage();
+        taskSection = taskSection.searchAWIPPageForAccount(accountNameOrReference);
+        boolean isCompleted = taskSection.isSearchingCompleted();
+
+        boolean isStatusCorrect = taskSection.isAWIPTaskStatusCorrect(status);
+        //Assert.assertThat("Expected Status in Application WIP page : " + status + " for application : " + reference, isStatusCorrect, is(true));
     }
 
     @Then("^I should see a button with the following text \"([^\"]*)\"$")

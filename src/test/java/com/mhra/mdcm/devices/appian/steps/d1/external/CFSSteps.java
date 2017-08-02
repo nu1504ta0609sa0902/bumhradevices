@@ -128,6 +128,7 @@ public class CFSSteps extends CommonSteps {
         //Store data to be verified later
         scenarioSession.putData(SessionKey.organisationCountry, countryName);
         scenarioSession.putData(SessionKey.numberOfCertificates, noOfCFS);
+        scenarioSession.putData(SessionKey.taskType, "CFS Order");
     }
 
     @When("^I order cfs for a country with following data$")
@@ -146,6 +147,7 @@ public class CFSSteps extends CommonSteps {
         //Store data to be verified later
         scenarioSession.putData(SessionKey.organisationCountry, countryName);
         scenarioSession.putData(SessionKey.numberOfCertificates, noOfCFS);
+        scenarioSession.putData(SessionKey.taskType, "CFS Order");
     }
 
 

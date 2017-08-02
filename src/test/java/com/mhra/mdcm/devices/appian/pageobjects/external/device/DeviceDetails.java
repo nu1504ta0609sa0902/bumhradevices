@@ -58,7 +58,7 @@ public class DeviceDetails extends _Page {
      * ---------------------------------------------
      */
 
-    @FindBy(xpath = ".//label[contains(text(),'understand the requirements')]")
+    @FindBy(xpath = ".//label[contains(text(),'agree to the terms and cond')]")
     WebElement cbxConfirmTermsAndConditions;
 
     @FindBy(css = ".GridWidget---checkbox")

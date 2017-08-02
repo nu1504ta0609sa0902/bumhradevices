@@ -85,6 +85,8 @@ public class BusinessManufacturerDetails extends _Page {
     //Rejection reason CFS new manufacturer
     @FindBy(xpath = ".//button[.='Reject new manufacturer']")
     WebElement rejectCFSNewManufacturer;
+    @FindBy(xpath = ".//button[.='Reject order']")
+    WebElement rejectCFSNewOrder;
     @FindBy(xpath = ".//*[.='Select a rejection reason']//following::input[3]")
     WebElement cfsReasonOther;
     @FindBy(xpath = ".//*[.='Select a rejection reason']//following::input[5]")
@@ -99,6 +101,8 @@ public class BusinessManufacturerDetails extends _Page {
     WebElement btnApproveManufacturer;
     @FindBy(xpath = ".//button[contains(text(), 'Reject manufacturer')]")
     WebElement btnRejectManufacturer;
+    @FindBy(xpath = ".//button[contains(text(), 'Reject order')]")
+    WebElement btnRejectOrder;
     @FindBy(xpath = ".//button[contains(text(), 'Approve all devices')]")
     WebElement btnApproveAllDevices;
     @FindBy(xpath = ".//button[contains(text(), 'Change')]")
@@ -234,13 +238,13 @@ public class BusinessManufacturerDetails extends _Page {
 
 
     public BusinessManufacturerDetails assignAWIPTaskToMe() {
-        WaitUtils.waitForElementToBeClickable(driver, btnAssignToMe, TIMEOUT_20_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, btnAssignToMe, TIMEOUT_DEFAULT);
         btnAssignToMe.click();
         return new BusinessManufacturerDetails(driver);
     }
 
     public BusinessManufacturerDetails assignAWIPTaskToColleague() {
-        WaitUtils.waitForElementToBeClickable(driver, btnAssignToColleague, TIMEOUT_20_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, btnAssignToColleague, TIMEOUT_DEFAULT);
         btnAssignToColleague.click();
         return new BusinessManufacturerDetails(driver);
     }
@@ -287,6 +291,14 @@ public class BusinessManufacturerDetails extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, btnRejectManufacturer, TIMEOUT_DEFAULT);
         PageUtils.doubleClick(driver, btnRejectManufacturer);
         log.info("Reject the manufacturer");
+        return new BusinessManufacturerDetails(driver);
+    }
+
+    public BusinessManufacturerDetails rejectAWIPCFSOrder() {
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, btnRejectOrder, TIMEOUT_DEFAULT);
+        PageUtils.doubleClick(driver, btnRejectOrder);
+        log.info("Reject the CFS Order");
         return new BusinessManufacturerDetails(driver);
     }
 
@@ -411,6 +423,28 @@ public class BusinessManufacturerDetails extends _Page {
         return new BusinessManufacturerDetails(driver);
     }
 
+    public BusinessManufacturerDetails enterCFSOrderRejectionReason(String reason, String randomTestComment) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+
+        if (reason != null) {
+            if (reason.contains("Other")) {
+                //Comment is mandatory
+                WaitUtils.waitForElementToBeClickable(driver, cfsReasonOther, TIMEOUT_10_SECOND);
+                other.click();
+
+                //Enter comment
+                WaitUtils.waitForElementToBeClickable(driver, commentArea, TIMEOUT_10_SECOND);
+                commentArea.sendKeys(randomTestComment);
+            } else if (reason.contains("Submitted in error")) {
+                WaitUtils.waitForElementToBeClickable(driver, cfsReasonSubmittedInError, TIMEOUT_10_SECOND);
+                PageUtils.clickIfVisible(driver, cfsReasonSubmittedInError);
+            }
+        }
+
+        //Submit rejection
+        PageUtils.doubleClick(driver, rejectCFSNewOrder);
+        return new BusinessManufacturerDetails(driver);
+    }
 
     public BusinessDeviceDetails clickOnDeviceAndProductsTab() {
         //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
@@ -491,4 +525,5 @@ public class BusinessManufacturerDetails extends _Page {
         String ref = text.substring(start+7, start+21);
         return ref;
     }
+
 }

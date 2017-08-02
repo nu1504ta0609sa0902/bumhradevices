@@ -228,3 +228,46 @@ Feature: Able to add CFS for products and devices that are already registered
       | logInAs           | accountType   |
       | manufacturerAuto  | manufacturer  |
       | authorisedRepAuto | authorisedRep |
+
+  @1992 @5349 @_sprint21 @6012 @_sprint22 @create_new_org
+  Scenario Outline: Users should be able to search and filter for products and devices
+    Given I am logged into appian as "<logInAs>" user
+# Submit a new CFS manufacturer application
+    And I go to device certificate of free sale page
+    Then I should see a list of manufacturers available for CFS
+    When I create a new manufacturer using CFS manufacturer test harness page with following data
+      | accountType | manufacturer |
+      | countryName | Brazil       |
+    And I add devices to NEWLY created CFS manufacturer with following data
+      | deviceType     | Active Implantable Device |
+      | gmdnDefinition | Desiccating chamber       |
+      | customMade     | false                     |
+      | notifiedBody   | NB 0086 BSI               |
+      | productName    | Product1NU1               |
+      | productModel   | Model1NU1                 |
+    And I add another device to SELECTED CFS manufacturer with following data
+      | deviceType           | General Medical Device |
+      | gmdnDefinition       | Blood weighing scale   |
+      | customMade           | false                  |
+      | riskClassification   | Class2A                |
+      | relatedDeviceSterile | true                   |
+      | notifiedBody         | NB 0086 BSI            |
+    Then I should see correct device data in the review page
+    And I submit the cfs application for approval
+    When I logout and log back into appian as "businessAuto" user
+    And I search and view new task in AWIP page for the newly created manufacturer
+    And I assign the AWIP page task to me and "approve" the generated task
+    Then The task status in AWIP page should be "Completed" for the newly created manufacturer
+    And I should received an email for stored manufacturer with heading containing "Free Sale" and stored application identifier
+# Now verify search and filter functionalities
+    Given I am logged into appian as "<logInAs>" user
+    And I go to device certificate of free sale page
+    Then I should see a list of manufacturers available for CFS
+    When I search for registered manufacturer ""
+    And I click on a random organisation which needs cfs
+    And I search for product by "<searchBy>" for the value "<searchTerm>"
+    Then I should see <count> products matching search results
+    Examples:
+      | logInAs           | searchBy            | searchTerm           | count |
+      | authorisedRepAuto | gmdn term           | Blood weighing scale | 1     |
+      | manufacturerAuto  | medical device name | Product              | 2     |
