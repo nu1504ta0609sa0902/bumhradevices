@@ -693,8 +693,10 @@ public class RecordsPageSteps extends CommonSteps {
 
         //Check list of products displayed
         List<String> listOfProducts = (List<String>) scenarioSession.getData(SessionKey.listOfProductsAdded);
-        boolean productsFound = businessDevicesDetails.isProductDetailsCorrect(deviceType, listOfProducts);
-        assertThat("Expected to see the following products : " + listOfProducts, productsFound, is(equalTo(true)));
+        if(listOfProducts.size()>0) {
+            boolean productsFound = businessDevicesDetails.isProductDetailsCorrect(deviceType, listOfProducts);
+            assertThat("Expected to see the following products : " + listOfProducts, productsFound, is(equalTo(true)));
+        }
 
     }
 

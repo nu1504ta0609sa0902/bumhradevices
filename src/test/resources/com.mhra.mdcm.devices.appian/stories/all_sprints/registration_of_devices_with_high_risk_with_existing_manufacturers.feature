@@ -6,7 +6,7 @@ Feature: As an account holder, I want to register manufacturers and declare high
   Scenario Outline: Register device with SINGLE product for IVD devices
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on random manufacturer with status "Registered"
+    And I view a random manufacturer with status "Registered"
     When I add a device to SELECTED manufacturer with following data
       | deviceType         | <deviceType>         |
       | gmdnDefinition     | <gmdnDefinition>     |
@@ -31,7 +31,7 @@ Feature: As an account holder, I want to register manufacturers and declare high
   Scenario Outline: Register device with SINGLE product for Active Implantable Device
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on random manufacturer with status "Registered"
+    And I view a random manufacturer with status "Registered"
     When I add a device to SELECTED manufacturer with following data
       | deviceType     | <deviceType>     |
       | gmdnDefinition | <gmdnDefinition> |
@@ -49,7 +49,7 @@ Feature: As an account holder, I want to register manufacturers and declare high
   Scenario Outline: Error message is displayed for devices with certain risk classification
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on random manufacturer with status "Registered"
+    And I view a random manufacturer with status "Registered"
     When I try to add an incomplete device to SELECTED manufacturer with following data
       | deviceType           | <deviceType>         |
       | gmdnDefinition       | <gmdnDefinition>     |
@@ -77,7 +77,7 @@ Feature: As an account holder, I want to register manufacturers and declare high
   Scenario Outline: Error message is displayed for AIMD devices with certain risk classification
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on random manufacturer with status "Registered"
+    And I view a random manufacturer with status "Registered"
     When I try to add an incomplete device to SELECTED manufacturer with following data
       | deviceType     | <deviceType>     |
       | gmdnDefinition | <gmdnDefinition> |
