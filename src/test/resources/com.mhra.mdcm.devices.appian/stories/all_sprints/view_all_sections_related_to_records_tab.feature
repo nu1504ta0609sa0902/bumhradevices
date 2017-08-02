@@ -11,10 +11,10 @@ Feature: As a business user, I want to navigate to different sections like Accou
       | columns | <columns> |
     Examples:
       | user         | link                | pageHeading         | columns                                                                                                          |
-      | businessAuto | GMDN Devices        | GMDN Devices        | Device type,GMDN code,GMDN term                                                                                  |
-      | businessAuto | Registered Products | Registered Products | Device Type,Product Make,Product Model,Product Name,Device Label,Manufacturer,Country,Authorised Representative  |
-      | businessAuto | Organisations       | Organisations       | Name,Role,Contact name,Address,Country,Status                                                                    |
-      | businessAuto | Accounts            | Accounts            | Organisation name,Account number,Organisation role,Contact name,Organisation address,Organisation country,Status |
+      #| businessAuto | GMDN Devices        | GMDN Devices        | Device type,GMDN code,GMDN term                                                                                  |
+      #| businessAuto | Registered Products | Registered Products | Device Type,Product Make,Product Model,Product Name,Device Label,Manufacturer,Country,Authorised Representative  |
+      | businessAuto | Organisations       | Organisations       | Name,Account ID,Address,Country,Status,Created on                                                                    |
+      #| businessAuto | Accounts            | Accounts            | Organisation name,Account number,Organisation role,Contact name,Organisation address,Organisation country,Status |
 
   @regression @4006 @_sprint11 @readonly
   Scenario Outline: Completed tasks page should show correct data

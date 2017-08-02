@@ -20,7 +20,7 @@ import java.util.List;
 public class RegisteredDevices extends _Page {
 
     //List of all devices and types
-    @FindBy(xpath = ".//*[.='Device Id']//following::a")
+    @FindBy(xpath = ".//*[.='Term']//following::a")
     List<WebElement> listOfDevices;
     @FindBy(xpath = ".//th[@abbr='Device Id']//following::tr//td[1]")
     List<WebElement> listOfDeviceTypes;
