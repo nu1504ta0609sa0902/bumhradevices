@@ -39,8 +39,12 @@ public class ManufacturerList extends _Page {
     List<WebElement> listOfManufacturerStatuses;
     @FindBy(xpath = ".//h2[contains(text(),'Manufacturer')]//following::tbody[1]/tr")
     List<WebElement> listOfManufacturerRows;
-    @FindBy(xpath = ".//*[contains(text(), 'Manufacturers you represent')]/following::th[@abbr='Registration status']")
+    @FindBy(xpath = ".//*[contains(text(), 'Manufacturers you represent')]/following::th[@abbr='Registration Status']")
     WebElement thManufacturerRegistrationStatus;
+    @FindBy(xpath = ".//h2[contains(text(),'Manufacturer')]//following::tbody[1]//img[@alt='Registered']")
+    List<WebElement> listOfRegisteredManufacturerNames;
+    @FindBy(xpath = ".//h2[contains(text(),'Manufacturer')]//following::tbody[1]//img[@alt='Not Registered']")
+    List<WebElement> listOfNotRegisteredManufacturerNames;
 
     //Registration in progress table
     @FindBy(xpath = ".//*[contains(text(),'Applications')]//following::tbody[1]/tr/td[3]")
@@ -100,6 +104,24 @@ public class ManufacturerList extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, manufacturerName, TIMEOUT_5_SECOND);
         WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[contains(text(),'Manufacturer')]//following::tbody[1]/tr"), TIMEOUT_15_SECOND);
         int index = RandomDataUtils.getNumberBetween(0, listOfManufacturerNames.size() - 1);
+        WebElement link = listOfManufacturerNames.get(index);
+        String name = link.getText();
+        return name;
+    }
+
+    public String getARandomManufacturerName(String status) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, manufacturerName, TIMEOUT_5_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//*[contains(text(),'Search by manufacturer')]/following::tbody[1]//img"), TIMEOUT_15_SECOND);
+
+        List<WebElement> loi = null;
+        if(status.toLowerCase().contains("not registered")){
+            loi = listOfNotRegisteredManufacturerNames;
+        }else{
+            loi = listOfRegisteredManufacturerNames;
+        }
+
+        int index = RandomDataUtils.getNumberBetween(0, loi.size() - 1);
         WebElement link = listOfManufacturerNames.get(index);
         String name = link.getText();
         return name;
@@ -255,19 +277,19 @@ public class ManufacturerList extends _Page {
         return country;
     }
 
-    public String getARandomManufacturerNameWithStatus(String status) {
+    public String getARandomManufacturerNameWithStatus(String registeredStatus) {
         //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         String name = null;
         boolean found = false;
         int attempts = 1;
         do {
-            name = getARandomManufacturerName();
-            String registered = getRegistrationStatus(name);
-            if(registered.toLowerCase().equals(status.toLowerCase())){
-                found = true;
-            }else{
-                name = null;
-            }
+            name = getARandomManufacturerName(registeredStatus);
+            //String registered = getRegistrationStatus(name);
+            //if(registered.toLowerCase().equals(status.toLowerCase())){
+            //    found = true;
+            //}else{
+            //    name = null;
+            //}
             attempts++;
         }while(attempts < 10 && !found);
 
