@@ -60,10 +60,10 @@ public class SharedSteps extends CommonSteps {
             //This is added because of SSO: 26/06/2017
             if (driver != null) {
                 System.out.println("MUST SIGNOUT IF SESSIONS ARE ENABLED, OTHERWISE YOU WILL NOT BE ABLE TO LOGBACK IN WITH SAME USER");
-//                String currentLoggedInUser = (String) scenarioSession.getData(SessionKey.loggedInUser);
-//                loginPage.logout(currentLoggedInUser);
-//                PageUtils.acceptAlert(driver, true, _Page.TIMEOUT_2_SECOND);
-//                loginPage.isInLoginPage(_Page.TIMEOUT_3_SECOND);
+                String currentLoggedInUser = (String) scenarioSession.getData(SessionKey.loggedInUser);
+                loginPage.logout(currentLoggedInUser);
+                PageUtils.acceptAlert(driver, true, _Page.TIMEOUT_2_SECOND);
+                loginPage.isInLoginPage(_Page.TIMEOUT_3_SECOND);
             }
         }
     }
