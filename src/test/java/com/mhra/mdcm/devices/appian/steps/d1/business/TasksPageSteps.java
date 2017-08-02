@@ -721,6 +721,8 @@ public class TasksPageSteps extends CommonSteps {
         tasksPage = mainNavigationBar.clickTasks();
         taskSection = tasksPage.gotoApplicationWIPPage();
         taskSection = taskSection.searchAWIPPageForAccount(accountNameOrReference);
+        taskSection.expandFilterSection(true);
+        taskSection.filterWIPTasksBy("Application status", status);
         boolean isCompleted = taskSection.isSearchingCompleted();
 
         boolean isStatusCorrect = taskSection.isAWIPTaskStatusCorrect(status);
@@ -734,6 +736,8 @@ public class TasksPageSteps extends CommonSteps {
         tasksPage = mainNavigationBar.clickTasks();
         taskSection = tasksPage.gotoApplicationWIPPage();
         taskSection = taskSection.searchAWIPPageForAccount(accountNameOrReference);
+        taskSection.expandFilterSection(true);
+        taskSection.filterWIPTasksBy("Application status", status);
         boolean isCompleted = taskSection.isSearchingCompleted();
 
         boolean isStatusCorrect = taskSection.isAWIPTaskStatusCorrect(status);
