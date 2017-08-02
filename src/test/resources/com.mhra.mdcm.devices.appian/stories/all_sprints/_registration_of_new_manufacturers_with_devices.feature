@@ -190,7 +190,7 @@ Feature: As a customer I want to register new manufacturers with devices
       | authorisedRepAuto | businessAuto | authorisedRep | Bangladesh  | Registered Products | In Vitro Diagnostic Device | Androgen receptor IVD |            | list a             | ford focus  | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
       | manufacturerAuto  | businessAuto | manufacturer  | Brazil      | Registered Products | Active Implantable Device  | Desiccating chamber   | true       |                    | ford focus  |             |              |              |                   |            |               |
 
-  @create_new_org @smoke_test_dr @1957 @5997 @5995 @_sprint21 @4189 @_sprint26 @bug @wip
+  @create_new_org @smoke_test_dr @1957 @5997 @5995 @_sprint21 @4189 @_sprint26
   Scenario Outline: Users should be able to save and resume newly created application
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -210,6 +210,8 @@ Feature: As a customer I want to register new manufacturers with devices
       | newProduct         | <newProduct>         |
       | conformsToCTS      | <conformsToCTS>      |
     When I save the application and confirm to exit
+    Then I should be returned to the manufacturers list page
+    When I reopen the saved application
     And Proceed to payment and confirm submit device details
     Then I should be returned to the manufacturers list page
     Examples:

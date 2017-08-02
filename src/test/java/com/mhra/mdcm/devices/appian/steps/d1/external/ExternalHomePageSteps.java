@@ -13,7 +13,6 @@ import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -903,6 +902,15 @@ public class ExternalHomePageSteps extends CommonSteps {
         addDevices = addDevices.saveAndExit();
         manufacturerList = addDevices.confirmSaveApplication(true);
         manufacturerList = manufacturerList.clickOnLinkToDisplayManufacturers();
+    }
+
+    @When("^I reopen the saved application$")
+    public void iReopenTheSavedApplication() throws Throwable {
+        String name = (String) scenarioSession.getData(SessionKey.organisationName);
+        //Assumes you are in the manufacturersList page
+        manufacturerList = manufacturerList.gotoDraftApplications();
+        manufacturerList = manufacturerList.searchForManufacturer(name);
+        manufacturerList.viewADraftManufacturer(name);
     }
 
     @And("^Verify save the application button is not displayed$")

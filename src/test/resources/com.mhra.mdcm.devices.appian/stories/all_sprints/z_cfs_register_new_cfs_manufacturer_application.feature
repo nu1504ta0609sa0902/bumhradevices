@@ -4,8 +4,8 @@ Feature: Able to add CFS for products and devices that are already registered
 
 
   @1974 @4330 @5141 @3979 @5212 @5126 @1845 @5128 @5349 @_sprint21 @_sprint15 @_sprint17 @_sprint18 @create_new_org
-  Scenario: Users should be able to add a new cfs application with multiple devices
-    Given I am logged into appian as "manufacturerAuto" user
+  Scenario Outline: Users should be able to add a new cfs application with multiple devices
+    Given I am logged into appian as "<user>" user
     And I go to device certificate of free sale page
     Then I should see a list of manufacturers available for CFS
     When I create a new manufacturer using CFS manufacturer test harness page with following data
@@ -39,7 +39,10 @@ Feature: Able to add CFS for products and devices that are already registered
     And I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the newly created manufacturer
     And I should received an email for stored manufacturer with heading containing "Free Sale" and stored application identifier
-
+    Examples:
+      | user              |
+      | manufacturerAuto  |
+      | authorisedRepAuto |
 
 
   @smoke_test_cfs @1961 @_sprint21 @create_new_org

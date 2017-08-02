@@ -77,6 +77,12 @@ public class ManufacturerList extends _Page {
     @FindBy(xpath = ".//tr/th")
     WebElement singleTableHeader;
 
+    //Draft manufacturer applications page
+    @FindBy(partialLinkText = "pplications ")
+    WebElement linkDraftApplications;
+    @FindBy(partialLinkText = "TEMP201")
+    WebElement anApplication;
+
 
     @Autowired
     public ManufacturerList(WebDriver driver) {
@@ -380,5 +386,23 @@ public class ManufacturerList extends _Page {
         WaitUtils.waitForElementToBeVisible(driver, yourOrganisation, TIMEOUT_15_SECOND);
         boolean isCorrect = yourOrganisation.getText().contains(name);
         return isCorrect;
+    }
+
+    public ManufacturerList gotoDraftApplications() {
+        WaitUtils.waitForElementToBeClickable(driver, linkDraftApplications, TIMEOUT_10_SECOND);
+        linkDraftApplications.click();
+        return new ManufacturerList(driver);
+    }
+
+    /**
+     * This should allow us to continue from where we saved the application
+     *
+     * So not sure which page it will be
+     * @param name
+     */
+    public void viewADraftManufacturer(String name) {
+        //There should be at least 1 match
+        WaitUtils.waitForElementToBeClickable(driver, anApplication, TIMEOUT_10_SECOND);
+        anApplication.click();
     }
 }
