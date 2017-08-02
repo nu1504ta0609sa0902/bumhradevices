@@ -27,7 +27,7 @@ public class BusinessManufacturerDetails extends _Page {
     //Links to other sections like devices, documents
     @FindBy(xpath = ".//button[contains(text(),'Edit Account Information')]")
     WebElement editAccountInfoLink;
-    @FindBy(xpath = ".//span[contains(text(),'Letter of designation')]//following::a")
+    @FindBy(xpath = ".//span[contains(text(),'Letter of ')]//following::a")
     WebElement linkLetterOfDesignation;
 
     //PARD message
@@ -480,7 +480,7 @@ public class BusinessManufacturerDetails extends _Page {
     }
 
     public boolean isDesignationLetterAttached() {
-        boolean clickable = PageUtils.isElementClickable(driver, linkLetterOfDesignation, TIMEOUT_5_SECOND);
+        boolean clickable = PageUtils.isElementClickable(driver, linkLetterOfDesignation, TIMEOUT_DEFAULT);
         return clickable;
     }
 

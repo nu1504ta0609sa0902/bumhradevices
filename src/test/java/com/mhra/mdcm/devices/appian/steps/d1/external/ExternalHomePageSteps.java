@@ -487,6 +487,25 @@ public class ExternalHomePageSteps extends CommonSteps {
     }
 
 
+    @When("^I view a random manufacturer with status \"([^\"]*)\"$")
+    public void i_view_a_random_manufacturer(String status) throws Throwable {
+
+        if (status.equals("Registered")) {
+            manufacturerList = manufacturerList.sortBy("Registration status", 2);
+        } else {
+            manufacturerList = manufacturerList.sortBy("Registration status", 1);
+        }
+        String name = manufacturerList.getARandomManufacturerName(status);
+        String country = manufacturerList.getOrganisationCountry(name);
+
+        log.info("Manufacturer selected : " + name + ", is " + status);
+        manufacturerDetails = manufacturerList.viewAManufacturer(name);
+        scenarioSession.putData(SessionKey.organisationName, name);
+        scenarioSession.putData(SessionKey.organisationCountry, country);
+        scenarioSession.putData(SessionKey.registeredStatus, status);
+        scenarioSession.putData(SessionKey.taskType, "Update Manufacturer");
+    }
+
     @When("^I click on random manufacturer with status \"([^\"]*)\"$")
     public void i_click_on_random_manufacturer(String status) throws Throwable {
 
@@ -564,19 +583,19 @@ public class ExternalHomePageSteps extends CommonSteps {
     }
 
 
-    @When("^I view a random manufacturer with status \"([^\"]*)\"$")
-    public void i_view_a_random_manufacturer(String status) throws Throwable {
-        manufacturerList = manufacturerList.sortBy("Registered status", 2);
-        String name = manufacturerList.getARandomManufacturerNameWithStatus(status);
-        String actualStatus = manufacturerList.getRegistrationStatus(name);
-        String country = manufacturerList.getOrganisationCountry(name);
-
-        log.info("Manufacturer selected : " + name + ", is " + status);
-        manufacturerDetails = manufacturerList.viewAManufacturer(name);
-        scenarioSession.putData(SessionKey.organisationName, name);
-        scenarioSession.putData(SessionKey.organisationCountry, country);
-        scenarioSession.putData(SessionKey.registeredStatus, actualStatus);
-    }
+//    @When("^I view a random manufacturer with status \"([^\"]*)\"$")
+//    public void i_view_a_random_manufacturer(String status) throws Throwable {
+//        manufacturerList = manufacturerList.sortBy("Registered status", 2);
+//        String name = manufacturerList.getARandomManufacturerNameWithStatus(status);
+//        String actualStatus = manufacturerList.getRegistrationStatus(name);
+//        String country = manufacturerList.getOrganisationCountry(name);
+//
+//        log.info("Manufacturer selected : " + name + ", is " + status);
+//        manufacturerDetails = manufacturerList.viewAManufacturer(name);
+//        scenarioSession.putData(SessionKey.organisationName, name);
+//        scenarioSession.putData(SessionKey.organisationCountry, country);
+//        scenarioSession.putData(SessionKey.registeredStatus, actualStatus);
+//    }
 
     /**
      * NO LONGER NEED : WE HAVE DEVICE INJECTION CODE AS PART OF THE SMOKE TESTS DATA CREATION TOOL

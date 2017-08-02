@@ -114,7 +114,7 @@ public class DeviceDetails extends _Page {
     WebElement linkBackToManufacturer;
     @FindBy(xpath = ".//a[contains(text(),'Proceed to worldpay')]")
     WebElement linkProceedToWorldpay;
-    @FindBy(xpath = ".//button[contains(text(),'Complete application')]")
+    @FindBy(xpath = ".//button[contains(text(),'Submit Application')]")
     WebElement btnCompleteApplication;
     @FindBy(xpath = ".//div[@role='listbox']")
     WebElement ddAddressBox;
