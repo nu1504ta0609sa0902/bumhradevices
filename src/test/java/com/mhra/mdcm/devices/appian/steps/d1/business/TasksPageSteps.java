@@ -3,6 +3,7 @@ package com.mhra.mdcm.devices.appian.steps.d1.business;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.AccountRequestDO;
 import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
+import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
@@ -746,14 +747,14 @@ public class TasksPageSteps extends CommonSteps {
 
     @Then("^I should see a button with the following text \"([^\"]*)\"$")
     public void i_should_see_the_option_to(String button) throws Throwable {
-        boolean isVisible = businessManufacturerDetails.isButtonVisibleWithText(button, 5);
+        boolean isVisible = businessManufacturerDetails.isButtonVisibleWithText(button, _Page.TIMEOUT_10_SECOND);
         Assert.assertThat("Expected following button : " + button, isVisible, is(true));
 
     }
 
     @Then("^I should NOT see a button with the following text \"([^\"]*)\"$")
     public void i_should_NOT_see_the_option_to(String button) throws Throwable {
-        boolean isVisible = businessManufacturerDetails.isButtonVisibleWithText(button, 5);
+        boolean isVisible = businessManufacturerDetails.isButtonVisibleWithText(button, _Page.TIMEOUT_10_SECOND);
         Assert.assertThat("Expected following button : " + button, isVisible, is(false));
 
     }

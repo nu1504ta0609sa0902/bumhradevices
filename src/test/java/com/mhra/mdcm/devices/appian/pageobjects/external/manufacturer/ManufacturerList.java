@@ -177,20 +177,20 @@ public class ManufacturerList extends _Page {
 
     public _CreateManufacturerTestHarnessPage registerNewManufacturer() {
         //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, btnRegisterNewManufacturer, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, btnRegisterNewManufacturer, TIMEOUT_10_SECOND);
         btnRegisterNewManufacturer.click();
         return new _CreateManufacturerTestHarnessPage(driver);
     }
 
     public _CreateManufacturerTestHarnessPage addNewManufacturer() {
         //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, btnAddNewManufacturer, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, btnAddNewManufacturer, TIMEOUT_10_SECOND);
         btnAddNewManufacturer.click();
         return new _CreateManufacturerTestHarnessPage(driver);
     }
 
     public _CreateManufacturerTestHarnessPage registerMyOrganisation() {
-        WaitUtils.waitForElementToBeClickable(driver, btnRegisterMyNewOrganisation, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, btnRegisterMyNewOrganisation, TIMEOUT_10_SECOND);
         btnRegisterMyNewOrganisation.click();
         return new _CreateManufacturerTestHarnessPage(driver);
     }

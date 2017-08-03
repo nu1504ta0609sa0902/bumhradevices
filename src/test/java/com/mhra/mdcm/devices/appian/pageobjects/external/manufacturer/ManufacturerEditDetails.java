@@ -145,7 +145,7 @@ public class ManufacturerEditDetails extends _Page {
 
 
     public MyAccountPage saveChanges(boolean saveChanges) {
-        WaitUtils.waitForElementToBeClickable(driver, cancel, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, cancel, TIMEOUT_10_SECOND);
         if(saveChanges){
             save.get(1).click();
         }else{
@@ -169,7 +169,7 @@ public class ManufacturerEditDetails extends _Page {
 
 
     public ManufacturerDetails confirmChanges(boolean confirm) {
-        WaitUtils.waitForElementToBeClickable(driver, confirmYes, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, confirmYes, TIMEOUT_10_SECOND);
         if(confirm){
             confirmYes.click();
         }else{

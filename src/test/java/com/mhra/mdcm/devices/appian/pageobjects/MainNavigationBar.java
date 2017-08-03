@@ -121,7 +121,7 @@ public class MainNavigationBar extends _Page {
 
     public ExternalHomePage clickExternalHOME() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, linkHOME, TIMEOUT_DEFAULT);
+        WaitUtils.waitForElementToBeClickable(driver, linkHOME, TIMEOUT_10_SECOND);
         PageUtils.doubleClick(driver, linkHOME);
         PageUtils.acceptAlert(driver, "accept", 1);
         return new ExternalHomePage(driver);

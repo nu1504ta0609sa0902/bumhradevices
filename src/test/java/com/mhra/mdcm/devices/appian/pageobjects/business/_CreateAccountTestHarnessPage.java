@@ -222,7 +222,7 @@ public class _CreateAccountTestHarnessPage extends _Page {
                 PageUtils.singleClick(driver, deviceReg);
             }
             if (ar.cfsCertificateOfFreeSale) {
-                WaitUtils.waitForElementToBeClickable(driver, cfsCertification, TIMEOUT_DEFAULT);
+                WaitUtils.waitForElementToBeClickable(driver, cfsCertification, TIMEOUT_10_SECOND);
                 PageUtils.singleClick(driver, cfsCertification);
             }
             if (ar.clinicalInvestigation) {
