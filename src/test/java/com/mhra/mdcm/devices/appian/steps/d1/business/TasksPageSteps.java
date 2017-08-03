@@ -748,7 +748,7 @@ public class TasksPageSteps extends CommonSteps {
     @Then("^I should see a button with the following text \"([^\"]*)\"$")
     public void i_should_see_the_option_to(String button) throws Throwable {
         boolean isVisible = businessManufacturerDetails.isButtonVisibleWithText(button, _Page.TIMEOUT_10_SECOND);
-        Assert.assertThat("Expected following button : " + button, isVisible, is(true));
+        Assert.assertThat("Expected following button : " + button + ", Page migth be taking too long to load", isVisible, is(true));
 
     }
 

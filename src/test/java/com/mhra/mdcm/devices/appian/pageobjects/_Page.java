@@ -1,5 +1,6 @@
 package com.mhra.mdcm.devices.appian.pageobjects;
 
+import org.codehaus.groovy.runtime.powerassert.SourceText;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
@@ -15,6 +16,11 @@ public class _Page {
 
     public static final int TIMEOUT_PAGE_LOAD = 1;
     public static final boolean USE_DEFAULT_TIME_FOR_ALL = true;
+
+    /**
+     * Different timeouts for different actions: Use appropriately
+     * Any pages which takes more than 10 seconds should be looked at
+     **/
     public static int TIMEOUT_1_SECOND = 1;
     public static int TIMEOUT_2_SECOND = 2;
     public static int TIMEOUT_3_SECOND = 3;
@@ -26,7 +32,10 @@ public class _Page {
     public static int TIMEOUT_40_SECOND = 40;
     public static int TIMEOUT_50_SECOND = 50;
     public static int TIMEOUT_60_SECOND = 60;
-    public static int TIMEOUT_DEFAULT = TIMEOUT_60_SECOND;
+    public static int TIMEOUT_90_SECOND = 90;
+    public static int TIMEOUT_120_SECOND = 120;
+
+    public static int TIMEOUT_DEFAULT = TIMEOUT_90_SECOND;
 
     public WebDriver driver;
     public final Logger log = LoggerFactory.getLogger(_Page.class);
@@ -45,6 +54,10 @@ public class _Page {
      * RESET USE_DEFAULT_TIME_FOR_ALL=false
      */
     private static void setDefaultTimeForAll() {
+        System.out.println("\n----------------------------------------------------------");
+        System.out.println("USING DEFAULT TIMEOUT FOR ALL WAITS : " + TIMEOUT_DEFAULT);
+        System.out.println("SET USE_DEFAULT_TIME_FOR_ALL=false TO STOP USING SUCH LARGE TIMEOUTS");
+        System.out.println("----------------------------------------------------------\n");
         TIMEOUT_1_SECOND = TIMEOUT_DEFAULT;
         TIMEOUT_2_SECOND = TIMEOUT_DEFAULT;
         TIMEOUT_3_SECOND = TIMEOUT_DEFAULT;
