@@ -1137,6 +1137,8 @@ public class AddDevices extends _Page {
     }
 
     public AddDevices enterPaymentDetails(String paymentMethod, ScenarioSession scenarioSession) {
+        String proofOfPayments = "CompletionOfTransfer1.pdf";
+        scenarioSession.putData(SessionKey.paymentProofDocuments, proofOfPayments);
         WaitUtils.waitForElementToBeClickable(driver, ddAddressBox, TIMEOUT_15_SECOND);
 
         //Select billing address:
@@ -1165,7 +1167,7 @@ public class AddDevices extends _Page {
         }else if(paymentMethod.toLowerCase().contains("bacs")){
             paymentBACS.click();
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-            PageUtils.uploadDocument(multiFileUpload, "CompletionOfTransfer1.pdf", 1, 3);
+            PageUtils.uploadDocument(multiFileUpload, proofOfPayments, 1, 3);
         }
 
         //Complete the application

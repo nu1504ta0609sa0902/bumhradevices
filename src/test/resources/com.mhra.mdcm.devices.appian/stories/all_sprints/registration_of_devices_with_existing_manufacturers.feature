@@ -145,8 +145,7 @@ Feature: As an account holder, I should be able to add devices to existing manuf
     When I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email for stored manufacturer with heading "MHRA Devices registration service" and stored application identifier
-    When I logout of the application
-    And I am logged into appian as "<user>" user
+    When I logout and log back into appian as "<user>" user
     When I go to list of manufacturers page and click on stored manufacturer
     Then Verify devices displayed and GMDN details are correct
     And I should be able to view stored device details

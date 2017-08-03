@@ -823,4 +823,17 @@ public class TasksPageSteps extends CommonSteps {
             businessManufacturerDetails = businessManufacturerDetails.enterDateAndTimeOfPayment();
         }
     }
+
+    @Then("^I should see the payment details section with correct data$")
+    public void iShouldSeeThePaymentDetailsSectionWithCorrectData() throws Throwable {
+        String paymentMethod = (String) scenarioSession.getData(SessionKey.paymentMethod);
+        String paymentDoc = (String) scenarioSession.getData(SessionKey.paymentProofDocuments);
+        if(paymentDoc!=null) {
+            //We don't want the fileextension
+            String data[] = paymentDoc.split("\\.");
+            paymentDoc = data[0];
+        }
+        boolean isCorrect = businessManufacturerDetails.isPaymentDetailsCorrect(paymentMethod, paymentDoc, "100");
+        Assert.assertThat("Payment details displayed should be for : " + paymentMethod + ", Proof of payment doc should be called : " + paymentDoc, isCorrect, is(true));
+    }
 }

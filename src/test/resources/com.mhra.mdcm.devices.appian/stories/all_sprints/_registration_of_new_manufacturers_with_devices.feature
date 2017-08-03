@@ -30,7 +30,7 @@ Feature: As a customer I want to register new manufacturers with devices
       | authorisedRepAuto | authorisedRep | Bangladesh  | BACS        | General Medical Device   | false      | true          | true            | class1             | NB 0086 BSI  |
 
 
-  @5749 @_sprint21 @6875 @_sprint28 @create_new_org
+  @5749 @_sprint21 @6875 @_sprint28 @6887 @_sprint29 @create_new_org
   Scenario Outline: Business users need to confirm dates of payment received for BACS payment
     Given I am logged into appian as "<user>" user
     And I go to register a new manufacturer page
@@ -48,10 +48,10 @@ Feature: As a customer I want to register new manufacturers with devices
       | isBearingCEMarking     | false                |
       | productName            | Product1             |
     And Proceed to payment via "<paymentType>" and confirm submit device details
-    Then I should be returned to the manufacturers list page
-    When I logout of the application
-    And I am logged into appian as "<logBackInAs>" user
+#    Then I should be returned to the manufacturers list page
+    When I logout and log back into appian as "<logBackInAs>" user
     And I search and view new task in AWIP page for the newly created manufacturer
+    Then I should see the payment details section with correct data
     When I assign the task to me confirm the date BACS payment was received
     Then I should see a button with the following text "Approve manufacturer"
     When I "approve" already assigned application
@@ -77,13 +77,11 @@ Feature: As a customer I want to register new manufacturers with devices
       | relatedDeviceSterile   | <deviceSterile>      |
       | relatedDeviceMeasuring | <deviceMeasuring>    |
     And Proceed to payment and confirm submit device details
-    When I logout of the application
-    And I am logged into appian as "<logBackInAs>" user
+    When I logout and log back into appian as "<logBackInAs>" user
     Then I search and view new task in AWIP page for the newly created manufacturer
     When I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
-    When I logout of the application
-    And I am logged into appian as "<user>" user
+    When I logout and log back into appian as "<user>" user
     When I go to list of manufacturers page and search and view stored manufacturer
     Then Verify devices displayed and GMDN details are correct
     And I should be able to view stored device details
@@ -142,8 +140,7 @@ Feature: As a customer I want to register new manufacturers with devices
       | gmdnDefinition | Blood weighing scale   |
       | customMade     | true                   |
     And Proceed to payment and confirm submit device details
-    When I logout of the application
-    And I am logged into appian as "<logBackInAs>" user
+    When I logout and log back into appian as "<logBackInAs>" user
     Then I search and view new task in AWIP page for the newly created manufacturer
     When I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
@@ -176,8 +173,7 @@ Feature: As a customer I want to register new manufacturers with devices
       | newProduct         | <newProduct>         |
       | conformsToCTS      | <conformsToCTS>      |
     And Proceed to payment and confirm submit device details
-    When I logout of the application
-    And I am logged into appian as "<logBackInAs>" user
+    When I logout and log back into appian as "<logBackInAs>" user
     Then I search and view new task in AWIP page for the newly created manufacturer
     When I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the new account

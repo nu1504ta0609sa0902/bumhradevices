@@ -6,6 +6,7 @@ import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.external.PaymentDetails;
 import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.ManufacturerDetails;
 import com.mhra.mdcm.devices.appian.session.ScenarioSession;
+import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.CommonUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
@@ -496,7 +497,8 @@ public class DeviceDetails extends _Page {
     }
 
     public DeviceDetails enterPaymentDetails(String paymentMethod, ScenarioSession scenarioSession) {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        String proofOfPayments = "CompletionOfTransfer1.pdf";
+        scenarioSession.putData(SessionKey.paymentProofDocuments, proofOfPayments);
         WaitUtils.waitForElementToBeClickable(driver, ddAddressBox, TIMEOUT_15_SECOND);
 
         //Select billing address:
@@ -525,7 +527,7 @@ public class DeviceDetails extends _Page {
         } else if (paymentMethod.toLowerCase().contains("bacs")) {
             paymentBACS.click();
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-            PageUtils.uploadDocument(fileUpload, "CompletionOfTransfer1.pdf", 1, 3);
+            PageUtils.uploadDocument(fileUpload, proofOfPayments, 1, 3);
         }
 
         //Complete the application

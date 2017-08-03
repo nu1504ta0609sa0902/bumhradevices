@@ -40,4 +40,5 @@ public class SessionKey {
     public static String address = "Address we expect";
     public static String postCode = "Postcode we expect";
     public static String paymentMethod = "Payment method WorldPay or BACS";
+    public static String paymentProofDocuments = "Proof of payment document";
 }

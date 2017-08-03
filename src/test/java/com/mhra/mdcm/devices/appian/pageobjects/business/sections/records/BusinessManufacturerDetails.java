@@ -153,6 +153,14 @@ public class BusinessManufacturerDetails extends _Page {
     @FindBy(xpath = ".//span[contains(text(),'Manufacturer telephone')]//following::p[1]")
     WebElement manTelephone;
 
+    //Payment details data for BACS and WorldPay
+    @FindBy(xpath = ".//*[contains(text(),'Payment Details')]//following::p[2]")
+    WebElement paymentAmount;
+    @FindBy(xpath = ".//*[contains(text(),'Payment Details')]//following::p[3]")
+    WebElement paymentType;
+    @FindBy(xpath = ".//*[contains(text(),'Payment Details')]//following::p[6]")
+    WebElement paymentProof;
+
     @Autowired
     public BusinessManufacturerDetails(WebDriver driver) {
         super(driver);
@@ -327,7 +335,7 @@ public class BusinessManufacturerDetails extends _Page {
     public BusinessManufacturerDetails enterDateAndTimeOfPayment() {
         WaitUtils.waitForElementToBeClickable(driver, tbxPaymentDate, TIMEOUT_DEFAULT);
         tbxPaymentDate.sendKeys(RandomDataUtils.getDateInFutureDays(0), Keys.TAB);
-        tbxPaymentHour.sendKeys("00:01", Keys.TAB);
+        tbxPaymentHour.sendKeys("01:00", Keys.TAB);
 
         WaitUtils.waitForElementToBeClickable(driver, btnSave, TIMEOUT_15_SECOND);
         btnSave.click();
@@ -526,4 +534,25 @@ public class BusinessManufacturerDetails extends _Page {
         return ref;
     }
 
+    public boolean isPaymentDetailsCorrect(String paymentMethodTxt, String paymentDocTxt, String amountTxt) {
+        boolean isValid = true;
+        WaitUtils.waitForElementToBeClickable(driver, paymentType, TIMEOUT_DEFAULT);
+        String pt = paymentType.getText();
+        String pd = paymentProof.getText();
+        String pa = paymentAmount.getText();
+
+        if(!pt.contains(paymentMethodTxt)) {
+            log.info("Payment type incorrect : " + pt);
+            isValid = false;
+        }else if(!pd.contains(paymentDocTxt)) {
+            log.info("Payment doc incorrect : " + pd);
+            isValid = false;
+        }else if(!pa.contains(amountTxt)) {
+            log.info("Payment amount incorrect : " + pa);
+            isValid = false;
+        }
+
+        return isValid;
+
+    }
 }
