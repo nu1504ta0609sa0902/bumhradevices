@@ -536,6 +536,7 @@ public class BusinessManufacturerDetails extends _Page {
 
     public boolean isPaymentDetailsCorrect(String paymentMethodTxt, String paymentDocTxt, String amountTxt) {
         boolean isValid = true;
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, paymentType, TIMEOUT_10_SECOND);
         String pt = paymentType.getText();
         String pd = paymentProof.getText();
