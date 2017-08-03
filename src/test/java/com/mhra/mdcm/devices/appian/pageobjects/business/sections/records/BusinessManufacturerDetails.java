@@ -167,7 +167,7 @@ public class BusinessManufacturerDetails extends _Page {
     }
 
     public boolean isManufacturerHeadingCorrect(String searchTerm) {
-        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         boolean contains = true;
         try {
             WaitUtils.waitForElementToBeClickable(driver, heading, TIMEOUT_10_SECOND);
@@ -187,7 +187,7 @@ public class BusinessManufacturerDetails extends _Page {
 
 
     public EditAccount gotoEditAccountInformation() {
-        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, editAccountInfoLink, TIMEOUT_10_SECOND);
         PageUtils.doubleClick(driver, editAccountInfoLink);
         //editAccountInfoLink.click();
@@ -195,7 +195,7 @@ public class BusinessManufacturerDetails extends _Page {
     }
 
     public boolean isPARDMessaageCorrect(String expectedMessage) {
-        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, pardMessage, TIMEOUT_10_SECOND);
         String msg = pardMessage.getText();
         log.info("Message : " + msg);
@@ -204,7 +204,7 @@ public class BusinessManufacturerDetails extends _Page {
     }
 
     public BusinessManufacturerDetails clickUnregisterManufacturerBtn() {
-        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnUnregisterManufacturer, TIMEOUT_10_SECOND);
         btnUnregisterManufacturer.click();
         return new BusinessManufacturerDetails(driver);
@@ -271,7 +271,7 @@ public class BusinessManufacturerDetails extends _Page {
 
 
     public BusinessManufacturerDetails rejectAWIPNewAccountRegistration() {
-        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnRejectNewAccount, TIMEOUT_10_SECOND);
         PageUtils.doubleClick(driver, btnRejectNewAccount);
         log.info("New account registration : REJECTED");
@@ -279,7 +279,7 @@ public class BusinessManufacturerDetails extends _Page {
     }
 
     public BusinessManufacturerDetails approveAWIPTaskNewAccount() {
-        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnApproveNewAccount, TIMEOUT_10_SECOND);
         PageUtils.doubleClick(driver, btnApproveNewAccount);
         log.info("Task should be approved now");
@@ -287,7 +287,7 @@ public class BusinessManufacturerDetails extends _Page {
     }
 
     public BusinessManufacturerDetails approveAWIPManufacturerTask() {
-        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnApproveManufacturer, TIMEOUT_10_SECOND);
         PageUtils.doubleClick(driver, btnApproveManufacturer);
         log.info("Approved the manufacturer");
@@ -295,7 +295,7 @@ public class BusinessManufacturerDetails extends _Page {
     }
 
     public BusinessManufacturerDetails rejectAWIPManufacturerTask() {
-        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnRejectManufacturer, TIMEOUT_10_SECOND);
         PageUtils.doubleClick(driver, btnRejectManufacturer);
         log.info("Reject the manufacturer");
@@ -303,7 +303,7 @@ public class BusinessManufacturerDetails extends _Page {
     }
 
     public BusinessManufacturerDetails rejectAWIPCFSOrder() {
-        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnRejectOrder, TIMEOUT_10_SECOND);
         PageUtils.doubleClick(driver, btnRejectOrder);
         log.info("Reject the CFS Order");
@@ -311,7 +311,7 @@ public class BusinessManufacturerDetails extends _Page {
     }
 
     public BusinessManufacturerDetails approveAWIPAllDevices() {
-        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnApproveAllDevices, TIMEOUT_10_SECOND);
         PageUtils.doubleClick(driver, btnApproveAllDevices);
         log.info("Approved all the devices");
@@ -319,7 +319,7 @@ public class BusinessManufacturerDetails extends _Page {
     }
 
     public BusinessManufacturerDetails completeTheApplication() {
-        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnCompleteTheApplication, TIMEOUT_10_SECOND);
         PageUtils.doubleClick(driver, btnCompleteTheApplication);
         log.info("Application completed");
@@ -455,7 +455,7 @@ public class BusinessManufacturerDetails extends _Page {
     }
 
     public BusinessDeviceDetails clickOnDeviceAndProductsTab() {
-        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, tabDevicesAndProductDetails, TIMEOUT_10_SECOND);
         tabDevicesAndProductDetails.click();
         return new BusinessDeviceDetails(driver);
