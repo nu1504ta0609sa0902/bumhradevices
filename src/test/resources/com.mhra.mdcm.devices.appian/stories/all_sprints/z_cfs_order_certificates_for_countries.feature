@@ -79,7 +79,6 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE
     And I go to device certificate of free sale page
     Then I should see a list of manufacturers available for CFS
     When I click on a organisation name begins with "CFS_" which needs cfs
-#    When I click on a random organisation which needs cfs
     And I order cfs for a country with following data
       | countryName | Brazil |
       | noOfCFS     | 10     |
@@ -96,7 +95,6 @@ Feature: As a UK based organisation I need to obtain a CERTIFICATE OF FREE SALE
     And I go to device certificate of free sale page
     Then I should see a list of manufacturers available for CFS
     When I click on a organisation name begins with "CFS_" which needs cfs
-#    When I click on a random organisation which needs cfs
     And I order cfs for multiple countries with following data
       | listOfCFSCountryPair | <countryAndCertificateNumber> |
     Then I should see correct details for all the countries and certificate in cfs order review page
