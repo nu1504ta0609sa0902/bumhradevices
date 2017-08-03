@@ -246,6 +246,7 @@ public class BusinessManufacturerDetails extends _Page {
 
 
     public BusinessManufacturerDetails assignAWIPTaskToMe() {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnAssignToMe, TIMEOUT_10_SECOND);
         btnAssignToMe.click();
         return new BusinessManufacturerDetails(driver);

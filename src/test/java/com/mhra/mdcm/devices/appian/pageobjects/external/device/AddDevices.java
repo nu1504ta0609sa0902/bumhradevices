@@ -342,7 +342,7 @@ public class AddDevices extends _Page {
     }
 
     public AddDevices addFollowingDevice(DeviceDO dd, boolean isRegistered) {
-        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_15_SECOND);
         WaitUtils.waitForElementToBeClickable(driver, systemOrProcedurePack, TIMEOUT_3_SECOND);
         //Select device type
@@ -670,7 +670,6 @@ public class AddDevices extends _Page {
         try{
             WaitUtils.waitForElementToBeClickable(driver, linkChangeNotifiedBody, TIMEOUT_1_SECOND);
             linkChangeNotifiedBody.click();
-            //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         }catch (Exception e){
             //Bug which maintains previous selection of notified body
         }
@@ -736,7 +735,7 @@ public class AddDevices extends _Page {
     }
 
     private void customMade(DeviceDO dd) {
-        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, radioCustomMadeYes, TIMEOUT_10_SECOND);
         if (dd.isCustomMade) {
             PageUtils.clickIfVisible(driver, radioCustomMadeYes);
@@ -913,7 +912,7 @@ public class AddDevices extends _Page {
     }
 
     public AddDevices removeSelectedDevice() {
-        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnRemove, TIMEOUT_10_SECOND);
         btnRemove.click();
         return new AddDevices(driver);
@@ -998,7 +997,7 @@ public class AddDevices extends _Page {
     }
 
     public boolean isAllTheGMDNValueDisplayed(List<String> listOfGmdns) {
-        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnAddAnotherDevice, TIMEOUT_15_SECOND);
         boolean allDisplayed = true;
         for (String gmdn : listOfGmdns) {
@@ -1013,7 +1012,7 @@ public class AddDevices extends _Page {
     }
 
     public AddDevices searchForDevice(DeviceDO dd, String deviceType, String gmdnTermCodeOrDefinition) {
-        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         dd.gmdnTermOrDefinition = gmdnTermCodeOrDefinition;
         if(deviceType != null){
             dd.deviceType = deviceType;
@@ -1084,7 +1083,7 @@ public class AddDevices extends _Page {
     public boolean isValidationErrorMessageVisible() {
         boolean isErrorMessageDisplayed = true;
         try{
-            //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
             WaitUtils.waitForElementToBeClickable(driver, validationErrMessage, TIMEOUT_5_SECOND);
         }catch (Exception e){
             isErrorMessageDisplayed = false;
