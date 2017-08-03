@@ -567,7 +567,7 @@ public class PageUtils {
     public static boolean isVisible(WebDriver driver, WebElement element, int timeout) {
         boolean isVisible = true;
         try {
-            WaitUtils.waitForElementToBeClickable(driver, element, timeout);
+            WaitUtils.waitForElementToBeVisible(driver, element, timeout);
         } catch (Exception e) {
             isVisible = false;
         }

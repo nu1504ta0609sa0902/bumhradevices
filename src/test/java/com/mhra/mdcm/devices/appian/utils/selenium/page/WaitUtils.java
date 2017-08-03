@@ -15,22 +15,6 @@ import java.util.concurrent.TimeUnit;
  */
 public class WaitUtils {
 
-    public static void waitForElementToBeClickable(WebDriver driver, WebElement element, int maxTimeToWait) {
-        new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.elementToBeClickable(element));
-    }
-
-    public static void waitForElementToBeClickable(WebDriver driver, By by, int maxTimeToWait) {
-        new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.elementToBeClickable(by));
-    }
-
-    public static void waitForElementToBeVisible(WebDriver driver, WebElement element, int maxTimeToWait) {
-        new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.visibilityOf(element));
-    }
-
-    public static void waitForElementToBeVisible(WebDriver driver, By by, int maxTimeToWait) {
-        WebElement element = driver.findElement(by);
-        new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.visibilityOf(element));
-    }
 
     /**
      * DON'T USE FOR WAITING FOR PAGES, UNLESS ITS TO DO WITH SOME NATIVE COMPONENTS WHICH SELENIUM CAN'T HANDLE
@@ -49,6 +33,23 @@ public class WaitUtils {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void waitForElementToBeClickable(WebDriver driver, WebElement element, int maxTimeToWait) {
+        new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.elementToBeClickable(element));
+    }
+
+    public static void waitForElementToBeClickable(WebDriver driver, By by, int maxTimeToWait) {
+        new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.elementToBeClickable(by));
+    }
+
+    public static void waitForElementToBeVisible(WebDriver driver, WebElement element, int maxTimeToWait) {
+        new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.visibilityOf(element));
+    }
+
+    public static void waitForElementToBeVisible(WebDriver driver, By by, int maxTimeToWait) {
+        WebElement element = driver.findElement(by);
+        new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.visibilityOf(element));
     }
 
     public static void waitForAlert(WebDriver driver, int maxTimeToWait) {
@@ -78,24 +79,26 @@ public class WaitUtils {
      */
     public static boolean isPageLoadingComplete(WebDriver driver, int timeout){
         boolean isLoadedFully = false;
-        try {
-            boolean isWaitingMessageDisplayed = isWaitingMessageDisplayed(driver);
-            if(isWaitingMessageDisplayed) {
-                int count = 0;
-                do {
-                    driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
-                    List<WebElement> elements = driver.findElements(By.xpath(".//div[@class='appian-indicator-message' and @style='display: none;']"));
-                    if (elements.size() == 1) {
-                        isLoadedFully = true;
-                    }
-                    driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-                    count++;
-                } while (!isLoadedFully && count < 50);
-            }
+        if(timeout > 0) {
+            try {
+                boolean isWaitingMessageDisplayed = isWaitingMessageDisplayed(driver);
+                if (isWaitingMessageDisplayed) {
+                    int count = 0;
+                    do {
+                        driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
+                        List<WebElement> elements = driver.findElements(By.xpath(".//div[@class='appian-indicator-message' and @style='display: none;']"));
+                        if (elements.size() == 1) {
+                            isLoadedFully = true;
+                        }
+                        driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+                        count++;
+                    } while (!isLoadedFully && count < 50);
+                }
 
-        }catch (Exception e){
-            driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-            isLoadedFully = false;
+            } catch (Exception e) {
+                driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+                isLoadedFully = false;
+            }
         }
 
         return isLoadedFully;
@@ -105,24 +108,27 @@ public class WaitUtils {
     public static boolean isPageLoadingCompleteInMilliseconds(WebDriver driver, int timeout){
         timeout = timeout * 100;
         boolean isLoadedFully = false;
-        try {
-            boolean isWaitingMessageDisplayed = isWaitingMessageDisplayed(driver);
-            if(isWaitingMessageDisplayed) {
-                int count = 0;
-                do {
-                    driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.MILLISECONDS);
-                    List<WebElement> elements = driver.findElements(By.xpath(".//div[@class='appian-indicator-message' and @style='display: none;']"));
-                    if (elements.size() == 1) {
-                        isLoadedFully = true;
-                    }
-                    driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
-                    count++;
-                } while (!isLoadedFully && count < 50);
-            }
 
-        }catch (Exception e){
-            driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
-            isLoadedFully = false;
+        if(timeout > 0) {
+            try {
+                boolean isWaitingMessageDisplayed = isWaitingMessageDisplayed(driver);
+                if (isWaitingMessageDisplayed) {
+                    int count = 0;
+                    do {
+                        driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.MILLISECONDS);
+                        List<WebElement> elements = driver.findElements(By.xpath(".//div[@class='appian-indicator-message' and @style='display: none;']"));
+                        if (elements.size() == 1) {
+                            isLoadedFully = true;
+                        }
+                        driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
+                        count++;
+                    } while (!isLoadedFully && count < 50);
+                }
+
+            } catch (Exception e) {
+                driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
+                isLoadedFully = false;
+            }
         }
 
         return isLoadedFully;

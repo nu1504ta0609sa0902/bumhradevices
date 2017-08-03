@@ -1152,18 +1152,10 @@ public class AddDevices extends _Page {
             WaitUtils.waitForElementToBeClickable(driver, linkHereToInitiateWorldpay, TIMEOUT_10_SECOND);
             linkHereToInitiateWorldpay.click();
 
-            //Link "Proceed to worldpay"
-            //WaitUtils.waitForElementToBeClickable(driver, linkProceedToWorldpay, TIMEOUT_10_SECOND);
-            //linkProceedToWorldpay.click();
-
             //Focus on different tab
             PaymentDetails payment = new PaymentDetails(driver);
             payment.performWorldPayPayment("Card Details", scenarioSession);
 
-            //When completed
-            //PageFactory.initElements(driver,this);
-            //WaitUtils.waitForElementToBeClickable(driver, linkHereToInitiateWorldpay, TIMEOUT_10_SECOND);
-            //linkHereToInitiateWorldpay.click();
         }else if(paymentMethod.toLowerCase().contains("bacs")){
             paymentBACS.click();
             WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);

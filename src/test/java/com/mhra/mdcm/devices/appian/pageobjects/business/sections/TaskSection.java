@@ -646,7 +646,7 @@ public class TaskSection extends _Page {
     }
 
     public boolean isSearchingCompleted() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.isPageLoadingComplete(driver, 1);
         return PageUtils.isElementClickable(driver, btnClearSearchField, TIMEOUT_10_SECOND);
     }
 

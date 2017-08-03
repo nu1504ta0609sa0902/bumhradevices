@@ -54,6 +54,8 @@ public class LoginPage extends _Page {
     WebElement changePasswordNewConfirm;
 
     //Forgotten password or change password
+    @FindBy(id = "logo")
+    WebElement mhraLogo;
     @FindBy(id = "forgotPasswordLink")
     WebElement linkForgottenPassword;
     @FindBy(id = "back_link")
@@ -68,7 +70,7 @@ public class LoginPage extends _Page {
     WebElement tbxConfirmNewPassword;
 
     //Terms and conditions
-    @FindBy(css = "input[type='button']")
+    @FindBy(xpath = ".//div[@class='button_box_buttons']//input")
     WebElement acceptTermsAndConditions;
 
     //Buttons
@@ -207,7 +209,8 @@ public class LoginPage extends _Page {
     private boolean isAlreadyLoggedOut() {
         boolean loggedOut = true;
         try{
-            WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText("Forgot your password"), 2);
+            //WaitUtils.waitForElementToBeClickable(driver, By.partialLinkText("Forgot your password"), 2);
+            WaitUtils.waitForElementToBeClickable(driver, acceptTermsAndConditions, 2);
         }catch (Exception e){
             loggedOut = false;
         }
@@ -340,8 +343,9 @@ public class LoginPage extends _Page {
         return new MainNavigationBar(driver);
     }
 
-    public LoginPage accetpTandC() {
-        if(PageUtils.isElementClickable(driver, acceptTermsAndConditions, TIMEOUT_5_SECOND)) {
+    public LoginPage acceptTermsAndConditions() {
+        //WaitUtils.waitForElementToBeClickable(driver, mhraLogo, TIMEOUT_10_SECOND);
+        if(PageUtils.isVisible(driver, acceptTermsAndConditions, TIMEOUT_5_SECOND)) {
             acceptTermsAndConditions.click();
         }
         return new LoginPage(driver);

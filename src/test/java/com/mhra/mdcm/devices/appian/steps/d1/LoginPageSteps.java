@@ -6,8 +6,6 @@ import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
-import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -34,7 +32,7 @@ public class LoginPageSteps extends CommonSteps {
             //boolean alreadyLoggedInAsUser = loginPage.isAlreadyLoggedInAsUser(username);
             loginPage = loginPage.loadPage(baseUrl);
             PageUtils.acceptAlert(driver, "accept", 1);
-            loginPage = loginPage.accetpTandC();
+            loginPage = loginPage.acceptTermsAndConditions();
             mainNavigationBar = loginPage.login(username);
             scenarioSession.putData(SessionKey.loggedInUser, username);
         } catch (Exception e) {
@@ -52,7 +50,7 @@ public class LoginPageSteps extends CommonSteps {
         loginPage = loginPage.loadPage(baseUrl);
         try {
             PageUtils.acceptAlert(driver, "accept", 1);
-            loginPage = loginPage.accetpTandC();
+            loginPage = loginPage.acceptTermsAndConditions();
             mainNavigationBar = loginPage.login(username);
             scenarioSession.putData(SessionKey.loggedInUser, username);
         } catch (Exception e) {
@@ -68,7 +66,7 @@ public class LoginPageSteps extends CommonSteps {
     @When("^I try to login to appian as username \"([^\"]*)\" and password \"([^\"]*)\"$")
     public void i_am_logged_into_appian_as_user(String username, String password) throws Throwable {
         loginPage = loginPage.loadPage(baseUrl);
-        loginPage = loginPage.accetpTandC();
+        loginPage = loginPage.acceptTermsAndConditions();
         mainNavigationBar = loginPage.loginWithSpecificUsernamePassword(username, password);
         log.info("Login as : " + username + "/" + password);
         scenarioSession.putData(SessionKey.loggedInUser, username);

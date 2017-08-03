@@ -48,7 +48,6 @@ Feature: As a customer I want to register new manufacturers with devices
       | isBearingCEMarking     | false                |
       | productName            | Product1             |
     And Proceed to payment via "<paymentType>" and confirm submit device details
-#    Then I should be returned to the manufacturers list page
     When I logout and log back into appian as "<logBackInAs>" user
     And I search and view new task in AWIP page for the newly created manufacturer
     Then I should see the payment details section with correct data
