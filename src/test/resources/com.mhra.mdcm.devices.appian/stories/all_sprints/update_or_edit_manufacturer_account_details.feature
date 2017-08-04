@@ -136,7 +136,6 @@ Feature: As a business user, I want to be able to update party details associate
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
     And I click on random manufacturer with status "Registered"
-    Then Verify save the application button is displayed in "Manufacturer Details" page
     When I add a device to SELECTED manufacturer with following data
       | deviceType     | <deviceType> |
       | gmdnDefinition | <gmdn1>      |
@@ -153,13 +152,10 @@ Feature: As a business user, I want to be able to update party details associate
     Then Verify save the application button is displayed in "Add Devices" page
     And Proceed to payment and confirm submit device details
     When I logout and log back into appian as "<logBackInAs>" user
-    Then I search and view new task in AWIP page for the newly created manufacturer
-    Then I should see correct device details
-    And Check task contains correct devices "<gmdn1>" and other details
+    And I search and view new task in AWIP page for the newly created manufacturer
     Then Task contains correct devices and products and other details for "<deviceType>"
     When I assign the AWIP page task to me and "<approveReject>" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
-#    When I search accounts for the stored organisation name
     When I go to records page and click on "Organisations"
     When I search for stored organisation in "Organisations" page
     Then All organisation search result should return 1 matches

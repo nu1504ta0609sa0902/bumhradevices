@@ -127,8 +127,6 @@ public class ExternalHomePageSteps extends CommonSteps {
     }
 
 
-
-
     @When("^I save progress without adding a new device$")
     public void i_save_without_adding_a_new_device() throws Throwable {
         //Not sure which page this should take us to : ManufacturerList or AddDevices
@@ -145,7 +143,6 @@ public class ExternalHomePageSteps extends CommonSteps {
         boolean isCorrect = manufacturerList.isSpecificTableHeadingCorrect("Manufacturer name");
         Assert.assertThat("Expected To See Manufacturer List : " + name, isCorrect, Matchers.is(true));
     }
-
 
 
     @Then("^I should be returned to the manufacturers list page$")
@@ -171,9 +168,9 @@ public class ExternalHomePageSteps extends CommonSteps {
         manufacturerList = externalHomePage.gotoListOfManufacturerPage();
 
         String status = (String) scenarioSession.getData(SessionKey.registeredStatus);
-        if(status.equals("Registered")){
+        if (status.equals("Registered")) {
             manufacturerList = manufacturerList.sortBy("Registration status", 2);
-        }else{
+        } else {
             manufacturerList = manufacturerList.sortBy("Registration status", 1);
         }
 
@@ -385,10 +382,10 @@ public class ExternalHomePageSteps extends CommonSteps {
     @Then("^I should \"([^\"]*)\" validation error message in devices page$")
     public void i_should_see_validation_error_message_in_devices_page(String isErrorMessaageDisplayed) throws Throwable {
         boolean errorMessageDisplayed = addDevices.isValidationErrorMessageVisible();
-        if(isErrorMessaageDisplayed.toLowerCase().equals("not see")){
-            Assert.assertThat("Error messages should not be displayed " , errorMessageDisplayed, Matchers.is(false));
-        }else{
-            Assert.assertThat("Error messages SHOULD BE displayed " , errorMessageDisplayed, Matchers.is(true));
+        if (isErrorMessaageDisplayed.toLowerCase().equals("not see")) {
+            Assert.assertThat("Error messages should not be displayed ", errorMessageDisplayed, Matchers.is(false));
+        } else {
+            Assert.assertThat("Error messages SHOULD BE displayed ", errorMessageDisplayed, Matchers.is(true));
         }
     }
 
@@ -508,9 +505,9 @@ public class ExternalHomePageSteps extends CommonSteps {
     @When("^I click on random manufacturer with status \"([^\"]*)\"$")
     public void i_click_on_random_manufacturer(String status) throws Throwable {
 
-        if(status.equals("Registered")){
+        if (status.equals("Registered")) {
             manufacturerList = manufacturerList.sortBy("Registration status", 2);
-        }else{
+        } else {
             manufacturerList = manufacturerList.sortBy("Registration status", 1);
         }
 
@@ -535,7 +532,8 @@ public class ExternalHomePageSteps extends CommonSteps {
         Assert.assertThat("Status of organisation should be : " + status, status.toLowerCase().equals(registered.toLowerCase()), Matchers.is(true));
 
         log.info("Manufacturer selected : " + name + ", is " + registered);
-        manufacturerDetails = manufacturerList.viewAManufacturer(name);
+        //manufacturerDetails = manufacturerList.viewAManufacturer(name);
+
         scenarioSession.putData(SessionKey.organisationName, name);
         scenarioSession.putData(SessionKey.organisationCountry, country);
         scenarioSession.putData(SessionKey.registeredStatus, registered);
@@ -546,9 +544,9 @@ public class ExternalHomePageSteps extends CommonSteps {
     @When("^I click on random manufacturer with status \"([^\"]*)\" to add device$")
     public void i_click_on_random_manufacturer_with_status_to_add_device(String status) throws Throwable {
 
-        if(status.equals("Registered")){
+        if (status.equals("Registered")) {
             manufacturerList = manufacturerList.sortBy("Registration status", 2);
-        }else{
+        } else {
             manufacturerList = manufacturerList.sortBy("Registration status", 1);
         }
 
@@ -573,7 +571,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         Assert.assertThat("Status of organisation should be : " + status, status.toLowerCase().equals(registered.toLowerCase()), Matchers.is(true));
 
         log.info("Manufacturer selected : " + name + ", is " + registered);
-        manufacturerDetails = manufacturerList.viewAManufacturer(name);
+        //manufacturerDetails = manufacturerList.viewAManufacturer(name);
 
         scenarioSession.putData(SessionKey.organisationName, name);
         scenarioSession.putData(SessionKey.organisationCountry, country);
@@ -617,14 +615,15 @@ public class ExternalHomePageSteps extends CommonSteps {
             //custom made
             try {
                 externalHomePage.selectCustomMade(true);
-            }catch (Exception e){}
+            } catch (Exception e) {
+            }
 
             //Submit devices made : They changed the work flow on 03/02/2017
             //createNewManufacturer = externalHomePage.submitIndicationOfDevicesMade(true);
             //createNewManufacturer = externalHomePage.submitIndicationOfDevicesMade(false);
 
             createNewManufacturer = externalHomePage.submitIndicationOfDevicesMade(false);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
 
         }
@@ -707,7 +706,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         ManufacturerRequestDO manufacaturerData = (ManufacturerRequestDO) scenarioSession.getData(SessionKey.manufacturerData);
         //deviceDetails = manufacturerDetails.clickOnSummaryLink();
         boolean isCorrect = manufacturerDetails.isDisplayingCorrectData(manufacaturerData);
-        Assert.assertThat("Expected to see following data : " + manufacaturerData , isCorrect, Matchers.is(true));
+        Assert.assertThat("Expected to see following data : " + manufacaturerData, isCorrect, Matchers.is(true));
 
     }
 
@@ -778,7 +777,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         String org = (String) scenarioSession.getData(SessionKey.organisationName);
         String registeredStatus = (String) scenarioSession.getData(SessionKey.registeredStatus);
         boolean isCorrectFieldsDisplayed = manufacturerDetails.isDisplayedContactPersonFieldsCorrect(org);
-        if(registeredStatus!=null && registeredStatus.toLowerCase().equals("registered"))
+        if (registeredStatus != null && registeredStatus.toLowerCase().equals("registered"))
             isCorrectFieldsDisplayed = manufacturerDetails.isDisplayedContactPersonFieldsCorrect(org);
         else
             isCorrectFieldsDisplayed = manufacturerDetails.isDisplayedContactPersonFieldsCorrectForNonRegisteredManufacturer(org);
@@ -853,11 +852,11 @@ public class ExternalHomePageSteps extends CommonSteps {
                 //if(!tabDisplayed)
                 //addDevices = manufacturerDetails.clickContinueButton();
             }
-        }while( count < 2 && !tabDisplayed);
+        } while (count < 2 && !tabDisplayed);
     }
 
 
-        @When("^I click on view all gmdn term or definitions for device type \"([^\"]*)\"$")
+    @When("^I click on view all gmdn term or definitions for device type \"([^\"]*)\"$")
     public void i_click_on_view_all_gmdn_term_or_definitions(String deviceType) throws Throwable {
 
         //View all gmdn
@@ -922,19 +921,19 @@ public class ExternalHomePageSteps extends CommonSteps {
     @And("^Verify save the application button is displayed in \"([^\"]*)\" page$")
     public void iSaveTheApplicationButtonShouldBeDisplayed(String page) throws Throwable {
         boolean isVisible = true;
-        if(page!=null){
+        if (page != null) {
             page = page.toLowerCase();
-            if(page.contains("add devices")){
+            if (page.contains("add devices")) {
                 isVisible = addDevices.isSaveAndExitButtonVisible();
-            }else if(page.contains("manufacturer details")){
+            } else if (page.contains("manufacturer details")) {
                 isVisible = manufacturerDetails.isSaveAndExitButtonVisible();
-            }else if(page.contains("payment details")){
+            } else if (page.contains("payment details")) {
 
             }
 
         }
 
-        Assert.assertThat("Save and exit button should only be displayed for new applications", isVisible, is(false));
+        Assert.assertThat("Save and exit button should only be visible in all the steps", isVisible, is(true));
     }
 
     @Then("^I should option to unregister the manufacturer$")

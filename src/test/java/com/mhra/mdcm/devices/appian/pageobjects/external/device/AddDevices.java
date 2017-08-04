@@ -309,9 +309,7 @@ public class AddDevices extends _Page {
 
     public boolean isErrorMessageDisplayed(String message) {
         try {
-            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-            WaitUtils.waitForElementToBeVisible(driver, By.cssSelector(".FieldLayout---field_error"), 3);
-            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".FieldLayout---field_error"), 3);
+            WaitUtils.waitForElementToBeClickable(driver, By.cssSelector(".FieldLayout---field_error"), TIMEOUT_3_SECOND);
             boolean isDisplayed = false;
             for (WebElement msg : errorMessages) {
                 String txt = msg.getText();
@@ -766,6 +764,9 @@ public class AddDevices extends _Page {
             String searchFor = dd.gmdnTermOrDefinition;
             boolean isErrorMessageDisplayed = false;
             do {
+                if(pos == -1){
+                    searchFor = dd.gmdnTermOrDefinition;
+                }
                 WaitUtils.waitForElementToBeClickable(driver, tbxGMDNDefinitionOrTerm, TIMEOUT_5_SECOND);
                 tbxGMDNDefinitionOrTerm.clear();
                 tbxGMDNDefinitionOrTerm.sendKeys(searchFor);
@@ -789,7 +790,6 @@ public class AddDevices extends _Page {
                 isErrorMessageDisplayed = isErrorMessageDisplayed("Duplicate");
                 if (isErrorMessageDisplayed) {
                     //Try again
-                    //arrayOfDeviceBecauseTheyKeepBloodyChanging.remove(pos);
                     pos++;
                     searchFor = arrayOfDeviceBecauseTheyKeepBloodyChanging.get(pos);
                 } else {

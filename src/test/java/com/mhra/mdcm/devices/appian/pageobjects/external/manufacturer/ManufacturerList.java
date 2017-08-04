@@ -37,7 +37,7 @@ public class ManufacturerList extends _Page {
     List<WebElement> listOfManufacturerNames;
     @FindBy(xpath = ".//h2[contains(text(),'Manufacturer')]//following::tbody[1]/tr/td[4]")
     List<WebElement> listOfManufacturerStatuses;
-    @FindBy(xpath = ".//h2[contains(text(),'Manufacturer')]//following::tbody[1]/tr")
+    @FindBy(xpath = ".//h2[contains(text(),'Manufacturers you represent')]//following::tbody[1]/tr")
     List<WebElement> listOfManufacturerRows;
     @FindBy(xpath = ".//*[contains(text(), 'Manufacturers you represent')]/following::th[@abbr='Registration Status']")
     WebElement thManufacturerRegistrationStatus;
@@ -244,7 +244,7 @@ public class ManufacturerList extends _Page {
         for(WebElement tr: listOfManufacturerRows){
             try {
                 //WebElement link = tr.findElement(By.partialLinkText(name));
-                registered = tr.findElement(By.xpath("td[4]")).getText();
+                registered = tr.findElement(By.xpath("td[4]/div/img")).getAttribute("alt");
                 String n = tr.findElement(By.xpath("td[1]")).getText();
 
                 if(n.contains(name)){

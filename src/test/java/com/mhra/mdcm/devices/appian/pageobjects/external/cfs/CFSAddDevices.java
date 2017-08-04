@@ -647,6 +647,9 @@ public class CFSAddDevices extends _Page {
             String searchFor = dd.gmdnTermOrDefinition;
             boolean isErrorMessageDisplayed = false;
             do {
+                if(pos == -1){
+                    searchFor = dd.gmdnTermOrDefinition;
+                }
                 WaitUtils.waitForElementToBeClickable(driver, tbxGMDNDefinitionOrTerm, TIMEOUT_10_SECOND);
                 tbxGMDNDefinitionOrTerm.clear();
                 tbxGMDNDefinitionOrTerm.sendKeys(searchFor);

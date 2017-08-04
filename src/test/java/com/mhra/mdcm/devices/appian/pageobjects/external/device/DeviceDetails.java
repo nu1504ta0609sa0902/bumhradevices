@@ -155,7 +155,7 @@ public class DeviceDetails extends _Page {
     WebElement btnEditDevicesList;
     @FindBy(xpath = ".//button[contains(text(),'Add devices')]")
     WebElement btnAddDevices;
-    @FindBy(xpath = ".//button[contains(text(),'Manage devices')]")
+    @FindBy(xpath = ".//button[contains(text(),'Manage Device')]")
     WebElement btnManageDevice;
 
 
