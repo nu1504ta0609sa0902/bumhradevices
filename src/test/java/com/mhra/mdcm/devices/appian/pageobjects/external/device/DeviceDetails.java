@@ -3,10 +3,7 @@ package com.mhra.mdcm.devices.appian.pageobjects.external.device;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
-import com.mhra.mdcm.devices.appian.pageobjects.external.PaymentDetails;
 import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.ManufacturerDetails;
-import com.mhra.mdcm.devices.appian.session.ScenarioSession;
-import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.CommonUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
@@ -14,7 +11,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -105,24 +101,24 @@ public class DeviceDetails extends _Page {
     WebElement linkEditCountryAndCertificates;
 
     //Payment methods
-    @FindBy(xpath = ".//*[contains(text(),'payment method')]/following::img[1]")
-    WebElement paymentWorldPay;
-    @FindBy(xpath = ".//*[contains(text(),'payment method')]/following::img[2]")
-    WebElement paymentBACS;
-    @FindBy(xpath = ".//*[contains(text(),'payment method')]/following::img[3]")
-    WebElement linkHereToInitiateWorldpay;
-    @FindBy(partialLinkText = "Back to ")
-    WebElement linkBackToManufacturer;
-    @FindBy(xpath = ".//a[contains(text(),'Proceed to worldpay')]")
-    WebElement linkProceedToWorldpay;
-    @FindBy(xpath = ".//button[contains(text(),'Submit Application')]")
-    WebElement btnCompleteApplication;
-    @FindBy(xpath = ".//div[@role='listbox']")
-    WebElement ddAddressBox;
-    @FindBy(css = ".FileUploadWidget---ui-inaccessible")
-    WebElement fileUpload;
-    @FindBy(xpath = ".//*[contains(text(), 'successfully submitted')]/following::strong[1]")
-    WebElement txtApplicationReference;
+//    @FindBy(xpath = ".//*[contains(text(),'payment method')]/following::img[1]")
+//    WebElement paymentWorldPay;
+//    @FindBy(xpath = ".//*[contains(text(),'payment method')]/following::img[2]")
+//    WebElement paymentBACS;
+//    @FindBy(xpath = ".//*[contains(text(),'payment method')]/following::img[3]")
+//    WebElement linkHereToInitiateWorldpay;
+//    @FindBy(partialLinkText = "Back to ")
+//    WebElement linkBackToManufacturer;
+//    @FindBy(xpath = ".//a[contains(text(),'Proceed to worldpay')]")
+//    WebElement linkProceedToWorldpay;
+//    @FindBy(xpath = ".//button[contains(text(),'Submit Application')]")
+//    WebElement btnCompleteApplication;
+//    @FindBy(xpath = ".//div[@role='listbox']")
+//    WebElement ddAddressBox;
+//    @FindBy(css = ".FileUploadWidget---ui-inaccessible")
+//    WebElement fileUpload;
+//    @FindBy(xpath = ".//*[contains(text(), 'successfully submitted')]/following::strong[1]")
+//    WebElement txtApplicationReference;
 
     //Address fields
     @FindBy(xpath = ".//*[contains(text(), 'printed on CFS')]/following::p[2]")
@@ -331,11 +327,11 @@ public class DeviceDetails extends _Page {
         return new DeviceDetails(driver);
     }
 
-    public DeviceDetails continueToPaymentAfterReviewFinished() {
+    public PaymentDetails continueToPaymentAfterReviewFinished() {
         //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, btnContinueToPayment, TIMEOUT_10_SECOND);
         btnContinueToPayment.click();
-        return new DeviceDetails(driver);
+        return new PaymentDetails(driver);
     }
 
     public ManufacturerDetails saveAndExitCFSOrderApplication() {
@@ -496,51 +492,51 @@ public class DeviceDetails extends _Page {
         return new DeviceDetails(driver);
     }
 
-    public DeviceDetails enterPaymentDetails(String paymentMethod, ScenarioSession scenarioSession) {
-        String proofOfPayments = "CompletionOfTransfer1.pdf";
-        scenarioSession.putData(SessionKey.paymentProofDocuments, proofOfPayments);
-        WaitUtils.waitForElementToBeClickable(driver, ddAddressBox, TIMEOUT_15_SECOND);
+//    public DeviceDetails enterPaymentDetails(String paymentMethod, ScenarioSession scenarioSession) {
+//        String proofOfPayments = "CompletionOfTransfer1.pdf";
+//        scenarioSession.putData(SessionKey.paymentProofDocuments, proofOfPayments);
+//        WaitUtils.waitForElementToBeClickable(driver, ddAddressBox, TIMEOUT_15_SECOND);
+//
+//        //Select billing address:
+//        PageUtils.selectFromDropDown(driver, ddAddressBox, "Registered Address", false);
+//
+//        if (paymentMethod.toLowerCase().contains("world")) {
+//            WaitUtils.waitForElementToBeClickable(driver, paymentWorldPay, TIMEOUT_15_SECOND);
+//            paymentWorldPay.click();
+//            //Click "here" link
+//            WaitUtils.waitForElementToBeClickable(driver, linkHereToInitiateWorldpay, TIMEOUT_10_SECOND);
+//            linkHereToInitiateWorldpay.click();
+//
+//            //Link "Proceed to worldpay"
+//            //WaitUtils.waitForElementToBeClickable(driver, linkProceedToWorldpay, TIMEOUT_10_SECOND);
+//            //linkProceedToWorldpay.click();
+//
+//            //Focus on different tab
+//            PaymentWorldPay payment = new PaymentWorldPay(driver);
+//            payment.performWorldPayPayment("Card Details", scenarioSession);
+//
+//            //When completed
+//            //WaitUtils.waitForElementToBeClickable(driver, linkHereToInitiateWorldpay, TIMEOUT_10_SECOND);
+//            //PageFactory.initElements(driver, this);
+//            //linkHereToInitiateWorldpay.click();
+//
+//        } else if (paymentMethod.toLowerCase().contains("bacs")) {
+//            paymentBACS.click();
+//            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+//            PageUtils.uploadDocument(fileUpload, proofOfPayments, 1, 3);
+//        }
+//
+//        //Complete the application
+//        WaitUtils.waitForElementToBeClickable(driver, btnCompleteApplication, TIMEOUT_10_SECOND);
+//        btnCompleteApplication.click();
+//        return new DeviceDetails(driver);
+//    }
 
-        //Select billing address:
-        PageUtils.selectFromDropDown(driver, ddAddressBox, "Registered Address", false);
-
-        if (paymentMethod.toLowerCase().contains("world")) {
-            WaitUtils.waitForElementToBeClickable(driver, paymentWorldPay, TIMEOUT_15_SECOND);
-            paymentWorldPay.click();
-            //Click "here" link
-            WaitUtils.waitForElementToBeClickable(driver, linkHereToInitiateWorldpay, TIMEOUT_10_SECOND);
-            linkHereToInitiateWorldpay.click();
-
-            //Link "Proceed to worldpay"
-            //WaitUtils.waitForElementToBeClickable(driver, linkProceedToWorldpay, TIMEOUT_10_SECOND);
-            //linkProceedToWorldpay.click();
-
-            //Focus on different tab
-            PaymentDetails payment = new PaymentDetails(driver);
-            payment.performWorldPayPayment("Card Details", scenarioSession);
-
-            //When completed
-            //WaitUtils.waitForElementToBeClickable(driver, linkHereToInitiateWorldpay, TIMEOUT_10_SECOND);
-            //PageFactory.initElements(driver, this);
-            //linkHereToInitiateWorldpay.click();
-
-        } else if (paymentMethod.toLowerCase().contains("bacs")) {
-            paymentBACS.click();
-            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-            PageUtils.uploadDocument(fileUpload, proofOfPayments, 1, 3);
-        }
-
-        //Complete the application
-        WaitUtils.waitForElementToBeClickable(driver, btnCompleteApplication, TIMEOUT_10_SECOND);
-        btnCompleteApplication.click();
-        return new DeviceDetails(driver);
-    }
-
-    public String getApplicationReferenceNumber() {
-        WaitUtils.waitForElementToBeClickable(driver, linkBackToManufacturer, TIMEOUT_15_SECOND);
-        WaitUtils.waitForElementToBeClickable(driver, txtApplicationReference, TIMEOUT_15_SECOND);
-        return txtApplicationReference.getText();
-    }
+//    public String getApplicationReferenceNumber() {
+//        WaitUtils.waitForElementToBeClickable(driver, linkBackToManufacturer, TIMEOUT_15_SECOND);
+//        WaitUtils.waitForElementToBeClickable(driver, txtApplicationReference, TIMEOUT_15_SECOND);
+//        return txtApplicationReference.getText();
+//    }
 
     public DeviceDetails searchByMedicalDeviceName(String searchTerm) {
         WaitUtils.waitForElementToBeClickable(driver, tbxMedicalDeviceName, TIMEOUT_10_SECOND);

@@ -131,16 +131,17 @@ Feature: As a business user, I want to be able to update party details associate
       | authorisedRepAuto | businessAuto | contact.title,contact.firstname,contact.lastname,contact.job.title,contact.email,contact.telephone | Registered |
 
 
-  @regression @mdcm-263 @2197 @_sprint6 @mdcm-275 @2188 @_sprint7 @4088 @_sprint11 @2185 @3104 @_sprint8 @bug
+  @regression @mdcm-263 @2197 @_sprint6 @mdcm-275 @2188 @_sprint7 @4088 @_sprint11 @2185 @3104 @_sprint8 @7081 @_sprint29 @bug
   Scenario Outline: Verify only 1 task is created when user updates EXISTING manufacturer with multiple devices
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on a random manufacturer to add devices
-    #And I click on random manufacturer with status "<status>" to add device
+    And I click on random manufacturer with status "Registered"
+    Then Verify save the application button is displayed in "Manufacturer Details" page
     When I add a device to SELECTED manufacturer with following data
       | deviceType     | <deviceType> |
       | gmdnDefinition | <gmdn1>      |
       | customMade     | true         |
+    Then Verify save the application button is displayed in "Add Devices" page
     And I add another device to SELECTED manufacturer with following data
       | deviceType             | <deviceType> |
       | gmdnDefinition         | <gmdn2>      |
@@ -149,6 +150,7 @@ Feature: As a business user, I want to be able to update party details associate
       | relatedDeviceMeasuring | true         |
       | riskClassification     | class1       |
       | notifiedBody           | NB 0086 BSI  |
+    Then Verify save the application button is displayed in "Add Devices" page
     And Proceed to payment and confirm submit device details
     When I logout and log back into appian as "<logBackInAs>" user
     Then I search and view new task in AWIP page for the newly created manufacturer
@@ -157,8 +159,10 @@ Feature: As a business user, I want to be able to update party details associate
     Then Task contains correct devices and products and other details for "<deviceType>"
     When I assign the AWIP page task to me and "<approveReject>" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
-    When I search accounts for the stored organisation name
-    Then I should see at least 0 account matches
+#    When I search accounts for the stored organisation name
+    When I go to records page and click on "Organisations"
+    When I search for stored organisation in "Organisations" page
+    Then All organisation search result should return 1 matches
     Examples:
       | user              | logBackInAs  | status         | gmdn1                | gmdn2           | approveReject | deviceType             |
       | authorisedRepAuto | businessAuto | Registered     | Blood weighing scale | Autopsy measure | approve       | General Medical Device |

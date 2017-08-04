@@ -60,7 +60,7 @@ Feature: As a customer I want to be able to enter more than one device at the po
   Scenario Outline: Users should be able to add all 4 device type to EXISTING organisations
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
-    And I click on a random manufacturer to add devices
+    And I click on random manufacturer with status "Registered"
     When I add a device to SELECTED manufacturer with following data
       | deviceType     | General Medical Device |
       | gmdnDefinition | <device1>              |

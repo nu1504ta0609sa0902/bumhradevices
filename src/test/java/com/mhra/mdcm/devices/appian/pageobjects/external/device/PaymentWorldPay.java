@@ -1,4 +1,4 @@
-package com.mhra.mdcm.devices.appian.pageobjects.external;
+package com.mhra.mdcm.devices.appian.pageobjects.external.device;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
  * P
  */
 @Component
-public class PaymentDetails extends _Page {
+public class PaymentWorldPay extends _Page {
 
     //Order summary
     @FindBy(id = "language")
@@ -62,7 +62,7 @@ public class PaymentDetails extends _Page {
     WebElement paymentCompletedText;
 
     @Autowired
-    public PaymentDetails(WebDriver driver) {
+    public PaymentWorldPay(WebDriver driver) {
         super(driver);
     }
 

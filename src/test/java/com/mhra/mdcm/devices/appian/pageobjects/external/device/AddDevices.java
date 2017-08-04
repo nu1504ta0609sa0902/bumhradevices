@@ -1,12 +1,8 @@
 package com.mhra.mdcm.devices.appian.pageobjects.external.device;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
-import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
-import com.mhra.mdcm.devices.appian.pageobjects.external.PaymentDetails;
 import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.ManufacturerList;
-import com.mhra.mdcm.devices.appian.session.ScenarioSession;
-import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.CommonUtils;
@@ -16,7 +12,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -251,16 +246,16 @@ public class AddDevices extends _Page {
     WebElement linkBackToService;
 
     //Payment methods and fee details
-    @FindBy(xpath = ".//*[contains(text(),'payment method')]/following::img[1]")
-    WebElement paymentWorldPay;
-    @FindBy(xpath = ".//*[contains(text(),'payment method')]/following::img[2]")
-    WebElement paymentBACS;
-    @FindBy(xpath = ".//*[contains(text(),'payment method')]/following::img[3]")
-    WebElement linkHereToInitiateWorldpay;
-    @FindBy(xpath = ".//a[contains(text(),'Proceed to worldpay')]")
-    WebElement linkProceedToWorldpay;
-    @FindBy(xpath = ".//button[contains(text(),'Submit Application')]")
-    WebElement btnCompleteApplication;
+//    @FindBy(xpath = ".//*[contains(text(),'payment method')]/following::img[1]")
+//    WebElement paymentWorldPay;
+//    @FindBy(xpath = ".//*[contains(text(),'payment method')]/following::img[2]")
+//    WebElement paymentBACS;
+//    @FindBy(xpath = ".//*[contains(text(),'payment method')]/following::img[3]")
+//    WebElement linkHereToInitiateWorldpay;
+//    @FindBy(xpath = ".//a[contains(text(),'Proceed to worldpay')]")
+//    WebElement linkProceedToWorldpay;
+//    @FindBy(xpath = ".//button[contains(text(),'Submit Application')]")
+//    WebElement btnCompleteApplication;
     @FindBy(xpath = ".//div[@role='listbox']")
     WebElement ddAddressBox;
     @FindBy(xpath = ".//*[contains(text(), 'Payment details')]/following::strong[@class='StrongText---richtext_strong']")
@@ -832,14 +827,14 @@ public class AddDevices extends _Page {
         }
     }
 
-    public AddDevices proceedToPayment() {
+    public PaymentDetails proceedToPayment() {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, cbxConfirmInformation, TIMEOUT_10_SECOND);
         cbxConfirmInformation.click();
         WaitUtils.waitForElementToBeClickable(driver, btnProceedToPayment, TIMEOUT_10_SECOND);
         btnProceedToPayment.click();
         log.info("Proceed to payment");
-        return new AddDevices(driver);
+        return new PaymentDetails(driver);
     }
 
     public AddDevices submitRegistration() {
@@ -1133,38 +1128,6 @@ public class AddDevices extends _Page {
             log.info("Link: Back to services");
         }catch (Exception e){}
         return new ManufacturerList(driver);
-    }
-
-    public AddDevices enterPaymentDetails(String paymentMethod, ScenarioSession scenarioSession) {
-        String proofOfPayments = "CompletionOfTransfer1.pdf";
-        scenarioSession.putData(SessionKey.paymentProofDocuments, proofOfPayments);
-        WaitUtils.waitForElementToBeClickable(driver, ddAddressBox, TIMEOUT_15_SECOND);
-
-        //Select billing address:
-        PageUtils.selectFromDropDown(driver, ddAddressBox , "Registered Address", false);
-
-        if(paymentMethod.toLowerCase().contains("world")){
-            WaitUtils.waitForElementToBeClickable(driver, paymentWorldPay, TIMEOUT_15_SECOND);
-            paymentWorldPay.click();
-
-            //Click "here" link
-            WaitUtils.waitForElementToBeClickable(driver, linkHereToInitiateWorldpay, TIMEOUT_10_SECOND);
-            linkHereToInitiateWorldpay.click();
-
-            //Focus on different tab
-            PaymentDetails payment = new PaymentDetails(driver);
-            payment.performWorldPayPayment("Card Details", scenarioSession);
-
-        }else if(paymentMethod.toLowerCase().contains("bacs")){
-            paymentBACS.click();
-            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-            PageUtils.uploadDocument(multiFileUpload, proofOfPayments, 1, 3);
-        }
-
-        //Complete the application
-        WaitUtils.waitForElementToBeClickable(driver, btnCompleteApplication, TIMEOUT_15_SECOND);
-        btnCompleteApplication.click();
-        return new AddDevices(driver);
     }
 
     public String getApplicationReferenceNumber() {

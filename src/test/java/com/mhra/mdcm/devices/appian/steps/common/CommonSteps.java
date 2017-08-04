@@ -5,14 +5,12 @@ import com.mhra.mdcm.devices.appian.pageobjects.MainNavigationBar;
 import com.mhra.mdcm.devices.appian.pageobjects.business.*;
 import com.mhra.mdcm.devices.appian.pageobjects.business.sections.TaskSection;
 import com.mhra.mdcm.devices.appian.pageobjects.business.sections.records.*;
-import com.mhra.mdcm.devices.appian.pageobjects.external.ExternalHomePage;
-import com.mhra.mdcm.devices.appian.pageobjects.external.MyAccountPage;
-import com.mhra.mdcm.devices.appian.pageobjects.external._CreateCFSManufacturerTestHarnessPage;
-import com.mhra.mdcm.devices.appian.pageobjects.external._CreateManufacturerTestHarnessPage;
+import com.mhra.mdcm.devices.appian.pageobjects.external.*;
 import com.mhra.mdcm.devices.appian.pageobjects.external.cfs.CFSAddDevices;
 import com.mhra.mdcm.devices.appian.pageobjects.external.cfs.CFSManufacturerList;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.AddDevices;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.DeviceDetails;
+import com.mhra.mdcm.devices.appian.pageobjects.external.device.PaymentDetails;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.ProductDetails;
 import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.ManufacturerEditDetails;
 import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.ManufacturerList;
@@ -116,6 +114,8 @@ public class CommonSteps {
     public _CreateCFSManufacturerTestHarnessPage createNewCFSManufacturer;
     @Autowired
     public AddDevices addDevices;
+    @Autowired
+    public PaymentDetails paymentDetails;
     @Autowired
     public CFSAddDevices cfsAddDevices;
     @Autowired

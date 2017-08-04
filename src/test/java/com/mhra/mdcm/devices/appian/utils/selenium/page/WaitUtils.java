@@ -92,7 +92,7 @@ public class WaitUtils {
                         }
                         driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
                         count++;
-                    } while (!isLoadedFully && count < 50);
+                    } while (!isLoadedFully && count < 120);
                 }
 
             } catch (Exception e) {
@@ -137,7 +137,8 @@ public class WaitUtils {
     private static boolean isWaitingMessageDisplayed(WebDriver driver) {
         boolean isDisplayed = true;
         try{
-            waitForElementToBeClickable(driver, By.xpath(".//div[@class='appian-indicator-message' and @style='display: none;']"), _Page.TIMEOUT_2_SECOND);
+            List<WebElement> elements = driver.findElements(By.xpath(".//div[@class='appian-indicator-message' and @style='display: none;']"));
+            waitForElementToBeClickable(driver, elements.get(0), _Page.TIMEOUT_3_SECOND);
             System.out.println("Waiting message is displayed");
         }catch (Exception e){
             isDisplayed = false;

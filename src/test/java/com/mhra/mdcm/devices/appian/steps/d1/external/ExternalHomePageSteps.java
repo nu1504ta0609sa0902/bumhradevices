@@ -243,7 +243,7 @@ public class ExternalHomePageSteps extends CommonSteps {
     @And("^Proceed to payment page$")
     public void proceedToPaymentPage() throws Throwable {
         addDevices = addDevices.proceedToReview();
-        addDevices = addDevices.proceedToPayment();
+        paymentDetails = addDevices.proceedToPayment();
     }
 
     @Then("^I should total charge of \"([^\"]*)\" pound for the application$")
@@ -256,12 +256,12 @@ public class ExternalHomePageSteps extends CommonSteps {
     public void proceedToPaymentAndConfirmSubmitDeviceDetails() throws Throwable {
         String method = "Worldpay";
         addDevices = addDevices.proceedToReview();
-        addDevices = addDevices.proceedToPayment();
-        addDevices = addDevices.enterPaymentDetails(method, scenarioSession);   //OR WorldPay
-        String reference = addDevices.getApplicationReferenceNumber();
+        paymentDetails = addDevices.proceedToPayment();
+        paymentDetails = paymentDetails.enterPaymentDetails(method, scenarioSession);   //OR WorldPay
+        String reference = paymentDetails.getApplicationReferenceNumber();
         log.info("New Application reference number : " + reference);
 
-        manufacturerList = addDevices.backToService();
+        manufacturerList = paymentDetails.backToService();
         scenarioSession.putData(SessionKey.newApplicationReferenceNumber, reference);
         scenarioSession.putData(SessionKey.paymentMethod, method);
     }
@@ -269,12 +269,12 @@ public class ExternalHomePageSteps extends CommonSteps {
     @And("^Proceed to payment via \"([^\"]*)\" and confirm submit device details$")
     public void proceedToPaymentAndConfirmSubmitDeviceDetails(String method) throws Throwable {
         addDevices = addDevices.proceedToReview();
-        addDevices = addDevices.proceedToPayment();
-        addDevices = addDevices.enterPaymentDetails(method, scenarioSession);   //OR WorldPay
-        String reference = addDevices.getApplicationReferenceNumber();
+        paymentDetails = addDevices.proceedToPayment();
+        paymentDetails = paymentDetails.enterPaymentDetails(method, scenarioSession);   //OR WorldPay
+        String reference = paymentDetails.getApplicationReferenceNumber();
         log.info("New Application reference number : " + reference);
 
-        manufacturerList = addDevices.backToService();
+        manufacturerList = paymentDetails.backToService();
         scenarioSession.putData(SessionKey.newApplicationReferenceNumber, reference);
         scenarioSession.putData(SessionKey.paymentMethod, method);
     }
@@ -916,6 +916,24 @@ public class ExternalHomePageSteps extends CommonSteps {
     @And("^Verify save the application button is not displayed$")
     public void iSaveTheApplicationButtonShouldNotBeDisplayed() throws Throwable {
         boolean isVisible = addDevices.isSaveAndExitButtonVisible();
+        Assert.assertThat("Save and exit button should only be displayed for new applications", isVisible, is(false));
+    }
+
+    @And("^Verify save the application button is displayed in \"([^\"]*)\" page$")
+    public void iSaveTheApplicationButtonShouldBeDisplayed(String page) throws Throwable {
+        boolean isVisible = true;
+        if(page!=null){
+            page = page.toLowerCase();
+            if(page.contains("add devices")){
+                isVisible = addDevices.isSaveAndExitButtonVisible();
+            }else if(page.contains("manufacturer details")){
+                isVisible = manufacturerDetails.isSaveAndExitButtonVisible();
+            }else if(page.contains("payment details")){
+
+            }
+
+        }
+
         Assert.assertThat("Save and exit button should only be displayed for new applications", isVisible, is(false));
     }
 

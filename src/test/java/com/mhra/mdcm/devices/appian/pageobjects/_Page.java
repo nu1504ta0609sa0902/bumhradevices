@@ -15,7 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 public class _Page {
 
     //This will wait for 1*60 seconds "Waiting..." message to dissappear, unless you set to 0
-    public static final int TIMEOUT_PAGE_LOAD = 1;
+    public static final int TIMEOUT_PAGE_LOAD = 2;
     public static final boolean USE_DEFAULT_TIME_FOR_ALL = false;
 
     /**

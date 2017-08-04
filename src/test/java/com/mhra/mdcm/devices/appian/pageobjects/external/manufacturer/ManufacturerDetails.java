@@ -127,6 +127,9 @@ public class ManufacturerDetails extends _Page {
     @FindBy(css = ".FileUploadWidget---ui-inaccessible")
     WebElement fileUpload;
 
+    @FindBy(xpath = ".//button[.='Save and Exit']")
+    WebElement btnSaveAndExit;
+
     @Autowired
     public ManufacturerDetails(WebDriver driver) {
         super(driver);
@@ -515,4 +518,9 @@ public class ManufacturerDetails extends _Page {
         }
         return isCorrect;
     }
+
+    public boolean isSaveAndExitButtonVisible() {
+        return PageUtils.isElementClickable(driver, btnSaveAndExit, TIMEOUT_2_SECOND);
+    }
+
 }
