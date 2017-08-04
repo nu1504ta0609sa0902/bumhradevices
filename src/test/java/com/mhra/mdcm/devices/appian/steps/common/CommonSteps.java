@@ -10,7 +10,7 @@ import com.mhra.mdcm.devices.appian.pageobjects.external.cfs.CFSAddDevices;
 import com.mhra.mdcm.devices.appian.pageobjects.external.cfs.CFSManufacturerList;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.AddDevices;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.DeviceDetails;
-import com.mhra.mdcm.devices.appian.pageobjects.external.device.PaymentDetails;
+import com.mhra.mdcm.devices.appian.pageobjects.external.payment.PaymentDetails;
 import com.mhra.mdcm.devices.appian.pageobjects.external.device.ProductDetails;
 import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.ManufacturerEditDetails;
 import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.ManufacturerList;

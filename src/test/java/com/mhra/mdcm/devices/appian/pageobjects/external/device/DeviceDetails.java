@@ -4,6 +4,7 @@ import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.ManufacturerDetails;
+import com.mhra.mdcm.devices.appian.pageobjects.external.payment.PaymentDetails;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.CommonUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;

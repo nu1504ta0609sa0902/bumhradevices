@@ -1,4 +1,4 @@
-package com.mhra.mdcm.devices.appian.pageobjects.external.device;
+package com.mhra.mdcm.devices.appian.pageobjects.external.payment;
 
 import com.mhra.mdcm.devices.appian.domains.newaccounts.ManufacturerRequestDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;

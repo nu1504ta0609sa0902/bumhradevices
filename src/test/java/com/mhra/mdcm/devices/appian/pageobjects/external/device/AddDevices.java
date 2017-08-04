@@ -3,6 +3,7 @@ package com.mhra.mdcm.devices.appian.pageobjects.external.device;
 import com.mhra.mdcm.devices.appian.domains.newaccounts.DeviceDO;
 import com.mhra.mdcm.devices.appian.pageobjects._Page;
 import com.mhra.mdcm.devices.appian.pageobjects.external.manufacturer.ManufacturerList;
+import com.mhra.mdcm.devices.appian.pageobjects.external.payment.PaymentDetails;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.CommonUtils;
