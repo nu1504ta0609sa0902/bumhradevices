@@ -219,7 +219,7 @@ public class AddDevices extends _Page {
     //Submit and save buttons
     @FindBy(xpath = ".//button[.='Add device']")
     WebElement btnAddDevice;
-    @FindBy(xpath = ".//button[.='Save']")
+    @FindBy(xpath = ".//button[contains(text(),'Save Device')]")
     WebElement btnSaveProgress;
     @FindBy(xpath = ".//button[.='Save and Exit']")
     WebElement btnSaveAndExit;
@@ -246,17 +246,6 @@ public class AddDevices extends _Page {
     @FindBy(partialLinkText = "Back to service")
     WebElement linkBackToService;
 
-    //Payment methods and fee details
-//    @FindBy(xpath = ".//*[contains(text(),'payment method')]/following::img[1]")
-//    WebElement paymentWorldPay;
-//    @FindBy(xpath = ".//*[contains(text(),'payment method')]/following::img[2]")
-//    WebElement paymentBACS;
-//    @FindBy(xpath = ".//*[contains(text(),'payment method')]/following::img[3]")
-//    WebElement linkHereToInitiateWorldpay;
-//    @FindBy(xpath = ".//a[contains(text(),'Proceed to worldpay')]")
-//    WebElement linkProceedToWorldpay;
-//    @FindBy(xpath = ".//button[contains(text(),'Submit Application')]")
-//    WebElement btnCompleteApplication;
     @FindBy(xpath = ".//div[@role='listbox']")
     WebElement ddAddressBox;
     @FindBy(xpath = ".//*[contains(text(), 'Payment details')]/following::strong[@class='StrongText---richtext_strong']")
@@ -355,17 +344,10 @@ public class AddDevices extends _Page {
         }
 
         //Business doing testing so don't do any write only tests
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
 
-        if(isRegistered){
-            //WaitUtils.waitForElementToBeClickable(driver, btnReviewYourOrder, TIMEOUT_10_SECOND);
-            //PageUtils.doubleClick(driver, btnReviewYourOrder);
-            WaitUtils.waitForElementToBeClickable(driver, btnSaveProgress, TIMEOUT_10_SECOND);
-            PageUtils.doubleClick(driver, btnSaveProgress);
-        }else {
-            WaitUtils.waitForElementToBeClickable(driver, btnSaveProgress, TIMEOUT_10_SECOND);
-            PageUtils.doubleClick(driver, btnSaveProgress);
-        }
+        WaitUtils.waitForElementToBeClickable(driver, btnSaveProgress, TIMEOUT_10_SECOND);
+        PageUtils.doubleClick(driver, btnSaveProgress);
 
         return new AddDevices(driver);
     }

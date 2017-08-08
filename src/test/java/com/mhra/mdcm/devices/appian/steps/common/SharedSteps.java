@@ -63,6 +63,7 @@ public class SharedSteps extends CommonSteps {
                 String currentLoggedInUser = (String) scenarioSession.getData(SessionKey.loggedInUser);
                 loginPage.logout(currentLoggedInUser);
                 PageUtils.acceptAlert(driver, true, _Page.TIMEOUT_2_SECOND);
+                loginPage.acceptTermsAndConditions();
                 loginPage.isInLoginPage(_Page.TIMEOUT_3_SECOND);
             }
         }

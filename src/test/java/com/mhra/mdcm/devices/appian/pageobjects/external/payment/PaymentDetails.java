@@ -22,11 +22,11 @@ public class PaymentDetails extends _Page {
 
 
     //Payment methods and fee details
-    @FindBy(xpath = ".//*[contains(text(),'payment method')]/following::img[1]")
+    @FindBy(xpath = ".//*[contains(text(),'Choose payment method')]/following::img[1]")
     WebElement paymentWorldPay;
-    @FindBy(xpath = ".//*[contains(text(),'payment method')]/following::img[2]")
+    @FindBy(xpath = ".//*[contains(text(),'Choose payment method')]/following::img[2]")
     WebElement paymentBACS;
-    @FindBy(xpath = ".//*[contains(text(),'payment method')]/following::img[3]")
+    @FindBy(xpath = ".//*[contains(text(),'Choose payment method')]/following::img[3]")
     WebElement linkHereToInitiateWorldpay;
     @FindBy(xpath = ".//a[contains(text(),'Proceed to worldpay')]")
     WebElement linkProceedToWorldpay;
