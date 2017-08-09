@@ -628,7 +628,7 @@ public class TaskSection extends _Page {
 
     public boolean isAWIPTaskStatusCorrect(String status) {
         WaitUtils.waitForElementToBeClickable(driver, aApplicationReference, TIMEOUT_10_SECOND);
-        boolean contains = applicationStatus.getAttribute("aria-label").toLowerCase().contains(status);
+        boolean contains = applicationStatus.getAttribute("alt").toLowerCase().contains(status.toLowerCase());
         return contains;
     }
 

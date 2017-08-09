@@ -160,6 +160,7 @@ public class LoginPageSteps extends CommonSteps {
     public void iRequestANewPasswordForStoredUser() throws Throwable {
         String userName = (String) scenarioSession.getData(SessionKey.newUserName);
         //userName = "Manufacturer1307_50598";
+        loginPage.acceptTermsAndConditions();
         loginPage = loginPage.gotoForgottenPassword();
         loginPage = loginPage.enterUsername(userName);
     }

@@ -62,7 +62,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | deviceType     | General Medical Device |
       | gmdnDefinition | Blood weighing scale   |
       | customMade     | true                   |
-    And I add another device to SELECTED CFS manufacturer with following data
+    And I add another device to SELECTED manufacturer with following data
       | deviceType     | Active Implantable Device |
       | gmdnDefinition | Desiccating chamber       |
       | customMade     | true                      |
@@ -79,7 +79,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And I should received an email for stored manufacturer with heading "MHRA Devices registration service" and stored application identifier
     Examples:
       | businessUser | logBackInAs      | accountType   | approveReject | countryName    | countryNameEU |
-      | businessNoor | manufacturerNoor | authorisedRep | approve       | United Kingdom | Netherland    |
+      | businessNoor | manufacturerNoor | authorisedRep | approve       | United Kingdom | United States    |
 
 
   @1974 @1978 @4704 @1954 @1952 @1952 @1962
@@ -227,7 +227,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
   @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149 @2325 @5753
   Scenario Outline: S5b Update already registered manufacturers by adding and removing devices
     Given I am logged into appian as "<user>" user
-    And I go to register a new manufacturer page
+    And I go to list of manufacturers page
     And I click on random manufacturer with status "Registered"
     When I add a device to SELECTED manufacturer with following data
       | deviceType     | <deviceType> |
@@ -260,7 +260,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
   @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149 @2216 @2325 @5753
   Scenario Outline: S5c Update already registered manufacturers by adding devices with products
     Given I am logged into appian as "<user>" user
-    And I go to register a new manufacturer page
+    And I go to list of manufacturers page
     And I click on random manufacturer with status "Registered"
     When I add a device to SELECTED manufacturer with following data
       | deviceType     | General Medical Device |
@@ -314,7 +314,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
   @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149 @2325 @5753
   Scenario Outline: S6b Update manufacturer for authorised rep which is already registered by adding and removing devices
     Given I am logged into appian as "<user>" user
-    And I go to register a new manufacturer page
+    And I go to list of manufacturers page
     And I click on random manufacturer with status "Registered"
     When I add a device to SELECTED manufacturer with following data
       | deviceType     | <deviceType> |
@@ -359,6 +359,3 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | businessAuto | Registered Products | ManufacturerRT  | 1     |
       | businessAuto | Organisations       | AuthorisedRepRT | 1     |
       | businessAuto | Organisations       | ManufacturerRT  | 1     |
-
-  @ignore
-  Scenario: S7d Verify RAG Status

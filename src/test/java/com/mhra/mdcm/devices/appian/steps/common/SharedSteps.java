@@ -63,7 +63,8 @@ public class SharedSteps extends CommonSteps {
                 String currentLoggedInUser = (String) scenarioSession.getData(SessionKey.loggedInUser);
                 loginPage.logout(currentLoggedInUser);
                 PageUtils.acceptAlert(driver, true, _Page.TIMEOUT_2_SECOND);
-                loginPage.acceptTermsAndConditions();
+                boolean isDisplayed = loginPage.isTermsAndConditionDisplayed(_Page.TIMEOUT_3_SECOND);
+                if(!isDisplayed)
                 loginPage.isInLoginPage(_Page.TIMEOUT_3_SECOND);
             }
         }
@@ -89,14 +90,6 @@ public class SharedSteps extends CommonSteps {
             scenarioSession.putData(SessionKey.environment, env);
         }
 
-    }
-
-    private void isThereAnAlert() {
-        WaitUtils.waitForAlert(driver, _Page.TIMEOUT_3_SECOND);
-        boolean alertFound = WaitUtils.isAlertPresent(driver);
-        if (alertFound) {
-            driver.switchTo().alert().accept();
-        }
     }
 
 

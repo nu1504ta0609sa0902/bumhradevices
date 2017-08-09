@@ -169,13 +169,10 @@ public class PageUtils {
     public static void acceptAlert(WebDriver driver, String accept, int timeToWait) {
         try {
             WaitUtils.waitForAlert(driver, timeToWait);
-            boolean present = WaitUtils.isAlertPresent(driver);
-            if (present) {
-                if (accept.equals("accept")) {
-                    driver.switchTo().alert().accept();
-                } else {
-                    driver.switchTo().alert().dismiss();
-                }
+            if (accept.equals("accept")) {
+                driver.switchTo().alert().accept();
+            } else {
+                driver.switchTo().alert().dismiss();
             }
         } catch (Exception e) {
         }
@@ -184,13 +181,10 @@ public class PageUtils {
     public static void acceptAlert(WebDriver driver, boolean accept, int timeToWait) {
         try {
             WaitUtils.waitForAlert(driver, timeToWait);
-            boolean present = WaitUtils.isAlertPresent(driver);
-            if (present) {
-                if (accept) {
-                    driver.switchTo().alert().accept();
-                } else {
-                    driver.switchTo().alert().dismiss();
-                }
+            if (accept) {
+                driver.switchTo().alert().accept();
+            } else {
+                driver.switchTo().alert().dismiss();
             }
         } catch (Exception e) {
         }
@@ -620,18 +614,18 @@ public class PageUtils {
 
     public static List<String> getListOfElementsForDropDown(List<WebElement> options) {
         List<String> loo = new ArrayList<>();
-        for(WebElement o: options){
+        for (WebElement o : options) {
             String val = o.getText();
-            if(!val.contains("All medical dev"))
-            loo.add(val);
+            if (!val.contains("All medical dev"))
+                loo.add(val);
         }
         return loo;
     }
 
     public static int getElementPositionInList(List<WebElement> listOfDevicesAdded, String deviceName) {
         int position = 0;
-        for(WebElement el: listOfDevicesAdded){
-            if(el.getText().contains(deviceName)){
+        for (WebElement el : listOfDevicesAdded) {
+            if (el.getText().contains(deviceName)) {
                 break;
             }
             position++;
@@ -642,13 +636,13 @@ public class PageUtils {
     public static boolean isAllItemsDisplayed(List<WebElement> listOfAllCECertificates, List<String> certificatesExpected) {
         boolean allFound = true;
 
-        if(listOfAllCECertificates.size() == 0){
+        if (listOfAllCECertificates.size() == 0) {
             allFound = false;
         }
 
-        for(WebElement el: listOfAllCECertificates){
+        for (WebElement el : listOfAllCECertificates) {
             String cert = el.getText();
-            if(!certificatesExpected.contains(cert)){
+            if (!certificatesExpected.contains(cert)) {
                 allFound = false;
                 break;
             }
@@ -670,9 +664,9 @@ public class PageUtils {
 
     public static boolean isPageDisplayingCorrectData(List<String> listOfStrings, String pageSource) {
         boolean isValid = true;
-        for(String cert: listOfStrings){
+        for (String cert : listOfStrings) {
             isValid = pageSource.contains(cert);
-            if(!isValid){
+            if (!isValid) {
                 System.out.println("Page not displaying expected data : " + cert);
                 break;
             }
@@ -681,12 +675,11 @@ public class PageUtils {
     }
 
 
-
     public static boolean isAllDataCorrect(List<WebElement> listOfStrings, String expectedData) {
         boolean isValid = true;
-        for(WebElement data: listOfStrings){
+        for (WebElement data : listOfStrings) {
             isValid = data.getText().contains(expectedData);
-            if(!isValid){
+            if (!isValid) {
                 System.out.println("Page not displaying expected data : " + expectedData);
                 break;
             }
@@ -697,8 +690,8 @@ public class PageUtils {
     public static String findOptionMatchingSearchTerm(List<String> listOfOptions, String searchTerm) {
         String matched = searchTerm;
 
-        for(String option: listOfOptions){
-            if(option.contains(searchTerm)){
+        for (String option : listOfOptions) {
+            if (option.contains(searchTerm)) {
                 matched = option;
                 break;
             }

@@ -56,10 +56,6 @@ public class WaitUtils {
         new WebDriverWait(driver, maxTimeToWait).until(ExpectedConditions.alertIsPresent());
     }
 
-    public static void setImplicitWaits(WebDriver driver) {
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-    }
-
     public static boolean isAlertPresent(WebDriver driver) {
         try {
             driver.switchTo().alert();

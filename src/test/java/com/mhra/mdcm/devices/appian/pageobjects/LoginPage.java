@@ -129,7 +129,7 @@ public class LoginPage extends _Page {
             pword = props.getProperty(selectedProfile + ".password." + unameKeyValue);
         }
 
-        log.info("Login as : " + un);
+        log.info("Login as : " + un + "/" + pword);
 
         //login
         username.sendKeys(un);
@@ -344,10 +344,21 @@ public class LoginPage extends _Page {
     }
 
     public LoginPage acceptTermsAndConditions() {
-        //WaitUtils.waitForElementToBeClickable(driver, mhraLogo, TIMEOUT_10_SECOND);
-        if(PageUtils.isVisible(driver, acceptTermsAndConditions, TIMEOUT_5_SECOND)) {
+        if(isTermsAndConditionDisplayed(TIMEOUT_2_SECOND)) {
             acceptTermsAndConditions.click();
+            //if (PageUtils.isVisible(driver, acceptTermsAndConditions, TIMEOUT_5_SECOND)) {
+            //    acceptTermsAndConditions.click();
+            //}
         }
         return new LoginPage(driver);
+    }
+
+    public boolean isTermsAndConditionDisplayed(int timeout) {
+        try {
+            WaitUtils.waitForElementToBeClickable(driver, acceptTermsAndConditions, timeout);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
 }
