@@ -192,7 +192,7 @@ public class GmailEmail {
 
                         //If received today and subject contains the correct text
                         boolean isMessageReceivedToday = isMessageReceivedToday(subject, subjectHeading, sentDate);
-                        if (isMessageReceivedToday && ( subject.contains(subjectHeading) || subject.contains("account creation") || subject.contains("account rejected for"))) {
+                        if (isMessageReceivedToday && subject.contains(subjectHeading)) {
 
                             //If message is received in the last X min
                             boolean isRecent = receivedInLast(min, sentDate);
