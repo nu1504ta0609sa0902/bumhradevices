@@ -86,7 +86,6 @@ Automated Issues:
                     -   Test for search + view full organisation details
                     -   Creating manufacturer without device doesn't generate a task, AT THE MOMENT
         - @mdcm-125 -   0/14    @2293
-                    -   @todo most of the TC
                     -   Verify all the associated organisations
                     -   And all the info related to the org is correct
                     -   Test for organisation role
@@ -114,12 +113,12 @@ Automated Issues:
                     -   1 or 2 stories have bugs associated with them
         - @mdcm-275 -   5/20        DONE ish     @2188
                     -   RAG status and device data
-        - @mdcm-345 -   @Todo Business has moved this outside of this sprints, all 3 TC
+        - @mdcm-345 -   Business has moved this outside of this sprints, all 3 TC
         - @3365     -   4/4         DONE ish
                     -   Once approved users can register more manufacturer
-        - @2910     -   @TODO Add more product to an already existing device
+        - @2910     -   Add more product to an already existing device
         - @2399     -   7/7         DONE ish
-        - @mdcm-490 -   @Todo add tests when deployment finishes     @2026
+        - @mdcm-490 -   add tests when deployment finishes     @2026
                     -   Business manufacturer details page
         - @mdcm-626 -   10/13       DONE ish     @1928
                     -   Last 3 or 4 still remaining to do
@@ -130,18 +129,17 @@ Automated Issues:
     Spring 8: @_sprint8
         - @1924 -   4/4     DONE
         - @2049 -   DONE ISH
-                -   @todo IVD device and notified body related
+                -   IVD device and notified body related
         - @2185 -   DONE ISH
-        - @3271 -   @todo LOTS OF TCS
+        - @3271 -   LOTS OF TCS
                 -   View devices as part of manufacturers
                 -   time consuming
-        - @3158 -   @todo LOTS OF TCS
+        - @3158 -   LOTS OF TCS
                 -   View devices as part of manufacturers
                 -   Time consuming
-        - @1836 -   @todo EMAIL
-                -   Registration message and EMAIL
+        - @1836 -   Registration message and EMAIL
         - @2097 -   8/10    DONE ish
-                -   @todo PARD default selection
+                -   PARD default selection
         - @3104 -
                 -   Amending details
                 Total
@@ -150,38 +148,38 @@ Automated Issues:
     Spring 9: @_sprint9
         - @3777 -   7/7     DONE
         - @3762 -   4/6     DONEish
-                -   @todo verify cancel button is visible in add devices page
+                -   verify cancel button is visible in add devices page
         - @3761 -   4/4     DONE
-                -   @TODO register my organisation tests
+                -   register my organisation tests
         - @1996 -   3/4     DONE
-                -   @todo "Assigned to me" link in WIP page takes me back to the old tasks page
+                -   "Assigned to me" link in WIP page takes me back to the old tasks page
         - @1840 -   2/6     DONEish
-                -   @TODO Verify logos and page elements
-        - @1956 -   @Todo Proceed to payment page doesn't have much (Still to be implemented)
+                -   Verify logos and page elements
+        - @1956 -   Proceed to payment page doesn't have much (Still to be implemented)
                 -   Proceed to payment page
-                -   @TODO this depends on "Register My Organisation"
+                -   this depends on "Register My Organisation"
         - @2184 -
                 -   Device review AIMD
-                -   @todo from 3 attachements approve 1 and reject 2, And manufacturer registration should be approved
+                -   from 3 attachements approve 1 and reject 2, And manufacturer registration should be approved
                 Total
 
 
     Sprint 10: @_sprint10
         - @2191 -   Added tests to verify new Account email received
-                -   @todo Email contents need to be verified
+                -   Email contents need to be verified
         - @1937 -   6/6     DONE
         - @3559 -   3/6     DONE
         - @3560 -   3/4     DONE
         - @2143 -   4/5     DONE
         - @2190 -   Added tests to verify new Manufacturer/AuthorisedRep email received
-                -   @todo Email contents need to be verified
+                -   Email contents need to be verified
         - @3837 -   5/5     DONE
         - @2192 -   Email for rejected manufactures and accounts
-                -   @todo Email contents need to be verified
+                -   Email contents need to be verified
         - @3894 -   3/3     DONE
         - @3895 -   3/3     DONE
         - @2193 -   Email for verify new Manufacturer/AuthorisedRep email received
-                -   @todo Email contents need to be verified
+                -   Email contents need to be verified
         - @3296 -   no tests for regression
         - @3972 -   no tests for regression
         - @3294 -   no tests for regression
@@ -191,8 +189,8 @@ Automated Issues:
     Sprint 11: @_sprint11
         - @4088 -   3/3     DONE
         - @3755 -   1/2
-                -   @todo All organisation test still remaining
-        - @3875 -   @todo Manufacturer first time login
+                -   All organisation test still remaining
+        - @3875 -   Manufacturer first time login
         - @4006 -   1/1     DONE
         - @1839 -   no tests for regression
         - @3213 -   no tests for regression
@@ -220,8 +218,8 @@ Automated Issues:
                 -   Add more filtering by other attributes
         - @2109 -   DONE ish
                 -   HASAN said to ignore until we get confirmation on how to link Distributors to manufacturers
-        - @4026 -   @todo Multiple attempts at login is allowed
-                -   @todo Reject, try again, reject try again
+        - @4026 -   Multiple attempts at login is allowed
+                -   Reject, try again, reject try again
         - @4155 -   no tests for regression
         - @4604 -   no tests for regression
         - @4613 -   no tests for regression
@@ -239,331 +237,316 @@ Automated Issues:
 
     Sprint 14: @_sprint14
         - @2833 -   1/1     DONE
-        - @3298 -   @TODO BUG
-        - @3264 -   @TODO BUG
         - @4337 -   1/1     DONE ISH
-        - @4374 -   @TODO BUG
-        - @4331 -   @TODO BUG
         - @2170 -   MOVED
-        - @2141 -   @TODO BLOCKED
         - @1957 -   MOVED
 
     Sprint 15: @_sprint15       CFS RELATED
-        - @1974 -   DONE ISH    @todo review cfs order
-        - @1978 -   DONE ISH    @todo indicate country and quantity
-        - @1995 -   @TODO prevent accessing CFS if not based in UK
-        - @3842 -   @Todo can't test because I am not able to create other accounts apart from Manufacturer, AuthorisedRep and Distributor
-        - @3856 -   DONE ISH    @todo check where and what customer wants to export
-        - @4203 -   DONE ISH    @todo display cfs service link
-        - @4698 -   DONE ISH    @todo display list of previously registered manufacturers
-        - @4703 -   @Todo Address field verification
-        - @4704 -   DONE ISH    @todo select device to order cfs for
-        - @4707 -   @Todo download sample CFS details
+        - @1974 -   DONE ISH    review cfs order
+        - @1978 -   DONE ISH    indicate country and quantity
+        - @1995 -   prevent accessing CFS if not based in UK
+        - @3842 -   can't test because I am not able to create other accounts apart from Manufacturer, AuthorisedRep and Distributor
+        - @3856 -   DONE ISH    check where and what customer wants to export
+        - @4203 -   DONE ISH    display cfs service link
+        - @4698 -   DONE ISH    display list of previously registered manufacturers
+        - @4703 -   Address field verification
+        - @4704 -   DONE ISH    select device to order cfs for
+        - @4707 -   download sample CFS details
 
 
     Sprint 16: @_sprint16       CFS RELATED
-        - @4330 -   DONE ISH    @todo add a new manufacturer for cfs
-        - @5141 -   DONE ISH    @todo upload letter of designation
-        - @3979 -   DONE ISH    @todo add a device to new manufacturer for cfs
-        - @5212 -   DONE ISH    @todo add certificate information
-        - @1989 -   @todo Guidance text for types of certificates
-        - @5207 -   DONE ISH    @todo error messaage checks
+        - @4330 -   DONE ISH    add a new manufacturer for cfs
+        - @5141 -   DONE ISH    upload letter of designation
+        - @3979 -   DONE ISH    add a device to new manufacturer for cfs
+        - @5212 -   DONE ISH    add certificate information
+        - @1989 -   Guidance text for types of certificates
+        - @5207 -   DONE ISH    error messaage checks
         - @5463 -   UX changes
         - @4908 -   DR DONE ISH   covered
         - @5450 -   Document row removed so no paper clip image
-        - @4324 -   @todo   field validation
-        - @4356 -   @todo   bug error messages and validations
-        - @1872 -   @todo   task status
+        - @4324 -     field validation
+        - @4356 -     bug error messages and validations
+        - @1872 -     task status
 
-        -       -   @TODO : below are all bugs related to sprint16
-
-    Sprint 16: @_sprint16       BUGS AND CHANGES : should be covered by existing scenarios
-        - @5441 -   2/2     DONE ISH   covered
-        - @5368 -   2/2     DONE ISH   covered
-        - @5440 -   2/2     DONE ISH    covered
-        - @4559 -   2/2     DONE ISH    covered
-        - @5220 -           DONE ISH    covered
-        - @5218 -           DONE ISH    covered
-        - @4830 -           DONE ISH    covered
-        - @4743 -           DONE ISH    covered
-        - @4711 -           DONE ISH
-        - @4628 -           DONE ISH    covered
-        - @4715 -           DONE ISH    covered
-        - @4560 -           DONE ISH    covered
-        - @4961 -   @todo   @bug resume saved application
 
     Sprint 17: @_sprint17       CFS RELATED
-        - @1944 -   DONE ISH    @todo upload CE certificate for a devices
-        - @1988 -   DONE ISH    @todo select certificates from list of options
-        - @5125 -   DONE ISH    @todo remove added certificates
-        - @5126 -   DONE ISH    @todo add products to devices
-        - @5127 -   @todo CFS   add products in bulk
-        - @5128 -   DONE ISH    @todo review application
-        - @5499 -   DONE ish    @todo edit application before submitting
-        - @5232 -   @todo   bug
-        - @5233 -   @todo   bug
-        - @5234 -   @todo   bug
-        - @5235 -   @todo   bug
-        - @5257 -   @todo   bug
-        - @5425 -   @todo   bug
+        - @1944 -   DONE ISH    upload CE certificate for a devices
+        - @1988 -   DONE ISH    select certificates from list of options
+        - @5125 -   DONE ISH    remove added certificates
+        - @5126 -   DONE ISH    add products to devices
+        - @5127 -   CFS   add products in bulk
+        - @5128 -   DONE ISH    review application
+        - @5499 -   DONE ish    edit application before submitting
 
     Sprint 18: @_sprint18       CFS RELATED
-        - @1845 -   DONE ISH    @todo view filter list of cfs manufacturer applications
+        - @1845 -   DONE ISH    view filter list of cfs manufacturer applications
         - @1945 -   DONE ish    application reference number
         - @2179 -   DONE ish    unregister business user
-        - @2268 -   @todo DR    unregister authorisedReps
+        - @2268 -   DR    unregister authorisedReps
                 -   Lots of scenarios
-        - @4368 -   @todo DR    unregister manufacturer
+        - @4368 -   DR    unregister manufacturer
                 -   Lots of scenarios
-        - @5571 -   DONE ISH    @todo back button added to cfs add new manufacturer process
-        - @5578 -   DONE ISH    @todo order cfs for country and quantity
-        - @3810 -   DONE ISH    @todo DR Email notification to manufacturers if registration is withdrawn
+        - @5571 -   DONE ISH    back button added to cfs add new manufacturer process
+        - @5578 -   DONE ISH    order cfs for country and quantity
+        - @3810 -   DONE ISH    DR Email notification to manufacturers if registration is withdrawn
                 -   Email content needs to be verified
-        - @5583 -   DONE ISH    @todo add notified body to ce certificates
-        - @5541 -   @todo   bug
-        - @5542 -   @todo   bug
-        - @5236 -   @todo   bug
+        - @5583 -   DONE ISH    add notified body to ce certificates
 
 
     Sprint 19/20: @_sprint19/20
-        - @5668 -   DONE ISH DR @todo Filter WIP tasks
-        - @5672 -   DONE ISH CFS @todo customers able to remove devices from application
-        - @5666 -   DONE ISH CFS @todo business user to assign application to someone else
-        - @5679 -   DONE ISH CFS @todo business user assign application to myself
-        - @1954 -   DONE ISH CFS @todo business user view new cfs manufacturer details
-        - @5680 -   DONE ISH CFS @todo business user view device summary
-        - @5681 -   DONE ISH CFS @todo business user bulk approve devices
-        - @5670 -   DR  @todo SSO for internal users
+        - @5668 -   DONE ISH DR Filter WIP tasks
+        - @5672 -   DONE ISH CFS customers able to remove devices from application
+        - @5666 -   DONE ISH CFS business user to assign application to someone else
+        - @5679 -   DONE ISH CFS business user assign application to myself
+        - @1954 -   DONE ISH CFS business user view new cfs manufacturer details
+        - @5680 -   DONE ISH CFS business user view device summary
+        - @5681 -   DONE ISH CFS business user bulk approve devices
+        - @5670 -   DR  SSO for internal users
                 -   N/A
-        - @5671 -   DONE ISH DR  @todo External user authentication
-        - @2222 -   DONE ISH DR  @todo review address details
+        - @5671 -   DONE ISH DR  External user authentication
+        - @2222 -   DONE ISH DR  review address details
                 -   @bug
-        - @2289 -   DONE ISH DR  @todo lookup addresses
-        - @2328 -   DONE ISH DR  @todo request access to online services
-                -   @TODO no CMS not available
-        - @4645 -   DONE ISH DR  @todo reset forgotten password
-                -   @TODO no CMS not available
-        - @2278 -   DONE ISH DR  @todo Email confirm successful request to access services
+        - @2289 -   DONE ISH DR  lookup addresses
+        - @2328 -   DONE ISH DR  request access to online services
+                -   no CMS not available
+        - @4645 -   DONE ISH DR  reset forgotten password
+                -   no CMS not available
+        - @2278 -   DONE ISH DR  Email confirm successful request to access services
                 -   Email content needs verification
-        - @2266 -   DONE ISH DR  @todo Email confirm unsuccessful request to access services
+        - @2266 -   DONE ISH DR  Email confirm unsuccessful request to access services
                 -   Email content needs verification
-        - @2047 -   DR  @todo associate an email to application
+        - @2047 -   DR  associate an email to application
         - @3910 -   Payment reconciliation  @todo
         - @3912 -   Payment reconciliation  @todo
         - @4733 -   Payment reconciliation  @todo
-        - @5830 -   DR  @todo validation of mandatory fields
+        - @5830 -   DR  validation of mandatory fields
 
 
     Sprint 21: @_sprint21
-        - @5682 -   DONE ISH CFS @todo business user bulk reject request for a device
-        - @1840 -   @Todo verification of logos and images on manufacturer view
-        - @5593 -   DONE ISH CFS @todo business user application view new devices
-        - @1986 -   DONE ISH CFS @todo business user approve manufacturer or devices
-        - @5665 -   DONE ISH CFS @todo business user complete an application
+        - @5682 -   DONE ISH CFS business user bulk reject request for a device
+        - @1840 -   verification of logos and images on manufacturer view
+        - @5593 -   DONE ISH CFS business user application view new devices
+        - @1986 -   DONE ISH CFS business user approve manufacturer or devices
+        - @5665 -   DONE ISH CFS business user complete an application
                 -   Approved/Rejected Device status (not sure if this is still required)
-        - @5664 -   DONE ISH CFS @todo business user reject request for a device
-        - @1961 -   DONE ISH CFS @todo business user reject request for a new manufacturer
+        - @5664 -   DONE ISH CFS business user reject request for a device
+        - @1961 -   DONE ISH CFS business user reject request for a new manufacturer
                 -   Rejecting application doesn't take me back to WIP page
-        - @1992 -   DONE ISH CFS @todo request CFS for multiple devices and products
-        - @5960 -   DONE ISH CFS @todo filter available devices and products
-        - @1947 -   CFS @todo specify the delivery address
+        - @1992 -   DONE ISH CFS request CFS for multiple devices and products
+        - @5960 -   DONE ISH CFS filter available devices and products
+        - @1947 -   CFS specify the delivery address
 
-        - @3343 -   DONE ISH DR  @todo specify products for SSP
+        - @3343 -   DONE ISH DR  specify products for SSP
                 -   Custom made or risk classification of class 1 not shown
-        - @3207 -   DONE ISH DR  @todo specify products for GMD and IVD (low risks)
+        - @3207 -   DONE ISH DR  specify products for GMD and IVD (low risks)
                 -   Custom made question not displayed for IVD
-        - @2272 -   DONE ISH DR  @todo reset forgotten password
-                -   @TODO NO web cms yet
+        - @2272 -   DONE ISH DR  reset forgotten password
+                -   NO web cms yet
                 -   change password link is not visible
-        - @2151 -   DONE ISH DR  @todo Email confirmation for registering a manufacturer
+        - @2151 -   DONE ISH DR  Email confirmation for registering a manufacturer
                 -   Content need to be verified in more details
-        - @5349 -   DONE ISH DR  @todo capture device and product details
-        - @2294 -   DONE ISH DR  @todo calculate amount to pay for manufacturer registration (payments page)
-        - @2224 -   DR  @todo change a known password in appian
+        - @5349 -   DONE ISH DR  capture device and product details
+        - @2294 -   DONE ISH DR  calculate amount to pay for manufacturer registration (payments page)
+        - @2224 -   DR  change a known password in appian
                 -   @BUG change password link is not visible
-        - @5765 -   DR  @todo email notification for password change
+        - @5765 -   DR  email notification for password change
                 -   @BUG change password link is not visible
-        - @5995 -   DONE ISH DR  @todo saving and exiting not navigating to DR landing page
+        - @5995 -   DONE ISH DR  saving and exiting not navigating to DR landing page
                 -   Takes me to a intermediary page where I have to click "Click here" link to go back to manufacturer lists
-        - @1957 -   DR  @todo resume application for manufacturer registration
-        - @5997 -   DR  @todo issue : resume application behaviour not correct
-        - @5749 -   DONE ISH DR  @todo payment section
+        - @1957 -   DR  resume application for manufacturer registration
+        - @5997 -   DR  issue : resume application behaviour not correct
+        - @5749 -   DONE ISH DR  payment section
 
     Sprint 22: @_sprint22
-        - @5993 -   DR  @todo saving application and viewing it appear in the "applications tab"
-        - @6086 -   DONE ISH DR  @todo add new contact at my organisation level
+        - @5993 -   DR  saving application and viewing it appear in the "applications tab"
+        - @6086 -   DONE ISH DR  add new contact at my organisation level
                 -   Represented organisation page does not show "Manage contacts"
-        - @6089 -   DONE ISH DR  @todo edit and amend contact at my organisation level
-        - @6091 -   DONE ISH DR  @todo remove contacts at my organisation level
-        - @5673 -   DONE ISH CFS @todo email if cfs new application is rejected
-        - @5674 -   DONE ISH CFS @todo email if cfs new application is successful
-        - @6012 -   DONE ISH CFS @todo search view all products related to devices
-        - @1949 -   DONE ISH CFS @todo review order before submitting
-        - @5980 -   DONE ISH CFS @todo update CFS order after reviewing it
+        - @6089 -   DONE ISH DR  edit and amend contact at my organisation level
+        - @6091 -   DONE ISH DR  remove contacts at my organisation level
+        - @5673 -   DONE ISH CFS email if cfs new application is rejected
+        - @5674 -   DONE ISH CFS email if cfs new application is successful
+        - @6012 -   DONE ISH CFS search view all products related to devices
+        - @1949 -   DONE ISH CFS review order before submitting
+        - @5980 -   DONE ISH CFS update CFS order after reviewing it
                 -   Add/remove product or device
-        - @1958 -   DONE ISH CFS @todo save application and resume later
+        - @1958 -   DONE ISH CFS save application and resume later
                 -   Able to resume application later on
                 -   Resume from all the different stages
-        - @1960 -   DONE ISH CFS @todo view all the application submitted for CFS
-        - @6095 -   CFS @todo updload bulk devices
+        - @1960 -   DONE ISH CFS view all the application submitted for CFS
+        - @6095 -   CFS updload bulk devices
 
     Sprint 23: @_sprint23
-        - @1946 -   CFS @todo Customer cancellation of a draft CFS application
-        - @1952 -   DONE ISH CFS @todo Payment for CFS
+        - @1946 -   CFS Customer cancellation of a draft CFS application
+        - @1952 -   DONE ISH CFS Payment for CFS
                 -   Able to select billing address from dropdown
-        - @1962 -   DONE ISH CFS @todo Add devices to an existing manufacturer
-        - @3831 -   DONE ISH CFS @todo Display list of manufacturer within CFS
-        - @4207 -   DONE ISH CFS @todo view draft or submitted CFS application
+        - @1962 -   DONE ISH CFS Add devices to an existing manufacturer
+        - @3831 -   DONE ISH CFS Display list of manufacturer within CFS
+        - @4207 -   DONE ISH CFS view draft or submitted CFS application
                 -   View application after saving
-        - @4329 -   DONE ISH CFS @todo display manufacturer and device details
-        - @4744 -   DONE ISH CFS @todo display approved devices for cfs
-        - @5743 -   CFS @todo display existing certificates for manufacturer
-        - @5748 -   DONE ISH CFS @todo display error message for duplicate devices
+        - @4329 -   DONE ISH CFS display manufacturer and device details
+        - @4744 -   DONE ISH CFS display approved devices for cfs
+        - @5743 -   CFS display existing certificates for manufacturer
+        - @5748 -   DONE ISH CFS display error message for duplicate devices
                 -   Add a manufacturer via DR and verify the message
-        - @2091 -   CFS @todo Email for further information
-        - @2096 -   DR DONE ISH @todo Email for unregistering a manufacturer
+        - @2091 -   CFS Email for further information
+        - @2096 -   DR DONE ISH Email for unregistering a manufacturer
                 -   Register manufacturer with 2 contacts and than check they all receive the same email
                 -   Verify email contents
-        - @2150 -   CFS @todo Email reminder to customers more information required
-        - @2190 -   DONE ISH DR @todo Email notification for unsuccessful manufacturer registration
+        - @2150 -   CFS Email reminder to customers more information required
+        - @2190 -   DONE ISH DR Email notification for unsuccessful manufacturer registration
                 -   Content needs to be verified
-        - @4546 -   DONE ISH DR @todo Email notification for confirming request received for unregistering
+        - @4546 -   DONE ISH DR Email notification for confirming request received for unregistering
                 -   Content needs to be verified
-        - @5752 -   DONE ISH DR @todo Enter Worldpay card holder details
+        - @5752 -   DONE ISH DR Enter Worldpay card holder details
                 -   CAPTCHA step is missing at the moment
-        - @5753 -   DONE ISH DR @todo Worldpay payment submission confirmation email
+        - @5753 -   DONE ISH DR Worldpay payment submission confirmation email
         - @5939 -   Worldpay payment acknowledgement
                     NA : No acceptance criteria
-        - @6343 -   DR @todo News feed notification of registration event
-        - @6345 -   DR @todo News feed change event notification
-        - @6539 -   DONE ISH DR @todo Manage contacts page
-        - @5750 -   DONE ISH DR @todo Worldpay more details
+        - @6343 -   DR News feed notification of registration event
+        - @6345 -   DR News feed change event notification
+        - @6539 -   DONE ISH DR Manage contacts page
+        - @5750 -   DONE ISH DR Worldpay more details
                 -   Verify Merchant code is MHRAM5, description are correct
-        - @6430 -   DONE ISH DR @todo Email unregister rep org from authorisedRep
+        - @6430 -   DONE ISH DR Email unregister rep org from authorisedRep
                 -   Register manufacturer with 2 contacts and than check they all receive the same email
                 -   Verify email contents
 
 
 
     Sprint 24: @_sprint24
-        - @6626 -   DR @todo Manage customer user sessions
+        - @6626 -   DR Manage customer user sessions
                 -   NA : CANT automate needs to be tested manually
-        - @3793 -   DR @todo Auto logout after idle session
+        - @3793 -   DR Auto logout after idle session
                 -   NA : CANT automate needs to be tested manually
-        - @6619 -   DONE ISH DR @todo Create application number for unregistering
-        - @2229 -   DR @todo Respond to multiple registration request
-        - @6625 -   DR @todo Apply agency password
-        - @4546 -   DONE ISH DR @todo Email notification receipt of an application wanting to unregister
+        - @6619 -   DONE ISH DR Create application number for unregistering
+        - @2229 -   DR Respond to multiple registration request
+        - @6625 -   DR Apply agency password
+        - @4546 -   DONE ISH DR Email notification receipt of an application wanting to unregister
                 -   Email content needs to be verified
-        - @5345 -   DR @todo View a list of all users
+        - @5345 -   DR View a list of all users
                 -   No link
-        - @2154 -   DR @todo View payment details for an applicaton
+        - @2154 -   DR View payment details for an applicaton
                 -   No link
-        - @2107 -   DR @todo Receive review and process request for manufacturer registration
+        - @2107 -   DR Receive review and process request for manufacturer registration
                 -   No link
-        - @4648 -   DONE ISH DR @todo Email link for forgotten password reset
+        - @4648 -   DONE ISH DR Email link for forgotten password reset
                 -   Email content needs to be verified
-        - @4378 -   DR @todo Email notification to customer when processing has begun
-        - @6341 -   DR @todo Organisation page edit org details
-        - @6632 -   DR @todo Organisation page summary tab view details
-        - @6482 -   DR @todo Manage address add new address
-        - @6559 -   DR @todo Manage address edit/amend addresses
-        - @6565 -   DR @todo Remove address
-        - @6634 -   DR @todo Contacts tab view selected org page
-        - @6128 -   DR @todo Summary tab on profile page
-        - @6351 -   DR @todo Customer news feed registration of events notification
-        - @6360 -   DR @todo Customer news feed other events
-        - @5673 -   DONE ISH CFS @todo Email customer about rejection
+        - @4378 -   DR Email notification to customer when processing has begun
+        - @6341 -   DR Organisation page edit org details
+        - @6632 -   DR Organisation page summary tab view details
+        - @6482 -   DR Manage address add new address
+        - @6559 -   DR Manage address edit/amend addresses
+        - @6565 -   DR Remove address
+        - @6634 -   DR Contacts tab view selected org page
+        - @6128 -   DR Summary tab on profile page
+        - @6351 -   DR Customer news feed registration of events notification
+        - @6360 -   DR Customer news feed other events
+        - @5673 -   DONE ISH CFS Email customer about rejection
                 -   Verify email content
-        - @5674 -   DONE ISH CFS @todo Email customer about the outcome of an application
+        - @5674 -   DONE ISH CFS Email customer about the outcome of an application
                 -   Verify email content
-        - @4767 -   CFS @todo List of devices awaiting documentation and products
-        - @5959 -   DONE ISH CFS @todo Add alternative address
+        - @4767 -   CFS List of devices awaiting documentation and products
+        - @5959 -   DONE ISH CFS Add alternative address
                 -   Distributor tests needs to be added
-        - @6024 -   DONE ISH CFS @todo View CFS tasks in the AWIP page
+        - @6024 -   DONE ISH CFS View CFS tasks in the AWIP page
 
 
     Sprint 25: @_sprint25
-        - @1943 -   CFS @todo View and print cover letter
-        - @1950 -   CFS @todo view sample CFS certificate
-        - @1975 -   CFS @todo View and print a standard schedule
-        - @1976 -   CFS @todo View and print standard CFS cert for order
-        - @6316 -   CFS @todo submit and view submitted amend devices application
-        - @6806 -   CFS @todo View devices to manage
-        - @6807 -   CFS @todo Select a device to manage
-        - @6808 -   CFS @todo Select a device with an amendment in progress
-        - @6809 -   CFS @todo Indicate missing device information
-        - @6810 -   CFS @todo Edit CE information
-        - @6811 -   CFS @todo Edit product information
-        - @6812 -   CFS @todo Delete a device
-        - @6813 -   CFS @todo Delete device in bulk/multiple
+        - @1943 -   CFS View and print cover letter
+        - @1950 -   CFS view sample CFS certificate
+        - @1975 -   CFS View and print a standard schedule
+        - @1976 -   CFS View and print standard CFS cert for order
+        - @6316 -   CFS submit and view submitted amend devices application
+        - @6806 -   CFS View devices to manage
+        - @6807 -   CFS Select a device to manage
+        - @6808 -   CFS Select a device with an amendment in progress
+        - @6809 -   CFS Indicate missing device information
+        - @6810 -   CFS Edit CE information
+        - @6811 -   CFS Edit product information
+        - @6812 -   CFS Delete a device
+        - @6813 -   CFS Delete device in bulk/multiple
         - @3791 -   Expire password
         - @6318 -   Profile page organisation tab
         - @6324 -   Selected org from profile view
         - @6557 -   Manage addresses from selected organisation page
-        - @6793 -   DR @todo Model attribute mandatory for
+        - @6793 -   DR Model attribute mandatory for
 
 
     Sprint 26: @_sprint26
         - @4189 -   DONE ISH DR  Manufacturer to indicate compliance with the new EU regulations
-        - @6798 -   DR  @todo Impact message for new DR/CFS application
-        - @1936 -   DR  @todo View and respond to request for further info by a business customer
-        - @2091 -   DR  @todo Email notification to customer for further info
-        - @2150 -   DR  @todo Email reminder to customer for further info required
-        - @2261 -   DR  @todo Request further info in relation to registering device from business
-        - @2300 -   DR  @todo Receive, review and process further information app
-        - @6624 -   DR  @todo Invite an individual to join an existing org as a new user
-        - @6631 -   DR  @todo Disable customer user account as another customer
-        - @6739 -   DR  @todo Invitation to join has timeout - customer users
-        - @6743 -   DR  @todo Accept invitation to join an existing organisation
-        - @6782 -   DR  @todo Invite existing contacts to join as organisational user
-        - @6790 -   DR  @todo Email invitation to join organisation user
-        - @6794 -   DR  @todo Restrict customer username choices
-        - @6799 -   DR  @todo Limit number of customer user account associated with an organisation
-        - @1967 -   CFS @todo Business review of cfs ammend application
-        - @6859 -   CFS @todo Business View cfs order summary
-        - @6867 -   DONE ISH CFS @todo Assign cfs order to myself or someone else
-        - @6883 -   CFS @todo View additional address and copy on the schedule
-        - @6880 -   CFS @todo View and print receipt
-        - @6878 -   DONE ISH CFS @todo Business user Complete cfs order
-        - @6877 -   CFS @todo Business user Upload documents
-        - @6879 -   CFS @todo New regulation text
-        - @6558 -   CFS @todo Prevent further application if manufacturer change is in progress
-        - @6860 -   CFS @todo View application submission aknowledgement screen
+        - @6798 -   DR  Impact message for new DR/CFS application
+        - @1936 -   DR  View and respond to request for further info by a business customer
+        - @2091 -   DR  Email notification to customer for further info
+        - @2150 -   DR  Email reminder to customer for further info required
+        - @2261 -   DR  Request further info in relation to registering device from business
+        - @2300 -   DR  Receive, review and process further information app
+        - @6624 -   DR  Invite an individual to join an existing org as a new user
+        - @6631 -   DR  Disable customer user account as another customer
+        - @6739 -   DR  Invitation to join has timeout - customer users
+        - @6743 -   DR  Accept invitation to join an existing organisation
+        - @6782 -   DR  Invite existing contacts to join as organisational user
+        - @6790 -   DR  Email invitation to join organisation user
+        - @6794 -   DR  Restrict customer username choices
+        - @6799 -   DR  Limit number of customer user account associated with an organisation
+        - @1967 -   CFS Business review of cfs ammend application
+        - @6859 -   CFS Business View cfs order summary
+        - @6867 -   DONE ISH CFS Assign cfs order to myself or someone else
+        - @6883 -   CFS View additional address and copy on the schedule
+        - @6880 -   CFS View and print receipt
+        - @6878 -   DONE ISH CFS Business user Complete cfs order
+        - @6877 -   CFS Business user Upload documents
+        - @6879 -   CFS New regulation text
+        - @6558 -   CFS Prevent further application if manufacturer change is in progress
+        - @6860 -   CFS View application submission aknowledgement screen
 
 
     Sprint 27: @_sprint27
 
-        - @2083 -   @todo Manage devices and products from manufacturer record as a customer
-        - @2085 -   @todo Receive, review and process application to unregister
-        - @2107 -   @todo Receive, review and process request to update manufacturer
-        - @4652 -   @todo Record events in business news feed
-        - @5369 -   @todo Business remove devices or products from manufacturer registration
-        - @5691 -   @todo Confirm unsuccessful unregistration
-        - @6619 -   @todo Create application number at unregistering a manufacturer by business
-        - @6840 -   @todo Cater for authorisedReps and distributors
-        - @6825 -   @todo Manage rep orgs update post update
-        - @6839 -   @todo Process non-chargable changes separately to chargable changes for edit org
-        - @6873 -   @todo Edit org details must be reflected immediately
+        - @2083 -   Manage devices and products from manufacturer record as a customer
+        - @2085 -   DONE ISH Receive, review and process application to unregister
+        - @2107 -   Receive, review and process request to update manufacturer
+        - @4652 -   Record events in business news feed
+        - @5369 -   Business remove devices or products from manufacturer registration
+        - @5691 -   Confirm unsuccessful unregistration
+        - @6619 -   DONE ISH Create application number at unregistering a manufacturer by business
+        - @6840 -   CFS Cater for authorisedReps and distributors
+        - @6825 -   Manage rep orgs update post update
+        - @6839 -   Process non-chargable changes separately to chargable changes for edit org
+        - @6873 -   Edit org details must be reflected immediately
 
 
     Sprint 28: @_sprint28
 
-        - @1935 -   CFS @todo Show activities in the news feeds
-        - @7044 -   CFS @todo Formatting of CFS sample certificates
+        - @1935 -   CFS Show activities in the news feeds
+        - @7044 -   CFS Formatting of CFS sample certificates
                 -   Verify format is matching UX
-        - @7015 -   DONE ISH DR @todo Fees of £100 for any application
-        - @6861 -   DR @todo landing page for manufacturer view
+        - @7015 -   DONE ISH DR Fees of £100 for any application
+        - @6861 -   DR landing page for manufacturer view
                 -   Click "Applications" and verify list of applications displayed
                 -   Users should be able to delete application
-        - @6863 -   DR @todo Global application view
-        - @6912 -   DONE ISH DR @todo Prevent add devices/products to ongoing application
-        - @6913 -   DR @todo Prevent edit organisations to ongoing application
-        - @6914 -   DONE ISH DR @todo Prevent unregister on ongoing application
-        - @6943 -   DR @todo Add new products to existing device
-        - @2047 -   DR @todo Associate email automatically to an application
-        - @2191 -   DONE ISH DR @todo Confirm successful manufacturer registration
-        - @5209 -   DR @todo Receive and review request to change name/address of an autorisedRep
-        - @6633 -   DR @todo Organisations page other address tab
-        - @6875 -   DONE ISH DR @todo Accept payments via BACS/Chaps
-        - @6923 -   DR @todo Delete draft application
+        - @6863 -   DR Global application view
+        - @6912 -   DONE ISH DR Prevent add devices/products to ongoing application
+        - @6913 -   DR Prevent edit organisations to ongoing application
+        - @6914 -   DONE ISH DR Prevent unregister on ongoing application
+        - @6943 -   DR Add new products to existing device
+        - @2047 -   DR Associate email automatically to an application
+        - @2191 -   DONE ISH DR Confirm successful manufacturer registration
+        - @5209 -   DR Receive and review request to change name/address of an autorisedRep
+        - @6633 -   DR Organisations page other address tab
+        - @6875 -   DONE ISH DR Accept payments via BACS/Chaps
+        - @6923 -   DR Delete draft application
+
+    Sprint 29: @_sprint29
+
+        - @7032 -   CFS Edit migrated data where GMDN is valid
+        - @7034 -   CFS Edit migrated data where GMDN is NOT valid
+        - @7035 -   CFS Business review of CFS amended device application for migrated data
+        - @7069 -   DONE ISH CFS Reject a CFS order
+        - @7072 -   DR  UK address validation
+        - @7081 -   DONE ISH DR  Customers should be able to save and exit at every stages
+        - @2085 -   DR  Unregistration application review from an AuthorisedRep
+        - @2190 -   DR  Email notification for unsuccessful manufacturer registration
+        - @4206 -   DR  View applications for submitted, inprogress and completed stages
+        - @6853 -   DR  Record events associated with account set up
+        - @6887 -   DONE ISH DR  Confirm BACS/Chaps payment
+        - @6947 -   DR  Edit migrated device data from a registered device
