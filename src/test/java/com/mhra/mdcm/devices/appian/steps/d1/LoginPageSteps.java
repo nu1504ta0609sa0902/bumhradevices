@@ -178,6 +178,7 @@ public class LoginPageSteps extends CommonSteps {
     public void iShouldSeeTheCorrectUsername() throws Throwable {
         String userNameTxt = (String) scenarioSession.getData(SessionKey.newUserName);
         //userNameTxt = "Manufacturer1307_50598";
+        loginPage.acceptTermsAndConditions();
         boolean isCorrect = loginPage.isChangePasswordUsernameCorrect(userNameTxt);
         Assert.assertThat("Expected username : " + userNameTxt, isCorrect, is(true));
     }
