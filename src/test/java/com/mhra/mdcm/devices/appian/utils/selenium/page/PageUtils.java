@@ -79,20 +79,16 @@ public class PageUtils {
         }
     }
 
-    public static void enterDate(WebDriver driver, WebElement element, String dateTxt) {
-        //element.click();
-        Actions actions = new Actions(driver);
-        actions.moveToElement(element).click().sendKeys(dateTxt).build().perform();
-    }
-
     public static void doubleClick(WebDriver driver, WebElement element) {
-        Actions ac = new Actions(driver);
-        ac.moveToElement(element).doubleClick(element).build().perform();
+        //Actions ac = new Actions(driver);
+        //ac.moveToElement(element).doubleClick(element).build().perform();
+        element.click();
     }
 
     public static void singleClick(WebDriver driver, WebElement element) {
-        Actions ac = new Actions(driver);
-        ac.moveToElement(element).click(element).build().perform();
+        //Actions ac = new Actions(driver);
+        //ac.moveToElement(element).click(element).build().perform();
+        element.click();
     }
 
     public static void clickIfVisible(WebDriver driver, WebElement element) {

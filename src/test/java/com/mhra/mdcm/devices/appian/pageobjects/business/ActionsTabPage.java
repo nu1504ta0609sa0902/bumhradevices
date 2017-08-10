@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ActionsTabPage extends _Page {
 
-    @FindBy(css = ".aui-ActionLink.GFWJSJ4DDQ")
+    @FindBy(partialLinkText = "Create Test Account")
     WebElement linkCreateTestAccount;
 
     @FindBy(xpath = ".//h3[contains(text(), 'Application complete')]")
@@ -52,7 +52,7 @@ public class ActionsTabPage extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         try {
             WaitUtils.waitForElementToBeClickable(driver, linkCreateTestAccount, TIMEOUT_15_SECOND);
-            WaitUtils.waitForAlert(driver, TIMEOUT_3_SECOND);
+            WaitUtils.waitForAlert(driver, 3);
         }catch (Exception e) {}
 
         linkCreateTestAccount.click();

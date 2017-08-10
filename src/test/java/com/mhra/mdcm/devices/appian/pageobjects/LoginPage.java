@@ -344,7 +344,7 @@ public class LoginPage extends _Page {
     }
 
     public LoginPage acceptTermsAndConditions() {
-        if(isTermsAndConditionDisplayed(TIMEOUT_2_SECOND)) {
+        if(isTermsAndConditionDisplayed(2)) {
             acceptTermsAndConditions.click();
         }
         return new LoginPage(driver);
