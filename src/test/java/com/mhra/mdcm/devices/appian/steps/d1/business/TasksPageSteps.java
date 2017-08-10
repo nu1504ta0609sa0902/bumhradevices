@@ -517,7 +517,7 @@ public class TasksPageSteps extends CommonSteps {
                 businessManufacturerDetails = businessManufacturerDetails.approveAWIPAllDevices();
                 businessManufacturerDetails = businessManufacturerDetails.completeTheApplication();
             }else if(taskType!=null && taskType.contains("Update Manufacturer")){
-                businessManufacturerDetails = businessManufacturerDetails.approveAWIPManufacturerTask();
+                //businessManufacturerDetails = businessManufacturerDetails.approveAWIPManufacturerTask();
                 businessManufacturerDetails = businessManufacturerDetails.approveAWIPAllDevices();
                 businessManufacturerDetails = businessManufacturerDetails.completeTheApplication();
             }
@@ -554,7 +554,7 @@ public class TasksPageSteps extends CommonSteps {
                 businessManufacturerDetails = businessManufacturerDetails.approveAWIPAllDevices();
                 businessManufacturerDetails = businessManufacturerDetails.completeTheApplication();
             }else if(taskType!=null && taskType.contains("Update Manufacturer")){
-                businessManufacturerDetails = businessManufacturerDetails.approveAWIPManufacturerTask();
+                //businessManufacturerDetails = businessManufacturerDetails.approveAWIPManufacturerTask();
                 businessManufacturerDetails = businessManufacturerDetails.approveAWIPAllDevices();
                 businessManufacturerDetails = businessManufacturerDetails.completeTheApplication();
             }

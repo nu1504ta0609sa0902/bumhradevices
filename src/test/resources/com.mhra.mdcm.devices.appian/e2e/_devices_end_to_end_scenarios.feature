@@ -232,7 +232,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | relatedDeviceMeasuring | true         |
       | riskClassification     | class1       |
       | notifiedBody           | NB 0086 BSI  |
-    And I remove the device with gmdn "<gmdn1>" code
+    And I remove the device with gmdn "<gmdn2>" code
     And Proceed to payment and confirm submit device details
     When I logout and log back into appian as "<logBackInAs>" user
     Then I search and view new task in AWIP page for the newly created manufacturer
@@ -262,19 +262,17 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | gmdnDefinition | <gmdnDefinition> |
       | customMade     | <customMade>     |
       | productName    | <productName>    |
-    And I remove the device with gmdn "<gmdn1>" code
     And Proceed to payment and confirm submit device details
     When I logout and log back into appian as "<logBackInAs>" user
     Then I search and view new task in AWIP page for the newly created manufacturer
-    And Check task contains correct devices "<gmdnDefinition>" and other details
+    #And Check task contains correct devices "<gmdnDefinition>" and other details
     When I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
-    When I search accounts for the stored organisation name
-    Then I should see at least 0 account matches
     And I should received an email for stored manufacturer with heading "<emailSubjectHeading>"
     Examples:
       | user              | logBackInAs  | deviceType                | gmdnDefinition      | customMade | productName | emailSubjectHeading |
       | authorisedRepAuto | businessAuto | Active Implantable Device | Desiccating chamber | true       | ford focus  |                     |
+
 
   @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149 @2325 @5753
   Scenario Outline: S6a Update manufacturer for authorised rep which is already registered by adding devices
@@ -293,13 +291,13 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And Proceed to payment and confirm submit device details
     When I logout and log back into appian as "<logBackInAs>" user
     Then I search and view new task in AWIP page for the newly created manufacturer
-    And Check task contains correct devices "<gmdnDefinition>" and other details
+    #And Check task contains correct devices "<gmdnDefinition>" and other details
     When I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email for stored account with heading "<emailHeader>"
     Examples:
       | user              | logBackInAs  | deviceType                | customMade | status     | gmdnDefinition       | productName |
-      | authorisedRepAuto | businessAuto | Active Implantable Device | false      | Registered | Blood weighing scale | ford focus  |
+      | authorisedRepAuto | businessAuto | Active Implantable Device | true      | Registered | Blood weighing scale | ford focus  |
 
 
   @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149 @2325 @5753
@@ -319,14 +317,12 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | relatedDeviceMeasuring | true         |
       | riskClassification     | class1       |
       | notifiedBody           | NB 0086 BSI  |
-    And I remove the device with gmdn "<gmdn1>" code
+    And I remove the device with gmdn "<gmdn2>" code
     And Proceed to payment and confirm submit device details
     When I logout and log back into appian as "<logBackInAs>" user
     Then I search and view new task in AWIP page for the newly created manufacturer
     When I assign the AWIP page task to me and "<approveReject>" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
-    When I search accounts for the stored organisation name
-    Then I should see at least 0 account matches
     Examples:
       | user              | logBackInAs  | gmdn1                | gmdn2           | approveReject | deviceType             |
       | authorisedRepAuto | businessAuto | Blood weighing scale | Autopsy measure | approve       | General Medical Device |

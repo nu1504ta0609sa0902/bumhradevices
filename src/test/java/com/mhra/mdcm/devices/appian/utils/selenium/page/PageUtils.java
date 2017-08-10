@@ -103,9 +103,7 @@ public class PageUtils {
             try {
                 if (element.isDisplayed() && !element.isSelected()) {
                     Actions ac = new Actions(driver);
-                    //ac.moveToElement(element).doubleClick(element).sendKeys(Keys.SPACE).build().perform();
                     ac.moveToElement(element).click(element).sendKeys(Keys.SPACE).build().perform();
-                    //ac.moveToElement(element).sendKeys(Keys.SPACE).build().perform();
                 }
             } catch (Exception e2) {
             }

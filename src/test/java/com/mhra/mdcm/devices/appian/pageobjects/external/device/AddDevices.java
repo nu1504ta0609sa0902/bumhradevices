@@ -378,7 +378,7 @@ public class AddDevices extends _Page {
 
 
     private void productDetailsAIMD(String deviceName) {
-        PageUtils.clickOneOfTheFollowing(driver, addProduct, addProduct2, TIMEOUT_1_SECOND);
+        //PageUtils.clickOneOfTheFollowing(driver, addProduct, addProduct2, TIMEOUT_1_SECOND);
 
         WaitUtils.waitForElementToBeClickable(driver, pdMedicalDeviceNameAIMD, TIMEOUT_15_SECOND);
         pdMedicalDeviceNameAIMD.sendKeys(RandomDataUtils.getRandomTestName(deviceName));
@@ -717,7 +717,6 @@ public class AddDevices extends _Page {
             PageUtils.clickIfVisible(driver, radioCustomMadeYes);
         } else {
             PageUtils.clickIfVisible(driver, radioCustomMadeNo);
-            //riskClassification(dd);
         }
     }
 
