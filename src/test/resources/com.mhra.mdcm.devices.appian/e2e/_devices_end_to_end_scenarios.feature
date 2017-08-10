@@ -79,25 +79,47 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And I should received an email for stored manufacturer with heading "MHRA Devices registration service" and stored application identifier
     Examples:
       | businessUser | logBackInAs      | accountType   | approveReject | countryName    | countryNameEU |
-      | businessNoor | manufacturerNoor | authorisedRep | approve       | United Kingdom | United States    |
+      | businessNoor | manufacturerNoor | authorisedRep | approve       | United Kingdom | United States |
 
 
   @1974 @1978 @4704 @1954 @1952 @1952 @1962
   Scenario Outline: S3 UK based manufacturer which is already registered and in need of CFS
     Given I am logged into appian as "manufacturerAuto" user
+# Submit a new CFS manufacturer application
     And I go to device certificate of free sale page
     Then I should see a list of manufacturers available for CFS
-    When I click on a random organisation which needs cfs
+    When I create a new manufacturer using CFS manufacturer test harness page with following data
+      | accountType | manufacturer  |
+      | countryName | United States |
+    And I add devices to NEWLY created CFS manufacturer with following data
+      | deviceType           | General Medical Device |
+      | gmdnDefinition       | Blood weighing scale   |
+      | customMade           | false                  |
+      | riskClassification   | Class2A                |
+      | relatedDeviceSterile | true                   |
+      | notifiedBody         | NB 0086 BSI            |
+    Then I should see correct device data in the review page
+    And I submit the cfs application for approval
+    When I logout and log back into appian as "businessAuto" user
+    And I search and view new task in AWIP page for the newly created manufacturer
+    And I assign the AWIP page task to me and "approve" the generated task
+    Then The task status in AWIP page should be "Completed" for the newly created manufacturer
+    And I should received an email for stored manufacturer with heading containing "Free Sale" and stored application identifier
+# Submit a new CFS order for the registered org
+    Given I am logged into appian as "manufacturerAuto" user
+    And I go to device certificate of free sale page
+    Then I should see a list of manufacturers available for CFS
+    When I search for registered manufacturer ""
+    And I click on a random organisation which needs cfs
     And I order cfs for a country with following data
       | countryName | <country> |
       | noOfCFS     | <noCFS>   |
     Then I should see the correct details in cfs order review page
     When I submit payment for the CFS
-    And I should received an email with subject heading "WorldPay Payment"
+    And I should received an email with subject heading "MHRA payment"
     Examples:
-      | country    | noCFS |
-      | Brazil     | 15    |
-      | Bangladesh | 10    |
+      | country | noCFS |
+      | Brazil  | 15    |
 
 
   @1974 @1978 @4704 @1954 @1952 @1962
@@ -105,16 +127,37 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     Given I am logged into appian as "authorisedRepAuto" user
     And I go to device certificate of free sale page
     Then I should see a list of manufacturers available for CFS
-    When I click on a random organisation which needs cfs
+    When I create a new manufacturer using CFS manufacturer test harness page with following data
+      | accountType | manufacturer |
+      | countryName | Brazil       |
+    And I add devices to NEWLY created CFS manufacturer with following data
+      | deviceType           | General Medical Device |
+      | gmdnDefinition       | Blood weighing scale   |
+      | customMade           | false                  |
+      | riskClassification   | Class2A                |
+      | relatedDeviceSterile | true                   |
+      | notifiedBody         | NB 0086 BSI            |
+    Then I should see correct device data in the review page
+    And I submit the cfs application for approval
+    When I logout and log back into appian as "businessAuto" user
+    And I search and view new task in AWIP page for the newly created manufacturer
+    And I assign the AWIP page task to me and "approve" the generated task
+    Then The task status in AWIP page should be "Completed" for the newly created manufacturer
+    And I should received an email for stored manufacturer with heading containing "Free Sale" and stored application identifier
+# Submit a new CFS order for the registered org
+    Given I am logged into appian as "authorisedRepAuto" user
+    And I go to device certificate of free sale page
+    Then I should see a list of manufacturers available for CFS
+    When I search for registered manufacturer ""
+    And I click on a random organisation which needs cfs
     And I order cfs for a country with following data
       | countryName | <country> |
       | noOfCFS     | <noCFS>   |
     Then I should see the correct details in cfs order review page
     When I submit payment for the CFS
-    And I should received an email with subject heading "WorldPay Payment"
+    And I should received an email with subject heading "MHRA payment"
     Examples:
       | country    | noCFS |
-      | Brazil     | 15    |
       | Bangladesh | 10    |
 
 
@@ -138,64 +181,12 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     When I logout and log back into appian as "<businessUser>" user
     And I search and view new task in AWIP page for the newly created manufacturer
     And I assign the AWIP page task to me and "<approveReject>" the generated task
-    Then The task status in AWIP page should be "Completed" for the newly created manufacturer
+    Then The task status in AWIP page should be "<status>" for the newly created manufacturer
     And I should received an email for stored manufacturer with heading containing "Free Sale" and stored application identifier
     Examples:
       | user              | businessUser | accountType   | country       | approveReject | status    |
       | authorisedRepAuto | businessAuto | authorisedRep | United States | approve       | Completed |
       | manufacturerAuto  | businessAuto | manufacturer  | Brazil        | reject        | Completed |
-
-  @1992 @1845 @1974 @1952 @1962 @1971 @3831 @3979 @4330 @5141 @5212 @5126 @5128 @5673 @5674 @5583 @2833 @cfs_e2e
-  Scenario Outline: S4c Register and approve Non UK based manufacturers with multiple devices for CFS
-    Given I am logged into appian as "<logInAs>" user
-# Submit a new CFS manufacturer application
-    And I go to device certificate of free sale page
-    Then I should see a list of manufacturers available for CFS
-    When I create a new manufacturer using CFS manufacturer test harness page with following data
-      | accountType | manufacturer |
-      | countryName | Brazil       |
-    And I add devices to NEWLY created CFS manufacturer with following data
-      | deviceType     | Active Implantable Device |
-      | gmdnDefinition | Desiccating chamber       |
-      | customMade     | false                     |
-      | notifiedBody   | NB 0086 BSI               |
-      | productName    | FordHybrid1               |
-      | productModel   | FocusYeah1                |
-    And I add another device to SELECTED CFS manufacturer with following data
-      | deviceType           | General Medical Device |
-      | gmdnDefinition       | Blood weighing scale   |
-      | customMade           | false                  |
-      | riskClassification   | Class2A                |
-      | relatedDeviceSterile | true                   |
-      | notifiedBody         | NB 0086 BSI            |
-    Then I should see correct device data in the review page
-    And I submit the cfs application for approval
-    When I logout and log back into appian as "businessAuto" user
-    And I search and view new task in AWIP page for the newly created manufacturer
-    And I assign the AWIP page task to me and "approve" the generated task
-    Then The task status in AWIP page should be "Completed" for the newly created manufacturer
-    And I should received an email for stored manufacturer with heading containing "Free Sale" and stored application identifier
-# Now apply for cfs
-    Given I am logged into appian as "<logInAs>" user
-    And I go to device certificate of free sale page
-    Then I should see a list of manufacturers available for CFS
-    When I search for registered manufacturer ""
-    And I click on a random organisation which needs cfs
-    And I order cfs for a country with following data
-      | countryName | <country> |
-      | noOfCFS     | <noCFS>   |
-    Then I should see the correct details in cfs order review page
-    When I submit payment for the CFS
-    And I should received an email with subject heading "WorldPay Payment"
-    When I logout and log back into appian as "businessAuto" user
-    And I search and view new task in AWIP page for the newly created manufacturer
-    And I assign the AWIP page task to me and "approve" the generated task
-    Then The task status in AWIP page should be "Completed" for the newly created manufacturer
-    And I should received an email for stored manufacturer with heading containing "Free Sale" and stored application identifier
-    Examples:
-      | country    | noCFS | logInAs           | searchTerm |
-      | Brazil     | 15    | manufacturerAuto  |            |
-      | Bangladesh | 10    | authorisedRepAuto |            |
 
 
   @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149 @2257 @2325 @5753
@@ -282,8 +273,8 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     Then I should see at least 0 account matches
     And I should received an email for stored manufacturer with heading "<emailSubjectHeading>"
     Examples:
-      | user              | logBackInAs  | deviceType                | gmdnDefinition      | customMade | productName |emailSubjectHeading|
-      | authorisedRepAuto | businessAuto | Active Implantable Device | Desiccating chamber | true       | ford focus  |                   |
+      | user              | logBackInAs  | deviceType                | gmdnDefinition      | customMade | productName | emailSubjectHeading |
+      | authorisedRepAuto | businessAuto | Active Implantable Device | Desiccating chamber | true       | ford focus  |                     |
 
   @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149 @2325 @5753
   Scenario Outline: S6a Update manufacturer for authorised rep which is already registered by adding devices
@@ -345,17 +336,17 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
   Scenario: S6c Update manufacturer for authorised rep which is already registered by adding devices with products and removing products
 
 
-  @ignore
-  Scenario Outline: S7abc Search for organisations, devices and products
-    Given I am logged into appian as "<businessUser>" user
-    When I go to records page and click on "<page>"
-    And I perform a search for "<searchTerm>" in "<page>" page
-    Then I should see at least <count> matches in "<page>" page search results
-    Examples:
-      | businessUser | page                | searchTerm      | count |
-      | businessAuto | GMDN Devices        | AuthorisedRepRT | 1     |
-      | businessAuto | GMDN Devices        | ManufacturerRT  | 1     |
-      | businessAuto | Registered Products | AuthorisedRepRT | 1     |
-      | businessAuto | Registered Products | ManufacturerRT  | 1     |
-      | businessAuto | Organisations       | AuthorisedRepRT | 1     |
-      | businessAuto | Organisations       | ManufacturerRT  | 1     |
+#  @ignore
+#  Scenario Outline: S7abc Search for organisations, devices and products
+#    Given I am logged into appian as "<businessUser>" user
+#    When I go to records page and click on "<page>"
+#    And I perform a search for "<searchTerm>" in "<page>" page
+#    Then I should see at least <count> matches in "<page>" page search results
+#    Examples:
+#      | businessUser | page                | searchTerm      | count |
+#      | businessAuto | GMDN Devices        | AuthorisedRepRT | 1     |
+#      | businessAuto | GMDN Devices        | ManufacturerRT  | 1     |
+#      | businessAuto | Registered Products | AuthorisedRepRT | 1     |
+#      | businessAuto | Registered Products | ManufacturerRT  | 1     |
+#      | businessAuto | Organisations       | AuthorisedRepRT | 1     |
+#      | businessAuto | Organisations       | ManufacturerRT  | 1     |

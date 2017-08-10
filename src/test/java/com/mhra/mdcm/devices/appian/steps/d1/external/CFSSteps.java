@@ -341,7 +341,7 @@ public class CFSSteps extends CommonSteps {
         String method = "Worldpay";
         deviceDetails = deviceDetails.agreeToTermsAndConditions();
         paymentDetails = deviceDetails.continueToPaymentAfterReviewFinished();
-        paymentDetails = paymentDetails.enterPaymentDetails(method, scenarioSession);   //OR WorldPay
+        paymentDetails = paymentDetails.enterPaymentDetails(method, scenarioSession, true);   //OR WorldPay
         String reference = paymentDetails.getApplicationReferenceNumber();
         log.info("New Application reference number : " + reference);
 
@@ -351,10 +351,10 @@ public class CFSSteps extends CommonSteps {
     }
 
 
-    @And("^I submit payment via \"([^\"]*)\" and confirm submit device details$")
+    @And("^I submit payment via \"([^\"]*)\" and confirm submit device details for CFS$")
     public void proceedToPaymentAndConfirmSubmitDeviceDetails(String method) throws Throwable {
         paymentDetails = deviceDetails.continueToPaymentAfterReviewFinished();
-        paymentDetails = paymentDetails.enterPaymentDetails(method, scenarioSession);   //OR WorldPay
+        paymentDetails = paymentDetails.enterPaymentDetails(method, scenarioSession, true);   //OR WorldPay
         String reference = paymentDetails.getApplicationReferenceNumber();
         log.info("New Application reference number : " + reference);
 

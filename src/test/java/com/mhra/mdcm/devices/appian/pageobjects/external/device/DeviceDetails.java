@@ -493,51 +493,6 @@ public class DeviceDetails extends _Page {
         return new DeviceDetails(driver);
     }
 
-//    public DeviceDetails enterPaymentDetails(String paymentMethod, ScenarioSession scenarioSession) {
-//        String proofOfPayments = "CompletionOfTransfer1.pdf";
-//        scenarioSession.putData(SessionKey.paymentProofDocuments, proofOfPayments);
-//        WaitUtils.waitForElementToBeClickable(driver, ddAddressBox, TIMEOUT_15_SECOND);
-//
-//        //Select billing address:
-//        PageUtils.selectFromDropDown(driver, ddAddressBox, "Registered Address", false);
-//
-//        if (paymentMethod.toLowerCase().contains("world")) {
-//            WaitUtils.waitForElementToBeClickable(driver, paymentWorldPay, TIMEOUT_15_SECOND);
-//            paymentWorldPay.click();
-//            //Click "here" link
-//            WaitUtils.waitForElementToBeClickable(driver, linkHereToInitiateWorldpay, TIMEOUT_10_SECOND);
-//            linkHereToInitiateWorldpay.click();
-//
-//            //Link "Proceed to worldpay"
-//            //WaitUtils.waitForElementToBeClickable(driver, linkProceedToWorldpay, TIMEOUT_10_SECOND);
-//            //linkProceedToWorldpay.click();
-//
-//            //Focus on different tab
-//            PaymentWorldPay payment = new PaymentWorldPay(driver);
-//            payment.performWorldPayPayment("Card Details", scenarioSession);
-//
-//            //When completed
-//            //WaitUtils.waitForElementToBeClickable(driver, linkHereToInitiateWorldpay, TIMEOUT_10_SECOND);
-//            //PageFactory.initElements(driver, this);
-//            //linkHereToInitiateWorldpay.click();
-//
-//        } else if (paymentMethod.toLowerCase().contains("bacs")) {
-//            paymentBACS.click();
-//            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-//            PageUtils.uploadDocument(fileUpload, proofOfPayments, 1, 3);
-//        }
-//
-//        //Complete the application
-//        WaitUtils.waitForElementToBeClickable(driver, btnCompleteApplication, TIMEOUT_10_SECOND);
-//        btnCompleteApplication.click();
-//        return new DeviceDetails(driver);
-//    }
-
-//    public String getApplicationReferenceNumber() {
-//        WaitUtils.waitForElementToBeClickable(driver, linkBackToManufacturer, TIMEOUT_15_SECOND);
-//        WaitUtils.waitForElementToBeClickable(driver, txtApplicationReference, TIMEOUT_15_SECOND);
-//        return txtApplicationReference.getText();
-//    }
 
     public DeviceDetails searchByMedicalDeviceName(String searchTerm) {
         WaitUtils.waitForElementToBeClickable(driver, tbxMedicalDeviceName, TIMEOUT_10_SECOND);

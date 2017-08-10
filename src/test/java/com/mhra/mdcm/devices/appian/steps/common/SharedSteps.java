@@ -62,7 +62,7 @@ public class SharedSteps extends CommonSteps {
                 System.out.println("MUST SIGNOUT IF SESSIONS ARE ENABLED, OTHERWISE YOU WILL NOT BE ABLE TO LOGBACK IN WITH SAME USER");
                 String currentLoggedInUser = (String) scenarioSession.getData(SessionKey.loggedInUser);
                 loginPage.logout(currentLoggedInUser);
-                PageUtils.acceptAlert(driver, true, _Page.TIMEOUT_2_SECOND);
+                PageUtils.acceptAlert(driver, true, 2);
                 boolean isDisplayed = loginPage.isTermsAndConditionDisplayed(_Page.TIMEOUT_3_SECOND);
                 if(!isDisplayed)
                 loginPage.isInLoginPage(_Page.TIMEOUT_3_SECOND);

@@ -254,7 +254,7 @@ public class ExternalHomePageSteps extends CommonSteps {
         String method = "Worldpay";
         addDevices = addDevices.proceedToReview();
         paymentDetails = addDevices.proceedToPayment();
-        paymentDetails = paymentDetails.enterPaymentDetails(method, scenarioSession);   //OR WorldPay
+        paymentDetails = paymentDetails.enterPaymentDetails(method, scenarioSession, false);   //OR WorldPay
         String reference = paymentDetails.getApplicationReferenceNumber();
         log.info("New Application reference number : " + reference);
 
@@ -267,7 +267,7 @@ public class ExternalHomePageSteps extends CommonSteps {
     public void proceedToPaymentAndConfirmSubmitDeviceDetails(String method) throws Throwable {
         addDevices = addDevices.proceedToReview();
         paymentDetails = addDevices.proceedToPayment();
-        paymentDetails = paymentDetails.enterPaymentDetails(method, scenarioSession);   //OR WorldPay
+        paymentDetails = paymentDetails.enterPaymentDetails(method, scenarioSession, false);   //OR WorldPay
         String reference = paymentDetails.getApplicationReferenceNumber();
         log.info("New Application reference number : " + reference);
 

@@ -28,6 +28,8 @@ public class PaymentDetails extends _Page {
     WebElement paymentBACS;
     @FindBy(xpath = ".//*[contains(text(),'Choose payment method')]/following::img[3]")
     WebElement linkHereToInitiateWorldpay;
+    @FindBy(xpath = ".//*[contains(text(),'Choose payment method')]/following::img[2]")
+    WebElement linkCFSPayWithWorldpay;
     @FindBy(xpath = ".//a[contains(text(),'Proceed to worldpay')]")
     WebElement linkProceedToWorldpay;
     @FindBy(xpath = ".//button[contains(text(),'Submit Application')]")
@@ -46,7 +48,8 @@ public class PaymentDetails extends _Page {
     WebElement linkBackToService;
 
     //Reference number
-    @FindBy(xpath = ".//h3[contains(text(), 'Application complete')]/following::h4[1]")
+    //@FindBy(xpath = ".//h3[contains(text(), 'Application complete')]/following::h4[1]")
+    @FindBy(xpath = ".//*[contains(text(), 'successfully submitted')]/following::strong[1]")
     WebElement txtApplicationReference;
 
     @Autowired
@@ -55,7 +58,7 @@ public class PaymentDetails extends _Page {
     }
 
 
-    public PaymentDetails enterPaymentDetails(String paymentMethod, ScenarioSession scenarioSession) {
+    public PaymentDetails enterPaymentDetails(String paymentMethod, ScenarioSession scenarioSession, boolean isCFSApplication) {
         String proofOfPayments = "CompletionOfTransfer1.pdf";
         scenarioSession.putData(SessionKey.paymentProofDocuments, proofOfPayments);
         WaitUtils.waitForElementToBeClickable(driver, ddAddressBox, TIMEOUT_15_SECOND);
@@ -67,9 +70,14 @@ public class PaymentDetails extends _Page {
             WaitUtils.waitForElementToBeClickable(driver, paymentWorldPay, TIMEOUT_15_SECOND);
             paymentWorldPay.click();
 
-            //Click "here" link
-            WaitUtils.waitForElementToBeClickable(driver, linkHereToInitiateWorldpay, TIMEOUT_10_SECOND);
-            linkHereToInitiateWorldpay.click();
+            if(!isCFSApplication) {
+                WaitUtils.waitForElementToBeClickable(driver, linkHereToInitiateWorldpay, TIMEOUT_10_SECOND);
+                linkHereToInitiateWorldpay.click();
+            }else{
+                //CFS application will contain only 2 images
+                WaitUtils.waitForElementToBeClickable(driver, linkCFSPayWithWorldpay, TIMEOUT_10_SECOND);
+                linkCFSPayWithWorldpay.click();
+            }
 
             //Focus on different tab
             PaymentWorldPay payment = new PaymentWorldPay(driver);
