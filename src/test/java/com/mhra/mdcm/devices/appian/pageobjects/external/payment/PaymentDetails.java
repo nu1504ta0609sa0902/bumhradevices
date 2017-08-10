@@ -48,9 +48,10 @@ public class PaymentDetails extends _Page {
     WebElement linkBackToService;
 
     //Reference number
-    //@FindBy(xpath = ".//h3[contains(text(), 'Application complete')]/following::h4[1]")
-    @FindBy(xpath = ".//*[contains(text(), 'successfully submitted')]/following::strong[1]")
+    @FindBy(xpath = ".//h3[contains(text(), 'Application complete')]/following::h4[1]")
     WebElement txtApplicationReference;
+    @FindBy(xpath = ".//*[contains(text(), 'successfully submitted')]/following::strong[1]")
+    WebElement txtApplicationReferenceCFS;
 
     @Autowired
     public PaymentDetails(WebDriver driver) {
@@ -96,9 +97,14 @@ public class PaymentDetails extends _Page {
     }
 
 
-    public String getApplicationReferenceNumber() {
-        WaitUtils.waitForElementToBeClickable(driver, txtApplicationReference, TIMEOUT_10_SECOND);
-        return txtApplicationReference.getText();
+    public String getApplicationReferenceNumber(boolean isCFSApplication) {
+        if(isCFSApplication){
+            WaitUtils.waitForElementToBeClickable(driver, txtApplicationReferenceCFS, TIMEOUT_10_SECOND);
+            return txtApplicationReferenceCFS.getText();
+        }else {
+            WaitUtils.waitForElementToBeClickable(driver, txtApplicationReference, TIMEOUT_10_SECOND);
+            return txtApplicationReference.getText();
+        }
     }
 
     public ManufacturerList backToService() {

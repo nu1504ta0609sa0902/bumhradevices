@@ -766,7 +766,8 @@ public class AddDevices extends _Page {
                 element.click();
 
                 //Set device name for later verification
-                dd.deviceName = element.getText();
+                WaitUtils.waitForElementToBeClickable(driver, tbxGMDNDefinitionOrTerm, TIMEOUT_5_SECOND);
+                dd.deviceName = tbxGMDNDefinitionOrTerm.getText();
 
                 //If its a duplicate Try again
                 isErrorMessageDisplayed = isErrorMessageDisplayed("Duplicate");

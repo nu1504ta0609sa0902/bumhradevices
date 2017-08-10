@@ -269,7 +269,6 @@ public class CFSAddDevices extends _Page {
     }
 
     public CFSAddDevices addFollowingDevice(DeviceDO dd, boolean isRegistered) {
-        //WaitUtils.isPageLoadingCompleteInMilliseconds(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_15_SECOND);
         WaitUtils.waitForElementToBeClickable(driver, systemOrProcedurePack, TIMEOUT_3_SECOND);
         //Select device type
@@ -373,7 +372,6 @@ public class CFSAddDevices extends _Page {
                         }
                         clickContinue();
                     } else {
-                        //WaitUtils.waitForElementToBeClickable(driver, addProduct, TIMEOUT_5_SECOND);
                     }
                 } else {
                     WaitUtils.waitForElementToBeClickable(driver, btnUploadCertificate, TIMEOUT_5_SECOND);
@@ -428,10 +426,8 @@ public class CFSAddDevices extends _Page {
                             }
                             clickContinue();
                         } else {
-                            //WaitUtils.waitForElementToBeClickable(driver, addProduct, TIMEOUT_5_SECOND);
                         }
                     } else {
-                        //WaitUtils.waitForElementToBeClickable(driver, btnUploadCertificate, TIMEOUT_5_SECOND);
                     }
                 }
             }
@@ -445,8 +441,6 @@ public class CFSAddDevices extends _Page {
     }
 
     private void uploadCECertificates(DeviceDO dd) {
-        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        //PageFactory.initElements(driver, this);
 
         WaitUtils.waitForElementToBeClickable(driver, datePicker, TIMEOUT_15_SECOND);
         String docType = dd.docType;
@@ -481,7 +475,6 @@ public class CFSAddDevices extends _Page {
     }
 
     private void clickContinue() {
-        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeVisible(driver, btnContinue, TIMEOUT_10_SECOND);
         WaitUtils.waitForElementToBeClickable(driver, btnContinue, TIMEOUT_10_SECOND);
         PageUtils.doubleClick(driver, btnContinue);
@@ -489,9 +482,6 @@ public class CFSAddDevices extends _Page {
 
 
     private void addProduct(DeviceDO dd) {
-        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        //PageUtils.clickOneOfTheFollowing(driver, addProduct, addProduct2, TIMEOUT_5_SECOND);
-
         WaitUtils.waitForElementToBeClickable(driver, pdProductName, TIMEOUT_10_SECOND);
         pdProductName.sendKeys(dd.productName);
         pdProductModel.sendKeys(dd.productModel);
@@ -510,19 +500,14 @@ public class CFSAddDevices extends _Page {
 
         //Select notified body
         if (notifiedBodyOptionsCorrect && dd.notifiedBody != null && dd.notifiedBody.toLowerCase().contains("bsi")) {
-            //WaitUtils.waitForElementToBeClickable(driver, nb0086BSI, TIMEOUT_5_SECOND);
             PageUtils.singleClick(driver, nb0086BSI);
         } else if (notifiedBodyOptionsCorrect && dd.notifiedBody != null && dd.notifiedBody.toLowerCase().contains("lloyd")) {
-            //WaitUtils.waitForElementToBeClickable(driver, nb0088Lloyd, TIMEOUT_5_SECOND);
             PageUtils.singleClick(driver, nb0088Lloyd);
         } else if (notifiedBodyOptionsCorrect && dd.notifiedBody != null && dd.notifiedBody.toLowerCase().contains("sgs")) {
-            //WaitUtils.waitForElementToBeClickable(driver, nb0120SGS, TIMEOUT_5_SECOND);
             PageUtils.singleClick(driver, nb0120SGS);
         } else if (notifiedBodyOptionsCorrect && dd.notifiedBody != null && dd.notifiedBody.toLowerCase().contains("amtac")) {
-            //WaitUtils.waitForElementToBeClickable(driver, nb0473Amtac, TIMEOUT_5_SECOND);
             PageUtils.singleClick(driver, nb0473Amtac);
         } else if (notifiedBodyOptionsCorrect && dd.notifiedBody != null && dd.notifiedBody.toLowerCase().contains("ul inter")) {
-            //WaitUtils.waitForElementToBeClickable(driver, nb0843ULI, TIMEOUT_5_SECOND);
             PageUtils.singleClick(driver, nb0843ULI);
         } else if (notifiedBodyOptionsCorrect && dd.notifiedBody != null && dd.notifiedBody.toLowerCase().contains("Other")) {
             PageUtils.singleClick(driver, nbOther);
@@ -577,7 +562,6 @@ public class CFSAddDevices extends _Page {
     }
 
     private void customMade(DeviceDO dd) {
-        //WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, radioCustomMadeYes, TIMEOUT_10_SECOND);
         if (dd.isCustomMade) {
             PageUtils.clickIfVisible(driver, radioCustomMadeYes);
@@ -694,9 +678,6 @@ public class CFSAddDevices extends _Page {
         WaitUtils.waitForElementToBeClickable(driver, tbxGMDNDefinitionOrTerm, TIMEOUT_5_SECOND);
         tbxGMDNDefinitionOrTerm.clear();
         tbxGMDNDefinitionOrTerm.sendKeys(searchTerm);
-
-        //Wait for list of items to appear and add it only if its not a duplicate
-        //WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//div[contains(text(),'Term')]//following::td"), TIMEOUT_DEFAULT);
 
     }
 
