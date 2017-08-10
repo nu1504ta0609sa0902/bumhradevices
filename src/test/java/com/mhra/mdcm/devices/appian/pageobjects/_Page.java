@@ -55,7 +55,7 @@ public class _Page {
     /**
      * RESET USE_DEFAULT_TIME_FOR_ALL=false
      *
-     * USING DEFAULT TIMEOUT FOR ALL WAITS : " + TIMEOUT_DEFAULT
+     * USING DEFAULT TIMEOUT FOR ALL WAITS : Only use if system is very slow
      * SET USE_DEFAULT_TIME_FOR_ALL=false TO STOP USING SUCH LARGE TIMEOUTS
      */
     private static void setDefaultTimeForAll() {
