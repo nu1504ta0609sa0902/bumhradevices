@@ -14,9 +14,7 @@ public class AuthenticationUtils {
         String iSremote = System.getProperty("is.remote");
         if(iSremote != null && browser!=null && browser.toLowerCase().equals("gc")) {
             //Only required if behind a proxy : works for Chrome
-            //driver.manage().window().maximize();
             driver.get(baseUrl);
-            //(new Thread(new ProxyAuthentication(driver, baseUrl))).start();
             try {
                 new ProxyAuthenticationSikuli(driver, baseUrl).login(false);
             } catch (Exception e) {

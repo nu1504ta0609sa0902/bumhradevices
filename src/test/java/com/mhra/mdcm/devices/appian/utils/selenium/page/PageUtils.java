@@ -482,11 +482,10 @@ public class PageUtils {
                 count++;    //It will go forever without this
                 WebElement country = driver.findElements(By.cssSelector(elementPath)).get(0);
                 country.sendKeys(countryName);
-                WaitUtils.nativeWaitInSeconds(1);
                 WaitUtils.waitForElementToBeClickable(driver, By.cssSelector("li[role='option']"), _Page.TIMEOUT_5_SECOND);
 
                 //Get list of options displayed
-                WaitUtils.isPageLoadingComplete(driver, 1);
+                WaitUtils.nativeWaitInSeconds(2);
                 List<WebElement> countryOptions = driver.findElements(By.cssSelector("li[role='option']"));
                 WebElement item = countryOptions.get(0);
                 String text = item.getText();

@@ -13,6 +13,7 @@ import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
 import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -946,5 +947,37 @@ public class ExternalHomePageSteps extends CommonSteps {
     public void iUnregisterTheManufacturerWithTheFollowingReasons(String reasons) throws Throwable {
         manufacturerDetails = manufacturerDetails.clickUnregisterManufacturerBtn();
         manufacturerDetails = manufacturerDetails.submitUnregistrationWithReasons(reasons, true);
+    }
+
+    @When("^I view stored device$")
+    public void iViewStoredDevice() throws Throwable {
+        DeviceDO dd = (DeviceDO) scenarioSession.getData(SessionKey.deviceData);
+        addDevices = addDevices.viewDeviceWithGMDNValue(dd.gmdnTermOrDefinition);
+    }
+
+    @When("^I view product name starting with \"([^\"]*)\"$")
+    public void iViewProductNameBeginingWith(String productToRemove) throws Throwable {
+        DeviceDO dd = (DeviceDO) scenarioSession.getData(SessionKey.deviceData);
+        dd.productName = productToRemove;
+        addDevices = addDevices.viewAProduct(dd);
+    }
+
+    @When("^I remove product name starting with \"([^\"]*)\"$")
+    public void iRemoveProductNameBeginingWith(String productToRemove) throws Throwable {
+        DeviceDO dd = (DeviceDO) scenarioSession.getData(SessionKey.deviceData);
+        dd.productName = productToRemove;
+
+        //View and remove the product
+        addDevices = addDevices.viewDeviceWithGMDNValue(dd.gmdnTermOrDefinition);
+        addDevices = addDevices.viewAProduct(dd);
+        addDevices = addDevices.removeSelectedProduct();
+        addDevices = addDevices.confirmRemoval(true);
+    }
+
+
+    @Then("^I should only see only (\\d+) product$")
+    public void i_should_only_see_only_product(int numberOfProducts) throws Throwable {
+        boolean isCorrect = addDevices.isNumberOfProductsDisplayedCorrect(numberOfProducts);
+        Assert.assertThat("Expected number of products : " + numberOfProducts, isCorrect, is(true));
     }
 }

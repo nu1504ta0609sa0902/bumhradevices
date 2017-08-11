@@ -56,6 +56,10 @@ public class AddDevices extends _Page {
     WebElement txtProductModel;
     @FindBy(xpath = ".//*[.='Product details']//following::th/a")
     List<WebElement> listOfProductDetailsTable;
+    @FindBy(xpath = ".//*[.='Product details']//following::tbody[1]/tr//td[1]//a")
+    List<WebElement> listOfProducts;
+    @FindBy(xpath = ".//*[.='Product details']//following::tbody[1]/tr//td[1]//a")
+    WebElement aProduct;
 
     //Device types radio buttons
     @FindBy(xpath = ".//label[contains(text(),'General Medical')]")
@@ -205,6 +209,8 @@ public class AddDevices extends _Page {
     WebElement btnFinish;
     @FindBy(xpath = ".//button[contains(text(),'Remove')]")
     WebElement btnRemove;
+    @FindBy(xpath = ".//button[contains(text(),'Remove product')]")
+    WebElement btnRemoveProduct;
     @FindBy(css = ".Button---primary")
     WebElement submitConfirm;
     @FindBy(css = ".Button---primary")
@@ -445,8 +451,8 @@ public class AddDevices extends _Page {
 
     private void addVitroDiagnosticDevice(DeviceDO dd) {
         searchByGMDN(dd);
-        compliesWithEUDeviceRequirements(true);
         riskClassificationIVD(dd);
+        compliesWithEUDeviceRequirements(true);
 
         //No product needs to be added when Risk Classification = IVD General
         if (dd.riskClassification != null && !dd.riskClassification.equals("ivd general")) {
@@ -456,7 +462,8 @@ public class AddDevices extends _Page {
                 dd.productName = x;
                 //addProduct(dd);
                 if(productCount > 0){
-                    PageUtils.clickIfVisible(driver, addProduct);
+                    WaitUtils.waitForElementToBeClickable(driver, addProduct, TIMEOUT_5_SECOND);
+                    addProduct.click();
                 }
                 addProductNew(dd);
                 notifiedBody(dd);
@@ -644,7 +651,7 @@ public class AddDevices extends _Page {
 
     private void changeNotifiedBody() {
         try{
-            WaitUtils.waitForElementToBeClickable(driver, linkChangeNotifiedBody, TIMEOUT_1_SECOND);
+            WaitUtils.waitForElementToBeClickable(driver, linkChangeNotifiedBody, 1);
             linkChangeNotifiedBody.click();
         }catch (Exception e){
             //Bug which maintains previous selection of notified body
@@ -919,6 +926,7 @@ public class AddDevices extends _Page {
 
     public AddDevices viewAProduct(DeviceDO data) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeVisible(driver, addProduct, TIMEOUT_5_SECOND);
         WebElement link;
         if (data.productName != null && !data.productName.equals("")) {
             link = PageUtils.findElementWithText(listOfProductNames, data.productName);
@@ -1151,5 +1159,27 @@ public class AddDevices extends _Page {
     public boolean isTotalFeeCorrect(String amount) {
         WaitUtils.waitForElementToBeClickable(driver, ddAddressBox, TIMEOUT_15_SECOND);
         return feeTotalAmount.getText().contains(amount);
+    }
+
+    public AddDevices removeSelectedProduct() {
+        WaitUtils.waitForElementToBeClickable(driver, btnRemoveProduct, TIMEOUT_10_SECOND);
+        btnRemoveProduct.click();
+        return new AddDevices(driver);
+    }
+
+    public AddDevices confirmRemoval(boolean confirm) {
+        WaitUtils.waitForElementToBeClickable(driver, btnConfirmYesAssignToMe, TIMEOUT_10_SECOND);
+        if(confirm){
+            btnConfirmYesAssignToMe.click();
+        }else{
+            btnConfirmNoAssignToMe.click();
+        }
+        return new AddDevices(driver);
+    }
+
+    public boolean isNumberOfProductsDisplayedCorrect(int numberOfProducts) {
+        WaitUtils.waitForElementToBeClickable(driver, addProduct, TIMEOUT_10_SECOND);
+        int nop = listOfProducts.size();
+        return nop == numberOfProducts;
     }
 }

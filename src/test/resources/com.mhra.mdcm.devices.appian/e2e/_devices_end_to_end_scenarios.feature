@@ -265,7 +265,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And Proceed to payment and confirm submit device details
     When I logout and log back into appian as "<logBackInAs>" user
     Then I search and view new task in AWIP page for the newly created manufacturer
-    And Check task contains correct devices "<gmdnDefinition>" and other details
+    #And Check task contains correct devices "<gmdnDefinition>" and other details
     When I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email for stored manufacturer with heading "<emailSubjectHeading>"
@@ -291,13 +291,13 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And Proceed to payment and confirm submit device details
     When I logout and log back into appian as "<logBackInAs>" user
     Then I search and view new task in AWIP page for the newly created manufacturer
-    And Check task contains correct devices "<gmdnDefinition>" and other details
+    #And Check task contains correct devices "<gmdnDefinition>" and other details
     When I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email for stored account with heading "<emailHeader>"
     Examples:
       | user              | logBackInAs  | deviceType                | customMade | status     | gmdnDefinition       | productName |
-      | authorisedRepAuto | businessAuto | Active Implantable Device | true      | Registered | Blood weighing scale | ford focus  |
+      | authorisedRepAuto | businessAuto | Active Implantable Device | true       | Registered | Blood weighing scale | ford focus  |
 
 
   @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149 @2325 @5753
@@ -328,8 +328,30 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | authorisedRepAuto | businessAuto | Blood weighing scale | Autopsy measure | approve       | General Medical Device |
       | authorisedRepAuto | businessAuto | Blood weighing scale | Autopsy measure | reject        | General Medical Device |
 
+
   @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149
-  Scenario: S6c Update manufacturer for authorised rep which is already registered by adding devices with products and removing products
+  Scenario Outline: S6c Update manufacturer for authorised rep which is already registered by adding devices with products and removing products
+    Given I am logged into appian as "<user>" user
+    And I go to list of manufacturers page
+    And I click on random manufacturer with status "Registered"
+    When I add a device to SELECTED manufacturer with following data
+      | deviceType         | <deviceType>         |
+      | gmdnDefinition     | <gmdnDefinition>     |
+      | riskClassification | <riskClassification> |
+      | notifiedBody       | <notifiedBody>       |
+      | productMake        | <productMake>        |
+      | productModel       | <productModel>       |
+      | subjectToPerfEval  | <subjectToPerfEval>  |
+      | newProduct         | <newProduct>         |
+      | conformsToCTS      | <conformsToCTS>      |
+      | listOfProductNames | Product1,Product2    |
+    Then I should see option to add another device
+    When I remove product name starting with "Product1"
+    Then I should only see only 1 product
+    Examples:
+      | user              | deviceType                 | gmdnDefinition        | riskClassification | productMake | productModel | notifiedBody | subjectToPerfEval | newProduct | conformsToCTS |
+      | authorisedRepAuto | In Vitro Diagnostic Device | Androgen receptor IVD | list a             | ford        | focus        | NB 0086 BSI  | true              | true       | true          |
+
 
 
 #  @ignore

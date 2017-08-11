@@ -251,7 +251,7 @@ public class DeviceDetails extends _Page {
     }
 
     public DeviceDetails selectAllDevices() {
-        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD * 2);
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, cbxSelectAllDevices, TIMEOUT_10_SECOND);
         cbxSelectAllDevices.click();
 
