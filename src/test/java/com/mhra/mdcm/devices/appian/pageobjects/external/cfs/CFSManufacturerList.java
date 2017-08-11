@@ -151,6 +151,7 @@ public class CFSManufacturerList extends _Page {
         try {
             WaitUtils.waitForElementToBeClickable(driver, btnContinue, TIMEOUT_10_SECOND);
             btnContinue.click();
+            WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         }catch (Exception e){}
         return new CFSAddDevices(driver);
     }

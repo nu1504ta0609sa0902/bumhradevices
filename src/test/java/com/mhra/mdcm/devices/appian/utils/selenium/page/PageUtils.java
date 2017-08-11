@@ -22,73 +22,21 @@ import java.util.List;
  */
 public class PageUtils {
 
-
-    public static void selectByText(WebElement selectElement, String visibleText) {
-        Select select = new Select(selectElement);
-        select.selectByVisibleText(visibleText);
-    }
-
-    public static String getCurrentSelectedOption(WebElement selectElement) {
-        Select select = new Select(selectElement);
-        WebElement selectedOption = select.getFirstSelectedOption();
-        String text = selectedOption.getText();
-        return text;
-    }
-
-
-    public static List<String> getListOfOptions(WebElement selectElement) {
-        Select select = new Select(selectElement);
-        List<WebElement> options = select.getOptions();
-        List<String> loo = new ArrayList<>();
-
-        for (WebElement o : options) {
-            String text = o.getText();
-            if (!text.contains("Please Select")) {
-                loo.add(text);
-            }
-        }
-        return loo;
-    }
-
     public static void selectByIndex(WebElement selectElement, String index) {
         Select select = new Select(selectElement);
         int i = Integer.parseInt(index);
         select.selectByIndex(i);
     }
 
-    public static void clickOption(WebDriver driver, WebElement option, boolean status) {
-        if (status) {
-            clickIfVisible(driver, option);
-            //option.click();
-        }
-    }
-
-    public static void clickOption(WebElement option1, WebElement option2, boolean status) {
-        if (status) {
-            option1.click();
-        } else {
-            option2.click();
-        }
-    }
-
-    public static void clickOptionAdvanced(WebDriver driver, WebElement option1, WebElement option2, boolean status) {
-        if (status) {
-            clickIfVisible(driver, option1);
-        } else {
-            clickIfVisible(driver, option2);
-        }
-    }
 
     public static void doubleClick(WebDriver driver, WebElement element) {
-        //Actions ac = new Actions(driver);
-        //ac.moveToElement(element).doubleClick(element).build().perform();
-        element.click();
+        Actions ac = new Actions(driver);
+        ac.moveToElement(element).doubleClick(element).build().perform();
     }
 
     public static void singleClick(WebDriver driver, WebElement element) {
-        //Actions ac = new Actions(driver);
-        //ac.moveToElement(element).click(element).build().perform();
-        element.click();
+        Actions ac = new Actions(driver);
+        ac.moveToElement(element).click(element).build().perform();
     }
 
     public static void clickIfVisible(WebDriver driver, WebElement element) {
