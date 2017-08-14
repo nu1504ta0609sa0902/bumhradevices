@@ -483,6 +483,12 @@ public class ExternalHomePageSteps extends CommonSteps {
         manufacturerDetails = manufacturerList.viewAManufacturer(name);
     }
 
+    @Then("^I search for manufacturer with following text \"([^\"]*)\"$")
+    public void i_go_to_list_of_manufacturer_and_search_for(String searchTerm) throws Throwable {
+        manufacturerList = manufacturerList.searchForManufacturer(searchTerm);
+        manufacturerList.isSearchingCompleted(driver, 10);
+    }
+
 
     @When("^I view a random manufacturer with status \"([^\"]*)\"$")
     public void i_view_a_random_manufacturer(String status) throws Throwable {

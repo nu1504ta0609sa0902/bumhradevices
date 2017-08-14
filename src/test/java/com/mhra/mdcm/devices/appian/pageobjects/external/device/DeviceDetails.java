@@ -243,10 +243,12 @@ public class DeviceDetails extends _Page {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         WaitUtils.waitForElementToBeClickable(driver, cbxSelectAllDevices, TIMEOUT_10_SECOND);
         WebElement cbx = PageUtils.getRandomElementFromList(listOfDeviceProductCheckbox);
-        PageUtils.singleClick(driver, cbx);
+        cbx.click();
+        //PageUtils.singleClick(driver, cbx);
         //Wait for continue button to be clickable
         WaitUtils.waitForElementToBeClickable(driver, btnContinue, TIMEOUT_5_SECOND);
-        PageUtils.singleClick(driver, btnContinue);
+        btnContinue.click();
+        //PageUtils.singleClick(driver, btnContinue);
         return new DeviceDetails(driver);
     }
 
