@@ -487,6 +487,8 @@ public class ExternalHomePageSteps extends CommonSteps {
     public void i_go_to_list_of_manufacturer_and_search_for(String searchTerm) throws Throwable {
         manufacturerList = manufacturerList.searchForManufacturer(searchTerm);
         manufacturerList.isSearchingCompleted(driver, 10);
+
+        scenarioSession.putData(SessionKey.searchTerm, searchTerm);
     }
 
 
@@ -507,6 +509,39 @@ public class ExternalHomePageSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.organisationCountry, country);
         scenarioSession.putData(SessionKey.registeredStatus, status);
         scenarioSession.putData(SessionKey.taskType, "Update Manufacturer");
+    }
+
+
+
+    @When("^I view a random manufacturer with status \"([^\"]*)\" and stored search term$")
+    public void i_view_a_random_manufacturer_and_stored_searchterm(String status) throws Throwable {
+        String searchTerm = (String) scenarioSession.getData(SessionKey.searchTerm);
+
+        if (status.equals("Registered")) {
+            manufacturerList = manufacturerList.sortBy("Registration status", 2);
+        } else {
+            manufacturerList = manufacturerList.sortBy("Registration status", 1);
+        }
+
+        boolean found = false;
+        int count = 0;
+        do {
+            String name = manufacturerList.getARandomManufacturerName(status);
+
+            if(name.contains(searchTerm)) {
+                String country = manufacturerList.getOrganisationCountry(name);
+                log.info("Manufacturer selected : " + name + ", is " + status);
+                manufacturerDetails = manufacturerList.viewAManufacturer(name);
+                scenarioSession.putData(SessionKey.organisationName, name);
+                scenarioSession.putData(SessionKey.organisationCountry, country);
+                scenarioSession.putData(SessionKey.registeredStatus, status);
+                scenarioSession.putData(SessionKey.taskType, "Update Manufacturer");
+
+                break;
+            }
+
+            count++;
+        }while(!found && count < 5);
     }
 
     @When("^I click on random manufacturer with status \"([^\"]*)\"$")
@@ -548,6 +583,40 @@ public class ExternalHomePageSteps extends CommonSteps {
     }
 
 
+    @When("^I click on random manufacturer with status \"([^\"]*)\" and stored search term$")
+    public void i_click_on_random_manufacturer_and_stored_searchterm(String status) throws Throwable {
+        String searchTerm = (String) scenarioSession.getData(SessionKey.searchTerm);
+
+        if (status.equals("Registered")) {
+            manufacturerList = manufacturerList.sortBy("Registration status", 2);
+        } else {
+            manufacturerList = manufacturerList.sortBy("Registration status", 1);
+        }
+
+        boolean found = false;
+        int count = 0;
+        do {
+            String name = manufacturerList.getARandomManufacturerNameWithStatus(status);
+
+            if(name.contains(searchTerm)) {
+                String registered = manufacturerList.getRegistrationStatus(name);
+                String country = manufacturerList.getOrganisationCountry(name);
+
+                log.info("Manufacturer selected : " + name + ", is " + status);
+                manufacturerDetails = manufacturerList.viewAManufacturer(name);
+                scenarioSession.putData(SessionKey.organisationName, name);
+                scenarioSession.putData(SessionKey.organisationCountry, country);
+                scenarioSession.putData(SessionKey.registeredStatus, status);
+                scenarioSession.putData(SessionKey.taskType, "Update Manufacturer");
+
+                break;
+            }
+
+            count++;
+        }while(!found && count < 5);
+    }
+
+
     @When("^I click on random manufacturer with status \"([^\"]*)\" to add device$")
     public void i_click_on_random_manufacturer_with_status_to_add_device(String status) throws Throwable {
 
@@ -585,21 +654,6 @@ public class ExternalHomePageSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.registeredStatus, registered);
         scenarioSession.putData(SessionKey.taskType, "Update Manufacturer");
     }
-
-
-//    @When("^I view a random manufacturer with status \"([^\"]*)\"$")
-//    public void i_view_a_random_manufacturer(String status) throws Throwable {
-//        manufacturerList = manufacturerList.sortBy("Registered status", 2);
-//        String name = manufacturerList.getARandomManufacturerNameWithStatus(status);
-//        String actualStatus = manufacturerList.getRegistrationStatus(name);
-//        String country = manufacturerList.getOrganisationCountry(name);
-//
-//        log.info("Manufacturer selected : " + name + ", is " + status);
-//        manufacturerDetails = manufacturerList.viewAManufacturer(name);
-//        scenarioSession.putData(SessionKey.organisationName, name);
-//        scenarioSession.putData(SessionKey.organisationCountry, country);
-//        scenarioSession.putData(SessionKey.registeredStatus, actualStatus);
-//    }
 
     /**
      * NO LONGER NEED : WE HAVE DEVICE INJECTION CODE AS PART OF THE SMOKE TESTS DATA CREATION TOOL

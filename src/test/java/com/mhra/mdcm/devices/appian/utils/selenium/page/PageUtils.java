@@ -80,6 +80,7 @@ public class PageUtils {
     }
 
     public static WebElement getRandomElementFromList(List<WebElement> listOfECIDLinks) {
+        WaitUtils.nativeWaitInSeconds(2);
         String index = RandomDataUtils.getSimpleRandomNumberBetween(0, listOfECIDLinks.size() - 1);
         int i = Integer.parseInt(index);
         if (i < 0) {

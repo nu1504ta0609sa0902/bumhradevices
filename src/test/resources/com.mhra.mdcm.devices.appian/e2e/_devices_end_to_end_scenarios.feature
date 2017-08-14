@@ -194,7 +194,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     Given I am logged into appian as "<user>" user
     When I go to list of manufacturers page
     And I search for manufacturer with following text "<searchTerm>"
-    And I view a random manufacturer with status "<status>"
+    And I view a random manufacturer with status "<status>" and stored search term
     And I add a device to SELECTED manufacturer with following data
       | deviceType             | <deviceType>         |
       | gmdnDefinition         | <gmdn>               |
@@ -221,7 +221,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
     And I search for manufacturer with following text "<searchTerm>"
-    And I click on random manufacturer with status "Registered"
+    And I click on random manufacturer with status "Registered" and stored search term
     When I add a device to SELECTED manufacturer with following data
       | deviceType     | <deviceType> |
       | gmdnDefinition | <gmdn1>      |
@@ -255,12 +255,12 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
     And I search for manufacturer with following text "DR_Manufacturer"
-    And I click on random manufacturer with status "Registered"
+    And I click on random manufacturer with status "Registered" and stored search term
     When I add a device to SELECTED manufacturer with following data
       | deviceType     | General Medical Device |
       | gmdnDefinition | Blood weighing scale   |
       | customMade     | true                   |
-    When I add a device to SELECTED manufacturer with following data
+    When I add another device to SELECTED manufacturer with following data
       | deviceType     | <deviceType>     |
       | gmdnDefinition | <gmdnDefinition> |
       | customMade     | <customMade>     |
@@ -282,12 +282,12 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     Given I am logged into appian as "<user>" user
     When I go to list of manufacturers page
     And I search for manufacturer with following text "DR_Auth"
-    And I view a random manufacturer with status "<status>"
+    And I view a random manufacturer with status "<status>" and stored search term
     When I add a device to SELECTED manufacturer with following data
       | deviceType     | General Medical Device |
       | gmdnDefinition | Blood weighing scale   |
       | customMade     | true                   |
-    When I add a device to SELECTED manufacturer with following data
+    When I add another device to SELECTED manufacturer with following data
       | deviceType     | <deviceType>     |
       | gmdnDefinition | <gmdnDefinition> |
       | customMade     | <customMade>     |
@@ -309,7 +309,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
     And I search for manufacturer with following text "DR_Auth"
-    And I click on random manufacturer with status "Registered"
+    And I click on random manufacturer with status "Registered" and stored search term
     When I add a device to SELECTED manufacturer with following data
       | deviceType     | <deviceType> |
       | gmdnDefinition | <gmdn1>      |
@@ -339,7 +339,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
     And I search for manufacturer with following text "DR_Auth"
-    And I click on random manufacturer with status "Registered"
+    And I click on random manufacturer with status "Registered" and stored search term
     When I add a device to SELECTED manufacturer with following data
       | deviceType         | <deviceType>         |
       | gmdnDefinition     | <gmdnDefinition>     |
