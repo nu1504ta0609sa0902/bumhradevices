@@ -1,6 +1,9 @@
-# bumhradevices
+# Devices Automated Tests
 
+-------------------------------------------------
 -- Selenium Webdriver Locator Recommendations:
+-------------------------------------------------
+
     - ID
     - Name
     - CSS
@@ -9,34 +12,38 @@
     - XPath : we are forced to use this because the ID are auto generated and they change, class names are
     numbers and not easy to understand.
 
+-------------------------------------------------
+Steps: separated based on Business or Manufacturer
+-------------------------------------------------
+
 -- Steps and page object separated into 2 sections
     - business : business site
     |
     - external : manufacturer and authorisedRep
 
---Programme variables
--Dtest.as.user=Yaaseen,Lambros,Andrew,Noor,Auto defaults to Auto
--Dcurrent.browser=gc,ff,pjs
+-------------------------------------------------
+Programme variables
+-------------------------------------------------
+
+-Dcurrent.browser= Selects which browser to run the tests on gc=Chrome, ie=InternetExplorer, ff=Firefox
 -Dtest=RunAllTest
+-Dspring.profiles.active=Which profile to use for testing : mhratest, mhradev etc
+-Dgenerate.report=Generate pretty reports
+-Dcucumber.options="--tags @someTagName"
+-Dis.remote=Required if running in a remote server with proxy
+
+-------------------------------------------------
+ -- MUST BE PROVIDED
+-------------------------------------------------
+
 -Dspring.profiles.active=mhratest
--Dgenerate.report=true
--Dcucumber.options="--tags @poc"
+-Dcurrent.browser=gc
 
---Create skeleton spring boot test project
+-------------------------------------------------
+ -- Example running from command prompt
+-------------------------------------------------
 
-mvn archetype:generate\
- -DarchetypeGroupId=am.ik.archetype\
- -DarchetypeArtifactId=spring-boot-blank-archetype\
- -DarchetypeVersion=1.0.5
-
- -- Requires VM arguments
- -Dspring.profiles.active=one of mhradev, mhratest, live
-
- -- Run with JACOCO
-mvn clean test -Dtest=RunAllTest -Dcurrent.browser=gc -Dspring.profiles.active=mhratest -Dgenerate.report=false -Dcucumber.options="--tags @jacoco --format json:target/cucumber-report-jacocoReport.json"
-
- -- Example running
-mvn clean test -Dtest=RunAllTest -Dcurrent.browser=gc -Dspring.profiles.active=mhratest -Dgenerate.report=true -Dcucumber.options="--tags @poc --tags ~@ignore --format json:target/cucumber-report-myReport.json"
+mvn clean test -Dtest=RunAllTest -Dcurrent.browser=gc -Dspring.profiles.active=mhratest
 
 mvn clean test -Dtest=RunAllTest -Dcurrent.browser=ie -Dspring.profiles.active=mhratest -Dgenerate.report=true -Dcucumber.options="--tags @poc"
 mvn clean test -Dtest=RunAllTest -Dcurrent.browser=gc -Dspring.profiles.active=mhratest -Dgenerate.report=true -Dcucumber.options="--tags @poc"
@@ -48,17 +55,11 @@ mvn clean test -Dcurrent.browser=ff -Dspring.profiles.active=mhratest -Dgenerate
 mvn test -Dcurrent.browser=ie -Dspring.profiles.active=mhratest -Dgenerate.report=true -Dcucumber.options="--tags @poc"
 mvn test -Dcurrent.browser=ie -Dspring.profiles.active=mhratest -Dgenerate.report=true -Dcucumber.options="--tags @poc --plugin json:target/change_me.json"
 
--- Example settings for a feature file
 
---plugin
-org.jetbrains.plugins.cucumber.java.run.CucumberJvmSMFormatter
---plugin
-json:target/cucumber.json
---monochrome
---name
-"^Create an invoice processing of different types of notification$"
 
------------------RUNNER CLASS--------------------------
+-------------------------------------------------
+Runner Class
+-------------------------------------------------
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
@@ -68,17 +69,11 @@ json:target/cucumber.json
         , monochrome = true, tags = {"@_sprint1,~@ignore"}
 )
 
-ADD VM OPTIONS: -ea -Dspring.profiles.active=mhratest -Dcurrent.browser=gc -Dgenerate.report=true
+ADD VM OPTIONS: -ea -Dspring.profiles.active=mhratest -Dcurrent.browser=gc
 
-------------------PhantomJS Tests-----------------------
-
-Don't need to do the following:
-
-	 * 	- Selenium Server or PhantomJS
-	 * 	- Should work out of the box
-
-
-
------------ Page Objects -------------------
+-------------------------------------------------
+Page Objects
+-------------------------------------------------
 
 - Try to reflect the page structure in the actual app under test
+- Helps with structuring your steps in a more meaning full way
