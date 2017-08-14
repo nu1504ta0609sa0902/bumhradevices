@@ -193,6 +193,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
   Scenario Outline: S5a Update already registered manufacturers by adding new devices
     Given I am logged into appian as "<user>" user
     When I go to list of manufacturers page
+    And I search for manufacturer with following text "<searchTerm>"
     And I view a random manufacturer with status "<status>"
     And I add a device to SELECTED manufacturer with following data
       | deviceType             | <deviceType>         |
@@ -210,15 +211,16 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email for stored manufacturer with heading "<emailSubjectHeading>"
     Examples:
-      | user              | logBackInAs  | deviceType             | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody | emailSubjectHeading |
-      | authorisedRepAuto | businessAuto | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |                     |
-      | manufacturerAuto  | businessAuto | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  |                     |
+      | user              | logBackInAs  | searchTerm      | deviceType             | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody | emailSubjectHeading |
+      | authorisedRepAuto | businessAuto | DR_Authorised   | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  | MHRA Devices registration service                    |
+      | manufacturerAuto  | businessAuto | DR_Manufacturer | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  | MHRA Devices registration service                    |
 
 
   @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149 @2325 @5753
   Scenario Outline: S5b Update already registered manufacturers by adding and removing devices
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
+    And I search for manufacturer with following text "<searchTerm>"
     And I click on random manufacturer with status "Registered"
     When I add a device to SELECTED manufacturer with following data
       | deviceType     | <deviceType> |
@@ -243,15 +245,16 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     Then I should see at least 0 account matches
     And I should received an email for stored manufacturer with heading "<emailSubjectHeading>"
     Examples:
-      | user             | logBackInAs  | gmdn1                | gmdn2           | approveReject | deviceType             | emailSubjectHeading |
-      | manufacturerAuto | businessAuto | Blood weighing scale | Autopsy measure | approve       | General Medical Device |                     |
-      | manufacturerAuto | businessAuto | Blood weighing scale | Autopsy measure | reject        | General Medical Device |                     |
+      | user             | logBackInAs  | searchTerm      | gmdn1                | gmdn2           | approveReject | deviceType             | emailSubjectHeading |
+      | manufacturerAuto | businessAuto | DR_Manufacturer | Blood weighing scale | Autopsy measure | approve       | General Medical Device |                     |
+      | manufacturerAuto | businessAuto | DR_Manufacturer | Blood weighing scale | Autopsy measure | reject        | General Medical Device |                     |
 
 
   @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149 @2216 @2325 @5753
   Scenario Outline: S5c Update already registered manufacturers by adding devices with products
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
+    And I search for manufacturer with following text "DR_Manufacturer"
     And I click on random manufacturer with status "Registered"
     When I add a device to SELECTED manufacturer with following data
       | deviceType     | General Medical Device |
@@ -270,14 +273,15 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email for stored manufacturer with heading "<emailSubjectHeading>"
     Examples:
-      | user              | logBackInAs  | deviceType                | gmdnDefinition      | customMade | productName | emailSubjectHeading |
-      | authorisedRepAuto | businessAuto | Active Implantable Device | Desiccating chamber | true       | ford focus  |                     |
+      | user             | logBackInAs  | deviceType                | gmdnDefinition      | customMade | productName | emailSubjectHeading |
+      | manufacturerAuto | businessAuto | Active Implantable Device | Desiccating chamber | true       | ford focus  |                     |
 
 
   @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149 @2325 @5753
   Scenario Outline: S6a Update manufacturer for authorised rep which is already registered by adding devices
     Given I am logged into appian as "<user>" user
     When I go to list of manufacturers page
+    And I search for manufacturer with following text "DR_Auth"
     And I view a random manufacturer with status "<status>"
     When I add a device to SELECTED manufacturer with following data
       | deviceType     | General Medical Device |
@@ -294,16 +298,17 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     #And Check task contains correct devices "<gmdnDefinition>" and other details
     When I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
-    And I should received an email for stored account with heading "<emailHeader>"
+    And I should received an email for stored account with heading "<emailSubjectHeading>"
     Examples:
-      | user              | logBackInAs  | deviceType                | customMade | status     | gmdnDefinition       | productName |
-      | authorisedRepAuto | businessAuto | Active Implantable Device | true       | Registered | Blood weighing scale | ford focus  |
+      | user              | logBackInAs  | deviceType                | customMade | status     | gmdnDefinition       | productName |emailSubjectHeading|
+      | authorisedRepAuto | businessAuto | Active Implantable Device | true       | Registered | Blood weighing scale | ford focus  |                   |
 
 
   @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149 @2325 @5753
   Scenario Outline: S6b Update manufacturer for authorised rep which is already registered by adding and removing devices
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
+    And I search for manufacturer with following text "DR_Auth"
     And I click on random manufacturer with status "Registered"
     When I add a device to SELECTED manufacturer with following data
       | deviceType     | <deviceType> |
@@ -333,6 +338,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
   Scenario Outline: S6c Update manufacturer for authorised rep which is already registered by adding devices with products and removing products
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
+    And I search for manufacturer with following text "DR_Auth"
     And I click on random manufacturer with status "Registered"
     When I add a device to SELECTED manufacturer with following data
       | deviceType         | <deviceType>         |
