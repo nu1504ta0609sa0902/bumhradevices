@@ -56,7 +56,6 @@ mvn test -Dcurrent.browser=ie -Dspring.profiles.active=mhratest -Dgenerate.repor
 mvn test -Dcurrent.browser=ie -Dspring.profiles.active=mhratest -Dgenerate.report=true -Dcucumber.options="--tags @poc --plugin json:target/change_me.json"
 
 
-
 -------------------------------------------------
 Runner Class
 -------------------------------------------------
@@ -77,3 +76,12 @@ Page Objects
 
 - Try to reflect the page structure in the actual app under test
 - Helps with structuring your steps in a more meaning full way
+
+
+-------------------------------------------------
+Important tags
+-------------------------------------------------
+
+@regression = Mark scenarios to be run as part of the regression test suite
+@smoke_test_cfs = Mark tests to be run as part of the smoke tests for CFS (Certificate of Free Sale)
+@smoke_test_dr = Mark tests to be run as part of the smoke tests for DR (Device Registration)
