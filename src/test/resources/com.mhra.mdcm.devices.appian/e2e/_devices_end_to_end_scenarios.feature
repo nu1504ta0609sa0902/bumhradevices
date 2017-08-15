@@ -1,7 +1,7 @@
 @e2e
 Feature: End 2 End Scenarios to verify system is behaving correctly from a high level view
 
-  @1836 @1929 @2222 @2327 @2278 @2260 @2193 @2191 @2190 @2289 @2290 @2273 @2324 @2311 @2328 @2263 @2278 @2292 @2258 @2197 @2833 @5753
+  @1836 @1929 @2222 @2327 @2278 @2260 @2193 @2191 @2190 @2289 @2290 @2273 @2324 @2311 @2328 @2263 @2278 @2292 @2258 @2197 @2833 @5753 @6887
   Scenario Outline: S1 Manufacturer account registration
 #Register new manufacturer account, approve the task and check MHRA approval email received
     Given I am logged into appian as "<businessUser>" user
@@ -38,7 +38,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | businessNoor | manufacturerNoor | manufacturer | approve       | United Kingdom | Bangladesh       |
 
 
-  @1836 @1929 @2222 @2327 @2278 @2260 @2193 @2289 @2290 @2273 @2324 @2191 @2190 @2311 @2263 @2328 @2278 @2292 @2258 @2197 @2216 @2833 @5753
+  @1836 @1929 @2222 @2327 @2278 @2260 @2193 @2289 @2290 @2273 @2324 @2191 @2190 @2311 @2263 @2328 @2278 @2292 @2258 @2197 @2216 @2833 @5753 @6887
   Scenario Outline: S2 AuthorisedRep account registration for non uk manufacturers
 #Register new manufacturer account, approve the task and check MHRA approval email received
     Given I am logged into appian as "<businessUser>" user
@@ -82,7 +82,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | businessNoor | manufacturerNoor | authorisedRep | approve       | United Kingdom | United States |
 
 
-  @1974 @1978 @4704 @1954 @1952 @1952 @1962
+  @1974 @1978 @4704 @1954 @1952 @1952 @1962 @6868 @6867
   Scenario Outline: S3 UK based manufacturer which is already registered and in need of CFS
     Given I am logged into appian as "manufacturerAuto" user
 # Submit a new CFS manufacturer application
@@ -122,7 +122,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | Brazil  | 15    |
 
 
-  @1974 @1978 @4704 @1954 @1952 @1962
+  @1974 @1978 @4704 @1954 @1952 @1962 @6868 @6867
   Scenario Outline: S4 Non UK based authorised reps which is already registered and in need of CFS
     Given I am logged into appian as "authorisedRepAuto" user
     And I go to device certificate of free sale page
@@ -250,7 +250,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | manufacturerAuto | businessAuto | DR_Manufacturer | Blood weighing scale | Autopsy measure | reject        | General Medical Device |                     |
 
 
-  @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149 @2216 @2325 @5753
+  @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149 @2216 @2325 @5753 @7015
   Scenario Outline: S5c Update already registered manufacturers by adding devices with products
     Given I am logged into appian as "<user>" user
     And I go to list of manufacturers page
@@ -277,7 +277,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
       | manufacturerAuto | businessAuto | Active Implantable Device | Desiccating chamber | true       | ford focus  |                     |
 
 
-  @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149 @2325 @5753
+  @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149 @2325 @5753 @7015
   Scenario Outline: S6a Update manufacturer for authorised rep which is already registered by adding devices
     Given I am logged into appian as "<user>" user
     When I go to list of manufacturers page
