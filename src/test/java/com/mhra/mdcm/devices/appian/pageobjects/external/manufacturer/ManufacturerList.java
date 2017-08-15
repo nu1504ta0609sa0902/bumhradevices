@@ -372,13 +372,14 @@ public class ManufacturerList extends _Page {
     }
 
     public ManufacturerList searchForManufacturer(String name) {
-        WaitUtils.waitForElementToBeVisible(driver, searchBox, TIMEOUT_15_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, searchBox, TIMEOUT_60_SECOND);
         searchBox.sendKeys(name);
         btnSearch.click();
         return new ManufacturerList(driver);
 
     }
     public boolean isSearchingCompleted(WebDriver driver, int timeout) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
         return PageUtils.isElementNotVisible(driver, itemCount, timeout);
     }
 

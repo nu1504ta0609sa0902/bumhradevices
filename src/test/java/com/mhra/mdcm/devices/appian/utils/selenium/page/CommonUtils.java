@@ -51,6 +51,7 @@ public class CommonUtils {
     }
 
     public static WebElement getElementWithLink(List<WebElement> listOfLinks, String linkText) {
+        WaitUtils.nativeWaitInSeconds(2);
         WebElement found = PageUtils.findElementWithText(listOfLinks, linkText);
         return found;
     }

@@ -42,14 +42,14 @@ Feature: As a user, I want to be able to unregister manufacturers when they are 
     When I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email for stored manufacturer with heading "Request for manufacturer registration" and stored application identifier
-    And I should received an email for stored manufacturer with heading "MHRA Devices registration service" and stored application identifier
+    And I should received an email for stored manufacturer with heading "MHRA Device registrations service" and stored application identifier
     When I logout and log back into appian as "<user>" user
     When I go to list of manufacturers page and search and view stored manufacturer
     Then I should option to unregister the manufacturer
     When I unregister the manufacturer with the following reasons "<unregisteredReason>"
     And I confirm "Yes" to unregister the manufacturer
     Then I should see application reference number generated
-    And I should received an email for stored manufacturer with heading "MHRA Devices registration service" and stored application identifier
+    And I should received an email for stored manufacturer with heading "MHRA Device registrations service" and stored application identifier
     Examples:
       | user              | logBackInAs  | accountType   | unregisteredReason    |
       | manufacturerAuto  | businessAuto | manufacturer  | No Longer Represented |

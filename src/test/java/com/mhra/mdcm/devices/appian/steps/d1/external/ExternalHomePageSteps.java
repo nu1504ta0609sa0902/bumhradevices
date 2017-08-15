@@ -8,11 +8,8 @@ import com.mhra.mdcm.devices.appian.pageobjects.external.device.AddDevices;
 import com.mhra.mdcm.devices.appian.session.SessionKey;
 import com.mhra.mdcm.devices.appian.steps.common.CommonSteps;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.RandomDataUtils;
-import com.mhra.mdcm.devices.appian.utils.selenium.page.StepsUtils;
+import com.mhra.mdcm.devices.appian.utils.selenium.page.*;
 import com.mhra.mdcm.devices.appian.utils.selenium.others.TestHarnessUtils;
-import com.mhra.mdcm.devices.appian.utils.selenium.page.AssertUtils;
-import com.mhra.mdcm.devices.appian.utils.selenium.page.PageUtils;
-import com.mhra.mdcm.devices.appian.utils.selenium.page.WaitUtils;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
@@ -664,7 +661,6 @@ public class ExternalHomePageSteps extends CommonSteps {
     public void provideIndicationOfDevicesMade() throws Throwable {
         try {
             WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//*[contains(text(),'ype of device')]//following::label[1]"), _Page.TIMEOUT_10_SECOND);
-
             WaitUtils.nativeWaitInSeconds(3);
             for (int x = 0; x < 9; x++) {
                 try {
@@ -678,10 +674,6 @@ public class ExternalHomePageSteps extends CommonSteps {
                 externalHomePage.selectCustomMade(true);
             } catch (Exception e) {
             }
-
-            //Submit devices made : They changed the work flow on 03/02/2017
-            //createNewManufacturer = externalHomePage.submitIndicationOfDevicesMade(true);
-            //createNewManufacturer = externalHomePage.submitIndicationOfDevicesMade(false);
 
             createNewManufacturer = externalHomePage.submitIndicationOfDevicesMade(false);
         } catch (Exception e) {
@@ -741,6 +733,12 @@ public class ExternalHomePageSteps extends CommonSteps {
 
     @When("^I remove the device with gmdn \"([^\"]*)\" code$")
     public void iRemoveTheDeviceWithGmdnCode(String gmdnCode) throws Throwable {
+        DeviceDO data = (DeviceDO) scenarioSession.getData(SessionKey.deviceData);
+        String name = data.deviceName;
+        if( name!=null && !name.equals("")){
+            gmdnCode = name;
+        }
+
         addDevices = addDevices.viewDeviceWithGMDNValue(gmdnCode);
         addDevices = addDevices.removeSelectedDevice();
         addDevices = addDevices.confirmRemovalOfDevice(true);

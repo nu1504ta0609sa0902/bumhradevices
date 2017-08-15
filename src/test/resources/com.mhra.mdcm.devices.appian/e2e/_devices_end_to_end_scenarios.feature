@@ -32,7 +32,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     When I assign the AWIP page task to me and "<approveReject>" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email for stored manufacturer with heading "Request for manufacturer registration" and stored application identifier
-    And I should received an email for stored manufacturer with heading "MHRA Devices registration service" and stored application identifier
+    And I should received an email for stored manufacturer with heading "MHRA Device registrations service" and stored application identifier
     Examples:
       | businessUser | logBackInAs      | accountType  | approveReject | countryName    | countryNameNonEU |
       | businessNoor | manufacturerNoor | manufacturer | approve       | United Kingdom | Bangladesh       |
@@ -76,7 +76,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     When I assign the AWIP page task to me and "<approveReject>" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email for stored manufacturer with heading "Request for manufacturer registration" and stored application identifier
-    And I should received an email for stored manufacturer with heading "MHRA Devices registration service" and stored application identifier
+    And I should received an email for stored manufacturer with heading "MHRA Device registrations service" and stored application identifier
     Examples:
       | businessUser | logBackInAs      | accountType   | approveReject | countryName    | countryNameEU |
       | businessNoor | manufacturerNoor | authorisedRep | approve       | United Kingdom | United States |
@@ -186,7 +186,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     Examples:
       | user              | businessUser | accountType   | country       | approveReject | status    |
       | authorisedRepAuto | businessAuto | authorisedRep | United States | approve       | Completed |
-      | manufacturerAuto  | businessAuto | manufacturer  | Brazil        | reject        | Completed |
+#      | manufacturerAuto  | businessAuto | manufacturer  | Brazil        | reject        | Completed |
 
 
   @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149 @2257 @2325 @5753
@@ -212,8 +212,8 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And I should received an email for stored manufacturer with heading "<emailSubjectHeading>"
     Examples:
       | user              | logBackInAs  | searchTerm      | deviceType             | customMade | deviceSterile | deviceMeasuring | status     | gmdn                 | riskClassification | notifiedBody | emailSubjectHeading |
-      | authorisedRepAuto | businessAuto | DR_Authorised   | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  | MHRA Devices registration service                    |
-      | manufacturerAuto  | businessAuto | DR_Manufacturer | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  | MHRA Devices registration service                    |
+#      | authorisedRepAuto | businessAuto | DR_Authorised   | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  | MHRA Device registrations service                    |
+      | manufacturerAuto  | businessAuto | DR_Manufacturer | General Medical Device | false      | true          | true            | Registered | Blood weighing scale | class1             | NB 0086 BSI  | MHRA Device registrations service                    |
 
 
   @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149 @2325 @5753
@@ -246,8 +246,8 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And I should received an email for stored manufacturer with heading "<emailSubjectHeading>"
     Examples:
       | user             | logBackInAs  | searchTerm      | gmdn1                | gmdn2           | approveReject | deviceType             | emailSubjectHeading |
-      | manufacturerAuto | businessAuto | DR_Manufacturer | Blood weighing scale | Autopsy measure | approve       | General Medical Device |                     |
-      | manufacturerAuto | businessAuto | DR_Manufacturer | Blood weighing scale | Autopsy measure | reject        | General Medical Device |                     |
+      | manufacturerAuto | businessAuto | DR_Manufacturer | Blood weighing scale | Autopsy measure | approve       | General Medical Device | MHRA Device registrations service                    |
+#      | manufacturerAuto | businessAuto | DR_Manufacturer | Blood weighing scale | Autopsy measure | reject        | General Medical Device |MHRA Device registrations service                     |
 
 
   @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149 @2216 @2325 @5753 @7015
@@ -268,13 +268,13 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And Proceed to payment and confirm submit device details
     When I logout and log back into appian as "<logBackInAs>" user
     Then I search and view new task in AWIP page for the newly created manufacturer
-    #And Check task contains correct devices "<gmdnDefinition>" and other details
+    And Check task contains correct devices "<gmdnDefinition>" and other details
     When I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email for stored manufacturer with heading "<emailSubjectHeading>"
     Examples:
       | user             | logBackInAs  | deviceType                | gmdnDefinition      | customMade | productName | emailSubjectHeading |
-      | manufacturerAuto | businessAuto | Active Implantable Device | Desiccating chamber | true       | ford focus  |                     |
+      | manufacturerAuto | businessAuto | Active Implantable Device | Desiccating chamber | true       | ford focus  | MHRA Device registrations service                    |
 
 
   @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149 @2325 @5753 @7015
@@ -295,13 +295,13 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     And Proceed to payment and confirm submit device details
     When I logout and log back into appian as "<logBackInAs>" user
     Then I search and view new task in AWIP page for the newly created manufacturer
-    #And Check task contains correct devices "<gmdnDefinition>" and other details
+    And Check task contains correct devices "<gmdnDefinition>" and other details
     When I assign the AWIP page task to me and "approve" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email for stored account with heading "<emailSubjectHeading>"
     Examples:
       | user              | logBackInAs  | deviceType                | customMade | status     | gmdnDefinition       | productName |emailSubjectHeading|
-      | authorisedRepAuto | businessAuto | Active Implantable Device | true       | Registered | Blood weighing scale | ford focus  |                   |
+      | authorisedRepAuto | businessAuto | Active Implantable Device | true       | Registered | Blood weighing scale | ford focus  | MHRA Device registrations service                  |
 
 
   @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149 @2325 @5753
@@ -331,7 +331,7 @@ Feature: End 2 End Scenarios to verify system is behaving correctly from a high 
     Examples:
       | user              | logBackInAs  | gmdn1                | gmdn2           | approveReject | deviceType             |
       | authorisedRepAuto | businessAuto | Blood weighing scale | Autopsy measure | approve       | General Medical Device |
-      | authorisedRepAuto | businessAuto | Blood weighing scale | Autopsy measure | reject        | General Medical Device |
+#      | authorisedRepAuto | businessAuto | Blood weighing scale | Autopsy measure | reject        | General Medical Device |
 
 
   @2087 @2284 @2910 @2911 @2294 @2107 @2148 @2149

@@ -332,7 +332,7 @@ public class AddDevices extends _Page {
 
     public AddDevices addFollowingDevice(DeviceDO dd, boolean isRegistered) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_15_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, generalMedicalDevice, TIMEOUT_30_SECOND);
         WaitUtils.waitForElementToBeClickable(driver, systemOrProcedurePack, TIMEOUT_3_SECOND);
         //Select device type
         selectDeviceType(dd);
@@ -719,7 +719,7 @@ public class AddDevices extends _Page {
 
     private void customMade(DeviceDO dd) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
-        WaitUtils.waitForElementToBeClickable(driver, radioCustomMadeYes, TIMEOUT_10_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, radioCustomMadeYes, TIMEOUT_60_SECOND);
         if (dd.isCustomMade) {
             PageUtils.clickIfVisible(driver, radioCustomMadeYes);
         } else {
@@ -758,7 +758,7 @@ public class AddDevices extends _Page {
                 WaitUtils.waitForElementToBeClickable(driver, tbxGMDNDefinitionOrTerm, TIMEOUT_5_SECOND);
                 tbxGMDNDefinitionOrTerm.clear();
                 tbxGMDNDefinitionOrTerm.sendKeys(searchFor);
-                WaitUtils.nativeWaitInSeconds(1);
+                WaitUtils.nativeWaitInSeconds(2);
 
                 //Wait for list of items to appear and add it only if its not a duplicate
                 WaitUtils.waitForElementToBeClickable(driver, aGmdnMatchesReturnedBySearch, TIMEOUT_10_SECOND);
@@ -767,7 +767,7 @@ public class AddDevices extends _Page {
                 WebElement element = CommonUtils.getElementFromList(listOfGmdnMatchesReturnedBySearch, randomPosition);
 
                 //Wait for it to be clickable
-                WaitUtils.waitForElementToBeClickable(driver, element, TIMEOUT_10_SECOND);
+                //WaitUtils.waitForElementToBeClickable(driver, element, TIMEOUT_10_SECOND);
                 element = element.findElement(By.tagName("a"));
                 element.click();
                 PageUtils.singleClick(driver, element);

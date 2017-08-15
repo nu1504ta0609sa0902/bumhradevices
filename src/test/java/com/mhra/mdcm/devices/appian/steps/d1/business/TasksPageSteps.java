@@ -712,7 +712,7 @@ public class TasksPageSteps extends CommonSteps {
         taskSection.isSearchingCompleted();
 
         boolean isStatusCorrect = taskSection.isAWIPTaskStatusCorrect(status);
-        //Assert.assertThat("Expected Status in Application WIP page : " + status, isStatusCorrect, is(true));
+        Assert.assertThat("Expected Status in Application WIP page : " + status, isStatusCorrect, is(true));
     }
 
     @Then("^The task status in AWIP page should be \"([^\"]*)\" for the newly created manufacturer$")
@@ -727,7 +727,7 @@ public class TasksPageSteps extends CommonSteps {
         boolean isCompleted = taskSection.isSearchingCompleted();
 
         boolean isStatusCorrect = taskSection.isAWIPTaskStatusCorrect(status);
-        //Assert.assertThat("Expected Status in Application WIP page : " + status + " for application : " + reference, isStatusCorrect, is(true));
+        Assert.assertThat("Expected Status in Application WIP page : " + status + " for application : " + accountNameOrReference, isStatusCorrect, is(true));
     }
 
     @Then("^The task status in AWIP page should be \"([^\"]*)\" for the cfs task$")
@@ -742,7 +742,7 @@ public class TasksPageSteps extends CommonSteps {
         boolean isCompleted = taskSection.isSearchingCompleted();
 
         boolean isStatusCorrect = taskSection.isAWIPTaskStatusCorrect(status);
-        //Assert.assertThat("Expected Status in Application WIP page : " + status + " for application : " + reference, isStatusCorrect, is(true));
+        Assert.assertThat("Expected Status in Application WIP page : " + status + " for application : " + accountNameOrReference, isStatusCorrect, is(true));
     }
 
     @Then("^I should see a button with the following text \"([^\"]*)\"$")
