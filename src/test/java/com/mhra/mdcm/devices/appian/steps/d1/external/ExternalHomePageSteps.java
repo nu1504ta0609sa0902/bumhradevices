@@ -510,37 +510,6 @@ public class ExternalHomePageSteps extends CommonSteps {
 
 
 
-    @When("^I view a random manufacturer with status \"([^\"]*)\" and stored search term$")
-    public void i_view_a_random_manufacturer_and_stored_searchterm(String status) throws Throwable {
-        String searchTerm = (String) scenarioSession.getData(SessionKey.searchTerm);
-
-        if (status.equals("Registered")) {
-            manufacturerList = manufacturerList.sortBy("Registration status", 2);
-        } else {
-            manufacturerList = manufacturerList.sortBy("Registration status", 1);
-        }
-
-        boolean found = false;
-        int count = 0;
-        do {
-            String name = manufacturerList.getARandomManufacturerName(status);
-
-            if(name.contains(searchTerm)) {
-                String country = manufacturerList.getOrganisationCountry(name);
-                log.info("Manufacturer selected : " + name + ", is " + status);
-                manufacturerDetails = manufacturerList.viewAManufacturer(name);
-                scenarioSession.putData(SessionKey.organisationName, name);
-                scenarioSession.putData(SessionKey.organisationCountry, country);
-                scenarioSession.putData(SessionKey.registeredStatus, status);
-                scenarioSession.putData(SessionKey.taskType, "Update Manufacturer");
-
-                break;
-            }
-
-            count++;
-        }while(!found && count < 5);
-    }
-
     @When("^I click on random manufacturer with status \"([^\"]*)\"$")
     public void i_click_on_random_manufacturer(String status) throws Throwable {
 
@@ -579,6 +548,39 @@ public class ExternalHomePageSteps extends CommonSteps {
         scenarioSession.putData(SessionKey.taskType, "Update Manufacturer");
     }
 
+
+    @When("^I view a random manufacturer with status \"([^\"]*)\" and stored search term$")
+    public void i_view_a_random_manufacturer_and_stored_searchterm(String status) throws Throwable {
+        String searchTerm = (String) scenarioSession.getData(SessionKey.searchTerm);
+
+        if (status.equals("Registered")) {
+            manufacturerList = manufacturerList.sortBy("Registration status", 2);
+        } else {
+            manufacturerList = manufacturerList.sortBy("Registration status", 1);
+        }
+
+        boolean found = false;
+        int count = 0;
+        do {
+            //String name = manufacturerList.getARandomManufacturerName(status);
+            String name = manufacturerList.getSpecificManufacturerName(count);
+            String registered = manufacturerList.getRegistrationStatus(name);
+
+            if(name.contains(searchTerm) && registered.equals(status)) {
+                String country = manufacturerList.getOrganisationCountry(name);
+                log.info("Manufacturer selected : " + name + ", is " + status);
+                manufacturerDetails = manufacturerList.viewAManufacturer(name);
+                scenarioSession.putData(SessionKey.organisationName, name);
+                scenarioSession.putData(SessionKey.organisationCountry, country);
+                scenarioSession.putData(SessionKey.registeredStatus, status);
+                scenarioSession.putData(SessionKey.taskType, "Update Manufacturer");
+
+                break;
+            }
+
+            count++;
+        }while(!found && count < 5);
+    }
 
     @When("^I click on random manufacturer with status \"([^\"]*)\" and stored search term$")
     public void i_click_on_random_manufacturer_and_stored_searchterm(String status) throws Throwable {

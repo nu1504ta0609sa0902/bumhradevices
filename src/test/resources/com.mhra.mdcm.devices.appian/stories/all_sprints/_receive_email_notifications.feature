@@ -96,7 +96,7 @@ Feature: As a customer I want to receive email notifications when ever a account
     Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email for stored account with heading "<accountEmail>"
     And I should received an email with password for new account with heading "account creation" and stored username
-    When I logout and logback in with newly created account and update the password to "MHRA12345A"
+    When I logout and logback in with newly created account and update the password to "MHRA@12345A"
 #    Log back in as manufacturer/authorisedRep
     And I go to list of manufacturers page
     And Provide indication of devices made
@@ -133,7 +133,7 @@ Feature: As a customer I want to receive email notifications when ever a account
     When I assign the AWIP page task to me and "<approveReject>" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email with password for new account with heading "account creation" and stored username
-    When I logout and logback in with newly created account and update the password to "MHRA12345A"
+    When I logout and logback in with newly created account and update the password to "MHRA@12345A"
     And I logout of the application
     When I request a new password for stored user
     Then I should received an email with subject heading "Password Reset"

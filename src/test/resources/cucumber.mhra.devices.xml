@@ -55,21 +55,13 @@
               MHRA Requirements: Windows and IE11 Testing Only
           -->
     <!-- PROFILE MAPPING -->
-    <beans profile="mhradev">
-        <context:property-placeholder location="classpath:configs/envs/mhradevicesdev.properties" ignore-unresolvable="true"/>
-        <!--<context:property-placeholder location="classpath:configs/driver.properties" ignore-unresolvable="true"/>-->
-        <bean class="com.mhra.mdcm.devices.appian.utils.driver.BrowserConfig"/>
-    </beans>
-
     <beans profile="mhratest">
         <context:property-placeholder location="classpath:configs/envs/mhradevicestest.properties" ignore-unresolvable="true"/>
-        <!--<context:property-placeholder location="classpath:configs/driver.properties" ignore-unresolvable="true"/>-->
         <bean class="com.mhra.mdcm.devices.appian.utils.driver.BrowserConfig"/>
     </beans>
 
-    <beans profile="mhra">
-        <context:property-placeholder location="classpath:configs/envs/mhra.properties" ignore-unresolvable="true"/>
-        <!--<context:property-placeholder location="classpath:configs/driver.properties" ignore-unresolvable="true"/>-->
+    <beans profile="mhrapreprod">
+        <context:property-placeholder location="classpath:configs/envs/mhradevicespreprod.properties" ignore-unresolvable="true"/>
         <bean class="com.mhra.mdcm.devices.appian.utils.driver.BrowserConfig"/>
     </beans>
 

@@ -769,7 +769,6 @@ public class AddDevices extends _Page {
                 //Wait for it to be clickable
                 //WaitUtils.waitForElementToBeClickable(driver, element, TIMEOUT_10_SECOND);
                 element = element.findElement(By.tagName("a"));
-                element.click();
                 PageUtils.singleClick(driver, element);
 
                 //Set device name for later verification

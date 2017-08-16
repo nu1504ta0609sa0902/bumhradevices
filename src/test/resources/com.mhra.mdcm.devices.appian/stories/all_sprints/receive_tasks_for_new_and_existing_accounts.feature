@@ -49,7 +49,7 @@ Feature: As a business user, I want a task to be created when new account reques
     And I assign the AWIP page task to me and "<approveReject>" the generated task
     Then The task status in AWIP page should be "Completed" for the new account
     And I should received an email with password for new account with heading "account creation" and stored username
-    When I logout and logback in with newly created account and update the password to "MHRA12345A"
+    When I logout and logback in with newly created account and update the password to "MHRA@12345A"
     And I go to list of manufacturers page
     And Provide indication of devices made
     Then I should see stored organisation appear in the organisation list

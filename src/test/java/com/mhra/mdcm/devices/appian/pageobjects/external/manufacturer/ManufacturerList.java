@@ -34,6 +34,8 @@ public class ManufacturerList extends _Page {
     @FindBy(xpath = ".//h2[contains(text(),'Your Organisation')]//following::tbody[1]/tr/td[1]")
     WebElement yourOrganisation;
     @FindBy(xpath = ".//h2[contains(text(),'Manufacturer')]//following::tbody[1]/tr/td[1]")
+    WebElement aManufacturerName;
+    @FindBy(xpath = ".//h2[contains(text(),'Manufacturer')]//following::tbody[1]/tr/td[1]")
     List<WebElement> listOfManufacturerNames;
     @FindBy(xpath = ".//h2[contains(text(),'Manufacturer')]//following::tbody[1]/tr/td[4]")
     List<WebElement> listOfManufacturerStatuses;
@@ -92,6 +94,7 @@ public class ManufacturerList extends _Page {
 
     public ManufacturerDetails viewAManufacturer(String manufacturerName) {
         WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, aManufacturerName, TIMEOUT_5_SECOND);
         if(manufacturerName == null){
             //Than view a random one
             int index = RandomDataUtils.getNumberBetween(0, listOfManufacturerNames.size() - 1);
@@ -103,6 +106,15 @@ public class ManufacturerList extends _Page {
             man.click();
         }
         return new ManufacturerDetails(driver);
+    }
+
+    public String getSpecificManufacturerName(int pos) {
+        WaitUtils.isPageLoadingComplete(driver, TIMEOUT_PAGE_LOAD);
+        WaitUtils.waitForElementToBeClickable(driver, manufacturerName, TIMEOUT_5_SECOND);
+        WaitUtils.waitForElementToBeClickable(driver, By.xpath(".//h2[contains(text(),'Manufacturer')]//following::tbody[1]/tr"), TIMEOUT_15_SECOND);
+        WebElement link = listOfManufacturerNames.get(pos);
+        String name = link.getText();
+        return name;
     }
 
     public String getARandomManufacturerName() {
